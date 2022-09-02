@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/retrohub_theme_helper/dock/ThemeDock.gd" type="Script" id=1]
+
+[node name="Theme" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="FetchPathFileDialog" type="FileDialog" parent="."]
+margin_left = 131.0
+margin_top = 151.0
+margin_right = 446.0
+margin_bottom = 281.0
+window_title = "Open Games Path"
+resizable = true
+mode = 2
+access = 2
+show_hidden_files = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 163.0
+margin_bottom = 153.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 256.0
+margin_bottom = 31.0
+text = "RetroHub Theme Helper
+"
+align = 1
+
+[node name="GenRndTitlesCheckBtn" type="CheckButton" parent="VBoxContainer"]
+margin_top = 41.0
+margin_right = 256.0
+margin_bottom = 81.0
+pressed = true
+text = "Generate random titles?"
+
+[node name="GenRndTitlesContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 91.0
+margin_right = 256.0
+margin_bottom = 115.0
+
+[node name="Label" type="Label" parent="VBoxContainer/GenRndTitlesContainer"]
+margin_top = 5.0
+margin_right = 178.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Num of games to generate: "
+
+[node name="GenRndTitlesSpinBox" type="SpinBox" parent="VBoxContainer/GenRndTitlesContainer"]
+margin_left = 182.0
+margin_right = 256.0
+margin_bottom = 24.0
+min_value = 1.0
+value = 1.0
+
+[node name="FetchPathCheckBtn" type="CheckButton" parent="VBoxContainer"]
+margin_top = 125.0
+margin_right = 256.0
+margin_bottom = 165.0
+text = "Fetch existing titles?"
+
+[node name="FetchPathContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 175.0
+margin_right = 256.0
+margin_bottom = 195.0
+
+[node name="Label" type="Label" parent="VBoxContainer/FetchPathContainer"]
+margin_top = 3.0
+margin_right = 127.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Game path to fetch:"
+
+[node name="FetchPathBtn" type="Button" parent="VBoxContainer/FetchPathContainer"]
+margin_left = 131.0
+margin_right = 256.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "[empty]"
+
+[node name="ExportBtn" type="Button" parent="VBoxContainer"]
+margin_top = 205.0
+margin_right = 256.0
+margin_bottom = 225.0
+text = "Export"
+
+[connection signal="toggled" from="VBoxContainer/GenRndTitlesCheckBtn" to="." method="_on_GenRndTitlesCheckButton_toggled"]
+[connection signal="toggled" from="VBoxContainer/FetchPathCheckBtn" to="." method="_on_FetchPathCheckBtn_toggled"]

@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="NoTheme" type="Label"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "No theme found!
+
+Please set your theme by going in the Settings menu.
+
+To get more themes, visit https://..."
+align = 1
+valign = 1

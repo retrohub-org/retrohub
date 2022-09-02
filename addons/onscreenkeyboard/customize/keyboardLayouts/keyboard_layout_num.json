@@ -1,0 +1,103 @@
+{
+  "debug": true,
+  "layouts": [
+    {
+      "name": "special-characters",
+      "rows": [
+        {
+          "keys": [
+            {
+              "type": "char",
+              "output": "7",
+              "display": "7"
+            },
+            {
+              "type": "char",
+              "output": "8",
+              "display": "8"
+            },
+            {
+              "type": "char",
+              "output": "9",
+              "display": "9"
+            },
+            {
+              "type": "special",
+              "output": "Backspace",
+              "display-icon": "PREDEFINED:DELETE"
+            }
+          ]
+        },
+        {
+          "keys": [
+            {
+              "type": "char",
+              "output": "4",
+              "display": "4"
+            },
+            {
+              "type": "char",
+              "output": "5",
+              "display": "5"
+            },
+            {
+              "type": "char",
+              "output": "6",
+              "display": "6"
+            },
+            {
+              "type": "special",
+              "output": "Return",
+              "display-icon": "PREDEFINED:ENTER"
+            }
+          ]
+        },
+        {
+          "keys": [
+            {
+              "type": "char",
+              "output": "1",
+              "display": "1"
+            },
+            {
+              "type": "char",
+              "output": "2",
+              "display": "2"
+            },
+            {
+              "type": "char",
+              "output": "3",
+              "display": "3"
+            },
+            {
+              "type": "special",
+              "output": "LeftArrow",
+              "display-icon": "PREDEFINED:LEFT",
+              "stretch-ratio": 0.5
+            },
+            {
+              "type": "special",
+              "output": "RightArrow",
+              "display-icon": "PREDEFINED:RIGHT",
+              "stretch-ratio": 0.5
+            }
+          ]
+        },
+        {
+          "keys": [
+            {
+              "type": "char",
+              "output": "0",
+              "display": "0",
+              "stretch-ratio": 3
+            },
+            {
+              "type": "special-hide-keyboard",
+              "display-icon": "PREDEFINED:HIDE"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+	"systems_list": [
+		{
+			"name": "nes",
+			"fullname": "Nintendo Entertainment System",
+			"extension": [
+				".nes",
+				".unf",
+				".unif",
+				".7z",
+				".zip"
+			],
+			"platform": "nes",
+			"emulator": [
+				{
+					"retroarch": [
+						"nestopia",
+						"fceumm",
+						"mesen",
+						"quicknes"
+					]
+				}
+			]
+		},
+		{
+			"name": "snes",
+			"fullname": "Super Nintendo Entertainment System",
+			"extension": [
+				".bin",
+				".bml",
+				".bs",
+				".bsx",
+				".dx2",
+				".fig",
+				".gd3",
+				".gd7",
+				".mgd",
+				".sfc",
+				".smc",
+				".st",
+				".swc",
+				".7z",
+				".zip"
+			],
+			"platform": "snes",
+			"emulator": [
+				{
+					"retroarch": [
+						"snes9x",
+						"snex9x2010",
+						"bsnes",
+						"bsnes_hd",
+						"bsnes_mercury_accuracy",
+						"beetle_supafaust",
+						"mesen_s"
+					]
+				},
+				"snex9x"
+			]
+		},
+		{
+			"name": "n64",
+			"fullname": "Nintendo 64",
+			"extension": [
+				".n64",
+				".v64",
+				".z64",
+				".bin",
+				".u1",
+				".7z",
+				".zip"
+			],
+			"platform": "n64",
+			"emulator": [
+				{
+					"retroarch": [
+						"mupen64plus_next",
+						"parallel_n64"
+					]
+				},
+				"mupen64plus"
+			]
+		},
+		{
+			"name": "gc",
+			"fullname": "Nintendo GameCube",
+			"extension": [
+				".gcm",
+				".iso",
+				".wbfs",
+				".wia",
+				".ciso",
+				".gcz",
+				".elf",
+				".doll",
+				".dff",
+				".rvz",
+				".tgc",
+				".wad",
+				".m3u",
+				".7z",
+				".zip"
+			],
+			"platform": "gc",
+			"emulator": [
+				{
+					"retroarch": [
+						"dolphin"
+					]
+				},
+				"dolphin",
+				"primehack"
+			]
+		}
+	]
+}

@@ -1,0 +1,2151 @@
+{
+	// Default system config. Designed to be compatible with EmulationStation
+	"system_list": [
+		{
+			"name": "3do",
+			"fullname": "3DO",
+			"extension": ".iso .bin .chd .cue .7z .zip",
+			"platform": "3do",
+			"emulator": [
+				{
+					"retroarch": [
+						{
+						"corename": "Opera",
+						"corepath": "opera_libretro.so %ROM%"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "64dd",
+			"fullname": "Nintendo 64DD",
+			"extension": ".n64 .v64 .z64 .bin .u1 .7z .zip",
+			"emulator": [
+				{
+					"retroarch": [
+						{
+						"corename": "Mupen64Plus-Next",
+						"corepath": "mupen64plus_next_libretro.so %ROM%"
+						},
+						{
+						"corename": "ParaLLEl N64",
+						"corepath": "parallel_n64_libretro.so %ROM%"
+						}
+					]
+				},
+				{
+					"mupen64plus": [{}]
+				}
+			],
+			"platform": "n64"
+		}
+		},
+		{
+		"name": "ags",
+		"fullname": "Adventure Game Studio Game Engine",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "ags"
+		}
+		},
+		{
+		"name": "amiga",
+		"fullname": "Commodore Amiga",
+		"extension": ".adf .adz .dms .fdi .ipf .hdf .hdz .lha .cue .ccd .nrg .mds .iso .uae .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "PUAE",
+			"corepath": "puae_libretro.so %ROM%"
+			},
+			{
+			"corename": "PUAE 2021",
+			"corepath": "puae2021_libretro.so %ROM%"
+			}
+		],
+		"platform": "amiga"
+		}
+		},
+		{
+		"name": "amiga600",
+		"fullname": "Commodore Amiga 600",
+		"extension": ".adf .adz .dms .fdi .ipf .hdf .hdz .lha .cue .ccd .nrg .mds .iso .uae .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "PUAE",
+			"corepath": "puae_libretro.so %ROM%"
+			},
+			{
+			"corename": "PUAE 2021",
+			"corepath": "puae2021_libretro.so %ROM%"
+			}
+		],
+		"platform": "amiga"
+		}
+		},
+		{
+		"name": "amiga1200",
+		"fullname": "Commodore Amiga 1200",
+		"extension": ".adf .adz .dms .fdi .ipf .hdf .hdz .lha .cue .ccd .nrg .mds .iso .uae .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "PUAE",
+			"corepath": "puae_libretro.so %ROM%"
+			},
+			{
+			"corename": "PUAE 2021",
+			"corepath": "puae2021_libretro.so %ROM%"
+			}
+		],
+		"platform": "amiga"
+		}
+		},
+		{
+		"name": "amigacd32",
+		"fullname": "Commodore Amiga CD32",
+		"extension": ".adf .adz .dms .fdi .ipf .hdf .hdz .lha .cue .ccd .nrg .mds .iso .uae .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "PUAE",
+			"corepath": "puae_libretro.so %ROM%"
+			},
+			{
+			"corename": "PUAE 2021",
+			"corepath": "puae2021_libretro.so %ROM%"
+			}
+		],
+		"platform": "amigacd32"
+		}
+		},
+		{
+		"name": "amstradcpc",
+		"fullname": "Amstrad CPC",
+		"extension": ".cdt .cpr .dsk .kcr .m3u .sna .tap .tar .voc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Caprice32",
+			"corepath": "cap32_libretro.so %ROM%"
+			},
+			{
+			"corename": "CrocoDS",
+			"corepath": "crocods_libretro.so %ROM%"
+			}
+		],
+		"platform": "amstradcpc"
+		}
+		},
+		{
+		"name": "apple2",
+		"fullname": "Apple II",
+		"extension": ".nib .do .po .dsk .7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "apple2"
+		}
+		},
+		{
+		"name": "apple2gs",
+		"fullname": "Apple IIGS",
+		"extension": ".nib .do .po .dsk .7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "apple2gs"
+		}
+		},
+		{
+		"name": "arcade",
+		"fullname": "Arcade",
+		"extension": ".cmd .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "MAME - Current",
+			"corepath": "mame_libretro.so %ROM%"
+			},
+			{
+			"corename": "MAME 2000",
+			"corepath": "mame2000_libretro.so %ROM%"
+			},
+			{
+			"corename": "MAME 2003-Plus",
+			"corepath": "mame2003_plus_libretro.so %ROM%"
+			},
+			{
+			"corename": "MAME 2010",
+			"corepath": "mame2010_libretro.so %ROM%"
+			},
+			{
+			"corename": "FinalBurn Neo",
+			"corepath": "fbneo_libretro.so %ROM%"
+			},
+			{
+			"corename": "FB Alpha 2012",
+			"corepath": "fbalpha2012_libretro.so %ROM%"
+			},
+			{
+			"corename": "MAME (Standalone)",
+			"corepath": "%EMULATOR_MAME% %STARTDIR%=~/.mame -rompath %ROMPATH%/arcade %BASENAME%"
+			}
+		],
+		"platform": "arcade"
+		}
+		},
+		{
+		"name": "astrocade",
+		"fullname": "Bally Astrocade",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "astrocade"
+		}
+		},
+		{
+		"name": "atari2600",
+		"fullname": "Atari 2600",
+		"extension": ".a26 .bin .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Stella",
+			"corepath": "stella_libretro.so %ROM%"
+			},
+			{
+			"corename": "Stella 2014",
+			"corepath": "stella2014_libretro.so %ROM%"
+			}
+		],
+		"platform": "atari2600"
+		}
+		},
+		{
+		"name": "atari5200",
+		"fullname": "Atari 5200",
+		"extension": ".xfd .atr .atx .cdm .cas .bin .a52 .xex .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "a5200",
+			"corepath": "a5200_libretro.so %ROM%"
+			},
+			{
+			"corename": "Atari800",
+			"corepath": "atari800_libretro.so %ROM%"
+			}
+		],
+		"platform": "atari5200"
+		}
+		},
+		{
+		"name": "atari7800",
+		"fullname": "Atari 7800 ProSystem",
+		"extension": ".a78 .bin .7z .zip",
+		"command": "prosystem_libretro.so %ROM%",
+		"platform": "atari7800"
+		}
+		},
+		{
+		"name": "atari800",
+		"fullname": "Atari 800",
+		"extension": ".xfd .atr .atx .cdm .cas .bin .a52 .xex .rom .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Atari800",
+			"corepath": "atari800_libretro.so %ROM%"
+			},
+			{
+			"corename": "Atari800 (Standalone)",
+			"corepath": "%EMULATOR_ATARI800% %ROM%"
+			}
+		],
+		"platform": "atari800"
+		}
+		},
+		{
+		"name": "atarijaguar",
+		"fullname": "Atari Jaguar",
+		"extension": ".j64 .jag .rom .abs .cof .bin .prg .prg .7z .zip",
+		"command": "virtualjaguar_libretro.so %ROM%",
+		"platform": "atarijaguar, atarijaguarcd"
+		}
+		},
+		{
+		"name": "atarijaguarcd",
+		"fullname": "Atari Jaguar CD",
+		"extension": ".j64 .jag .rom .abs .cof .bin .prg .prg .7z .zip",
+		"command": "virtualjaguar_libretro.so %ROM%",
+		"platform": "atarijaguarcd"
+		}
+		},
+		{
+		"name": "atarilynx",
+		"fullname": "Atari Lynx",
+		"extension": ".lnx .o .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Handy",
+			"corepath": "handy_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle Lynx",
+			"corepath": "mednafen_lynx_libretro.so %ROM%"
+			}
+		],
+		"platform": "atarilynx"
+		}
+		},
+		{
+		"name": "atarist",
+		"fullname": "Atari ST",
+		"extension": ".st .msa .stx .dim .ipf .m3u .7z .zip",
+		"command": "hatari_libretro.so %ROM%",
+		"platform": "atarist"
+		}
+		},
+		{
+		"name": "atarixe",
+		"fullname": "Atari XE",
+		"extension": ".xfd .atr .atx .cdm .cas .bin .a52 .xex .7z .zip",
+		"command": "atari800_libretro.so %ROM%",
+		"platform": "atarixe"
+		}
+		},
+		{
+		"name": "atomiswave",
+		"fullname": "Atomiswave",
+		"extension": ".chd .cdi .iso .elf .bin .cue .gdi .lst .dat .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Flycast",
+			"corepath": "flycast_libretro.so %ROM%"
+			},
+			{
+			"corename": "Flycast (Standalone)",
+			"corepath": "%EMULATOR_FLYCAST% %ROM%"
+			}
+		],
+		"platform": "atomiswave"
+		}
+		},
+		{
+		"name": "bbcmicro",
+		"fullname": "BBC Micro",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "bbcmicro"
+		}
+		},
+		{
+		"name": "c64",
+		"fullname": "Commodore 64",
+		"extension": ".bin .cmd .crt .d2m .d4m .d64 .d6z .d71 .d7z .d80 .d81 .d82 .d8z .g41 .g4z .g64 .g6z .gz .lnx .m3u .nbz .nib .p00 .prg .t64 .tap .vfl .vsf .x64 .x6z .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "VICE x64sc Accurate",
+			"corepath": "vice_x64sc_libretro.so %ROM%"
+			},
+			{
+			"corename": "VICE x64 Fast",
+			"corepath": "vice_x64_libretro.so %ROM%"
+			},
+			{
+			"corename": "VICE x64 SuperCPU",
+			"corepath": "vice_xscpu64_libretro.so %ROM%"
+			},
+			{
+			"corename": "VICE x128",
+			"corepath": "vice_x128_libretro.so %ROM%"
+			},
+			{
+			"corename": "Frodo",
+			"corepath": "frodo_libretro.so %ROM%"
+			}
+		],
+		"platform": "c64"
+		}
+		},
+		{
+		"name": "cavestory",
+		"fullname": "Cave Story (NXEngine)",
+		"extension": ".exe .7z .zip",
+		"command": "nxengine_libretro.so %ROM%",
+		"platform": "cavestory"
+		}
+		},
+		{
+		"name": "cdimono1",
+		"fullname": "Philips CD-i",
+		"extension": ".chd .cue .iso",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "SAME CDi",
+			"corepath": "same_cdi_libretro.so %ROM%"
+			},
+			{
+			"corename": "CDi 2015",
+			"corepath": "cdi2015_libretro.so %ROM%"
+			}
+		],
+		"platform": "cdimono1"
+		}
+		},
+		{
+		"name": "cdtv",
+		"fullname": "Commodore CDTV",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "cdtv"
+		}
+		},
+		{
+		"name": "chailove",
+		"fullname": "ChaiLove Game Engine",
+		"extension": ".chai .chailove .7z .zip",
+		"command": "chailove_libretro.so %ROM%",
+		"platform": "love"
+		}
+		},
+		{
+		"name": "channelf",
+		"fullname": "Fairchild Channel F",
+		"extension": ".bin .chf .7z .zip",
+		"command": "freechaf_libretro.so %ROM%",
+		"platform": "channelf"
+		}
+		},
+		{
+		"name": "coco",
+		"fullname": "Tandy Color Computer",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "coco"
+		}
+		},
+		{
+		"name": "colecovision",
+		"fullname": "ColecoVision",
+		"extension": ".rom .ri .mx1 .mx2 .col .dsk .cas .sg .sc .m3u .7z .zip",
+		"command": "bluemsx_libretro.so %ROM%",
+		"platform": "colecovision"
+		}
+		},
+		{
+		"name": "daphne",
+		"fullname": "Daphne Arcade LaserDisc Emulator",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "daphne"
+		}
+		},
+		{
+		"name": "doom",
+		"fullname": "Doom",
+		"extension": ".wad .iwad .pwad",
+		"command": "prboom_libretro.so %ROM%",
+		"platform": "pc"
+		}
+		},
+		{
+		"name": "dos",
+		"fullname": "DOS (PC)",
+		"extension": ".bat .com .conf .cue .doszsz .exe .iso .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "DOSBox-Core",
+			"corepath": "dosbox_core_libretro.so %ROM%"
+			},
+			{
+			"corename": "DOSBox-Pure",
+			"corepath": "dosbox_pure_libretro.so %ROM%"
+			},
+			{
+			"corename": "DOSBox-SVN",
+			"corepath": "dosbox_svn_libretro.so %ROM%"
+			},
+			{
+			"corename": "DOSBox Staging (Standalone)",
+			"corepath": "%EMULATOR_DOSBOX-STAGING% %ROM%"
+			}
+		],
+		"platform": "dos"
+		}
+		},
+		{
+		"name": "dragon32",
+		"fullname": "Dragon 32",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "dragon32"
+		}
+		},
+		{
+		"name": "dreamcast",
+		"fullname": "Sega Dreamcast",
+		"extension": ".chd .cdi .iso .elf .cue .gdi .lst .dat .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Flycast",
+			"corepath": "flycast_libretro.so %ROM%"
+			},
+			{
+			"corename": "Flycast (Standalone)",
+			"corepath": "%EMULATOR_FLYCAST% %ROM%"
+			},
+			{
+			"corename": "Redream (Standalone)",
+			"corepath": "%EMULATOR_REDREAM% %ROM%"
+			}
+		],
+		"platform": "dreamcast"
+		}
+		},
+		{
+		"name": "famicom",
+		"fullname": "Nintendo Family Computer",
+		"extension": ".nes .unf .unif .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Nestopia UE",
+			"corepath": "nestopia_libretro.so %ROM%"
+			},
+			{
+			"corename": "FCEUmm",
+			"corepath": "fceumm_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen",
+			"corepath": "mesen_libretro.so %ROM%"
+			},
+			{
+			"corename": "QuickNES",
+			"corepath": "quicknes_libretro.so %ROM%"
+			}
+		],
+		"platform": "famicom"
+		}
+		},
+		{
+		"name": "fba",
+		"fullname": "FinalBurn Alpha",
+		"extension": ".iso .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "FB Alpha 2012",
+			"corepath": "fbalpha2012_libretro.so %ROM%"
+			},
+			{
+			"corename": "FB Alpha 2012 Neo Geo",
+			"corepath": "fbalpha2012_neogeo_libretro.so %ROM%"
+			},
+			{
+			"corename": "FB Alpha 2012 CPS-1",
+			"corepath": "fbalpha2012_cps1_libretro.so %ROM%"
+			},
+			{
+			"corename": "FB Alpha 2012 CPS-2",
+			"corepath": "fbalpha2012_cps2_libretro.so %ROM%"
+			},
+			{
+			"corename": "FB Alpha 2012 CPS-3",
+			"corepath": "fbalpha2012_cps3_libretro.so %ROM%"
+			}
+		],
+		"platform": "arcade"
+		}
+		},
+		{
+		"name": "fbneo",
+		"fullname": "FinalBurn Neo",
+		"extension": ".ccd .cue .7z .zip",
+		"command": "fbneo_libretro.so %ROM%",
+		"platform": "arcade"
+		}
+		},
+		{
+		"name": "fds",
+		"fullname": "Nintendo Famicom Disk System",
+		"extension": ".nes .fds .unf .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Nestopia UE",
+			"corepath": "nestopia_libretro.so %ROM%"
+			},
+			{
+			"corename": "FCEUmm",
+			"corepath": "fceumm_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen",
+			"corepath": "mesen_libretro.so %ROM%"
+			}
+		],
+		"platform": "fds"
+		}
+		},
+		{
+		"name": "gameandwatch",
+		"fullname": "Nintendo Game and Watch",
+		"extension": ".mgw .7z .zip",
+		"command": "gw_libretro.so %ROM%",
+		"platform": "gameandwatch"
+		}
+		},
+		{
+		"name": "gamegear",
+		"fullname": "Sega Game Gear",
+		"extension": ".68k .bin .bms .chd .col .cue .gen .gg .iso .m3u .md .mdx .rom .sg .sgd .smd .sms .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Gearsystem",
+			"corepath": "gearsystem_libretro.so %ROM%"
+			},
+			{
+			"corename": "SMS Plus GX",
+			"corepath": "smsplus_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX",
+			"corepath": "genesis_plus_gx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX Wide",
+			"corepath": "genesis_plus_gx_wide_libretro.so %ROM%"
+			}
+		],
+		"platform": "gamegear"
+		}
+		},
+		{
+		"name": "gb",
+		"fullname": "Nintendo Game Boy",
+		"extension": ".bs .cgb .dmg .gb .gbc .sgb .sfc .smc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "SameBoy",
+			"corepath": "sameboy_libretro.so %ROM%"
+			},
+			{
+			"corename": "Gambatte",
+			"corepath": "gambatte_libretro.so %ROM%"
+			},
+			{
+			"corename": "Gearboy",
+			"corepath": "gearboy_libretro.so %ROM%"
+			},
+			{
+			"corename": "TGB Dual",
+			"corepath": "tgbdual_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen-S",
+			"corepath": "mesen-s_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes",
+			"corepath": "bsnes_libretro.so %ROM%"
+			},
+			{
+			"corename": "mGBA",
+			"corepath": "mgba_libretro.so %ROM%"
+			},
+			{
+			"corename": "mGBA (Standalone)",
+			"corepath": "%EMULATOR_MGBA% -f %ROM%"
+			},
+			{
+			"corename": "VBA-M",
+			"corepath": "vbam_libretro.so %ROM%"
+			},
+			{
+			"corename": "VBA-M (Standalone)",
+			"corepath": "%EMULATOR_VBA-M% -f %ROM%"
+			}
+		],
+		"platform": "gb"
+		}
+		},
+		{
+		"name": "gba",
+		"fullname": "Nintendo Game Boy Advance",
+		"extension": ".agb .bin .cgb .dmg .gb .gba .gbc .sgb .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "mGBA",
+			"corepath": "mgba_libretro.so %ROM%"
+			},
+			{
+			"corename": "mGBA (Standalone)",
+			"corepath": "%EMULATOR_MGBA% -f %ROM%"
+			},
+			{
+			"corename": "VBA-M",
+			"corepath": "vbam_libretro.so %ROM%"
+			},
+			{
+			"corename": "VBA-M (Standalone)",
+			"corepath": "%EMULATOR_VBA-M% -f %ROM%"
+			},
+			{
+			"corename": "VBA Next",
+			"corepath": "vba_next_libretro.so %ROM%"
+			},
+			{
+			"corename": "gpSP",
+			"corepath": "gpsp_libretro.so %ROM%"
+			}
+		],
+		"platform": "gba"
+		}
+		},
+		{
+		"name": "gbc",
+		"fullname": "Nintendo Game Boy Color",
+		"extension": ".bs .cgb .dmg .gb .gbc .sgb .sfc .smc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "SameBoy",
+			"corepath": "sameboy_libretro.so %ROM%"
+			},
+			{
+			"corename": "Gambatte",
+			"corepath": "gambatte_libretro.so %ROM%"
+			},
+			{
+			"corename": "Gearboy",
+			"corepath": "gearboy_libretro.so %ROM%"
+			},
+			{
+			"corename": "TGB Dual",
+			"corepath": "tgbdual_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen-S",
+			"corepath": "mesen-s_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes",
+			"corepath": "bsnes_libretro.so %ROM%"
+			},
+			{
+			"corename": "mGBA",
+			"corepath": "mgba_libretro.so %ROM%"
+			},
+			{
+			"corename": "mGBA (Standalone)",
+			"corepath": "%EMULATOR_MGBA% -f %ROM%"
+			},
+			{
+			"corename": "VBA-M",
+			"corepath": "vbam_libretro.so %ROM%"
+			},
+			{
+			"corename": "VBA-M (Standalone)",
+			"corepath": "%EMULATOR_VBA-M% -f %ROM%"
+			}
+		],
+		"platform": "gbc"
+		}
+		},
+		{
+		"name": "gc",
+		"fullname": "Nintendo GameCube",
+		"extension": ".gcm .iso .wbfs .wia .ciso .gcz .elf .doll .dff .rvz .tgc .wad .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Dolphin",
+			"corepath": "dolphin_libretro.so %ROM%"
+			},
+			{
+			"corename": "Dolphin (Standalone)",
+			"corepath": "%EMULATOR_DOLPHIN% -b -e %ROM%"
+			},
+			{
+			"corename": "PrimeHack (Standalone)",
+			"corepath": "%EMULATOR_PRIMEHACK% -b -e %ROM%"
+			}
+		],
+		"platform": "gc"
+		}
+		},
+		{
+		"name": "genesis",
+		"fullname": "Sega Genesis",
+		"extension": ".68k .bin .bms .chd .cue .gen .gg .iso .m3u .md .mdx .sg .sgd .smd .sms .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Genesis Plus GX",
+			"corepath": "genesis_plus_gx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX Wide",
+			"corepath": "genesis_plus_gx_wide_libretro.so %ROM%"
+			},
+			{
+			"corename": "PicoDrive",
+			"corepath": "picodrive_libretro.so %ROM%"
+			},
+			{
+			"corename": "BlastEm",
+			"corepath": "blastem_libretro.so %ROM%"
+			},
+			{
+			"corename": "BlastEm (Standalone)",
+			"corepath": "%EMULATOR_BLASTEM% -m gen %ROM%"
+			}
+		],
+		"platform": "genesis"
+		}
+		},
+		{
+		"name": "godot",
+		"fullname": "Godot Game Engine",
+		"extension": ".pck .exe .7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "pc"
+		}
+		},
+		{
+		"name": "gx4000",
+		"fullname": "Amstrad GX4000",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "gx4000"
+		}
+		},
+		{
+		"name": "intellivision",
+		"fullname": "Mattel Electronics Intellivision",
+		"extension": ".int .bin .rom .7z .zip",
+		"command": "freeintv_libretro.so %ROM%",
+		"platform": "intellivision"
+		},
+				{
+		"name": "lutro",
+		"fullname": "Lutro Game Engine",
+		"extension": ".lua .lutro .7z .zip",
+		"command": "lutro_libretro.so %ROM%",
+		"platform": "lutro"
+		}
+		},
+		{
+		"name": "macintosh",
+		"fullname": "Apple Macintosh",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "macintosh"
+		}
+		},
+		{
+		"name": "mame",
+		"fullname": "Multiple Arcade Machine Emulator",
+		"extension": ".cmd .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "MAME 2003-Plus",
+			"corepath": "mame2003_plus_libretro.so %ROM%"
+			},
+			{
+			"corename": "MAME 2000",
+			"corepath": "mame2000_libretro.so %ROM%"
+			},
+			{
+			"corename": "MAME 2010",
+			"corepath": "mame2010_libretro.so %ROM%"
+			},
+			{
+			"corename": "MAME - Current",
+			"corepath": "mame_libretro.so %ROM%"
+			},
+			{
+			"corename": "FinalBurn Neo",
+			"corepath": "fbneo_libretro.so %ROM%"
+			},
+			{
+			"corename": "FB Alpha 2012",
+			"corepath": "fbalpha2012_libretro.so %ROM%"
+			},
+			{
+			"corename": "MAME (Standalone)",
+			"corepath": "%EMULATOR_MAME% %STARTDIR%=~/.mame -rompath %ROMPATH%/mame %BASENAME%"
+			}
+		],
+		"platform": "arcade"
+		}
+		},
+		{
+		"name": "mame-advmame",
+		"fullname": "AdvanceMAME",
+		"extension": ".chd .cue .cmd .fba .iso .7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "arcade"
+		}
+		},
+		{
+		"name": "mame-mame4all",
+		"fullname": "MAME4ALL",
+		"extension": ".chd .cue .cmd .fba .iso .7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "arcade"
+		}
+		},
+		{
+		"name": "mastersystem",
+		"fullname": "Sega Master System",
+		"extension": ".68k .bin .bms .chd .col .cue .gen .gg .iso .m3u .md .mdx .rom .sg .sgd .smd .sms .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Genesis Plus GX",
+			"corepath": "genesis_plus_gx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX Wide",
+			"corepath": "genesis_plus_gx_wide_libretro.so %ROM%"
+			},
+			{
+			"corename": "SMS Plus GX",
+			"corepath": "smsplus_libretro.so %ROM%"
+			},
+			{
+			"corename": "Gearsystem",
+			"corepath": "gearsystem_libretro.so %ROM%"
+			},
+			{
+			"corename": "PicoDrive",
+			"corepath": "picodrive_libretro.so %ROM%"
+			}
+		],
+		"platform": "mastersystem"
+		}
+		},
+		{
+		"name": "megacd",
+		"fullname": "Sega Mega-CD",
+		"extension": ".68k .bin .bms .chd .cue .gen .gg .iso .m3u .md .mdx .sg .sgd .smd .sms .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Genesis Plus GX",
+			"corepath": "genesis_plus_gx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX Wide",
+			"corepath": "genesis_plus_gx_wide_libretro.so %ROM%"
+			},
+			{
+			"corename": "PicoDrive",
+			"corepath": "picodrive_libretro.so %ROM%"
+			}
+		],
+		"platform": "segacd"
+		}
+		},
+		{
+		"name": "megacdjp",
+		"fullname": "Sega Mega-CD",
+		"extension": ".68k .bin .bms .chd .cue .gen .gg .iso .m3u .md .mdx .sg .sgd .smd .sms .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Genesis Plus GX",
+			"corepath": "genesis_plus_gx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX Wide",
+			"corepath": "genesis_plus_gx_wide_libretro.so %ROM%"
+			},
+			{
+			"corename": "PicoDrive",
+			"corepath": "picodrive_libretro.so %ROM%"
+			}
+		],
+		"platform": "segacd"
+		}
+		},
+		{
+		"name": "megadrive",
+		"fullname": "Sega Mega Drive",
+		"extension": ".68k .bin .bms .chd .cue .gen .gg .iso .m3u .md .mdx .sg .sgd .smd .sms .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Genesis Plus GX",
+			"corepath": "genesis_plus_gx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX Wide",
+			"corepath": "genesis_plus_gx_wide_libretro.so %ROM%"
+			},
+			{
+			"corename": "PicoDrive",
+			"corepath": "picodrive_libretro.so %ROM%"
+			},
+			{
+			"corename": "BlastEm",
+			"corepath": "blastem_libretro.so %ROM%"
+			},
+			{
+			"corename": "BlastEm (Standalone)",
+			"corepath": "%EMULATOR_BLASTEM% -m gen %ROM%"
+			}
+		],
+		"platform": "megadrive"
+		}
+		},
+		{
+		"name": "mess",
+		"fullname": "Multi Emulator Super System",
+		"extension": ".chd .7z .zip",
+		"command": "mess2015_libretro.so %ROM%",
+		"platform": "mess"
+		}
+		},
+		{
+		"name": "moto",
+		"fullname": "Thomson MO/TO Series",
+		"extension": ".fd .sap .k7 .m7 .m5 .rom .7z .zip",
+		"command": "theodore_libretro.so %ROM%",
+		"platform": "moto"
+		}
+		},
+		{
+		"name": "msx",
+		"fullname": "MSX",
+		"extension": ".rom .ri .mx1 .mx2 .col .dsk .cas .sg .sc .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "blueMSX",
+			"corepath": "bluemsx_libretro.so %ROM%"
+			},
+			{
+			"corename": "fMSX",
+			"corepath": "fmsx_libretro.so %ROM%"
+			}
+		],
+		"platform": "msx"
+		}
+		},
+		{
+		"name": "msx1",
+		"fullname": "MSX1",
+		"extension": ".rom .ri .mx1 .mx2 .col .dsk .cas .sg .sc .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "blueMSX",
+			"corepath": "bluemsx_libretro.so %ROM%"
+			},
+			{
+			"corename": "fMSX",
+			"corepath": "fmsx_libretro.so %ROM%"
+			}
+		],
+		"platform": "msx"
+		}
+		},
+		{
+		"name": "msx2",
+		"fullname": "MSX2",
+		"extension": ".rom .ri .mx1 .mx2 .col .dsk .cas .sg .sc .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "blueMSX",
+			"corepath": "bluemsx_libretro.so %ROM%"
+			},
+			{
+			"corename": "fMSX",
+			"corepath": "fmsx_libretro.so %ROM%"
+			}
+		],
+		"platform": "msx2"
+		}
+		},
+		{
+		"name": "msxturbor",
+		"fullname": "MSX Turbo R",
+		"extension": ".rom .ri .mx1 .mx2 .col .dsk .cas .sg .sc .m3u .7z .zip",
+		"command": "bluemsx_libretro.so %ROM%",
+		"platform": "msxturbor"
+		}
+		},
+		{
+		"name": "multivision",
+		"fullname": "Othello Multivision",
+		"extension": ".bin .gg .rom .sg .sms .7z .zip",
+		"command": "gearsystem_libretro.so %ROM%",
+		"platform": "sg-1000"
+		}
+		},
+		{
+		"name": "n3ds",
+		"fullname": "Nintendo 3DS",
+		"extension": ".3ds .3dsx .app .axf .cci .cxi .elf .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Citra",
+			"corepath": "citra_libretro.so %ROM%"
+			},
+			{
+			"corename": "Citra 2018",
+			"corepath": "citra2018_libretro.so %ROM%"
+			},
+			{
+			"corename": "Citra (Standalone)",
+			"corepath": "%EMULATOR_CITRA% %ROM%"
+			}
+		],
+		"platform": "n3ds"
+		}
+		},
+		{
+		"name": "n64",
+		"fullname": "Nintendo 64",
+		"extension": ".n64 .v64 .z64 .bin .u1 .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Mupen64Plus-Next",
+			"corepath": "mupen64plus_next_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mupen64Plus (Standalone)",
+			"corepath": "%EMULATOR_MUPEN64PLUS% --nogui %ROM%"
+			},
+			{
+			"corename": "ParaLLEl N64",
+			"corepath": "parallel_n64_libretro.so %ROM%"
+			}
+		],
+		"platform": "n64"
+		}
+		},
+		{
+		"name": "naomi",
+		"fullname": "Sega NAOMI",
+		"extension": ".chd .cdi .iso .elf .bin .cue .gdi .lst .dat .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Flycast",
+			"corepath": "flycast_libretro.so %ROM%"
+			},
+			{
+			"corename": "Flycast (Standalone)",
+			"corepath": "%EMULATOR_FLYCAST% %ROM%"
+			}
+		],
+		"platform": "naomi"
+		}
+		},
+		{
+		"name": "naomigd",
+		"fullname": "Sega NAOMI GD-ROM",
+		"extension": ".chd .cdi .iso .elf .bin .cue .gdi .lst .dat .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Flycast",
+			"corepath": "flycast_libretro.so %ROM%"
+			},
+			{
+			"corename": "Flycast (Standalone)",
+			"corepath": "%EMULATOR_FLYCAST% %ROM%"
+			}
+		],
+		"platform": "naomi"
+		}
+		},
+		{
+		"name": "nds",
+		"fullname": "Nintendo DS",
+		"extension": ".bin .nds .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "DeSmuME",
+			"corepath": "desmume_libretro.so %ROM%"
+			},
+			{
+			"corename": "DeSmuME 2015",
+			"corepath": "desmume2015_libretro.so %ROM%"
+			},
+			{
+			"corename": "melonDS",
+			"corepath": "melonds_libretro.so %ROM%"
+			},
+			{
+			"corename": "melonDS (Standalone)",
+			"corepath": "%EMULATOR_MELONDS% %ROM%"
+			}
+		],
+		"platform": "nds"
+		}
+		},
+		{
+		"name": "neogeo",
+		"fullname": "SNK Neo Geo",
+		"extension": ".chd .cue .iso .7z .zip",
+		"command": "fbneo_libretro.so %ROM%",
+		"platform": "neogeo"
+		}
+		},
+		{
+		"name": "neogeocd",
+		"fullname": "SNK Neo Geo CD",
+		"extension": ".chd .cue .7z .zip",
+		"command": "neocd_libretro.so %ROM%",
+		"platform": "neogeocd"
+		}
+		},
+		{
+		"name": "neogeocdjp",
+		"fullname": "SNK Neo Geo CD",
+		"extension": ".chd .cue .7z .zip",
+		"command": "neocd_libretro.so %ROM%",
+		"platform": "neogeocd"
+		}
+		},
+		{
+		"name": "nes",
+		"fullname": "Nintendo Entertainment System",
+		"extension": ".nes .unf .unif .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Nestopia UE",
+			"corepath": "nestopia_libretro.so %ROM%"
+			},
+			{
+			"corename": "FCEUmm",
+			"corepath": "fceumm_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen",
+			"corepath": "mesen_libretro.so %ROM%"
+			},
+			{
+			"corename": "QuickNES",
+			"corepath": "quicknes_libretro.so %ROM%"
+			}
+		],
+		"platform": "nes"
+		}
+		},
+		{
+		"name": "ngp",
+		"fullname": "SNK Neo Geo Pocket",
+		"extension": ".ngp .ngc .ngpc .npc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle NeoPop",
+			"corepath": "mednafen_ngp_libretro.so %ROM%"
+			},
+			{
+			"corename": "RACE",
+			"corepath": "race_libretro.so %ROM%"
+			}
+		],
+		"platform": "ngp"
+		}
+		},
+		{
+		"name": "ngpc",
+		"fullname": "SNK Neo Geo Pocket Color",
+		"extension": ".ngp .ngc .ngpc .npc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle NeoPop",
+			"corepath": "mednafen_ngp_libretro.so %ROM%"
+			},
+			{
+			"corename": "RACE",
+			"corepath": "race_libretro.so %ROM%"
+			}
+		],
+		"platform": "ngpc"
+		}
+		},
+		{
+		"name": "odyssey2",
+		"fullname": "Magnavox Odyssey2",
+		"extension": ".bin .7z .zip",
+		"command": "o2em_libretro.so %ROM%",
+		"platform": "odyssey2"
+		}
+		},
+		{
+		"name": "openbor",
+		"fullname": "OpenBOR Game Engine",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "openbor"
+		}
+		},
+		{
+		"name": "oric",
+		"fullname": "Tangerine Computer Systems Oric",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "oric"
+		}
+		},
+		{
+		"name": "palm",
+		"fullname": "Palm OS",
+		"extension": ".prc .pqa .img .7z .zip",
+		"command": "mu_libretro.so %ROM%",
+		"platform": "palm"
+		}
+		},
+		{
+		"name": "pc",
+		"fullname": "IBM PC",
+		"extension": ".bat .com .conf .cue .doszsz .exe .iso .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "DOSBox-Core",
+			"corepath": "dosbox_core_libretro.so %ROM%"
+			},
+			{
+			"corename": "DOSBox-Pure",
+			"corepath": "dosbox_pure_libretro.so %ROM%"
+			},
+			{
+			"corename": "DOSBox-SVN",
+			"corepath": "dosbox_svn_libretro.so %ROM%"
+			},
+			{
+			"corename": "DOSBox Staging (Standalone)",
+			"corepath": "%EMULATOR_DOSBOX-STAGING% %ROM%"
+			}
+		],
+		"platform": "pc"
+		}
+		},
+		{
+		"name": "pc88",
+		"fullname": "NEC PC-8800 Series",
+		"extension": ".d88 .u88 .m3u .7z .zip",
+		"command": "quasi88_libretro.so %ROM%",
+		"platform": "pc88"
+		}
+		},
+		{
+		"name": "pc98",
+		"fullname": "NEC PC-9800 Series",
+		"extension": ".2hd .88d .98d .d88 .d98 .cmd .dup .fdd .fdi .hdd .hdi .hdm .hdn .nhd .tfd .thd . xdf .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Neko Project II Kai",
+			"corepath": "np2kai_libretro.so %ROM%"
+			},
+			{
+			"corename": "Neko Project II",
+			"corepath": "nekop2_libretro.so %ROM%"
+			}
+		],
+		"platform": "pc98"
+		}
+		},
+		{
+		"name": "pcengine",
+		"fullname": "NEC PC Engine",
+		"extension": ".bin .ccd .chd .cue .img .iso .m3u .pce .sgx .toc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle PCE",
+			"corepath": "mednafen_pce_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle PCE FAST",
+			"corepath": "mednafen_pce_fast_libretro.so %ROM%"
+			}
+		],
+		"platform": "pcengine"
+		}
+		},
+		{
+		"name": "pcenginecd",
+		"fullname": "NEC PC Engine CD",
+		"extension": ".bin .ccd .chd .cue .img .iso .m3u .pce .sgx .toc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle PCE",
+			"corepath": "mednafen_pce_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle PCE FAST",
+			"corepath": "mednafen_pce_fast_libretro.so %ROM%"
+			}
+		],
+		"platform": "pcenginecd"
+		}
+		},
+		{
+		"name": "pcfx",
+		"fullname": "NEC PC-FX",
+		"extension": ".cue .ccd .toc .chd .7z .zip",
+		"command": "mednafen_pcfx_libretro.so %ROM%",
+		"platform": "pcfx"
+		}
+		},
+		{
+		"name": "pokemini",
+		"fullname": "Nintendo Pokémon Mini",
+		"extension": ".min .7z .zip",
+		"command": "pokemini_libretro.so %ROM%",
+		"platform": "pokemini"
+		}
+		},
+		{
+		"name": "pico8",
+		"fullname": "PICO-8 Game Engine",
+		"extension": ".p8 .png .p8.png .7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "pc"
+		}
+		},
+		{
+		"name": "ps2",
+		"fullname": "Sony PlayStation 2",
+		"extension": ".bin .chd .cso .elf .iso .isz",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "PCSX2",
+			"corepath": "pcsx2_libretro.so %ROM%"
+			},
+			{
+			"corename": "PCSX2 (Standalone)",
+			"corepath": "%EMULATOR_PCSX2% --nogui %ROM%"
+			},
+			{
+			"corename": "Play! (Standalone)",
+			"corepath": "%EMULATOR_PLAY!% --disc %ROM%"
+			}
+		],
+		"platform": "ps2"
+		}
+		},
+		{
+		"name": "ps3",
+		"fullname": "Sony PlayStation 3",
+		"extension": ".ps3 .ps3dir",
+		"command": {
+			"corename": "RPCS3 (Standalone)",
+			"corepath": "%EMULATOR_RPCS3% --no-gui %ROM%"
+		},
+		"platform": "ps3"
+		}
+		},
+		{
+		"name": "ps4",
+		"fullname": "Sony PlayStation 4",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "ps4"
+		}
+		},
+		{
+		"name": "psp",
+		"fullname": "Sony PlayStation Portable",
+		"extension": ".elf .iso .cso .prx .pbp .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "PPSSPP",
+			"corepath": "ppsspp_libretro.so %ROM%"
+			},
+			{
+			"corename": "PPSSPP (Standalone)",
+			"corepath": "%EMULATOR_PPSSPP% --escape-exit %ROM%"
+			}
+		],
+		"platform": "psp"
+		}
+		},
+		{
+		"name": "psvita",
+		"fullname": "Sony PlayStation Vita",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "psvita"
+		}
+		},
+		{
+		"name": "psx",
+		"fullname": "Sony PlayStation",
+		"extension": ".bin .cbn .ccd .chd .cue .ecm .exe .img .iso .m3u .mdf .mds .pbp .psexe .psf .toc .z .znx .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle PSX",
+			"corepath": "mednafen_psx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle PSX HW",
+			"corepath": "mednafen_psx_hw_libretro.so %ROM%"
+			},
+			{
+			"corename": "PCSX ReARMed",
+			"corepath": "pcsx_rearmed_libretro.so %ROM%"
+			},
+			{
+			"corename": "SwanStation",
+			"corepath": "swanstation_libretro.so %ROM%"
+			},
+			{
+			"corename": "DuckStation (Standalone)",
+			"corepath": "%EMULATOR_DUCKSTATION% -batch %ROM%"
+			}
+		],
+		"platform": "psx"
+		}
+		},
+		{
+		"name": "samcoupe",
+		"fullname": "SAM Coupé",
+		"extension": ".dsk .mgt .sbt .sad .7z .zip",
+		"command": "simcp_libretro.so %ROM%",
+		"platform": "samcoupe"
+		}
+		},
+		{
+		"name": "satellaview",
+		"fullname": "Nintendo Satellaview",
+		"extension": ".bml .bs .fig .sfc .smc .swc .st .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Snes9x - Current",
+			"corepath": "snes9x_libretro.so %ROM%"
+			},
+			{
+			"corename": "Snes9x 2010",
+			"corepath": "snes9x2010_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes",
+			"corepath": "bsnes_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-hd",
+			"corepath": "bsnes_hd_beta_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-mercury Accuracy",
+			"corepath": "bsnes_mercury_accuracy_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen-S",
+			"corepath": "mesen-s_libretro.so %ROM%"
+			}
+		],
+		"platform": "satellaview"
+		}
+		},
+		{
+		"name": "saturn",
+		"fullname": "Sega Saturn",
+		"extension": ".bin .ccd .chd .cue .iso .mds .toc .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle Saturn",
+			"corepath": "mednafen_saturn_libretro.so %ROM%"
+			},
+			{
+			"corename": "Kronos",
+			"corepath": "kronos_libretro.so %ROM%"
+			},
+			{
+			"corename": "YabaSanshiro",
+			"corepath": "yabasanshiro_libretro.so %ROM%"
+			},
+			{
+			"corename": "Yabause",
+			"corepath": "yabause_libretro.so %ROM%"
+			}
+		],
+		"platform": "saturn"
+		}
+		},
+		{
+		"name": "saturnjp",
+		"fullname": "Sega Saturn",
+		"extension": ".bin .ccd .chd .cue .iso .mds .toc .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle Saturn",
+			"corepath": "mednafen_saturn_libretro.so %ROM%"
+			},
+			{
+			"corename": "Kronos",
+			"corepath": "kronos_libretro.so %ROM%"
+			},
+			{
+			"corename": "YabaSanshiro",
+			"corepath": "yabasanshiro_libretro.so %ROM%"
+			},
+			{
+			"corename": "Yabause",
+			"corepath": "yabause_libretro.so %ROM%"
+			}
+		],
+		"platform": "saturn"
+		}
+		},
+		{
+		"name": "scummvm",
+		"fullname": "ScummVM Game Engine",
+		"extension": ".scummvm .svm",
+		"command": "scummvm_libretro.so %ROM%",
+		"platform": "scummvm"
+		}
+		},
+		{
+		"name": "sega32x",
+		"fullname": "Sega Mega Drive 32X",
+		"extension": ".bin .gen .smd .md .32x .cue .iso .sms .68k .7z .zip",
+		"command": "picodrive_libretro.so %ROM%",
+		"platform": "sega32x"
+		}
+		},
+		{
+		"name": "sega32xjp",
+		"fullname": "Sega Super 32X",
+		"extension": ".bin .gen .smd .md .32x .cue .iso .sms .68k .7z .zip",
+		"command": "picodrive_libretro.so %ROM%",
+		"platform": "sega32x"
+		}
+		},
+		{
+		"name": "sega32xna",
+		"fullname": "Sega Genesis 32X",
+		"extension": ".bin .gen .smd .md .32x .cue .iso .sms .68k .7z .zip",
+		"command": "picodrive_libretro.so %ROM%",
+		"platform": "sega32x"
+		}
+		},
+		{
+		"name": "segacd",
+		"fullname": "Sega CD",
+		"extension": ".68k .bin .bms .chd .cue .gen .gg .iso .m3u .md .mdx .sg .sgd .smd .sms .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Genesis Plus GX",
+			"corepath": "genesis_plus_gx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX Wide",
+			"corepath": "genesis_plus_gx_wide_libretro.so %ROM%"
+			},
+			{
+			"corename": "PicoDrive",
+			"corepath": "picodrive_libretro.so %ROM%"
+			}
+		],
+		"platform": "segacd"
+		}
+		},
+		{
+		"name": "sfc",
+		"fullname": "Nintendo SFC (Super Famicom)",
+		"extension": ".bin .bml .bs .bsx .dx2 .fig .gd3 .gd7 .mgd .sfc .smc .st .swc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Snes9x - Current",
+			"corepath": "snes9x_libretro.so %ROM%"
+			},
+			{
+			"corename": "Snes9x 2010",
+			"corepath": "snes9x2010_libretro.so %ROM%"
+			},
+			{
+			"corename": "Snes9x (Standalone)",
+			"corepath": "%EMULATOR_SNES9X% %ROM%"
+			},
+			{
+			"corename": "bsnes",
+			"corepath": "bsnes_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-hd",
+			"corepath": "bsnes_hd_beta_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-mercury Accuracy",
+			"corepath": "bsnes_mercury_accuracy_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle Supafaust",
+			"corepath": "mednafen_supafaust_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen-S",
+			"corepath": "mesen-s_libretro.so %ROM%"
+			}
+		],
+		"platform": "snes"
+		}
+		},
+		{
+		"name": "sg-1000",
+		"fullname": "Sega SG-1000",
+		"extension": ".68k .bin .bms .chd .cue .gen .gg .iso .m3u .md .mdx .ri .rom .sg .sgd .smd .sms .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Gearsystem",
+			"corepath": "gearsystem_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX",
+			"corepath": "genesis_plus_gx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Genesis Plus GX Wide",
+			"corepath": "genesis_plus_gx_wide_libretro.so %ROM%"
+			},
+			{
+			"corename": "blueMSX",
+			"corepath": "bluemsx_libretro.so %ROM%"
+			}
+		],
+		"platform": "sg-1000"
+		}
+		},
+		{
+		"name": "snes",
+		"fullname": "Nintendo SNES (Super Nintendo)",
+		"extension": ".bin .bml .bs .bsx .dx2 .fig .gd3 .gd7 .mgd .sfc .smc .st .swc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Snes9x - Current",
+			"corepath": "snes9x_libretro.so %ROM%"
+			},
+			{
+			"corename": "Snes9x 2010",
+			"corepath": "snes9x2010_libretro.so %ROM%"
+			},
+			{
+			"corename": "Snes9x (Standalone)",
+			"corepath": "%EMULATOR_SNES9X% %ROM%"
+			},
+			{
+			"corename": "bsnes",
+			"corepath": "bsnes_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-hd",
+			"corepath": "bsnes_hd_beta_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-mercury Accuracy",
+			"corepath": "bsnes_mercury_accuracy_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle Supafaust",
+			"corepath": "mednafen_supafaust_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen-S",
+			"corepath": "mesen-s_libretro.so %ROM%"
+			}
+		],
+		"platform": "snes"
+		}
+		},
+		{
+		"name": "snesna",
+		"fullname": "Nintendo SNES (Super Nintendo)",
+		"extension": ".bin .bml .bs .bsx .dx2 .fig .gd3 .gd7 .mgd .sfc .smc .st .swc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Snes9x - Current",
+			"corepath": "snes9x_libretro.so %ROM%"
+			},
+			{
+			"corename": "Snes9x 2010",
+			"corepath": "snes9x2010_libretro.so %ROM%"
+			},
+			{
+			"corename": "Snes9x (Standalone)",
+			"corepath": "%EMULATOR_SNES9X% %ROM%"
+			},
+			{
+			"corename": "bsnes",
+			"corepath": "bsnes_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-hd",
+			"corepath": "bsnes_hd_beta_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-mercury Accuracy",
+			"corepath": "bsnes_mercury_accuracy_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle Supafaust",
+			"corepath": "mednafen_supafaust_libretro.so %ROM%"
+			},
+			{
+			"corename": "Mesen-S",
+			"corepath": "mesen-s_libretro.so %ROM%"
+			}
+		],
+		"platform": "snes"
+		}
+		},
+		{
+		"name": "solarus",
+		"fullname": "Solarus Game Engine",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "solarus"
+		}
+		},
+		{
+		"name": "spectravideo",
+		"fullname": "Spectravideo",
+		"extension": ".rom .ri .mx1 .mx2 .col .dsk .cas .sg .sc .m3u .7z .zip",
+		"command": "bluemsx_libretro.so %ROM%",
+		"platform": "spectravideo"
+		}
+		},
+		{
+		"name": "stratagus",
+		"fullname": "Stratagus Game Engine",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "stratagus"
+		}
+		},
+		{
+		"name": "sufami",
+		"fullname": "Bandai SuFami Turbo",
+		"extension": ".bml .bs .fig .sfc .smc .st .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Snes9x - Current",
+			"corepath": "snes9x_libretro.so %ROM%"
+			},
+			{
+			"corename": "Snes9x 2010",
+			"corepath": "snes9x2010_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes",
+			"corepath": "bsnes_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-hd",
+			"corepath": "bsnes_hd_beta_libretro.so %ROM%"
+			},
+			{
+			"corename": "bsnes-mercury Accuracy",
+			"corepath": "bsnes_mercury_accuracy_libretro.so %ROM%"
+			}
+		],
+		"platform": "sufami"
+		}
+		},
+		{
+		"name": "supergrafx",
+		"fullname": "NEC SuperGrafx",
+		"extension": ".pce .sgx .cue .ccd .chd .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle SuperGrafx",
+			"corepath": "mednafen_supergrafx_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle PCE",
+			"corepath": "mednafen_pce_libretro.so %ROM%"
+			}
+		],
+		"platform": "supergrafx"
+		}
+		},
+		{
+		"name": "switch",
+		"fullname": "Nintendo Switch",
+		"extension": ".nca .nro .nso .nsp .xci .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Yuzu (Standalone)",
+			"corepath": "%EMULATOR_YUZU% -f -g %ROM%"
+			},
+			{
+			"corename": "Ryujinx (Standalone)",
+			"corepath": "%EMULATOR_RYUJINX% %ROM%"
+			}
+		],
+		"platform": "switch"
+		}
+		},
+		{
+		"name": "tanodragon",
+		"fullname": "Tano Dragon",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "dragon32"
+		}
+		},
+		{
+		"name": "tg16",
+		"fullname": "NEC TurboGrafx-16",
+		"extension": ".bin .ccd .chd .cue .img .iso .m3u .pce .sgx .toc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle PCE",
+			"corepath": "mednafen_pce_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle PCE FAST",
+			"corepath": "mednafen_pce_fast_libretro.so %ROM%"
+			}
+		],
+		"platform": "pcengine"
+		}
+		},
+		{
+		"name": "tg-cd",
+		"fullname": "NEC TurboGrafx-CD",
+		"extension": ".bin .ccd .chd .cue .img .iso .m3u .pce .sgx .toc .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Beetle PCE",
+			"corepath": "mednafen_pce_libretro.so %ROM%"
+			},
+			{
+			"corename": "Beetle PCE FAST",
+			"corepath": "mednafen_pce_fast_libretro.so %ROM%"
+			}
+		],
+		"platform": "pcenginecd"
+		}
+		},
+		{
+		"name": "ti99",
+		"fullname": "Texas Instruments TI-99",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "ti99"
+		}
+		},
+		{
+		"name": "tic80",
+		"fullname": "TIC-80 Game Engine",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "tic80"
+		}
+		},
+		{
+		"name": "to8",
+		"fullname": "Thomson TO8",
+		"extension": ".fd .sap .k7 .m7 .m5 .rom .7z .zip",
+		"command": "theodore_libretro.so %ROM%",
+		"platform": "moto"
+		}
+		},
+		{
+		"name": "trs-80",
+		"fullname": "Tandy TRS-80",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "trs-80"
+		}
+		},
+		{
+		"name": "uzebox",
+		"fullname": "Uzebox",
+		"extension": ".uze .7z .zip",
+		"command": "uzem_libretro.so %ROM%",
+		"platform": "uzebox"
+		}
+		},
+		{
+		"name": "vectrex",
+		"fullname": "Vectrex",
+		"extension": ".bin .vec .gam .vc .7z .zip",
+		"command": "vecx_libretro.so %ROM%",
+		"platform": "vectrex"
+		}
+		},
+		{
+		"name": "vic20",
+		"fullname": "Commodore VIC-20",
+		"extension": ".bin .cmd .crt .d2m .d4m .d64 .d6z .d71 .d7z .d80 .d81 .d82 .d8z .g41 .g4z .g64 .g6z .gz .lnx .m3u .nbz .nib .p00 .prg .t64 .tap .vfl .vsf .x64 .x6z .7z .zip",
+		"command": "vice_xvic_libretro.so %ROM%",
+		"platform": "vic20"
+		}
+		},
+		{
+		"name": "videopac",
+		"fullname": "Philips Videopac G7000",
+		"extension": ".bin .7z .zip",
+		"command": "o2em_libretro.so %ROM%",
+		"platform": "videopac"
+		}
+		},
+		{
+		"name": "virtualboy",
+		"fullname": "Nintendo Virtual Boy",
+		"extension": ".vb .vboy .bin .7z .zip",
+		"command": "mednafen_vb_libretro.so %ROM%",
+		"platform": "virtualboy"
+		}
+		},
+		{
+		"name": "wii",
+		"fullname": "Nintendo Wii",
+		"extension": ".gcm .iso .wbfs .wia .ciso .gcz .elf .doll .dff .rvz .tgc .wad .m3u .7z .zip",
+		"emulator": {
+			"retroarch": [
+			{
+			"corename": "Dolphin",
+			"corepath": "dolphin_libretro.so %ROM%"
+			},
+			{
+			"corename": "Dolphin (Standalone)",
+			"corepath": "%EMULATOR_DOLPHIN% -b -e %ROM%"
+			},
+			{
+			"corename": "PrimeHack (Standalone)",
+			"corepath": "%EMULATOR_PRIMEHACK% -b -e %ROM%"
+			}
+		],
+		"platform": "wii"
+		}
+		},
+		{
+		"name": "wiiu",
+		"fullname": "Nintendo Wii U",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "wiiu"
+		}
+		},
+		{
+		"name": "wonderswan",
+		"fullname": "Bandai WonderSwan",
+		"extension": ".ws .pc2 .7z .zip",
+		"command": "mednafen_wswan_libretro.so %ROM%",
+		"platform": "wonderswan"
+		}
+		},
+		{
+		"name": "wonderswancolor",
+		"fullname": "Bandai WonderSwan Color",
+		"extension": ".ws .wsc .pc2 .7z .zip",
+		"command": "mednafen_wswan_libretro.so %ROM%",
+		"platform": "wonderswancolor"
+		}
+		},
+		{
+		"name": "x1",
+		"fullname": "Sharp X1",
+		"extension": ".dx1 .2d .2hd .tfd .d88 .88d .hdm .xdf .dup .tap .cmd .7z .zip",
+		"command": "x1_libretro.so %ROM%",
+		"platform": "x1"
+		}
+		},
+		{
+		"name": "x68000",
+		"fullname": "Sharp X68000",
+		"extension": ".dim .img .d88 .88d .hdm .HDM .dup .2hd .xdf .hdf .cmd .m3u .7z .zip",
+		"command": "px68k_libretro.so %ROM%",
+		"platform": "x68000"
+		}
+		},
+		{
+		"name": "xbox",
+		"fullname": "Microsoft Xbox",
+		"extension": ".iso",
+		"command": {
+			"corename": "xemu (Standalone)",
+			"corepath": "%EMULATOR_XEMU% -full-screen -dvd_path %ROM%"
+		},
+		"platform": "xbox"
+		}
+		},
+		{
+		"name": "xbox360",
+		"fullname": "Microsoft Xbox 360",
+		"extension": ".iso .xex",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "xbox360"
+		}
+		},
+		{
+		"name": "xboxone",
+		"fullname": "Microsoft Xbox One",
+		"extension": ".iso",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "xboxone"
+		}
+		},
+		{
+		"name": "zmachine",
+		"fullname": "Infocom Z-machine",
+		"extension": ".7z .zip",
+		"command": "PLACEHOLDER %ROM%",
+		"platform": "zmachine"
+		}
+		},
+		{
+		"name": "zx81",
+		"fullname": "Sinclair ZX81",
+		"extension": ".tzx .p .7z .zip",
+		"command": "81_libretro.so %ROM%",
+		"platform": "zx81"
+		}
+		},
+		{
+		"name": "zxspectrum",
+		"fullname": "Sinclair ZX Spectrum",
+		"extension": ".tzx .tap .z80 .rzx .scl .trd .sh .sna .szx .udi .mgt .img .dsk .gz .7z .zip",
+		"command": "fuse_libretro.so %ROM%",
+		"platform": "zxspectrum",
+		}
+	]
+}

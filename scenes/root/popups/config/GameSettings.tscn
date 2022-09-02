@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/root/popups/config/GameSettings.gd" type="Script" id=1]
+[ext_resource path="res://scenes/root/popups/config/GameMetadataEditor.tscn" type="PackedScene" id=3]
+
+[node name="GameSettings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 2
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 803.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Edit game metadata"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 807.0
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="Save" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 97.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Save changes"
+
+[node name="Discard" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 101.0
+margin_right = 217.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Discard changes"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 28.0
+
+[node name="GameMetadataEditor" parent="VBoxContainer" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 32.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/Save" to="VBoxContainer/GameMetadataEditor" method="save_changes"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/Discard" to="VBoxContainer/GameMetadataEditor" method="discard_changes"]
+[connection signal="change_ocurred" from="VBoxContainer/GameMetadataEditor" to="." method="_on_GameMetadataEditor_change_ocurred"]
+[connection signal="reset_state" from="VBoxContainer/GameMetadataEditor" to="." method="_on_GameMetadataEditor_reset_state"]

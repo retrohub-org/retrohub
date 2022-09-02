@@ -1,0 +1,319 @@
+{
+	"emulators_list": [
+		{
+			"name": "retroarch",
+			"fullname": "RetroArch",
+			"binpath": [
+				{
+					"windows": [
+						"C:/RetroArch-Win64/retroarch.exe",
+						"C:/RetroArch/retroarch.exe",
+						"~/AppData/Roaming/RetroArch/retroarch.exe",
+						"C:/Program Files/RetroArch-Win64/retroarch.exe",
+						"C:/Program Files/RetroArch/retroarch.exe",
+						"C:/Program Files (x86)/RetroArch-Win64/retroarch.exe",
+						"C:/Program Files (x86)/RetroArch/retroarch.exe",
+						"C:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
+						"D:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
+						"C:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe",
+						"D:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe"
+					]
+				},
+				{
+					"macos": [
+						"/Applications/RetroArch.app/Contents/MacOS/RetroArch"
+					]
+				},
+				{
+					"linux": [
+						"/bin/retroarch",
+						"/usr/bin/retroarch",
+						"/var/lib/flatpak/exports/bin/org.libretro.RetroArch",
+						"~/.local/share/flatpak/exports/bin/org.libretro.RetroArch",
+						"~/Applications/RetroArch-Linux-x86_64.AppImage",
+						"~/.local/bin/RetroArch-Linux-x86_64.AppImage",
+						"~/bin/RetroArch-Linux-x86_64.AppImage"
+					]
+				}
+			],
+			"corepath": [
+				{
+					"windows": [
+						"{binpath}/../cores"
+					]
+				},
+				{
+					"macos": [
+						"~/Library/Application Support/RetroArch/cores",
+						"/Applications/RetroArch.app/Contents/Resources/cores"
+					]
+				},
+				{
+					"linux": [
+						"~/snap/retroarch/current/.config/retroarch/cores",
+						"~/.var/app/org.libretro.RetroArch/config/retroarch/cores",
+						"~/.config/retroarch/cores",
+						"/usr/lib/x86_64-linux-gnu/libretro",
+						"/usr/lib64/libretro",
+						"/usr/lib/libretro",
+						"/usr/local/lib/libretro",
+						"/usr/pkg/lib/libretro"
+					]
+				}
+			],
+			"cores": [
+				{
+					"name": "nestopia",
+					"fullname": "Nestopia UE",
+					"file": [
+						{
+							"windows": "nestopia_libretro.dll",
+							"macos": "nestopia_libretro.dylib",
+							"linux": "nestopia_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "fceumm",
+					"fullname": "FCEUmm",
+					"file": [
+						{
+							"windows": "fceumm_libretro.dll",
+							"macos": "fceumm_libretro.dylib",
+							"linux": "fceumm_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "mesen",
+					"fullname": "Mesen",
+					"file": [
+						{
+							"windows": "mesen_libretro.dll",
+							"macos": "mesen_libretro.dylib",
+							"linux": "mesen_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "quicknes",
+					"fullname": "QuickNES",
+					"file": [
+						{
+							"windows": "quicknes_libretro.dll",
+							"macos": "quicknes_libretro.dylib",
+							"linux": "quicknes_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "snes9x",
+					"fullname": "Snes9x - Current",
+					"file": [
+						{
+							"windows": "snes9x_libretro.dll",
+							"macos": "snes9x_libretro.dylib",
+							"linux": "snes9x_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "snes9x2010",
+					"fullname": "Snes9x 2010",
+					"file": [
+						{
+							"windows": "snes9x2010_libretro.dll",
+							"macos": "snes9x2010_libretro.dylib",
+							"linux": "snes9x2010_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "bsnes",
+					"fullname": "bsnes",
+					"file": [
+						{
+							"windows": "bsnes_libretro.dll",
+							"macos": "bsnes_libretro.dylib",
+							"linux": "bsnes_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "bshes_hd",
+					"fullname": "bsnes-hd",
+					"file": [
+						{
+							"windows": "bsnes_hd_beta_libretro.dll",
+							"macos": "bsnes_hd_beta_libretro.dylib",
+							"linux": "bsnes_hd_beta_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "bsnes_mercury_accuracy",
+					"fullname": "bsnes-mercury Accuracy",
+					"file": [
+						{
+							"windows": "bsnes_mercury_accuracy_libretro.dll",
+							"macos": "bsnes_mercury_accuracy_libretro.dylib",
+							"linux": "bsnes_mercury_accuracy_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "beetle_supafaust",
+					"fullname": "Beetle Supafaust",
+					"file": [
+						{
+							"windows": "mednafen_supafaust_libretro.dll",
+							"macos": "mednafen_supafaust_libretro.dylib",
+							"linux": "mednafen_supafaust_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "mesen_s",
+					"fullname": "Mesen-S",
+					"file": [
+						{
+							"windows": "mesen-s_libretro.dll",
+							"macos": "mesen-s_libretro.dylib",
+							"linux": "mesen-s_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "mupen64plus_next",
+					"fullname": "Mupen64Plus-Next",
+					"file": [
+						{
+							"windows": "mupen64plus_next_libretro.dll",
+							"macos": "mupen64plus_next_libretro.dylib",
+							"linux": "mupen64plus_next_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "parallel_n64",
+					"fullname": "ParaLLEl N64",
+					"file": [
+						{
+							"windows": "parallel_n64_libretro.dll",
+							"macos": "parallel_n64_libretro.dylib",
+							"linux": "parallel_n64_libretro.so"
+						}
+					]
+				},
+				{
+					"name": "dolphin",
+					"fullname": "Dolphin",
+					"file": [
+						{
+							"windows": "dolphin_libretro.dll",
+							"macos": "dolphin_libretro.dylib",
+							"linux": "dolphin_libretro.so"
+						}
+					]
+				}
+			],
+			"command": "{binpath} -L \"{corepath}/{corefile}\" \"{rompath}\""
+		},
+		{
+			"name": "mupen64plus",
+			"fullname": "Mupen64Plus",
+			"platforms": [
+				"n64"
+			],
+			"binpath": [
+				{
+					"windows": [
+						"mupen64plus/mupen64plus-ui-console.exe",
+						"Emulators/mupen64plus/mupen64plus-ui-console.exe",
+						"../mupen64plus/mupen64plus-ui-console.exe"
+					]
+				},
+				{
+					"macos": [
+						"/Applications/mupen64plus.app/Contents/MacOS/mupen64plus",
+						"/usr/local/bin/mupen64plus"
+					]
+				},
+				{
+					"linux": [
+						"/bin/m64p",
+						"/bin/mupen64plus",
+						"/usr/bin/m64p",
+						"/usr/bin/mupen64plus",
+						"/var/lib/flatpak/exports/bin/io.github.m64p.m64p",
+						"~/.local/share/flatpak/exports/bin/io.github.m64p.m64p"
+					]
+				}
+			],
+			"command": "{binpath} --nogui \"{rompath}\""
+		},
+		{
+			"name": "snes9x",
+			"fullname": "Snes9X",
+			"platforms": [
+				"snes"
+			],
+			"binpath": [
+				{
+					"windows": [
+						"snes9x/snes9x-x64.exe",
+						"Emulators/snes9x/snes9x-x64.exe",
+						"../snes9x/snes9x-x64.exe"
+					]
+				},
+				{
+					"macos": [
+						"/Applications/Snes9x.app/Contents/MacOS/Snes9x"
+					]
+				},
+				{
+					"linux": [
+						"/bin/snes9x",
+						"/usr/bin/snes9x",
+						"/var/lib/flatpak/exports/bin/com.snes9x.Snes9x"
+					]
+				}
+			],
+			"command": "{binpath} \"{rompath}\""
+		},
+		{
+			"name": "dolphin",
+			"fullname": "Dolphin",
+			"platforms": [
+				"gc",
+				"wii"
+			],
+			"binpath": [
+				{
+					"windows": [
+						"Dolphin-x64/Dolphin.exe",
+						"Emulators/Dolphin-x64/Dolphin.exe",
+						"../Dolphin-x64/Dolphin.exe"
+					]
+				},
+				{
+					"macos": [
+						"/Applications/Dolphin.app/Contents/MacOS/Dolphin"
+					]
+				},
+				{
+					"linux": [
+							"/bin/dolphin-emu",
+							"/usr/bin/dolphin-emu",
+							"/var/lib/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
+							"~/.local/share/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
+							"~/Applications/Dolphin_Emulator*.AppImage",
+							"~/.local/bin/Dolphin_Emulator*.AppImage",
+							"~/bin/Dolphin_Emulator*.AppImage"
+					]
+				}
+			],
+			"command": "{binpath} -b -e \"{rompath}\""
+		},
+	]
+}
