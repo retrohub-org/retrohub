@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/icons/editor/success.svg" type="Texture" id=1]
+[ext_resource path="res://assets/icons/success.svg" type="Texture" id=1]
 [ext_resource path="res://scenes/root/popups/first_time/EmulatorInfoSection.gd" type="Script" id=3]
 
 [node name="EmulatorInfoSection" type="VBoxContainer"]

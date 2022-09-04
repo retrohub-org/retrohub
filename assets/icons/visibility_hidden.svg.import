@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/loading.svg-9bd8ea80909a5b02bf49cee06aa337c0.stex"
+path="res://.import/visibility_hidden.svg-4adfb3fe4121122d665dac69da7bce78.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/editor/loading.svg"
-dest_files=[ "res://.import/loading.svg-9bd8ea80909a5b02bf49cee06aa337c0.stex" ]
+source_file="res://assets/icons/visibility_hidden.svg"
+dest_files=[ "res://.import/visibility_hidden.svg-4adfb3fe4121122d665dac69da7bce78.stex" ]
 
 [params]
 
@@ -32,4 +32,4 @@ process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true
-svg/scale=1.0
+svg/scale=2.0

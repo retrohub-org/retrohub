@@ -219,7 +219,7 @@ func import_metadata():
 		
 func process_metadata(system: String, dict: Dictionary):
 	var game_data := RetroHubGameData.new()
-	var root_path = RetroHubConfig.get_games_dir() + "/" + system
+	var root_path = RetroHubConfig.config.games_dir + "/" + system
 	game_data.has_metadata = true
 	game_data.path = root_path + "/" + dict["path"].substr(2)
 	game_data.system_name = system

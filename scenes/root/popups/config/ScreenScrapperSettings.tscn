@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/root/popups/config/ScreenScrapperSettings.gd" type="Script" id=1]
-[ext_resource path="res://assets/icons/editor/visibility_visible.svg" type="Texture" id=2]
-[ext_resource path="res://assets/icons/editor/visibility_hidden.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/visibility_visible.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/visibility_hidden.svg" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/NotoSans-BoldItalic.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/fonts/NotoSans-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/fonts/NotoSans-Italic.ttf" type="DynamicFontData" id=6]
@@ -141,7 +141,7 @@ custom_fonts/italics_font = SubResource( 1 )
 custom_fonts/bold_font = SubResource( 3 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[img=20]assets/icons/editor/warning.svg[/img][i][b] Warning: [/b]Due to the way ScreenScraper works, the password will be stored in plaintext.[/i]"
+bbcode_text = "[img=20]assets/icons/warning.svg[/img][i][b] Warning: [/b]Due to the way ScreenScraper works, the password will be stored in plaintext.[/i]"
 text = " Warning: Due to the way ScreenScraper works, the password will be stored in plaintext."
 
 [connection signal="toggled" from="HBoxContainer/UseAccount" to="." method="_on_UseAccount_toggled"]

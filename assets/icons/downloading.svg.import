@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/failure.svg-40b97e6c52f36d03e4d6383474fefbc6.stex"
+path="res://.import/downloading.svg-c9054900ca3caf77552d3447f83a9274.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/editor/failure.svg"
-dest_files=[ "res://.import/failure.svg-40b97e6c52f36d03e4d6383474fefbc6.stex" ]
+source_file="res://assets/icons/downloading.svg"
+dest_files=[ "res://.import/downloading.svg-c9054900ca3caf77552d3447f83a9274.stex" ]
 
 [params]
 

@@ -59,7 +59,7 @@ func populate_info(game_data: RetroHubGameData):
 		n_screenshot.texture = cached_images[game_data]
 	else:
 		request_screenshot(game_data)
-		n_screenshot.texture = preload("res://assets/icons/editor/image_downloading.svg")
+		n_screenshot.texture = preload("res://assets/icons/image_downloading.svg")
 	n_developer.text = game_data.developer
 	n_publisher.text = game_data.publisher
 	n_num_players.text = game_data.num_players

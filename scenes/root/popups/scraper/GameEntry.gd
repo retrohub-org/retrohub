@@ -7,6 +7,7 @@ signal game_selected(entry)
 enum State {
 	SUCCESS,
 	WORKING,
+	WAITING,
 	WARNING,
 	ERROR,
 }
@@ -34,16 +35,19 @@ func set_state(_state: int):
 		State.SUCCESS:
 			set_font_color(RetroHubUI.color_success)
 			text = game_data.name
-			icon = preload("res://assets/icons/editor/success.svg")
+			icon = preload("res://assets/icons/success.svg")
 		State.WORKING:
-			set_font_color(Color("dddddd"))
-			icon = preload("res://assets/icons/editor/loading.svg")
+			set_font_color(RetroHubUI.color_pending)
+			icon = preload("res://assets/icons/downloading.svg")
+		State.WAITING:
+			set_font_color(RetroHubUI.color_unavailable)
+			icon = preload("res://assets/icons/loading.svg")
 		State.WARNING:
 			set_font_color(RetroHubUI.color_warning)
-			icon = preload("res://assets/icons/editor/warning.svg")
+			icon = preload("res://assets/icons/warning.svg")
 		State.ERROR:
 			set_font_color(RetroHubUI.color_error)
-			icon = preload("res://assets/icons/editor/error.svg")
+			icon = preload("res://assets/icons/error.svg")
 		_:
 			set_font_color(Color("ffffff"))
 			icon = null

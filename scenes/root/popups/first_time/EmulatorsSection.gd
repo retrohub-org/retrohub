@@ -18,9 +18,9 @@ func set_systems():
 	for system in RetroHubConfig._systems_raw.values():
 		var found = handle_emulator_info(system)
 		if found:
-			n_systems.add_icon_item(preload("res://assets/icons/editor/success.svg"), system["fullname"])
+			n_systems.add_icon_item(preload("res://assets/icons/success.svg"), system["fullname"])
 		else:
-			n_systems.add_icon_item(preload("res://assets/icons/editor/failure.svg"), system["fullname"])
+			n_systems.add_icon_item(preload("res://assets/icons/failure.svg"), system["fullname"])
 
 func handle_emulator_info(system_raw: Dictionary) -> bool:
 	var system_emulators = system_raw["emulator"]

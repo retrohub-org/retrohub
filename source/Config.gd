@@ -236,10 +236,10 @@ func load_theme_data():
 	theme_data.description = theme_raw["description"]
 	theme_data.version = theme_raw["version"]
 	theme_data.url = theme_raw["url"]
-	theme_data.icon = load("res://" + theme_raw["icon"])
+	theme_data.icon = load(theme_raw["icon"])
 	for screenshot in theme_raw["screenshots"]:
-		theme_data.screenshots.push_back(load("res://" + screenshot))
-	theme_data.entry_scene = load("res://" + theme_raw["entry_scene"])
+		theme_data.screenshots.push_back(load(screenshot))
+	theme_data.entry_scene = load(theme_raw["entry_scene"])
 
 func unload_theme():
 	if !ProjectSettings.unload_resource_pack(theme_path):

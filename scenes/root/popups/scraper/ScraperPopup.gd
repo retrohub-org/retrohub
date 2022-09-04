@@ -8,6 +8,8 @@ onready var n_game_entry_editor := $"%GameEntryEditor"
 onready var n_pending_games := $"%PendingGames"
 onready var n_finish := $"%Finish"
 
+onready var n_stop_scraper_dialog := $"%StopScraperDialog"
+
 onready var button_group := ButtonGroup.new()
 
 var game_list_arr : Array
@@ -17,22 +19,25 @@ var game_entry_list := []
 var num_games_pending : int
 
 # Thread variables
-var thread := Thread.new()
-var games_semaphore := Semaphore.new()
+var thread : Thread
+var games_semaphore : Semaphore
 var games_mutex := Mutex.new()
 var games_queue := []
 
-var t_scrape_semaphore := Semaphore.new()
+var t_scrape_semaphore : Semaphore
 var t_scrape_data_errcode : int
 var t_scrape_media_errcode : int
 
 func begin_scraping(_game_list_arr: Array):
 	game_list_arr = _game_list_arr
+	clear_game_entries()
 	populate_game_entries()
 	fetch_game_entries_async()
 	n_game_entries.get_child(0).grab_focus()
 
 func fetch_game_entries_async():
+	thread = Thread.new()
+	games_semaphore = Semaphore.new()
 	games_mutex.lock()
 	games_queue.clear()
 	for game_entry in game_entry_list:
@@ -43,39 +48,46 @@ func fetch_game_entries_async():
 	thread.start(self, "thread_fetch_game_entries")
 
 func thread_fetch_game_entries():
+	print("Thread starting")
 	RetroHubMediaHelper.connect("game_scrape_finished", self, "t_on_game_scrape_finished")
 	RetroHubMediaHelper.connect("game_media_scrape_finished", self, "t_on_game_media_scrape_finished")
+	t_scrape_semaphore = Semaphore.new()
 
 	while true:
 		# Wait for a scrape request
 		print("Waiting...")
 		games_semaphore.wait()
-		print("Waited")
+		#print("Waited")
 
 		# Get a game entry to fetch
-		print("Locking...")
+		#print("Locking...")
 		games_mutex.lock()
-		print("Locked")
+		#print("Locked")
 		if games_queue.empty():
+			games_mutex.unlock()
 			break
 		var game_entry : RetroHubScraperGameEntry = games_queue.pop_front()
 		games_mutex.unlock()
-		print("Unlocked. Game entry is ", game_entry)
+		#print("Unlocked. Game entry is ", game_entry)
 		
 		# Retrieve game data and begin scraping it
 		var game_data = game_entry.game_data
 		t_scrape_data_errcode = -1
 		t_scrape_media_errcode = -1
-		print("Scraping..., fetch mode: ", game_entry.fetch_mode)
+		#print("Scraping..., fetch mode: ", game_entry.fetch_mode)
+		game_entry.set_deferred("state", RetroHubScraperGameEntry.State.WORKING)
 		if game_entry.fetch_mode & RetroHubScraperGameEntry.FETCH_METADATA:
 			match game_entry.check_mode:
 				RetroHubScraperGameEntry.CHECK_HASH:
+					print("Blocking for metadata (hash)...")
 					RetroHubMediaHelper.scrape_game_by_hash(game_data)
 				RetroHubScraperGameEntry.CHECK_SEARCH:
+					print("Blocking for metadata (search)...")
 					RetroHubMediaHelper.scrape_game_by_search(game_data, game_entry.data)
 			t_scrape_semaphore.wait()
-		if game_entry.fetch_mode & RetroHubScraperGameEntry.FETCH_MEDIA:
+		if not t_scrape_data_errcode and game_entry.fetch_mode & RetroHubScraperGameEntry.FETCH_MEDIA:
 			RetroHubMediaHelper.scrape_game_media_data(game_data)
+			print("Blocking for media...")
 			t_scrape_semaphore.wait()
 		print("Completed")
 
@@ -85,20 +97,33 @@ func thread_fetch_game_entries():
 				set_deferred("num_games_pending", num_games_pending - 1)
 				call_deferred("update_games_pending")
 				RetroHubConfig.call_deferred("save_game_data", game_entry.game_data)
-			RetroHubMediaHelper.Status.ERROR:
+			RetroHubMediaHelper.Status.ERROR, RetroHubMediaHelper.Status.CANCELED:
 				game_entry.set_deferred("data", RetroHubMediaHelper.get_status_details())
 				game_entry.set_deferred("state", RetroHubScraperGameEntry.State.ERROR)
 			RetroHubMediaHelper.Status.MULTIPLE_AVAILABLE:
 				game_entry.set_deferred("data", RetroHubMediaHelper.get_status_details())
 				game_entry.set_deferred("state", RetroHubScraperGameEntry.State.WARNING)
+	
+	RetroHubMediaHelper.disconnect("game_scrape_finished", self, "t_on_game_scrape_finished")
+	RetroHubMediaHelper.disconnect("game_media_scrape_finished", self, "t_on_game_media_scrape_finished")
+	print("Thread ending")
 
 func t_on_game_scrape_finished(errcode: int):
 	t_scrape_data_errcode = errcode
+	#print("Scrape finished with code ", errcode)
 	t_scrape_semaphore.post()
 
 func t_on_game_media_scrape_finished(errcode: int):
 	t_scrape_media_errcode = errcode
+	#print("Media scrape finished with code ", errcode)
 	t_scrape_semaphore.post()
+
+func clear_game_entries():
+	for scene_entry in scene_entry_list.values():
+		n_game_entries.remove_child(scene_entry)
+		scene_entry.queue_free()
+	scene_entry_list.clear()
+	game_entry_list.clear()
 
 func populate_game_entries():
 	for game_data in game_list_arr:
@@ -131,7 +156,7 @@ func _on_Warning_request_search(search, game_data):
 	for game_entry in game_entry_list:
 		if game_entry.game_data == game_data:
 			game_entry.data = search
-			game_entry.state = RetroHubScraperGameEntry.State.WORKING
+			game_entry.state = RetroHubScraperGameEntry.State.WAITING
 			game_entry.fetch_mode = RetroHubScraperGameEntry.FETCH_METADATA
 			game_entry.check_mode = RetroHubScraperGameEntry.CHECK_SEARCH
 			games_mutex.lock()
@@ -155,7 +180,7 @@ func _on_Warning_search_completed(orig_game_data, new_game_data):
 
 	for game_entry in game_entry_list:
 		if game_entry.game_data == orig_game_data:
-			game_entry.state = RetroHubScraperGameEntry.State.WORKING
+			game_entry.state = RetroHubScraperGameEntry.State.WAITING
 			game_entry.fetch_mode = RetroHubScraperGameEntry.FETCH_MEDIA
 			games_mutex.lock()
 			games_queue.push_back(game_entry)
@@ -163,8 +188,54 @@ func _on_Warning_search_completed(orig_game_data, new_game_data):
 			games_mutex.unlock()
 			break
 
-func _on_Finish_pressed():
-	RetroHubMediaHelper.clear_cache()
+func cancel_current_scrape():
+	RetroHubMediaHelper.cancel()
+
+func cancel_entry(game_entry):
+	games_mutex.lock()
+	games_queue.remove(games_queue.find(game_entry))
+	games_mutex.unlock()
+	games_semaphore.wait()
+	game_entry.data = "Canceled"
+	game_entry.state = RetroHubScraperGameEntry.State.ERROR
+
+func finish_scraping():
+	games_mutex.lock()
+	games_queue.clear()
+	games_mutex.unlock()
+	RetroHubMediaHelper.cancel()
 	games_semaphore.post()
 	thread.wait_to_finish()
+	RetroHubMediaHelper.clear_cache()
+	
+	# Save pending metadata
+	for game_entry in game_entry_list:
+		if game_entry.state != RetroHubScraperGameEntry.State.SUCCESS and game_entry.game_data.has_metadata:
+			RetroHubConfig.save_game_data(game_entry.game_data)
 	hide()
+
+func _on_Finish_pressed():
+	if num_games_pending > 0:
+		n_stop_scraper_dialog.set_num_games_pending(num_games_pending)
+		n_stop_scraper_dialog.popup_centered()
+	else:
+		finish_scraping()
+
+func _on_StopScraperDialog_confirmed():
+	finish_scraping()
+
+
+func _on_Error_retry_entry(game_entry):
+	games_mutex.lock()
+	games_queue.push_back(game_entry)
+	games_mutex.unlock()
+	games_semaphore.post()
+	game_entry.state = RetroHubScraperGameEntry.State.WAITING
+
+
+func _on_Waiting_cancel_entry(game_entry: Control):
+	cancel_entry(game_entry)
+
+
+func _on_Working_cancel_entry(game_entry):
+	cancel_current_scrape()

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/success.svg-16fb937c6e95b2f8a4522f31f84fbfff.stex"
+path="res://.import/warning.svg-65bacde54700a2f69db9a87b992307fa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/editor/success.svg"
-dest_files=[ "res://.import/success.svg-16fb937c6e95b2f8a4522f31f84fbfff.stex" ]
+source_file="res://assets/icons/warning.svg"
+dest_files=[ "res://.import/warning.svg-65bacde54700a2f69db9a87b992307fa.stex" ]
 
 [params]
 

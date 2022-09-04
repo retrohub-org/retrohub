@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/root/popups/first_time/GamesSection.gd" type="Script" id=1]
-[ext_resource path="res://assets/icons/editor/load.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/load.svg" type="Texture" id=2]
 
 [node name="GamesSection" type="Control"]
 anchor_right = 1.0

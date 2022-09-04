@@ -139,8 +139,8 @@ FileUtils="*res://source/utils/FileUtils.gd"
 RegionUtils="*res://source/utils/RegionUtils.gd"
 RetroHubMediaHelper="*res://source/Media.gd"
 RetroHubConfig="*res://source/Config.gd"
-RetroHub="*res://source/RetroHub.gd"
 RetroHubUI="*res://source/UI.gd"
+RetroHub="*res://source/RetroHub.gd"
 ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
 
 [display]

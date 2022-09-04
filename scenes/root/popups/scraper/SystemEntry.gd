@@ -21,6 +21,6 @@ func add_game_entry(game_data: RetroHubGameData, group: ButtonGroup):
 	game_entry.game_data = game_data
 	game_entry.fetch_mode = RetroHubScraperGameEntry.FETCH_METADATA | RetroHubScraperGameEntry.FETCH_MEDIA
 	game_entry.check_mode = RetroHubScraperGameEntry.CHECK_HASH
-	game_entry.state = RetroHubScraperGameEntry.State.WORKING
+	game_entry.state = RetroHubScraperGameEntry.State.WAITING
 	game_entry.group = group
 	return game_entry

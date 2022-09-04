@@ -8,8 +8,8 @@ onready var n_found_icon := $"%FoundIcon"
 onready var n_found_label := $"%FoundLabel"
 onready var n_found_details := $"%FoundDetails"
 
-onready var icon_found := preload("res://assets/icons/editor/success.svg")
-onready var icon_not_found := preload("res://assets/icons/editor/failure.svg")
+onready var icon_found := preload("res://assets/icons/success.svg")
+onready var icon_not_found := preload("res://assets/icons/failure.svg")
 
 func _ready():
 	set_label(label)

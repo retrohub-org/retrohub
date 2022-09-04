@@ -19,7 +19,6 @@
 [ext_resource path="res://scenes/root/popups/first_time/EmulatorsSection.tscn" type="PackedScene" id=17]
 
 [node name="FirstTimePopup" type="Popup"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 28.0
@@ -211,7 +210,6 @@ size_flags_vertical = 3
 tabs_visible = false
 
 [node name="IntroductionSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 12 )]
-visible = false
 margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
@@ -246,6 +244,7 @@ margin_right = -5.0
 margin_bottom = -5.0
 
 [node name="EmulatorsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 17 )]
+visible = false
 margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0

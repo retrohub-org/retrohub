@@ -96,3 +96,7 @@ func _on_Scrape_pressed():
 func _on_ScraperSettings_visibility_changed():
 	if visible:
 		update_scrape_stats(true)
+
+
+func _on_ScraperPopup_popup_hide():
+	update_scrape_stats(true)

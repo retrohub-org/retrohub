@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/icons/editor/success.svg" type="Texture" id=1]
+[ext_resource path="res://assets/icons/success.svg" type="Texture" id=1]
 [ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/icons/editor/failure.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/failure.svg" type="Texture" id=3]
 [ext_resource path="res://scenes/root/popups/copy_move/CopyMovePopup.gd" type="Script" id=4]
 
 [node name="CopyMovePopup" type="PopupDialog"]

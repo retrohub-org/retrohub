@@ -47,8 +47,8 @@ func set_label(node: Label, level: int):
 func set_icon(node: TextureRect, level: int):
 	match level:
 		RetroHubImporter.CompatibilityLevel.UNSUPPORTED:
-			node.texture = preload("res://assets/icons/editor/error.svg")
+			node.texture = preload("res://assets/icons/error.svg")
 		RetroHubImporter.CompatibilityLevel.PARTIAL:
-			node.texture = preload("res://assets/icons/editor/warning.svg")
+			node.texture = preload("res://assets/icons/warning.svg")
 		RetroHubImporter.CompatibilityLevel.SUPPORTED:
-			node.texture = preload("res://assets/icons/editor/success.svg")
+			node.texture = preload("res://assets/icons/success.svg")

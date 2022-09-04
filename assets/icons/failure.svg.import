@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/visibility_hidden.svg-430305caef61816dba69f1bf11aaf39f.stex"
+path="res://.import/failure.svg-cefac9534a8dd8302678d82789b44c4c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/editor/visibility_hidden.svg"
-dest_files=[ "res://.import/visibility_hidden.svg-430305caef61816dba69f1bf11aaf39f.stex" ]
+source_file="res://assets/icons/failure.svg"
+dest_files=[ "res://.import/failure.svg-cefac9534a8dd8302678d82789b44c4c.stex" ]
 
 [params]
 

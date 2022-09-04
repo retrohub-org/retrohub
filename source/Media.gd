@@ -3,7 +3,8 @@ extends HTTPRequest
 enum Status {
 	SUCCESS,
 	MULTIPLE_AVAILABLE,
-	ERROR
+	ERROR,
+	CANCELED
 }
 
 signal game_scrape_finished(status)
@@ -169,6 +170,7 @@ func _enter_tree():
 	timeout = 10
 
 func _on_request_completed(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray):
+	print("\t\tReceived request")
 	_req_result = result
 	_req_response_code = response_code
 	_req_headers = headers
@@ -183,8 +185,10 @@ func is_req_ok():
 	return not _req_result and _req_response_code == HTTPClient.RESPONSE_OK
 
 func scrape_game_by_hash(game_data: RetroHubGameData) -> void:
+	print("\tCached:", cached_requests.size())
 	if cached_requests.has(game_data):
 		_process_raw_game_data(cached_requests[game_data], game_data)
+		print("\tReturning cached result instead")
 		emit_signal("game_scrape_finished", Status.SUCCESS)
 		return
 
@@ -219,28 +223,32 @@ func scrape_game_by_hash(game_data: RetroHubGameData) -> void:
 	print(url)
 	request(url)
 	emit_signal("game_scrape_step", 0, 1, "metadata")
-	print("Request sent")
+	print("\tRequest sent")
 	yield(self, "request_completed")
-	print("Request complete")
+	print("\tRequest complete")
 
 	if is_req_ok():
 		var json = JSON.parse(_req_body.get_string_from_utf8())
 		if json.error:
-			print("Error when parsing JSON!")
+			print("\tError when parsing JSON!")
 			status_details = _req_body.get_string_from_utf8()
 			emit_signal("game_scrape_finished", Status.ERROR)
 			return
 		else:
 			var json_raw = json.result
-			print("Received JSON!")
 			# Preprocess json a bit due to ScreenScraper structure
 			json_raw = json_raw["response"]
 			json_raw = json_raw["jeu"]
-			_process_raw_game_data(json_raw, game_data)
-			cached_requests[game_data] = json_raw
-			#yield(_process_raw_game_media_data(json_raw, game_data), "completed")
-			emit_signal("game_scrape_finished", Status.SUCCESS)
-			return
+			# Even if ScreenScraper answered correctly, it might not have matched by hash but by name instead.
+			# Ensure the hash is here
+			if _is_hash_in_response(json_raw, md5):
+				_process_raw_game_data(json_raw, game_data)
+				cached_requests[game_data] = json_raw
+				emit_signal("game_scrape_finished", Status.SUCCESS)
+				return
+			else:
+				# Default to search term
+				scrape_game_by_search(game_data, game_data.name.get_basename())
 	elif _req_response_code == HTTPClient.RESPONSE_NOT_FOUND:
 		# Error from system. Most likely because this ROM hash doesn't exist in the database.
 		# Default to search term
@@ -260,6 +268,11 @@ func handle_error():
 			RESULT_TIMEOUT:
 				# Timeout
 				status_details = "The service took too much time to answer. This might be due to a slow/unreliable internet connection, or the service is too busy."
+
+func cancel():
+	cancel_request()
+	emit_signal("request_completed", ERR_UNAVAILABLE, HTTPClient.RESPONSE_REQUEST_TIMEOUT, PoolStringArray(), PoolByteArray())
+	status_details = "The request was canceled by the user."
 
 func remap_cache(game_data_old: RetroHubGameData, game_data_new: RetroHubGameData) -> void:
 	if cached_requests.has(game_data_old):
@@ -292,14 +305,11 @@ func scrape_game_by_search(game_data: RetroHubGameData, search_term: String) -> 
 	print(url)
 	request(url)
 	emit_signal("game_scrape_step", 0, 1, "metadata")
-	print("Request sent")
 	yield(self, "request_completed")
-	print("Request complete")
 
 	if is_req_ok():
 		var json = JSON.parse(_req_body.get_string_from_utf8())
 		if json.error:
-			print("Error when parsing JSON!")
 			status_details = _req_body.get_string_from_utf8()
 			emit_signal("game_scrape_finished", Status.ERROR)
 			return
@@ -340,9 +350,11 @@ func scrape_game_media_data(game_data):
 		var idx = 0
 		for media in medias:
 			emit_signal("game_scrape_step", idx, medias.size(), media)
+			print("\tStarting request of media")
 			yield(_process_raw_game_media_data(cached_requests[game_data], game_data, media, true), "completed")
 			if not is_req_ok():
 				handle_error()
+				print("\tError requesting media")
 				emit_signal("game_media_scrape_finished", Status.ERROR)
 				return
 			idx += 1
@@ -359,6 +371,13 @@ func scrape_game_media_data_type(game_data: RetroHubGameData, media_type: String
 		emit_signal("game_media_scrape_finished", Status.ERROR)
 		return
 	emit_signal("game_media_scraped", game_data, _req_body)
+
+func _is_hash_in_response(json: Dictionary, md5: String):
+	if json.has("roms"):
+		for rom in json["roms"]:
+			if rom.has("rommd5") and rom["rommd5"].to_lower() == md5:
+				return true
+	return false
 
 func _process_raw_game_data(json: Dictionary, game_data: RetroHubGameData):
 		# Save simple metadata
@@ -429,13 +448,19 @@ func _process_raw_game_media_data(json: Dictionary, game_data: RetroHubGameData,
 			FileUtils.ensure_path(local_filename)
 			download_file = local_filename + "." + res["format"]
 		download_chunk_size = 1024 * 1024 * 4 # 4MB
+		# Wait for any pending requests to finish
+		if get_http_client_status() == HTTPClient.STATUS_REQUESTING:
+			yield(self, "request_completed")
+		print("\tRequesting media ", res["url"])
 		request(res["url"])
+		print("\tDone requesting media")
 		yield(self, "request_completed")
+		print("\tRequest over")
 		if is_req_ok():
 			game_data.has_media = true
-			print("Success in requesting %s, at %s" % [media_type, download_file])
+			print("\tSuccess in requesting %s, at %s" % [media_type, download_file])
 		else:
-			print("Error in requesting %s" % media_type)
+			print("\tError in requesting %s" % media_type)
 
 func retrieve_media_data(game_data: RetroHubGameData) -> RetroHubGameMediaData:
 	var game_media_data := RetroHubGameMediaData.new()
