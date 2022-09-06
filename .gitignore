@@ -20,6 +20,9 @@ godotOld
 # Ignore pre-built FFMPEG binaries for now
 addons/godot-videodecoder/**
 
+# Ignore specific addons
+addons/wakatime
+
 # Ignore some assets for now
 assets/systems
 assets/systems_workdir
