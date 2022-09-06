@@ -80,7 +80,7 @@ func get_os_id() -> int:
 	match OS.get_name():
 		"Windows", "UWP":
 			return OS_ID.WINDOWS
-		"macOS":
+		"OSX":
 			return OS_ID.MACOS
 		"X11":
 			return OS_ID.LINUX
@@ -91,7 +91,7 @@ func get_os_string() -> String:
 	match OS.get_name():
 		"Windows", "UWP":
 			return "windows"
-		"macOS":
+		"OSX":
 			return "macos"
 		"X11":
 			return "linux"

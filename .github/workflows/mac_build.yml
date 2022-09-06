@@ -1,0 +1,192 @@
+name: 🍎 macOS Builds
+on: [push, pull_request]
+
+env:
+  THEME_TAG: v1.0.0
+
+jobs:
+  extract-sdk:
+    runs-on: "macos-12"
+    name: Extract SDK
+    steps:
+      - name : "Load cache"
+        uses: actions/cache@v3
+        id: "cache"
+        with:
+          path: cached_builds/sdk
+          key: MacOS-sdk
+        continue-on-error: true
+
+      - name: "Checkout osxcross"
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/checkout@v3
+        with:
+          repository: tpoechtrager/osxcross
+
+      - name: "Extract SDK"
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          ./tools/gen_sdk_package.sh
+          mkdir -p -v cached_builds/sdk
+          mv MacOSX12.3.sdk.tar.xz cached_builds/sdk
+
+  compile-ffmpeg:
+    needs: extract-sdk
+    runs-on: "ubuntu-20.04"
+    name: Compile FFMPEG
+
+    steps:
+      - name : "Load cache (SDK)"
+        uses: actions/cache@v3
+        id: "cache-sdk"
+        with:
+          path: cached_builds/sdk
+          key: MacOS-sdk
+        continue-on-error: true
+      
+      - name : "Load cache (videodecoder)"
+        uses: actions/cache@v3
+        id: "cache-videodecoder"
+        with:
+          path: cached_builds/videodecoder/osx
+          key: MacOS-videodecoder-build
+        continue-on-error: false
+
+      - name: "Checkout godot-videodecoder"
+        if: steps.cache-videodecoder.outputs.cache-hit != 'true'
+        uses: actions/checkout@v3
+        with:
+          repository: retrohub-org/godot-videodecoder
+          submodules: recursive
+
+      - name: "Compile"
+        if: steps.cache-videodecoder.outputs.cache-hit != 'true'
+        env:
+          PLATFORMS: osx
+        run: |
+          mv cached_builds/sdk/MacOSX12.3.sdk.tar.xz darwin_sdk
+          ./build_gdnative.sh
+          mkdir -p -v cached_builds/videodecoder
+          cp -r -v target/* cached_builds/videodecoder
+
+  build-macos:
+    needs: compile-ffmpeg
+    runs-on: "macos-12"
+    name: Build
+
+    steps:
+      - name: "Checkout RetroHub"
+        uses: actions/checkout@v3
+        with:
+          path: "retrohub"
+
+      - name : "Load cached objects (Godot editor)"
+        uses: actions/cache@v3
+        id: "cache_editor"
+        with:
+          path: cached_builds/editor/Godot.app
+          key: MacOS-editor-build
+        continue-on-error: true
+      
+      - name : "Load cached objects (Godot templates)"
+        uses: actions/cache@v3
+        id: "cache_template"
+        with:
+          path: cached_builds/template/osx.zip
+          key: MacOS-template-build
+        continue-on-error: true
+      
+      - name : "Load cached objects (Videodecoder)"
+        uses: actions/cache@v3
+        id: "cache_videodecoder"
+        with:
+          path: cached_builds/videodecoder/osx
+          key: MacOS-videodecoder-build
+        continue-on-error: false
+
+      - name: "Checkout Custom Godot"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: actions/checkout@v3
+        with:
+          repository: retrohub-org/godot
+          ref: retrohub_patches
+          path: "godot"
+
+      - name: "[Godot] Dependencies"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        working-directory: ./godot
+        shell: bash
+        run: |
+          brew install scons yasm
+
+      - name: "[Godot] Setup Godot build cache"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-cache
+        with:
+          cache-name: macos-template
+        continue-on-error: true
+
+      - name: "[Godot] Setup python and scons"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-deps
+
+      - name: "[Godot] Compilation [template] (x86_64)"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-build
+        with:
+          root: ./godot
+          sconsflags: verbose=yes warnings=all werror=yes arch=x86_64
+          platform: osx
+          target: release
+          tools: false
+
+      - name: "[Godot] Compilation [template] (arm64)"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-build
+        with:
+          root: ./godot
+          sconsflags: verbose=yes warnings=all werror=yes arch=arm64
+          platform: osx
+          target: release
+          tools: false
+
+      - name: "[Godot] Clean and cache template build"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        working-directory: godot
+        run: |
+          lipo -create bin/godot.osx.opt.x86_64 bin/godot.osx.opt.arm64 -output bin/godot.osx.opt.universal
+          cp -r misc/dist/osx_template.app .
+          mkdir -p -v osx_template.app/Contents/MacOS
+          cp bin/godot.osx.opt.universal osx_template.app/Contents/MacOS/godot_osx_release.64
+          chmod +x osx_template.app/Contents/MacOS/godot_osx_release.64
+          zip -q -9 -r osx.zip osx_template.app
+          mkdir -p -v ../cached_builds/template
+          mv osx.zip ../cached_builds/template
+
+      - name: "[Godot] Download editor"
+        if: steps.cache_editor.outputs.cache-hit != 'true'
+        run: |
+          wget https://downloads.tuxfamily.org/godotengine/3.5/Godot_v3.5-stable_osx.universal.zip
+          unzip Godot_v3.5-stable_osx.universal.zip
+          mkdir -p -v cached_builds/editor
+          mv Godot.app cached_builds/editor/
+
+      - name: "Setup templates and libraries"
+        env:
+          TEMPLATE_PATH: /Users/runner/Library/Application Support/Godot/templates/3.5.stable
+        run: |
+          mkdir -p -v "$TEMPLATE_PATH"
+          cp cached_builds/template/osx.zip "$TEMPLATE_PATH"
+          ln -s ../../../cached_builds/videodecoder/osx retrohub/addons/godot-videodecoder/osx
+          mkdir -p -v export/macos
+
+      - name: "Exporting RetroHub"
+        working-directory: retrohub
+        run: |
+          ../cached_builds/editor/Godot.app/Contents/MacOS/Godot --export "Mac" ../export/macos/RetroHub.app
+
+      - name: "Upload Artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos
+          path: export/macos

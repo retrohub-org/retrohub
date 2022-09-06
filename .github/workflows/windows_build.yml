@@ -1,0 +1,155 @@
+name: 🏁 Windows Builds
+on: [push, pull_request]
+
+env:
+  THEME_TAG: v1.0.0
+
+jobs:
+  build-windows:
+    runs-on: "ubuntu-20.04"
+    name: Build
+    strategy:
+      matrix:
+        include:
+          - name: 32 Bits
+            bits: 32
+            bin: godot.windows.opt.32.exe
+            template: godot_32.exe
+            videodecoder: win32
+          - name: 64 Bits
+            bits: 64
+            bin: godot.windows.opt.64.exe
+            template: godot_64.exe
+            videodecoder: win64
+
+    steps:
+      - name: "Checkout RetroHub"
+        uses: actions/checkout@v3
+        with:
+          path: "retrohub"
+
+      - name : "Load cached objects (Godot editor)"
+        uses: actions/cache@v3
+        id: "cache_editor"
+        with:
+          path: cached_builds/editor/godot
+          key: editor-build
+        continue-on-error: true
+      
+      - name : "Load cached objects (Godot templates)"
+        uses: actions/cache@v3
+        id: "cache_template"
+        with:
+          path: cached_builds/template/godot_${{ matrix.bits }}.exe
+          key: Windows-${{ matrix.bits }}-template-build
+        continue-on-error: true
+      
+      - name : "Load cached objects (Videodecoder)"
+        uses: actions/cache@v3
+        id: "cache_videodecoder"
+        with:
+          path: cached_builds/videodecoder/${{ matrix.videodecoder }}
+          key: Windows-${{ matrix.bits }}-videodecoder-build
+        continue-on-error: true
+
+      - name: "Checkout Custom Godot"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: actions/checkout@v3
+        with:
+          repository: retrohub-org/godot
+          ref: retrohub_patches
+          path: "godot"
+
+      - name: "Checkout godot-videodecoder"
+        if: steps.cache_videodecoder.outputs.cache-hit != 'true'
+        uses: actions/checkout@v3
+        with:
+          repository: retrohub-org/godot-videodecoder
+          submodules: recursive
+          path: "videodecoder"
+
+      - name: "[Godot] Dependencies"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        working-directory: ./godot
+        shell: bash
+        run: |
+          # Azure repositories are not reliable, we need to prevent azure giving us packages.
+          sudo rm -f /etc/apt/sources.list.d/*
+          sudo cp -f misc/ci/sources.list /etc/apt/sources.list
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          # The actual dependencies
+          sudo apt-get install build-essential gcc-multilib g++-multilib pkg-config libc6-dev-i386 libx11-dev libx11-dev:i386 \
+              libxcursor-dev libxcursor-dev:i386 libxinerama-dev libxinerama-dev:i386 libx11-dev:i386 libgl1-mesa-dev \
+              libgl1-mesa-dev:i386 libglu-dev libasound2-dev libpulse-dev libdbus-1-dev libudev-dev libxi-dev \
+              libxi-dev:i386 libxrandr-dev libxrandr-dev:i386 yasm xvfb wget unzip mingw-w64
+          sudo update-alternatives --set i686-w64-mingw32-gcc /usr/bin/i686-w64-mingw32-gcc-posix
+          sudo update-alternatives --set i686-w64-mingw32-g++ /usr/bin/i686-w64-mingw32-g++-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+
+      - name: "[Godot] Setup Godot build cache"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-cache
+        with:
+          cache-name: windows-template
+        continue-on-error: true
+
+      - name: "[Godot] Setup python and scons"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-deps
+
+      - name: "[Godot] Compilation [template]"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-build
+        with:
+          root: ./godot
+          sconsflags: verbose=yes warnings=all werror=yes bits=${{ matrix.bits }}
+          platform: windows
+          target: release
+          tools: false
+
+      - name: "[Godot] Clean and cache template build"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        run: |
+          strip godot/bin/*
+          mkdir -p -v cached_builds/template
+          [[ -e godot/bin/${{ matrix.bin }} ]] && mv godot/bin/${{ matrix.bin }} cached_builds/template/${{ matrix.template }}
+
+      - name: "[Godot] Download editor"
+        if: steps.cache_editor.outputs.cache-hit != 'true'
+        run: |
+          wget https://downloads.tuxfamily.org/godotengine/3.5/Godot_v3.5-stable_linux_headless.64.zip
+          unzip Godot_v3.5-stable_linux_headless.64.zip
+          mkdir -p -v cached_builds/editor
+          mv Godot_v3.5-stable_linux_headless.64 cached_builds/editor/godot
+
+      - name: "[Videodecoder] Compilation"
+        if: steps.cache_videodecoder.outputs.cache-hit != 'true'
+        working-directory: ./videodecoder
+        env:
+          PLATFORMS: ${{ matrix.videodecoder }}
+        run: |
+          ./build_gdnative.sh
+          mkdir -p -v ../cached_builds/videodecoder
+          cp -r -v target/* ../cached_builds/videodecoder
+
+      - name: "Setup templates and libraries"
+        env:
+          TEMPLATE_PATH: /home/runner/.local/share/godot/templates/3.5.stable
+        run: |
+          mkdir -p -v $TEMPLATE_PATH
+          cp cached_builds/template/${{ matrix.template }} $TEMPLATE_PATH/windows_${{ matrix.bits }}_release.exe
+          ln -s ../../../cached_builds/videodecoder/${{ matrix.videodecoder }} retrohub/addons/godot-videodecoder/${{ matrix.videodecoder }}
+          mkdir -p -v export/windows_${{ matrix.bits }}
+
+      - name: "Exporting RetroHub"
+        working-directory: retrohub
+        run: |
+          ../cached_builds/editor/godot --export "Windows (${{ matrix.bits }})" ../export/windows_${{ matrix.bits }}/RetroHub.exe
+
+      - name: "Upload Artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-${{ matrix.bits }}
+          path: export/windows_${{ matrix.bits }}
