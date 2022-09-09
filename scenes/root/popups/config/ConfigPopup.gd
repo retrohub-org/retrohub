@@ -11,6 +11,7 @@ func _input(event: InputEvent):
 			n_game_settings.set_game_data(RetroHub.curr_game_data)
 		else:
 			hide()
+			RetroHubConfig.save_theme_config()
 
 func _unhandled_input(event):
 	if event.is_action_pressed("rh_left_shoulder"):

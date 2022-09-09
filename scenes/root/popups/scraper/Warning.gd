@@ -22,7 +22,7 @@ var new_game_data : RetroHubGameData
 var cached_images := {}
 
 func _ready():
-	RetroHubMediaHelper.connect("game_media_scraped", self, "_on_game_media_scraped")
+	RetroHubMedia.connect("game_media_scraped", self, "_on_game_media_scraped")
 
 func set_entry(game_entry: Control):
 	clear_entries()
@@ -70,7 +70,7 @@ func populate_info(game_data: RetroHubGameData):
 
 func request_screenshot(game_data: RetroHubGameData):
 	cached_images[game_data] = null
-	RetroHubMediaHelper.scrape_game_media_data_type(game_data, "screenshot")
+	RetroHubMedia.scrape_game_media_data_type(game_data, "screenshot")
 
 func _on_game_media_scraped(game_data: RetroHubGameData, req_body: PoolByteArray):
 	# FIXME: Hardcoded to PNG
@@ -109,5 +109,5 @@ func _on_Search_pressed():
 
 func _on_Confirm_pressed():
 	cached_images.clear()
-	RetroHubMediaHelper.remap_cache(new_game_data, orig_game_data)
+	RetroHubMedia.remap_cache(new_game_data, orig_game_data)
 	emit_signal("search_completed", orig_game_data, new_game_data)

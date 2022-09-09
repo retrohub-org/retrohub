@@ -2,6 +2,10 @@ extends Node
 
 signal config_ready(config_data)
 signal config_updated(key, old_value, new_value)
+
+signal theme_config_ready()
+signal theme_config_updated(key, old_value, new_value)
+
 signal system_data_updated(system_data)
 signal game_data_updated(game_data)
 signal game_media_data_updated(game_media_data)
@@ -17,6 +21,9 @@ var config := ConfigData.new()
 var theme : Node
 var theme_path : String
 var theme_data : RetroHubTheme
+var _theme_config_changed := false
+var _theme_config_old : Dictionary
+var _theme_config : Dictionary
 
 var games : Array
 var systems : Dictionary
@@ -216,35 +223,94 @@ func load_theme() -> bool:
 		print("Error when loading theme " + theme_path)
 		return false
 
+	if theme_data and is_instance_valid(theme_data.entry_scene):
+		theme_data.entry_scene.free()
 	load_theme_data()
-	if is_instance_valid(theme):
-		theme.free()
-	theme = theme_data.entry_scene.instance()
-	if theme:
+	if theme_data.entry_scene:
 		return true
 	else:
 		return false
 
 func load_theme_data():
 	var theme_raw := JSONUtils.load_json_file("res://theme.json")
-	if theme_raw.empty():
+	if theme_raw.empty() or not theme_raw.has("id"):
 		print("Error when loading theme data!")
 		return
 
 	theme_data = RetroHubTheme.new()
-	theme_data.name = theme_raw["name"]
-	theme_data.description = theme_raw["description"]
-	theme_data.version = theme_raw["version"]
-	theme_data.url = theme_raw["url"]
-	theme_data.icon = load(theme_raw["icon"])
-	for screenshot in theme_raw["screenshots"]:
-		theme_data.screenshots.push_back(load(screenshot))
-	theme_data.entry_scene = load(theme_raw["entry_scene"])
+	theme_data.id = theme_raw["id"]
+	if theme_raw.has("name"):
+		theme_data.name = theme_raw["name"]
+	if theme_raw.has("description"):
+		theme_data.description = theme_raw["description"]
+	if theme_raw.has("version"):
+		theme_data.version = theme_raw["version"]
+	if theme_raw.has("url"):
+		theme_data.url = theme_raw["url"]
+	if theme_raw.has("icon"):
+		theme_data.icon = load(theme_raw["icon"])
+	if theme_raw.has("screenshots"):
+		for screenshot in theme_raw["screenshots"]:
+			theme_data.screenshots.push_back(load(screenshot))
+	if theme_raw.has("entry_scene"):
+		theme_data.entry_scene = load(theme_raw["entry_scene"]).instance()
+	if theme_raw.has("config_scene"):
+		theme_data.config_scene = load(theme_raw["config_scene"]).instance()
+	if theme_raw.has("app_theme"):
+		theme_data.app_theme = load(theme_raw["app_theme"])
 
 func unload_theme():
-	if !ProjectSettings.unload_resource_pack(theme_path):
-		print("Error when unloading theme " + theme_path)
-		return
+	if theme_data:
+		# Save config if exists
+		if theme_data.config_scene:
+			save_theme_config()
+
+		if !ProjectSettings.unload_resource_pack(theme_path):
+			print("Error when unloading theme " + theme_path)
+			return
+
+func get_theme_config(key, default_value):
+	if not _theme_config.has(key):
+		return default_value
+	return _theme_config[key]
+
+func set_theme_config(key, value):
+	_theme_config_changed = true
+	_theme_config[key] = value
+
+func load_theme_config():
+	_theme_config = {}
+	_theme_config_changed = false
+	var theme_config_path = get_theme_config_dir() + "/config.json"
+	FileUtils.ensure_path(theme_config_path)
+	if not _file.open(theme_config_path, File.READ):
+		var result := JSON.parse(_file.get_as_text())
+		_file.close()
+		if not result.error:
+			_theme_config = result.result
+			_theme_config_old = _theme_config.duplicate()
+		else:
+			print("Error when parsing theme config at %s" % theme_config_path)
+	else:
+		print("Error when reading theme config at %s" % theme_config_path)
+	emit_signal("theme_config_ready")
+
+func save_theme_config():
+	if _theme_config_changed:
+		var theme_config_path = get_theme_config_dir() + "/config.json"
+		if _file.open(theme_config_path, File.WRITE):
+			print("Error when saving theme config at %s" % theme_config_path)
+			return
+		_file.store_string(JSON.print(_theme_config, "\t"))
+		_file.close()
+
+		for key in _theme_config:
+			if not _theme_config_old.has(key):
+				emit_signal("theme_config_updated", key, "", _theme_config[key])
+			elif _theme_config_old[key] != _theme_config[key]:
+				emit_signal("theme_config_updated", key, _theme_config_old[key], _theme_config[key])
+		
+		_theme_config_changed = false
 
 func _exit_tree():
 	save_config()
@@ -300,6 +366,9 @@ func get_emulators_file() -> String:
 
 func get_themes_dir():
 	return get_config_dir() + "/themes"
+
+func get_theme_config_dir():
+	return get_themes_dir() + "/config/" + theme_data.id if theme_data else ""
 
 func get_gamelists_dir():
 	return get_config_dir() + "/gamelists"

@@ -9,7 +9,7 @@ onready var base_text = n_label.text
 var game_entry
 
 func _ready():
-	RetroHubMediaHelper.connect("game_scrape_step", self, "_on_game_scrape_step")
+	RetroHubMedia.connect("game_scrape_step", self, "_on_game_scrape_step")
 
 func set_entry(_game_entry: Control):
 	game_entry = _game_entry

@@ -142,6 +142,7 @@ RetroHubConfig="*res://source/Config.gd"
 RetroHubUI="*res://source/UI.gd"
 RetroHub="*res://source/RetroHub.gd"
 ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
+RetroHubMedia="*res://source/Media.gd"
 
 [display]
 

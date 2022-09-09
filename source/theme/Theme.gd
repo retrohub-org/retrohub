@@ -1,23 +1,32 @@
 extends Resource
 class_name RetroHubTheme
 
+## Identifier for this theme. Should be a short but unique identifiable name
+var id : String
+
 ## Name of the theme
-export(String) var name : String
+var name : String
 
 ## Full description of the theme
-export(String, MULTILINE) var description : String
+var description : String
 
 ## Icon for the theme
-export(Texture) var icon : Texture
+var icon : Texture
 
 ## Version of the theme
-export(String) var version : String
+var version : String
 
 ## Upstream URL for updates/repo/contacts
-export(String) var url : String
+var url : String
 
 ## Screenshot list for presenting
-export(Array, Texture) var screenshots : Array
+var screenshots : Array
 
 ## Main entry scene
-export(PackedScene) var entry_scene : PackedScene
+var entry_scene : Node
+
+## Custom configuration scene
+var config_scene : Node
+
+## Custom app theme
+var app_theme : Theme

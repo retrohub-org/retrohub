@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/root/popups/config/ConfigPopup.gd" type="Script" id=1]
 [ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=2]
@@ -6,11 +6,13 @@
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=4]
 [ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture" id=5]
 [ext_resource path="res://scenes/root/popups/config/ScraperSettings.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/root/popups/config/ThemeSettings.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/root/popups/config/NoThemeSettings.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/controller_icons/assets/key/q.png" type="Texture" id=8]
 [ext_resource path="res://scenes/root/popups/config/AppSettings.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/root/popups/config/ThemeSettings.gd" type="Script" id=10]
 
 [node name="ConfigPopup" type="Popup"]
+visible = true
 anchor_left = 0.098
 anchor_top = 0.167
 anchor_right = 0.902
@@ -35,16 +37,28 @@ margin_bottom = -5.0
 [node name="Scraper" parent="TabContainer" instance=ExtResource( 6 )]
 visible = false
 margin_left = 5.0
-margin_top = 29.0
+margin_top = 35.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Theme" parent="TabContainer" instance=ExtResource( 7 )]
+[node name="Theme" type="ScrollContainer" parent="TabContainer"]
 visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 29.0
+margin_top = 35.0
 margin_right = -5.0
 margin_bottom = -5.0
+script = ExtResource( 10 )
+no_theme_settings_scene = ExtResource( 7 )
+
+[node name="Theme" parent="TabContainer/Theme" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 814.0
+margin_bottom = 360.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Application" parent="TabContainer" instance=ExtResource( 9 )]
 visible = false

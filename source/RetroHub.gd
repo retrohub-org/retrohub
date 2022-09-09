@@ -68,9 +68,11 @@ func _load_theme():
 	print("Config is ready, parsing metadata...")
 	var systems : Dictionary = RetroHubConfig.systems
 	var games : Array = RetroHubConfig.games
+	RetroHubConfig.unload_theme()
 	if not RetroHubConfig.load_theme():
 		return
-	emit_signal("_theme_loaded", RetroHubConfig.theme)
+	emit_signal("_theme_loaded", RetroHubConfig.theme_data)
+	RetroHubConfig.load_theme_config()
 
 	emit_signal("system_receive_start")
 	for system in systems.values():
@@ -87,6 +89,9 @@ func set_curr_game_data(game_data: RetroHubGameData) -> void:
 
 func is_input_echo() -> bool:
 	return is_echo
+
+func is_main_app() -> bool:
+	return true
 
 func quit():
 	RetroHubConfig.save_config()
