@@ -82,13 +82,6 @@ func _load_theme():
 		emit_signal("game_received", game)
 	emit_signal("game_receive_end")
 
-func request_game_media(game_data: RetroHubGameData) -> RetroHubGameMediaData:
-	if not game_data.has_media:
-		print("Error: game %s has no media" % game_data.name)
-		return RetroHubGameMediaData.new()
-
-	return RetroHubMediaHelper.retrieve_media_data(game_data)
-
 func set_curr_game_data(game_data: RetroHubGameData) -> void:
 	curr_game_data = game_data
 

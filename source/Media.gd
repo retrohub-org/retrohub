@@ -463,6 +463,9 @@ func _process_raw_game_media_data(json: Dictionary, game_data: RetroHubGameData,
 			print("\tError in requesting %s" % media_type)
 
 func retrieve_media_data(game_data: RetroHubGameData) -> RetroHubGameMediaData:
+	if not game_data.has_media:
+		print("Error: game %s has no media" % game_data.name)
+		return null
 	var game_media_data := RetroHubGameMediaData.new()
 
 	var media_path = RetroHubConfig.get_gamemedia_dir() + "/" + game_data.system_name
@@ -541,7 +544,6 @@ func retrieve_media_data(game_data: RetroHubGameData) -> RetroHubGameMediaData:
 		print("Error when loading video for game %s!" % game_data.name)
 	else:
 		var video_stream := VideoStreamGDNative.new()
-		#var video_stream := VideoStreamWebm.new()
 		video_stream.set_file(path)
 		game_media_data.video = video_stream
 	
