@@ -85,7 +85,6 @@ hide_folding = true
 
 [node name="Computers" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees"]
 unique_name_in_owner = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 focus_neighbour_left = NodePath("../../../ScrollContainer/Categories")

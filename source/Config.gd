@@ -43,6 +43,7 @@ func _ready():
 	bootstrap_config_dir()
 	load_config_file()
 	_systems_raw = JSONUtils.map_array_by_key(JSONUtils.load_json_file(get_systems_file())["systems_list"], "name")
+	expand_systems()
 	emulators = JSONUtils.load_json_file(get_emulators_file())["emulators_list"]
 	emulators_map = JSONUtils.map_array_by_key(emulators, "name")
 	if not config.is_first_time:
@@ -52,6 +53,11 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	emit_signal("config_ready", config)
 	config.connect("config_updated", self, "_on_config_updated")
+
+func expand_systems():
+	for key in _systems_raw:
+		if _systems_raw[key].has("extends"):
+			_systems_raw[key].merge(_systems_raw[_systems_raw[key]["extends"]])
 
 func load_config_file():
 	var err = config.load_config_from_path(get_config_file())
