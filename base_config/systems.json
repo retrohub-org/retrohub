@@ -632,6 +632,190 @@
 			]
 		},
 		{
+			"name": "ags",
+			"fullname": "Adventure Game Studio",
+			"category": "engine",
+			"extension": [
+				".exe",
+				""
+			],
+			"platform": "ags",
+			"emulator": [
+				"ags"
+			]
+		},
+		{
+			"name": "cavestory",
+			"fullname": "Cave Story (NXEngine)",
+			"category": "engine",
+			"extension": [
+				".exe"
+			],
+			"platform": "cavestory",
+			"emulator": [
+				{
+					"retroarch": [
+						"nxengine"
+					]
+				}
+			]
+		},
+		{
+			"name": "chailove",
+			"fullname": "ChaiLove",
+			"category": "engine",
+			"extension": [
+				".chai",
+				".chailove"
+			],
+			"platform": "chailove",
+			"emulator": [
+				{
+					"retroarch": [
+						"chailove"
+					]
+				}
+			]
+		},
+		{
+			"name": "doom",
+			"fullname": "DOOM",
+			"category": "engine",
+			"extension": [
+				".wad",
+				".iwad",
+				".pwad"
+			],
+			"platform": "doom",
+			"emulator": [
+				{
+					"retroarch": [
+						"prboom"
+					]
+				},
+				"zdoom"
+			]
+		},
+		{
+			"name": "godot",
+			"fullname": "Godot",
+			"category": "engine",
+			"extension": [
+				".pck",
+				".zip"
+			],
+			"platform": "godot",
+			"emulator": [
+				{
+					"retroarch": [
+						"godot"
+					]
+				},
+				"godot"
+			]
+		},
+		{
+			"name": "lutro",
+			"fullname": "Lutro",
+			"category": "engine",
+			"extension": [
+				".lutro",
+				".lua"
+			],
+			"platform": "lutro",
+			"emulator": [
+				{
+					"retroarch": [
+						"lutro"
+					]
+				}
+			]
+		},
+		{
+			"name": "openbor",
+			"fullname": "OpenBOR",
+			"category": "engine",
+			"extension": [
+				".pak"
+			],
+			"platform": "openbor",
+			"emulator": [
+				"openbor"
+			]
+		},
+		{
+			"name": "pico8",
+			"fullname": "PICO-8",
+			"category": "engine",
+			"extension": [
+				".p8",
+				".png"
+			],
+			"platform": "pico8",
+			"emulator": [
+				"pico8"
+			]
+		},
+		{
+			"name": "scummvm",
+			"fullname": "ScummVM",
+			"category": "engine",
+			"extension": [
+				".scummvm"
+			],
+			"platform": "scummvm",
+			"emulator": [
+				{
+					"retroarch": [
+						"scummvm"
+					]
+				},
+				"scummvm"
+			]
+		},
+		{
+			"name": "solarus",
+			"fullname": "Solarus",
+			"category": "engine",
+			"extension": [
+				".solarus"
+			],
+			"platform": "solarus",
+			"emulator": [
+				"solarus"
+			]
+		},
+		{
+			"name": "stratagus",
+			"fullname": "Stratagus",
+			"category": "engine",
+			"extension": [
+				".exe",
+				""
+			],
+			"platform": "stratagus",
+			"emulator": [
+				"stratagus"
+			]
+		},
+		{
+			"name": "tic80",
+			"fullname": "TIC-80",
+			"category": "engine",
+			"extension": [
+				".tic"
+			],
+			"platform": "tic80",
+			"emulator": [
+				{
+					"retroarch": [
+						"tic80"
+					]
+				},
+				"tic80"
+			]
+		},
+		{
 			"name": "nes",
 			"fullname": "Nintendo Entertainment System",
 			"category": "console",

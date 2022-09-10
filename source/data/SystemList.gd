@@ -5,8 +5,6 @@ var computers := [
 	"amiga600",
 	"amiga1200",
 	"amstradcpc",
-	"apple2",
-	"apple2gs",
 	"atari800",
 	"atarist",
 	"bbcmicro",
