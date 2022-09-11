@@ -140,7 +140,7 @@
 					]
 				},
 				{
-					"name": "bshes_hd",
+					"name": "bshes-hd",
 					"fullname": "bsnes-hd",
 					"file": [
 						{
@@ -151,7 +151,7 @@
 					]
 				},
 				{
-					"name": "bsnes_mercury_accuracy",
+					"name": "bsnes-mercury-accuracy",
 					"fullname": "bsnes-mercury Accuracy",
 					"file": [
 						{
@@ -162,7 +162,7 @@
 					]
 				},
 				{
-					"name": "beetle_supafaust",
+					"name": "beetle-supafaust",
 					"fullname": "Beetle Supafaust",
 					"file": [
 						{
@@ -173,7 +173,7 @@
 					]
 				},
 				{
-					"name": "mesen_s",
+					"name": "mesen-s",
 					"fullname": "Mesen-S",
 					"file": [
 						{
@@ -184,7 +184,7 @@
 					]
 				},
 				{
-					"name": "mupen64plus_next",
+					"name": "mupen64plus-next",
 					"fullname": "Mupen64Plus-Next",
 					"file": [
 						{
@@ -195,7 +195,7 @@
 					]
 				},
 				{
-					"name": "parallel_n64",
+					"name": "parallel-n64",
 					"fullname": "ParaLLEl N64",
 					"file": [
 						{

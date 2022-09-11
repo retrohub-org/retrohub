@@ -3,8 +3,9 @@ class_name RetroHubSystemData
 
 enum Category {
 	Console,		# Retro console
+	Arcade,			# Arcade machines
 	Computer,		# Old computer
-	GameEngine,			# General game engines
+	GameEngine,		# General game engines
 	ModernConsole	# Modern consoles (7th generation upwards)
 }
 

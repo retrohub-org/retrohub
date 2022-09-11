@@ -83,6 +83,17 @@ columns = 2
 column_titles_visible = true
 hide_folding = true
 
+[node name="Arcades" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_neighbour_left = NodePath("../../../ScrollContainer/Categories")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+column_titles_visible = true
+hide_folding = true
+
 [node name="Computers" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees"]
 unique_name_in_owner = true
 anchor_right = 1.0
@@ -171,6 +182,8 @@ autowrap = true
 [connection signal="system_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" to="." method="_on_SystemTrees_system_selected"]
 [connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Consoles" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Consoles_item_edited"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Consoles" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Consoles_item_selected"]
+[connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Arcades" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Arcades_item_edited"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Arcades" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Arcades_item_selected"]
 [connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Computers" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Computers_item_edited"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Computers" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Computers_item_selected"]
 [connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Engines" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Engines_item_edited"]

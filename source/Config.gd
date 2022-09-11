@@ -149,6 +149,8 @@ func convert_system_category(category_raw: String):
 			return RetroHubSystemData.Category.Computer
 		"engine":
 			return RetroHubSystemData.Category.GameEngine
+		"arcade":
+			return RetroHubSystemData.Category.Arcade
 		"modern_console":
 			return RetroHubSystemData.Category.ModernConsole
 		"console", _:

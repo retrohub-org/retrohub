@@ -3,6 +3,7 @@ extends Control
 signal system_selected(system)
 
 onready var n_consoles := $"%Consoles"
+onready var n_arcades := $"%Arcades"
 onready var n_computers := $"%Computers"
 onready var n_engines := $"%Engines"
 onready var n_modern_consoles := $"%ModernConsoles"
@@ -10,7 +11,7 @@ onready var n_modern_consoles := $"%ModernConsoles"
 onready var n_system_warning := $"%SystemWarning"
 
 onready var n_systems := [
-	n_consoles, n_computers,
+	n_consoles, n_arcades, n_computers,
 	n_engines, n_modern_consoles
 ]
 
@@ -46,9 +47,10 @@ func setup_systems(categories: Array):
 
 func set_systems_visible(idx: int):
 	n_consoles.visible = idx == 0
-	n_computers.visible = idx == 1
-	n_engines.visible = idx == 2
-	n_modern_consoles.visible = idx == 3
+	n_arcades.visible = idx == 1
+	n_computers.visible = idx == 2
+	n_engines.visible = idx == 3
+	n_modern_consoles.visible = idx == 4
 
 func set_item_checked_down(item: TreeItem, checked: bool):
 	if item:
@@ -108,6 +110,9 @@ func _on_item_selected(tree: Tree):
 func _on_Consoles_item_edited():
 	_on_item_edited(n_consoles)
 
+func _on_Arcades_item_edited():
+	_on_item_edited(n_arcades)
+
 
 func _on_Computers_item_edited():
 	_on_item_edited(n_computers)
@@ -123,6 +128,9 @@ func _on_ModernConsoles_item_edited():
 
 func _on_Consoles_item_selected():
 	_on_item_selected(n_consoles)
+
+func _on_Arcades_item_selected():
+	_on_item_selected(n_arcades)
 
 
 func _on_Computers_item_selected():

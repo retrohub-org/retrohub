@@ -8,6 +8,7 @@ onready var n_system_info := $"%SystemInfo"
 
 var categories := [
 	"Consoles",
+	"Arcades",
 	"Computers",
 	"Game Engines",
 	"Modern Consoles"
