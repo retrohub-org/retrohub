@@ -680,20 +680,7 @@
 				"fuse",
 				"zesaurux"
 			]
-		},
-		{
-			"name": "ags",
-			"fullname": "Adventure Game Studio",
-			"category": "engine",
-			"extension": [
-				".exe",
-				""
-			],
-			"platform": "ags",
-			"emulator": [
-				"ags"
-			]
-		},
+		}
 		{
 			"name": "cavestory",
 			"fullname": "Cave Story (NXEngine)",

@@ -11,20 +11,43 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 100.0
+
+[node name="Photo" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+expand = true
+stretch_mode = 6
+
+[node name="Logo" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 104.0
+margin_right = 1024.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+expand = true
+stretch_mode = 6
+
+[node name="HSeparator" type="HSeparator" parent="."]
+margin_top = 104.0
+margin_right = 1024.0
+margin_bottom = 108.0
+
 [node name="Fullname" type="Label" parent="."]
 unique_name_in_owner = true
+margin_top = 112.0
 margin_right = 1024.0
-margin_bottom = 20.0
+margin_bottom = 132.0
 custom_fonts/font = ExtResource( 1 )
 text = "System fullname"
 
-[node name="HSeparator" type="HSeparator" parent="."]
-margin_top = 24.0
-margin_right = 1024.0
-margin_bottom = 28.0
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_top = 32.0
+margin_top = 136.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_vertical = 3

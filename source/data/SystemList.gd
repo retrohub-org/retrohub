@@ -37,7 +37,6 @@ var computers := [
 ]
 
 var game_engines := [
-	"ags",
 	"cavestory",
 	"chailove",
 	"doom",
@@ -171,7 +170,6 @@ var platforms := [
 	"zmachine",
 	"zx81",
 	"zxspectrum",
-	"ags",
 	"cavestory",
 	"chailove",
 	"doom",

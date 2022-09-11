@@ -12,19 +12,15 @@ data_*/
 
 debug.keystore
 structureDoc
-resources/*.json
 godot
 godotOld
 
-# Ignore pre-built FFMPEG binaries for now
+# Ignore pre-built FFMPEG binaries
 addons/godot-videodecoder/**
 
 # Ignore specific addons
 addons/wakatime
 
-# Ignore some assets for now
-assets/systems
-assets/systems_workdir
-
-# API key scrambler
+# ScreenScraper related files
 ss_api_key_scrambler.py
+ss_system_media_downloader.py
