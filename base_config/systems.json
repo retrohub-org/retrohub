@@ -515,11 +515,6 @@
 			],
 			"platform": "ti99",
 			"emulator": [
-				{
-					"retroarch": [
-						"ti99sim"
-					]
-				},
 				"ti99sim"
 			]
 		},
@@ -542,11 +537,7 @@
 			],
 			"platform": "trs-80",
 			"emulator": [
-				{
-					"retroarch": [
-						"sdltrs"
-					]
-				},
+				"sdltrs",
 				"trs80gp"
 			]
 		},
@@ -626,11 +617,7 @@
 			],
 			"platform": "zmachine",
 			"emulator": [
-				{
-					"retroarch": [
-						"frotz"
-					]
-				}
+				"frotz"
 			]
 		},
 		{
@@ -680,7 +667,7 @@
 				"fuse",
 				"zesaurux"
 			]
-		}
+		},
 		{
 			"name": "cavestory",
 			"fullname": "Cave Story (NXEngine)",
@@ -1604,6 +1591,7 @@
 				{
 					"retroarch": [
 						"beetle-saturn",
+						"beetle-saturn-hw",
 						"kronos",
 						"yabasanshiro",
 						"yabause"
@@ -1939,8 +1927,7 @@
 			"emulator": [
 				{
 					"retroarch": [
-						"citra",
-						"citra-canary"
+						"citra"
 					]
 				},
 				"citra"
