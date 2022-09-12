@@ -74,35 +74,11 @@ func get_estimated_size() -> int:
 # thread. Therefore, you shouldn't use any unsafe-thread API, and limit
 # to finding local files, reading content, and determining compatibility levels
 func is_available() -> bool:
-	var dir := Directory.new()
-	match FileUtils.get_os_id():
-		FileUtils.OS_ID.WINDOWS:
-			# RetroArch on Windows works as a "portable" installation. Config is located beside main files.
-			# Try to find a valid binpath.
-			var emulator = RetroHubConfig.emulators_map["retroarch"]
-			var binpaths = emulator["binpath"]
-			for binpath in binpaths:
-				if dir.file_exists(binpath):
-					set_paths(binpath)
-					return true
-			return false
-		FileUtils.OS_ID.LINUX:
-			# RetroArch uses either XDG_CONFIG_HOME or HOME.
-			var xdg = OS.get_environment("XDG_CONFIG_HOME")
-			if not xdg.empty():
-				var path = xdg + "/retroarch"
-				if dir.dir_exists(path):
-					set_paths(path)
-					return true
-			else:
-				# Default to HOME
-				var path = FileUtils.get_home_dir() + "/.config/retroarch"
-				if dir.dir_exists(path):
-					set_paths(path)
-					return true
-			return false
-		_:
-			return false
+	var path = RetroHubRetroArchEmulator.get_config_path()
+	if not path.empty():
+		set_paths(path)
+		return true
+	return false
 
 func set_paths(root: String):
 	config_path = root

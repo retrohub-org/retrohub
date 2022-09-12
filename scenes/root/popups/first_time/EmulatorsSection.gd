@@ -40,7 +40,9 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 				retroarch_info.set_path_found(true, binpath)
 				# Then test for cores
 				var required_cores : Array = system_emulator["retroarch"]
-				var corespath = JSONUtils.format_string_with_substitutes(FileUtils.test_for_valid_path(emulator["corepath"]) , {"binpath": binpath})
+				var corespath = RetroHubRetroArchEmulator.get_custom_core_path()
+				if corespath.empty():
+					corespath = JSONUtils.format_string_with_substitutes(FileUtils.test_for_valid_path(emulator["corepath"]) , {"binpath": binpath})
 				if corespath.empty():
 					retroarch_info.set_core_found(false, "Could not find any cores inside:\n" + convert_list_to_string(emulator["corepath"]))
 					continue

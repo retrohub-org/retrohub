@@ -19,9 +19,13 @@ func ensure_path(path: String):
 	var dir := Directory.new()
 	dir.make_dir_recursive(path.get_base_dir())
 
+func expand_path(path: String):
+	path = path.replace("~", get_home_dir())
+	return path
+
 func get_space_left() -> int:
 	var dir := Directory.new()
-	dir.change_dir(get_home_dir())
+	dir.open(get_home_dir())
 	return dir.get_space_left()
 
 func get_folder_size(path: String, filter_folders: Array = []) -> int:
