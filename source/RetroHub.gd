@@ -110,7 +110,7 @@ func launch_game() -> void:
 	RetroHubConfig.unload_theme()
 
 func _launch_game_process() -> int:
-	var system_emulators = RetroHubConfig.systems_raw[curr_system_data.name]["emulator"]
+	var system_emulators = RetroHubConfig._systems_raw[curr_system_data.name]["emulator"]
 	var emulators = RetroHubConfig.emulators_map
 	var emulator
 	for system_emulator in system_emulators:
