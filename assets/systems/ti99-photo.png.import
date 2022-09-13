@@ -2,19 +2,21 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ti99-photo.png-a1bf026f5c9526c74510b7e010d10226.stex"
+path.s3tc="res://.import/ti99-photo.png-a1bf026f5c9526c74510b7e010d10226.s3tc.stex"
+path.etc2="res://.import/ti99-photo.png-a1bf026f5c9526c74510b7e010d10226.etc2.stex"
 metadata={
-"vram_texture": false
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/systems/ti99-photo.png"
-dest_files=[ "res://.import/ti99-photo.png-a1bf026f5c9526c74510b7e010d10226.stex" ]
+dest_files=[ "res://.import/ti99-photo.png-a1bf026f5c9526c74510b7e010d10226.s3tc.stex", "res://.import/ti99-photo.png-a1bf026f5c9526c74510b7e010d10226.etc2.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -22,7 +24,7 @@ compress/normal_map=0
 flags/repeat=0
 flags/filter=true
 flags/mipmaps=true
-flags/anisotropic=true
+flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

@@ -2,19 +2,21 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/moto-photo.png-1fc1f5dc0b039b6468309c53123d89e5.stex"
+path.s3tc="res://.import/moto-photo.png-1fc1f5dc0b039b6468309c53123d89e5.s3tc.stex"
+path.etc2="res://.import/moto-photo.png-1fc1f5dc0b039b6468309c53123d89e5.etc2.stex"
 metadata={
-"vram_texture": false
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/systems/moto-photo.png"
-dest_files=[ "res://.import/moto-photo.png-1fc1f5dc0b039b6468309c53123d89e5.stex" ]
+dest_files=[ "res://.import/moto-photo.png-1fc1f5dc0b039b6468309c53123d89e5.s3tc.stex", "res://.import/moto-photo.png-1fc1f5dc0b039b6468309c53123d89e5.etc2.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -22,7 +24,7 @@ compress/normal_map=0
 flags/repeat=0
 flags/filter=true
 flags/mipmaps=true
-flags/anisotropic=true
+flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

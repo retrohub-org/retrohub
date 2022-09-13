@@ -2,19 +2,21 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/3do-photo.png-4758647f4aa7185462d47a164ea4d49d.stex"
+path.s3tc="res://.import/3do-photo.png-4758647f4aa7185462d47a164ea4d49d.s3tc.stex"
+path.etc2="res://.import/3do-photo.png-4758647f4aa7185462d47a164ea4d49d.etc2.stex"
 metadata={
-"vram_texture": false
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/systems/3do-photo.png"
-dest_files=[ "res://.import/3do-photo.png-4758647f4aa7185462d47a164ea4d49d.stex" ]
+dest_files=[ "res://.import/3do-photo.png-4758647f4aa7185462d47a164ea4d49d.s3tc.stex", "res://.import/3do-photo.png-4758647f4aa7185462d47a164ea4d49d.etc2.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -22,7 +24,7 @@ compress/normal_map=0
 flags/repeat=0
 flags/filter=true
 flags/mipmaps=true
-flags/anisotropic=true
+flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

@@ -2,19 +2,21 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/n64-photo.png-da12d91ebb00ad5c1ee1ff1689280dac.stex"
+path.s3tc="res://.import/n64-photo.png-da12d91ebb00ad5c1ee1ff1689280dac.s3tc.stex"
+path.etc2="res://.import/n64-photo.png-da12d91ebb00ad5c1ee1ff1689280dac.etc2.stex"
 metadata={
-"vram_texture": false
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/systems/n64-photo.png"
-dest_files=[ "res://.import/n64-photo.png-da12d91ebb00ad5c1ee1ff1689280dac.stex" ]
+dest_files=[ "res://.import/n64-photo.png-da12d91ebb00ad5c1ee1ff1689280dac.s3tc.stex", "res://.import/n64-photo.png-da12d91ebb00ad5c1ee1ff1689280dac.etc2.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -22,7 +24,7 @@ compress/normal_map=0
 flags/repeat=0
 flags/filter=true
 flags/mipmaps=true
-flags/anisotropic=true
+flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

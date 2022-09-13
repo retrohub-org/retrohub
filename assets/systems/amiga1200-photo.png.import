@@ -2,19 +2,21 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/amiga1200-photo.png-f73a404fc1327bb9b501af35d68942ed.stex"
+path.s3tc="res://.import/amiga1200-photo.png-f73a404fc1327bb9b501af35d68942ed.s3tc.stex"
+path.etc2="res://.import/amiga1200-photo.png-f73a404fc1327bb9b501af35d68942ed.etc2.stex"
 metadata={
-"vram_texture": false
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/systems/amiga1200-photo.png"
-dest_files=[ "res://.import/amiga1200-photo.png-f73a404fc1327bb9b501af35d68942ed.stex" ]
+dest_files=[ "res://.import/amiga1200-photo.png-f73a404fc1327bb9b501af35d68942ed.s3tc.stex", "res://.import/amiga1200-photo.png-f73a404fc1327bb9b501af35d68942ed.etc2.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -22,7 +24,7 @@ compress/normal_map=0
 flags/repeat=0
 flags/filter=true
 flags/mipmaps=true
-flags/anisotropic=true
+flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
