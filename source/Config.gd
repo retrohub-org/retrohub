@@ -226,7 +226,11 @@ func is_file_from_system(file_name: String, system_name: String) -> bool:
 
 
 func load_theme() -> bool:
-	theme_path = get_themes_dir() + "/" + config.current_theme + ".pck"
+	var current_theme := config.current_theme
+	if current_theme.ends_with(".pck"):
+		theme_path = get_themes_dir() + "/" + current_theme
+	else:
+		theme_path = get_default_themes_dir() + "/" + current_theme + ".pck"
 	if !ProjectSettings.load_resource_pack(theme_path, false):
 		print("Error when loading theme " + theme_path)
 		return false
@@ -372,16 +376,19 @@ func get_systems_file() -> String:
 func get_emulators_file() -> String:
 	return get_config_dir() + "/rh_emulators.json"
 
-func get_themes_dir():
+func get_default_themes_dir() -> String:
+	return "res://default_themes"
+
+func get_themes_dir() -> String:
 	return get_config_dir() + "/themes"
 
-func get_theme_config_dir():
+func get_theme_config_dir() -> String:
 	return get_themes_dir() + "/config/" + theme_data.id if theme_data else ""
 
-func get_gamelists_dir():
+func get_gamelists_dir() -> String:
 	return get_config_dir() + "/gamelists"
 
-func get_gamemedia_dir():
+func get_gamemedia_dir() -> String:
 	return get_config_dir() + "/gamemedia"
 
 

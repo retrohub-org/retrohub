@@ -1,0 +1,1 @@
+# Contains existing themes. First line is skipped. Each following line is a theme file in this directory (because Godot can't list dirs in res:// on exported projects)

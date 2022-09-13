@@ -54,7 +54,10 @@ func _set_games_dir(_games_dir):
 
 func _set_current_theme(_current_theme):
 	mark_for_saving()
-	current_theme = _current_theme
+	if "res://default_themes" in _current_theme:
+		current_theme = _current_theme.get_file().get_basename()
+	else:
+		current_theme = _current_theme
 
 func _set_lang(_lang):
 	mark_for_saving()

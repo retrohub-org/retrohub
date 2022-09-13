@@ -24,3 +24,6 @@ addons/wakatime
 # ScreenScraper related files
 ss_api_key_scrambler.py
 ss_system_media_downloader.py
+
+# Default themes
+default_themes/*.pck

@@ -8,6 +8,8 @@ onready var n_region = $"%Region"
 onready var n_rating_system = $"%RatingSystem"
 onready var n_date_format = $"%DateFormat"
 
+var theme_id_map := {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
@@ -15,6 +17,40 @@ func _ready():
 
 func grab_focus():
 	n_set_game_path.grab_focus()
+
+func set_themes():
+	n_themes.clear()
+	theme_id_map.clear()
+	var id = 0
+	var file := File.new()
+	# Default themes
+	if not file.open("res://default_themes/themes.txt", File.READ):
+		# Skip first line
+		file.get_line()
+		while file.get_position() < file.get_len():
+			var theme := file.get_line()
+			if theme.ends_with(".pck"):
+				n_themes.add_item(theme.get_file().get_basename(), id)
+				if RetroHubConfig.get_default_themes_dir() in RetroHubConfig.theme_path and \
+					theme in RetroHubConfig.theme_path:
+					n_themes.selected = id
+				theme_id_map[id] = "res://default_themes/" + theme
+				id += 1
+	n_themes.add_separator()
+	id += 1
+	# User themes
+	var dir := Directory.new()
+	if not dir.open(RetroHubConfig.get_themes_dir()) and not dir.list_dir_begin(true):
+		var next = dir.get_next()
+		while not next.empty():
+			if not dir.current_is_dir() and next.ends_with(".pck"):
+				n_themes.add_item(next, id)
+				if not RetroHubConfig.get_default_themes_dir() in RetroHubConfig.theme_path and \
+					next in RetroHubConfig.theme_path:
+					n_themes.selected = id
+				theme_id_map[id] = next
+				id += 1
+			next = dir.get_next()
 
 func set_language(lang: String):
 	match lang:
@@ -72,6 +108,10 @@ func _on_config_updated(key: String, _old_value, new_value):
 func _on_Quit_pressed():
 	RetroHub.quit()
 
+func _on_Themes_item_selected(index):
+	var theme_path = theme_id_map[index]
+	RetroHubConfig.config.current_theme = theme_path
+
 
 func _on_SetThemePath_pressed():
 	OS.shell_open(RetroHubConfig.get_themes_dir())
@@ -125,3 +165,9 @@ func _on_DateFormat_item_selected(index):
 
 func _on_AppSettings_hide():
 	RetroHubConfig.save_config()
+
+
+func _on_AppSettings_visibility_changed():
+	if visible:
+		set_themes()
+
