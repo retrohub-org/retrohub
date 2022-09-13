@@ -143,6 +143,11 @@ jobs:
           ln -s ../../../cached_builds/videodecoder/${{ matrix.videodecoder }} retrohub/addons/godot-videodecoder/${{ matrix.videodecoder }}
           mkdir -p -v export/windows_${{ matrix.bits }}
 
+      - name: "Package defaul themes"
+        uses: ./retrohub/.github/actions/get-default-themes
+        with:
+          tag: ${{ env.THEME_TAG }}
+
       - name: "Exporting RetroHub"
         working-directory: retrohub
         run: |

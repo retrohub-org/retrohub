@@ -2,7 +2,7 @@ name: 🐧 Linux Builds
 on: [push, pull_request]
 
 env:
-  THEME_TAG: v1.0.0
+  THEME_TAG: v0.0.1-alpha
 
 jobs:
   build-linux:
@@ -142,6 +142,11 @@ jobs:
           ls -la retrohub/addons/godot-videodecoder
           ls retrohub/addons/godot-videodecoder/${{ matrix.videodecoder }}
           mkdir -p -v export/linux_${{ matrix.bits }}
+
+      - name: "Package default themes"
+        uses: ./retrohub/.github/actions/get-default-themes
+        with:
+          tag: ${{ env.THEME_TAG }}
 
       - name: "Exporting RetroHub"
         working-directory: retrohub

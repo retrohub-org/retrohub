@@ -180,6 +180,11 @@ jobs:
           ln -s ../../../cached_builds/videodecoder/osx retrohub/addons/godot-videodecoder/osx
           mkdir -p -v export/macos
 
+      - name: "Package default themes"
+        uses: ./retrohub/.github/actions/get-default-themes
+        with:
+          tag: ${{ env.THEME_TAG }}
+
       - name: "Exporting RetroHub"
         working-directory: retrohub
         run: |
