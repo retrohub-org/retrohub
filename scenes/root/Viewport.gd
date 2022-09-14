@@ -45,5 +45,5 @@ func _input(event):
 			if _joypad_echo_delay.is_stopped():
 				_joypad_last_event = event
 				_joypad_echo_delay.start()
-			else:
-				get_tree().set_input_as_handled()
+			#else:
+				#get_tree().set_input_as_handled()

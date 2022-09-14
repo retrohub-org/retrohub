@@ -23,7 +23,9 @@ var running_game := false
 var running_game_pid := -1
 
 var curr_game_data : RetroHubGameData = null
-var curr_system_data : RetroHubSystemData = null
+
+var launched_system_data : RetroHubSystemData = null
+var launched_game_data : RetroHubGameData = null
 
 var is_echo : bool = false
 
@@ -102,24 +104,25 @@ func launch_game() -> void:
 		printerr("No game data selected!")
 		return
 
-	curr_system_data = RetroHubConfig.systems[curr_game_data.system_name]
-	print("Launching game ", curr_game_data.name)
-	emit_signal("_game_loaded", curr_game_data)
+	launched_game_data = curr_game_data
+	launched_system_data = RetroHubConfig.systems[launched_game_data.system_name]
+	print("Launching game ", launched_game_data.name)
+	emit_signal("_game_loaded", launched_game_data)
 	running_game = true
 	running_game_pid = _launch_game_process()
 	RetroHubConfig.unload_theme()
 
 func _launch_game_process() -> int:
-	var system_emulators = RetroHubConfig._systems_raw[curr_system_data.name]["emulator"]
+	var system_emulators = RetroHubConfig._systems_raw[launched_system_data.name]["emulator"]
 	var emulators = RetroHubConfig.emulators_map
 	var emulator
 	for system_emulator in system_emulators:
 		if system_emulator is Dictionary and system_emulator.has("retroarch"):
 			var system_cores : Array = system_emulator["retroarch"]
-			emulator = RetroHubRetroArchEmulator.new(emulators["retroarch"], curr_game_data, system_cores)
+			emulator = RetroHubRetroArchEmulator.new(emulators["retroarch"], launched_game_data, system_cores)
 			break
 		else:
-			emulator = RetroHubGenericEmulator.new(emulators[system_emulator], curr_game_data)
+			emulator = RetroHubGenericEmulator.new(emulators[system_emulator], launched_game_data)
 			break
 
 	return emulator.launch_game()
@@ -131,7 +134,7 @@ func stop_game() -> void:
 	running_game_pid = -1
 	_load_theme()
 	yield(get_tree(), "idle_frame")
-	emit_signal("app_returning", curr_system_data, curr_game_data)
+	emit_signal("app_returning", launched_system_data, launched_game_data)
 
 func request_theme_reload():
 	yield(get_tree(), "idle_frame")
