@@ -2,7 +2,7 @@ name: 🍎 macOS Builds
 on: [push, pull_request]
 
 env:
-  THEME_TAG: v1.0.0
+  THEME_TAG: v0.0.1-alpha
 
 jobs:
   extract-sdk:
