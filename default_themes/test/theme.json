@@ -1,9 +1,0 @@
-{
-	"name": "Bootstrap Theme",
-	"description": "This is a very simple theme that uses most of features exposed by RetroHub. A good resource to learn how to bootstrap a theme and create more complex ones.",
-	"icon": "icon.png",
-	"version": "1.0.0",
-	"url": "https://github.com/Ev1lbl0w/retrohub",
-	"screenshots": [],
-	"entry_scene": "Theme.tscn"
-}
