@@ -12,6 +12,14 @@ runs:
       run: |
         mkdir -p -v themes_workdir
 
+    - name: Download [default]
+      shell: sh
+      env:
+        THEME_NAME: default.pck
+      run: |
+        cd themes_workdir
+        curl -L https://github.com/retrohub-org/default-theme/releases/download/${{ inputs.tag }}/${{ env.THEME_NAME }} --output ${{ env.THEME_NAME }}
+
     - name: Download [es-theme-wrapper]
       shell: sh
       env:
