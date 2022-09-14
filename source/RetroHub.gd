@@ -76,15 +76,16 @@ func _load_theme():
 	emit_signal("_theme_loaded", RetroHubConfig.theme_data)
 	RetroHubConfig.load_theme_config()
 
-	emit_signal("system_receive_start")
-	for system in systems.values():
-		emit_signal("system_received", system)
-	emit_signal("system_receive_end")
+	if not systems.empty():
+		emit_signal("system_receive_start")
+		for system in systems.values():
+			emit_signal("system_received", system)
+		emit_signal("system_receive_end")
 
-	emit_signal("game_receive_start")
-	for game in games:
-		emit_signal("game_received", game)
-	emit_signal("game_receive_end")
+		emit_signal("game_receive_start")
+		for game in games:
+			emit_signal("game_received", game)
+		emit_signal("game_receive_end")
 
 func set_curr_game_data(game_data: RetroHubGameData) -> void:
 	curr_game_data = game_data
