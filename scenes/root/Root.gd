@@ -39,6 +39,7 @@ func _on_config_ready(config_data: ConfigData):
 		popup_nodes.push_back(first_time_popup)
 		first_time_popup.connect("about_to_show", self, "opened_popup")
 		first_time_popup.connect("popup_hide", self, "closed_popup")
+		first_time_popup.connect("popup_hide", self, "_on_first_time_popup_closed", [first_time_popup])
 		first_time_popup.popup()
 
 func _on_vp_size_changed() -> void:
@@ -80,3 +81,6 @@ func closed_popup():
 	is_popup_open = false
 	if is_instance_valid(n_last_focused):
 		n_last_focused.grab_focus()
+
+func _on_first_time_popup_closed(popup):
+	popup_nodes.remove(popup_nodes.find_last(popup))
