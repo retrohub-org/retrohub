@@ -51,6 +51,16 @@ func globalize_date_str(date_raw: String, source_format: String = ""):
 
 	return "%04d%02d%02dT%02d%02d%02d" % [year, month, day, hour, minute, second]
 
+func globalize_date_dict(date_dict: Dictionary, source_format: String = ''):
+	var year : int = date_dict["year"]
+	var month : int = date_dict["month"]
+	var day : int = date_dict["day"]
+	var hour : int = date_dict["hour"]
+	var minute : int = date_dict["minute"]
+	var second : int = date_dict["second"]
+
+	return "%04d%02d%02dT%02d%02d%02d" % [year, month, day, hour, minute, second]
+
 func localize_age_rating(age_rating_raw: String) -> Control:
 	var rating_idx : int
 	match RetroHubConfig.config.rating_system:

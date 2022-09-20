@@ -106,6 +106,7 @@ func launch_game() -> void:
 		return
 
 	launched_game_data = curr_game_data
+	_update_game_statistics()
 	launched_system_data = RetroHubConfig.systems[launched_game_data.system_name]
 	print("Launching game ", launched_game_data.name)
 	emit_signal("_game_loaded", launched_game_data)
@@ -127,6 +128,13 @@ func _launch_game_process() -> int:
 			break
 
 	return emulator.launch_game()
+
+func _update_game_statistics():
+	var time_dict := Time.get_datetime_dict_from_system()
+	launched_game_data.last_played = RegionUtils.globalize_date_dict(time_dict)
+	launched_game_data.play_count += 1
+	RetroHubConfig.save_game_data(launched_game_data)
+
 
 func stop_game() -> void:
 	print("Stopping game")
