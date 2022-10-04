@@ -131,7 +131,8 @@ func _launch_game_process() -> int:
 
 func _update_game_statistics():
 	var time_dict := Time.get_datetime_dict_from_system()
-	launched_game_data.last_played = RegionUtils.globalize_date_dict(time_dict)
+	var time_str = RegionUtils.globalize_date_dict(time_dict)
+	launched_game_data.last_played = RegionUtils.localize_date(time_str)
 	launched_game_data.play_count += 1
 	RetroHubConfig.save_game_data(launched_game_data)
 
