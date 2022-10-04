@@ -1,5 +1,9 @@
 extends Popup
 
+export(Color) var color_current := Color(1, 1, 1, 1)
+export(Color) var color_next := Color(0.5, 0.5, 0.5, 1)
+export(Color) var color_prev := Color(0.4, 0.8, 0.4, 1)
+
 onready var n_sidebar = $Panel/HBoxContainer/VBoxGuide
 onready var n_content = $Panel/HBoxContainer/PanelContainer
 
@@ -29,11 +33,11 @@ func _on_MainContent_tab_changed(tab):
 	var counter = 0
 	for child in n_sidebar.get_children():
 		if counter == tab:
-			child.modulate = Color(1,1,1,1)
+			child.modulate = color_current
 		elif counter < tab:
-			child.modulate = Color("8ffcff")
+			child.modulate = color_prev
 		else:
-			child.modulate = Color(1,1,1,0.4)
+			child.modulate = color_next
 		counter += 1
 
 

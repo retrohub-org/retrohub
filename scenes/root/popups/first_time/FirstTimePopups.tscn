@@ -1,14 +1,13 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=1]
-[ext_resource path="res://addons/controller_icons/assets/key/f4.png" type="Texture" id=2]
-[ext_resource path="res://addons/controller_icons/assets/steam/gyro.png" type="Texture" id=3]
-[ext_resource path="res://addons/controller_icons/assets/switch/y.png" type="Texture" id=4]
-[ext_resource path="res://addons/controller_icons/assets/ps5/cross.png" type="Texture" id=5]
+[ext_resource path="res://assets/icons/first_time/emulators.svg" type="Texture" id=1]
+[ext_resource path="res://assets/icons/first_time/systems.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/first_time/introduction.svg" type="Texture" id=3]
+[ext_resource path="res://assets/icons/first_time/all_done.svg" type="Texture" id=4]
+[ext_resource path="res://assets/icons/first_time/import.svg" type="Texture" id=5]
 [ext_resource path="res://scenes/root/popups/first_time/FirstTimePopups.gd" type="Script" id=6]
-[ext_resource path="res://addons/controller_icons/assets/xboxseries/b.png" type="Texture" id=7]
-[ext_resource path="res://addons/controller_icons/assets/switch/down.png" type="Texture" id=8]
-[ext_resource path="res://addons/controller_icons/assets/switch/plus.png" type="Texture" id=9]
+[ext_resource path="res://assets/icons/first_time/region.svg" type="Texture" id=7]
+[ext_resource path="res://assets/icons/first_time/games.svg" type="Texture" id=8]
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=10]
 [ext_resource path="res://scenes/root/popups/first_time/RegionSection.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/root/popups/first_time/IntroductionSection.tscn" type="PackedScene" id=12]
@@ -19,6 +18,7 @@
 [ext_resource path="res://scenes/root/popups/first_time/EmulatorsSection.tscn" type="PackedScene" id=17]
 
 [node name="FirstTimePopup" type="Popup"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 28.0
@@ -28,6 +28,7 @@ margin_bottom = -39.0
 theme = ExtResource( 10 )
 popup_exclusive = true
 script = ExtResource( 6 )
+color_prev = Color( 0.572549, 1, 0.572549, 1 )
 
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
@@ -52,14 +53,12 @@ margin_right = 157.0
 margin_bottom = 55.0
 size_flags_vertical = 6
 
-[node name="ControllerTextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/IntroductionSection"]
+[node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/IntroductionSection"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-texture = ExtResource( 8 )
+texture = ExtResource( 3 )
 expand = true
-script = ExtResource( 1 )
-path = "switch/down"
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxGuide/IntroductionSection"]
 margin_left = 44.0
@@ -74,14 +73,12 @@ margin_right = 157.0
 margin_bottom = 130.0
 size_flags_vertical = 6
 
-[node name="ControllerTextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/RegionSection"]
+[node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/RegionSection"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 texture = ExtResource( 7 )
 expand = true
-script = ExtResource( 1 )
-path = "xboxseries/b"
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxGuide/RegionSection"]
 margin_left = 44.0
@@ -96,14 +93,12 @@ margin_right = 157.0
 margin_bottom = 205.0
 size_flags_vertical = 6
 
-[node name="ControllerTextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/ImportSection"]
+[node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/ImportSection"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 texture = ExtResource( 5 )
 expand = true
-script = ExtResource( 1 )
-path = "ps5/cross"
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxGuide/ImportSection"]
 margin_left = 44.0
@@ -118,14 +113,12 @@ margin_right = 157.0
 margin_bottom = 280.0
 size_flags_vertical = 6
 
-[node name="ControllerTextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/GamesSection"]
+[node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/GamesSection"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-texture = ExtResource( 3 )
+texture = ExtResource( 8 )
 expand = true
-script = ExtResource( 1 )
-path = "steam/gyro"
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxGuide/GamesSection"]
 margin_left = 44.0
@@ -140,14 +133,12 @@ margin_right = 157.0
 margin_bottom = 355.0
 size_flags_vertical = 6
 
-[node name="ControllerTextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/SystemsSection"]
+[node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/SystemsSection"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-texture = ExtResource( 4 )
+texture = ExtResource( 2 )
 expand = true
-script = ExtResource( 1 )
-path = "switch/y"
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxGuide/SystemsSection"]
 margin_left = 44.0
@@ -162,14 +153,12 @@ margin_right = 157.0
 margin_bottom = 430.0
 size_flags_vertical = 6
 
-[node name="ControllerTextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/EmulatorsSection"]
+[node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/EmulatorsSection"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 expand = true
-script = ExtResource( 1 )
-path = "key/f4"
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxGuide/EmulatorsSection"]
 margin_left = 44.0
@@ -184,14 +173,12 @@ margin_right = 157.0
 margin_bottom = 505.0
 size_flags_vertical = 6
 
-[node name="ControllerTextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/DoneSection"]
+[node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/DoneSection"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-texture = ExtResource( 9 )
+texture = ExtResource( 4 )
 expand = true
-script = ExtResource( 1 )
-path = "switch/plus"
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxGuide/DoneSection"]
 margin_left = 44.0
