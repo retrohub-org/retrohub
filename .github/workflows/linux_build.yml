@@ -1,5 +1,9 @@
 name: 🐧 Linux Builds
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
 
 env:
   THEME_TAG: v0.0.1-alpha
@@ -68,6 +72,16 @@ jobs:
           submodules: recursive
           path: "videodecoder"
 
+      - name: "[Videodecoder] Compilation"
+        if: steps.cache_videodecoder.outputs.cache-hit != 'true'
+        working-directory: ./videodecoder
+        env:
+          PLATFORMS: ${{ matrix.videodecoder }}
+        run: |
+          ./build_gdnative.sh
+          mkdir -p -v ../cached_builds/videodecoder
+          cp -r -v target/* ../cached_builds/videodecoder
+
       - name: "[Godot] Dependencies"
         if: steps.cache_template.outputs.cache-hit != 'true'
         working-directory: ./godot
@@ -119,16 +133,6 @@ jobs:
           unzip Godot_v3.5-stable_linux_headless.64.zip
           mkdir -p -v cached_builds/editor
           mv Godot_v3.5-stable_linux_headless.64 cached_builds/editor/godot
-
-      - name: "[Videodecoder] Compilation"
-        if: steps.cache_videodecoder.outputs.cache-hit != 'true'
-        working-directory: ./videodecoder
-        env:
-          PLATFORMS: ${{ matrix.videodecoder }}
-        run: |
-          ./build_gdnative.sh
-          mkdir -p -v ../cached_builds/videodecoder
-          cp -r -v target/* ../cached_builds/videodecoder
 
       - name: "Setup templates and libraries"
         env:

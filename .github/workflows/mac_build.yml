@@ -1,5 +1,9 @@
 name: 🍎 macOS Builds
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
 
 env:
   THEME_TAG: v0.0.1-alpha
@@ -13,7 +17,7 @@ jobs:
         uses: actions/cache@v3
         id: "cache"
         with:
-          path: cached_builds/sdk
+          path: ~/cached_builds/sdk
           key: MacOS-sdk
         continue-on-error: true
 
@@ -27,8 +31,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           ./tools/gen_sdk_package.sh
-          mkdir -p -v cached_builds/sdk
-          mv MacOSX12.3.sdk.tar.xz cached_builds/sdk
+          mkdir -p -v ~/cached_builds/sdk
+          mv MacOSX12.3.sdk.tar.xz ~/cached_builds/sdk
 
   compile-ffmpeg:
     needs: extract-sdk
@@ -40,9 +44,9 @@ jobs:
         uses: actions/cache@v3
         id: "cache-sdk"
         with:
-          path: cached_builds/sdk
+          path: ~/cached_builds/sdk
           key: MacOS-sdk
-        continue-on-error: true
+        continue-on-error: false
       
       - name : "Load cache (videodecoder)"
         uses: actions/cache@v3
@@ -50,7 +54,7 @@ jobs:
         with:
           path: cached_builds/videodecoder/osx
           key: MacOS-videodecoder-build
-        continue-on-error: false
+        continue-on-error: true
 
       - name: "Checkout godot-videodecoder"
         if: steps.cache-videodecoder.outputs.cache-hit != 'true'
@@ -64,7 +68,7 @@ jobs:
         env:
           PLATFORMS: osx
         run: |
-          mv cached_builds/sdk/MacOSX12.3.sdk.tar.xz darwin_sdk
+          mv ~/cached_builds/sdk/MacOSX12.3.sdk.tar.xz darwin_sdk
           ./build_gdnative.sh
           mkdir -p -v cached_builds/videodecoder
           cp -r -v target/* cached_builds/videodecoder
