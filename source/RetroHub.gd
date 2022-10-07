@@ -96,6 +96,9 @@ func is_input_echo() -> bool:
 func is_main_app() -> bool:
 	return true
 
+func _is_dev_env() -> bool:
+	return not OS.has_feature("standalone")
+
 func quit():
 	RetroHubConfig.save_config()
 	get_tree().quit()
