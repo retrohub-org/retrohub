@@ -597,6 +597,8 @@ func extract_json_age_rating(classifications: Array):
 				rating_final = "5"
 			_:
 				rating_final = "0"
+	else:
+		rating_final = "0"
 	if not rating_eur.empty():
 		match rating_eur["text"]:
 			"3":
@@ -611,6 +613,8 @@ func extract_json_age_rating(classifications: Array):
 				rating_final += "/5"
 			_:
 				rating_final += "/0"
+	else:
+		rating_final += "/0"
 	if not rating_jpn.empty():
 		match rating_jpn["text"]:
 			"A":
@@ -625,5 +629,7 @@ func extract_json_age_rating(classifications: Array):
 				rating_final += "/5"
 			_:
 				rating_final += "/0"
+	else:
+		rating_final += "/0"
 
 	return rating_final

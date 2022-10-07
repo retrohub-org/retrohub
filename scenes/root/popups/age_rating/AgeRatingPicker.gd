@@ -6,6 +6,8 @@ export(Color) var disabled_modulate : Color
 
 onready var n_age = $"%Age"
 
+onready var n_unknown = $"%Unknown"
+
 onready var n_images = [
 	$"%1", $"%2", $"%3", $"%4", $"%5"
 ]
@@ -31,17 +33,26 @@ func set_idx(idx: int):
 	set_raw_age(mapping[idx])
 
 func set_raw_age(_raw_age: int):
-	raw_age = clamp(_raw_age, 3, 18)
-	if not n_images or not n_age:
-		return
+	if _raw_age == 0:
+		raw_age = 0
+		n_unknown.modulate = Color(1, 1, 1, 1)
+		for image in n_images:
+			image.modulate = disabled_modulate
+		n_age.text = "unknown"
+	else:
+		n_unknown.modulate = disabled_modulate
 
-	var age = get_actual_age()
-	for i in range(n_images.size()):
-		if age > mapping[i]:
-			n_images[i].modulate = disabled_modulate
-		else:
-			n_images[i].modulate = Color(1, 1, 1, 1)
-	n_age.text = str(age) + ("+" if age >= 18 else "") + " years"
+		raw_age = clamp(_raw_age, 3, 18)
+		if not n_images or not n_age:
+			return
+
+		var age = get_actual_age()
+		for i in range(n_images.size()):
+			if age > mapping[i+1]:
+				n_images[i].modulate = disabled_modulate
+			else:
+				n_images[i].modulate = Color(1, 1, 1, 1)
+		n_age.text = str(age) + ("+" if age >= 18 else "") + " years"
 
 func get_age_index():
 	return mapping.find(get_actual_age())
@@ -66,24 +77,29 @@ func _on_AgeRatingPicker_focus_exited():
 
 func _on_1_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		set_raw_age(mapping[0])
+		set_raw_age(mapping[1])
 
 
 func _on_2_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		set_raw_age(mapping[1])
+		set_raw_age(mapping[2])
 
 
 func _on_3_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		set_raw_age(mapping[2])
+		set_raw_age(mapping[3])
 
 
 func _on_4_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		set_raw_age(mapping[3])
+		set_raw_age(mapping[4])
 
 
 func _on_5_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		set_raw_age(mapping[4])
+		set_raw_age(mapping[5])
+
+
+func _on_Unknown_gui_input(event):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		set_raw_age(mapping[0])

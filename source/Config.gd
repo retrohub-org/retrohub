@@ -138,6 +138,7 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 					game.has_metadata = true
 				else:
 					game.name = file_name
+					game.age_rating = "0/0/0"
 					game.has_metadata = false
 				games.push_back(game)
 		file_name = dir.get_next()

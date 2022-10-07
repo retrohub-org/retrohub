@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/root/popups/age_rating/AgeRatingPopup.gd" type="Script" id=1]
 [ext_resource path="res://scenes/root/popups/age_rating/AgeRatingPicker.tscn" type="PackedScene" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://assets/ratings/cero/B.png" type="Texture" id=10]
 [ext_resource path="res://assets/ratings/cero/C.png" type="Texture" id=11]
 [ext_resource path="res://assets/ratings/pegi/16.png" type="Texture" id=12]
+[ext_resource path="res://assets/ratings/cero/unknown.png" type="Texture" id=13]
+[ext_resource path="res://assets/ratings/pegi/unknown.png" type="Texture" id=14]
 
 [node name="AgeRatingPopup" type="ConfirmationDialog"]
 anchor_right = 1.0
@@ -88,7 +90,7 @@ unique_name_in_owner = true
 margin_top = 168.0
 margin_right = 1008.0
 margin_bottom = 268.0
-mapping = [ 3, 7, 12, 16, 18 ]
+mapping = [ 0, 3, 7, 12, 16, 18 ]
 
 [node name="Label" parent="VBoxContainer/PEGI" index="0"]
 text = "PEGI"
@@ -96,19 +98,22 @@ __meta__ = {
 "_edit_pinned_properties_": [ "text" ]
 }
 
-[node name="1" parent="VBoxContainer/PEGI" index="1"]
+[node name="Unknown" parent="VBoxContainer/PEGI" index="1"]
+texture = ExtResource( 14 )
+
+[node name="1" parent="VBoxContainer/PEGI" index="3"]
 texture = ExtResource( 8 )
 
-[node name="2" parent="VBoxContainer/PEGI" index="2"]
+[node name="2" parent="VBoxContainer/PEGI" index="4"]
 texture = ExtResource( 7 )
 
-[node name="3" parent="VBoxContainer/PEGI" index="3"]
+[node name="3" parent="VBoxContainer/PEGI" index="5"]
 texture = ExtResource( 9 )
 
-[node name="4" parent="VBoxContainer/PEGI" index="4"]
+[node name="4" parent="VBoxContainer/PEGI" index="6"]
 texture = ExtResource( 12 )
 
-[node name="5" parent="VBoxContainer/PEGI" index="5"]
+[node name="5" parent="VBoxContainer/PEGI" index="7"]
 texture = ExtResource( 5 )
 
 [node name="CERO" parent="VBoxContainer" instance=ExtResource( 2 )]
@@ -116,7 +121,7 @@ unique_name_in_owner = true
 margin_top = 272.0
 margin_right = 1008.0
 margin_bottom = 372.0
-mapping = [ 3, 12, 15, 17, 18 ]
+mapping = [ 0, 3, 12, 15, 17, 18 ]
 
 [node name="Label" parent="VBoxContainer/CERO" index="0"]
 text = "CERO"
@@ -124,19 +129,22 @@ __meta__ = {
 "_edit_pinned_properties_": [ "text" ]
 }
 
-[node name="1" parent="VBoxContainer/CERO" index="1"]
+[node name="Unknown" parent="VBoxContainer/CERO" index="1"]
+texture = ExtResource( 13 )
+
+[node name="1" parent="VBoxContainer/CERO" index="3"]
 texture = ExtResource( 6 )
 
-[node name="2" parent="VBoxContainer/CERO" index="2"]
+[node name="2" parent="VBoxContainer/CERO" index="4"]
 texture = ExtResource( 10 )
 
-[node name="3" parent="VBoxContainer/CERO" index="3"]
+[node name="3" parent="VBoxContainer/CERO" index="5"]
 texture = ExtResource( 11 )
 
-[node name="4" parent="VBoxContainer/CERO" index="4"]
+[node name="4" parent="VBoxContainer/CERO" index="6"]
 texture = ExtResource( 4 )
 
-[node name="5" parent="VBoxContainer/CERO" index="5"]
+[node name="5" parent="VBoxContainer/CERO" index="7"]
 texture = ExtResource( 3 )
 
 [connection signal="about_to_show" from="." to="." method="_on_AgeRatingPopup_about_to_show"]
