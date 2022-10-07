@@ -361,11 +361,18 @@ func save_config():
 	config.save_config_to_path(get_config_file())
 
 func get_config_dir() -> String:
+	var path : String
 	match FileUtils.get_os_id():
 		OS_ID.WINDOWS:
-			return FileUtils.get_home_dir() + "/RetroHub"
+			path = FileUtils.get_home_dir() + "/RetroHub"
+			if RetroHub._is_dev_env():
+				path += "-Dev"
+			return path
 		_:
-			return FileUtils.get_home_dir() + "/.retrohub"
+			path = FileUtils.get_home_dir() + "/.retrohub"
+			if RetroHub._is_dev_env():
+				path += "-dev"
+	return path
 
 func get_config_file() -> String:
 	return get_config_dir() + "/rh_config.json"
