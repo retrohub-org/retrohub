@@ -76,7 +76,7 @@ func discard_changes():
 		n_release_date.text = ""
 		n_developer.text = ""
 		n_publisher.text = ""
-		rating_str = "1/1/1"
+		rating_str = "0/0/0"
 		set_rating_icons()
 		n_genres.text = ""
 		n_fixed_players.pressed = true
