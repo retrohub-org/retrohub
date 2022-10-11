@@ -5,9 +5,6 @@ on:
       - 'master'
   pull_request:
 
-env:
-  THEME_TAG: v0.0.1-alpha
-
 jobs:
   extract-sdk:
     runs-on: "macos-12"
@@ -187,7 +184,8 @@ jobs:
       - name: "Package default themes"
         uses: ./retrohub/.github/actions/get-default-themes
         with:
-          tag: ${{ env.THEME_TAG }}
+          default-tag: v0.0.2-alpha
+          es-wrapper-tag: v0.0.1-alpha
 
       - name: "Exporting RetroHub"
         working-directory: retrohub
