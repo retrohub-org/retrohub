@@ -5,9 +5,6 @@ on:
       - 'master'
   pull_request:
 
-env:
-  THEME_TAG: v0.0.1-alpha
-
 jobs:
   build-windows:
     runs-on: "ubuntu-20.04"
@@ -147,10 +144,11 @@ jobs:
           ln -s ../../../cached_builds/videodecoder/${{ matrix.videodecoder }} retrohub/addons/godot-videodecoder/${{ matrix.videodecoder }}
           mkdir -p -v export/windows_${{ matrix.bits }}
 
-      - name: "Package defaul themes"
+      - name: "Package default themes"
         uses: ./retrohub/.github/actions/get-default-themes
         with:
-          tag: ${{ env.THEME_TAG }}
+          default-tag: v0.0.2-alpha
+          es-wrapper-tag: v0.0.1-alpha
 
       - name: "Exporting RetroHub"
         working-directory: retrohub
