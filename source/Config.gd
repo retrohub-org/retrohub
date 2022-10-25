@@ -398,8 +398,3 @@ func get_gamelists_dir() -> String:
 
 func get_gamemedia_dir() -> String:
 	return get_config_dir() + "/gamemedia"
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

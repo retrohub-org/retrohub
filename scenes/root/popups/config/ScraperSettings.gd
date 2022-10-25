@@ -88,9 +88,20 @@ func update_scrape_stats(passive: bool):
 			n_games_selected.text = "%d games selected" % size
 	n_scrape.disabled = selected_game_datas.empty()
 
+func get_media_bitmask():
+	var bitmask = 0
+	var idx = 0
+	for media in n_media_nodes:
+		bitmask |= int(media.pressed) << (idx)
+		idx += 1
+	return bitmask
+
 func _on_Scrape_pressed():
 	n_scrape_popup.popup()
-	n_scrape_popup.begin_scraping(selected_game_datas)
+	var media_bitmask = get_media_bitmask()
+	# TODO: Make Scraper generation dynamic according to selection
+	var scraper := RetroHubScreenScraperScraper.new()
+	n_scrape_popup.begin_scraping(selected_game_datas, scraper, media_bitmask)
 
 
 func _on_ScraperSettings_visibility_changed():

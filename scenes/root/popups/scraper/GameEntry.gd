@@ -12,18 +12,18 @@ enum State {
 	ERROR,
 }
 
-const FETCH_METADATA = 1
-const FETCH_MEDIA = 2
-
-const CHECK_HASH = 1
-const CHECK_SEARCH = 2
-
 var game_data : RetroHubGameData setget set_game_data
 var state : int setget set_state
 var data
 
-var fetch_mode
-var check_mode
+# Info status
+var curr := 0
+var total := 0
+var description := ""
+
+func _on_GameEntry_toggled(button_pressed):
+	if button_pressed:
+		emit_signal("game_selected", self)
 
 func set_game_data(_game_data: RetroHubGameData):
 	game_data = _game_data
@@ -58,8 +58,3 @@ func set_font_color(color: Color):
 	add_color_override("font_color", color)
 	add_color_override("font_color_hover", color)
 	add_color_override("font_color_focus", color)
-
-
-func _on_GameEntry_toggled(button_pressed):
-	if button_pressed:
-		emit_signal("game_selected", self)

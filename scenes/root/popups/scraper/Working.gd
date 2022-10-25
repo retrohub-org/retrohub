@@ -8,18 +8,22 @@ onready var base_text = n_label.text
 
 var game_entry
 
-func _ready():
-	RetroHubMedia.connect("game_scrape_step", self, "_on_game_scrape_step")
-
 func set_entry(_game_entry: Control):
 	game_entry = _game_entry
-
-func _on_game_scrape_step(curr: int, total: int, description: String):
-	n_label.text = base_text % description
-	n_progress.max_value = total
-	n_progress.value = curr
-
+	set_text()
 
 
 func _on_WorkingCancelButton_pressed():
 	emit_signal("cancel_entry", game_entry)
+
+
+func _on_ScraperPopup_scrape_step(_game_entry: RetroHubScraperGameEntry):
+	if game_entry == _game_entry:
+		# FIXME: This has to be deferred; if not, when the user spams cancel request on media and retry,
+		# Godot crashes somewhere on the draw code for the n_label. Investigate further..?
+		call_deferred("set_text")
+
+func set_text():
+	n_label.text = base_text % game_entry.description
+	n_progress.value = game_entry.curr
+	n_progress.max_value = game_entry.total
