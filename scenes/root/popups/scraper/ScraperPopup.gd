@@ -127,12 +127,12 @@ func clear_game_entries():
 
 func populate_game_entries():
 	for game_data in game_list_arr:
-		if not scene_entry_list.has(game_data.system_name):
+		if not scene_entry_list.has(game_data.system.name):
 			var scene_entry = system_entry_scene.instance()
 			n_game_entries.add_child(scene_entry)
-			scene_entry.system_name = RetroHubConfig.systems[game_data.system_name].fullname
-			scene_entry_list[game_data.system_name] = scene_entry
-		var game_entry = scene_entry_list[game_data.system_name].add_game_entry(game_data, button_group)
+			scene_entry.system_name = game_data.system.fullname
+			scene_entry_list[game_data.system] = scene_entry
+		var game_entry = scene_entry_list[game_data.system].add_game_entry(game_data, button_group)
 		game_entry.connect("game_selected", self, "_on_game_entry_selected")
 		game_entry_list.push_back(game_entry)
 	num_games_pending = game_list_arr.size()
