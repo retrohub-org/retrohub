@@ -25,9 +25,9 @@ func _on_ScrapingGamePickerPopup_about_to_show():
 	for system in RetroHubConfig.systems.values():
 		var item = n_game_tree.create_item(root)
 		set_item_settings(item, system.fullname)
-		systems_items[system.name] = item
+		systems_items[system] = item
 	for game in RetroHubConfig.games:
-		var item = n_game_tree.create_item(systems_items[game.system_name])
+		var item = n_game_tree.create_item(systems_items[game.system])
 		set_item_settings(item, game.path.get_file())
 		item.set_metadata(0, game)
 

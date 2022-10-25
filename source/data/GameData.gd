@@ -10,7 +10,7 @@ var has_metadata : bool
 var has_media : bool
 
 ## From what system is this game from
-var system_name : String
+var system : RetroHubSystemData
 
 ## Name; will default to `path` if no metadata is present yet
 var name : String

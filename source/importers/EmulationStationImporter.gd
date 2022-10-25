@@ -222,7 +222,6 @@ func process_metadata(system: String, dict: Dictionary):
 	var root_path = RetroHubConfig.config.games_dir + "/" + system
 	game_data.has_metadata = true
 	game_data.path = root_path + "/" + dict["path"].substr(2)
-	game_data.system_name = system
 	progress_minor("Converting \"%s\" (\"%s\")" % [game_data.path.get_file(), system])
 	if dict.has("name"):
 		game_data.name = dict["name"]

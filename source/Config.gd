@@ -127,7 +127,7 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 
 				var game := RetroHubGameData.new()
 				game.path = full_path
-				game.system_name = system_name
+				game.system = systems[system_name]
 				# Check if metadata exists, in the form of a .json file
 				var metadata_path = get_game_data_path_from_file(system_name, full_path)
 				if dir.file_exists(metadata_path):
@@ -187,7 +187,7 @@ func get_game_data_path_from_file(system_name: String, file_name: String):
 	return get_gamelists_dir() + "/" + system_name + "/" + file_name.get_file().trim_suffix(file_name.get_extension()) + "json"
 
 func save_game_data(game_data: RetroHubGameData) -> bool:
-	var metadata_path = get_game_data_path_from_file(game_data.system_name, game_data.path)
+	var metadata_path = get_game_data_path_from_file(game_data.system.name, game_data.path)
 	FileUtils.ensure_path(metadata_path)
 	var game_data_raw = {}
 	game_data_raw["name"] = game_data.name

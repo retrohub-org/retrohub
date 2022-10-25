@@ -190,7 +190,7 @@ func scrape_game_by_hash(game_data: RetroHubGameData) -> void:
 		return
 
 	var file = File.new()
-	var system_id = get_ss_system_mapping(game_data.system_name)
+	var system_id = get_ss_system_mapping(game_data.system.name)
 	var rom_name = game_data.path.get_file()
 	var md5 = file.get_md5(game_data.path)
 	file.open(game_data.path, File.READ)
@@ -281,7 +281,7 @@ func clear_cache():
 	_req_body = PoolByteArray()
 
 func scrape_game_by_search(game_data: RetroHubGameData, search_term: String) -> void:
-	var system_id = get_ss_system_mapping(game_data.system_name)
+	var system_id = get_ss_system_mapping(game_data.system.name)
 
 	var header_data = {
 		"devid": ss_get_api_keys(ss_api_user, false),
@@ -440,7 +440,7 @@ func _process_raw_game_media_data(json: Dictionary, game_data: RetroHubGameData,
 	if not res.empty():
 		if download_locally:
 			var local_filename = RetroHubConfig.get_gamemedia_dir() + "/" + \
-								game_data.system_name + "/" + media_type + \
+								game_data.system.name + "/" + media_type + \
 								"/" + game_data.path.get_file().get_basename()
 			FileUtils.ensure_path(local_filename)
 			download_file = local_filename + "." + res["format"]
@@ -465,7 +465,7 @@ func retrieve_media_data(game_data: RetroHubGameData) -> RetroHubGameMediaData:
 		return null
 	var game_media_data := RetroHubGameMediaData.new()
 
-	var media_path = RetroHubConfig.get_gamemedia_dir() + "/" + game_data.system_name
+	var media_path = RetroHubConfig.get_gamemedia_dir() + "/" + game_data.system.name
 	var game_path = game_data.path.get_file().get_basename()
 
 	var image := Image.new()

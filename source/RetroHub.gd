@@ -110,7 +110,7 @@ func launch_game() -> void:
 
 	launched_game_data = curr_game_data
 	_update_game_statistics()
-	launched_system_data = RetroHubConfig.systems[launched_game_data.system_name]
+	launched_system_data = launched_game_data.system
 	print("Launching game ", launched_game_data.name)
 	emit_signal("_game_loaded", launched_game_data)
 	running_game = true
