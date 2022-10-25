@@ -13,7 +13,6 @@
 [ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=11]
 
 [node name="ScraperPopup" type="PopupPanel"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -85,7 +84,6 @@ size_flags_vertical = 3
 tabs_visible = false
 
 [node name="Success" type="Control" parent="VBoxContainer/HBoxContainer/GameEntryEditor"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -200,6 +198,8 @@ size_flags_horizontal = 4
 text = "Cancel"
 
 [node name="Warning" type="Control" parent="VBoxContainer/HBoxContainer/GameEntryEditor"]
+unique_name_in_owner = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -251,7 +251,7 @@ margin_bottom = 459.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer"]
-margin_right = 372.0
+margin_right = 384.0
 margin_bottom = 515.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -458,16 +458,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -279.0
-margin_top = -185.0
-margin_right = 279.0
-margin_bottom = 185.0
+margin_left = -508.0
+margin_top = -296.0
+margin_right = 508.0
+margin_bottom = 296.0
 script = ExtResource( 10 )
 
 [node name="StopDescription" type="Label" parent="StopScraperDialog"]
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
 text = "There are still %d games waiting to be scraped.
 
 If you cancel now, the existing metadata/media will still be saved, so some games
@@ -477,6 +481,7 @@ Are you sure you wish to stop the scraping process?"
 align = 1
 valign = 1
 
+[connection signal="scrape_step" from="." to="VBoxContainer/HBoxContainer/GameEntryEditor/Working" method="_on_ScraperPopup_scrape_step"]
 [connection signal="cancel_entry" from="VBoxContainer/HBoxContainer/GameEntryEditor/Working" to="." method="_on_Working_cancel_entry"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/GameEntryEditor/Working/VBoxContainer/WorkingCancelButton" to="VBoxContainer/HBoxContainer/GameEntryEditor/Working" method="_on_WorkingCancelButton_pressed"]
 [connection signal="cancel_entry" from="VBoxContainer/HBoxContainer/GameEntryEditor/Waiting" to="." method="_on_Waiting_cancel_entry"]

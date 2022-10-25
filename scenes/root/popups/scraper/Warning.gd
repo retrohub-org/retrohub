@@ -21,8 +21,35 @@ var new_game_data : RetroHubGameData
 
 var cached_images := {}
 
-func _ready():
-	RetroHubMedia.connect("game_media_scraped", self, "_on_game_media_scraped")
+var scraper : RetroHubScraper setget set_scraper
+var thread : Thread = null
+var req_semaphore := Semaphore.new()
+var req_datas := []
+
+func set_scraper(_scraper: RetroHubScraper) -> void:
+	scraper = _scraper
+	start_thread()
+
+func t_request_screenshots():
+	scraper.connect("media_scrape_finished", self, "_on_media_scrape_finished")
+	while true:
+		req_semaphore.wait()
+
+		if req_datas.empty():
+			break
+		var game_data : RetroHubGameData = req_datas.pop_front()
+		scraper.scrape_media(game_data, RetroHubMedia.Type.SCREENSHOT)
+	scraper.disconnect("media_scrape_finished", self, "_on_media_scrape_finished")
+
+func start_thread():
+	if thread:
+		thread.wait_to_finish()
+	thread = Thread.new()
+	thread.start(self, "t_request_screenshots")
+
+func stop_thread():
+	req_datas.clear()
+	req_semaphore.post()
 
 func set_entry(game_entry: Control):
 	clear_entries()
@@ -30,7 +57,6 @@ func set_entry(game_entry: Control):
 		orig_game_data = game_entry.game_data
 		n_search_field.text = orig_game_data.name.get_basename()
 	var game_datas = game_entry.data
-	print("Game datas: ", game_datas)
 	n_search.disabled = false
 	if game_datas.empty():
 		var button := create_entry(null)
@@ -70,12 +96,21 @@ func populate_info(game_data: RetroHubGameData):
 
 func request_screenshot(game_data: RetroHubGameData):
 	cached_images[game_data] = null
-	RetroHubMedia.scrape_game_media_data_type(game_data, "screenshot")
+	req_datas.push_front(game_data)
+	req_semaphore.post()
 
-func _on_game_media_scraped(game_data: RetroHubGameData, req_body: PoolByteArray):
-	# FIXME: Hardcoded to PNG
+func _on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: PoolByteArray, extension: String):
 	var image := Image.new()
-	image.load_png_from_buffer(req_body)
+	match extension:
+		"png":
+			image.load_png_from_buffer(data)
+		"jpg, jpeg":
+			image.load_jpg_from_buffer(data)
+		"webp":
+			image.load_webp_from_buffer(data)
+		_:
+			# Unsupported format, exit
+			return
 	var texture := ImageTexture.new()
 	texture.create_from_image(image)
 	cached_images[game_data] = texture
@@ -106,8 +141,6 @@ func _on_SearchField_text_changed(new_text):
 func _on_Search_pressed():
 	emit_signal("request_search", n_search_field.text, orig_game_data)
 
-
 func _on_Confirm_pressed():
-	cached_images.clear()
-	RetroHubMedia.remap_cache(new_game_data, orig_game_data)
+	cached_images.erase(new_game_data)
 	emit_signal("search_completed", orig_game_data, new_game_data)
