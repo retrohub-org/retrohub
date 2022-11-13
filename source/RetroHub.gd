@@ -102,6 +102,7 @@ func _is_dev_env() -> bool:
 
 func quit():
 	RetroHubConfig.save_config()
+	RetroHubMedia._stop_thread()
 	get_tree().quit()
 
 func launch_game() -> void:
