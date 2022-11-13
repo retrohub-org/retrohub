@@ -73,6 +73,7 @@ func _load_theme():
 	RetroHubConfig.unload_theme()
 	if not RetroHubConfig.load_theme():
 		return
+	RetroHubMedia._start_thread()
 	emit_signal("_theme_loaded", RetroHubConfig.theme_data)
 	RetroHubConfig.load_theme_config()
 
@@ -112,6 +113,7 @@ func launch_game() -> void:
 	_update_game_statistics()
 	launched_system_data = launched_game_data.system
 	print("Launching game ", launched_game_data.name)
+	RetroHubMedia._stop_thread()
 	emit_signal("_game_loaded", launched_game_data)
 	running_game = true
 	running_game_pid = _launch_game_process()
