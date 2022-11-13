@@ -34,13 +34,16 @@ func _ready():
 
 func _on_config_ready(config_data: ConfigData):
 	if config_data.is_first_time:
-		var first_time_popup := preload("res://scenes/root/popups/first_time/FirstTimePopups.tscn").instance()
-		add_child(first_time_popup)
-		popup_nodes.push_back(first_time_popup)
-		first_time_popup.connect("about_to_show", self, "opened_popup")
-		first_time_popup.connect("popup_hide", self, "closed_popup")
-		first_time_popup.connect("popup_hide", self, "_on_first_time_popup_closed", [first_time_popup])
-		first_time_popup.popup()
+		show_first_time_popup()
+
+func show_first_time_popup():
+	var first_time_popup := preload("res://scenes/root/popups/first_time/FirstTimePopups.tscn").instance()
+	add_child(first_time_popup)
+	popup_nodes.push_back(first_time_popup)
+	first_time_popup.connect("about_to_show", self, "opened_popup")
+	first_time_popup.connect("popup_hide", self, "closed_popup")
+	first_time_popup.connect("popup_hide", self, "_on_first_time_popup_closed", [first_time_popup])
+	first_time_popup.popup()
 
 func _on_vp_size_changed() -> void:
 	print("New size: ", get_viewport().size)
