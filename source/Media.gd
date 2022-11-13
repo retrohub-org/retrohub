@@ -24,10 +24,11 @@ var _queue_mutex := Mutex.new()
 var _queue := []
 
 func _start_thread():
-	_thread = Thread.new()
-	_semaphore = Semaphore.new()
+	if not _thread:
+		_thread = Thread.new()
+		_semaphore = Semaphore.new()
 
-	_thread.start(self, "t_process_media_requests")
+		_thread.start(self, "t_process_media_requests")
 
 func _stop_thread():
 	_queue_mutex.lock()
@@ -36,6 +37,7 @@ func _stop_thread():
 	_queue_mutex.unlock()
 
 	_thread.wait_to_finish()
+	_thread = null
 
 func t_process_media_requests():
 	while true:
