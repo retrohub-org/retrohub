@@ -230,7 +230,7 @@ func process_metadata(system: String, dict: Dictionary):
 	if dict.has("rating"):
 		game_data.rating = float(dict["rating"])
 	if dict.has("releasedate"):
-		game_data.release_date = RegionUtils.localize_date(dict["releasedate"])
+		game_data.release_date = dict["releasedate"]
 	if dict.has("developer"):
 		game_data.developer = dict["developer"]
 	if dict.has("publisher"):
@@ -247,7 +247,7 @@ func process_metadata(system: String, dict: Dictionary):
 	if dict.has("playcount"):
 		game_data.play_count = dict["playcount"]
 	if dict.has("lastplayed"):
-		game_data.last_played = RegionUtils.localize_date(dict["lastplayed"])
+		game_data.last_played = dict["lastplayed"]
 	if dict.has("favorite"):
 		game_data.favorite = bool(dict["favorite"])
 	var short_path = system + "/" + game_data.path.get_file().get_basename()

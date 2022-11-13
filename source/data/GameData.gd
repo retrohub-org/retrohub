@@ -25,7 +25,8 @@ var description : String
 ## Rating, in the range [0.0, 1.0]
 var rating : float
 
-## Release date, already pre-formatted to user's region.
+## Release date in ISO8601 format. Use RegionUtils.localize_date(...) to show this
+## information correctly according to the user's preferences.
 var release_date : String
 
 ## Developer name
@@ -52,6 +53,7 @@ var favorite : bool
 ## How many times with game was launched/played
 var play_count : int
 
-## Last date this game was played, already pre-formatted to user's region.
-## May be "null" if game hasn't been played yet
+## Last date this game was played, in ISO8601 format. Use RegionUtils.localize_date(...)
+## to show this information correctly according to the user's preferences.
+## May be equal to "null" if game hasn't been played yet
 var last_played : String

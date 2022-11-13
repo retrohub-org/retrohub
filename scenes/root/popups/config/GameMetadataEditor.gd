@@ -45,7 +45,7 @@ func discard_changes():
 		n_name.text = game_data.name
 		n_description.text = game_data.description
 		n_rating.value = int(game_data.rating * 100)
-		n_release_date.text = game_data.release_date
+		n_release_date.text = RegionUtils.localize_date(game_data.release_date)
 		n_developer.text = game_data.developer
 		n_publisher.text = game_data.publisher
 		rating_str = game_data.age_rating
@@ -110,7 +110,7 @@ func save_changes():
 		game_data.name = n_name.text
 		game_data.description = n_description.text
 		game_data.rating = n_rating.value / 100.0
-		game_data.release_date = n_release_date.text
+		game_data.release_date = RegionUtils.globalize_date_str(n_release_date.text)
 		game_data.developer = n_developer.text
 		game_data.publisher = n_publisher.text
 		game_data.age_rating = rating_str
