@@ -71,8 +71,6 @@ func load_config_file():
 func _on_config_updated(key, old_value, new_value):
 	if key == ConfigData.KEY_GAMES_DIR:
 		load_game_data_files()
-	if key == ConfigData.KEY_DATE_FORMAT:
-		refresh_game_data_dates(old_value)
 
 	emit_signal("config_updated", key, old_value, new_value)
 
@@ -89,15 +87,6 @@ func load_game_data_files():
 		# We are not interested in files, only folders
 		file_name = _dir.get_next()
 	_dir.list_dir_end()
-
-func refresh_game_data_dates(old_format):
-	var date_raw : String
-	for game in games:
-		date_raw = RegionUtils.globalize_date_str(game.release_date, old_format)
-		game.release_date = RegionUtils.localize_date(date_raw)
-		date_raw = RegionUtils.globalize_date_str(game.last_played, old_format)
-		game.last_played = RegionUtils.localize_date(date_raw)
-		emit_signal("game_data_updated", game)
 
 func load_system_gamelists_files(folder_path: String, system_name: String):
 	print("Loading games from directory " + folder_path)
@@ -170,7 +159,7 @@ func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 	game.name = data["name"]
 	game.description = data["description"]
 	game.rating = data["rating"]
-	game.release_date = RegionUtils.localize_date(data["release_date"] as String)
+	game.release_date = data["release_date"]
 	game.developer = data["developer"]
 	game.publisher = data["publisher"]
 	game.genres = data["genres"]
@@ -178,7 +167,7 @@ func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 	game.age_rating = data["age_rating"]
 	game.favorite = data["favorite"]
 	game.play_count = data["play_count"]
-	game.last_played = RegionUtils.localize_date(data["last_played"] as String)
+	game.last_played = data["last_played"]
 	game.has_media = data["has_media"]
 
 	return true
@@ -193,7 +182,7 @@ func save_game_data(game_data: RetroHubGameData) -> bool:
 	game_data_raw["name"] = game_data.name
 	game_data_raw["description"] = game_data.description
 	game_data_raw["rating"] = game_data.rating
-	game_data_raw["release_date"] = RegionUtils.globalize_date_str(game_data.release_date)
+	game_data_raw["release_date"] = game_data.release_date
 	game_data_raw["developer"] = game_data.developer
 	game_data_raw["publisher"] = game_data.publisher
 	game_data_raw["genres"] = game_data.genres
@@ -201,7 +190,7 @@ func save_game_data(game_data: RetroHubGameData) -> bool:
 	game_data_raw["age_rating"] = game_data.age_rating
 	game_data_raw["favorite"] = game_data.favorite
 	game_data_raw["play_count"] = game_data.play_count
-	game_data_raw["last_played"] = RegionUtils.globalize_date_str(game_data.last_played)
+	game_data_raw["last_played"] = game_data.last_played
 	game_data_raw["has_media"] = game_data.has_media
 	
 	if _file.open(metadata_path, File.WRITE):

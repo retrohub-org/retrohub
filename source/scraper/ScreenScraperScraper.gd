@@ -462,7 +462,7 @@ func _process_raw_game_data(json: Dictionary, game_data: RetroHubGameData):
 	if json.has("note"):
 		game_data.rating = float(json["note"]["text"]) / 20.0
 	if json.has("dates"):
-		game_data.release_date = RegionUtils.localize_date(extract_json_date(extract_json_region(json["dates"])["text"]))
+		game_data.release_date = extract_json_date(extract_json_region(json["dates"])["text"])
 	if json.has("classifications"):
 		game_data.age_rating = extract_json_age_rating(json["classifications"])
 
