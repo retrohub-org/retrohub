@@ -36,7 +36,10 @@ class RequestDetails:
 		if big:
 			_http.download_chunk_size *= 4 # 4MB
 		_http.request(url)
-	
+
+	func is_content_on_body(content: String):
+		return content in _req_body.get_string_from_utf8()
+
 	func cancel():
 		_http.cancel_request()
 		_http.emit_signal("request_completed", FAILED, 400, PoolStringArray(), PoolByteArray())
@@ -227,16 +230,22 @@ func _process(_delta):
 				RequestDetails.Type.MEDIA:
 					_process_req_media(req, game_data)
 		else:
-			if req._req_response_code == HTTPClient.RESPONSE_NOT_FOUND:
-				match req.type:
-					RequestDetails.Type.DATA:
-						emit_signal("game_scrape_not_found", game_data)
-					RequestDetails.Type.MEDIA:
-						emit_signal("media_scrape_not_found", game_data, req.data["type"])
-				return
 			var details
 			if req._req_response_code:
-				details = "HTTP Error: " + str(req._req_response_code)
+				# Game not found
+				if req._req_response_code == HTTPClient.RESPONSE_NOT_FOUND:
+					match req.type:
+						RequestDetails.Type.DATA:
+							emit_signal("game_scrape_not_found", game_data)
+						RequestDetails.Type.MEDIA:
+							emit_signal("media_scrape_not_found", game_data, req.data["type"])
+					return
+				# API limit reached
+				elif req._req_response_code == 430 and req.is_content_on_body("Votre quota de scrape est dépassé"):
+					details = "The ScreenScraper API quota limit was reached for today. You will need to use your own account to bypass this limit.\n\nIf the issue persists, please try another scraper service or wait until tomorrow to use ScreenScraper again."
+				# Something else
+				else:
+					details = "HTTP Error: " + str(req._req_response_code) + "\nRaw Content:" + req._req_body.get_string_from_utf8()
 			else:
 				match req._req_result:
 					HTTPRequest.RESULT_CANT_CONNECT, HTTPRequest.RESULT_CANT_RESOLVE:
