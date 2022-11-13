@@ -1,4 +1,4 @@
-extends ScrollContainer
+extends Control
 
 onready var n_game_lib_dir = $"%GameLibDir"
 onready var n_set_game_path = $"%SetGamePath"
@@ -7,6 +7,8 @@ onready var n_language = $"%Language"
 onready var n_region = $"%Region"
 onready var n_rating_system = $"%RatingSystem"
 onready var n_date_format = $"%DateFormat"
+onready var n_first_time_wizard_warning = $"%FirstTimeWizardWarning"
+onready var n_config_popup = $"../.."
 
 var theme_id_map := {}
 
@@ -171,3 +173,11 @@ func _on_AppSettings_visibility_changed():
 	if visible:
 		set_themes()
 
+
+func _on_FirstTimeWizardWarning_confirmed():
+	RetroHubConfig.config.is_first_time = true
+	n_config_popup.show_first_time_popup()
+
+
+func _on_SetupWizardButton_pressed():
+	n_first_time_wizard_warning.popup_centered()

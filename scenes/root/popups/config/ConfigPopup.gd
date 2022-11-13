@@ -2,6 +2,7 @@ extends Popup
 
 onready var n_main = $TabContainer
 onready var n_game_settings = $TabContainer/Game
+onready var n_root = $".."
 
 func _input(event: InputEvent):
 	if not RetroHub.running_game:
@@ -13,6 +14,10 @@ func _input(event: InputEvent):
 			else:
 				hide()
 				RetroHubConfig.save_theme_config()
+
+func show_first_time_popup():
+	hide()
+	n_root.show_first_time_popup()
 
 func _unhandled_input(event):
 	if visible:
