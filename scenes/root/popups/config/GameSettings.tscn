@@ -56,6 +56,8 @@ anchor_bottom = 0.0
 margin_top = 32.0
 margin_right = 1024.0
 margin_bottom = 600.0
+focus_neighbour_top = NodePath("../HBoxContainer/HBoxContainer/Save")
+focus_neighbour_bottom = NodePath("../HBoxContainer/HBoxContainer/Save")
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/Save" to="VBoxContainer/GameMetadataEditor" method="save_changes"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/Discard" to="VBoxContainer/GameMetadataEditor" method="discard_changes"]

@@ -1,4 +1,4 @@
-extends ConfirmationDialog
+extends WindowDialog
 
 signal rating_defined(rating_str)
 
@@ -30,6 +30,9 @@ func _on_AgeRatingPopup_confirmed():
 func _on_AgeRatingPopup_about_to_show():
 	n_min_age.grab_focus()
 
+func _on_Cancel_pressed():
+	hide()
 
-func _on_AgeRatingPopup_focus_entered():
-	n_min_age.grab_focus()
+func _on_Ok_pressed():
+	hide()
+	_on_AgeRatingPopup_confirmed()

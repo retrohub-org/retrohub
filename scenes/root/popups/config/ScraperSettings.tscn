@@ -51,6 +51,7 @@ margin_left = 724.0
 margin_right = 1024.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 300, 30 )
+focus_neighbour_top = NodePath("../../../../Scrape")
 text = "ScreenScraper"
 icon = ExtResource( 4 )
 expand_icon = true
@@ -275,6 +276,7 @@ margin_left = 936.0
 margin_top = 580.0
 margin_right = 1024.0
 margin_bottom = 600.0
+focus_neighbour_bottom = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer/Service")
 size_flags_horizontal = 8
 text = "Scrape now!"
 
