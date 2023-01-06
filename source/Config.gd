@@ -87,6 +87,8 @@ func load_game_data_files():
 		# We are not interested in files, only folders
 		file_name = _dir.get_next()
 	_dir.list_dir_end()
+	# Finally order the games array
+	games.sort_custom(RetroHubGameData, "sort")
 
 func load_system_gamelists_files(folder_path: String, system_name: String):
 	print("Loading games from directory " + folder_path)

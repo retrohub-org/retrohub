@@ -64,8 +64,15 @@ func find_all_by_key(input_arr: Array, key: String, values: Array) -> Array:
 
 func map_array_by_key(input: Array, key: String) -> Dictionary:
 	var dict := {}
+	var subkeys = []
 	for value in input:
-		dict[value[key]] = value
+		subkeys.push_back(value[key])
+	subkeys.sort()
+	for subkey in subkeys:
+		for value in input:
+			if value[key] == subkey:
+				dict[subkey] = value
+				continue
 
 	return dict
 

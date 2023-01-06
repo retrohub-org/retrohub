@@ -1,6 +1,10 @@
 extends Resource
 class_name RetroHubGameData
 
+# Sorter function
+static func sort(a: RetroHubGameData, b: RetroHubGameData):
+	return a.name.naturalnocasecmp_to(b.name) == -1
+
 ## Whether this game already has metadata; if it doesn't, you should
 ## present a much simpler view of it
 var has_metadata : bool
