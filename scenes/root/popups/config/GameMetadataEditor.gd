@@ -66,6 +66,12 @@ func discard_changes():
 				n_variable_players_min.value = players_splits[0]
 				n_variable_players_max.value = players_splits[1]
 				n_fixed_players_num.value = 1
+		else:
+			n_fixed_players.pressed = true
+			n_fixed_players_num.value = 1
+			n_variable_players.pressed = false
+			n_variable_players_min.value = 1
+			n_variable_players_max.value = 2
 		n_favorite.pressed = game_data.favorite
 		n_num_times_played.value = game_data.play_count
 	else:
@@ -136,6 +142,9 @@ func _on_Rating_value_changed(value):
 func _on_AgeRatingPopup_rating_defined(_rating_str):
 	rating_str = _rating_str
 	set_rating_icons()
+
+func _on_AgeRatingPopup_popup_hide():
+	n_change_age_rating.grab_focus()
 
 func set_rating_icons():
 	n_esrb.from_rating_str(rating_str, 0)

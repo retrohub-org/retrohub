@@ -354,7 +354,6 @@ allow_greater = true
 
 [node name="AgeRatingPopup" parent="." instance=ExtResource( 6 )]
 unique_name_in_owner = true
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -384,5 +383,6 @@ margin_bottom = 235.5
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMax" to="." method="_on_change_ocurred"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer9/Favorite" to="." method="_on_change_ocurred"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed" to="." method="_on_change_ocurred"]
+[connection signal="popup_hide" from="AgeRatingPopup" to="." method="_on_AgeRatingPopup_popup_hide"]
 [connection signal="rating_defined" from="AgeRatingPopup" to="." method="_on_AgeRatingPopup_rating_defined"]
 [connection signal="rating_defined" from="AgeRatingPopup" to="." method="_on_change_ocurred"]

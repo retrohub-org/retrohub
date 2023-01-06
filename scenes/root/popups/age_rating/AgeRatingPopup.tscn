@@ -15,10 +15,9 @@
 [ext_resource path="res://assets/ratings/cero/unknown.png" type="Texture" id=13]
 [ext_resource path="res://assets/ratings/pegi/unknown.png" type="Texture" id=14]
 
-[node name="AgeRatingPopup" type="ConfirmationDialog"]
+[node name="AgeRatingPopup" type="WindowDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-window_title = ""
 resizable = true
 script = ExtResource( 1 )
 
@@ -28,7 +27,7 @@ anchor_bottom = 1.0
 margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
-margin_bottom = -36.0
+margin_bottom = -8.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 1008.0
@@ -47,6 +46,8 @@ unique_name_in_owner = true
 margin_left = 934.0
 margin_right = 1008.0
 margin_bottom = 24.0
+focus_neighbour_top = NodePath("../../HBoxContainer3/Ok")
+focus_mode = 2
 min_value = 3.0
 max_value = 18.0
 value = 3.0
@@ -147,10 +148,33 @@ texture = ExtResource( 4 )
 [node name="5" parent="VBoxContainer/CERO" index="7"]
 texture = ExtResource( 3 )
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 564.0
+margin_right = 1008.0
+margin_bottom = 584.0
+size_flags_horizontal = 3
+size_flags_vertical = 10
+
+[node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer3"]
+margin_left = 224.0
+margin_right = 278.0
+margin_bottom = 20.0
+focus_neighbour_bottom = NodePath("../../HBoxContainer/MinAge")
+size_flags_horizontal = 6
+text = "Cancel"
+
+[node name="Ok" type="Button" parent="VBoxContainer/HBoxContainer3"]
+margin_left = 742.0
+margin_right = 772.0
+margin_bottom = 20.0
+focus_neighbour_bottom = NodePath("../../HBoxContainer/MinAge")
+size_flags_horizontal = 6
+text = "Ok"
+
 [connection signal="about_to_show" from="." to="." method="_on_AgeRatingPopup_about_to_show"]
-[connection signal="confirmed" from="." to="." method="_on_AgeRatingPopup_confirmed"]
-[connection signal="focus_entered" from="." to="." method="_on_AgeRatingPopup_focus_entered"]
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer/MinAge" to="." method="_on_MinAge_value_changed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/Ok" to="." method="_on_Ok_pressed"]
 
 [editable path="VBoxContainer/PEGI"]
 [editable path="VBoxContainer/CERO"]
