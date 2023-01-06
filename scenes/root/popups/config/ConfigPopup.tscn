@@ -54,8 +54,8 @@ no_theme_settings_scene = ExtResource( 7 )
 [node name="Theme" parent="TabContainer/Theme" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 814.0
-margin_bottom = 360.0
+margin_right = 251.0
+margin_bottom = 51.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
