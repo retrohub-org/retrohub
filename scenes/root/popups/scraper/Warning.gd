@@ -51,7 +51,7 @@ func stop_thread():
 	req_datas.clear()
 	req_semaphore.post()
 
-func set_entry(game_entry: Control):
+func set_entry(game_entry: RetroHubScraperGameEntry):
 	clear_entries()
 	if orig_game_data != game_entry.game_data:
 		orig_game_data = game_entry.game_data

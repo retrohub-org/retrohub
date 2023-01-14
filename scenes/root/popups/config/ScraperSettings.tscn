@@ -304,6 +304,7 @@ margin_right = 476.5
 margin_bottom = 271.0
 
 [connection signal="visibility_changed" from="." to="." method="_on_ScraperSettings_visibility_changed"]
+[connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/VBoxContainer/Metadata" to="." method="_on_Metadata_toggled"]
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/VBoxContainer/Media" to="." method="_on_Media_toggled"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer/MediaSelectAll" to="." method="_on_MediaSelectAll_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer/MediaDeselectAll" to="." method="_on_MediaDeselectAll_pressed"]
