@@ -26,6 +26,8 @@ class Request:
 	var data
 
 var game_list_arr : Array
+var scrape_data : bool
+var scrape_media : bool
 var media_bitmask : int
 var scene_entry_list := {}
 var game_entry_list := []
@@ -45,8 +47,10 @@ var pending_medias := {}
 
 var scraper : RetroHubScraper
 
-func begin_scraping(_game_list_arr: Array, _scraper: RetroHubScraper, _media_bitmask : int):
+func begin_scraping(_game_list_arr: Array, _scraper: RetroHubScraper, _scrape_data: bool, _scrape_media: bool, _media_bitmask: int):
 	game_list_arr = _game_list_arr
+	scrape_data = _scrape_data
+	scrape_media = _scrape_media
 	media_bitmask = _media_bitmask
 
 	scraper = _scraper
@@ -71,7 +75,7 @@ func fetch_game_entries_async():
 	
 	thread.start(self, "thread_fetch_game_entries")
 
-func add_data_request(game_entry, type, priority: bool = false) -> void:
+func add_data_request(game_entry: RetroHubScraperGameEntry, type: int, priority: bool = false) -> void:
 	var req := Request.new()
 	req.type = type
 	req.game_entry = game_entry
@@ -81,7 +85,7 @@ func add_data_request(game_entry, type, priority: bool = false) -> void:
 		requests_queue.push_back(req)
 	requests_semaphore.post()
 
-func add_media_request(game_entry, priority: bool = false) -> int:
+func add_media_request(game_entry: RetroHubScraperGameEntry, priority: bool = false) -> int:
 	var medias = RetroHubMedia.convert_type_bitmask_to_list(media_bitmask)
 	# Invert medias due to the way requests are placed in queue
 	medias.invert()
@@ -124,26 +128,32 @@ func thread_fetch_game_entries():
 			requests_mutex.unlock()
 			break
 		var req : Request = requests_queue.pop_front()
-		var game_entry : RetroHubScraperGameEntry = req.game_entry
+		var game_entry := req.game_entry
 		requests_curr.push_back(req)
 		requests_mutex.unlock()
 		processing_request_mutex.unlock()
 		
 		# Retrieve game data and begin scraping it
-		var game_data = game_entry.game_data
+		var game_data := game_entry.game_data
 		game_entry.set_deferred("state", RetroHubScraperGameEntry.State.WORKING)
 		match req.type:
 			Request.Type.DATA_HASH:
 				game_entry.curr = 0
 				game_entry.total = 1
-				game_entry.description = "metadata (by hash)"
+				if scrape_data:
+					game_entry.description = "Downloading metadata (by hash)..."
+				else:
+					game_entry.description = "Fetching media (by hash)..."
 				emit_signal("scrape_step", game_entry)
 				if not scraper.scrape_game_by_hash(game_data):
 					pending_datas[game_data] = req
 			Request.Type.DATA_SEARCH:
 				game_entry.curr = 0
 				game_entry.total = 1
-				game_entry.description = "metadata (by search)"
+				if scrape_data:
+					game_entry.description = "Downloading metadata (by search)"
+				else:
+					game_entry.description = "Fetching media (by search)..."
 				emit_signal("scrape_step", game_entry)
 				if not scraper.scrape_game_by_search(game_data, game_entry.data):
 					pending_datas[game_data] = req
@@ -214,12 +224,12 @@ func t_on_game_scrape_error(game_data: RetroHubGameData, details: String):
 	game_entry.set_deferred("state", RetroHubScraperGameEntry.State.ERROR)
 
 func prepare_media_scrape(game_entry: RetroHubScraperGameEntry):
-	if media_bitmask > 0:
+	if scrape_media && media_bitmask > 0:
 		requests_mutex.lock()
 		game_entry.curr = 0
 		game_entry.total = add_media_request(game_entry)
 		requests_mutex.unlock()
-		game_entry.description = _convert_type_to_str(RetroHubMedia.convert_type_bitmask_to_list(media_bitmask)[0])
+		game_entry.description = "Downloading " + _convert_type_to_str(RetroHubMedia.convert_type_bitmask_to_list(media_bitmask)[0]) + "..."
 		pending_medias[game_entry.game_data] = game_entry
 		return true
 	return false
@@ -242,12 +252,12 @@ func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: Po
 			file.store_buffer(data)
 			file.close()
 
-		var game_entry = pending_medias[game_data]
+		var game_entry : RetroHubScraperGameEntry = pending_medias[game_data]
 		for req in requests_curr:
 			if req.game_entry == game_entry:
 				requests_curr.erase(req)
 				break
-		game_entry.description = _convert_type_to_str(type)
+		game_entry.description = "Downloading " + _convert_type_to_str(type) + "..."
 		game_entry.curr += 1
 		emit_signal("scrape_step", game_entry)
 		if game_entry.curr >= game_entry.total:
@@ -255,7 +265,7 @@ func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: Po
 
 func t_on_media_scrape_not_found(game_data: RetroHubGameData, type: int):
 	if pending_medias.has(game_data):
-		var game_entry = pending_medias[game_data]
+		var game_entry : RetroHubScraperGameEntry = pending_medias[game_data]
 		for req in requests_curr:
 			if req.game_entry == game_entry:
 				requests_curr.erase(req)
@@ -269,10 +279,12 @@ func t_on_media_scrape_error(game_data: RetroHubGameData, type: int, details: St
 	t_on_media_scrape_not_found(game_data, type)
 
 func _finish_scrape(game_entry: RetroHubScraperGameEntry):
+	game_entry.set_deferred("data", scrape_data)
 	game_entry.set_deferred("state", RetroHubScraperGameEntry.State.SUCCESS)
 	set_deferred("num_games_pending", num_games_pending - 1)
 	call_deferred("update_games_pending")
-	RetroHubConfig.call_deferred("save_game_data", game_entry.game_data)
+	if scrape_data:
+		RetroHubConfig.call_deferred("save_game_data", game_entry.game_data)
 
 func _convert_type_to_str(type: int):
 	match type:
@@ -309,7 +321,8 @@ func populate_game_entries():
 			n_game_entries.add_child(scene_entry)
 			scene_entry.system_name = game_data.system.fullname
 			scene_entry_list[game_data.system] = scene_entry
-		var game_entry = scene_entry_list[game_data.system].add_game_entry(game_data, button_group)
+		var data = game_data.duplicate() if not scrape_data else game_data
+		var game_entry : RetroHubScraperGameEntry = scene_entry_list[game_data.system].add_game_entry(data, button_group)
 		game_entry.connect("game_selected", self, "_on_game_entry_selected")
 		game_entry_list.push_back(game_entry)
 	num_games_pending = game_list_arr.size()
@@ -324,7 +337,7 @@ func update_games_pending():
 		_:
 			n_pending_games.text = "There are %d games yet to be successfully scrapped" % num_games_pending
 
-func _on_game_entry_selected(game_entry: Control):
+func _on_game_entry_selected(game_entry: RetroHubScraperGameEntry):
 	n_game_entry_editor.current_tab = game_entry.state
 	n_game_entry_editor.get_current_tab_control().set_entry(game_entry)
 
@@ -349,7 +362,7 @@ func _on_Warning_search_completed(orig_game_data, new_game_data):
 			prepare_media_scrape(game_entry)
 			break
 
-func cancel_scrape(game_entry):
+func cancel_scrape(game_entry: RetroHubScraperGameEntry):
 	# Cancel in data
 	for game_data in pending_datas:
 		if pending_datas[game_data].game_entry == game_entry:
@@ -387,7 +400,7 @@ func cancel_scrape(game_entry):
 	processing_request_mutex.unlock()
 
 
-func cancel_entry(game_entry):
+func cancel_entry(game_entry: RetroHubScraperGameEntry):
 	# Don't lock if thread is waiting for job, otherwise a deadlock happens
 	if requests_curr.empty() and pending_datas.empty():
 		return
@@ -438,7 +451,7 @@ func _on_StopScraperDialog_confirmed():
 	finish_scraping()
 
 
-func _on_Error_retry_entry(game_entry):
+func _on_Error_retry_entry(game_entry: RetroHubScraperGameEntry):
 	requests_mutex.lock()
 	# TODO: Hash or search?
 	add_data_request(game_entry, Request.Type.DATA_HASH, true)
@@ -446,8 +459,8 @@ func _on_Error_retry_entry(game_entry):
 	game_entry.state = RetroHubScraperGameEntry.State.WAITING
 
 
-func _on_Waiting_cancel_entry(game_entry: Control):
+func _on_Waiting_cancel_entry(game_entry: RetroHubScraperGameEntry):
 	cancel_entry(game_entry)
 
-func _on_Working_cancel_entry(game_entry):
+func _on_Working_cancel_entry(game_entry: RetroHubScraperGameEntry):
 	cancel_scrape(game_entry)

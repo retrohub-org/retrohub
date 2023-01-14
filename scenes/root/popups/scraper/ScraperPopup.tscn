@@ -106,13 +106,25 @@ margin_top = 18.0
 margin_right = 596.0
 margin_bottom = 22.0
 
-[node name="GameMetadataEditor" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Success/VBoxContainer" instance=ExtResource( 3 )]
-unique_name_in_owner = true
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Root" type="Control" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Success/VBoxContainer"]
 margin_top = 26.0
 margin_right = 596.0
 margin_bottom = 522.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GameMetadataEditor" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Success/VBoxContainer/Root" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+
+[node name="NoData" type="Label" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Success/VBoxContainer/Root"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 6 )
+text = "Metadata was not scraped"
+align = 1
+valign = 1
 
 [node name="Working" type="Control" parent="VBoxContainer/HBoxContainer/GameEntryEditor"]
 visible = false
@@ -135,7 +147,6 @@ unique_name_in_owner = true
 margin_right = 596.0
 margin_bottom = 20.0
 custom_fonts/font = ExtResource( 6 )
-text = "Downloading %s..."
 align = 1
 valign = 1
 autowrap = true
@@ -481,7 +492,6 @@ Are you sure you wish to stop the scraping process?"
 align = 1
 valign = 1
 
-[connection signal="scrape_step" from="." to="VBoxContainer/HBoxContainer/GameEntryEditor/Working" method="_on_ScraperPopup_scrape_step"]
 [connection signal="cancel_entry" from="VBoxContainer/HBoxContainer/GameEntryEditor/Working" to="." method="_on_Working_cancel_entry"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/GameEntryEditor/Working/VBoxContainer/WorkingCancelButton" to="VBoxContainer/HBoxContainer/GameEntryEditor/Working" method="_on_WorkingCancelButton_pressed"]
 [connection signal="cancel_entry" from="VBoxContainer/HBoxContainer/GameEntryEditor/Waiting" to="." method="_on_Waiting_cancel_entry"]

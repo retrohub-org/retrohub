@@ -5,6 +5,28 @@ class_name RetroHubGameData
 static func sort(a: RetroHubGameData, b: RetroHubGameData):
 	return a.name.naturalnocasecmp_to(b.name) == -1
 
+func duplicate(_subresources: bool = false) -> Resource:
+	var other = .duplicate(_subresources)
+
+	other.has_metadata = has_metadata
+	other.has_media = has_media
+	other.system = system
+	other.name = name
+	other.path = path
+	other.description = description
+	other.rating = rating
+	other.release_date = release_date
+	other.developer = developer
+	other.publisher = publisher
+	other.genres = genres.duplicate()
+	other.num_players = num_players
+	other.age_rating = age_rating
+	other.favorite = favorite
+	other.play_count = play_count
+	other.last_played = last_played
+
+	return other
+
 ## Whether this game already has metadata; if it doesn't, you should
 ## present a much simpler view of it
 var has_metadata : bool

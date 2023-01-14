@@ -38,7 +38,14 @@ var selected_game_datas : Array
 func grab_focus():
 	n_service.grab_focus()
 
+func toggle_scrape_button():
+	n_scrape.disabled = selected_game_datas.empty() or !(n_metadata.pressed or n_media.pressed)
+
+func _on_Metadata_toggled(button_pressed):
+	toggle_scrape_button()
+
 func _on_Media_toggled(button_pressed):
+	toggle_scrape_button()
 	n_media_select_all.disabled = !button_pressed
 	n_media_deselect_all.disabled = !button_pressed
 	for node in n_media_nodes:
@@ -86,7 +93,7 @@ func update_scrape_stats(passive: bool):
 			n_games_selected.text = "1 game selected"
 		var size:
 			n_games_selected.text = "%d games selected" % size
-	n_scrape.disabled = selected_game_datas.empty()
+	toggle_scrape_button()
 
 func get_media_bitmask():
 	var bitmask = 0
@@ -101,7 +108,7 @@ func _on_Scrape_pressed():
 	var media_bitmask = get_media_bitmask()
 	# TODO: Make Scraper generation dynamic according to selection
 	var scraper := RetroHubScreenScraperScraper.new()
-	n_scrape_popup.begin_scraping(selected_game_datas, scraper, media_bitmask)
+	n_scrape_popup.begin_scraping(selected_game_datas, scraper, n_metadata.pressed, n_media.pressed, media_bitmask)
 
 
 func _on_ScraperSettings_visibility_changed():
@@ -111,3 +118,5 @@ func _on_ScraperSettings_visibility_changed():
 
 func _on_ScraperPopup_popup_hide():
 	update_scrape_stats(true)
+
+

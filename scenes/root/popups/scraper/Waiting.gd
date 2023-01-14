@@ -2,9 +2,9 @@ extends Control
 
 signal cancel_entry(game_entry)
 
-var game_entry
+var game_entry : RetroHubScraperGameEntry
 
-func set_entry(_game_entry: Control):
+func set_entry(_game_entry: RetroHubScraperGameEntry):
 	game_entry = _game_entry
 
 
