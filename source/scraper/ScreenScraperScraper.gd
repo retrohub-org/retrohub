@@ -191,6 +191,11 @@ func ss_get_api_keys(buf: Array, flag: bool) -> String:
 			break
 	return _r
 
+func ss_add_user_account(header_data: Dictionary):
+	if RetroHubConfig.config.scraper_ss_use_custom_account:
+		header_data["ssid"] = RetroHubConfig.config.scraper_ss_username
+		header_data["sspassword"] = RetroHubConfig.config.scraper_ss_password
+
 func get_ss_system_mapping(system_name) -> int:
 	if ss_system_map.has(system_name):
 		return ss_system_map[system_name]
@@ -331,6 +336,7 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 		"romnom": game_data.path.get_file(),
 		"romtaille": str(file.get_len())
 	}
+	ss_add_user_account(header_data)
 	file.close()
 	
 	var http_client := HTTPClient.new()
@@ -359,6 +365,7 @@ func scrape_game_by_search(game_data: RetroHubGameData, search_term: String, typ
 		"systemeid": str(get_ss_system_mapping(game_data.system.name)),
 		"recherche": search_term
 	}
+	ss_add_user_account(header_data)
 
 	var http_client := HTTPClient.new()
 
