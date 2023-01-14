@@ -243,6 +243,7 @@ func load_theme_data():
 
 	theme_data = RetroHubTheme.new()
 	theme_data.id = theme_raw["id"]
+	load_theme_config()
 	if theme_raw.has("name"):
 		theme_data.name = theme_raw["name"]
 	if theme_raw.has("description"):
@@ -265,9 +266,7 @@ func load_theme_data():
 
 func unload_theme():
 	if theme_data:
-		# Save config if exists
-		if theme_data.config_scene:
-			save_theme_config()
+		save_theme_config()
 
 		if !ProjectSettings.unload_resource_pack(theme_path):
 			print("Error when unloading theme " + theme_path)
@@ -286,7 +285,9 @@ func load_theme_config():
 	_theme_config = {}
 	_theme_config_changed = false
 	var theme_config_path = get_theme_config_dir() + "/config.json"
-	FileUtils.ensure_path(theme_config_path)
+	# If the config file doesn't exist, don't try reading it
+	if not _dir.file_exists(theme_config_path):
+		return;
 	if not _file.open(theme_config_path, File.READ):
 		var result := JSON.parse(_file.get_as_text())
 		_file.close()
@@ -302,6 +303,7 @@ func load_theme_config():
 func save_theme_config():
 	if _theme_config_changed:
 		var theme_config_path = get_theme_config_dir() + "/config.json"
+		FileUtils.ensure_path(theme_config_path)
 		if _file.open(theme_config_path, File.WRITE):
 			print("Error when saving theme config at %s" % theme_config_path)
 			return
@@ -351,6 +353,7 @@ func bootstrap_config_dir():
 
 func save_config():
 	config.save_config_to_path(get_config_file())
+	save_theme_config()
 
 func get_config_dir() -> String:
 	var path : String

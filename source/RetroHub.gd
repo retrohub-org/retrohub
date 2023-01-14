@@ -75,7 +75,6 @@ func _load_theme():
 		return
 	RetroHubMedia._start_thread()
 	emit_signal("_theme_loaded", RetroHubConfig.theme_data)
-	RetroHubConfig.load_theme_config()
 
 	if not systems.empty():
 		emit_signal("system_receive_start")
