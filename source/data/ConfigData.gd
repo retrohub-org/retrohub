@@ -136,7 +136,7 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 	# Save JSON to file
 	var json_output = JSON.print(dict, "\t")
 	file.store_string(json_output)
-	
+	file.close()
 	_config_changed = false
 
 	# Now signal any changes that ocurred to the config file
