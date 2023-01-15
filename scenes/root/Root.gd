@@ -26,8 +26,6 @@ func _ready():
 	# Add popups to UI singleton
 	RetroHubUI._n_filesystem_popup = n_filesystem_popup
 
-	# FIXME: Remove
-	Input.add_joy_mapping("060000005e040000ea0200000d050000,Xbox One S Controller,a:b0,b:b1,x:b2,y:b3,back:b6,guide:b8,start:b7,leftshoulder:b4,rightshoulder:b5,leftstick:b9,rightstick:b10,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftx:a0,lefty:a1,rightx:a3,righty:a4,lefttrigger:a2,righttrigger:a5,platform:Linux,", true)
 	get_viewport().connect("size_changed", self, "_on_vp_size_changed")
 	n_viewport.connect("gui_focus_changed", self, "_on_vp_gui_focus_changed")
 	_on_vp_size_changed()
