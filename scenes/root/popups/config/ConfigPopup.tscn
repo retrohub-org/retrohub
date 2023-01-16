@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/icons/first_time/systems.svg" type="Texture" id=8]
 [ext_resource path="res://scenes/root/popups/config/settings/GeneralSettings.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/root/popups/config/ThemeSettings.gd" type="Script" id=10]
-[ext_resource path="res://scenes/root/popups/config/ConfigMenuButtonGroup.tres" type="ButtonGroup" id=11]
+[ext_resource path="res://scenes/root/popups/config/settings/InputSettings.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/root/popups/config/settings/RegionSettings.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/root/popups/config/QuitSettings.tscn" type="PackedScene" id=13]
 
@@ -25,7 +25,6 @@ margin_right = 435.2
 margin_bottom = 240.0
 theme = ExtResource( 4 )
 script = ExtResource( 1 )
-tab_button_group = ExtResource( 11 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
@@ -53,8 +52,7 @@ size_flags_vertical = 3
 margin_right = 118.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 100, 30 )
-focus_neighbour_top = NodePath("../EmulatorsTab")
-group = ExtResource( 11 )
+focus_neighbour_top = NodePath("../AboutTab")
 text = "Quit"
 
 [node name="GameTab" type="Button" parent="HBoxContainer/ScrollContainer/VBoxContainer"]
@@ -63,7 +61,6 @@ margin_top = 34.0
 margin_right = 118.0
 margin_bottom = 134.0
 rect_min_size = Vector2( 100, 100 )
-group = ExtResource( 11 )
 text = "Game"
 
 [node name="ScraperTab" type="Button" parent="HBoxContainer/ScrollContainer/VBoxContainer"]
@@ -71,7 +68,6 @@ margin_top = 138.0
 margin_right = 118.0
 margin_bottom = 238.0
 rect_min_size = Vector2( 100, 100 )
-group = ExtResource( 11 )
 text = "Scraper"
 
 [node name="ThemeTab" type="Button" parent="HBoxContainer/ScrollContainer/VBoxContainer"]
@@ -79,7 +75,6 @@ margin_top = 242.0
 margin_right = 118.0
 margin_bottom = 342.0
 rect_min_size = Vector2( 100, 100 )
-group = ExtResource( 11 )
 text = "Theme"
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/ScrollContainer/VBoxContainer"]
@@ -99,7 +94,6 @@ margin_top = 386.0
 margin_right = 118.0
 margin_bottom = 446.0
 rect_min_size = Vector2( 100, 60 )
-group = ExtResource( 11 )
 text = "General"
 
 [node name="InputTab" type="Button" parent="HBoxContainer/ScrollContainer/VBoxContainer"]
@@ -107,7 +101,6 @@ margin_top = 450.0
 margin_right = 118.0
 margin_bottom = 510.0
 rect_min_size = Vector2( 100, 60 )
-group = ExtResource( 11 )
 text = "Input"
 
 [node name="RegionTab" type="Button" parent="HBoxContainer/ScrollContainer/VBoxContainer"]
@@ -115,7 +108,6 @@ margin_top = 514.0
 margin_right = 118.0
 margin_bottom = 574.0
 rect_min_size = Vector2( 100, 60 )
-group = ExtResource( 11 )
 text = "Region"
 icon = ExtResource( 2 )
 expand_icon = true
@@ -125,7 +117,6 @@ margin_top = 578.0
 margin_right = 118.0
 margin_bottom = 638.0
 rect_min_size = Vector2( 100, 60 )
-group = ExtResource( 11 )
 text = "Systems"
 icon = ExtResource( 8 )
 expand_icon = true
@@ -135,8 +126,6 @@ margin_top = 642.0
 margin_right = 118.0
 margin_bottom = 702.0
 rect_min_size = Vector2( 100, 60 )
-focus_neighbour_bottom = NodePath("../QuitTab")
-group = ExtResource( 11 )
 text = "Emulators"
 icon = ExtResource( 5 )
 expand_icon = true
@@ -147,34 +136,25 @@ margin_right = 118.0
 margin_bottom = 766.0
 rect_min_size = Vector2( 100, 60 )
 focus_neighbour_bottom = NodePath("../QuitTab")
-group = ExtResource( 11 )
 text = "About"
 expand_icon = true
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="HBoxContainer"]
-margin_left = 134.0
-margin_right = 854.0
-margin_bottom = 464.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-follow_focus = true
-
-[node name="SettingsTab" type="TabContainer" parent="HBoxContainer/ScrollContainer2"]
+[node name="SettingsTab" type="TabContainer" parent="HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 720.0
+margin_right = 130.0
 margin_bottom = 464.0
 focus_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tabs_visible = false
 
-[node name="QuitSettings" parent="HBoxContainer/ScrollContainer2/SettingsTab" instance=ExtResource( 13 )]
+[node name="QuitSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 13 )]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="GameSettings" parent="HBoxContainer/ScrollContainer2/SettingsTab" instance=ExtResource( 3 )]
+[node name="GameSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 3 )]
 unique_name_in_owner = true
 visible = false
 margin_left = 5.0
@@ -182,7 +162,7 @@ margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="ScraperSettings" parent="HBoxContainer/ScrollContainer2/SettingsTab" instance=ExtResource( 6 )]
+[node name="ScraperSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 6 )]
 unique_name_in_owner = true
 visible = false
 margin_left = 5.0
@@ -190,7 +170,7 @@ margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="ThemeSettings" type="Control" parent="HBoxContainer/ScrollContainer2/SettingsTab"]
+[node name="ThemeSettings" type="ScrollContainer" parent="HBoxContainer/SettingsTab"]
 unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
@@ -199,10 +179,12 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
+follow_focus = true
+scroll_horizontal_enabled = false
 script = ExtResource( 10 )
 no_theme_settings_scene = ExtResource( 7 )
 
-[node name="GeneralSettings" parent="HBoxContainer/ScrollContainer2/SettingsTab" instance=ExtResource( 9 )]
+[node name="GeneralSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 9 )]
 unique_name_in_owner = true
 visible = false
 margin_left = 5.0
@@ -210,7 +192,13 @@ margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="InputSettings" type="Label" parent="HBoxContainer/ScrollContainer2/SettingsTab"]
+[node name="InputSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 11 )]
+visible = false
+
+[node name="RegionSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 12 )]
+visible = false
+
+[node name="ScraperInnerSettings" type="Label" parent="HBoxContainer/SettingsTab"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -222,10 +210,7 @@ text = "To be implemented"
 align = 1
 valign = 1
 
-[node name="RegionSettings" parent="HBoxContainer/ScrollContainer2/SettingsTab" instance=ExtResource( 12 )]
-visible = false
-
-[node name="ScraperInnerSettings" type="Label" parent="HBoxContainer/ScrollContainer2/SettingsTab"]
+[node name="SystemsSettings" type="Label" parent="HBoxContainer/SettingsTab"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -237,7 +222,7 @@ text = "To be implemented"
 align = 1
 valign = 1
 
-[node name="SystemsSettings" type="Label" parent="HBoxContainer/ScrollContainer2/SettingsTab"]
+[node name="EmulatorsSettings" type="Label" parent="HBoxContainer/SettingsTab"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -249,19 +234,7 @@ text = "To be implemented"
 align = 1
 valign = 1
 
-[node name="EmulatorsSettings" type="Label" parent="HBoxContainer/ScrollContainer2/SettingsTab"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-text = "To be implemented"
-align = 1
-valign = 1
-
-[node name="About" type="Label" parent="HBoxContainer/ScrollContainer2/SettingsTab"]
+[node name="About" type="Label" parent="HBoxContainer/SettingsTab"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -295,4 +268,4 @@ valign = 1
 [connection signal="focus_entered" from="HBoxContainer/ScrollContainer/VBoxContainer/EmulatorsTab" to="." method="_on_Tab_focus_entered" binds= [ 8 ]]
 [connection signal="button_up" from="HBoxContainer/ScrollContainer/VBoxContainer/AboutTab" to="." method="_on_Tab_pressed" binds= [ 9 ]]
 [connection signal="focus_entered" from="HBoxContainer/ScrollContainer/VBoxContainer/AboutTab" to="." method="_on_Tab_focus_entered" binds= [ 9 ]]
-[connection signal="focus_entered" from="HBoxContainer/ScrollContainer2/SettingsTab" to="." method="_on_SettingsTab_focus_entered"]
+[connection signal="focus_entered" from="HBoxContainer/SettingsTab" to="." method="_on_SettingsTab_focus_entered"]

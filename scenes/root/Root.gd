@@ -22,6 +22,7 @@ func _ready():
 	RetroHub.connect("_theme_loaded", self, "_on_theme_loaded")
 	RetroHub.connect("_game_loaded", self, "_on_game_loaded")
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 
 	# Add popups to UI singleton
 	RetroHubUI._n_filesystem_popup = n_filesystem_popup
@@ -33,6 +34,17 @@ func _ready():
 func _on_config_ready(config_data: ConfigData):
 	if config_data.is_first_time:
 		show_first_time_popup()
+	setup_controller_remap(config_data.custom_input_remap)
+
+func _on_config_updated(key: String, old, new):
+	match key:
+		ConfigData.KEY_CUSTOM_INPUT_REMAP:
+			setup_controller_remap(new)
+
+func setup_controller_remap(remap: String):
+	if not remap.empty():
+		Input.remove_joy_mapping(Input.get_joy_guid(0))
+		Input.add_joy_mapping(remap, true)
 
 func show_first_time_popup():
 	var first_time_popup := preload("res://scenes/root/popups/first_time/FirstTimePopups.tscn").instance()

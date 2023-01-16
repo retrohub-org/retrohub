@@ -17,6 +17,7 @@ var date_format : String = "mm/dd/yyyy" setget _set_date_format
 var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_custom_account
 var scraper_ss_username : String = "" setget _set_scraper_ss_username
 var scraper_ss_password : String = "" setget _set_scraper_ss_password
+var custom_input_remap : String = "" setget _set_custom_input_remap
 
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
@@ -28,6 +29,7 @@ const KEY_DATE_FORMAT = "date_format"
 const KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT = "scraper_ss_use_custom_account"
 const KEY_SCRAPER_SS_USERNAME = "scraper_ss_username"
 const KEY_SCRAPER_SS_PASSWORD = "scraper_ss_password"
+const KEY_CUSTOM_INPUT_REMAP = "custom_input_remap"
 
 const _keys = [
 	KEY_IS_FIRST_TIME,
@@ -39,7 +41,8 @@ const _keys = [
 	KEY_DATE_FORMAT,
 	KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT,
 	KEY_SCRAPER_SS_USERNAME,
-	KEY_SCRAPER_SS_PASSWORD
+	KEY_SCRAPER_SS_PASSWORD,
+	KEY_CUSTOM_INPUT_REMAP
 ]
 
 var _should_save : bool = true
@@ -86,6 +89,10 @@ func _set_scraper_ss_username(_scraper_ss_username):
 func _set_scraper_ss_password(_scraper_ss_password):
 	mark_for_saving()
 	scraper_ss_password = _scraper_ss_password
+
+func _set_custom_input_remap(_custom_input_remap):
+	mark_for_saving()
+	custom_input_remap = _custom_input_remap
 
 func mark_for_saving():
 	if _should_save:
