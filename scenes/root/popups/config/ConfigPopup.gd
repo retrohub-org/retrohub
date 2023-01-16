@@ -1,7 +1,5 @@
 extends Popup
 
-export(ButtonGroup) var tab_button_group : ButtonGroup
-
 onready var n_main := $"%SettingsTab"
 onready var n_game_tab := $"%GameTab"
 

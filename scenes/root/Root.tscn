@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/root/Root.gd" type="Script" id=1]
 [ext_resource path="res://scenes/root/popups/config/ConfigPopup.tscn" type="PackedScene" id=3]
@@ -20,8 +20,6 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
 shader_param/blur_amount = 2.0
-
-[sub_resource type="ButtonGroup" id=3]
 
 [node name="Root" type="Control"]
 anchor_right = 1.0
@@ -50,7 +48,6 @@ anchor_bottom = 1.0
 
 [node name="ConfigPopup" parent="." instance=ExtResource( 3 )]
 popup_exclusive = true
-tab_button_group = SubResource( 3 )
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
 anchor_left = 0.5
