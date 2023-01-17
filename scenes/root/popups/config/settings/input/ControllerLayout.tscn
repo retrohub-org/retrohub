@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scenes/root/popups/config/settings/input/ControllerRemapper.gd" type="Script" id=1]
+[ext_resource path="res://scenes/root/popups/config/settings/input/ControllerLayout.gd" type="Script" id=1]
 [ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=2]
 [ext_resource path="res://addons/controller_icons/assets/xboxone/diagram_simple.png" type="Texture" id=3]
 [ext_resource path="res://assets/icons/controller_mapper/circle.png" type="Texture" id=4]
@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/icons/controller_mapper/circle_progress_under.png" type="Texture" id=7]
 [ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=8]
 
-[node name="ControllerRemapper" type="WindowDialog"]
+[node name="ControllerLayout" type="WindowDialog"]
 visible = true
 anchor_left = 0.5
 anchor_top = 0.5
@@ -53,7 +53,7 @@ unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Remapping complete! Test if the buttons are working as intended."
+text = "Layout complete! Test if the buttons are working as intended."
 align = 1
 valign = 1
 
@@ -80,7 +80,7 @@ margin_left = -252.0
 margin_top = -172.5
 margin_right = 252.0
 margin_bottom = 146.5
-rect_min_size = Vector2( 40, 40 )
+rect_min_size = Vector2( 40, 25 )
 texture = ExtResource( 3 )
 expand = true
 script = ExtResource( 2 )
@@ -503,8 +503,8 @@ text = "Reset"
 unique_name_in_owner = true
 one_shot = true
 
-[connection signal="about_to_show" from="." to="." method="_on_ControllerRemapper_about_to_show"]
-[connection signal="popup_hide" from="." to="." method="_on_ControllerRemapper_popup_hide"]
+[connection signal="about_to_show" from="." to="." method="_on_ControllerLayout_about_to_show"]
+[connection signal="popup_hide" from="." to="." method="_on_ControllerLayout_popup_hide"]
 [connection signal="pressed" from="MainButtonRoot/SkipButton" to="." method="_on_SkipButton_pressed"]
 [connection signal="pressed" from="MainButtonRoot/DoneButton" to="." method="_on_DoneButton_pressed"]
 [connection signal="pressed" from="SecButtonRoot/PreviousButton" to="." method="_on_PreviousButton_pressed"]
