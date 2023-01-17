@@ -18,6 +18,7 @@ var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_cust
 var scraper_ss_username : String = "" setget _set_scraper_ss_username
 var scraper_ss_password : String = "" setget _set_scraper_ss_password
 var custom_input_remap : String = "" setget _set_custom_input_remap
+var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_map
 
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
@@ -30,6 +31,7 @@ const KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT = "scraper_ss_use_custom_account"
 const KEY_SCRAPER_SS_USERNAME = "scraper_ss_username"
 const KEY_SCRAPER_SS_PASSWORD = "scraper_ss_password"
 const KEY_CUSTOM_INPUT_REMAP = "custom_input_remap"
+const KEY_INPUT_KEY_MAP = "input_key_map"
 
 const _keys = [
 	KEY_IS_FIRST_TIME,
@@ -42,10 +44,27 @@ const _keys = [
 	KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT,
 	KEY_SCRAPER_SS_USERNAME,
 	KEY_SCRAPER_SS_PASSWORD,
-	KEY_CUSTOM_INPUT_REMAP
+	KEY_CUSTOM_INPUT_REMAP,
+	KEY_INPUT_KEY_MAP
 ]
 
 var _should_save : bool = true
+
+func default_input_key_map() -> Dictionary:
+	return {
+		"rh_accept": [KEY_ENTER],
+		"rh_back": [KEY_BACKSPACE],
+		"rh_major_option": [KEY_CONTROL],
+		"rh_minor_option": [KEY_ALT],
+		"rh_menu": [KEY_ESCAPE],
+		"rh_theme_menu": [KEY_SHIFT],
+		"rh_up": [KEY_UP, KEY_W],
+		"rh_down": [KEY_DOWN, KEY_S],
+		"rh_left": [KEY_LEFT, KEY_A],
+		"rh_right": [KEY_RIGHT, KEY_D],
+		"rh_left_shoulder": [KEY_Q],
+		"rh_right_shoulder": [KEY_E]
+	}
 
 func _set_is_first_time(_is_first_time):
 	mark_for_saving()
@@ -93,6 +112,17 @@ func _set_scraper_ss_password(_scraper_ss_password):
 func _set_custom_input_remap(_custom_input_remap):
 	mark_for_saving()
 	custom_input_remap = _custom_input_remap
+
+func _set_input_key_map(_input_key_map):
+	mark_for_saving()
+	input_key_map = _input_key_map.duplicate(true)
+
+	# Change all values to int
+	for key in input_key_map:
+		var arr_int := []
+		for val in input_key_map[key]:
+			arr_int.push_back(int(val))
+		input_key_map[key] = arr_int
 
 func mark_for_saving():
 	if _should_save:
@@ -149,8 +179,11 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 	# Now signal any changes that ocurred to the config file
 	for key in _keys:
 		if _old_config.has(key):
-			if _old_config[key] != get(key):
+			if _old_config[key] is Dictionary:
+				if _old_config[key].values().hash() != get(key).values().hash():
+					emit_signal("config_updated", key, _old_config[key], get(key))
+			elif _old_config[key] != get(key):
 				emit_signal("config_updated", key, _old_config[key], get(key))
 
-	_old_config = dict
+	_old_config = dict.duplicate(true)
 	return OK

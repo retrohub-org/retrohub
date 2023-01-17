@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/root/popups/config/settings/InputSettings.gd" type="Script" id=1]
 [ext_resource path="res://addons/controller_icons/assets/key/enter_alt.png" type="Texture" id=2]
@@ -14,7 +14,8 @@
 [ext_resource path="res://addons/controller_icons/assets/key/s.png" type="Texture" id=12]
 [ext_resource path="res://addons/controller_icons/assets/key/q.png" type="Texture" id=13]
 [ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture" id=14]
-[ext_resource path="res://scenes/root/popups/config/settings/input/ControllerRemapper.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/root/popups/config/settings/input/ControllerLayout.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/root/popups/config/settings/input/KeyboardRemap.tscn" type="PackedScene" id=16]
 
 [node name="InputSettings" type="Control"]
 anchor_right = 1.0
@@ -36,375 +37,386 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
 margin_right = 1024.0
 margin_bottom = 14.0
-text = "If your controller is misbehaving, RetroHub might be using a wrong mapping. If that's the case, do a remap below."
+text = "If your controller is acting weird, RetroHub might not be detecting your controller correctly . If that's the case, create a custom layout here."
 align = 1
 valign = 1
 autowrap = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_left = 351.0
+margin_left = 354.0
 margin_top = 18.0
-margin_right = 673.0
+margin_right = 670.0
 margin_bottom = 38.0
 size_flags_horizontal = 4
 custom_constants/separation = 15
 
 [node name="StartRemap" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 152.0
+margin_right = 162.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../InputTab/Keyboard/VBoxContainer/HBoxContainer6/KBThemeMenu")
 size_flags_horizontal = 0
-text = "Start controller remap"
+text = "Create controller layout"
 
 [node name="ClearRemap" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 167.0
-margin_right = 322.0
+margin_left = 177.0
+margin_right = 316.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../InputTab/Keyboard/VBoxContainer/HBoxContainer6/KBThemeMenu")
 size_flags_horizontal = 0
-text = "Clear controller remap"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 42.0
-margin_right = 1024.0
-margin_bottom = 56.0
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 207.0
-margin_bottom = 14.0
-text = "Current detected input method: "
-
-[node name="InputType" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
-margin_left = 211.0
-margin_right = 211.0
-margin_bottom = 14.0
+text = "Clear custom layout"
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
-margin_top = 60.0
+margin_top = 42.0
 margin_right = 1024.0
-margin_bottom = 64.0
+margin_bottom = 46.0
 
-[node name="KeyboardActions" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="InputTab" type="TabContainer" parent="ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 68.0
+margin_top = 50.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Keyboard" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions"]
-margin_right = 502.0
-margin_bottom = 532.0
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard"]
+margin_right = 498.0
+margin_bottom = 514.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer"]
-margin_right = 502.0
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
+margin_right = 498.0
 margin_bottom = 48.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Accept"
 
-[node name="KBAcceptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBAccept" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer/KBMoveUp")
 icon = ExtResource( 2 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_accept"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 52.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 100.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer2"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer2"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Back
 "
 
-[node name="BackButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer2"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBBack" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer2"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer2/KBMoveDown")
 icon = ExtResource( 4 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_back"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 104.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 152.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer3"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer3"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Major option"
 
-[node name="MajorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer3"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBMajorOpt" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer3"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer3/KBMoveLeft")
 icon = ExtResource( 6 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_major_option"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 156.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 204.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer4"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer4"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Minor option
 "
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer4"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBMinorOpt" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer4"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer4/KBMoveRight")
 icon = ExtResource( 5 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_minor_option"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 208.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 256.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer5"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer5"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "RetroHub menu
 "
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer5"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBRetroHubMenu" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer5"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer5/KBSlideLeft")
 icon = ExtResource( 7 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_menu"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 260.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 308.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer6"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer6"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Theme menu"
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer/HBoxContainer6"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBThemeMenu" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer6"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer6/KBSlideRight")
+focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/StartRemap")
 icon = ExtResource( 8 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_theme_menu"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions"]
-margin_left = 522.0
-margin_right = 1024.0
-margin_bottom = 532.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard"]
+margin_left = 518.0
+margin_right = 1016.0
+margin_bottom = 514.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2"]
-margin_right = 502.0
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
+margin_right = 498.0
 margin_bottom = 48.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer"]
+margin_right = 446.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Move up"
+
+[node name="KBMoveUp" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer"]
+margin_left = 450.0
+margin_right = 498.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer/KBAccept")
+icon = ExtResource( 11 )
+expand_icon = true
+script = ExtResource( 3 )
+path = "rh_up"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
+margin_top = 52.0
+margin_right = 498.0
+margin_bottom = 100.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer2"]
+margin_right = 446.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Move down"
+
+[node name="KBMoveDown" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer2"]
+margin_left = 450.0
+margin_right = 498.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer2/KBBack")
+icon = ExtResource( 12 )
+expand_icon = true
+script = ExtResource( 3 )
+path = "rh_down"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
+margin_top = 104.0
+margin_right = 498.0
+margin_bottom = 152.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer3"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move left"
 
-[node name="AcceptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBMoveLeft" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer3"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer3/KBMajorOpt")
 icon = ExtResource( 9 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_left"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2"]
-margin_top = 52.0
-margin_right = 502.0
-margin_bottom = 100.0
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
+margin_top = 156.0
+margin_right = 498.0
+margin_bottom = 204.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer2"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer4"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move right
 "
 
-[node name="BackButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer2"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBMoveRight" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer4"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer4/KBMinorOpt")
 icon = ExtResource( 10 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_right"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2"]
-margin_top = 104.0
-margin_right = 502.0
-margin_bottom = 152.0
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer3"]
-margin_right = 450.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "Move up"
-
-[node name="MajorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer3"]
-margin_left = 454.0
-margin_right = 502.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 11 )
-expand_icon = true
-script = ExtResource( 3 )
-path = "rh_up"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2"]
-margin_top = 156.0
-margin_right = 502.0
-margin_bottom = 204.0
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer4"]
-margin_right = 450.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "Move down"
-
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer4"]
-margin_left = 454.0
-margin_right = 502.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 12 )
-expand_icon = true
-script = ExtResource( 3 )
-path = "rh_down"
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
 margin_top = 208.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 256.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer5"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer5"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Slide left
 "
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer5"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBSlideLeft" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer5"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer5/KBRetroHubMenu")
 icon = ExtResource( 13 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_left_shoulder"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
 margin_top = 260.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 308.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer6"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer6"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Slide right"
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/KeyboardActions/VBoxContainer2/HBoxContainer6"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="KBSlideRight" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer6"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer6/KBThemeMenu")
+focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/StartRemap")
 icon = ExtResource( 14 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_right_shoulder"
 
-[node name="ControllerActions" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="Controller" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 68.0
-margin_bottom = 68.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions"]
-margin_right = 502.0
-margin_bottom = 532.0
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller"]
+margin_right = 498.0
+margin_bottom = 514.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer"]
-margin_right = 502.0
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
+margin_right = 498.0
 margin_bottom = 48.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Accept"
 
-[node name="AcceptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="AcceptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 2 )
@@ -412,22 +424,22 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_accept"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 52.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 100.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer2"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer2"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Back
 "
 
-[node name="BackButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer2"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="BackButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer2"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 4 )
@@ -435,21 +447,21 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_back"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 104.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 152.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer3"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer3"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Major option"
 
-[node name="MajorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer3"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="MajorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer3"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 6 )
@@ -457,22 +469,22 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_major_option"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 156.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 204.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer4"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer4"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Minor option
 "
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer4"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer4"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 5 )
@@ -480,22 +492,22 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_minor_option"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 208.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 256.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer5"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer5"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "RetroHub menu
 "
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer5"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer5"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 7 )
@@ -503,21 +515,21 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_menu"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 260.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 308.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer6"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer6"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Theme menu"
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer/HBoxContainer6"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer6"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 8 )
@@ -525,27 +537,27 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_theme_menu"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions"]
-margin_left = 522.0
-margin_right = 1024.0
-margin_bottom = 532.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller"]
+margin_left = 518.0
+margin_right = 1016.0
+margin_bottom = 514.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2"]
-margin_right = 502.0
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
+margin_right = 498.0
 margin_bottom = 48.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move left"
 
-[node name="AcceptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="AcceptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 9 )
@@ -553,22 +565,22 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_left"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 52.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 100.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer2"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer2"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move right
 "
 
-[node name="BackButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer2"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="BackButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer2"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 10 )
@@ -576,21 +588,21 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_right"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 104.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 152.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer3"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer3"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move up"
 
-[node name="MajorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer3"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="MajorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer3"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 11 )
@@ -598,21 +610,21 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_up"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 156.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 204.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer4"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer4"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move down"
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer4"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer4"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 12 )
@@ -620,22 +632,22 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_down"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 208.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 256.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer5"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer5"]
+margin_right = 446.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Slide left
 "
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer5"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer5"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 13 )
@@ -643,21 +655,21 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_left_shoulder"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 260.0
-margin_right = 502.0
+margin_right = 498.0
 margin_bottom = 308.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer6"]
-margin_right = 450.0
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer6"]
+margin_right = 446.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Slide right"
 
-[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/ControllerActions/VBoxContainer2/HBoxContainer6"]
-margin_left = 454.0
-margin_right = 502.0
+[node name="MinorOptButton" type="Button" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer6"]
+margin_left = 450.0
+margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 14 )
@@ -665,12 +677,12 @@ expand_icon = true
 script = ExtResource( 3 )
 path = "rh_right_shoulder"
 
-[node name="ControllerRemapper" parent="." instance=ExtResource( 15 )]
+[node name="ControllerLayout" parent="." instance=ExtResource( 15 )]
 unique_name_in_owner = true
+visible = false
 
-[node name="ClearRemapPopup" type="AcceptDialog" parent="."]
+[node name="ClearLayoutPopup" type="AcceptDialog" parent="."]
 unique_name_in_owner = true
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -681,22 +693,37 @@ margin_right = 174.0
 margin_bottom = 115.5
 dialog_autowrap = true
 
-[node name="Label2" type="Label" parent="ClearRemapPopup"]
+[node name="Label2" type="Label" parent="ClearLayoutPopup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 7.0
+margin_left = 8.0
 margin_top = 8.0
-margin_right = -9.0
-margin_bottom = -34.0
-text = "Custom mapping cleared.
+margin_right = -8.0
+margin_bottom = -36.0
+text = "Custom layout cleared.
 
-You must restart RetroHub for it to load the default
-map again, or setup your own mapping again."
+You must restart RetroHub for it to load the default layout again."
 align = 1
 valign = 1
 autowrap = true
 
+[node name="KeyboardRemap" parent="." instance=ExtResource( 16 )]
+unique_name_in_owner = true
+
 [connection signal="hide" from="." to="." method="_on_hide"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/StartRemap" to="." method="_on_StartRemap_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/ClearRemap" to="." method="_on_ClearRemap_pressed"]
-[connection signal="popup_hide" from="ControllerRemapper" to="." method="_on_ControllerRemapper_popup_hide"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer/KBAccept" to="." method="_on_KB_pressed" binds= [ "rh_accept" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer2/KBBack" to="." method="_on_KB_pressed" binds= [ "rh_back" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer3/KBMajorOpt" to="." method="_on_KB_pressed" binds= [ "rh_major_option" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer4/KBMinorOpt" to="." method="_on_KB_pressed" binds= [ "rh_minor_option" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer5/KBRetroHubMenu" to="." method="_on_KB_pressed" binds= [ "rh_menu" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer6/KBThemeMenu" to="." method="_on_KB_pressed" binds= [ "rh_theme_menu" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer/KBMoveUp" to="." method="_on_KB_pressed" binds= [ "rh_up" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer2/KBMoveDown" to="." method="_on_KB_pressed" binds= [ "rh_down" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer3/KBMoveLeft" to="." method="_on_KB_pressed" binds= [ "rh_left" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer4/KBMoveRight" to="." method="_on_KB_pressed" binds= [ "rh_right" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer5/KBSlideLeft" to="." method="_on_KB_pressed" binds= [ "rh_left_shoulder" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2/HBoxContainer6/KBSlideRight" to="." method="_on_KB_pressed" binds= [ "rh_right_shoulder" ]]
+[connection signal="popup_hide" from="ControllerLayout" to="." method="_on_ControllerLayout_popup_hide"]
+[connection signal="key_remapped" from="KeyboardRemap" to="." method="_on_KeyboardRemap_key_remapped"]

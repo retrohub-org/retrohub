@@ -34,6 +34,14 @@ var emulators_map : Dictionary
 var _dir := Directory.new()
 var _file := File.new()
 
+var _implicit_mappings := {
+	"rh_accept": "ui_accept",
+	"rh_left": "ui_left",
+	"rh_right": "ui_right",
+	"rh_up": "ui_up",
+	"rh_down": "ui_down"
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if FileUtils.get_os_id() == FileUtils.OS_ID.UNSUPPORTED:
@@ -51,8 +59,40 @@ func _ready():
 	
 	# Wait until all other nodes have processed _ready
 	yield(get_tree(), "idle_frame")
+	handle_key_remaps()
 	emit_signal("config_ready", config)
 	config.connect("config_updated", self, "_on_config_updated")
+
+func _get_scancode(e: InputEventKey):
+	return e.physical_scancode if e.scancode == 0 else e.scancode
+
+func handle_key_remaps():
+	var keys := config.input_key_map
+	# Add implicit mappings as well (aka existing Godot actions that manage UI events)
+	for key in keys:
+		for ev in InputMap.get_action_list(key):
+			if ev is InputEventKey:
+				InputMap.action_erase_event(key, ev)
+				if key in _implicit_mappings:
+					InputMap.action_erase_event(_implicit_mappings[key], ev)
+		for code in keys[key]:
+			handle_key_remap(key, 0, code)
+			if _implicit_mappings.has(key):
+				handle_key_remap(_implicit_mappings[key], 0, code)
+	# Signal ControllerIcons to update icons
+	ControllerIcons.refresh()
+
+func handle_key_remap(key: String, old: int, new: int):
+	# Find existing actions to remove them first
+	var events := InputMap.get_action_list(key)
+	for e in events:
+		if e is InputEventKey and _get_scancode(e) == old:
+			InputMap.action_erase_event(key, e)
+			break
+	# Now add the new one
+	var key_event := InputEventKey.new()
+	key_event.physical_scancode = new
+	InputMap.action_add_event(key, key_event)
 
 func expand_systems():
 	for key in _systems_raw:
@@ -69,8 +109,11 @@ func load_config_file():
 		# TODO: behavior for when file is corrupt
 
 func _on_config_updated(key, old_value, new_value):
-	if key == ConfigData.KEY_GAMES_DIR:
-		load_game_data_files()
+	match key:
+		ConfigData.KEY_GAMES_DIR:
+			load_game_data_files()
+		ConfigData.KEY_INPUT_KEY_MAP:
+			handle_key_remaps()
 
 	emit_signal("config_updated", key, old_value, new_value)
 

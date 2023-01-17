@@ -304,10 +304,10 @@ func _on_SkipButton_pressed():
 	curr_step += 1
 	step()
 
-func _on_ControllerRemapper_popup_hide():
+func _on_ControllerLayout_popup_hide():
 	reset()
 
-func _on_ControllerRemapper_about_to_show():
+func _on_ControllerLayout_about_to_show():
 	reset()
 	start()
 
