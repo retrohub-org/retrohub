@@ -1,11 +1,11 @@
 extends Control
 
-onready var n_start_remap := $"%StartRemap"
-onready var n_clear_remap := $"%ClearRemap"
+onready var n_start_layout := $"%StartLayout"
+onready var n_clear_layout := $"%ClearLayout"
 onready var n_input_tab := $"%InputTab"
 
 onready var n_popup_controller_layout := $"%ControllerLayout"
-onready var n_clear_remap_popup := $"%ClearRemapPopup"
+onready var n_clear_layout_popup := $"%ClearLayoutPopup"
 onready var n_key_remap_popup := $"%KeyboardRemap"
 onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
 
@@ -16,18 +16,18 @@ func _ready():
 	ControllerIcons.connect("input_type_changed", self, "_on_input_type_changed")
 
 func grab_focus():
-	n_start_remap.grab_focus()
+	n_start_layout.grab_focus()
 
 func _on_config_ready(config_data: ConfigData):
-	n_clear_remap.disabled = config_data.custom_input_remap.empty()
+	n_clear_layout.disabled = config_data.custom_input_remap.empty()
 
 func _on_config_updated(key: String, _old_value, new_value):
 	match key:
 		ConfigData.KEY_CUSTOM_INPUT_REMAP:
-			n_clear_remap.disabled = new_value.empty()
+			n_clear_layout.disabled = new_value.empty()
 
 func _on_input_type_changed(input_type: int):
-	n_start_remap.disabled = Input.get_connected_joypads().empty()
+	n_start_layout.disabled = Input.get_connected_joypads().empty()
 	if not is_visible_in_tree():
 		n_input_tab.current_tab = input_type
 
@@ -35,19 +35,19 @@ func _on_hide():
 	RetroHubConfig.save_config()
 
 
-func _on_StartRemap_pressed():
+func _on_StartLayout_pressed():
 	n_popup_controller_layout.popup_centered()
 
 
-func _on_ClearRemap_pressed():
+func _on_ClearLayout_pressed():
 	RetroHubConfig.config.custom_input_remap = ""
 	RetroHubConfig.save_config()
-	n_clear_remap_popup.popup_centered()
-	n_clear_remap.disabled = true
+	n_clear_layout_popup.popup_centered()
+	n_clear_layout.disabled = true
 
 
 func _on_ControllerLayout_popup_hide():
-	n_clear_remap.disabled = RetroHubConfig.config.custom_input_remap == ""
+	n_clear_layout.disabled = RetroHubConfig.config.custom_input_remap == ""
 
 
 func _on_KB_pressed(input_key):
