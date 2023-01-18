@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/root/popups/config/settings/InputSettings.gd" type="Script" id=1]
 [ext_resource path="res://addons/controller_icons/assets/key/enter_alt.png" type="Texture" id=2]
@@ -16,6 +16,15 @@
 [ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture" id=14]
 [ext_resource path="res://scenes/root/popups/config/settings/input/ControllerLayout.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/root/popups/config/settings/input/KeyboardRemap.tscn" type="PackedScene" id=16]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/lb.png" type="Texture" id=17]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/rb.png" type="Texture" id=18]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/x.png" type="Texture" id=19]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/y.png" type="Texture" id=20]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/l_stick.png" type="Texture" id=21]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/a.png" type="Texture" id=22]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/b.png" type="Texture" id=23]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/menu.png" type="Texture" id=24]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/view.png" type="Texture" id=25]
 
 [node name="InputSettings" type="Control"]
 anchor_right = 1.0
@@ -118,6 +127,7 @@ icon = ExtResource( 2 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_accept"
+force_type = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 52.0
@@ -142,6 +152,7 @@ icon = ExtResource( 4 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_back"
+force_type = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 104.0
@@ -165,6 +176,7 @@ icon = ExtResource( 6 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_major_option"
+force_type = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 156.0
@@ -189,6 +201,7 @@ icon = ExtResource( 5 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_minor_option"
+force_type = 1
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 208.0
@@ -213,6 +226,7 @@ icon = ExtResource( 7 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_menu"
+force_type = 1
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer"]
 margin_top = 260.0
@@ -237,6 +251,7 @@ icon = ExtResource( 8 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_theme_menu"
+force_type = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard"]
 margin_left = 518.0
@@ -266,6 +281,7 @@ icon = ExtResource( 11 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_up"
+force_type = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
 margin_top = 52.0
@@ -289,6 +305,7 @@ icon = ExtResource( 12 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_down"
+force_type = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
 margin_top = 104.0
@@ -312,6 +329,7 @@ icon = ExtResource( 9 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_left"
+force_type = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
 margin_top = 156.0
@@ -336,6 +354,7 @@ icon = ExtResource( 10 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_right"
+force_type = 1
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
 margin_top = 208.0
@@ -360,6 +379,7 @@ icon = ExtResource( 13 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_left_shoulder"
+force_type = 1
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer2"]
 margin_top = 260.0
@@ -384,6 +404,7 @@ icon = ExtResource( 14 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_right_shoulder"
+force_type = 1
 
 [node name="Controller" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab"]
 visible = false
@@ -419,10 +440,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 2 )
+icon = ExtResource( 22 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_accept"
+force_type = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 52.0
@@ -442,10 +464,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 4 )
+icon = ExtResource( 23 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_back"
+force_type = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 104.0
@@ -464,10 +487,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 6 )
+icon = ExtResource( 19 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_major_option"
+force_type = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 156.0
@@ -487,10 +511,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 5 )
+icon = ExtResource( 20 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_minor_option"
+force_type = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 208.0
@@ -510,10 +535,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 7 )
+icon = ExtResource( 24 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_menu"
+force_type = 2
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer"]
 margin_top = 260.0
@@ -532,10 +558,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 8 )
+icon = ExtResource( 25 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_theme_menu"
+force_type = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller"]
 margin_left = 518.0
@@ -560,10 +587,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 9 )
+icon = ExtResource( 21 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_left"
+force_type = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 52.0
@@ -583,10 +611,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 10 )
+icon = ExtResource( 21 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_right"
+force_type = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 104.0
@@ -605,10 +634,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 11 )
+icon = ExtResource( 21 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_up"
+force_type = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 156.0
@@ -627,10 +657,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 12 )
+icon = ExtResource( 21 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_down"
+force_type = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 208.0
@@ -650,10 +681,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 13 )
+icon = ExtResource( 17 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_left_shoulder"
+force_type = 2
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2"]
 margin_top = 260.0
@@ -672,10 +704,11 @@ margin_left = 450.0
 margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
-icon = ExtResource( 14 )
+icon = ExtResource( 18 )
 expand_icon = true
 script = ExtResource( 3 )
 path = "rh_right_shoulder"
+force_type = 2
 
 [node name="ControllerLayout" parent="." instance=ExtResource( 15 )]
 unique_name_in_owner = true
