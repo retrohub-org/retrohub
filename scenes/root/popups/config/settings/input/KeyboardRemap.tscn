@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/root/popups/config/settings/KeyboardRemap.gd" type="Script" id=2]
 
 [node name="KeyboardRemap" type="AcceptDialog"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
