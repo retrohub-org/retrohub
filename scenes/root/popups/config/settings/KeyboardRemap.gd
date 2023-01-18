@@ -22,7 +22,7 @@ func _input(event):
 	if visible and event is InputEventKey:
 		get_tree().set_input_as_handled()
 		scancode = (event as InputEventKey).physical_scancode
-		# TODO: change controller icons to support key_icon
+		n_key_icon.texture = ControllerIcons.parse_event(event)
 		n_key_label.text = OS.get_scancode_string(scancode)
 
 func find_old_keycode(key: String):
