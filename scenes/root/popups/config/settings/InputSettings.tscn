@@ -61,7 +61,7 @@ margin_bottom = 38.0
 size_flags_horizontal = 4
 custom_constants/separation = 15
 
-[node name="StartRemap" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="StartLayout" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_right = 162.0
 margin_bottom = 20.0
@@ -69,7 +69,7 @@ focus_neighbour_top = NodePath("../../InputTab/Keyboard/VBoxContainer/HBoxContai
 size_flags_horizontal = 0
 text = "Create controller layout"
 
-[node name="ClearRemap" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="ClearLayout" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 177.0
 margin_right = 316.0
@@ -248,7 +248,7 @@ margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer6/KBSlideRight")
-focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/StartRemap")
+focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/StartLayout")
 icon = ExtResource( 8 )
 expand_icon = true
 script = ExtResource( 26 )
@@ -401,7 +401,7 @@ margin_right = 498.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer6/KBThemeMenu")
-focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/StartRemap")
+focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/StartLayout")
 icon = ExtResource( 14 )
 expand_icon = true
 script = ExtResource( 26 )
@@ -704,8 +704,8 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [connection signal="hide" from="." to="." method="_on_hide"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/StartRemap" to="." method="_on_StartRemap_pressed"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/ClearRemap" to="." method="_on_ClearRemap_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/StartLayout" to="." method="_on_StartLayout_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/ClearLayout" to="." method="_on_ClearLayout_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer/KBAccept" to="." method="_on_KB_pressed" binds= [ "rh_accept" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer2/KBBack" to="." method="_on_KB_pressed" binds= [ "rh_back" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Keyboard/VBoxContainer/HBoxContainer3/KBMajorOpt" to="." method="_on_KB_pressed" binds= [ "rh_major_option" ]]
