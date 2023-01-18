@@ -7,6 +7,7 @@ onready var n_input_tab := $"%InputTab"
 onready var n_popup_controller_layout := $"%ControllerLayout"
 onready var n_clear_remap_popup := $"%ClearRemapPopup"
 onready var n_key_remap_popup := $"%KeyboardRemap"
+onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,4 +68,11 @@ func _on_KeyboardRemap_key_remapped(key, old_code, new_code):
 			keymap[_key].push_back(old_code)
 	RetroHubConfig.config.mark_for_saving()
 	RetroHubConfig.save_config()
-	
+
+func _on_CN_pressed(input_key):
+	var button := get_focus_owner()
+	var pos := button.rect_global_position - Vector2(n_ctrl_button_remap_popup.rect_size.x + 10, 0)
+	n_ctrl_button_remap_popup.start(input_key, pos)
+
+func _on_ControllerButtonRemap_remap_done(action, old_button, new_button):
+	print("Remapped %s action from %d to %d" % [action, old_button, new_button])
