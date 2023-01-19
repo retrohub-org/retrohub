@@ -61,7 +61,8 @@ func _ready():
 	# Wait until all other nodes have processed _ready
 	yield(get_tree(), "idle_frame")
 	handle_key_remaps()
-	handle_controller_remaps()
+	handle_controller_axis_remaps()
+	handle_controller_button_remaps()
 	emit_signal("config_ready", config)
 	config.connect("config_updated", self, "_on_config_updated")
 
@@ -96,7 +97,7 @@ func handle_key_remap(key: String, old: int, new: int):
 	key_event.physical_scancode = new
 	InputMap.action_add_event(key, key_event)
 
-func handle_controller_remaps():
+func handle_controller_button_remaps():
 	var keys := config.input_controller_map
 	# Add implicit mappings as well (aka existing Godot actions that manage UI events)
 	for key in keys:
@@ -109,7 +110,8 @@ func handle_controller_remaps():
 			handle_controller_button_remap(key, 0, button)
 			if _implicit_mappings.has(key):
 				handle_controller_button_remap(_implicit_mappings[key], 0, button)
-	
+
+func handle_controller_axis_remaps():
 	# Handle axis remaps
 	var main_axis := config.input_controller_main_axis
 	var sec_axis := config.input_controller_secondary_axis
@@ -173,7 +175,9 @@ func _on_config_updated(key, old_value, new_value):
 		ConfigData.KEY_INPUT_KEY_MAP:
 			handle_key_remaps()
 		ConfigData.KEY_INPUT_CONTROLLER_MAP:
-			handle_controller_remaps()
+			handle_controller_button_remaps()
+		ConfigData.KEY_INPUT_CONTROLLER_MAIN_AXIS, ConfigData.KEY_INPUT_CONTROLLER_SECONDARY_AXIS:
+			handle_controller_axis_remaps()
 
 	emit_signal("config_updated", key, old_value, new_value)
 

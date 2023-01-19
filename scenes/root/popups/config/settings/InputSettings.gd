@@ -8,6 +8,7 @@ onready var n_popup_controller_layout := $"%ControllerLayout"
 onready var n_clear_layout_popup := $"%ClearLayoutPopup"
 onready var n_key_remap_popup := $"%KeyboardRemap"
 onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
+onready var n_ctrl_axis_remap_popup := $"%ControllerAxisRemap"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -88,4 +89,16 @@ func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 			map[_key].erase(new_button)
 			map[_key].push_back(old_button)
 	RetroHubConfig.config.mark_for_saving()
+	RetroHubConfig.save_config()
+
+func _on_CNAxis_pressed(axis):
+	var button := get_focus_owner()
+	var pos := button.rect_global_position - Vector2(n_ctrl_button_remap_popup.rect_size.x + 10, 0)
+	n_ctrl_axis_remap_popup.start(axis, pos)
+
+func _on_ControllerAxisRemap_remap_done(action, old_axis, new_axis):
+	# There's only two movement sticks, they will always switch places
+	var is_main : bool = action == "rh_left"
+	RetroHubConfig.config.input_controller_main_axis = new_axis if is_main else old_axis
+	RetroHubConfig.config.input_controller_secondary_axis = old_axis if is_main else new_axis
 	RetroHubConfig.save_config()
