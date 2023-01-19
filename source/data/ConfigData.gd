@@ -22,6 +22,7 @@ var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_m
 var input_controller_map : Dictionary = default_input_controller_map() setget _set_input_controller_map
 var input_controller_main_axis : int = JOY_ANALOG_LX setget _set_input_controller_main_axis
 var input_controller_secondary_axis : int = JOY_ANALOG_RX setget _set_input_controller_secondary_axis
+var input_controller_icon_type : int = -1 setget _set_input_controller_icon_type
 
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
@@ -38,6 +39,7 @@ const KEY_INPUT_KEY_MAP = "input_key_map"
 const KEY_INPUT_CONTROLLER_MAP = "input_controller_map"
 const KEY_INPUT_CONTROLLER_MAIN_AXIS = "input_controller_main_axis"
 const KEY_INPUT_CONTROLLER_SECONDARY_AXIS = "input_controller_secondary_axis"
+const KEY_INPUT_CONTROLLER_ICON_TYPE = "input_controller_icon_type"
 
 const _keys = [
 	KEY_IS_FIRST_TIME,
@@ -54,12 +56,13 @@ const _keys = [
 	KEY_INPUT_KEY_MAP,
 	KEY_INPUT_CONTROLLER_MAP,
 	KEY_INPUT_CONTROLLER_MAIN_AXIS,
-	KEY_INPUT_CONTROLLER_SECONDARY_AXIS
+	KEY_INPUT_CONTROLLER_SECONDARY_AXIS,
+	KEY_INPUT_CONTROLLER_ICON_TYPE
 ]
 
 var _should_save : bool = true
 
-func default_input_key_map() -> Dictionary:
+static func default_input_key_map() -> Dictionary:
 	return {
 		"rh_accept": [KEY_ENTER],
 		"rh_back": [KEY_BACKSPACE],
@@ -75,7 +78,7 @@ func default_input_key_map() -> Dictionary:
 		"rh_right_shoulder": [KEY_E]
 	}
 
-func default_input_controller_map() -> Dictionary:
+static func default_input_controller_map() -> Dictionary:
 	return {
 		"rh_accept": [JOY_XBOX_A],
 		"rh_back": [JOY_XBOX_B],
@@ -170,6 +173,10 @@ func _set_input_controller_secondary_axis(_input_controller_secondary_axis):
 	mark_for_saving()
 	input_controller_secondary_axis = _input_controller_secondary_axis
 
+func _set_input_controller_icon_type(_input_controller_icon_type):
+	mark_for_saving()
+	input_controller_icon_type = _input_controller_icon_type
+
 func mark_for_saving():
 	if _should_save:
 		_config_changed = true
@@ -226,7 +233,7 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 	for key in _keys:
 		if _old_config.has(key):
 			if _old_config[key] is Dictionary:
-				if _old_config[key].hash() != get(key).hash():
+				if _old_config[key].values().hash() != get(key).values().hash():
 					emit_signal("config_updated", key, _old_config[key], get(key))
 			elif _old_config[key] != get(key):
 				emit_signal("config_updated", key, _old_config[key], get(key))

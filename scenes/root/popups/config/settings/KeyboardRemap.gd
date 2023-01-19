@@ -15,6 +15,7 @@ func start(key: String):
 	self.key = key
 	self.scancode = 0
 	self.oldcode = find_old_keycode(key)
+	n_key_icon.texture = null
 	n_key_label.text = base_text
 	popup_centered()
 

@@ -111,6 +111,9 @@ func handle_controller_button_remaps():
 			if _implicit_mappings.has(key):
 				handle_controller_button_remap(_implicit_mappings[key], 0, button)
 
+	# Signal ControllerIcons to update icons
+	ControllerIcons.refresh()
+
 func handle_controller_axis_remaps():
 	# Handle axis remaps
 	var main_axis := config.input_controller_main_axis
