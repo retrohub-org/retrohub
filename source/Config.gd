@@ -36,6 +36,7 @@ var _file := File.new()
 
 var _implicit_mappings := {
 	"rh_accept": "ui_accept",
+	"rh_back": "ui_cancel",
 	"rh_left": "ui_left",
 	"rh_right": "ui_right",
 	"rh_up": "ui_up",
@@ -60,6 +61,7 @@ func _ready():
 	# Wait until all other nodes have processed _ready
 	yield(get_tree(), "idle_frame")
 	handle_key_remaps()
+	handle_controller_remaps()
 	emit_signal("config_ready", config)
 	config.connect("config_updated", self, "_on_config_updated")
 
@@ -94,6 +96,62 @@ func handle_key_remap(key: String, old: int, new: int):
 	key_event.physical_scancode = new
 	InputMap.action_add_event(key, key_event)
 
+func handle_controller_remaps():
+	var keys := config.input_controller_map
+	# Add implicit mappings as well (aka existing Godot actions that manage UI events)
+	for key in keys:
+		for ev in InputMap.get_action_list(key):
+			if ev is InputEventJoypadButton:
+				InputMap.action_erase_event(key, ev)
+				if key in _implicit_mappings:
+					InputMap.action_erase_event(_implicit_mappings[key], ev)
+		for button in keys[key]:
+			handle_controller_button_remap(key, 0, button)
+			if _implicit_mappings.has(key):
+				handle_controller_button_remap(_implicit_mappings[key], 0, button)
+	
+	# Handle axis remaps
+	var main_axis := config.input_controller_main_axis
+	var sec_axis := config.input_controller_secondary_axis
+	var data := {
+		"rh_left": [main_axis, -1],
+		"rh_right": [main_axis, 1],
+		"rh_up": [main_axis+1, -1],
+		"rh_down": [main_axis+1, 1],
+		"rh_rstick_left": [sec_axis, -1],
+		"rh_rstick_right": [sec_axis, 1],
+		"rh_rstick_up": [sec_axis+1, -1],
+		"rh_rstick_down": [sec_axis+1, 1]
+	}
+	for key in data:
+		for ev in InputMap.get_action_list(key):
+			if ev is InputEventJoypadMotion:
+				InputMap.action_erase_event(key, ev)
+				if key in _implicit_mappings:
+					InputMap.action_erase_event(_implicit_mappings[key], ev)
+		var ev := InputEventJoypadMotion.new()
+		ev.axis = data[key][0]
+		ev.axis_value = data[key][1]
+		InputMap.action_add_event(key, ev)
+		if _implicit_mappings.has(key):
+			InputMap.action_add_event(_implicit_mappings[key], ev)
+
+	# Signal ControllerIcons to update icons
+	ControllerIcons.refresh()
+
+func handle_controller_button_remap(key: String, old: int, new: int):
+	# Find existing actions to remove them first
+	var events := InputMap.get_action_list(key)
+	for e in events:
+		if e is InputEventJoypadButton and e.button_index == old:
+			InputMap.action_erase_event(key, e)
+			break
+	# Now add the new one
+	var event := InputEventJoypadButton.new()
+	event.button_index = new
+	InputMap.action_add_event(key, event)
+
+
 func expand_systems():
 	for key in _systems_raw:
 		if _systems_raw[key].has("extends"):
@@ -114,6 +172,8 @@ func _on_config_updated(key, old_value, new_value):
 			load_game_data_files()
 		ConfigData.KEY_INPUT_KEY_MAP:
 			handle_key_remaps()
+		ConfigData.KEY_INPUT_CONTROLLER_MAP:
+			handle_controller_remaps()
 
 	emit_signal("config_updated", key, old_value, new_value)
 
