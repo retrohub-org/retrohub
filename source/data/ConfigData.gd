@@ -36,6 +36,8 @@ const KEY_SCRAPER_SS_PASSWORD = "scraper_ss_password"
 const KEY_CUSTOM_INPUT_REMAP = "custom_input_remap"
 const KEY_INPUT_KEY_MAP = "input_key_map"
 const KEY_INPUT_CONTROLLER_MAP = "input_controller_map"
+const KEY_INPUT_CONTROLLER_MAIN_AXIS = "input_controller_main_axis"
+const KEY_INPUT_CONTROLLER_SECONDARY_AXIS = "input_controller_secondary_axis"
 
 const _keys = [
 	KEY_IS_FIRST_TIME,
@@ -50,7 +52,9 @@ const _keys = [
 	KEY_SCRAPER_SS_PASSWORD,
 	KEY_CUSTOM_INPUT_REMAP,
 	KEY_INPUT_KEY_MAP,
-	KEY_INPUT_CONTROLLER_MAP
+	KEY_INPUT_CONTROLLER_MAP,
+	KEY_INPUT_CONTROLLER_MAIN_AXIS,
+	KEY_INPUT_CONTROLLER_SECONDARY_AXIS
 ]
 
 var _should_save : bool = true
@@ -222,10 +226,12 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 	for key in _keys:
 		if _old_config.has(key):
 			if _old_config[key] is Dictionary:
-				if _old_config[key].values().hash() != get(key).values().hash():
+				if _old_config[key].hash() != get(key).hash():
 					emit_signal("config_updated", key, _old_config[key], get(key))
 			elif _old_config[key] != get(key):
 				emit_signal("config_updated", key, _old_config[key], get(key))
+		else:
+			emit_signal("config_updated", key, null, get(key))
 
 	_old_config = dict.duplicate(true)
 	return OK

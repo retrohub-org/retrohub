@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/root/popups/config/settings/InputSettings.gd" type="Script" id=1]
 [ext_resource path="res://addons/controller_icons/assets/key/enter_alt.png" type="Texture" id=2]
+[ext_resource path="res://scenes/root/popups/config/settings/input/ControllerAxisRemap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/controller_icons/assets/key/backspace_alt.png" type="Texture" id=4]
 [ext_resource path="res://addons/controller_icons/assets/key/alt.png" type="Texture" id=5]
 [ext_resource path="res://addons/controller_icons/assets/key/ctrl.png" type="Texture" id=6]
@@ -92,6 +93,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Keyboard" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -409,7 +411,6 @@ path = "rh_right_shoulder"
 force_type = 1
 
 [node name="Controller" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -702,6 +703,17 @@ unique_name_in_owner = true
 
 [node name="ControllerButtonRemap" parent="." instance=ExtResource( 29 )]
 unique_name_in_owner = true
+margin_left = -228.0
+margin_top = 74.0
+margin_right = -16.0
+margin_bottom = 234.0
+
+[node name="ControllerAxisRemap" parent="." instance=ExtResource( 3 )]
+unique_name_in_owner = true
+margin_left = -228.0
+margin_top = 246.0
+margin_right = -120.0
+margin_bottom = 302.0
 
 [connection signal="hide" from="." to="." method="_on_hide"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/StartLayout" to="." method="_on_StartLayout_pressed"]
@@ -724,8 +736,11 @@ unique_name_in_owner = true
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer4/CNMinorOpt" to="." method="_on_CN_pressed" binds= [ "rh_minor_option" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer5/CNRetroHubMenu" to="." method="_on_CN_pressed" binds= [ "rh_menu" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer/HBoxContainer6/CNThemeMenu" to="." method="_on_CN_pressed" binds= [ "rh_theme_menu" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer/CNPrimaryMov" to="." method="_on_CNAxis_pressed" binds= [ "rh_left" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer2/CNSecondaryMov" to="." method="_on_CNAxis_pressed" binds= [ "rh_rstick_left" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer3/CNSlideLeft" to="." method="_on_CN_pressed" binds= [ "rh_left_shoulder" ]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/InputTab/Controller/VBoxContainer2/HBoxContainer4/CNSlideRight" to="." method="_on_CN_pressed" binds= [ "rh_right_shoulder" ]]
 [connection signal="popup_hide" from="ControllerLayout" to="." method="_on_ControllerLayout_popup_hide"]
 [connection signal="key_remapped" from="KeyboardRemap" to="." method="_on_KeyboardRemap_key_remapped"]
 [connection signal="remap_done" from="ControllerButtonRemap" to="." method="_on_ControllerButtonRemap_remap_done"]
+[connection signal="remap_done" from="ControllerAxisRemap" to="." method="_on_ControllerAxisRemap_remap_done"]

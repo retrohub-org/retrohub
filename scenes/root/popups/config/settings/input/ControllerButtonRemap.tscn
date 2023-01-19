@@ -54,8 +54,8 @@ force_type = 2
 
 [node name="X" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 156.0
-margin_right = 204.0
+margin_left = 104.0
+margin_right = 152.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 6 )
@@ -66,8 +66,8 @@ force_type = 2
 
 [node name="Y" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 104.0
-margin_right = 152.0
+margin_left = 156.0
+margin_right = 204.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 icon = ExtResource( 7 )
