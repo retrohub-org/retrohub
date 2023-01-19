@@ -1,10 +1,15 @@
 extends Control
 
-onready var n_start_layout := $"%StartLayout"
-onready var n_clear_layout := $"%ClearLayout"
 onready var n_input_tab := $"%InputTab"
 
-onready var n_popup_controller_layout := $"%ControllerLayout"
+onready var n_kb_reset := $"%KBReset"
+
+onready var n_cn_reset := $"%CNReset"
+onready var n_cn_start_layout := $"%CNStartLayout"
+onready var n_cn_clear_layout := $"%CNClearLayout"
+onready var n_cn_icon_type := $"%CNIconType"
+
+onready var n_controller_layout_popup := $"%ControllerLayout"
 onready var n_clear_layout_popup := $"%ClearLayoutPopup"
 onready var n_key_remap_popup := $"%KeyboardRemap"
 onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
@@ -16,19 +21,27 @@ func _ready():
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 	ControllerIcons.connect("input_type_changed", self, "_on_input_type_changed")
 
+	n_cn_icon_type.get_popup().max_height = 350
+
 func grab_focus():
-	n_start_layout.grab_focus()
+	# Keyboard
+	if n_input_tab.current_tab == 0:
+		n_kb_reset.grab_focus()
+	# Controller
+	else:
+		n_cn_reset.grab_focus()
 
 func _on_config_ready(config_data: ConfigData):
-	n_clear_layout.disabled = config_data.custom_input_remap.empty()
+	n_cn_clear_layout.disabled = config_data.custom_input_remap.empty()
+	n_cn_icon_type.selected = config_data.input_controller_icon_type
 
 func _on_config_updated(key: String, _old_value, new_value):
 	match key:
 		ConfigData.KEY_CUSTOM_INPUT_REMAP:
-			n_clear_layout.disabled = new_value.empty()
+			n_cn_clear_layout.disabled = new_value.empty()
 
 func _on_input_type_changed(input_type: int):
-	n_start_layout.disabled = Input.get_connected_joypads().empty()
+	n_cn_start_layout.disabled = Input.get_connected_joypads().empty()
 	if not is_visible_in_tree():
 		n_input_tab.current_tab = input_type
 
@@ -37,18 +50,18 @@ func _on_hide():
 
 
 func _on_StartLayout_pressed():
-	n_popup_controller_layout.popup_centered()
+	n_controller_layout_popup.popup_centered()
 
 
 func _on_ClearLayout_pressed():
 	RetroHubConfig.config.custom_input_remap = ""
 	RetroHubConfig.save_config()
 	n_clear_layout_popup.popup_centered()
-	n_clear_layout.disabled = true
+	n_cn_clear_layout.disabled = true
 
 
 func _on_ControllerLayout_popup_hide():
-	n_clear_layout.disabled = RetroHubConfig.config.custom_input_remap == ""
+	n_cn_clear_layout.disabled = RetroHubConfig.config.custom_input_remap == ""
 
 
 func _on_KB_pressed(input_key):
@@ -80,14 +93,16 @@ func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 	var map := RetroHubConfig.config.input_controller_map
 	if old_button in map[key]:
 		map[key].erase(old_button)
-	map[key].push_back(new_button)
+	if  not new_button in map[key]:
+		map[key].push_back(new_button)
 	# Now, find keys with the new code, and replace with old code
 	for _key in map:
 		if key == _key:
 			continue
 		if new_button in map[_key]:
 			map[_key].erase(new_button)
-			map[_key].push_back(old_button)
+			if not old_button in map[_key]:
+				map[_key].push_back(old_button)
 	RetroHubConfig.config.mark_for_saving()
 	RetroHubConfig.save_config()
 
@@ -102,3 +117,21 @@ func _on_ControllerAxisRemap_remap_done(action, old_axis, new_axis):
 	RetroHubConfig.config.input_controller_main_axis = new_axis if is_main else old_axis
 	RetroHubConfig.config.input_controller_secondary_axis = old_axis if is_main else new_axis
 	RetroHubConfig.save_config()
+
+
+func _on_CNIconType_item_selected(index):
+	RetroHubConfig.config.input_controller_icon_type = index
+	ControllerIcons.refresh()
+
+
+func _on_KBReset_pressed():
+	RetroHubConfig.config.input_key_map = ConfigData.default_input_key_map()
+	RetroHubConfig.save_config()
+
+
+func _on_CNReset_pressed():
+	RetroHubConfig.config.input_controller_map = ConfigData.default_input_controller_map()
+	RetroHubConfig.config.input_controller_main_axis = 0
+	RetroHubConfig.config.input_controller_secondary_axis = 2
+	RetroHubConfig.save_config()
+

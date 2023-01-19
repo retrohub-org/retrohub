@@ -1,8 +1,8 @@
 extends VBoxContainer
 
-onready var n_use_account = $"%UseAccount"
-onready var n_username = $"%Username"
-onready var n_password = $"%Password"
+onready var n_use_account := $"%UseAccount"
+onready var n_username := $"%Username"
+onready var n_password := $"%Password"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,7 +10,7 @@ func _ready():
 
 
 func _on_config_ready(config_data: ConfigData):
-	n_use_account.pressed = config_data.scraper_ss_use_custom_account
+	n_use_account.set_pressed_no_signal(config_data.scraper_ss_use_custom_account)
 	n_username.text = config_data.scraper_ss_username
 	n_password.text = config_data.scraper_ss_password
 

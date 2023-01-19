@@ -6,7 +6,6 @@
 [ext_resource path="res://scenes/root/popups/config/settings/input/ControllerAxisRemap.gd" type="Script" id=5]
 
 [node name="ControllerAxisRemap" type="PopupPanel"]
-visible = true
 margin_right = 108.0
 margin_bottom = 56.0
 script = ExtResource( 5 )
