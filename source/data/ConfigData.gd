@@ -19,6 +19,9 @@ var scraper_ss_username : String = "" setget _set_scraper_ss_username
 var scraper_ss_password : String = "" setget _set_scraper_ss_password
 var custom_input_remap : String = "" setget _set_custom_input_remap
 var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_map
+var input_controller_map : Dictionary = default_input_controller_map() setget _set_input_controller_map
+var input_controller_main_axis : int = JOY_ANALOG_LX setget _set_input_controller_main_axis
+var input_controller_secondary_axis : int = JOY_ANALOG_RX setget _set_input_controller_secondary_axis
 
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
@@ -32,6 +35,7 @@ const KEY_SCRAPER_SS_USERNAME = "scraper_ss_username"
 const KEY_SCRAPER_SS_PASSWORD = "scraper_ss_password"
 const KEY_CUSTOM_INPUT_REMAP = "custom_input_remap"
 const KEY_INPUT_KEY_MAP = "input_key_map"
+const KEY_INPUT_CONTROLLER_MAP = "input_controller_map"
 
 const _keys = [
 	KEY_IS_FIRST_TIME,
@@ -45,7 +49,8 @@ const _keys = [
 	KEY_SCRAPER_SS_USERNAME,
 	KEY_SCRAPER_SS_PASSWORD,
 	KEY_CUSTOM_INPUT_REMAP,
-	KEY_INPUT_KEY_MAP
+	KEY_INPUT_KEY_MAP,
+	KEY_INPUT_CONTROLLER_MAP
 ]
 
 var _should_save : bool = true
@@ -64,6 +69,24 @@ func default_input_key_map() -> Dictionary:
 		"rh_right": [KEY_RIGHT, KEY_D],
 		"rh_left_shoulder": [KEY_Q],
 		"rh_right_shoulder": [KEY_E]
+	}
+
+func default_input_controller_map() -> Dictionary:
+	return {
+		"rh_accept": [JOY_XBOX_A],
+		"rh_back": [JOY_XBOX_B],
+		"rh_major_option": [JOY_XBOX_X],
+		"rh_minor_option": [JOY_XBOX_Y],
+		"rh_menu": [JOY_START],
+		"rh_theme_menu": [JOY_SELECT],
+		"rh_up": [JOY_DPAD_UP],
+		"rh_down": [JOY_DPAD_DOWN],
+		"rh_left": [JOY_DPAD_LEFT],
+		"rh_right": [JOY_DPAD_RIGHT],
+		"rh_left_shoulder": [JOY_L],
+		"rh_right_shoulder": [JOY_R],
+		"rh_left_trigger": [JOY_L2],
+		"rh_right_trigger": [JOY_R2]
 	}
 
 func _set_is_first_time(_is_first_time):
@@ -123,6 +146,25 @@ func _set_input_key_map(_input_key_map):
 		for val in input_key_map[key]:
 			arr_int.push_back(int(val))
 		input_key_map[key] = arr_int
+
+func _set_input_controller_map(_input_controller_map):
+	mark_for_saving()
+	input_controller_map = _input_controller_map.duplicate(true)
+
+	# Change all values to int
+	for key in input_controller_map:
+		var arr_int := []
+		for val in input_controller_map[key]:
+			arr_int.push_back(int(val))
+		input_controller_map[key] = arr_int
+
+func _set_input_controller_main_axis(_input_controller_main_axis):
+	mark_for_saving()
+	input_controller_main_axis = _input_controller_main_axis
+
+func _set_input_controller_secondary_axis(_input_controller_secondary_axis):
+	mark_for_saving()
+	input_controller_secondary_axis = _input_controller_secondary_axis
 
 func mark_for_saving():
 	if _should_save:

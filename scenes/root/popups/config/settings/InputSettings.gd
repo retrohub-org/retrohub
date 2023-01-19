@@ -74,5 +74,18 @@ func _on_CN_pressed(input_key):
 	var pos := button.rect_global_position - Vector2(n_ctrl_button_remap_popup.rect_size.x + 10, 0)
 	n_ctrl_button_remap_popup.start(input_key, pos)
 
-func _on_ControllerButtonRemap_remap_done(action, old_button, new_button):
-	print("Remapped %s action from %d to %d" % [action, old_button, new_button])
+func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
+	# First, find the old button and switch it
+	var map := RetroHubConfig.config.input_controller_map
+	if old_button in map[key]:
+		map[key].erase(old_button)
+	map[key].push_back(new_button)
+	# Now, find keys with the new code, and replace with old code
+	for _key in map:
+		if key == _key:
+			continue
+		if new_button in map[_key]:
+			map[_key].erase(new_button)
+			map[_key].push_back(old_button)
+	RetroHubConfig.config.mark_for_saving()
+	RetroHubConfig.save_config()
