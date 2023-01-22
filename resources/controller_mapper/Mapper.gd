@@ -1,6 +1,9 @@
 extends ControllerMapper
 
 func _convert_joypad_path(path: String, fallback: int) -> String:
+	if Engine.editor_hint:
+		return ._convert_joypad_path(path, fallback)
+
 	match RetroHubConfig.config.input_controller_icon_type:
 		1: # Xbox 360
 			return ._convert_joypad_to_xbox360(path)

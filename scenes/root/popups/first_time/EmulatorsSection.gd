@@ -7,6 +7,9 @@ onready var n_emulator_info_tab := $"%EmulatorInfoTab"
 
 var icon_cache := {}
 
+func _ready():
+	n_systems.get_popup().max_height = 350
+
 func grab_focus():
 	n_systems.grab_focus()
 	set_systems()

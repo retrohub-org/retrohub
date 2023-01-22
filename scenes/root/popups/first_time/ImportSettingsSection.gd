@@ -15,6 +15,9 @@ onready var importers = [
 var thread := Thread.new()
 var importer_support := []
 
+func _ready():
+	n_import_options.get_popup().max_height = 350
+
 func grab_focus():
 	n_import_options.grab_focus()
 	query_importers()
