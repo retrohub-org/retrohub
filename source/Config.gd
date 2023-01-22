@@ -28,7 +28,6 @@ var _theme_config : Dictionary
 var games : Array
 var systems : Dictionary
 var _systems_raw : Dictionary
-var emulators : Array
 var emulators_map : Dictionary
 
 var _dir := Directory.new()
@@ -47,24 +46,52 @@ var _implicit_mappings := {
 func _ready():
 	if FileUtils.get_os_id() == FileUtils.OS_ID.UNSUPPORTED:
 		OS.alert("Current OS is unsupported! You're on your own!")
-	
-	# Load configuration file
+
+	# Load configuration files
 	bootstrap_config_dir()
 	load_config_file()
-	_systems_raw = JSONUtils.map_array_by_key(JSONUtils.load_json_file(get_systems_file())["systems_list"], "name")
-	expand_systems()
-	emulators = JSONUtils.load_json_file(get_emulators_file())["emulators_list"]
-	emulators_map = JSONUtils.map_array_by_key(emulators, "name")
+	load_systems()
+	load_emulators()
 	if not config.is_first_time:
 		load_game_data_files()
-	
-	# Wait until all other nodes have processed _ready
-	yield(get_tree(), "idle_frame")
 	handle_key_remaps()
 	handle_controller_axis_remaps()
 	handle_controller_button_remaps()
+
+	# Wait until all other nodes have processed _ready
+	yield(get_tree(), "idle_frame")
 	emit_signal("config_ready", config)
 	config.connect("config_updated", self, "_on_config_updated")
+
+func load_systems():
+	# Default systems
+	_systems_raw = JSONUtils.map_array_by_key(JSONUtils.load_json_file(get_systems_file()), "name")
+	# Custom systems
+	var _custom_systems : Array = JSONUtils.load_json_file(get_custom_systems_file())
+	for child in _custom_systems:
+		if not _systems_raw.has(child["name"]):
+			_systems_raw[child["name"]] = child
+			_systems_raw[child["name"]]["#custom"] = true
+		else:
+			_systems_raw[child["name"]].merge(child, true)
+			_systems_raw[child["name"]]["#modified"] = true
+	for key in _systems_raw:
+		if _systems_raw[key].has("extends"):
+			_systems_raw[key].merge(_systems_raw[_systems_raw[key]["extends"]])
+
+func load_emulators():
+	# Default emulators
+	emulators_map = JSONUtils.map_array_by_key(JSONUtils.load_json_file(get_emulators_file()), "name")
+	# Custom emulators
+	var _custom_emulators : Array = JSONUtils.load_json_file(get_custom_emulators_file())
+	for child in _custom_emulators:
+		if not emulators_map.has(child["name"]):
+			emulators_map[child["name"]] = child
+			emulators_map[child["name"]]["#custom"] = true
+		else:
+			emulators_map[child["name"]].merge(child, true)
+			emulators_map[child["name"]]["#modified"] = true
+	JSONUtils.make_system_specific(emulators_map, FileUtils.get_os_string())
 
 func _get_scancode(e: InputEventKey):
 	return e.physical_scancode if e.scancode == 0 else e.scancode
@@ -157,11 +184,6 @@ func handle_controller_button_remap(key: String, old: int, new: int):
 	InputMap.action_add_event(key, event)
 
 
-func expand_systems():
-	for key in _systems_raw:
-		if _systems_raw[key].has("extends"):
-			_systems_raw[key].merge(_systems_raw[_systems_raw[key]["extends"]])
-
 func load_config_file():
 	var err = config.load_config_from_path(get_config_file())
 	if err == ERR_FILE_NOT_FOUND:
@@ -192,7 +214,7 @@ func load_game_data_files():
 		return
 	var file_name = _dir.get_next()
 	while file_name != "":
-		if _dir.current_is_dir() and _systems_raw.has(file_name):
+		if _dir.current_is_dir() and _systems_raw.has(file_name) and not _systems_raw[file_name].has("#delete"):
 			load_system_gamelists_files(config.games_dir + "/" + file_name, file_name)
 		# We are not interested in files, only folders
 		file_name = _dir.get_next()
@@ -346,7 +368,7 @@ func load_theme() -> bool:
 		return false
 
 func load_theme_data():
-	var theme_raw := JSONUtils.load_json_file("res://theme.json")
+	var theme_raw : Dictionary = JSONUtils.load_json_file("res://theme.json")
 	if theme_raw.empty() or not theme_raw.has("id"):
 		print("Error when loading theme data!")
 		return
@@ -444,21 +466,11 @@ func bootstrap_config_dir():
 		
 		# Bootstrap system specific configs
 		for filename in ["emulators.json", "systems.json"]:
-			var filepath = "res://base_config/" + filename
-			if(_file.open(filepath, File.READ)):
-				print("Error when opening file " + filepath + " for reading")
-				return
-			var json_result := JSON.parse(_file.get_as_text())
-			if(json_result.error):
-				print("Error when parsing JSON file " + filepath)
-				return
-			var json_parsed = JSONUtils.make_system_specific(json_result.result, FileUtils.get_os_string())
 			var filepathOut = get_config_dir() + "/rh_" + filename;
-			_file.close()
 			if(_file.open(filepathOut, File.WRITE)):
-				print("Error when opening file " + filepath + " for saving")
+				print("Error when opening file " + filepathOut + " for saving")
 				return
-			_file.store_string(JSON.print(json_parsed, "\t"))
+			_file.store_string(JSON.print([], "\t"))
 			_file.close()
 
 func save_config():
@@ -483,9 +495,15 @@ func get_config_file() -> String:
 	return get_config_dir() + "/rh_config.json"
 
 func get_systems_file() -> String:
-	return get_config_dir() + "/rh_systems.json"
+	return "res://base_config/systems.json"
 
 func get_emulators_file() -> String:
+	return "res://base_config/emulators.json"
+
+func get_custom_systems_file() -> String:
+	return get_config_dir() + "/rh_systems.json"
+
+func get_custom_emulators_file() -> String:
 	return get_config_dir() + "/rh_emulators.json"
 
 func get_default_themes_dir() -> String:

@@ -1,1221 +1,1219 @@
-{
-	"emulators_list": [
-		{
-			"name": "retroarch",
-			"fullname": "RetroArch",
-			"binpath": [
-				{
-					"windows": [
-						"C:/RetroArch-Win64/retroarch.exe",
-						"C:/RetroArch/retroarch.exe",
-						"~/AppData/Roaming/RetroArch/retroarch.exe",
-						"C:/Program Files/RetroArch-Win64/retroarch.exe",
-						"C:/Program Files/RetroArch/retroarch.exe",
-						"C:/Program Files (x86)/RetroArch-Win64/retroarch.exe",
-						"C:/Program Files (x86)/RetroArch/retroarch.exe",
-						"C:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
-						"D:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
-						"C:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe",
-						"D:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe"
-					]
-				},
-				{
-					"macos": [
-						"/Applications/RetroArch.app/Contents/MacOS/RetroArch"
-					]
-				},
-				{
-					"linux": [
-						"/bin/retroarch",
-						"/usr/bin/retroarch",
-						"/var/lib/flatpak/exports/bin/org.libretro.RetroArch",
-						"~/.local/share/flatpak/exports/bin/org.libretro.RetroArch",
-						"~/Applications/RetroArch-Linux-x86_64.AppImage",
-						"~/.local/bin/RetroArch-Linux-x86_64.AppImage",
-						"~/bin/RetroArch-Linux-x86_64.AppImage"
-					]
-				}
-			],
-			"corepath": [
-				{
-					"windows": [
-						"{binpath}/../cores"
-					]
-				},
-				{
-					"macos": [
-						"~/Library/Application Support/RetroArch/cores",
-						"/Applications/RetroArch.app/Contents/Resources/cores"
-					]
-				},
-				{
-					"linux": [
-						"~/snap/retroarch/current/.config/retroarch/cores",
-						"~/.var/app/org.libretro.RetroArch/config/retroarch/cores",
-						"~/.config/retroarch/cores",
-						"/usr/lib/x86_64-linux-gnu/libretro",
-						"/usr/lib64/libretro",
-						"/usr/lib/libretro",
-						"/usr/local/lib/libretro",
-						"/usr/pkg/lib/libretro"
-					]
-				}
-			],
-			"cores": [
-				{
-					"name": "atari800",
-					"fullname": "Atari800",
-					"file": [
-						{
-							"windows": "atari800_libretro.dll",
-							"macos": "atari800_libretro.dylib",
-							"linux": "atari800_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-lynx",
-					"fullname": "Mednafen - Lynx",
-					"file": [
-						{
-							"windows": "mednafen_lynx_libretro.dll",
-							"macos": "mednafen_lynx_libretro.dylib",
-							"linux": "mednafen_lynx_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-ngp",
-					"fullname": "Mednafen - Neo Geo Pocket",
-					"file": [
-						{
-							"windows": "mednafen_ngp_libretro.dll",
-							"macos": "mednafen_ngp_libretro.dylib",
-							"linux": "mednafen_ngp_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-pc-fx",
-					"fullname": "Mednafen - PC-FX",
-					"file": [
-						{
-							"windows": "mednafen_pcfx_libretro.dll",
-							"macos": "mednafen_pcfx_libretro.dylib",
-							"linux": "mednafen_pcfx_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-pce-fast",
-					"fullname": "Mednafen - PC Engine (Fast)",
-					"file": [
-						{
-							"windows": "mednafen_pce_fast_libretro.dll",
-							"macos": "mednafen_pce_fast_libretro.dylib",
-							"linux": "mednafen_pce_fast_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-psx",
-					"fullname": "Mednafen - PlayStation",
-					"file": [
-						{
-							"windows": "mednafen_psx_libretro.dll",
-							"macos": "mednafen_psx_libretro.dylib",
-							"linux": "mednafen_psx_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-psx-hw",
-					"fullname": "Mednafen - PlayStation (HW)",
-					"file": [
-						{
-							"windows": "mednafen_psx_hw_libretro.dll",
-							"macos": "mednafen_psx_hw_libretro.dylib",
-							"linux": "mednafen_psx_hw_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-saturn",
-					"fullname": "Mednafen - Saturn",
-					"file": [
-						{
-							"windows": "mednafen_saturn_libretro.dll",
-							"macos": "mednafen_saturn_libretro.dylib",
-							"linux": "mednafen_saturn_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-saturn-hw",
-					"fullname": "Mednafen - Saturn (HW)",
-					"file": [
-						{
-							"windows": "mednafen_saturn_hw_libretro.dll",
-							"macos": "mednafen_saturn_hw_libretro.dylib",
-							"linux": "mednafen_saturn_hw_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-supafaust",
-					"fullname": "Mednafen - SNES (SupaFaust)",
-					"file": [
-						{
-							"windows": "mednafen_supafaust_libretro.dll",
-							"macos": "mednafen_supafaust_libretro.dylib",
-							"linux": "mednafen_supafaust_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-supergrafx",
-					"fullname": "Mednafen - SuperGrafx",
-					"file": [
-						{
-							"windows": "mednafen_supergrafx_libretro.dll",
-							"macos": "mednafen_supergrafx_libretro.dylib",
-							"linux": "mednafen_supergrafx_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-vb",
-					"fullname": "Mednafen - Virtual Boy",
-					"file": [
-						{
-							"windows": "mednafen_vb_libretro.dll",
-							"macos": "mednafen_vb_libretro.dylib",
-							"linux": "mednafen_vb_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "beetle-wswan",
-					"fullname": "Mednafen - WonderSwan",
-					"file": [
-						{
-							"windows": "mednafen_wswan_libretro.dll",
-							"macos": "mednafen_wswan_libretro.dylib",
-							"linux": "mednafen_wswan_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "blastem",
-					"fullname": "BlastEm",
-					"file": [
-						{
-							"windows": "blastem_libretro.dll",
-							"macos": "blastem_libretro.dylib",
-							"linux": "blastem_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "bluemsx",
-					"fullname": "blueMSX",
-					"file": [
-						{
-							"windows": "bluemsx_libretro.dll",
-							"macos": "bluemsx_libretro.dylib",
-							"linux": "bluemsx_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "bsnes",
-					"fullname": "bsnes",
-					"file": [
-						{
-							"windows": "bsnes_libretro.dll",
-							"macos": "bsnes_libretro.dylib",
-							"linux": "bsnes_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "bshes-hd",
-					"fullname": "bsnes-hd",
-					"file": [
-						{
-							"windows": "bsnes_hd_beta_libretro.dll",
-							"macos": "bsnes_hd_beta_libretro.dylib",
-							"linux": "bsnes_hd_beta_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "bsnes-mercury-accuracy",
-					"fullname": "bsnes-mercury Accuracy",
-					"file": [
-						{
-							"windows": "bsnes_mercury_accuracy_libretro.dll",
-							"macos": "bsnes_mercury_accuracy_libretro.dylib",
-							"linux": "bsnes_mercury_accuracy_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "caprice32",
-					"fullname": "CaPriCe32",
-					"file": [
-						{
-							"windows": "cap32_libretro.dll",
-							"macos": "cap32_libretro.dylib",
-							"linux": "cap32_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "chailove",
-					"fullname": "ChaiLove",
-					"file": [
-						{
-							"windows": "chailove_libretro.dll",
-							"macos": "chailove_libretro.dylib",
-							"linux": "chailove_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "citra",
-					"fullname": "Citra",
-					"file": [
-						{
-							"windows": "citra_libretro.dll",
-							"macos": "citra_libretro.dylib",
-							"linux": "citra_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "crocods",
-					"fullname": "CrocoDS",
-					"file": [
-						{
-							"windows": "crocods_libretro.dll",
-							"macos": "crocods_libretro.dylib",
-							"linux": "crocods_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "desmume",
-					"fullname": "DeSmuME",
-					"file": [
-						{
-							"windows": "desmume_libretro.dll",
-							"macos": "desmume_libretro.dylib",
-							"linux": "desmume_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "dolphin",
-					"fullname": "Dolphin",
-					"file": [
-						{
-							"windows": "dolphin_libretro.dll",
-							"macos": "dolphin_libretro.dylib",
-							"linux": "dolphin_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "dosbox",
-					"fullname": "DOSBox",
-					"file": [
-						{
-							"windows": "dosbox_libretro.dll",
-							"macos": "dosbox_libretro.dylib",
-							"linux": "dosbox_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "dosboxpure",
-					"fullname": "DOSBox (Pure)",
-					"file": [
-						{
-							"windows": "dosbox_pure_libretro.dll",
-							"macos": "dosbox_pure_libretro.dylib",
-							"linux": "dosbox_pure_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "duckstation",
-					"fullname": "DuckStation",
-					"file": [
-						{
-							"windows": "duckstation_libretro.dll",
-							"macos": "duckstation_libretro.dylib",
-							"linux": "duckstation_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "eightyone",
-					"fullname": "EightyOne",
-					"file": [
-						{
-							"windows": "81_libretro.dll",
-							"macos": "81_libretro.dylib",
-							"linux": "81_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "fba2012",
-					"fullname": "FinalBurn Alpha (2012)",
-					"file": [
-						{
-							"windows": "fbalpha2012_libretro.dll",
-							"macos": "fbalpha2012_libretro.dylib",
-							"linux": "fbalpha2012_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "fbneo",
-					"fullname": "FinalBurn Neo",
-					"file": [
-						{
-							"windows": "fbneo_libretro.dll",
-							"macos": "fbneo_libretro.dylib",
-							"linux": "fbneo_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "fceumm",
-					"fullname": "FCEUmm",
-					"file": [
-						{
-							"windows": "fceumm_libretro.dll",
-							"macos": "fceumm_libretro.dylib",
-							"linux": "fceumm_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "flycast",
-					"fullname": "Flycast",
-					"file": [
-						{
-							"windows": "flycast_libretro.dll",
-							"macos": "flycast_libretro.dylib",
-							"linux": "flycast_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "fmsx",
-					"fullname": "fMSX",
-					"file": [
-						{
-							"windows": "fmsx_libretro.dll",
-							"macos": "fmsx_libretro.dylib",
-							"linux": "fmsx_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "freechaf",
-					"fullname": "FreeChaF",
-					"file": [
-						{
-							"windows": "freechaf_libretro.dll",
-							"macos": "freechaf_libretro.dylib",
-							"linux": "freechaf_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "freeintv",
-					"fullname": "FreeIntV",
-					"file": [
-						{
-							"windows": "freeintv_libretro.dll",
-							"macos": "freeintv_libretro.dylib",
-							"linux": "freeintv_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "frodo",
-					"fullname": "Frodo",
-					"file": [
-						{
-							"windows": "frodo_libretro.dll",
-							"macos": "frodo_libretro.dylib",
-							"linux": "frodo_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "fuse",
-					"fullname": "FUSE",
-					"file": [
-						{
-							"windows": "fuse_libretro.dll",
-							"macos": "fuse_libretro.dylib",
-							"linux": "fuse_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "gambatte",
-					"fullname": "Gambatte",
-					"file": [
-						{
-							"windows": "gambatte_libretro.dll",
-							"macos": "gambatte_libretro.dylib",
-							"linux": "gambatte_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "gearboy",
-					"fullname": "Gearboy",
-					"file": [
-						{
-							"windows": "gearboy_libretro.dll",
-							"macos": "gearboy_libretro.dylib",
-							"linux": "gearboy_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "gearcoleco",
-					"fullname": "GearColeco",
-					"file": [
-						{
-							"windows": "gearcoleco_libretro.dll",
-							"macos": "gearcoleco_libretro.dylib",
-							"linux": "gearcoleco_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "genesis-plus-gx",
-					"fullname": "Genesis Plus GX",
-					"file": [
-						{
-							"windows": "genesis_plus_gx_libretro.dll",
-							"macos": "genesis_plus_gx_libretro.dylib",
-							"linux": "genesis_plus_gx_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "gw",
-					"fullname": "GW",
-					"file": [
-						{
-							"windows": "gw_libretro.dll",
-							"macos": "gw_libretro.dylib",
-							"linux": "gw_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "handy",
-					"fullname": "Handy",
-					"file": [
-						{
-							"windows": "handy_libretro.dll",
-							"macos": "handy_libretro.dylib",
-							"linux": "handy_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "hatari",
-					"fullname": "Hatari",
-					"file": [
-						{
-							"windows": "hatari_libretro.dll",
-							"macos": "hatari_libretro.dylib",
-							"linux": "hatari_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "kronos",
-					"fullname": "Kronos",
-					"file": [
-						{
-							"windows": "kronos_libretro.dll",
-							"macos": "kronos_libretro.dylib",
-							"linux": "kronos_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "lutro",
-					"fullname": "Lutro",
-					"file": [
-						{
-							"windows": "lutro_libretro.dll",
-							"macos": "lutro_libretro.dylib",
-							"linux": "lutro_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "mame",
-					"fullname": "MAME",
-					"file": [
-						{
-							"windows": "mame_libretro.dll",
-							"macos": "mame_libretro.dylib",
-							"linux": "mame_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "mame2003-plus",
-					"fullname": "MAME (2013 - Plus)",
-					"file": [
-						{
-							"windows": "mame2003_plus_libretro.dll",
-							"macos": "mame2003_plus_libretro.dylib",
-							"linux": "mame2003_plus_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "mame2010",
-					"fullname": "MAME (2010)",
-					"file": [
-						{
-							"windows": "mame2010_libretro.dll",
-							"macos": "mame2010_libretro.dylib",
-							"linux": "mame2010_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "melonds",
-					"fullname": "melonDS",
-					"file": [
-						{
-							"windows": "melonds_libretro.dll",
-							"macos": "melonds_libretro.dylib",
-							"linux": "melonds_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "mesen",
-					"fullname": "Mesen",
-					"file": [
-						{
-							"windows": "mesen_libretro.dll",
-							"macos": "mesen_libretro.dylib",
-							"linux": "mesen_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "mesen-s",
-					"fullname": "Mesen-S",
-					"file": [
-						{
-							"windows": "mesen-s_libretro.dll",
-							"macos": "mesen-s_libretro.dylib",
-							"linux": "mesen-s_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "mgba",
-					"fullname": "mGBA",
-					"file": [
-						{
-							"windows": "mgba_libretro.dll",
-							"macos": "mgba_libretro.dylib",
-							"linux": "mgba_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "minivmac",
-					"fullname": "Mini vMac",
-					"file": [
-						{
-							"windows": "minivmac_libretro.dll",
-							"macos": "minivmac_libretro.dylib",
-							"linux": "minivmac_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "mu",
-					"fullname": "Mu",
-					"file": [
-						{
-							"windows": "mu_libretro.dll",
-							"macos": "mu_libretro.dylib",
-							"linux": "mu_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "mupen64plus-next",
-					"fullname": "Mupen64Plus-Next",
-					"file": [
-						{
-							"windows": "mupen64plus_next_libretro.dll",
-							"macos": "mupen64plus_next_libretro.dylib",
-							"linux": "mupen64plus_next_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "nekop2kai",
-					"fullname": "Neko Project II kai",
-					"file": [
-						{
-							"windows": "np2kai_libretro.dll",
-							"macos": "np2kai_libretro.dylib",
-							"linux": "np2kai_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "neocd",
-					"fullname": "NeoCD",
-					"file": [
-						{
-							"windows": "neocd_libretro.dll",
-							"macos": "neocd_libretro.dylib",
-							"linux": "neocd_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "nestopia",
-					"fullname": "Nestopia UE",
-					"file": [
-						{
-							"windows": "nestopia_libretro.dll",
-							"macos": "nestopia_libretro.dylib",
-							"linux": "nestopia_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "nxengine",
-					"fullname": "NX Engine",
-					"file": [
-						{
-							"windows": "nxengine_libretro.dll",
-							"macos": "nxengine_libretro.dylib",
-							"linux": "nxengine_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "o2em",
-					"fullname": "O2EM",
-					"file": [
-						{
-							"windows": "o2em_libretro.dll",
-							"macos": "o2em_libretro.dylib",
-							"linux": "o2em_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "opera",
-					"fullname": "Opera",
-					"file": [
-						{
-							"windows": "opera_libretro.dll",
-							"macos": "opera_libretro.dylib",
-							"linux": "opera_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "parallel-n64",
-					"fullname": "ParaLLEl N64",
-					"file": [
-						{
-							"windows": "parallel_n64_libretro.dll",
-							"macos": "parallel_n64_libretro.dylib",
-							"linux": "parallel_n64_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "pcsx-rearmed",
-					"fullname": "PCSX-ReARMed",
-					"file": [
-						{
-							"windows": "pcsx_rearmed_libretro.dll",
-							"macos": "pcsx_rearmed_libretro.dylib",
-							"linux": "pcsx_rearmed_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "pcsx2",
-					"fullname": "PCSX2",
-					"file": [
-						{
-							"windows": "pcsx2_libretro.dll",
-							"macos": "pcsx2_libretro.dylib",
-							"linux": "pcsx2_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "picodrive",
-					"fullname": "PicoDrive",
-					"file": [
-						{
-							"windows": "picodrive_libretro.dll",
-							"macos": "picodrive_libretro.dylib",
-							"linux": "picodrive_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "play",
-					"fullname": "Play!",
-					"file": [
-						{
-							"windows": "play_libretro.dll",
-							"macos": "play_libretro.dylib",
-							"linux": "play_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "pokemini",
-					"fullname": "PokeMini",
-					"file": [
-						{
-							"windows": "pokemini_libretro.dll",
-							"macos": "pokemini_libretro.dylib",
-							"linux": "pokemini_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "ppsspp",
-					"fullname": "PPSSPP",
-					"file": [
-						{
-							"windows": "ppsspp_libretro.dll",
-							"macos": "ppsspp_libretro.dylib",
-							"linux": "ppsspp_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "prboom",
-					"fullname": "prBoom",
-					"file": [
-						{
-							"windows": "prboom_libretro.dll",
-							"macos": "prboom_libretro.dylib",
-							"linux": "prboom_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "prosystem",
-					"fullname": "ProSystem",
-					"file": [
-						{
-							"windows": "prosystem_libretro.dll",
-							"macos": "prosystem_libretro.dylib",
-							"linux": "prosystem_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "puae",
-					"fullname": "PUAE",
-					"file": [
-						{
-							"windows": "puae_libretro.dll",
-							"macos": "puae_libretro.dylib",
-							"linux": "puae_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "puae2021",
-					"fullname": "PUAE (2021)",
-					"file": [
-						{
-							"windows": "puae2021_libretro.dll",
-							"macos": "puae2021_libretro.dylib",
-							"linux": "puae2021_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "px68k",
-					"fullname": "pc68k",
-					"file": [
-						{
-							"windows": "px68k_libretro.dll",
-							"macos": "px68k_libretro.dylib",
-							"linux": "px68k_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "quasi88",
-					"fullname": "QUASI88",
-					"file": [
-						{
-							"windows": "quasi88_libretro.dll",
-							"macos": "quasi88_libretro.dylib",
-							"linux": "quasi88_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "quicknes",
-					"fullname": "QuickNES",
-					"file": [
-						{
-							"windows": "quicknes_libretro.dll",
-							"macos": "quicknes_libretro.dylib",
-							"linux": "quicknes_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "race",
-					"fullname": "RACE!",
-					"file": [
-						{
-							"windows": "race_libretro.dll",
-							"macos": "race_libretro.dylib",
-							"linux": "race_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "sameboy",
-					"fullname": "SameBoy",
-					"file": [
-						{
-							"windows": "sameboy_libretro.dll",
-							"macos": "sameboy_libretro.dylib",
-							"linux": "sameboy_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "samecdi",
-					"fullname": "SAME_CDI",
-					"file": [
-						{
-							"windows": "same_cdi_libretro.dll",
-							"macos": "same_cdi_libretro.dylib",
-							"linux": "same_cdi_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "scummvm",
-					"fullname": "ScummVM",
-					"file": [
-						{
-							"windows": "scummvm_libretro.dll",
-							"macos": "scummvm_libretro.dylib",
-							"linux": "scummvm_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "simcoupe",
-					"fullname": "SimCoupé",
-					"file": [
-						{
-							"windows": "simcp_libretro.dll",
-							"macos": "simcp_libretro.dylib",
-							"linux": "simcp_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "snes9x",
-					"fullname": "Snes9x - Current",
-					"file": [
-						{
-							"windows": "snes9x_libretro.dll",
-							"macos": "snes9x_libretro.dylib",
-							"linux": "snes9x_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "snes9x2010",
-					"fullname": "Snes9x 2010",
-					"file": [
-						{
-							"windows": "snes9x2010_libretro.dll",
-							"macos": "snes9x2010_libretro.dylib",
-							"linux": "snes9x2010_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "stella",
-					"fullname": "Stella",
-					"file": [
-						{
-							"windows": "stella_libretro.dll",
-							"macos": "stella_libretro.dylib",
-							"linux": "stella_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "theodore",
-					"fullname": "Theodore",
-					"file": [
-						{
-							"windows": "theodore_libretro.dll",
-							"macos": "theodore_libretro.dylib",
-							"linux": "theodore_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "tic80",
-					"fullname": "TIC-80",
-					"file": [
-						{
-							"windows": "tic80_libretro.dll",
-							"macos": "tic80_libretro.dylib",
-							"linux": "tic80_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "uzem",
-					"fullname": "Uzem",
-					"file": [
-						{
-							"windows": "uzem_libretro.dll",
-							"macos": "uzem_libretro.dylib",
-							"linux": "uzem_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "vba-m",
-					"fullname": "VBA-M",
-					"file": [
-						{
-							"windows": "vbam_libretro.dll",
-							"macos": "vbam_libretro.dylib",
-							"linux": "vbam_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "vecx",
-					"fullname": "vecx",
-					"file": [
-						{
-							"windows": "vecx_libretro.dll",
-							"macos": "vecx_libretro.dylib",
-							"linux": "vecx_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "vice128",
-					"fullname": "VICE (x128)",
-					"file": [
-						{
-							"windows": "vice_x128_libretro.dll",
-							"macos": "vice_x128_libretro.dylib",
-							"linux": "vice_x128_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "vice64accurate",
-					"fullname": "VICE (x64sc - Accurate)",
-					"file": [
-						{
-							"windows": "vice_x64sc_libretro.dll",
-							"macos": "vice_x64sc_libretro.dylib",
-							"linux": "vice_x64sc_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "vice64fast",
-					"fullname": "VICE (x64 - Fast)",
-					"file": [
-						{
-							"windows": "vice_x64_libretro.dll",
-							"macos": "vice_x64_libretro.dylib",
-							"linux": "vice_x64_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "vice64supercpu",
-					"fullname": "VICE (x64 - SuperCPU)",
-					"file": [
-						{
-							"windows": "vice_xscpu64_libretro.dll",
-							"macos": "vice_xscpu64_libretro.dylib",
-							"linux": "vice_xscpu64_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "x1",
-					"fullname": "X1",
-					"file": [
-						{
-							"windows": "x1_libretro.dll",
-							"macos": "x1_libretro.dylib",
-							"linux": "x1_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "yabasanshiro",
-					"fullname": "YabaSanshiro",
-					"file": [
-						{
-							"windows": "yabasanshiro_libretro.dll",
-							"macos": "yabasanshiro_libretro.dylib",
-							"linux": "yabasanshiro_libretro.so"
-						}
-					]
-				},
-				{
-					"name": "yabause",
-					"fullname": "Yabause",
-					"file": [
-						{
-							"windows": "yabause_libretro.dll",
-							"macos": "yabause_libretro.dylib",
-							"linux": "yabause_libretro.so"
-						}
-					]
-				}
-			],
-			"command": "{binpath} -L \"{corepath}/{corefile}\" \"{rompath}\""
-		},
-		{
-			"name": "mupen64plus",
-			"fullname": "Mupen64Plus",
-			"platforms": [
-				"n64"
-			],
-			"binpath": [
-				{
-					"windows": [
-						"mupen64plus/mupen64plus-ui-console.exe",
-						"Emulators/mupen64plus/mupen64plus-ui-console.exe",
-						"../mupen64plus/mupen64plus-ui-console.exe"
-					]
-				},
-				{
-					"macos": [
-						"/Applications/mupen64plus.app/Contents/MacOS/mupen64plus",
-						"/usr/local/bin/mupen64plus"
-					]
-				},
-				{
-					"linux": [
-						"/bin/m64p",
-						"/bin/mupen64plus",
-						"/usr/bin/m64p",
-						"/usr/bin/mupen64plus",
-						"/var/lib/flatpak/exports/bin/io.github.m64p.m64p",
-						"~/.local/share/flatpak/exports/bin/io.github.m64p.m64p"
-					]
-				}
-			],
-			"command": "{binpath} --nogui \"{rompath}\""
-		},
-		{
-			"name": "snes9x",
-			"fullname": "Snes9X",
-			"platforms": [
-				"snes"
-			],
-			"binpath": [
-				{
-					"windows": [
-						"snes9x/snes9x-x64.exe",
-						"Emulators/snes9x/snes9x-x64.exe",
-						"../snes9x/snes9x-x64.exe"
-					]
-				},
-				{
-					"macos": [
-						"/Applications/Snes9x.app/Contents/MacOS/Snes9x"
-					]
-				},
-				{
-					"linux": [
-						"/bin/snes9x",
-						"/usr/bin/snes9x",
-						"/var/lib/flatpak/exports/bin/com.snes9x.Snes9x"
-					]
-				}
-			],
-			"command": "{binpath} \"{rompath}\""
-		},
-		{
-			"name": "dolphin",
-			"fullname": "Dolphin",
-			"platforms": [
-				"gc",
-				"wii"
-			],
-			"binpath": [
-				{
-					"windows": [
-						"Dolphin-x64/Dolphin.exe",
-						"Emulators/Dolphin-x64/Dolphin.exe",
-						"../Dolphin-x64/Dolphin.exe"
-					]
-				},
-				{
-					"macos": [
-						"/Applications/Dolphin.app/Contents/MacOS/Dolphin"
-					]
-				},
-				{
-					"linux": [
-							"/bin/dolphin-emu",
-							"/usr/bin/dolphin-emu",
-							"/var/lib/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
-							"~/.local/share/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
-							"~/Applications/Dolphin_Emulator*.AppImage",
-							"~/.local/bin/Dolphin_Emulator*.AppImage",
-							"~/bin/Dolphin_Emulator*.AppImage"
-					]
-				}
-			],
-			"command": "{binpath} -b -e \"{rompath}\""
-		}
-	]
-}
+[
+	{
+		"name": "retroarch",
+		"fullname": "RetroArch",
+		"binpath": [
+			{
+				"windows": [
+					"C:/RetroArch-Win64/retroarch.exe",
+					"C:/RetroArch/retroarch.exe",
+					"~/AppData/Roaming/RetroArch/retroarch.exe",
+					"C:/Program Files/RetroArch-Win64/retroarch.exe",
+					"C:/Program Files/RetroArch/retroarch.exe",
+					"C:/Program Files (x86)/RetroArch-Win64/retroarch.exe",
+					"C:/Program Files (x86)/RetroArch/retroarch.exe",
+					"C:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
+					"D:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
+					"C:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe",
+					"D:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/RetroArch.app/Contents/MacOS/RetroArch"
+				]
+			},
+			{
+				"linux": [
+					"/bin/retroarch",
+					"/usr/bin/retroarch",
+					"/var/lib/flatpak/exports/bin/org.libretro.RetroArch",
+					"~/.local/share/flatpak/exports/bin/org.libretro.RetroArch",
+					"~/Applications/RetroArch-Linux-x86_64.AppImage",
+					"~/.local/bin/RetroArch-Linux-x86_64.AppImage",
+					"~/bin/RetroArch-Linux-x86_64.AppImage"
+				]
+			}
+		],
+		"corepath": [
+			{
+				"windows": [
+					"{binpath}/../cores"
+				]
+			},
+			{
+				"macos": [
+					"~/Library/Application Support/RetroArch/cores",
+					"/Applications/RetroArch.app/Contents/Resources/cores"
+				]
+			},
+			{
+				"linux": [
+					"~/snap/retroarch/current/.config/retroarch/cores",
+					"~/.var/app/org.libretro.RetroArch/config/retroarch/cores",
+					"~/.config/retroarch/cores",
+					"/usr/lib/x86_64-linux-gnu/libretro",
+					"/usr/lib64/libretro",
+					"/usr/lib/libretro",
+					"/usr/local/lib/libretro",
+					"/usr/pkg/lib/libretro"
+				]
+			}
+		],
+		"cores": [
+			{
+				"name": "atari800",
+				"fullname": "Atari800",
+				"file": [
+					{
+						"windows": "atari800_libretro.dll",
+						"macos": "atari800_libretro.dylib",
+						"linux": "atari800_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-lynx",
+				"fullname": "Mednafen - Lynx",
+				"file": [
+					{
+						"windows": "mednafen_lynx_libretro.dll",
+						"macos": "mednafen_lynx_libretro.dylib",
+						"linux": "mednafen_lynx_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-ngp",
+				"fullname": "Mednafen - Neo Geo Pocket",
+				"file": [
+					{
+						"windows": "mednafen_ngp_libretro.dll",
+						"macos": "mednafen_ngp_libretro.dylib",
+						"linux": "mednafen_ngp_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-pc-fx",
+				"fullname": "Mednafen - PC-FX",
+				"file": [
+					{
+						"windows": "mednafen_pcfx_libretro.dll",
+						"macos": "mednafen_pcfx_libretro.dylib",
+						"linux": "mednafen_pcfx_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-pce-fast",
+				"fullname": "Mednafen - PC Engine (Fast)",
+				"file": [
+					{
+						"windows": "mednafen_pce_fast_libretro.dll",
+						"macos": "mednafen_pce_fast_libretro.dylib",
+						"linux": "mednafen_pce_fast_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-psx",
+				"fullname": "Mednafen - PlayStation",
+				"file": [
+					{
+						"windows": "mednafen_psx_libretro.dll",
+						"macos": "mednafen_psx_libretro.dylib",
+						"linux": "mednafen_psx_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-psx-hw",
+				"fullname": "Mednafen - PlayStation (HW)",
+				"file": [
+					{
+						"windows": "mednafen_psx_hw_libretro.dll",
+						"macos": "mednafen_psx_hw_libretro.dylib",
+						"linux": "mednafen_psx_hw_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-saturn",
+				"fullname": "Mednafen - Saturn",
+				"file": [
+					{
+						"windows": "mednafen_saturn_libretro.dll",
+						"macos": "mednafen_saturn_libretro.dylib",
+						"linux": "mednafen_saturn_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-saturn-hw",
+				"fullname": "Mednafen - Saturn (HW)",
+				"file": [
+					{
+						"windows": "mednafen_saturn_hw_libretro.dll",
+						"macos": "mednafen_saturn_hw_libretro.dylib",
+						"linux": "mednafen_saturn_hw_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-supafaust",
+				"fullname": "Mednafen - SNES (SupaFaust)",
+				"file": [
+					{
+						"windows": "mednafen_supafaust_libretro.dll",
+						"macos": "mednafen_supafaust_libretro.dylib",
+						"linux": "mednafen_supafaust_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-supergrafx",
+				"fullname": "Mednafen - SuperGrafx",
+				"file": [
+					{
+						"windows": "mednafen_supergrafx_libretro.dll",
+						"macos": "mednafen_supergrafx_libretro.dylib",
+						"linux": "mednafen_supergrafx_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-vb",
+				"fullname": "Mednafen - Virtual Boy",
+				"file": [
+					{
+						"windows": "mednafen_vb_libretro.dll",
+						"macos": "mednafen_vb_libretro.dylib",
+						"linux": "mednafen_vb_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "beetle-wswan",
+				"fullname": "Mednafen - WonderSwan",
+				"file": [
+					{
+						"windows": "mednafen_wswan_libretro.dll",
+						"macos": "mednafen_wswan_libretro.dylib",
+						"linux": "mednafen_wswan_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "blastem",
+				"fullname": "BlastEm",
+				"file": [
+					{
+						"windows": "blastem_libretro.dll",
+						"macos": "blastem_libretro.dylib",
+						"linux": "blastem_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "bluemsx",
+				"fullname": "blueMSX",
+				"file": [
+					{
+						"windows": "bluemsx_libretro.dll",
+						"macos": "bluemsx_libretro.dylib",
+						"linux": "bluemsx_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "bsnes",
+				"fullname": "bsnes",
+				"file": [
+					{
+						"windows": "bsnes_libretro.dll",
+						"macos": "bsnes_libretro.dylib",
+						"linux": "bsnes_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "bshes-hd",
+				"fullname": "bsnes-hd",
+				"file": [
+					{
+						"windows": "bsnes_hd_beta_libretro.dll",
+						"macos": "bsnes_hd_beta_libretro.dylib",
+						"linux": "bsnes_hd_beta_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "bsnes-mercury-accuracy",
+				"fullname": "bsnes-mercury Accuracy",
+				"file": [
+					{
+						"windows": "bsnes_mercury_accuracy_libretro.dll",
+						"macos": "bsnes_mercury_accuracy_libretro.dylib",
+						"linux": "bsnes_mercury_accuracy_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "caprice32",
+				"fullname": "CaPriCe32",
+				"file": [
+					{
+						"windows": "cap32_libretro.dll",
+						"macos": "cap32_libretro.dylib",
+						"linux": "cap32_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "chailove",
+				"fullname": "ChaiLove",
+				"file": [
+					{
+						"windows": "chailove_libretro.dll",
+						"macos": "chailove_libretro.dylib",
+						"linux": "chailove_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "citra",
+				"fullname": "Citra",
+				"file": [
+					{
+						"windows": "citra_libretro.dll",
+						"macos": "citra_libretro.dylib",
+						"linux": "citra_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "crocods",
+				"fullname": "CrocoDS",
+				"file": [
+					{
+						"windows": "crocods_libretro.dll",
+						"macos": "crocods_libretro.dylib",
+						"linux": "crocods_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "desmume",
+				"fullname": "DeSmuME",
+				"file": [
+					{
+						"windows": "desmume_libretro.dll",
+						"macos": "desmume_libretro.dylib",
+						"linux": "desmume_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "dolphin",
+				"fullname": "Dolphin",
+				"file": [
+					{
+						"windows": "dolphin_libretro.dll",
+						"macos": "dolphin_libretro.dylib",
+						"linux": "dolphin_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "dosbox",
+				"fullname": "DOSBox",
+				"file": [
+					{
+						"windows": "dosbox_libretro.dll",
+						"macos": "dosbox_libretro.dylib",
+						"linux": "dosbox_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "dosboxpure",
+				"fullname": "DOSBox (Pure)",
+				"file": [
+					{
+						"windows": "dosbox_pure_libretro.dll",
+						"macos": "dosbox_pure_libretro.dylib",
+						"linux": "dosbox_pure_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "duckstation",
+				"fullname": "DuckStation",
+				"file": [
+					{
+						"windows": "duckstation_libretro.dll",
+						"macos": "duckstation_libretro.dylib",
+						"linux": "duckstation_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "eightyone",
+				"fullname": "EightyOne",
+				"file": [
+					{
+						"windows": "81_libretro.dll",
+						"macos": "81_libretro.dylib",
+						"linux": "81_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "fba2012",
+				"fullname": "FinalBurn Alpha (2012)",
+				"file": [
+					{
+						"windows": "fbalpha2012_libretro.dll",
+						"macos": "fbalpha2012_libretro.dylib",
+						"linux": "fbalpha2012_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "fbneo",
+				"fullname": "FinalBurn Neo",
+				"file": [
+					{
+						"windows": "fbneo_libretro.dll",
+						"macos": "fbneo_libretro.dylib",
+						"linux": "fbneo_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "fceumm",
+				"fullname": "FCEUmm",
+				"file": [
+					{
+						"windows": "fceumm_libretro.dll",
+						"macos": "fceumm_libretro.dylib",
+						"linux": "fceumm_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "flycast",
+				"fullname": "Flycast",
+				"file": [
+					{
+						"windows": "flycast_libretro.dll",
+						"macos": "flycast_libretro.dylib",
+						"linux": "flycast_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "fmsx",
+				"fullname": "fMSX",
+				"file": [
+					{
+						"windows": "fmsx_libretro.dll",
+						"macos": "fmsx_libretro.dylib",
+						"linux": "fmsx_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "freechaf",
+				"fullname": "FreeChaF",
+				"file": [
+					{
+						"windows": "freechaf_libretro.dll",
+						"macos": "freechaf_libretro.dylib",
+						"linux": "freechaf_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "freeintv",
+				"fullname": "FreeIntV",
+				"file": [
+					{
+						"windows": "freeintv_libretro.dll",
+						"macos": "freeintv_libretro.dylib",
+						"linux": "freeintv_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "frodo",
+				"fullname": "Frodo",
+				"file": [
+					{
+						"windows": "frodo_libretro.dll",
+						"macos": "frodo_libretro.dylib",
+						"linux": "frodo_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "fuse",
+				"fullname": "FUSE",
+				"file": [
+					{
+						"windows": "fuse_libretro.dll",
+						"macos": "fuse_libretro.dylib",
+						"linux": "fuse_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "gambatte",
+				"fullname": "Gambatte",
+				"file": [
+					{
+						"windows": "gambatte_libretro.dll",
+						"macos": "gambatte_libretro.dylib",
+						"linux": "gambatte_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "gearboy",
+				"fullname": "Gearboy",
+				"file": [
+					{
+						"windows": "gearboy_libretro.dll",
+						"macos": "gearboy_libretro.dylib",
+						"linux": "gearboy_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "gearcoleco",
+				"fullname": "GearColeco",
+				"file": [
+					{
+						"windows": "gearcoleco_libretro.dll",
+						"macos": "gearcoleco_libretro.dylib",
+						"linux": "gearcoleco_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "genesis-plus-gx",
+				"fullname": "Genesis Plus GX",
+				"file": [
+					{
+						"windows": "genesis_plus_gx_libretro.dll",
+						"macos": "genesis_plus_gx_libretro.dylib",
+						"linux": "genesis_plus_gx_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "gw",
+				"fullname": "GW",
+				"file": [
+					{
+						"windows": "gw_libretro.dll",
+						"macos": "gw_libretro.dylib",
+						"linux": "gw_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "handy",
+				"fullname": "Handy",
+				"file": [
+					{
+						"windows": "handy_libretro.dll",
+						"macos": "handy_libretro.dylib",
+						"linux": "handy_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "hatari",
+				"fullname": "Hatari",
+				"file": [
+					{
+						"windows": "hatari_libretro.dll",
+						"macos": "hatari_libretro.dylib",
+						"linux": "hatari_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "kronos",
+				"fullname": "Kronos",
+				"file": [
+					{
+						"windows": "kronos_libretro.dll",
+						"macos": "kronos_libretro.dylib",
+						"linux": "kronos_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "lutro",
+				"fullname": "Lutro",
+				"file": [
+					{
+						"windows": "lutro_libretro.dll",
+						"macos": "lutro_libretro.dylib",
+						"linux": "lutro_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "mame",
+				"fullname": "MAME",
+				"file": [
+					{
+						"windows": "mame_libretro.dll",
+						"macos": "mame_libretro.dylib",
+						"linux": "mame_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "mame2003-plus",
+				"fullname": "MAME (2013 - Plus)",
+				"file": [
+					{
+						"windows": "mame2003_plus_libretro.dll",
+						"macos": "mame2003_plus_libretro.dylib",
+						"linux": "mame2003_plus_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "mame2010",
+				"fullname": "MAME (2010)",
+				"file": [
+					{
+						"windows": "mame2010_libretro.dll",
+						"macos": "mame2010_libretro.dylib",
+						"linux": "mame2010_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "melonds",
+				"fullname": "melonDS",
+				"file": [
+					{
+						"windows": "melonds_libretro.dll",
+						"macos": "melonds_libretro.dylib",
+						"linux": "melonds_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "mesen",
+				"fullname": "Mesen",
+				"file": [
+					{
+						"windows": "mesen_libretro.dll",
+						"macos": "mesen_libretro.dylib",
+						"linux": "mesen_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "mesen-s",
+				"fullname": "Mesen-S",
+				"file": [
+					{
+						"windows": "mesen-s_libretro.dll",
+						"macos": "mesen-s_libretro.dylib",
+						"linux": "mesen-s_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "mgba",
+				"fullname": "mGBA",
+				"file": [
+					{
+						"windows": "mgba_libretro.dll",
+						"macos": "mgba_libretro.dylib",
+						"linux": "mgba_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "minivmac",
+				"fullname": "Mini vMac",
+				"file": [
+					{
+						"windows": "minivmac_libretro.dll",
+						"macos": "minivmac_libretro.dylib",
+						"linux": "minivmac_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "mu",
+				"fullname": "Mu",
+				"file": [
+					{
+						"windows": "mu_libretro.dll",
+						"macos": "mu_libretro.dylib",
+						"linux": "mu_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "mupen64plus-next",
+				"fullname": "Mupen64Plus-Next",
+				"file": [
+					{
+						"windows": "mupen64plus_next_libretro.dll",
+						"macos": "mupen64plus_next_libretro.dylib",
+						"linux": "mupen64plus_next_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "nekop2kai",
+				"fullname": "Neko Project II kai",
+				"file": [
+					{
+						"windows": "np2kai_libretro.dll",
+						"macos": "np2kai_libretro.dylib",
+						"linux": "np2kai_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "neocd",
+				"fullname": "NeoCD",
+				"file": [
+					{
+						"windows": "neocd_libretro.dll",
+						"macos": "neocd_libretro.dylib",
+						"linux": "neocd_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "nestopia",
+				"fullname": "Nestopia UE",
+				"file": [
+					{
+						"windows": "nestopia_libretro.dll",
+						"macos": "nestopia_libretro.dylib",
+						"linux": "nestopia_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "nxengine",
+				"fullname": "NX Engine",
+				"file": [
+					{
+						"windows": "nxengine_libretro.dll",
+						"macos": "nxengine_libretro.dylib",
+						"linux": "nxengine_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "o2em",
+				"fullname": "O2EM",
+				"file": [
+					{
+						"windows": "o2em_libretro.dll",
+						"macos": "o2em_libretro.dylib",
+						"linux": "o2em_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "opera",
+				"fullname": "Opera",
+				"file": [
+					{
+						"windows": "opera_libretro.dll",
+						"macos": "opera_libretro.dylib",
+						"linux": "opera_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "parallel-n64",
+				"fullname": "ParaLLEl N64",
+				"file": [
+					{
+						"windows": "parallel_n64_libretro.dll",
+						"macos": "parallel_n64_libretro.dylib",
+						"linux": "parallel_n64_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "pcsx-rearmed",
+				"fullname": "PCSX-ReARMed",
+				"file": [
+					{
+						"windows": "pcsx_rearmed_libretro.dll",
+						"macos": "pcsx_rearmed_libretro.dylib",
+						"linux": "pcsx_rearmed_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "pcsx2",
+				"fullname": "PCSX2",
+				"file": [
+					{
+						"windows": "pcsx2_libretro.dll",
+						"macos": "pcsx2_libretro.dylib",
+						"linux": "pcsx2_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "picodrive",
+				"fullname": "PicoDrive",
+				"file": [
+					{
+						"windows": "picodrive_libretro.dll",
+						"macos": "picodrive_libretro.dylib",
+						"linux": "picodrive_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "play",
+				"fullname": "Play!",
+				"file": [
+					{
+						"windows": "play_libretro.dll",
+						"macos": "play_libretro.dylib",
+						"linux": "play_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "pokemini",
+				"fullname": "PokeMini",
+				"file": [
+					{
+						"windows": "pokemini_libretro.dll",
+						"macos": "pokemini_libretro.dylib",
+						"linux": "pokemini_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "ppsspp",
+				"fullname": "PPSSPP",
+				"file": [
+					{
+						"windows": "ppsspp_libretro.dll",
+						"macos": "ppsspp_libretro.dylib",
+						"linux": "ppsspp_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "prboom",
+				"fullname": "prBoom",
+				"file": [
+					{
+						"windows": "prboom_libretro.dll",
+						"macos": "prboom_libretro.dylib",
+						"linux": "prboom_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "prosystem",
+				"fullname": "ProSystem",
+				"file": [
+					{
+						"windows": "prosystem_libretro.dll",
+						"macos": "prosystem_libretro.dylib",
+						"linux": "prosystem_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "puae",
+				"fullname": "PUAE",
+				"file": [
+					{
+						"windows": "puae_libretro.dll",
+						"macos": "puae_libretro.dylib",
+						"linux": "puae_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "puae2021",
+				"fullname": "PUAE (2021)",
+				"file": [
+					{
+						"windows": "puae2021_libretro.dll",
+						"macos": "puae2021_libretro.dylib",
+						"linux": "puae2021_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "px68k",
+				"fullname": "pc68k",
+				"file": [
+					{
+						"windows": "px68k_libretro.dll",
+						"macos": "px68k_libretro.dylib",
+						"linux": "px68k_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "quasi88",
+				"fullname": "QUASI88",
+				"file": [
+					{
+						"windows": "quasi88_libretro.dll",
+						"macos": "quasi88_libretro.dylib",
+						"linux": "quasi88_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "quicknes",
+				"fullname": "QuickNES",
+				"file": [
+					{
+						"windows": "quicknes_libretro.dll",
+						"macos": "quicknes_libretro.dylib",
+						"linux": "quicknes_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "race",
+				"fullname": "RACE!",
+				"file": [
+					{
+						"windows": "race_libretro.dll",
+						"macos": "race_libretro.dylib",
+						"linux": "race_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "sameboy",
+				"fullname": "SameBoy",
+				"file": [
+					{
+						"windows": "sameboy_libretro.dll",
+						"macos": "sameboy_libretro.dylib",
+						"linux": "sameboy_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "samecdi",
+				"fullname": "SAME_CDI",
+				"file": [
+					{
+						"windows": "same_cdi_libretro.dll",
+						"macos": "same_cdi_libretro.dylib",
+						"linux": "same_cdi_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "scummvm",
+				"fullname": "ScummVM",
+				"file": [
+					{
+						"windows": "scummvm_libretro.dll",
+						"macos": "scummvm_libretro.dylib",
+						"linux": "scummvm_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "simcoupe",
+				"fullname": "SimCoupé",
+				"file": [
+					{
+						"windows": "simcp_libretro.dll",
+						"macos": "simcp_libretro.dylib",
+						"linux": "simcp_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "snes9x",
+				"fullname": "Snes9x - Current",
+				"file": [
+					{
+						"windows": "snes9x_libretro.dll",
+						"macos": "snes9x_libretro.dylib",
+						"linux": "snes9x_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "snes9x2010",
+				"fullname": "Snes9x 2010",
+				"file": [
+					{
+						"windows": "snes9x2010_libretro.dll",
+						"macos": "snes9x2010_libretro.dylib",
+						"linux": "snes9x2010_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "stella",
+				"fullname": "Stella",
+				"file": [
+					{
+						"windows": "stella_libretro.dll",
+						"macos": "stella_libretro.dylib",
+						"linux": "stella_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "theodore",
+				"fullname": "Theodore",
+				"file": [
+					{
+						"windows": "theodore_libretro.dll",
+						"macos": "theodore_libretro.dylib",
+						"linux": "theodore_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "tic80",
+				"fullname": "TIC-80",
+				"file": [
+					{
+						"windows": "tic80_libretro.dll",
+						"macos": "tic80_libretro.dylib",
+						"linux": "tic80_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "uzem",
+				"fullname": "Uzem",
+				"file": [
+					{
+						"windows": "uzem_libretro.dll",
+						"macos": "uzem_libretro.dylib",
+						"linux": "uzem_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "vba-m",
+				"fullname": "VBA-M",
+				"file": [
+					{
+						"windows": "vbam_libretro.dll",
+						"macos": "vbam_libretro.dylib",
+						"linux": "vbam_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "vecx",
+				"fullname": "vecx",
+				"file": [
+					{
+						"windows": "vecx_libretro.dll",
+						"macos": "vecx_libretro.dylib",
+						"linux": "vecx_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "vice128",
+				"fullname": "VICE (x128)",
+				"file": [
+					{
+						"windows": "vice_x128_libretro.dll",
+						"macos": "vice_x128_libretro.dylib",
+						"linux": "vice_x128_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "vice64accurate",
+				"fullname": "VICE (x64sc - Accurate)",
+				"file": [
+					{
+						"windows": "vice_x64sc_libretro.dll",
+						"macos": "vice_x64sc_libretro.dylib",
+						"linux": "vice_x64sc_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "vice64fast",
+				"fullname": "VICE (x64 - Fast)",
+				"file": [
+					{
+						"windows": "vice_x64_libretro.dll",
+						"macos": "vice_x64_libretro.dylib",
+						"linux": "vice_x64_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "vice64supercpu",
+				"fullname": "VICE (x64 - SuperCPU)",
+				"file": [
+					{
+						"windows": "vice_xscpu64_libretro.dll",
+						"macos": "vice_xscpu64_libretro.dylib",
+						"linux": "vice_xscpu64_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "x1",
+				"fullname": "X1",
+				"file": [
+					{
+						"windows": "x1_libretro.dll",
+						"macos": "x1_libretro.dylib",
+						"linux": "x1_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "yabasanshiro",
+				"fullname": "YabaSanshiro",
+				"file": [
+					{
+						"windows": "yabasanshiro_libretro.dll",
+						"macos": "yabasanshiro_libretro.dylib",
+						"linux": "yabasanshiro_libretro.so"
+					}
+				]
+			},
+			{
+				"name": "yabause",
+				"fullname": "Yabause",
+				"file": [
+					{
+						"windows": "yabause_libretro.dll",
+						"macos": "yabause_libretro.dylib",
+						"linux": "yabause_libretro.so"
+					}
+				]
+			}
+		],
+		"command": "{binpath} -L \"{corepath}/{corefile}\" \"{rompath}\""
+	},
+	{
+		"name": "mupen64plus",
+		"fullname": "Mupen64Plus",
+		"platforms": [
+			"n64"
+		],
+		"binpath": [
+			{
+				"windows": [
+					"mupen64plus/mupen64plus-ui-console.exe",
+					"Emulators/mupen64plus/mupen64plus-ui-console.exe",
+					"../mupen64plus/mupen64plus-ui-console.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/mupen64plus.app/Contents/MacOS/mupen64plus",
+					"/usr/local/bin/mupen64plus"
+				]
+			},
+			{
+				"linux": [
+					"/bin/m64p",
+					"/bin/mupen64plus",
+					"/usr/bin/m64p",
+					"/usr/bin/mupen64plus",
+					"/var/lib/flatpak/exports/bin/io.github.m64p.m64p",
+					"~/.local/share/flatpak/exports/bin/io.github.m64p.m64p"
+				]
+			}
+		],
+		"command": "{binpath} --nogui \"{rompath}\""
+	},
+	{
+		"name": "snes9x",
+		"fullname": "Snes9X",
+		"platforms": [
+			"snes"
+		],
+		"binpath": [
+			{
+				"windows": [
+					"snes9x/snes9x-x64.exe",
+					"Emulators/snes9x/snes9x-x64.exe",
+					"../snes9x/snes9x-x64.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Snes9x.app/Contents/MacOS/Snes9x"
+				]
+			},
+			{
+				"linux": [
+					"/bin/snes9x",
+					"/usr/bin/snes9x",
+					"/var/lib/flatpak/exports/bin/com.snes9x.Snes9x"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "dolphin",
+		"fullname": "Dolphin",
+		"platforms": [
+			"gc",
+			"wii"
+		],
+		"binpath": [
+			{
+				"windows": [
+					"Dolphin-x64/Dolphin.exe",
+					"Emulators/Dolphin-x64/Dolphin.exe",
+					"../Dolphin-x64/Dolphin.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Dolphin.app/Contents/MacOS/Dolphin"
+				]
+			},
+			{
+				"linux": [
+						"/bin/dolphin-emu",
+						"/usr/bin/dolphin-emu",
+						"/var/lib/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
+						"~/.local/share/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
+						"~/Applications/Dolphin_Emulator*.AppImage",
+						"~/.local/bin/Dolphin_Emulator*.AppImage",
+						"~/bin/Dolphin_Emulator*.AppImage"
+				]
+			}
+		],
+		"command": "{binpath} -b -e \"{rompath}\""
+	}
+]
