@@ -1,6 +1,6 @@
 extends Node
 
-func load_json_file(filepath : String) -> Dictionary:
+func load_json_file(filepath : String):
 	var file = File.new()
 	if file.open(filepath, File.READ):
 		print("Error when opening " + filepath)
@@ -11,41 +11,31 @@ func load_json_file(filepath : String) -> Dictionary:
 		return {}
 	return json.result
 
-func make_system_specific(input_json: Dictionary, curr_system: String):
-	var output_json := {}
+func make_system_specific(json: Dictionary, curr_system: String):
 	
-	for key in input_json.keys():
-		var value = input_json[key]
+	for key in json.keys():
+		var value = json[key]
 		if value is Array:
 			# Possibly the thing we are looking for, test further
 			if value.size() and value[0] is Dictionary and value[0].has("windows"):
-				# Found system-specific data, now find appropriate child
-				var system_data = null
+				# Found system-specific data
+				var found := false
 				for system in value:
 					if system.has(curr_system):
-						system_data = system[curr_system]
+						json[key] = system[curr_system]
+						found = true
 						break
 				
-				if system_data != null:
-					output_json[key] = system_data
-				else:
+				if not found:
 					print("Error, JSON doesn't have required system, leaving as is...")
-					output_json[key] = value
 			else:
 				# Not what we're looking for, recurse it
-				output_json[key] = []
 				for arr_value in value:
 					if arr_value is Dictionary:
-						output_json[key].append(make_system_specific(arr_value, curr_system))
-					else:
-						output_json[key].append(arr_value)
+						make_system_specific(arr_value, curr_system)
 		# Not what we're looking for, append to output
 		elif value is Dictionary:
-			output_json[key] = make_system_specific(value, curr_system)
-		else:
-			output_json[key] = value
-	
-	return output_json
+			make_system_specific(value, curr_system)
 
 func find_by_key(input_arr: Array, key: String, values: Array) -> Dictionary:
 	for val in values:

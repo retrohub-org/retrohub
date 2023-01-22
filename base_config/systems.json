@@ -1,2034 +1,2032 @@
-{
-	"systems_list": [
-		{
-			"name": "amiga",
-			"fullname": "Commodore Amiga",
-			"category": "computer",
-			"extension": [
-				".adf",
-				".adz",
-				".dms",
-				".fdi",
-				".ipf",
-				".hdf",
-				".hdz",
-				".lha",
-				".slave",
-				".info",
-				".cue",
-				".ccd",
-				".chd",
-				".nrg",
-				".mds",
-				".iso",
-				".uae",
-				".m3u",
-				".zip"
-			],
-			"platform": "amiga",
-			"emulator":[
-				{
-					"retroarch": [
-						"puae",
-						"puae2021"
-					]
-				},
-				"fs-uae"
-			]
-		},
-		{
-			"name": "amiga600",
-			"fullname": "Commodore Amiga 600",
-			"extends": "amiga"
-		},
-		{
-			"name": "amiga1200",
-			"fullname": "Commodore Amiga 1200",
-			"extends": "amiga"
-		},
-		{
-			"name": "amigacd32",
-			"fullname": "Commodore Amiga CD32",
-			"category": "console",
-			"extends": "amiga"
-		},
-		{
-			"name": "amstradcpc",
-			"fullname": "Amstrad CPC",
-			"category": "computer",
-			"extension": [
-				".cdt",
-				".cpr",
-				".cpc",
-				".dsk",
-				".kcr",
-				".m3u",
-				".sna",
-				".tap",
-				".voc",
-				".zip"
-			],
-			"platform": "amstradcpc",
-			"emulator": [
-				{
-					"retroarch": [
-						"caprice32",
-						"crocods"
-					]
-				},
-				"caprice"
-			]
-		},
-		{
-			"name": "apple2",
-			"fullname": "Apple II",
-			"category": "computer",
-			"extension": [
-				".dsk",
-				".nib",
-				".zip"
-			],
-			"platform": "apple2",
-			"emulator": [
-				{
-					"retroarch": [
-						"mame"
-					]
-				},
-				"mame",
-				"linapple",
-				"applewin"
-			]
-		},
-		{
-			"name": "atari800",
-			"fullname": "Atari 800",
-			"category": "computer",
-			"extension": [
-				".xfd",
-				".atr",
-				".atr.gz",
-				".xfd.gz",
-				".atx",
-				".cdm",
-				".cas",
-				".car",
-				".bas",
-				".bin",
-				".dcm",
-				".a52",
-				".xex",
-				".zip"
-			],
-			"platform": "atari800",
-			"emulator": [
-				{
-					"retroarch": [
-						"atari800"
-					]
-				},
-				"atari800",
-				"altirra"
-			]
-		},
-		{
-			"name": "atarist",
-			"fullname": "Atari ST",
-			"category": "computer",
-			"extension": [
-				".st",
-				".msa",
-				".stx",
-				".dim",
-				".ipf",
-				".img",
-				".rom",
-				".raw",
-				".ctr",
-				".m3u",
-				".zip"
-			],
-			"platform": "atarist",
-			"emulator": [
-				{
-					"retroarch": [
-						"hatari"
-					]
-				},
-				"hatari"
-			]
-		},
-		{
-			"name": "bbcmicro",
-			"fullname": "BBC Micro",
-			"category": "computer",
-			"extension": [
-				".ssd",
-				".dsd",
-				".adf",
-				".adl",
-				".img",
-				".fdi",
-				".uef",
-				".csw",
-				".zip"
-			],
-			"platform": "bbcmicro",
-			"emulator": [
-				"beebem",
-				"b-em"
-			]
-		},
-		{
-			"name": "c64",
-			"fullname": "Commodore 64",
-			"category": "computer",
-			"extension": [
-				".bin",
-				".cmd",
-				".crt",
-				".d2m",
-				".d4m",
-				".d64",
-				".d6z",
-				".d71",
-				".d7z",
-				".d80",
-				".d81",
-				".d82",
-				".d8z",
-				".g41",
-				".g4z",
-				".g64",
-				".g6z",
-				".gz",
-				".lnx",
-				".m3u",
-				".nbz",
-				".nib",
-				".p00",
-				".prg",
-				".t64",
-				".tap",
-				".vfl",
-				".vsf",
-				".x64",
-				".x6z",
-				".20",
-				".40",
-				".60",
-				".a0",
-				".b0",
-				".rom",
-				".zip"
-			],
-			"platform": "c64",
-			"emulator": [
-				{
-					"retroarch": [
-						"vice64accurate",
-						"vice64fast",
-						"vice64supercpu",
-						"vice128",
-						"frodo"
-					]
-				},
-				"vice",
-				"denise"
-			]
-		},
-		{
-			"name": "coco",
-			"fullname": "Tandy Color Computer",
-			"category": "computer",
-			"extension": [
-				".cas",
-				".c10",
-				".cue",
-				".k7",
-				".dsk",
-				".vdk",
-				".dmk",
-				".rom",
-				".wav",
-				".bas",
-				".asc",
-				".jvc",
-				".os9",
-				".ccc",
-				".sna",
-				".dgn"
-			],
-			"platform": "coco",
-			"emulator": [
-				"xroar"
-			]
-		},
-		{
-			"name": "dos",
-			"fullname": "DOS (PC)",
-			"category": "computer",
-			"extension": [
-				".exe",
-				".com",
-				".bat",
-				".zip",
-				".dosz",
-				".iso",
-				".cue",
-				".ins",
-				".img",
-				".ima",
-				".vhd",
-				".jrc",
-				".tc",
-				".m3u",
-				".m3u8",
-				".conf"
-			],
-			"platform": "dos",
-			"emulator": [
-				{
-					"retroarch": [
-						"dosbox",
-						"dosboxpure"
-					]
-				},
-				"dosbox",
-				"86box",
-				"pcem"
-			]
-		},
-		{
-			"name": "dragon32",
-			"fullname": "Dragon 32",
-			"extends": "coco"
-		},
-		{
-			"name": "macintosh",
-			"fullname": "Macintosh",
-			"category": "computer",
-			"extension": [
-				".dsk",
-				".img",
-				".hvf",
-				".cmd",
-				".zip"
-			],
-			"platform": "macintosh",
-			"emulator": [
-				{
-					"retroarch": [
-						"minivmac"
-					]
-				},
-				"minivmac",
-				"basilisk2"
-			]
-		},
-		{
-			"name": "moto",
-			"fullname": "Thomson MO/TO Series",
-			"category": "computer",
-			"extension": [
-				".fd",
-				".sap",
-				".k7",
-				".rom",
-				".m7",
-				".m5"
-			],
-			"platform": "moto",
-			"emulator": [
-				{
-					"retroarch": [
-						"theodore"
-					]
-				}
-			]
-		},
-		{
-			"name": "msx",
-			"fullname": "MSX",
-			"category": "computer",
-			"extension": [
-				".rom",
-				".ri",
-				".mx1",
-				".mx2",
-				".col",
-				".dsk",
-				".cas",
-				".sg",
-				".sc",
-				".m3u",
-				".zip"
-			],
-			"platform": "msx",
-			"emulator": [
-				{
-					"retroarch": [
-						"bluemsx",
-						"fmsx"
-					]
-				},
-				"openmsx"
-			]
-		},
-		{
-			"name": "msx2",
-			"fullname": "MSX2",
-			"extends": "msx"
-		},
-		{
-			"name": "msxturbor",
-			"fullname": "MSX Turbo R",
-			"extends": "msx"
-		},
-		{
-			"name": "oric",
-			"fullname": "Tangerine Oric",
-			"category": "computer",
-			"extension": [
-				".dsk",
-				".tap",
-				".ort",
-				".wav"
-			],
-			"platform": "oric",
-			"emulator": [
-				"oricutron"
-			]
-		},
-		{
-			"name": "palm",
-			"fullname": "Palm OS",
-			"category": "computer",
-			"extension": [
-				".prc",
-				".pqa",
-				".img",
-				".zip"
-			],
-			"platform": "palm",
-			"emulator": [
-				{
-					"retroarch": [
-						"mu"
-					]
-				}
-			]
-		},
-		{
-			"name": "pc",
-			"fullname": "IBM PC",
-			"extends": "dos"
-		},
-		{
-			"name": "pc88",
-			"fullname": "NEC PC-8000 / PC-8800 Series",
-			"category": "computer",
-			"extension": [
-				".d88",
-				".u88",
-				".m3u"
-			],
-			"platform": "pc88",
-			"emulator": [
-				{
-					"retroarch": [
-						"quasi88"
-					]
-				},
-				"xm8"
-			]
-		},
-		{
-			"name": "pc98",
-			"fullname": "NEC PC-9800 Series",
-			"category": "computer",
-			"extension": [
-				".d98",
-				".zip",
-				".98d",
-				".fdi",
-				".fdd",
-				".2hd",
-				".tfd",
-				".d88",
-				".88d",
-				".hdm",
-				".xdf",
-				".dup",
-				".cmd",
-				".hdi",
-				".thd",
-				".nhd",
-				".hdd",
-				".hdn"
-			],
-			"platform": "pc98",
-			"emulator": [
-				{
-					"retroarch": [
-						"nekop2kai"
-					]
-				}
-			]
-		},
-		{
-			"name": "samcoupe",
-			"fullname": "Sam Coupé",
-			"category": "computer",
-			"extension": [
-				".dsk",
-				".mgt",
-				".sbt",
-				".sad"
-			],
-			"platform": "samcoupe",
-			"emulator": [
-				{
-					"retroarch": [
-						"simcoupe"
-					]
-				},
-				"simcoupe"
-			]
-		},
-		{
-			"name": "spectravideo",
-			"fullname": "Spectravideo",
-			"extends": "msx"
-		},
-		{
-			"name": "tanodragon",
-			"fullname": "Tano Dragon",
-			"extends": "coco"
-		},
-		{
-			"name": "ti99",
-			"fullname": "Texas Instruments TI-99",
-			"category": "computer",
-			"extension": [
-				".ctg"
-			],
-			"platform": "ti99",
-			"emulator": [
-				"ti99sim"
-			]
-		},
-		{
-			"name": "to8",
-			"fullname": "Thomson TO8",
-			"extends": "moto"
-		},
-		{
-			"name": "trs-80",
-			"fullname": "Tandy TRS-80",
-			"category": "computer",
-			"extension": [
-				".dsk",
-				".cas",
-				".cmd",
-				".hex",
-				".bds",
-				".zip"
-			],
-			"platform": "trs-80",
-			"emulator": [
-				"sdltrs",
-				"trs80gp"
-			]
-		},
-		{
-			"name": "vic20",
-			"fullname": "Commodore VIC-20",
-			"extends": "c64"
-		},
-		{
-			"name": "x1",
-			"fullname": "Sharp X1",
-			"category": "computer",
-			"extension": [
-				".dx1",
-				".2d",
-				".2hd",
-				".tfd",
-				".d88",
-				".88d",
-				".hdm",
-				".xdf",
-				".dup",
-				".cmd",
-				".zip"
-			],
-			"platform": "x1",
-			"emulator": [
-				{
-					"retroarch": [
-						"x1"
-					]
-				}
-			]
-		},
-		{
-			"name": "x68000",
-			"fullname": "Sharp X68000",
-			"category": "computer",
-			"extension": [
-				".dim",
-				".img",
-				".d88",
-				".88d",
-				".hdm",
-				".dup",
-				".2hd",
-				".xdf",
-				".hdf",
-				".cmd",
-				".m3u",
-				".zip"
-			],
-			"platform": "x68000",
-			"emulator": [
-				{
-					"retroarch": [
-						"px68k"
-					]
-				}
-			]
-		},
-		{
-			"name": "zmachine",
-			"fullname": "Infocom Z-machine",
-			"category": "computer",
-			"extension": [
-				".dat",
-				".z1",
-				".z2",
-				".z3",
-				".z4",
-				".z5",
-				".z6",
-				".z7",
-				".z8",
-				".zip"
-			],
-			"platform": "zmachine",
-			"emulator": [
-				"frotz"
-			]
-		},
-		{
-			"name": "zx81",
-			"fullname": "Sinclair ZX81",
-			"category": "computer",
-			"extension": [
-				".p",
-				".tzx",
-				".t81"
-			],
-			"platform": "zx81",
-			"emulator": [
-				{
-					"retroarch": [
-						"eightyone"
-					]
-				},
-				"zesaurux"
-			]
-		},
-		{
-			"name": "zxspectrum",
-			"fullname": "Sinclair ZX Spectrum",
-			"category": "computer",
-			"extension": [
-				".sna",
-				".szx",
-				".z80",
-				".tap",
-				".tzx",
-				".gz",
-				".udi",
-				".mgt",
-				".img",
-				".trd",
-				".scl",
-				".dsk"
-			],
-			"platform": "zxspectrum",
-			"emulator": [
-				{
-					"retroarch": [
-						"fuse"
-					]
-				},
-				"fuse",
-				"zesaurux"
-			]
-		},
-		{
-			"name": "cavestory",
-			"fullname": "Cave Story (NXEngine)",
-			"category": "engine",
-			"extension": [
-				".exe"
-			],
-			"platform": "cavestory",
-			"emulator": [
-				{
-					"retroarch": [
-						"nxengine"
-					]
-				}
-			]
-		},
-		{
-			"name": "chailove",
-			"fullname": "ChaiLove",
-			"category": "engine",
-			"extension": [
-				".chai",
-				".chailove"
-			],
-			"platform": "chailove",
-			"emulator": [
-				{
-					"retroarch": [
-						"chailove"
-					]
-				}
-			]
-		},
-		{
-			"name": "doom",
-			"fullname": "DOOM",
-			"category": "engine",
-			"extension": [
-				".wad",
-				".iwad",
-				".pwad"
-			],
-			"platform": "doom",
-			"emulator": [
-				{
-					"retroarch": [
-						"prboom"
-					]
-				},
-				"zdoom"
-			]
-		},
-		{
-			"name": "godot",
-			"fullname": "Godot",
-			"category": "engine",
-			"extension": [
-				".pck",
-				".zip"
-			],
-			"platform": "godot",
-			"emulator": [
-				{
-					"retroarch": [
-						"godot"
-					]
-				},
-				"godot"
-			]
-		},
-		{
-			"name": "lutro",
-			"fullname": "Lutro",
-			"category": "engine",
-			"extension": [
-				".lutro",
-				".lua"
-			],
-			"platform": "lutro",
-			"emulator": [
-				{
-					"retroarch": [
-						"lutro"
-					]
-				}
-			]
-		},
-		{
-			"name": "openbor",
-			"fullname": "OpenBOR",
-			"category": "engine",
-			"extension": [
-				".pak"
-			],
-			"platform": "openbor",
-			"emulator": [
-				"openbor"
-			]
-		},
-		{
-			"name": "pico8",
-			"fullname": "PICO-8",
-			"category": "engine",
-			"extension": [
-				".p8",
-				".png"
-			],
-			"platform": "pico8",
-			"emulator": [
-				"pico8"
-			]
-		},
-		{
-			"name": "scummvm",
-			"fullname": "ScummVM",
-			"category": "engine",
-			"extension": [
-				".scummvm"
-			],
-			"platform": "scummvm",
-			"emulator": [
-				{
-					"retroarch": [
-						"scummvm"
-					]
-				},
-				"scummvm"
-			]
-		},
-		{
-			"name": "solarus",
-			"fullname": "Solarus",
-			"category": "engine",
-			"extension": [
-				".solarus"
-			],
-			"platform": "solarus",
-			"emulator": [
-				"solarus"
-			]
-		},
-		{
-			"name": "stratagus",
-			"fullname": "Stratagus",
-			"category": "engine",
-			"extension": [
-				".exe",
-				""
-			],
-			"platform": "stratagus",
-			"emulator": [
-				"stratagus"
-			]
-		},
-		{
-			"name": "tic80",
-			"fullname": "TIC-80",
-			"category": "engine",
-			"extension": [
-				".tic"
-			],
-			"platform": "tic80",
-			"emulator": [
-				{
-					"retroarch": [
-						"tic80"
-					]
-				},
-				"tic80"
-			]
-		},
-		{
-			"name": "3do",
-			"fullname": "3DO",
-			"category": "console",
-			"extension": [
-				".iso",
-				".bin",
-				".chd",
-				".cue",
-				".zip"
-			],
-			"platform": "3do",
-			"emulator": [
-				{
-					"retroarch": [
-						"opera"
-					]
-				},
-				"opera"
-			]
-		},
-		{
-			"name": "64dd",
-			"fullname": "Nintendo 64 DD",
-			"extends": "n64"
-		},
-		{
-			"name": "astrocade",
-			"fullname": "Bally Astrocade",
-			"extends": "arcade"
-		},
-		{
-			"name": "atari2600",
-			"fullname": "Atari 2600",
-			"category": "console",
-			"extension": [
-				".a26",
-				".bin",
-				".gz",
-				".rom",
-				".zip"
-			],
-			"platform": "atari2600",
-			"emulator": [
-				{
-					"retroarch": [
-						"stella"
-					]
-				},
-				"stella"
-			]
-		},
-		{
-			"name": "atari5200",
-			"fullname": "Atari 5200",
-			"category": "console",
-			"extends": "atari800"
-		},
-		{
-			"name": "atari7800",
-			"fullname": "Atari 7800",
-			"category": "console",
-			"extension": [
-				".a78",
-				".bin",
-				".zip"
-			],
-			"platform": "atari7800",
-			"emulator": [
-				{
-					"retroarch": [
-						"prosystem"
-					]
-				},
-				"prosystem",
-				"a7800"
-			]
-		},
-		{
-			"name": "atarijaguar",
-			"fullname": "Atari Jaguar",
-			"category": "console",
-			"extension": [
-				".j64",
-				".jag",
-				".rom",
-				".abs",
-				".cof",
-				".bin",
-				".prg"
-			],
-			"platform": "atarijaguar",
-			"emulator": [
-				{
-					"retroarch": [
-						"virtualjaguar"
-					]
-				},
-				"virtualjaguar"
-			]
-		},
-		{
-			"name": "atarijaguarcd",
-			"fullname": "Atari Jaguar CD",
-			"emulator": [
-				"project-tempest"
-			],
-			"extends": "atarijaguar"
-		},
-		{
-			"name": "atarilynx",
-			"fullname": "Atari Lynx",
-			"category": "console",
-			"extension": [
-				".lnx",
-				".o",
-				".zip"
-			],
-			"platform": "atarilynx",
-			"emulator": [
-				{
-					"retroarch": [
-						"handy",
-						"beetle-lynx"
-					]
-				},
-				"mednafen"
-			]
-		},
-		{
-			"name": "atarixe",
-			"fullname": "Atari XE",
-			"category": "console",
-			"extends": "atari800"
-		},
-		{
-			"name": "cdimono1",
-			"fullname": "Philips CD-i",
-			"category": "console",
-			"extension": [
-				".chd",
-				".cue",
-				".iso"
-			],
-			"platform": "cdimono1",
-			"emulator": [
-				{
-					"retroarch": [
-						"samecdi"
-					]
-				}
-			]
-		},
-		{
-			"name": "cdtv",
-			"fullname": "Commodore CDTV",
-			"category": "console",
-			"extends": "amiga"
-		},
-		{
-			"name": "channelf",
-			"fullname": "Fairchild Channel F",
-			"category": "console",
-			"extension": [
-				".bin",
-				".rom",
-				".chf",
-				".zip"
-			],
-			"platform": "channelf",
-			"emulator": [
-				{
-					"retroarch": [
-						"freechaf"
-					]
-				}
-			]
-		},
-		{
-			"name": "colecovision",
-			"fullname": "ColecoVision",
-			"category": "console",
-			"extension": [
-				".col",
-				".cv",
-				".bin",
-				".rom"
-			],
-			"platform": "colecovision",
-			"emulator": [
-				{
-					"retroarch": [
-						"bluemsx",
-						"gearcoleco"
-					]
-				},
-				"colem",
-				"dsp",
-				"ares",
-				"higan"
-			]
-		},
-		{
-			"name": "dreamcast",
-			"fullname": "Sega Dreamcast",
-			"category": "console",
-			"extension": [
-				".cdi",
-				".gdi",
-				".chd",
-				".cue",
-				".bin",
-				".elf",
-				".lst",
-				".dat",
-				".m3u",
-				".zip"
-			],
-			"platform": "dreamcast",
-			"emulator": [
-				{
-					"retroarch": [
-						"flycast"
-					]
-				},
-				"flycast",
-				"redream"
-			]
-		},
-		{
-			"name": "famicom",
-			"fullname": "Nintendo Family Computer",
-			"extends": "nes"
-		},
-		{
-			"name": "fds",
-			"fullname": "Nintendo Famicom Disk System",
-			"extends": "nes"
-		},
-		{
-			"name": "gameandwatch",
-			"fullname": "Nintendo Game & Watch",
-			"category": "console",
-			"extension": [
-				".mgw",
-				".zip"
-			],
-			"platform": "gameandwatch",
-			"emulator": [
-				{
-					"retroarch": [
-						"gw"
-					]
-				}
-			]
-		},
-		{
-			"name": "gamegear",
-			"fullname": "Sega Game Gear",
-			"extends": "mastersystem"
-		},
-		{
-			"name": "gb",
-			"fullname": "Nintendo Game Boy",
-			"category": "console",
-			"extension": [
-				".gb",
-				".gbc",
-				".bin",
-				".rom",
-				".dmg",
-				".cgb",
-				".sgb",
-				".zip"
-			],
-			"platform": "gb",
-			"emulator": [
-				{
-					"retroarch": [
-						"sameboy",
-						"gambatte",
-						"gearboy"
-					]
-				},
-				"sameboy",
-				"gambatte",
-				"gearboy"
-			]
-		},
-		{
-			"name": "gbc",
-			"fullname": "Nintendo Game Boy Color",
-			"extends": "gb"
-		},
-		{
-			"name": "gba",
-			"fullname": "Nintendo Game Boy Advance",
-			"category": "console",
-			"extension": [
-				".gba",
-				".agb",
-				".bin",
-				".zip"
-			],
-			"platform": "gba",
-			"emulator": [
-				{
-					"retroarch": [
-						"mgba",
-						"vba-m"
-					]
-				},
-				"mgba",
-				"vba-m"
-			]
-		},
-		{
-			"name": "gc",
-			"fullname": "Nintendo GameCube",
-			"category": "console",
-			"extension": [
-				".elf",
-				".iso",
-				".gcm",
-				".dol",
-				".tgc",
-				".wbfs",
-				".ciso",
-				".gcz",
-				".wad",
-				".rvz"
-			],
-			"platform": "gc",
-			"emulator": [
-				{
-					"retroarch": [
-						"dolphin"
-					]
-				},
-				"dolphin"
-			]
-		},
-		{
-			"name": "genesis",
-			"fullname": "Sega Genesis",
-			"category": "console",
-			"extension": [
-				".mdx",
-				".md",
-				".smd",
-				".gen",
-				".bin",
-				".cue",
-				".iso",
-				".sms",
-				".gg",
-				".sg",
-				".68k",
-				".chd",
-				".zip"
-			],
-			"platform": "genesis",
-			"emulator": [
-				{
-					"retroarch": [
-						"genesis-plus-gx",
-						"blastem",
-						"picodrive"
-					]
-				},
-				"blastem"
-			]
-		},
-		{
-			"name": "megadrive",
-			"fullname": "Sega Mega Drive",
-			"extends": "genesis"
-		},
-		{
-			"name": "sega32x",
-			"fullname": "Sega 32X",
-			"extends": "genesis"
-		},
-		{
-			"name": "segacd",
-			"fullname": "Sega CD",
-			"extends": "genesis"
-		},
-		{
-			"name": "gx4000",
-			"fullname": "Amstrad GX4000",
-			"extends": "amstradcpc"
-		},
-		{
-			"name": "intellivision",
-			"fullname": "Mattel Electronics Intellivision",
-			"category": "console",
-			"extension": [
-				".int",
-				".rom",
-				".bin",
-				".itv",
-				".zip"
-			],
-			"platform": "intellivision",
-			"emulator": [
-				{
-					"retroarch": [
-						"freeintv"
-					]
-				},
-				"freeintv",
-				"jzintv"
-			]
-		},
-		{
-			"name": "mastersystem",
-			"fullname": "Sega Master System",
-			"category": "console",
-			"extension": [
-				".sms",
-				".bin",
-				".rom",
-				".zip"
-			],
-			"platform": "mastersystem",
-			"emulator": [
-				{
-					"retroarch": [
-						"genesis-plus-gx",
-						"picodrive"
-					]
-				},
-				"emulicious"
-			]
-		},
-		{
-			"name": "multivision",
-			"fullname": "Othello Multivision",
-			"extends": "sg-1000"
-		},
-		{
-			"name": "n64",
-			"fullname": "Nintendo 64",
-			"category": "console",
-			"extension": [
-				".n64",
-				".v64",
-				".z64",
-				".bin",
-				".u1",
-				".ndd",
-				".zip"
-			],
-			"platform": "n64",
-			"emulator": [
-				{
-					"retroarch": [
-						"mupen64plus-next",
-						"parallel-n64"
-					]
-				},
-				"mupen64plus",
-				"project64"
-			]
-		},
-		{
-			"name": "nds",
-			"fullname": "Nintendo DS",
-			"category": "console",
-			"extension": [
-				".nds",
-				".bin"
-			],
-			"platform": "nds",
-			"emulator": [
-				{
-					"retroarch": [
-						"desmume",
-						"melonds"
-					]
-				},
-				"desmume",
-				"melonds"
-			]
-		},
-		{
-			"name": "neogeocd",
-			"fullname": "SNK Neo Geo CD",
-			"category": "console",
-			"emulator": [
-				{
-					"retroarch": [
-						"neocd",
-						"mame",
-						"fbneo"
-					]
-				},
-				"mame",
-				"fbneo"
-			],
-			"extends": "neogeo"
-		},
-		{
-			"name": "neogeocdjp",
-			"extends": "neogeocd"
+[
+	{
+		"name": "amiga",
+		"fullname": "Commodore Amiga",
+		"category": "computer",
+		"extension": [
+			".adf",
+			".adz",
+			".dms",
+			".fdi",
+			".ipf",
+			".hdf",
+			".hdz",
+			".lha",
+			".slave",
+			".info",
+			".cue",
+			".ccd",
+			".chd",
+			".nrg",
+			".mds",
+			".iso",
+			".uae",
+			".m3u",
+			".zip"
+		],
+		"platform": "amiga",
+		"emulator":[
+			{
+				"retroarch": [
+					"puae",
+					"puae2021"
+				]
 			},
-		{
-			"name": "nes",
-			"fullname": "Nintendo Entertainment System",
-			"category": "console",
-			"extension": [
-				".nes",
-				".fds",
-				".unf",
-				".unif",
-				".zip"
-			],
-			"platform": "nes",
-			"emulator": [
-				{
-					"retroarch": [
-						"nestopia",
-						"fceumm",
-						"mesen",
-						"quicknes"
-					]
-				},
-				"mesen",
-				"punes",
-				"nestopia"
-			]
+			"fs-uae"
+		]
+	},
+	{
+		"name": "amiga600",
+		"fullname": "Commodore Amiga 600",
+		"extends": "amiga"
+	},
+	{
+		"name": "amiga1200",
+		"fullname": "Commodore Amiga 1200",
+		"extends": "amiga"
+	},
+	{
+		"name": "amigacd32",
+		"fullname": "Commodore Amiga CD32",
+		"category": "console",
+		"extends": "amiga"
+	},
+	{
+		"name": "amstradcpc",
+		"fullname": "Amstrad CPC",
+		"category": "computer",
+		"extension": [
+			".cdt",
+			".cpr",
+			".cpc",
+			".dsk",
+			".kcr",
+			".m3u",
+			".sna",
+			".tap",
+			".voc",
+			".zip"
+		],
+		"platform": "amstradcpc",
+		"emulator": [
+			{
+				"retroarch": [
+					"caprice32",
+					"crocods"
+				]
+			},
+			"caprice"
+		]
+	},
+	{
+		"name": "apple2",
+		"fullname": "Apple II",
+		"category": "computer",
+		"extension": [
+			".dsk",
+			".nib",
+			".zip"
+		],
+		"platform": "apple2",
+		"emulator": [
+			{
+				"retroarch": [
+					"mame"
+				]
+			},
+			"mame",
+			"linapple",
+			"applewin"
+		]
+	},
+	{
+		"name": "atari800",
+		"fullname": "Atari 800",
+		"category": "computer",
+		"extension": [
+			".xfd",
+			".atr",
+			".atr.gz",
+			".xfd.gz",
+			".atx",
+			".cdm",
+			".cas",
+			".car",
+			".bas",
+			".bin",
+			".dcm",
+			".a52",
+			".xex",
+			".zip"
+		],
+		"platform": "atari800",
+		"emulator": [
+			{
+				"retroarch": [
+					"atari800"
+				]
+			},
+			"atari800",
+			"altirra"
+		]
+	},
+	{
+		"name": "atarist",
+		"fullname": "Atari ST",
+		"category": "computer",
+		"extension": [
+			".st",
+			".msa",
+			".stx",
+			".dim",
+			".ipf",
+			".img",
+			".rom",
+			".raw",
+			".ctr",
+			".m3u",
+			".zip"
+		],
+		"platform": "atarist",
+		"emulator": [
+			{
+				"retroarch": [
+					"hatari"
+				]
+			},
+			"hatari"
+		]
+	},
+	{
+		"name": "bbcmicro",
+		"fullname": "BBC Micro",
+		"category": "computer",
+		"extension": [
+			".ssd",
+			".dsd",
+			".adf",
+			".adl",
+			".img",
+			".fdi",
+			".uef",
+			".csw",
+			".zip"
+		],
+		"platform": "bbcmicro",
+		"emulator": [
+			"beebem",
+			"b-em"
+		]
+	},
+	{
+		"name": "c64",
+		"fullname": "Commodore 64",
+		"category": "computer",
+		"extension": [
+			".bin",
+			".cmd",
+			".crt",
+			".d2m",
+			".d4m",
+			".d64",
+			".d6z",
+			".d71",
+			".d7z",
+			".d80",
+			".d81",
+			".d82",
+			".d8z",
+			".g41",
+			".g4z",
+			".g64",
+			".g6z",
+			".gz",
+			".lnx",
+			".m3u",
+			".nbz",
+			".nib",
+			".p00",
+			".prg",
+			".t64",
+			".tap",
+			".vfl",
+			".vsf",
+			".x64",
+			".x6z",
+			".20",
+			".40",
+			".60",
+			".a0",
+			".b0",
+			".rom",
+			".zip"
+		],
+		"platform": "c64",
+		"emulator": [
+			{
+				"retroarch": [
+					"vice64accurate",
+					"vice64fast",
+					"vice64supercpu",
+					"vice128",
+					"frodo"
+				]
+			},
+			"vice",
+			"denise"
+		]
+	},
+	{
+		"name": "coco",
+		"fullname": "Tandy Color Computer",
+		"category": "computer",
+		"extension": [
+			".cas",
+			".c10",
+			".cue",
+			".k7",
+			".dsk",
+			".vdk",
+			".dmk",
+			".rom",
+			".wav",
+			".bas",
+			".asc",
+			".jvc",
+			".os9",
+			".ccc",
+			".sna",
+			".dgn"
+		],
+		"platform": "coco",
+		"emulator": [
+			"xroar"
+		]
+	},
+	{
+		"name": "dos",
+		"fullname": "DOS (PC)",
+		"category": "computer",
+		"extension": [
+			".exe",
+			".com",
+			".bat",
+			".zip",
+			".dosz",
+			".iso",
+			".cue",
+			".ins",
+			".img",
+			".ima",
+			".vhd",
+			".jrc",
+			".tc",
+			".m3u",
+			".m3u8",
+			".conf"
+		],
+		"platform": "dos",
+		"emulator": [
+			{
+				"retroarch": [
+					"dosbox",
+					"dosboxpure"
+				]
+			},
+			"dosbox",
+			"86box",
+			"pcem"
+		]
+	},
+	{
+		"name": "dragon32",
+		"fullname": "Dragon 32",
+		"extends": "coco"
+	},
+	{
+		"name": "macintosh",
+		"fullname": "Macintosh",
+		"category": "computer",
+		"extension": [
+			".dsk",
+			".img",
+			".hvf",
+			".cmd",
+			".zip"
+		],
+		"platform": "macintosh",
+		"emulator": [
+			{
+				"retroarch": [
+					"minivmac"
+				]
+			},
+			"minivmac",
+			"basilisk2"
+		]
+	},
+	{
+		"name": "moto",
+		"fullname": "Thomson MO/TO Series",
+		"category": "computer",
+		"extension": [
+			".fd",
+			".sap",
+			".k7",
+			".rom",
+			".m7",
+			".m5"
+		],
+		"platform": "moto",
+		"emulator": [
+			{
+				"retroarch": [
+					"theodore"
+				]
+			}
+		]
+	},
+	{
+		"name": "msx",
+		"fullname": "MSX",
+		"category": "computer",
+		"extension": [
+			".rom",
+			".ri",
+			".mx1",
+			".mx2",
+			".col",
+			".dsk",
+			".cas",
+			".sg",
+			".sc",
+			".m3u",
+			".zip"
+		],
+		"platform": "msx",
+		"emulator": [
+			{
+				"retroarch": [
+					"bluemsx",
+					"fmsx"
+				]
+			},
+			"openmsx"
+		]
+	},
+	{
+		"name": "msx2",
+		"fullname": "MSX2",
+		"extends": "msx"
+	},
+	{
+		"name": "msxturbor",
+		"fullname": "MSX Turbo R",
+		"extends": "msx"
+	},
+	{
+		"name": "oric",
+		"fullname": "Tangerine Oric",
+		"category": "computer",
+		"extension": [
+			".dsk",
+			".tap",
+			".ort",
+			".wav"
+		],
+		"platform": "oric",
+		"emulator": [
+			"oricutron"
+		]
+	},
+	{
+		"name": "palm",
+		"fullname": "Palm OS",
+		"category": "computer",
+		"extension": [
+			".prc",
+			".pqa",
+			".img",
+			".zip"
+		],
+		"platform": "palm",
+		"emulator": [
+			{
+				"retroarch": [
+					"mu"
+				]
+			}
+		]
+	},
+	{
+		"name": "pc",
+		"fullname": "IBM PC",
+		"extends": "dos"
+	},
+	{
+		"name": "pc88",
+		"fullname": "NEC PC-8000 / PC-8800 Series",
+		"category": "computer",
+		"extension": [
+			".d88",
+			".u88",
+			".m3u"
+		],
+		"platform": "pc88",
+		"emulator": [
+			{
+				"retroarch": [
+					"quasi88"
+				]
+			},
+			"xm8"
+		]
+	},
+	{
+		"name": "pc98",
+		"fullname": "NEC PC-9800 Series",
+		"category": "computer",
+		"extension": [
+			".d98",
+			".zip",
+			".98d",
+			".fdi",
+			".fdd",
+			".2hd",
+			".tfd",
+			".d88",
+			".88d",
+			".hdm",
+			".xdf",
+			".dup",
+			".cmd",
+			".hdi",
+			".thd",
+			".nhd",
+			".hdd",
+			".hdn"
+		],
+		"platform": "pc98",
+		"emulator": [
+			{
+				"retroarch": [
+					"nekop2kai"
+				]
+			}
+		]
+	},
+	{
+		"name": "samcoupe",
+		"fullname": "Sam Coupé",
+		"category": "computer",
+		"extension": [
+			".dsk",
+			".mgt",
+			".sbt",
+			".sad"
+		],
+		"platform": "samcoupe",
+		"emulator": [
+			{
+				"retroarch": [
+					"simcoupe"
+				]
+			},
+			"simcoupe"
+		]
+	},
+	{
+		"name": "spectravideo",
+		"fullname": "Spectravideo",
+		"extends": "msx"
+	},
+	{
+		"name": "tanodragon",
+		"fullname": "Tano Dragon",
+		"extends": "coco"
+	},
+	{
+		"name": "ti99",
+		"fullname": "Texas Instruments TI-99",
+		"category": "computer",
+		"extension": [
+			".ctg"
+		],
+		"platform": "ti99",
+		"emulator": [
+			"ti99sim"
+		]
+	},
+	{
+		"name": "to8",
+		"fullname": "Thomson TO8",
+		"extends": "moto"
+	},
+	{
+		"name": "trs-80",
+		"fullname": "Tandy TRS-80",
+		"category": "computer",
+		"extension": [
+			".dsk",
+			".cas",
+			".cmd",
+			".hex",
+			".bds",
+			".zip"
+		],
+		"platform": "trs-80",
+		"emulator": [
+			"sdltrs",
+			"trs80gp"
+		]
+	},
+	{
+		"name": "vic20",
+		"fullname": "Commodore VIC-20",
+		"extends": "c64"
+	},
+	{
+		"name": "x1",
+		"fullname": "Sharp X1",
+		"category": "computer",
+		"extension": [
+			".dx1",
+			".2d",
+			".2hd",
+			".tfd",
+			".d88",
+			".88d",
+			".hdm",
+			".xdf",
+			".dup",
+			".cmd",
+			".zip"
+		],
+		"platform": "x1",
+		"emulator": [
+			{
+				"retroarch": [
+					"x1"
+				]
+			}
+		]
+	},
+	{
+		"name": "x68000",
+		"fullname": "Sharp X68000",
+		"category": "computer",
+		"extension": [
+			".dim",
+			".img",
+			".d88",
+			".88d",
+			".hdm",
+			".dup",
+			".2hd",
+			".xdf",
+			".hdf",
+			".cmd",
+			".m3u",
+			".zip"
+		],
+		"platform": "x68000",
+		"emulator": [
+			{
+				"retroarch": [
+					"px68k"
+				]
+			}
+		]
+	},
+	{
+		"name": "zmachine",
+		"fullname": "Infocom Z-machine",
+		"category": "computer",
+		"extension": [
+			".dat",
+			".z1",
+			".z2",
+			".z3",
+			".z4",
+			".z5",
+			".z6",
+			".z7",
+			".z8",
+			".zip"
+		],
+		"platform": "zmachine",
+		"emulator": [
+			"frotz"
+		]
+	},
+	{
+		"name": "zx81",
+		"fullname": "Sinclair ZX81",
+		"category": "computer",
+		"extension": [
+			".p",
+			".tzx",
+			".t81"
+		],
+		"platform": "zx81",
+		"emulator": [
+			{
+				"retroarch": [
+					"eightyone"
+				]
+			},
+			"zesaurux"
+		]
+	},
+	{
+		"name": "zxspectrum",
+		"fullname": "Sinclair ZX Spectrum",
+		"category": "computer",
+		"extension": [
+			".sna",
+			".szx",
+			".z80",
+			".tap",
+			".tzx",
+			".gz",
+			".udi",
+			".mgt",
+			".img",
+			".trd",
+			".scl",
+			".dsk"
+		],
+		"platform": "zxspectrum",
+		"emulator": [
+			{
+				"retroarch": [
+					"fuse"
+				]
+			},
+			"fuse",
+			"zesaurux"
+		]
+	},
+	{
+		"name": "cavestory",
+		"fullname": "Cave Story (NXEngine)",
+		"category": "engine",
+		"extension": [
+			".exe"
+		],
+		"platform": "cavestory",
+		"emulator": [
+			{
+				"retroarch": [
+					"nxengine"
+				]
+			}
+		]
+	},
+	{
+		"name": "chailove",
+		"fullname": "ChaiLove",
+		"category": "engine",
+		"extension": [
+			".chai",
+			".chailove"
+		],
+		"platform": "chailove",
+		"emulator": [
+			{
+				"retroarch": [
+					"chailove"
+				]
+			}
+		]
+	},
+	{
+		"name": "doom",
+		"fullname": "DOOM",
+		"category": "engine",
+		"extension": [
+			".wad",
+			".iwad",
+			".pwad"
+		],
+		"platform": "doom",
+		"emulator": [
+			{
+				"retroarch": [
+					"prboom"
+				]
+			},
+			"zdoom"
+		]
+	},
+	{
+		"name": "godot",
+		"fullname": "Godot",
+		"category": "engine",
+		"extension": [
+			".pck",
+			".zip"
+		],
+		"platform": "godot",
+		"emulator": [
+			{
+				"retroarch": [
+					"godot"
+				]
+			},
+			"godot"
+		]
+	},
+	{
+		"name": "lutro",
+		"fullname": "Lutro",
+		"category": "engine",
+		"extension": [
+			".lutro",
+			".lua"
+		],
+		"platform": "lutro",
+		"emulator": [
+			{
+				"retroarch": [
+					"lutro"
+				]
+			}
+		]
+	},
+	{
+		"name": "openbor",
+		"fullname": "OpenBOR",
+		"category": "engine",
+		"extension": [
+			".pak"
+		],
+		"platform": "openbor",
+		"emulator": [
+			"openbor"
+		]
+	},
+	{
+		"name": "pico8",
+		"fullname": "PICO-8",
+		"category": "engine",
+		"extension": [
+			".p8",
+			".png"
+		],
+		"platform": "pico8",
+		"emulator": [
+			"pico8"
+		]
+	},
+	{
+		"name": "scummvm",
+		"fullname": "ScummVM",
+		"category": "engine",
+		"extension": [
+			".scummvm"
+		],
+		"platform": "scummvm",
+		"emulator": [
+			{
+				"retroarch": [
+					"scummvm"
+				]
+			},
+			"scummvm"
+		]
+	},
+	{
+		"name": "solarus",
+		"fullname": "Solarus",
+		"category": "engine",
+		"extension": [
+			".solarus"
+		],
+		"platform": "solarus",
+		"emulator": [
+			"solarus"
+		]
+	},
+	{
+		"name": "stratagus",
+		"fullname": "Stratagus",
+		"category": "engine",
+		"extension": [
+			".exe",
+			""
+		],
+		"platform": "stratagus",
+		"emulator": [
+			"stratagus"
+		]
+	},
+	{
+		"name": "tic80",
+		"fullname": "TIC-80",
+		"category": "engine",
+		"extension": [
+			".tic"
+		],
+		"platform": "tic80",
+		"emulator": [
+			{
+				"retroarch": [
+					"tic80"
+				]
+			},
+			"tic80"
+		]
+	},
+	{
+		"name": "3do",
+		"fullname": "3DO",
+		"category": "console",
+		"extension": [
+			".iso",
+			".bin",
+			".chd",
+			".cue",
+			".zip"
+		],
+		"platform": "3do",
+		"emulator": [
+			{
+				"retroarch": [
+					"opera"
+				]
+			},
+			"opera"
+		]
+	},
+	{
+		"name": "64dd",
+		"fullname": "Nintendo 64 DD",
+		"extends": "n64"
+	},
+	{
+		"name": "astrocade",
+		"fullname": "Bally Astrocade",
+		"extends": "arcade"
+	},
+	{
+		"name": "atari2600",
+		"fullname": "Atari 2600",
+		"category": "console",
+		"extension": [
+			".a26",
+			".bin",
+			".gz",
+			".rom",
+			".zip"
+		],
+		"platform": "atari2600",
+		"emulator": [
+			{
+				"retroarch": [
+					"stella"
+				]
+			},
+			"stella"
+		]
+	},
+	{
+		"name": "atari5200",
+		"fullname": "Atari 5200",
+		"category": "console",
+		"extends": "atari800"
+	},
+	{
+		"name": "atari7800",
+		"fullname": "Atari 7800",
+		"category": "console",
+		"extension": [
+			".a78",
+			".bin",
+			".zip"
+		],
+		"platform": "atari7800",
+		"emulator": [
+			{
+				"retroarch": [
+					"prosystem"
+				]
+			},
+			"prosystem",
+			"a7800"
+		]
+	},
+	{
+		"name": "atarijaguar",
+		"fullname": "Atari Jaguar",
+		"category": "console",
+		"extension": [
+			".j64",
+			".jag",
+			".rom",
+			".abs",
+			".cof",
+			".bin",
+			".prg"
+		],
+		"platform": "atarijaguar",
+		"emulator": [
+			{
+				"retroarch": [
+					"virtualjaguar"
+				]
+			},
+			"virtualjaguar"
+		]
+	},
+	{
+		"name": "atarijaguarcd",
+		"fullname": "Atari Jaguar CD",
+		"emulator": [
+			"project-tempest"
+		],
+		"extends": "atarijaguar"
+	},
+	{
+		"name": "atarilynx",
+		"fullname": "Atari Lynx",
+		"category": "console",
+		"extension": [
+			".lnx",
+			".o",
+			".zip"
+		],
+		"platform": "atarilynx",
+		"emulator": [
+			{
+				"retroarch": [
+					"handy",
+					"beetle-lynx"
+				]
+			},
+			"mednafen"
+		]
+	},
+	{
+		"name": "atarixe",
+		"fullname": "Atari XE",
+		"category": "console",
+		"extends": "atari800"
+	},
+	{
+		"name": "cdimono1",
+		"fullname": "Philips CD-i",
+		"category": "console",
+		"extension": [
+			".chd",
+			".cue",
+			".iso"
+		],
+		"platform": "cdimono1",
+		"emulator": [
+			{
+				"retroarch": [
+					"samecdi"
+				]
+			}
+		]
+	},
+	{
+		"name": "cdtv",
+		"fullname": "Commodore CDTV",
+		"category": "console",
+		"extends": "amiga"
+	},
+	{
+		"name": "channelf",
+		"fullname": "Fairchild Channel F",
+		"category": "console",
+		"extension": [
+			".bin",
+			".rom",
+			".chf",
+			".zip"
+		],
+		"platform": "channelf",
+		"emulator": [
+			{
+				"retroarch": [
+					"freechaf"
+				]
+			}
+		]
+	},
+	{
+		"name": "colecovision",
+		"fullname": "ColecoVision",
+		"category": "console",
+		"extension": [
+			".col",
+			".cv",
+			".bin",
+			".rom"
+		],
+		"platform": "colecovision",
+		"emulator": [
+			{
+				"retroarch": [
+					"bluemsx",
+					"gearcoleco"
+				]
+			},
+			"colem",
+			"dsp",
+			"ares",
+			"higan"
+		]
+	},
+	{
+		"name": "dreamcast",
+		"fullname": "Sega Dreamcast",
+		"category": "console",
+		"extension": [
+			".cdi",
+			".gdi",
+			".chd",
+			".cue",
+			".bin",
+			".elf",
+			".lst",
+			".dat",
+			".m3u",
+			".zip"
+		],
+		"platform": "dreamcast",
+		"emulator": [
+			{
+				"retroarch": [
+					"flycast"
+				]
+			},
+			"flycast",
+			"redream"
+		]
+	},
+	{
+		"name": "famicom",
+		"fullname": "Nintendo Family Computer",
+		"extends": "nes"
+	},
+	{
+		"name": "fds",
+		"fullname": "Nintendo Famicom Disk System",
+		"extends": "nes"
+	},
+	{
+		"name": "gameandwatch",
+		"fullname": "Nintendo Game & Watch",
+		"category": "console",
+		"extension": [
+			".mgw",
+			".zip"
+		],
+		"platform": "gameandwatch",
+		"emulator": [
+			{
+				"retroarch": [
+					"gw"
+				]
+			}
+		]
+	},
+	{
+		"name": "gamegear",
+		"fullname": "Sega Game Gear",
+		"extends": "mastersystem"
+	},
+	{
+		"name": "gb",
+		"fullname": "Nintendo Game Boy",
+		"category": "console",
+		"extension": [
+			".gb",
+			".gbc",
+			".bin",
+			".rom",
+			".dmg",
+			".cgb",
+			".sgb",
+			".zip"
+		],
+		"platform": "gb",
+		"emulator": [
+			{
+				"retroarch": [
+					"sameboy",
+					"gambatte",
+					"gearboy"
+				]
+			},
+			"sameboy",
+			"gambatte",
+			"gearboy"
+		]
+	},
+	{
+		"name": "gbc",
+		"fullname": "Nintendo Game Boy Color",
+		"extends": "gb"
+	},
+	{
+		"name": "gba",
+		"fullname": "Nintendo Game Boy Advance",
+		"category": "console",
+		"extension": [
+			".gba",
+			".agb",
+			".bin",
+			".zip"
+		],
+		"platform": "gba",
+		"emulator": [
+			{
+				"retroarch": [
+					"mgba",
+					"vba-m"
+				]
+			},
+			"mgba",
+			"vba-m"
+		]
+	},
+	{
+		"name": "gc",
+		"fullname": "Nintendo GameCube",
+		"category": "console",
+		"extension": [
+			".elf",
+			".iso",
+			".gcm",
+			".dol",
+			".tgc",
+			".wbfs",
+			".ciso",
+			".gcz",
+			".wad",
+			".rvz"
+		],
+		"platform": "gc",
+		"emulator": [
+			{
+				"retroarch": [
+					"dolphin"
+				]
+			},
+			"dolphin"
+		]
+	},
+	{
+		"name": "genesis",
+		"fullname": "Sega Genesis",
+		"category": "console",
+		"extension": [
+			".mdx",
+			".md",
+			".smd",
+			".gen",
+			".bin",
+			".cue",
+			".iso",
+			".sms",
+			".gg",
+			".sg",
+			".68k",
+			".chd",
+			".zip"
+		],
+		"platform": "genesis",
+		"emulator": [
+			{
+				"retroarch": [
+					"genesis-plus-gx",
+					"blastem",
+					"picodrive"
+				]
+			},
+			"blastem"
+		]
+	},
+	{
+		"name": "megadrive",
+		"fullname": "Sega Mega Drive",
+		"extends": "genesis"
+	},
+	{
+		"name": "sega32x",
+		"fullname": "Sega 32X",
+		"extends": "genesis"
+	},
+	{
+		"name": "segacd",
+		"fullname": "Sega CD",
+		"extends": "genesis"
+	},
+	{
+		"name": "gx4000",
+		"fullname": "Amstrad GX4000",
+		"extends": "amstradcpc"
+	},
+	{
+		"name": "intellivision",
+		"fullname": "Mattel Electronics Intellivision",
+		"category": "console",
+		"extension": [
+			".int",
+			".rom",
+			".bin",
+			".itv",
+			".zip"
+		],
+		"platform": "intellivision",
+		"emulator": [
+			{
+				"retroarch": [
+					"freeintv"
+				]
+			},
+			"freeintv",
+			"jzintv"
+		]
+	},
+	{
+		"name": "mastersystem",
+		"fullname": "Sega Master System",
+		"category": "console",
+		"extension": [
+			".sms",
+			".bin",
+			".rom",
+			".zip"
+		],
+		"platform": "mastersystem",
+		"emulator": [
+			{
+				"retroarch": [
+					"genesis-plus-gx",
+					"picodrive"
+				]
+			},
+			"emulicious"
+		]
+	},
+	{
+		"name": "multivision",
+		"fullname": "Othello Multivision",
+		"extends": "sg-1000"
+	},
+	{
+		"name": "n64",
+		"fullname": "Nintendo 64",
+		"category": "console",
+		"extension": [
+			".n64",
+			".v64",
+			".z64",
+			".bin",
+			".u1",
+			".ndd",
+			".zip"
+		],
+		"platform": "n64",
+		"emulator": [
+			{
+				"retroarch": [
+					"mupen64plus-next",
+					"parallel-n64"
+				]
+			},
+			"mupen64plus",
+			"project64"
+		]
+	},
+	{
+		"name": "nds",
+		"fullname": "Nintendo DS",
+		"category": "console",
+		"extension": [
+			".nds",
+			".bin"
+		],
+		"platform": "nds",
+		"emulator": [
+			{
+				"retroarch": [
+					"desmume",
+					"melonds"
+				]
+			},
+			"desmume",
+			"melonds"
+		]
+	},
+	{
+		"name": "neogeocd",
+		"fullname": "SNK Neo Geo CD",
+		"category": "console",
+		"emulator": [
+			{
+				"retroarch": [
+					"neocd",
+					"mame",
+					"fbneo"
+				]
+			},
+			"mame",
+			"fbneo"
+		],
+		"extends": "neogeo"
+	},
+	{
+		"name": "neogeocdjp",
+		"extends": "neogeocd"
 		},
-		{
-			"name": "ngp",
-			"fullname": "SNK Neo Geo Pocket",
-			"category": "console",
-			"extension": [
-				".ngp",
-				".ngc",
-				".zip"
-			],
-			"platform": "ngp",
-			"emulator": [
-				{
-					"retroarch": [
-						"beetle-ngp",
-						"race"
-					]
-				},
-				"ares",
-				"mednafen",
-				"higan"
-			]
-		},
-		{
-			"name": "ngpc",
-			"fullname": "SNK Neo Geo Pocket Color",
-			"extends": "ngp"
-		},
-		{
-			"name": "odyssey2",
-			"fullname": "Magnavox Odyssey²",
-			"category": "console",
-			"extension": [
-				".bin",
-				".zip"
-			],
-			"platform": "odyssey2",
-			"emulator": [
-				{
-					"retroarch": [
-						"o2em",
-						"mame"
-					]
-				},
-				"o2em",
-				"mame"
-			]
-		},
-		{
-			"name": "videopac",
-			"fullname": "Philips Videopac G7000",
-			"extends": "odyssey2"
-		},
-		{
-			"name": "tg16",
-			"fullname": "NEC TurboGrafx-16",
-			"category": "console",
-			"extension": [
-				".pce",
-				".sgx",
-				".cue",
-				".ccd",
-				".chd",
-				".iso",
-				".img",
-				".bin",
-				".zip"
-			],
-			"platform": "tg16",
-			"emulator": [
-				{
-					"retroarch": [
-						"beetle-supergrafx",
-						"beetle-pce-fast"
-					]
-				},
-				"mednafen"
-			]
-		},
-		{
-			"name": "tg-cd",
-			"fullname": "NEC TurboGrafx-CD",
-			"extends": "tg16"
-		},
-		{
-			"name": "pcengine",
-			"fullname": "NEC PC Engine",
-			"extends": "tg16"
-		},
-		{
-			"name": "pcenginecd",
-			"fullname": "NEC PC Engine CD",
-			"extends": "tg16"
-		},
-		{
-			"name": "pcfx",
-			"fullname": "NEC PC-FX",
-			"category": "console",
-			"extension": [
-				".cue",
-				".ccd",
-				".toc",
-				".chd"
-			],
-			"platform": "pcfx",
-			"emulator": [
-				{
-					"retroarch": [
-						"beetle-pc-fx"
-					]
-				},
-				"mednafen"
-			]
-		},
-		{
-			"name": "pokemini",
-			"fullname": "Nintendo Pokémon Mini",
-			"category": "console",
-			"extension": [
-				".min"
-			],
-			"platform": "pokemini",
-			"emulator": [
-				{
-					"retroarch": [
-						"pokemini"
-					]
-				},
-				"pokemini",
-				"gbe-plus"
-			]
-		},
-		{
-			"name": "ps2",
-			"fullname": "Sony PlayStation 2",
-			"category": "console",
-			"extension": [
-				".elf",
-				".iso",
-				".ciso",
-				".chd",
-				".cso",
-				".bin",
-				".mdf",
-				".nrg",
-				".dump",
-				".gz",
-				".img",
-				".m3u",
-				".z",
-				".z2",
-				".bz2",
-				".ima",
-				".zip"
-			],
-			"platform": "ps2",
-			"emulator": [
-				{
-					"retroarch": [
-						"pcsx2",
-						"play!"
-					]
-				},
-				"pcsx2",
-				"play!"
-			]
-		},
-		{
-			"name": "psx",
-			"fullname": "Sony PlayStation",
-			"category": "console",
-			"extension": [
-				".bin",
-				".cue",
-				".toc",
-				".m3u",
-				".ccd",
-				".exe",
-				".pbp",
-				".chd",
-				".img",
-				".mdf",
-				".cbn",
-				".iso",
-				".z",
-				".znx"
-			],
-			"platform": "psx",
-			"emulator": [
-				{
-					"retroarch": [
-						"duckstation",
-						"beetle-psx",
-						"beetle-psx-hw",
-						"pcsx-rearmed"
-					]
-				},
-				"duckstation",
-				"mednafen"
-			]
-		},
-		{
-			"name": "saturn",
-			"fullname": "Sega Saturn",
-			"category": "console",
-			"extension": [
-				".cue",
-				".toc",
-				".m3u",
-				".ccd",
-				".chd",
-				".iso",
-				".mds",
-				".zip"
-			],
-			"platform": "saturn",
-			"emulator": [
-				{
-					"retroarch": [
-						"beetle-saturn",
-						"beetle-saturn-hw",
-						"kronos",
-						"yabasanshiro",
-						"yabause"
-					]
-				},
-				"mednafen"
-			]
-		},
-		{
-			"name": "saturnjp",
-			"extends": "saturn"
-		},
-		{
-			"name": "snes",
-			"fullname": "Super Nintendo Entertainment System",
-			"category": "console",
-			"extension": [
-				".bin",
-				".bml",
-				".bs",
-				".bsx",
-				".dx2",
-				".fig",
-				".gd3",
-				".gd7",
-				".mgd",
-				".sfc",
-				".smc",
-				".st",
-				".swc",
-				".zip"
-			],
-			"platform": "snes",
-			"emulator": [
-				{
-					"retroarch": [
-						"snes9x",
-						"snes9x2010",
-						"bsnes",
-						"bsnes-hd",
-						"bsnes-mercury-accuracy",
-						"beetle-supafaust",
-						"mesen-s"
-					]
-				},
-				"snes9x",
-				"bsnes",
-				"mednafen"
-			]
-		},
-		{
-			"name": "sfc",
-			"fullname": "Nintendo Super Famicom",
-			"extends": "snes"
-		},
-		{
-			"name": "satellaview",
-			"fullname": "Nintendo Satellaview",
-			"extends": "snes"
-		},
-		{
-			"name": "sufami",
-			"fullname": "Bandai SuFami Turbo",
-			"extends": "snes"
-		},
-		{
-			"name": "sg-1000",
-			"fullname": "Sega SG-1000",
-			"category": "console",
-			"extension": [
-				".rom",
-				".ri",
-				".mx1",
-				".mx2",
-				".col",
-				".dsk",
-				".cas",
-				".sg",
-				".sc",
-				".m3u",
-				".bin",
-				".zip"
-			],
-			"platform": "sg-1000",
-			"emulator": [
-				{
-					"retroarch": [
-						"genesis-plus-gx",
-						"bluemsx"
-					]
-				},
-				"mastergear",
-				"ares",
-				"higan"
-			]
-		},
-		{
-			"name": "supergrafx",
-			"fullname": "NEC SuperGrafx",
-			"extends": "tg16"
-		},
-		{
-			"name": "uzebox",
-			"fullname": "Uzebox",
-			"category": "console",
-			"extension": [
-				".uze"
-			],
-			"platform": "uzebox",
-			"emulator": [
-				{
-					"retroarch": [
-						"uzem"
-					]
-				}
-			]
-		},
-		{
-			"name": "vectrex",
-			"fullname": "GCE Vectrex",
-			"category": "console",
-			"extension": [
-				".bin",
-				".vec",
-				".gam"
-			],
-			"platform": "vectrex",
-			"emulator": [
-				{
-					"retroarch": [
-						"vecx"
-					]
-				},
-				"parajve",
-				"vecx"
-			]
-		},
-		{
-			"name": "virtualboy",
-			"fullname": "Nintendo Virtual Boy",
-			"category": "console",
-			"extension": [
-				".vb",
-				".vboy",
-				".bin"
-			],
-			"platform": "virtualboy",
-			"emulator": [
-				{
-					"retroarch": [
-						"beetle-vb"
-					]
-				},
-				"mednafen"
-			]
-		},
-		{
-			"name": "wonderswan",
-			"fullname": "Bandai WonderSwan",
-			"category": "console",
-			"extension": [
-				".ws",
-				".wsc",
-				".pc2"
-			],
-			"platform": "wonderswan",
-			"emulator": [
-				{
-					"retroarch": [
-						"beetle-wswan"
-					]
-				},
-				"mednafen",
-				"ares",
-				"higan"
-			]
-		},
-		{
-			"name": "wonderswancolor",
-			"fullname": "Bandai WonderSwan Color",
-			"extends": "wonderswan"
-		},
-		{
-			"name": "xbox",
-			"fullname": "Microsoft Xbox",
-			"category": "console",
-			"extension": [
-				".iso"
-			],
-			"platform": "xbox",
-			"emulator": [
-				"xemu"
-			]
-		},
-		{
-			"name": "arcade",
-			"fullname": "Arcade",
-			"category": "arcade",
-			"extension": [
-				".chd",
-				".zip"
-			],
-			"platform": "arcade",
-			"emulator": [
-				{
-					"retroarch": [
-						"mame",
-						"mame2003-plus",
-						"mame2010"
-					]
-				},
-				"mame",
-				"dice"
-			]
-		},
-		{
-			"name": "atomiswave",
-			"fullname": "Atomiswave",
-			"category": "arcade",
-			"extends": "dreamcast"
-		},
-		{
-			"name": "daphne",
-			"fullname": "Daphne Arcade LaserDisc",
-			"category": "arcade",
-			"extension": [
-				".daphne"
-			],
-			"platform": "daphne",
-			"emulator": [
-				"daphne",
-				"hypseus"
-			]
-		},
-		{
-			"name": "fba",
-			"fullname": "FinalBurn Alpha",
-			"category": "arcade",
-			"extension": [
-				".iso",
-				".zip"
-			],
-			"platform": "fba",
-			"emulator": [
-				{
-					"retroarch": [
-						"fba2012"
-					]
-				}
-			]
-		},
-		{
-			"name": "fbneo",
-			"fullname": "FinalBurn Neo",
-			"category": "arcade",
-			"extension": [
-				".zip"
-			],
-			"platform": "fbneo",
-			"emulator": [
-				{
-					"retroarch": [
-						"fbneo"
-					]
-				}
-			]
-		},
-		{
-			"name": "mame",
-			"fullname": "Multiple Arcade Machine Emulator",
-			"category": "arcade",
-			"extension": [
-				".zip"
-			],
-			"platform": "mame",
-			"emulator": [
-				{
-					"retroarch": [
-						"mame",
-						"mame2003-plus",
-						"mame2010"
-					]
-				},
-				"mame"
-			]
-		},
-		{
-			"name": "naomi",
-			"fullname": "Sega NAOMI",
-			"category": "arcade",
-			"extends": "dreamcast"
-		},
-		{
-			"name": "naomigd",
-			"fullname": "Sega NAOMI GD-ROM",
-			"category": "arcade",
-			"extends": "dreamcast"
-		},
-		{
-			"name": "neogeo",
-			"fullname": "SNK Neo Geo",
-			"category": "arcade",
-			"extension": [
-				".zip"
-			],
-			"platform": "neogeo",
-			"emulator": [
-				{
-					"retroarch": [
-						"mame",
-						"fbneo",
-						"fba2012"
-					]
-				},
-				"mame",
-				"fbneo"
-			]
-		},
-		{
-			"name": "n3ds",
-			"fullname": "Nintendo 3DS",
-			"category": "modern_console",
-			"extension": [
-				".3ds",
-				".3dsx",
-				".elf",
-				".axf",
-				".cci",
-				".cxi",
-				".app"
-			],
-			"platform": "n3ds",
-			"emulator": [
-				{
-					"retroarch": [
-						"citra"
-					]
-				},
-				"citra"
-			]
-		},
-		{
-			"name": "ps3",
-			"fullname": "Sony PlayStation 3",
-			"category": "modern_console",
-			"extension": [
-				".self",
-				".elf",
-				".pkg",
-				".iso"
-			],
-			"platform": "ps3",
-			"emulator": [
-				"rpcs3"
-			]
-		},
-		{
-			"name": "psp",
-			"fullname": "Sony PlayStation Portable",
-			"category": "modern_console",
-			"extension": [
-				".elf",
-				".iso",
-				".cso",
-				".prx",
-				".pbp"
-			],
-			"platform": "psp",
-			"emulator": [
-				{
-					"retroarch": [
-						"ppsspp"
-					]
-				},
-				"ppsspp"
-			]
-		},
-		{
-			"name": "psvita",
-			"fullname": "Sony PlayStation Vita",
-			"category": "modern_console",
-			"extension": [
-				".vpk"
-			],
-			"platform": "psvita",
-			"emulator": [
-				"vita3k"
-			]
-		},
-		{
-			"name": "switch",
-			"fullname": "Nintendo Switch",
-			"category": "modern_console",
-			"extension": [
-				".nca",
-				".nro",
-				".nso",
-				".nsp",
-				".xci"
-			],
-			"platform": "switch",
-			"emulator": [
-				"yuzu",
-				"ryujinx"
-			]
-		},
-		{
-			"name": "wii",
-			"fullname": "Nintendo Wii",
-			"category": "modern_console",
-			"extends": "gc"
-		},
-		{
-			"name": "wiiu",
-			"fullname": "Nintendo Wii U",
-			"category": "modern_console",
-			"extension": [
-				".wud",
-				".wux",
-				".rpx"
-			],
-			"platform": "wiiu",
-			"emulator": [
-				"cemu"
-			]
-		},
-		{
-			"name": "xbox360",
-			"fullname": "Microsoft Xbox 360",
-			"category": "modern_console",
-			"extension": [
-				".xex"
-			],
-			"platform": "xbox360",
-			"emulator": [
-				"xenia"
-			]
-		}
-	]
-}
+	{
+		"name": "nes",
+		"fullname": "Nintendo Entertainment System",
+		"category": "console",
+		"extension": [
+			".nes",
+			".fds",
+			".unf",
+			".unif",
+			".zip"
+		],
+		"platform": "nes",
+		"emulator": [
+			{
+				"retroarch": [
+					"nestopia",
+					"fceumm",
+					"mesen",
+					"quicknes"
+				]
+			},
+			"mesen",
+			"punes",
+			"nestopia"
+		]
+	},
+	{
+		"name": "ngp",
+		"fullname": "SNK Neo Geo Pocket",
+		"category": "console",
+		"extension": [
+			".ngp",
+			".ngc",
+			".zip"
+		],
+		"platform": "ngp",
+		"emulator": [
+			{
+				"retroarch": [
+					"beetle-ngp",
+					"race"
+				]
+			},
+			"ares",
+			"mednafen",
+			"higan"
+		]
+	},
+	{
+		"name": "ngpc",
+		"fullname": "SNK Neo Geo Pocket Color",
+		"extends": "ngp"
+	},
+	{
+		"name": "odyssey2",
+		"fullname": "Magnavox Odyssey²",
+		"category": "console",
+		"extension": [
+			".bin",
+			".zip"
+		],
+		"platform": "odyssey2",
+		"emulator": [
+			{
+				"retroarch": [
+					"o2em",
+					"mame"
+				]
+			},
+			"o2em",
+			"mame"
+		]
+	},
+	{
+		"name": "videopac",
+		"fullname": "Philips Videopac G7000",
+		"extends": "odyssey2"
+	},
+	{
+		"name": "tg16",
+		"fullname": "NEC TurboGrafx-16",
+		"category": "console",
+		"extension": [
+			".pce",
+			".sgx",
+			".cue",
+			".ccd",
+			".chd",
+			".iso",
+			".img",
+			".bin",
+			".zip"
+		],
+		"platform": "tg16",
+		"emulator": [
+			{
+				"retroarch": [
+					"beetle-supergrafx",
+					"beetle-pce-fast"
+				]
+			},
+			"mednafen"
+		]
+	},
+	{
+		"name": "tg-cd",
+		"fullname": "NEC TurboGrafx-CD",
+		"extends": "tg16"
+	},
+	{
+		"name": "pcengine",
+		"fullname": "NEC PC Engine",
+		"extends": "tg16"
+	},
+	{
+		"name": "pcenginecd",
+		"fullname": "NEC PC Engine CD",
+		"extends": "tg16"
+	},
+	{
+		"name": "pcfx",
+		"fullname": "NEC PC-FX",
+		"category": "console",
+		"extension": [
+			".cue",
+			".ccd",
+			".toc",
+			".chd"
+		],
+		"platform": "pcfx",
+		"emulator": [
+			{
+				"retroarch": [
+					"beetle-pc-fx"
+				]
+			},
+			"mednafen"
+		]
+	},
+	{
+		"name": "pokemini",
+		"fullname": "Nintendo Pokémon Mini",
+		"category": "console",
+		"extension": [
+			".min"
+		],
+		"platform": "pokemini",
+		"emulator": [
+			{
+				"retroarch": [
+					"pokemini"
+				]
+			},
+			"pokemini",
+			"gbe-plus"
+		]
+	},
+	{
+		"name": "ps2",
+		"fullname": "Sony PlayStation 2",
+		"category": "console",
+		"extension": [
+			".elf",
+			".iso",
+			".ciso",
+			".chd",
+			".cso",
+			".bin",
+			".mdf",
+			".nrg",
+			".dump",
+			".gz",
+			".img",
+			".m3u",
+			".z",
+			".z2",
+			".bz2",
+			".ima",
+			".zip"
+		],
+		"platform": "ps2",
+		"emulator": [
+			{
+				"retroarch": [
+					"pcsx2",
+					"play!"
+				]
+			},
+			"pcsx2",
+			"play!"
+		]
+	},
+	{
+		"name": "psx",
+		"fullname": "Sony PlayStation",
+		"category": "console",
+		"extension": [
+			".bin",
+			".cue",
+			".toc",
+			".m3u",
+			".ccd",
+			".exe",
+			".pbp",
+			".chd",
+			".img",
+			".mdf",
+			".cbn",
+			".iso",
+			".z",
+			".znx"
+		],
+		"platform": "psx",
+		"emulator": [
+			{
+				"retroarch": [
+					"duckstation",
+					"beetle-psx",
+					"beetle-psx-hw",
+					"pcsx-rearmed"
+				]
+			},
+			"duckstation",
+			"mednafen"
+		]
+	},
+	{
+		"name": "saturn",
+		"fullname": "Sega Saturn",
+		"category": "console",
+		"extension": [
+			".cue",
+			".toc",
+			".m3u",
+			".ccd",
+			".chd",
+			".iso",
+			".mds",
+			".zip"
+		],
+		"platform": "saturn",
+		"emulator": [
+			{
+				"retroarch": [
+					"beetle-saturn",
+					"beetle-saturn-hw",
+					"kronos",
+					"yabasanshiro",
+					"yabause"
+				]
+			},
+			"mednafen"
+		]
+	},
+	{
+		"name": "saturnjp",
+		"extends": "saturn"
+	},
+	{
+		"name": "snes",
+		"fullname": "Super Nintendo Entertainment System",
+		"category": "console",
+		"extension": [
+			".bin",
+			".bml",
+			".bs",
+			".bsx",
+			".dx2",
+			".fig",
+			".gd3",
+			".gd7",
+			".mgd",
+			".sfc",
+			".smc",
+			".st",
+			".swc",
+			".zip"
+		],
+		"platform": "snes",
+		"emulator": [
+			{
+				"retroarch": [
+					"snes9x",
+					"snes9x2010",
+					"bsnes",
+					"bsnes-hd",
+					"bsnes-mercury-accuracy",
+					"beetle-supafaust",
+					"mesen-s"
+				]
+			},
+			"snes9x",
+			"bsnes",
+			"mednafen"
+		]
+	},
+	{
+		"name": "sfc",
+		"fullname": "Nintendo Super Famicom",
+		"extends": "snes"
+	},
+	{
+		"name": "satellaview",
+		"fullname": "Nintendo Satellaview",
+		"extends": "snes"
+	},
+	{
+		"name": "sufami",
+		"fullname": "Bandai SuFami Turbo",
+		"extends": "snes"
+	},
+	{
+		"name": "sg-1000",
+		"fullname": "Sega SG-1000",
+		"category": "console",
+		"extension": [
+			".rom",
+			".ri",
+			".mx1",
+			".mx2",
+			".col",
+			".dsk",
+			".cas",
+			".sg",
+			".sc",
+			".m3u",
+			".bin",
+			".zip"
+		],
+		"platform": "sg-1000",
+		"emulator": [
+			{
+				"retroarch": [
+					"genesis-plus-gx",
+					"bluemsx"
+				]
+			},
+			"mastergear",
+			"ares",
+			"higan"
+		]
+	},
+	{
+		"name": "supergrafx",
+		"fullname": "NEC SuperGrafx",
+		"extends": "tg16"
+	},
+	{
+		"name": "uzebox",
+		"fullname": "Uzebox",
+		"category": "console",
+		"extension": [
+			".uze"
+		],
+		"platform": "uzebox",
+		"emulator": [
+			{
+				"retroarch": [
+					"uzem"
+				]
+			}
+		]
+	},
+	{
+		"name": "vectrex",
+		"fullname": "GCE Vectrex",
+		"category": "console",
+		"extension": [
+			".bin",
+			".vec",
+			".gam"
+		],
+		"platform": "vectrex",
+		"emulator": [
+			{
+				"retroarch": [
+					"vecx"
+				]
+			},
+			"parajve",
+			"vecx"
+		]
+	},
+	{
+		"name": "virtualboy",
+		"fullname": "Nintendo Virtual Boy",
+		"category": "console",
+		"extension": [
+			".vb",
+			".vboy",
+			".bin"
+		],
+		"platform": "virtualboy",
+		"emulator": [
+			{
+				"retroarch": [
+					"beetle-vb"
+				]
+			},
+			"mednafen"
+		]
+	},
+	{
+		"name": "wonderswan",
+		"fullname": "Bandai WonderSwan",
+		"category": "console",
+		"extension": [
+			".ws",
+			".wsc",
+			".pc2"
+		],
+		"platform": "wonderswan",
+		"emulator": [
+			{
+				"retroarch": [
+					"beetle-wswan"
+				]
+			},
+			"mednafen",
+			"ares",
+			"higan"
+		]
+	},
+	{
+		"name": "wonderswancolor",
+		"fullname": "Bandai WonderSwan Color",
+		"extends": "wonderswan"
+	},
+	{
+		"name": "xbox",
+		"fullname": "Microsoft Xbox",
+		"category": "console",
+		"extension": [
+			".iso"
+		],
+		"platform": "xbox",
+		"emulator": [
+			"xemu"
+		]
+	},
+	{
+		"name": "arcade",
+		"fullname": "Arcade",
+		"category": "arcade",
+		"extension": [
+			".chd",
+			".zip"
+		],
+		"platform": "arcade",
+		"emulator": [
+			{
+				"retroarch": [
+					"mame",
+					"mame2003-plus",
+					"mame2010"
+				]
+			},
+			"mame",
+			"dice"
+		]
+	},
+	{
+		"name": "atomiswave",
+		"fullname": "Atomiswave",
+		"category": "arcade",
+		"extends": "dreamcast"
+	},
+	{
+		"name": "daphne",
+		"fullname": "Daphne Arcade LaserDisc",
+		"category": "arcade",
+		"extension": [
+			".daphne"
+		],
+		"platform": "daphne",
+		"emulator": [
+			"daphne",
+			"hypseus"
+		]
+	},
+	{
+		"name": "fba",
+		"fullname": "FinalBurn Alpha",
+		"category": "arcade",
+		"extension": [
+			".iso",
+			".zip"
+		],
+		"platform": "fba",
+		"emulator": [
+			{
+				"retroarch": [
+					"fba2012"
+				]
+			}
+		]
+	},
+	{
+		"name": "fbneo",
+		"fullname": "FinalBurn Neo",
+		"category": "arcade",
+		"extension": [
+			".zip"
+		],
+		"platform": "fbneo",
+		"emulator": [
+			{
+				"retroarch": [
+					"fbneo"
+				]
+			}
+		]
+	},
+	{
+		"name": "mame",
+		"fullname": "Multiple Arcade Machine Emulator",
+		"category": "arcade",
+		"extension": [
+			".zip"
+		],
+		"platform": "mame",
+		"emulator": [
+			{
+				"retroarch": [
+					"mame",
+					"mame2003-plus",
+					"mame2010"
+				]
+			},
+			"mame"
+		]
+	},
+	{
+		"name": "naomi",
+		"fullname": "Sega NAOMI",
+		"category": "arcade",
+		"extends": "dreamcast"
+	},
+	{
+		"name": "naomigd",
+		"fullname": "Sega NAOMI GD-ROM",
+		"category": "arcade",
+		"extends": "dreamcast"
+	},
+	{
+		"name": "neogeo",
+		"fullname": "SNK Neo Geo",
+		"category": "arcade",
+		"extension": [
+			".zip"
+		],
+		"platform": "neogeo",
+		"emulator": [
+			{
+				"retroarch": [
+					"mame",
+					"fbneo",
+					"fba2012"
+				]
+			},
+			"mame",
+			"fbneo"
+		]
+	},
+	{
+		"name": "n3ds",
+		"fullname": "Nintendo 3DS",
+		"category": "modern_console",
+		"extension": [
+			".3ds",
+			".3dsx",
+			".elf",
+			".axf",
+			".cci",
+			".cxi",
+			".app"
+		],
+		"platform": "n3ds",
+		"emulator": [
+			{
+				"retroarch": [
+					"citra"
+				]
+			},
+			"citra"
+		]
+	},
+	{
+		"name": "ps3",
+		"fullname": "Sony PlayStation 3",
+		"category": "modern_console",
+		"extension": [
+			".self",
+			".elf",
+			".pkg",
+			".iso"
+		],
+		"platform": "ps3",
+		"emulator": [
+			"rpcs3"
+		]
+	},
+	{
+		"name": "psp",
+		"fullname": "Sony PlayStation Portable",
+		"category": "modern_console",
+		"extension": [
+			".elf",
+			".iso",
+			".cso",
+			".prx",
+			".pbp"
+		],
+		"platform": "psp",
+		"emulator": [
+			{
+				"retroarch": [
+					"ppsspp"
+				]
+			},
+			"ppsspp"
+		]
+	},
+	{
+		"name": "psvita",
+		"fullname": "Sony PlayStation Vita",
+		"category": "modern_console",
+		"extension": [
+			".vpk"
+		],
+		"platform": "psvita",
+		"emulator": [
+			"vita3k"
+		]
+	},
+	{
+		"name": "switch",
+		"fullname": "Nintendo Switch",
+		"category": "modern_console",
+		"extension": [
+			".nca",
+			".nro",
+			".nso",
+			".nsp",
+			".xci"
+		],
+		"platform": "switch",
+		"emulator": [
+			"yuzu",
+			"ryujinx"
+		]
+	},
+	{
+		"name": "wii",
+		"fullname": "Nintendo Wii",
+		"category": "modern_console",
+		"extends": "gc"
+	},
+	{
+		"name": "wiiu",
+		"fullname": "Nintendo Wii U",
+		"category": "modern_console",
+		"extension": [
+			".wud",
+			".wux",
+			".rpx"
+		],
+		"platform": "wiiu",
+		"emulator": [
+			"cemu"
+		]
+	},
+	{
+		"name": "xbox360",
+		"fullname": "Microsoft Xbox 360",
+		"category": "modern_console",
+		"extension": [
+			".xex"
+		],
+		"platform": "xbox360",
+		"emulator": [
+			"xenia"
+		]
+	}
+]

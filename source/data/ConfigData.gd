@@ -194,7 +194,7 @@ func load_config_from_path(path: String) -> int:
 	if(json_result.error):
 		print("Error parsing config file!")
 		return ERR_FILE_CORRUPT
-	
+
 	# Dictionary ready for retrieval
 	_old_config = json_result.result
 
@@ -217,7 +217,7 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 	if(file.open(path, File.WRITE)):
 		print("Error opening config file " + path + "for saving!")
 		return ERR_CANT_OPEN
-	
+
 	# Construct dict and save config
 	var dict = {}
 	for key in _keys:
