@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/root/popups/config/settings/SystemSettings.gd" type="Script" id=1]
+[ext_resource path="res://scenes/root/popups/config/settings/system/SystemEditor.tscn" type="PackedScene" id=2]
+
+[node name="SystemSettings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 915.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Select system:"
+
+[node name="AddSystem" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 919.0
+margin_right = 956.0
+margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../SystemEditor/Emulators")
+text = "Add"
+
+[node name="RemoveSystem" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 960.0
+margin_right = 1024.0
+margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../SystemEditor/Emulators")
+text = "Remove"
+
+[node name="SystemSelection" type="OptionButton" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 44.0
+focus_neighbour_bottom = NodePath("../SystemEditor/HBoxContainer/VBoxContainer/Photo")
+expand_icon = true
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 1024.0
+margin_bottom = 52.0
+
+[node name="SystemEditor" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 2 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 56.0
+margin_right = 1024.0
+margin_bottom = 538.0
+focus_neighbour_top = NodePath("../SystemSelection")
+
+[node name="Photo" parent="ScrollContainer/VBoxContainer/SystemEditor/HBoxContainer/VBoxContainer" index="1"]
+focus_neighbour_top = NodePath("../../../../SystemSelection")
+
+[node name="Logo" parent="ScrollContainer/VBoxContainer/SystemEditor/HBoxContainer/VBoxContainer2" index="1"]
+focus_neighbour_top = NodePath("../../../../SystemSelection")
+
+[node name="Emulators" parent="ScrollContainer/VBoxContainer/SystemEditor" index="7"]
+margin_bottom = 478.0
+focus_neighbour_bottom = NodePath("../../HBoxContainer/AddSystem")
+
+[node name="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemEditor" index="8"]
+margin_top = 482.0
+margin_bottom = 482.0
+
+[connection signal="visibility_changed" from="." to="." method="_on_SystemSettings_visibility_changed"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer/SystemSelection" to="." method="_on_SystemSelection_item_selected"]
+
+[editable path="ScrollContainer/VBoxContainer/SystemEditor"]
