@@ -242,7 +242,7 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 					system.name = system_name
 					system.fullname = _systems_raw[system_name]["fullname"]
 					system.platform = _systems_raw[system_name]["platform"]
-					system.category = convert_system_category(_systems_raw[system_name]["category"])
+					system.category = RetroHubSystemData.category_to_idx(_systems_raw[system_name]["category"])
 					system.num_games = 1
 					systems[system_name] = system
 				else:
@@ -266,19 +266,6 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 				games.push_back(game)
 		file_name = dir.get_next()
 	dir.list_dir_end()
-
-func convert_system_category(category_raw: String):
-	match category_raw:
-		"computer":
-			return RetroHubSystemData.Category.Computer
-		"engine":
-			return RetroHubSystemData.Category.GameEngine
-		"arcade":
-			return RetroHubSystemData.Category.Arcade
-		"modern_console":
-			return RetroHubSystemData.Category.ModernConsole
-		"console", _:
-			return RetroHubSystemData.Category.Console
 
 func make_system_folder(system_raw: Dictionary):
 	var path = config.games_dir + "/" + system_raw["name"]
@@ -476,6 +463,35 @@ func bootstrap_config_dir():
 func save_config():
 	config.save_config_to_path(get_config_file())
 	save_theme_config()
+
+func save_system(system_raw: Dictionary):
+	# Remove internal keys
+	system_raw.erase("#custom")
+	system_raw.erase("#modified")
+
+	# Find original config and modify it
+	var system_config : Array = JSONUtils.load_json_file(get_custom_systems_file())
+	for child in system_config:
+		if child["name"] == system_raw["name"]:
+			child = system_raw
+			JSONUtils.save_json_file(system_config, get_custom_systems_file())
+			return
+	# If not found, simply append info
+	system_config.push_back(system_raw)
+	JSONUtils.save_json_file(system_config, get_custom_systems_file())
+
+func restore_system(system_raw: Dictionary):
+	# Find original config and modify it
+	var system_config : Array = JSONUtils.load_json_file(get_custom_systems_file())
+	for child in system_config:
+		if child["name"] == system_raw["name"]:
+			system_config.erase(child)
+			JSONUtils.save_json_file(system_config, get_custom_systems_file())
+			# Now reload information
+			var system_defaults : Array = JSONUtils.load_json_file(get_systems_file())
+			for default_child in system_defaults:
+				if default_child["name"] == system_raw["name"]:
+					return default_child
 
 func get_config_dir() -> String:
 	var path : String

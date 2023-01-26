@@ -3,6 +3,7 @@ extends WindowDialog
 export(Color) var unknown_mapping : Color
 export(Color) var current_mapping : Color
 export(Color) var known_mapping : Color
+export(String, FILE, "*.png") var diagram_tex : String
 
 # Code adapted from Godot "Joypads Demo / Tool"
 # https://godotengine.org/asset-library/asset/140
@@ -120,6 +121,8 @@ onready var n_btn_reset := $"%ResetButton"
 onready var n_press_progress := $"%PressProgress"
 onready var n_timer := $"%Timer"
 onready var n_action_desc := $"%ActionDescription"
+
+onready var n_diagram := $"%Diagram"
 
 func _input(event):
 	if curr_step == -1:
@@ -252,6 +255,7 @@ func start():
 	joy_guid = Input.get_joy_guid(0)
 	joy_name = Input.get_joy_name(0)
 	Input.remove_joy_mapping(joy_guid)
+	n_diagram.texture = load(diagram_tex)
 	curr_step = 0
 	step()
 
@@ -305,6 +309,7 @@ func _on_SkipButton_pressed():
 	step()
 
 func _on_ControllerLayout_popup_hide():
+	n_diagram.texture = null
 	reset()
 
 func _on_ControllerLayout_about_to_show():

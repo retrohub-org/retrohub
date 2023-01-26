@@ -1,8 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/root/popups/config/settings/input/ControllerLayout.gd" type="Script" id=1]
-[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=2]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/diagram_simple.png" type="Texture" id=3]
 [ext_resource path="res://assets/icons/controller_mapper/circle.png" type="Texture" id=4]
 [ext_resource path="res://assets/icons/controller_mapper/arrow.png" type="Texture" id=5]
 [ext_resource path="res://assets/icons/controller_mapper/circle_progress.png" type="Texture" id=6]
@@ -24,6 +22,7 @@ script = ExtResource( 1 )
 unknown_mapping = Color( 0.0901961, 0.0901961, 0.0901961, 0.737255 )
 current_mapping = Color( 0.360784, 0.839216, 0, 0.717647 )
 known_mapping = Color( 0.133333, 0.313726, 0, 0.737255 )
+diagram_tex = "res://addons/controller_icons/assets/xboxone/diagram_simple.png"
 
 [node name="TopLabelRoot" type="Control" parent="."]
 anchor_right = 1.0
@@ -72,6 +71,7 @@ valign = 1
 autowrap = true
 
 [node name="Diagram" type="TextureRect" parent="."]
+unique_name_in_owner = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -81,13 +81,10 @@ margin_top = -172.5
 margin_right = 252.0
 margin_bottom = 146.5
 rect_min_size = Vector2( 40, 25 )
-texture = ExtResource( 3 )
 expand = true
-script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
-path = "xboxone/diagram_simple"
 
 [node name="A" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
