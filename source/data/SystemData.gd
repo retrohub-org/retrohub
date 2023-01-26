@@ -9,6 +9,32 @@ enum Category {
 	ModernConsole	# Modern consoles (7th generation upwards)
 }
 
+static func category_to_idx(category: String) -> int:
+	match category:
+		"computer":
+			return Category.Computer
+		"engine":
+			return Category.GameEngine
+		"arcade":
+			return Category.Arcade
+		"modern_console":
+			return Category.ModernConsole
+		"console", _:
+			return Category.Console
+
+static func idx_to_category(idx: int) -> String:
+	match idx:
+		Category.Computer:
+			return "computer"
+		Category.GameEngine:
+			return "engine"
+		Category.Arcade:
+			return "arcade"
+		Category.ModernConsole:
+			return "modern_console"
+		Category.Console, _:
+			return "console"
+
 ## Short identifier name for this system. You can use this to uniquely identify this system
 var name : String
 

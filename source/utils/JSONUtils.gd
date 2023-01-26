@@ -1,6 +1,6 @@
 extends Node
 
-func load_json_file(filepath : String):
+func load_json_file(filepath: String):
 	var file = File.new()
 	if file.open(filepath, File.READ):
 		print("Error when opening " + filepath)
@@ -10,6 +10,14 @@ func load_json_file(filepath : String):
 		print("Error when parsing JSON for " + filepath)
 		return {}
 	return json.result
+
+func save_json_file(json, file_path: String):
+	var file = File.new()
+	var err : int = file.open(file_path, File.WRITE)
+	if err:
+		return err
+	file.store_string(JSON.print(json, "\t"))
+	file.close()
 
 func make_system_specific(json: Dictionary, curr_system: String):
 	

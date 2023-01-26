@@ -34,7 +34,7 @@ func setup_systems(categories: Array):
 		root.set_text(1, "<all>")
 
 	for system in RetroHubConfig._systems_raw.values():
-		var idx = RetroHubConfig.convert_system_category(system["category"])
+		var idx = RetroHubSystemData.category_to_idx(system["category"])
 		var child : TreeItem = n_systems[idx].create_item(n_systems[idx].get_root())
 		child.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 		child.set_checked(0, system["name"] in RetroHubConfig.systems)
