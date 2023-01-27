@@ -87,7 +87,7 @@ _global_script_classes=[ {
 "base": "Button",
 "class": "RetroHubScraperGameEntry",
 "language": "GDScript",
-"path": "res://scenes/root/popups/scraper/GameEntry.gd"
+"path": "res://scenes/popups/scraper/GameEntry.gd"
 }, {
 "base": "RetroHubScraper",
 "class": "RetroHubScreenScraperScraper",

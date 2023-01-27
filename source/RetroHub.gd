@@ -36,11 +36,11 @@ func _ready():
 	emit_signal("app_initializing", true)
 
 func _on_config_ready(config_data: ConfigData):
-	_load_theme()
+	load_theme()
 
 func _on_config_updated(key: String, old_value, new_value):
 	if key == ConfigData.KEY_CURRENT_THEME:
-		_load_theme()
+		load_theme()
 
 func _on_game_scrape_finished(game_data : RetroHubGameData):
 	print("Game finished scraping!")
@@ -65,7 +65,7 @@ func _on_app_lost_focus():
 	else:
 		emit_signal("app_lost_focus")
 
-func _load_theme():
+func load_theme():
 	# Signal themes
 	print("Config is ready, parsing metadata...")
 	var systems : Dictionary = RetroHubConfig.systems
@@ -132,7 +132,10 @@ func _launch_game_process() -> int:
 			emulator = RetroHubGenericEmulator.new(emulators[system_emulator], launched_game_data)
 			break
 
-	return emulator.launch_game()
+	if emulator:
+		return emulator.launch_game()
+	else:
+		return -1
 
 func _update_game_statistics():
 	var time_dict := Time.get_datetime_dict_from_system()
@@ -146,10 +149,10 @@ func stop_game() -> void:
 	OS.move_window_to_foreground()
 	running_game = false
 	running_game_pid = -1
-	_load_theme()
+	load_theme()
 	yield(get_tree(), "idle_frame")
 	emit_signal("app_returning", launched_system_data, launched_game_data)
 
 func request_theme_reload():
 	yield(get_tree(), "idle_frame")
-	_load_theme()
+	load_theme()

@@ -50,10 +50,7 @@ func _ready():
 	# Load configuration files
 	bootstrap_config_dir()
 	load_config_file()
-	load_systems()
-	load_emulators()
-	if not config.is_first_time:
-		load_game_data_files()
+	load_user_data()
 	handle_key_remaps()
 	handle_controller_axis_remaps()
 	handle_controller_button_remaps()
@@ -62,6 +59,12 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	emit_signal("config_ready", config)
 	config.connect("config_updated", self, "_on_config_updated")
+
+func load_user_data():
+	load_systems()
+	load_emulators()
+	if not config.is_first_time:
+		load_game_data_files()
 
 func load_systems():
 	# Default systems
@@ -464,10 +467,16 @@ func save_config():
 	config.save_config_to_path(get_config_file())
 	save_theme_config()
 
+func _restore_keys(dict: Dictionary, keys: Array):
+	for key in keys:
+		dict[key] = true
+
 func save_system(system_raw: Dictionary):
 	# Remove internal keys
-	system_raw.erase("#custom")
-	system_raw.erase("#modified")
+	var restore_keys := []
+	for key in ["#custom", "#modified"]:
+		if system_raw.erase(key):
+			restore_keys.push_back(key)
 
 	# Find original config and modify it
 	var system_config : Array = JSONUtils.load_json_file(get_custom_systems_file())
@@ -476,11 +485,13 @@ func save_system(system_raw: Dictionary):
 		if child["name"] == system_raw["name"]:
 			system_config[idx] = system_raw
 			JSONUtils.save_json_file(system_config, get_custom_systems_file())
+			_restore_keys(system_raw, restore_keys)
 			return
 		idx += 1
 	# If not found, simply append info
 	system_config.push_back(system_raw)
 	JSONUtils.save_json_file(system_config, get_custom_systems_file())
+	_restore_keys(system_raw, restore_keys)
 
 func restore_system(system_raw: Dictionary):
 	# Find original config and modify it
@@ -495,10 +506,25 @@ func restore_system(system_raw: Dictionary):
 				if default_child["name"] == system_raw["name"]:
 					return default_child
 
+func remove_custom_system(system_raw: Dictionary):
+	if not system_raw.has("#custom"):
+		print("Tried to delete default system!")
+		return
+	_systems_raw.erase(system_raw["name"])
+	# Find original config and modify it
+	var system_config : Array = JSONUtils.load_json_file(get_custom_systems_file())
+	for child in system_config:
+		if child["name"] == system_raw["name"]:
+			system_config.erase(child)
+			JSONUtils.save_json_file(system_config, get_custom_systems_file())
+			return
+
 func save_emulator(emulator_raw: Dictionary):
 	# Remove internal keys
-	emulator_raw.erase("#custom")
-	emulator_raw.erase("#modified")
+	var restore_keys := []
+	for key in ["#custom", "#modified"]:
+		if emulator_raw.erase(key):
+			restore_keys.push_back(key)
 
 	# Find original config and modify it
 	var emulator_config : Array = JSONUtils.load_json_file(get_custom_emulators_file())
@@ -507,11 +533,13 @@ func save_emulator(emulator_raw: Dictionary):
 		if child["name"] == emulator_raw["name"]:
 			emulator_config[idx] = emulator_raw
 			JSONUtils.save_json_file(emulator_config, get_custom_emulators_file())
+			_restore_keys(emulator_raw, restore_keys)
 			return
 		idx += 1
 	# If not found, simply append info
 	emulator_config.push_back(emulator_raw)
 	JSONUtils.save_json_file(emulator_config, get_custom_emulators_file())
+	_restore_keys(emulator_raw, restore_keys)
 
 func restore_emulator(emulator_raw: Dictionary):
 	# Find original config and modify it
@@ -526,6 +554,19 @@ func restore_emulator(emulator_raw: Dictionary):
 				if default_child["name"] == emulator_raw["name"]:
 					JSONUtils.make_system_specific(default_child, FileUtils.get_os_string())
 					return default_child
+
+func remove_custom_emulator(emulator_raw: Dictionary):
+	if not emulator_raw.has("#custom"):
+		print("Tried to delete default emulator!")
+		return
+	emulators_map.erase(emulator_raw["name"])
+	# Find original config and modify it
+	var emulator_config : Array = JSONUtils.load_json_file(get_custom_emulators_file())
+	for child in emulator_config:
+		if child["name"] == emulator_raw["name"]:
+			emulator_config.erase(child)
+			JSONUtils.save_json_file(emulator_config, get_custom_emulators_file())
+			return
 
 func get_config_dir() -> String:
 	var path : String
