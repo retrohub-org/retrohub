@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=1]
-[ext_resource path="res://scenes/root/popups/config/settings/KeyboardRemap.gd" type="Script" id=2]
+[ext_resource path="res://scenes/root/popups/config/settings/input/KeyboardRemap.gd" type="Script" id=2]
 
 [node name="KeyboardRemap" type="AcceptDialog"]
 anchor_left = 0.5
