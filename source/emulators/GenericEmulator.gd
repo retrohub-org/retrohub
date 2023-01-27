@@ -7,15 +7,17 @@ var _substitutes := {}
 
 func _init(emulator_raw : Dictionary, game_data : RetroHubGameData):
 	_substitutes["rompath"] = game_data.path
-	var binpath = find_and_substitute_str(emulator_raw["binpath"])
+	var binpath = find_and_substitute_str(emulator_raw["binpath"], _substitutes)
 	_substitutes["binpath"] = binpath
-	command = substitute_str(emulator_raw["command"])
+	command = substitute_str(emulator_raw["command"], _substitutes)
 
-func find_and_substitute_str(paths : Array) -> String:
-	return substitute_str(FileUtils.test_for_valid_path(paths))
+static func find_and_substitute_str(paths, substitutes: Dictionary) -> String:
+	if paths is Array:
+		return substitute_str(FileUtils.test_for_valid_path(paths), substitutes)
+	return substitute_str(paths, substitutes)
 
-func substitute_str(path) -> String:
-	return JSONUtils.format_string_with_substitutes(path, _substitutes)
+static func substitute_str(path, substitutes: Dictionary) -> String:
+	return JSONUtils.format_string_with_substitutes(path, substitutes)
 
 
 func launch_game():
