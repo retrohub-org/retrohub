@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/icons/first_time/emulators.svg" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scenes/config/GameSettings.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/config/settings/RegionSettings.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/config/QuitSettings.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/config/AboutSettings.tscn" type="PackedScene" id=16]
 
 [node name="ConfigPopup" type="PopupPanel"]
 anchor_left = 0.5
@@ -221,17 +222,8 @@ size_flags_vertical = 3
 [node name="EmulatorSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 10 )]
 visible = false
 
-[node name="About" type="Label" parent="HBoxContainer/SettingsTab"]
+[node name="AboutSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 16 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-text = "To be implemented"
-align = 1
-valign = 1
 
 [connection signal="about_to_show" from="." to="." method="_on_ConfigPopup_about_to_show"]
 [connection signal="popup_hide" from="." to="." method="_on_ConfigPopup_popup_hide"]
