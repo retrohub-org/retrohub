@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/root/popups/config/ConfigPopup.gd" type="Script" id=1]
 [ext_resource path="res://assets/icons/first_time/region.svg" type="Texture" id=2]
@@ -14,9 +14,9 @@
 [ext_resource path="res://scenes/root/popups/config/settings/RegionSettings.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/root/popups/config/QuitSettings.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/root/popups/config/settings/SystemSettings.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/root/popups/config/settings/EmulatorSettings.tscn" type="PackedScene" id=15]
 
 [node name="ConfigPopup" type="PopupPanel"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -45,7 +45,7 @@ follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer"]
-margin_right = 118.0
+margin_right = 130.0
 margin_bottom = 766.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -152,7 +152,6 @@ size_flags_vertical = 3
 tabs_visible = false
 
 [node name="QuitSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 13 )]
-visible = false
 margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
@@ -211,6 +210,7 @@ margin_right = -5.0
 margin_bottom = -5.0
 
 [node name="SystemSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 14 )]
+visible = false
 margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
@@ -218,17 +218,8 @@ margin_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EmulatorsSettings" type="Label" parent="HBoxContainer/SettingsTab"]
+[node name="EmulatorSettings" parent="HBoxContainer/SettingsTab" instance=ExtResource( 15 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-text = "To be implemented"
-align = 1
-valign = 1
 
 [node name="About" type="Label" parent="HBoxContainer/SettingsTab"]
 visible = false

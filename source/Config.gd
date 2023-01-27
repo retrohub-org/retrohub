@@ -471,11 +471,13 @@ func save_system(system_raw: Dictionary):
 
 	# Find original config and modify it
 	var system_config : Array = JSONUtils.load_json_file(get_custom_systems_file())
+	var idx := 0
 	for child in system_config:
 		if child["name"] == system_raw["name"]:
-			child = system_raw
+			system_config[idx] = system_raw
 			JSONUtils.save_json_file(system_config, get_custom_systems_file())
 			return
+		idx += 1
 	# If not found, simply append info
 	system_config.push_back(system_raw)
 	JSONUtils.save_json_file(system_config, get_custom_systems_file())
@@ -491,6 +493,38 @@ func restore_system(system_raw: Dictionary):
 			var system_defaults : Array = JSONUtils.load_json_file(get_systems_file())
 			for default_child in system_defaults:
 				if default_child["name"] == system_raw["name"]:
+					return default_child
+
+func save_emulator(emulator_raw: Dictionary):
+	# Remove internal keys
+	emulator_raw.erase("#custom")
+	emulator_raw.erase("#modified")
+
+	# Find original config and modify it
+	var emulator_config : Array = JSONUtils.load_json_file(get_custom_emulators_file())
+	var idx := 0
+	for child in emulator_config:
+		if child["name"] == emulator_raw["name"]:
+			emulator_config[idx] = emulator_raw
+			JSONUtils.save_json_file(emulator_config, get_custom_emulators_file())
+			return
+		idx += 1
+	# If not found, simply append info
+	emulator_config.push_back(emulator_raw)
+	JSONUtils.save_json_file(emulator_config, get_custom_emulators_file())
+
+func restore_emulator(emulator_raw: Dictionary):
+	# Find original config and modify it
+	var emulator_config : Array = JSONUtils.load_json_file(get_custom_emulators_file())
+	for child in emulator_config:
+		if child["name"] == emulator_raw["name"]:
+			emulator_config.erase(child)
+			JSONUtils.save_json_file(emulator_config, get_custom_emulators_file())
+			# Now reload information
+			var system_defaults : Array = JSONUtils.load_json_file(get_emulators_file())
+			for default_child in system_defaults:
+				if default_child["name"] == emulator_raw["name"]:
+					JSONUtils.make_system_specific(default_child, FileUtils.get_os_string())
 					return default_child
 
 func get_config_dir() -> String:
