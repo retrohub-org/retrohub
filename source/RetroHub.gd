@@ -29,6 +29,11 @@ var launched_game_data : RetroHubGameData = null
 
 var is_echo : bool = false
 
+const version_major := 0
+const version_minor := 0
+const version_patch := 4
+const version_str := "0.0.4-alpha"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
