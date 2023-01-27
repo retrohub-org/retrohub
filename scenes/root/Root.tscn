@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/root/Root.gd" type="Script" id=1]
-[ext_resource path="res://scenes/root/popups/config/ConfigPopup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/config/ConfigPopup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/root/Viewport.gd" type="Script" id=4]
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=5]
 [ext_resource path="res://scenes/no_theme/NoTheme.tscn" type="PackedScene" id=10]

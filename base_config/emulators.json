@@ -1123,9 +1123,6 @@
 	{
 		"name": "mupen64plus",
 		"fullname": "Mupen64Plus",
-		"platforms": [
-			"n64"
-		],
 		"binpath": [
 			{
 				"windows": [
@@ -1156,9 +1153,6 @@
 	{
 		"name": "snes9x",
 		"fullname": "Snes9X",
-		"platforms": [
-			"snes"
-		],
 		"binpath": [
 			{
 				"windows": [
@@ -1185,10 +1179,6 @@
 	{
 		"name": "dolphin",
 		"fullname": "Dolphin",
-		"platforms": [
-			"gc",
-			"wii"
-		],
 		"binpath": [
 			{
 				"windows": [
