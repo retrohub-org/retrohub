@@ -32,7 +32,8 @@ anchor_bottom = 1.0
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 1024, 600 )
+size = Vector2( 1024, 576 )
+size_override_stretch = true
 handle_input_locally = false
 render_target_update_mode = 3
 script = ExtResource( 4 )

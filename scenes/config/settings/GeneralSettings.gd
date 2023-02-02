@@ -1,10 +1,16 @@
 extends Control
 
-onready var n_game_lib_dir = $"%GameLibDir"
-onready var n_set_game_path = $"%SetGamePath"
-onready var n_themes = $"%Themes"
-onready var n_language = $"%Language"
-onready var n_first_time_wizard_warning = $"%FirstTimeWizardWarning"
+onready var n_game_lib_dir := $"%GameLibDir"
+onready var n_set_game_path := $"%SetGamePath"
+onready var n_themes := $"%Themes"
+onready var n_language := $"%Language"
+onready var n_first_time_wizard_warning := $"%FirstTimeWizardWarning"
+
+onready var n_graphics_mode := $"%GraphicsMode"
+onready var n_vsync := $"%VSync"
+onready var n_render_res_label := $"%RenderResLabel"
+onready var n_render_res := $"%RenderRes"
+
 
 var theme_id_map := {}
 
@@ -57,6 +63,9 @@ func set_language(lang: String):
 
 func _on_config_ready(config_data: ConfigData):
 	n_game_lib_dir.text = config_data.games_dir
+	n_graphics_mode.selected = 1 if config_data.fullscreen else 0
+	n_vsync.pressed = config_data.vsync
+	n_render_res.value = config_data.render_resolution
 	set_language(config_data.lang)
 
 func _on_config_updated(key: String, _old_value, new_value):
@@ -103,3 +112,19 @@ func _on_FirstTimeWizardWarning_confirmed():
 
 func _on_SetupWizardButton_pressed():
 	n_first_time_wizard_warning.popup_centered()
+
+
+func _on_GraphicsMode_item_selected(index):
+	RetroHubConfig.config.fullscreen = index == 1
+	RetroHubConfig.save_config()
+
+
+func _on_VSync_toggled(button_pressed):
+	RetroHubConfig.config.vsync = button_pressed
+	RetroHubConfig.save_config()
+
+
+func _on_RenderRes_value_changed(value):
+	RetroHubConfig.config.render_resolution = value
+	n_render_res_label.text = str(value) + "%"
+
