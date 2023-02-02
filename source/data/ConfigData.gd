@@ -11,6 +11,9 @@ var is_first_time : bool = true setget _set_is_first_time
 var games_dir : String = FileUtils.get_home_dir() + "/ROMS" setget _set_games_dir
 var current_theme : String = "default" setget _set_current_theme
 var lang : String = "en" setget _set_lang
+var fullscreen : bool = true setget _set_fullscreen
+var vsync : bool = true setget _set_vsync
+var render_resolution : int = 100 setget _set_render_resolution
 var region : String = "usa" setget _set_region
 var rating_system : String = "esrb" setget _set_rating_system
 var date_format : String = "mm/dd/yyyy" setget _set_date_format
@@ -28,6 +31,9 @@ const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
 const KEY_CURRENT_THEME = "current_theme"
 const KEY_LANG = "lang"
+const KEY_FULLSCREEN = "fullscreen"
+const KEY_VSYNC = "vsync"
+const KEY_RENDER_RESOLUTION = "render_resolution"
 const KEY_REGION = "region"
 const KEY_RATING_SYSTEM = "rating_system"
 const KEY_DATE_FORMAT = "date_format"
@@ -46,6 +52,9 @@ const _keys = [
 	KEY_GAMES_DIR,
 	KEY_CURRENT_THEME,
 	KEY_LANG,
+	KEY_FULLSCREEN,
+	KEY_VSYNC,
+	KEY_RENDER_RESOLUTION,
 	KEY_REGION,
 	KEY_RATING_SYSTEM,
 	KEY_DATE_FORMAT,
@@ -114,6 +123,18 @@ func _set_current_theme(_current_theme):
 func _set_lang(_lang):
 	mark_for_saving()
 	lang = _lang
+
+func _set_fullscreen(_fullscreen):
+	mark_for_saving()
+	fullscreen = _fullscreen
+
+func _set_vsync(_vsync):
+	mark_for_saving()
+	vsync = _vsync
+
+func _set_render_resolution(_render_resolution):
+	mark_for_saving()
+	render_resolution = _render_resolution
 
 func _set_region(_region):
 	mark_for_saving()

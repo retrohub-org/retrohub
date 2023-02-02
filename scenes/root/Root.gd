@@ -27,6 +27,7 @@ func _ready():
 	# Add popups to UI singleton
 	RetroHubUI._n_filesystem_popup = n_filesystem_popup
 
+	# Handle viewport changes
 	get_viewport().connect("size_changed", self, "_on_vp_size_changed")
 	n_viewport.connect("gui_focus_changed", self, "_on_vp_gui_focus_changed")
 	_on_vp_size_changed()
@@ -34,12 +35,20 @@ func _ready():
 func _on_config_ready(config_data: ConfigData):
 	if config_data.is_first_time:
 		show_first_time_popup()
+	OS.window_fullscreen = config_data.fullscreen
+	OS.set_use_vsync(config_data.vsync)
 	setup_controller_remap(config_data.custom_input_remap)
 
 func _on_config_updated(key: String, old, new):
 	match key:
 		ConfigData.KEY_CUSTOM_INPUT_REMAP:
 			setup_controller_remap(new)
+		ConfigData.KEY_FULLSCREEN:
+			OS.window_fullscreen = new
+		ConfigData.KEY_VSYNC:
+			OS.set_use_vsync(new)
+		ConfigData.KEY_RENDER_RESOLUTION:
+			_on_vp_size_changed()
 
 func setup_controller_remap(remap: String):
 	if not remap.empty():
@@ -56,10 +65,13 @@ func show_first_time_popup():
 	first_time_popup.popup()
 
 func _on_vp_size_changed() -> void:
-	print("New size: ", get_viewport().size)
-	n_viewport.size = get_viewport().size
-	n_viewport.size_override_stretch = true
-	n_viewport.set_size_override(true, viewport_orig_size)
+	var viewport_size := Vector2(
+		viewport_orig_size.y * get_viewport().size.aspect(),
+		viewport_orig_size.y
+	)
+	var mult = RetroHubConfig.config.render_resolution / 100.0
+	n_viewport.size = get_viewport().size * mult
+	n_viewport.set_size_override(true, viewport_size)
 
 func _on_vp_gui_focus_changed(control: Control) -> void:
 	if not is_popup_open:

@@ -18,14 +18,14 @@
 [ext_resource path="res://scenes/config/AboutSettings.tscn" type="PackedScene" id=16]
 
 [node name="ConfigPopup" type="PopupPanel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -435.2
-margin_top = -240.0
-margin_right = 435.2
-margin_bottom = 240.0
+anchor_left = 0.075
+anchor_top = 0.083
+anchor_right = 0.925
+anchor_bottom = 0.917
+margin_left = -1.52588e-05
+margin_top = 0.191998
+margin_right = -6.10352e-05
+margin_bottom = -0.192017
 theme = ExtResource( 1 )
 script = ExtResource( 6 )
 
