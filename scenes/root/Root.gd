@@ -11,7 +11,7 @@ onready var popup_nodes := [
 	n_filesystem_popup
 ]
 
-onready var viewport_orig_size := n_viewport.size
+onready var viewport_orig_size := Vector2(1024, 576)
 
 var n_last_focused : Control
 var is_popup_open : bool = false
