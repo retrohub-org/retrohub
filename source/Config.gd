@@ -44,6 +44,7 @@ var _implicit_mappings := {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	OS.min_window_size = Vector2(1024, 576)
 	if FileUtils.get_os_id() == FileUtils.OS_ID.UNSUPPORTED:
 		OS.alert("Current OS is unsupported! You're on your own!")
 
