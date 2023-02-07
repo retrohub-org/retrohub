@@ -8,11 +8,14 @@ enum OS_ID {
 }
 
 # Finds the first file/folder that exists from the array of paths.
-func test_for_valid_path(paths: Array):
+func test_for_valid_path(paths):
 	var dir = Directory.new()
-	for path in paths:
-		if dir.dir_exists(path) or dir.file_exists(path):
-			return path
+	if paths is String and (dir.dir_exists(paths) or dir.file_exists(paths)):
+		return paths
+	if paths is Array:
+		for path in paths:
+			if dir.dir_exists(path) or dir.file_exists(path):
+				return path
 	return ""
 
 func ensure_path(path: String):

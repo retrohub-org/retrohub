@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/popups/first_time/IntroductionSection.gd" type="Script" id=1]
+[ext_resource path="res://assets/icons/app/retrohub_logo_1024px_draft.png" type="Texture" id=2]
 
 [node name="IntroductionSection" type="Control"]
 anchor_right = 1.0
@@ -13,10 +14,23 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+margin_left = 384.0
+margin_top = 18.0
+margin_right = 640.0
+margin_bottom = 274.0
+rect_min_size = Vector2( 256, 256 )
+size_flags_horizontal = 4
+size_flags_vertical = 10
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
 [node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 278.0
 margin_right = 1024.0
-margin_bottom = 576.0
-size_flags_vertical = 7
+margin_bottom = 326.0
+size_flags_vertical = 2
 text = "Welcome to RetroHub!
 
 Since this is the first time you're using this software, let's go through a few steps to bootstrap your retro gaming library in a snap!"
@@ -26,9 +40,9 @@ autowrap = true
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 580.0
+margin_top = 556.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 576.0
 text = "Let's Go!"
 
 [connection signal="pressed" from="VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

@@ -28,6 +28,7 @@ var _theme_config : Dictionary
 var games : Array
 var systems : Dictionary
 var _systems_raw : Dictionary
+var _system_renames : Dictionary
 var emulators_map : Dictionary
 
 var _dir := Directory.new()
@@ -51,6 +52,7 @@ func _ready():
 	# Load configuration files
 	bootstrap_config_dir()
 	load_config_file()
+
 	load_user_data()
 	handle_key_remaps()
 	handle_controller_axis_remaps()
@@ -62,14 +64,15 @@ func _ready():
 	config.connect("config_updated", self, "_on_config_updated")
 
 func load_user_data():
-	load_systems()
-	load_emulators()
 	if not config.is_first_time:
+		load_systems()
+		load_emulators()
 		load_game_data_files()
 
 func load_systems():
 	# Default systems
 	_systems_raw = JSONUtils.map_array_by_key(JSONUtils.load_json_file(get_systems_file()), "name")
+	
 	# Custom systems
 	var _custom_systems : Array = JSONUtils.load_json_file(get_custom_systems_file())
 	for child in _custom_systems:
@@ -82,6 +85,8 @@ func load_systems():
 	for key in _systems_raw:
 		if _systems_raw[key].has("extends"):
 			_systems_raw[key].merge(_systems_raw[_systems_raw[key]["extends"]])
+	
+	set_system_renaming()
 
 func load_emulators():
 	# Default emulators
@@ -96,6 +101,12 @@ func load_emulators():
 			emulators_map[child["name"]].merge(child, true)
 			emulators_map[child["name"]]["#modified"] = true
 	JSONUtils.make_system_specific(emulators_map, FileUtils.get_os_string())
+
+func set_system_renaming():
+	for name in config.system_names:
+		if name != config.system_names[name]:
+			_system_renames[name] = config.system_names[name]
+			_systems_raw.erase(name)
 
 func _get_scancode(e: InputEventKey):
 	return e.physical_scancode if e.scancode == 0 else e.scancode
@@ -218,7 +229,9 @@ func load_game_data_files():
 		return
 	var file_name = _dir.get_next()
 	while file_name != "":
-		if _dir.current_is_dir() and _systems_raw.has(file_name) and not _systems_raw[file_name].has("#delete"):
+		if _dir.current_is_dir() and \
+			((_systems_raw.has(file_name) and not _systems_raw[file_name].has("#delete")) or \
+			_system_renames.has(file_name)):
 			load_system_gamelists_files(config.games_dir + "/" + file_name, file_name)
 		# We are not interested in files, only folders
 		file_name = _dir.get_next()
@@ -227,6 +240,7 @@ func load_game_data_files():
 	games.sort_custom(RetroHubGameData, "sort")
 
 func load_system_gamelists_files(folder_path: String, system_name: String):
+	var renamed_system = _system_renames[system_name] if _system_renames.has(system_name) else system_name
 	print("Loading games from directory " + folder_path)
 	var dir = Directory.new()
 	if dir.open(folder_path) or dir.list_dir_begin(true):
@@ -240,21 +254,22 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 			# TODO: prevent infinite recursion with shortcuts/symlinks
 			load_system_gamelists_files(full_path, system_name)
 		else:
-			if is_file_from_system(file_name, system_name):
-				if not systems.has(system_name):
+			if is_file_from_system(file_name, renamed_system):
+				if not systems.has(renamed_system):
 					var system := RetroHubSystemData.new()
-					system.name = system_name
-					system.fullname = _systems_raw[system_name]["fullname"]
-					system.platform = _systems_raw[system_name]["platform"]
-					system.category = RetroHubSystemData.category_to_idx(_systems_raw[system_name]["category"])
+					system.name = renamed_system
+					system.fullname = _systems_raw[renamed_system]["fullname"]
+					system.platform = _systems_raw[renamed_system]["platform"]
+					system.category = RetroHubSystemData.category_to_idx(_systems_raw[renamed_system]["category"])
 					system.num_games = 1
-					systems[system_name] = system
+					systems[renamed_system] = system
 				else:
-					systems[system_name].num_games += 1
+					systems[renamed_system].num_games += 1
 
 				var game := RetroHubGameData.new()
 				game.path = full_path
-				game.system = systems[system_name]
+				game.system = systems[renamed_system]
+				game.system_path = system_name
 				# Check if metadata exists, in the form of a .json file
 				var metadata_path = get_game_data_path_from_file(system_name, full_path)
 				if dir.file_exists(metadata_path):

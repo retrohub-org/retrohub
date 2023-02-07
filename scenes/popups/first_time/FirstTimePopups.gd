@@ -43,4 +43,5 @@ func _on_MainContent_tab_changed(tab):
 
 func _on_FirstTimePopup_popup_hide():
 	get_parent().remove_child(self)
+	RetroHub.load_theme()
 	queue_free()

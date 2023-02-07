@@ -143,7 +143,7 @@ _global_script_class_icons={
 config/name="RetroHub"
 run/main_scene="res://scenes/root/Root.tscn"
 boot_splash/image="res://assets/icons/app/splash.png"
-boot_splash/bg_color=Color( 0.1885, 0.234175, 0.29, 1 )
+boot_splash/bg_color=Color( 0.188235, 0.235294, 0.290196, 1 )
 config/icon="res://icon.png"
 
 [autoload]

@@ -18,6 +18,8 @@ func _ready():
 	setup_categories()
 
 func grab_focus():
+	RetroHubConfig.load_systems()
+	RetroHubConfig.load_game_data_files()
 	n_system_trees.setup_systems(categories)
 	n_categories.grab_focus()
 
