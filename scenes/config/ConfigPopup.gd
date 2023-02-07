@@ -2,6 +2,7 @@ extends Popup
 
 onready var n_main := $"%SettingsTab"
 onready var n_game_tab := $"%GameTab"
+onready var n_panel_container := $"%PanelContainer"
 
 onready var n_game = $"%GameSettings"
 
@@ -12,6 +13,9 @@ var should_reload_theme := false
 
 func _ready():
 	last_tab = n_game_tab
+	print(n_panel_container.rect_size)
+	n_panel_container.get_parent().rect_min_size.y = n_panel_container.rect_size.y
+	n_panel_container.get_parent().minimum_size_changed()
 
 func _input(event: InputEvent):
 	if not RetroHub.running_game:
