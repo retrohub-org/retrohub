@@ -38,6 +38,9 @@ var has_media : bool
 ## From what system is this game from
 var system : RetroHubSystemData
 
+## From what "loaded" system path this game is from
+var system_path : String
+
 ## Name; will default to `path` if no metadata is present yet
 var name : String
 

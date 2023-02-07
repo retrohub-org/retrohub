@@ -17,6 +17,7 @@ var render_resolution : int = 100 setget _set_render_resolution
 var region : String = "usa" setget _set_region
 var rating_system : String = "esrb" setget _set_rating_system
 var date_format : String = "mm/dd/yyyy" setget _set_date_format
+var system_names : Dictionary = default_system_names() setget _set_system_names
 var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_custom_account
 var scraper_ss_username : String = "" setget _set_scraper_ss_username
 var scraper_ss_password : String = "" setget _set_scraper_ss_password
@@ -37,6 +38,7 @@ const KEY_RENDER_RESOLUTION = "render_resolution"
 const KEY_REGION = "region"
 const KEY_RATING_SYSTEM = "rating_system"
 const KEY_DATE_FORMAT = "date_format"
+const KEY_SYSTEM_NAMES = "system_names"
 const KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT = "scraper_ss_use_custom_account"
 const KEY_SCRAPER_SS_USERNAME = "scraper_ss_username"
 const KEY_SCRAPER_SS_PASSWORD = "scraper_ss_password"
@@ -58,6 +60,7 @@ const _keys = [
 	KEY_REGION,
 	KEY_RATING_SYSTEM,
 	KEY_DATE_FORMAT,
+	KEY_SYSTEM_NAMES,
 	KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT,
 	KEY_SCRAPER_SS_USERNAME,
 	KEY_SCRAPER_SS_PASSWORD,
@@ -70,6 +73,16 @@ const _keys = [
 ]
 
 var _should_save : bool = true
+
+static func default_system_names() -> Dictionary:
+	return {
+		"genesis": "genesis",
+		"nes": "nes",
+		"snes": "snes",
+		"tg16": "tg16",
+		"tg-cd": "tg-cd",
+		"odyssey2": "odyssey2"
+	}
 
 static func default_input_key_map() -> Dictionary:
 	return {
@@ -147,6 +160,10 @@ func _set_rating_system(_rating_system):
 func _set_date_format(_date_format):
 	mark_for_saving()
 	date_format = _date_format
+
+func _set_system_names(_system_names):
+	mark_for_saving()
+	system_names = _system_names.duplicate(true)
 
 func _set_scraper_ss_use_custom_account(_scraper_ss_use_custom_account):
 	mark_for_saving()

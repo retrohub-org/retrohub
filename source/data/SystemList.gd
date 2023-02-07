@@ -255,14 +255,3 @@ var platforms := [
 	"xbox360",
 	"xboxone",
 ]
-
-var system_to_platform := {
-	"geneis": "megadrive",
-	"famicom": "nes",
-	"sfc": "snes",
-	"pcengine": "tg16",
-	"pcenginecd": "tg-cd",
-	"odyssey2": "videopac",
-	"saturnjp": "saturn",
-	"neogeocdjp": "neogeocd",
-}

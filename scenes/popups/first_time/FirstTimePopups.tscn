@@ -44,13 +44,13 @@ margin_bottom = -10.0
 
 [node name="VBoxGuide" type="VBoxContainer" parent="Panel/HBoxContainer"]
 margin_right = 157.0
-margin_bottom = 521.0
+margin_bottom = 497.0
 size_flags_vertical = 3
 
 [node name="IntroductionSection" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxGuide"]
-margin_top = 15.0
+margin_top = 13.0
 margin_right = 157.0
-margin_bottom = 55.0
+margin_bottom = 53.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/IntroductionSection"]
@@ -68,9 +68,9 @@ margin_bottom = 34.0
 text = "Introduction"
 
 [node name="RegionSection" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxGuide"]
-margin_top = 90.0
+margin_top = 85.0
 margin_right = 157.0
-margin_bottom = 130.0
+margin_bottom = 125.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/RegionSection"]
@@ -88,9 +88,9 @@ margin_bottom = 34.0
 text = "Region"
 
 [node name="ImportSection" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxGuide"]
-margin_top = 165.0
+margin_top = 156.0
 margin_right = 157.0
-margin_bottom = 205.0
+margin_bottom = 196.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/ImportSection"]
@@ -108,9 +108,9 @@ margin_bottom = 34.0
 text = "Import Settings"
 
 [node name="GamesSection" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxGuide"]
-margin_top = 240.0
+margin_top = 228.0
 margin_right = 157.0
-margin_bottom = 280.0
+margin_bottom = 268.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/GamesSection"]
@@ -128,9 +128,9 @@ margin_bottom = 34.0
 text = "Games"
 
 [node name="SystemsSection" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxGuide"]
-margin_top = 315.0
+margin_top = 299.0
 margin_right = 157.0
-margin_bottom = 355.0
+margin_bottom = 339.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/SystemsSection"]
@@ -148,9 +148,9 @@ margin_bottom = 34.0
 text = "Systems"
 
 [node name="EmulatorsSection" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxGuide"]
-margin_top = 390.0
+margin_top = 371.0
 margin_right = 157.0
-margin_bottom = 430.0
+margin_bottom = 411.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/EmulatorsSection"]
@@ -168,9 +168,9 @@ margin_bottom = 34.0
 text = "Emulators"
 
 [node name="DoneSection" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxGuide"]
-margin_top = 465.0
+margin_top = 443.0
 margin_right = 157.0
-margin_bottom = 505.0
+margin_bottom = 483.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/VBoxGuide/DoneSection"]
@@ -191,7 +191,7 @@ text = "All done"
 unique_name_in_owner = true
 margin_left = 161.0
 margin_right = 936.0
-margin_bottom = 521.0
+margin_bottom = 497.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tabs_visible = false

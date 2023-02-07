@@ -11,6 +11,7 @@ func _ready():
 	n_systems.get_popup().max_height = 350
 
 func grab_focus():
+	RetroHubConfig.load_emulators()
 	n_systems.grab_focus()
 	set_systems()
 
@@ -32,7 +33,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 	var parent := create_emulator_info_node()
 	for system_emulator in system_emulators:
 		if system_emulator is Dictionary and system_emulator.has("retroarch"):
-			var retroarch_info := preload("res://scenes/root/popups/first_time/RetroArchEmulatorInfo.tscn").instance()
+			var retroarch_info := preload("res://scenes/popups/first_time/RetroArchEmulatorInfo.tscn").instance()
 			var emulator = emulators["retroarch"]
 			parent.add_child(retroarch_info)
 			
@@ -76,7 +77,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 			
 		elif emulators.has(system_emulator):
 			# Generic emulator
-			var generic_info := preload("res://scenes/root/popups/first_time/GenericEmulatorInfo.tscn").instance()
+			var generic_info := preload("res://scenes/popups/first_time/GenericEmulatorInfo.tscn").instance()
 			var emulator = emulators[system_emulator]
 			parent.add_child(generic_info)
 			
@@ -92,8 +93,11 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 				found = true
 				generic_info.set_found(true, binpath)
 				continue
-			else:
+			elif binpaths is Array:
 				generic_info.set_found(false, convert_list_to_string(binpaths))
+				continue
+			else:
+				generic_info.set_found(false, binpaths)
 				continue
 	return found
 

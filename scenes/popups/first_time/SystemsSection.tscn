@@ -33,19 +33,19 @@ margin_bottom = 39.0
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 43.0
 margin_right = 1024.0
-margin_bottom = 576.0
+margin_bottom = 552.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
 margin_right = 150.0
-margin_bottom = 533.0
+margin_bottom = 509.0
 rect_min_size = Vector2( 150, 0 )
 
 [node name="Categories" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 margin_right = 150.0
-margin_bottom = 533.0
+margin_bottom = 509.0
 focus_neighbour_right = NodePath("../../ScrollContainer2/SystemTrees")
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -56,18 +56,18 @@ hide_root = true
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 154.0
 margin_right = 158.0
-margin_bottom = 533.0
+margin_bottom = 509.0
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 162.0
 margin_right = 342.0
-margin_bottom = 533.0
+margin_bottom = 509.0
 rect_min_size = Vector2( 180, 0 )
 
 [node name="SystemTrees" type="Control" parent="VBoxContainer/HBoxContainer/ScrollContainer2"]
 unique_name_in_owner = true
 margin_right = 180.0
-margin_bottom = 533.0
+margin_bottom = 509.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 2 )
@@ -132,12 +132,12 @@ hide_folding = true
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 346.0
 margin_right = 350.0
-margin_bottom = 533.0
+margin_bottom = 509.0
 
 [node name="ScrollContainer3" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 354.0
 margin_right = 1024.0
-margin_bottom = 533.0
+margin_bottom = 509.0
 size_flags_horizontal = 3
 
 [node name="SystemInfo" parent="VBoxContainer/HBoxContainer/ScrollContainer3" instance=ExtResource( 3 )]
@@ -145,12 +145,12 @@ unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 670.0
-margin_bottom = 533.0
+margin_bottom = 509.0
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
-margin_top = 580.0
+margin_top = 556.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 576.0
 text = "Next"
 
 [node name="SystemWarning" type="AcceptDialog" parent="."]

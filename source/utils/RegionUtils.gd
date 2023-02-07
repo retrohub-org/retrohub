@@ -74,8 +74,7 @@ func localize_age_rating(age_rating_raw: String) -> Control:
 	rating_node.from_rating_str(age_rating_raw, rating_idx)
 	return rating_node
 
-func localize_console_name(console_name_raw: String) -> String:
-	return console_name_raw
-
-func localize_console_fullname(console_fullname_raw: String) -> String:
-	return console_fullname_raw
+func localize_system_name(system_name: String) -> String:
+	if RetroHubConfig.config.system_names.has(system_name):
+		return RetroHubConfig.config.system_names[system_name]
+	return system_name

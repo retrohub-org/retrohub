@@ -41,7 +41,8 @@ func _ready():
 	emit_signal("app_initializing", true)
 
 func _on_config_ready(config_data: ConfigData):
-	load_theme()
+	if not config_data.is_first_time:
+		load_theme()
 
 func _on_config_updated(key: String, old_value, new_value):
 	if key == ConfigData.KEY_CURRENT_THEME:
