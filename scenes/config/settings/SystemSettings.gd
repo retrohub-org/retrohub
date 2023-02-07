@@ -43,6 +43,8 @@ func _on_config_ready(config_data: ConfigData):
 		n_system_selection.add_separator()
 
 func _on_SystemSelection_item_selected(index):
+	if index == -1:
+		return
 	var data : Dictionary = n_system_selection.get_item_metadata(index)
 	discard_changes()
 	var is_custom = data.has("#custom")
