@@ -24,6 +24,7 @@ margin_bottom = 20.0
 unique_name_in_owner = true
 margin_right = 803.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../ScrollContainer/SystemEditor/Emulators")
 focus_neighbour_bottom = NodePath("../../HBoxContainer2/AddSystem")
 size_flags_horizontal = 3
 expand_icon = true
@@ -33,6 +34,7 @@ unique_name_in_owner = true
 margin_left = 807.0
 margin_right = 904.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../ScrollContainer/SystemEditor/Emulators")
 text = "Save changes"
 
 [node name="Discard" type="Button" parent="VBoxContainer/HBoxContainer"]
@@ -40,6 +42,7 @@ unique_name_in_owner = true
 margin_left = 908.0
 margin_right = 1024.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../ScrollContainer/SystemEditor/Emulators")
 text = "Discard changes"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
@@ -93,7 +96,7 @@ margin_bottom = 52.0
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 56.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 576.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
@@ -104,7 +107,7 @@ unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1024.0
-margin_bottom = 544.0
+margin_bottom = 520.0
 focus_neighbour_top = NodePath("../../HBoxContainer/SystemSelection")
 
 [node name="Photo" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer/VBoxContainer" index="1"]
@@ -117,11 +120,12 @@ focus_neighbour_top = NodePath("../../../../../HBoxContainer/SystemSelection")
 items = [ "Console", null, false, 0, null, "Arcade", null, false, 1, null, "Computer", null, false, 2, null, "Game Engine", null, false, 3, null, "Modern Console", null, false, 4, null ]
 
 [node name="Emulators" parent="VBoxContainer/ScrollContainer/SystemEditor" index="7"]
-margin_bottom = 544.0
-focus_neighbour_bottom = NodePath("../../../HBoxContainer2/AddSystem")
+margin_bottom = 520.0
+focus_neighbour_bottom = NodePath("../../../HBoxContainer/SystemSelection")
 
 [node name="SelectExtensionsPopup" parent="." instance=ExtResource( 3 )]
 unique_name_in_owner = true
+visible = false
 
 [node name="AddCustomInfoPopup" parent="." instance=ExtResource( 4 )]
 unique_name_in_owner = true

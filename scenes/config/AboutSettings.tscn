@@ -86,14 +86,17 @@ margin_bottom = 128.0
 size_flags_horizontal = 10
 
 [node name="OpenWebsiteButton" type="Button" parent="TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
+unique_name_in_owner = true
 margin_right = 150.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../OpenIssuesButton")
 text = "Open project website"
 
 [node name="OpenIssuesButton" type="Button" parent="TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
 margin_top = 24.0
 margin_right = 150.0
 margin_bottom = 44.0
+focus_neighbour_bottom = NodePath("../OpenWebsiteButton")
 text = "Report issues"
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/About/VBoxContainer"]
