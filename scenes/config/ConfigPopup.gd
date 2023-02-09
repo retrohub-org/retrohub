@@ -62,5 +62,5 @@ func _on_ConfigPopup_popup_hide():
 	should_reload_theme = false
 
 
-func _on_SystemSettings_theme_reload():
+func _on_theme_reload():
 	should_reload_theme = true
