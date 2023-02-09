@@ -49,6 +49,7 @@ const MAX_REQUESTS := 3
 var _req_semaphore := Semaphore.new()
 
 var _cached_requests_data := {}
+var _cached_search_data := {}
 var _pending_requests := {}
 var _curr_requests := {}
 
@@ -289,11 +290,12 @@ func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 		else:
 			json_raw = json_raw["jeux"]
 			var details = []
+			_cached_search_data[game_data] = {}
 			for child in json_raw:
 				if not child.empty():
-					var game_data_tmp := RetroHubGameData.new()
+					var game_data_tmp := game_data.duplicate()
 					_process_raw_game_data(child, game_data_tmp)
-					_cached_requests_data[game_data_tmp] = child
+					_cached_search_data[game_data][game_data_tmp] = child
 					details.push_back(game_data_tmp)
 
 			emit_signal("game_scrape_multiple_available", game_data, details)
@@ -397,13 +399,20 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 			scraper_names = ["manuel"]
 		_:
 			return FAILED
+	
+	var json : Dictionary = {}
+	if _cached_requests_data.has(game_data):
+		json = _cached_requests_data[game_data]
+	else:
+		for data in _cached_search_data:
+			if _cached_search_data[data].has(game_data):
+				json = _cached_search_data[data][game_data]
+				break
+		if json.empty():
+			# App is guaranteed to scrape data before media, so something is wrong
+			print("\t Internal error: need to scrape metadata first!")
+			return FAILED
 
-	if not _cached_requests_data.has(game_data):
-		# App is guaranteed to scrape data before media, so something is wrong
-		print("\t Internal error: need to scrape metadata first!")
-		return FAILED
-
-	var json : Dictionary = _cached_requests_data[game_data]
 	var medias_raw : Array = json["medias"]
 	var scrape = JSONUtils.find_all_by_key(medias_raw, "type", scraper_names)
 	if scrape.empty():
@@ -418,9 +427,18 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 	req.data = {"format": res["format"], "type": media_type}
 	return OK
 
+func scrape_media_from_search(orig_game_data: RetroHubGameData, search_game_data: RetroHubGameData, media_type: int):
+	if _cached_search_data.has(orig_game_data):
+		_cached_requests_data[orig_game_data] = _cached_search_data[orig_game_data][search_game_data]
+		_cached_search_data.erase(orig_game_data)
+
+	return scrape_media(orig_game_data, media_type)
+
 func scrape_completed(game_data: RetroHubGameData) -> void:
 	if _cached_requests_data.has(game_data):
 		_cached_requests_data.erase(game_data)
+	if _cached_search_data.has(game_data):
+		_cached_search_data.erase(game_data)
 
 func cancel(game_data: RetroHubGameData) -> void:
 	# Cancel current requests

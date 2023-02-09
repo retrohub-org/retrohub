@@ -143,6 +143,8 @@ custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
 bbcode_text = "[img=20]assets/icons/warning.svg[/img][i][b] Warning: [/b]Due to the way ScreenScraper works, the password will be stored in plaintext.[/i]"
 text = " Warning: Due to the way ScreenScraper works, the password will be stored in plaintext."
+fit_content_height = true
+scroll_active = false
 
 [connection signal="toggled" from="HBoxContainer/UseAccount" to="." method="_on_UseAccount_toggled"]
 [connection signal="text_changed" from="HBoxContainer2/Username" to="." method="_on_Username_text_changed"]
