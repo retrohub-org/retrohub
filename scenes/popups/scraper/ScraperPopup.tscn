@@ -53,32 +53,32 @@ margin_bottom = 22.0
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 26.0
 margin_right = 1016.0
-margin_bottom = 560.0
+margin_bottom = 536.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
 margin_right = 400.0
-margin_bottom = 534.0
+margin_bottom = 510.0
 rect_min_size = Vector2( 400, 0 )
 
 [node name="GameEntries" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 margin_right = 400.0
-margin_bottom = 534.0
+margin_bottom = 510.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 404.0
 margin_right = 408.0
-margin_bottom = 534.0
+margin_bottom = 510.0
 
 [node name="GameEntryEditor" type="TabContainer" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 412.0
 margin_right = 1016.0
-margin_bottom = 534.0
+margin_bottom = 510.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tabs_visible = false
@@ -109,7 +109,7 @@ margin_bottom = 22.0
 [node name="Root" type="Control" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Success/VBoxContainer"]
 margin_top = 26.0
 margin_right = 596.0
-margin_bottom = 522.0
+margin_bottom = 498.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -164,9 +164,9 @@ step = 1.0
 
 [node name="WorkingCancelButton" type="Button" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Working/VBoxContainer"]
 margin_left = 271.0
-margin_top = 196.0
+margin_top = 172.0
 margin_right = 325.0
-margin_bottom = 216.0
+margin_bottom = 192.0
 size_flags_horizontal = 4
 text = "Cancel"
 
@@ -189,9 +189,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Waiting" type="Label" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Waiting/VBoxContainer"]
-margin_top = 86.0
+margin_top = 74.0
 margin_right = 596.0
-margin_bottom = 106.0
+margin_bottom = 94.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 6 )
@@ -202,9 +202,9 @@ autowrap = true
 
 [node name="WaitingCancelButton" type="Button" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Waiting/VBoxContainer"]
 margin_left = 271.0
-margin_top = 196.0
+margin_top = 172.0
 margin_right = 325.0
-margin_bottom = 216.0
+margin_bottom = 192.0
 size_flags_horizontal = 4
 text = "Cancel"
 
@@ -252,13 +252,13 @@ text = "Search"
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer"]
 margin_top = 63.0
 margin_right = 596.0
-margin_bottom = 522.0
+margin_bottom = 498.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
 margin_right = 384.0
-margin_bottom = 459.0
+margin_bottom = 435.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer"]
@@ -359,36 +359,36 @@ autowrap = true
 [node name="HSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
 margin_left = 388.0
 margin_right = 392.0
-margin_bottom = 459.0
+margin_bottom = 435.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
 margin_left = 396.0
 margin_right = 596.0
-margin_bottom = 459.0
+margin_bottom = 435.0
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_right = 200.0
-margin_bottom = 427.0
+margin_bottom = 403.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_vertical = 3
 
 [node name="GameSearchEntries" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/ScrollContainer2"]
 unique_name_in_owner = true
 margin_right = 200.0
-margin_bottom = 427.0
+margin_bottom = 403.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 431.0
+margin_top = 407.0
 margin_right = 200.0
-margin_bottom = 435.0
+margin_bottom = 411.0
 
 [node name="Confirm" type="Button" parent="VBoxContainer/HBoxContainer/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 439.0
+margin_top = 415.0
 margin_right = 200.0
-margin_bottom = 459.0
+margin_bottom = 435.0
 disabled = true
 text = "Confirm"
 
@@ -438,14 +438,14 @@ size_flags_vertical = 0
 text = "Retry"
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 564.0
+margin_top = 540.0
 margin_right = 1016.0
-margin_bottom = 568.0
+margin_bottom = 544.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 572.0
+margin_top = 548.0
 margin_right = 1016.0
-margin_bottom = 592.0
+margin_bottom = 568.0
 custom_constants/separation = 10
 
 [node name="PendingGames" type="Label" parent="VBoxContainer/HBoxContainer2"]
@@ -470,9 +470,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -508.0
-margin_top = -296.0
+margin_top = -284.0
 margin_right = 508.0
-margin_bottom = 296.0
+margin_bottom = 284.0
 script = ExtResource( 10 )
 
 [node name="StopDescription" type="Label" parent="StopScraperDialog"]
