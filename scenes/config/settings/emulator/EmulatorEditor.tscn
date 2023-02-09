@@ -88,7 +88,6 @@ unique_name_in_owner = true
 margin_left = 40.0
 margin_right = 960.0
 margin_bottom = 24.0
-focus_neighbour_top = NodePath("../../Logo")
 size_flags_horizontal = 3
 placeholder_text = "Emulator executable path"
 caret_blink = true
@@ -117,7 +116,7 @@ unique_name_in_owner = true
 margin_left = 77.0
 margin_right = 1024.0
 margin_bottom = 24.0
-focus_neighbour_top = NodePath("../../Logo")
+focus_neighbour_top = NodePath("../../HBoxContainer4/Path")
 size_flags_horizontal = 3
 placeholder_text = "Emulator command"
 caret_blink = true
@@ -147,6 +146,7 @@ margin_bottom = 20.0
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer"]
 margin_right = 60.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../../HBoxContainer5/Command")
 text = "binpath"
 
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer"]
@@ -164,6 +164,7 @@ margin_bottom = 20.0
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer2"]
 margin_right = 66.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../../HBoxContainer5/Command")
 text = "rompath"
 
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer2"]

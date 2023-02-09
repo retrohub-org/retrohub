@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/config/GameSettings.gd" type="Script" id=1]
 [ext_resource path="res://scenes/config/GameMetadataEditor.tscn" type="PackedScene" id=3]
+
+[sub_resource type="ButtonGroup" id=1]
 
 [node name="GameSettings" type="Control"]
 anchor_right = 1.0
@@ -33,6 +35,7 @@ margin_bottom = 20.0
 unique_name_in_owner = true
 margin_right = 97.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../../GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed")
 size_flags_horizontal = 3
 text = "Save changes"
 
@@ -41,6 +44,7 @@ unique_name_in_owner = true
 margin_left = 101.0
 margin_right = 217.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../../GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed")
 size_flags_horizontal = 3
 text = "Discard changes"
 
@@ -55,11 +59,146 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 32.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 576.0
 focus_neighbour_top = NodePath("../HBoxContainer/HBoxContainer/Save")
 focus_neighbour_bottom = NodePath("../HBoxContainer/HBoxContainer/Save")
+
+[node name="VBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer" index="0"]
+margin_right = 1012.0
+margin_bottom = 572.0
+
+[node name="HBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="0"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer" index="0"]
+margin_right = 708.0
+
+[node name="Name" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 712.0
+margin_right = 1012.0
+
+[node name="HBoxContainer2" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="1"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer2" index="0"]
+margin_right = 708.0
+
+[node name="Description" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer2" index="1"]
+margin_left = 712.0
+margin_right = 1012.0
+
+[node name="HBoxContainer3" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer3" index="0"]
+margin_right = 684.0
+
+[node name="HBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer3" index="1"]
+margin_left = 688.0
+margin_right = 1012.0
+
+[node name="HBoxContainer4" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="3"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer4" index="0"]
+margin_right = 708.0
+
+[node name="ReleaseDate" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer4" index="1"]
+margin_left = 712.0
+margin_right = 1012.0
+
+[node name="HBoxContainer5" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="4"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer5" index="0"]
+margin_right = 708.0
+
+[node name="Developer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer5" index="1"]
+margin_left = 712.0
+margin_right = 1012.0
+
+[node name="HBoxContainer6" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="5"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer6" index="0"]
+margin_right = 708.0
+
+[node name="Publisher" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer6" index="1"]
+margin_left = 712.0
+margin_right = 1012.0
+
+[node name="HBoxContainer12" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="6"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="0"]
+margin_right = 720.0
+
+[node name="ESRB" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="1"]
+margin_left = 724.0
+margin_right = 804.0
+
+[node name="PEGI" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="2"]
+margin_left = 808.0
+margin_right = 888.0
+
+[node name="CERO" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="3"]
+margin_left = 892.0
+margin_right = 972.0
+
+[node name="ChangeAgeRating" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="4"]
+margin_left = 976.0
+margin_right = 1012.0
+
+[node name="HBoxContainer7" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="7"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer7" index="0"]
+margin_right = 708.0
+
+[node name="Genres" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer7" index="1"]
+margin_left = 712.0
+margin_right = 1012.0
+
+[node name="HBoxContainer8" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="8"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer8" index="0"]
+margin_right = 708.0
+
+[node name="VBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer8" index="1"]
+margin_left = 712.0
+margin_right = 1012.0
+
+[node name="FixedPlayers" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer" index="0"]
+group = SubResource( 1 )
+
+[node name="VariablePlayers" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2" index="0"]
+group = SubResource( 1 )
+
+[node name="HBoxContainer9" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="9"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer9" index="0"]
+margin_right = 932.0
+
+[node name="Favorite" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer9" index="1"]
+margin_left = 936.0
+margin_right = 1012.0
+
+[node name="HBoxContainer10" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="10"]
+margin_right = 1012.0
+
+[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer10" index="0"]
+margin_right = 934.0
+
+[node name="NumTimesPlayed" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer10" index="1"]
+margin_left = 938.0
+margin_right = 1012.0
+focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/HBoxContainer/Save")
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/Save" to="VBoxContainer/GameMetadataEditor" method="save_changes"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/Discard" to="VBoxContainer/GameMetadataEditor" method="discard_changes"]
 [connection signal="change_ocurred" from="VBoxContainer/GameMetadataEditor" to="." method="_on_GameMetadataEditor_change_ocurred"]
 [connection signal="reset_state" from="VBoxContainer/GameMetadataEditor" to="." method="_on_GameMetadataEditor_reset_state"]
+
+[editable path="VBoxContainer/GameMetadataEditor"]

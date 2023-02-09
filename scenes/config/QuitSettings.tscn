@@ -22,6 +22,7 @@ unique_name_in_owner = true
 margin_left = 461.0
 margin_right = 563.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../HBoxContainer2/Shutdown")
 size_flags_horizontal = 4
 text = "Quit Retrohub"
 
@@ -59,6 +60,8 @@ custom_constants/separation = 20
 unique_name_in_owner = true
 margin_right = 125.0
 margin_bottom = 20.0
+focus_neighbour_bottom = NodePath("../../Quit")
+disabled = true
 text = "Shutdown system"
 
 [node name="Restart" type="Button" parent="VBoxContainer/HBoxContainer2"]
@@ -66,6 +69,8 @@ unique_name_in_owner = true
 margin_left = 145.0
 margin_right = 253.0
 margin_bottom = 20.0
+focus_neighbour_bottom = NodePath("../../Quit")
+disabled = true
 text = "Restart system"
 
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
