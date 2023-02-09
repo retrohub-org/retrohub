@@ -20,6 +20,7 @@
 [sub_resource type="ButtonGroup" id=1]
 
 [node name="ConfigPopup" type="Popup"]
+visible = true
 anchor_left = 0.075
 anchor_top = 0.083
 anchor_right = 0.925

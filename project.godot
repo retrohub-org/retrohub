@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/importers/EmulationStationImporter.gd"
 }, {
+"base": "TextureRect",
+"class": "LazyTextureRect",
+"language": "GDScript",
+"path": "res://scenes/ui_nodes/LazyTextureRect.gd"
+}, {
 "base": "RetroHubImporter",
 "class": "RetroArchImporter",
 "language": "GDScript",
@@ -123,6 +128,7 @@ _global_script_class_icons={
 "ControllerSprite3D": "",
 "ControllerTextureRect": "",
 "EmulationStationImporter": "",
+"LazyTextureRect": "",
 "RetroArchImporter": "",
 "RetroHubGameData": "",
 "RetroHubGameMediaData": "",

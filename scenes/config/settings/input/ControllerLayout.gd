@@ -3,7 +3,6 @@ extends WindowDialog
 export(Color) var unknown_mapping : Color
 export(Color) var current_mapping : Color
 export(Color) var known_mapping : Color
-export(String, FILE, "*.png") var diagram_tex : String
 
 # Code adapted from Godot "Joypads Demo / Tool"
 # https://godotengine.org/asset-library/asset/140
@@ -255,7 +254,6 @@ func start():
 	joy_guid = Input.get_joy_guid(0)
 	joy_name = Input.get_joy_name(0)
 	Input.remove_joy_mapping(joy_guid)
-	n_diagram.texture = load(diagram_tex)
 	curr_step = 0
 	step()
 
