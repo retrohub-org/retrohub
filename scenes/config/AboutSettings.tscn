@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/icons/app/retrohub_logo_1024px_draft.png" type="Texture" id=1]
 [ext_resource path="res://resources/fonts/default_big.tres" type="DynamicFont" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/copyright/controller_icons.png" type="Texture" id=7]
 [ext_resource path="res://scenes/config/Licenses.gd" type="Script" id=8]
 [ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=9]
+[ext_resource path="res://scenes/ui_nodes/LazyTextureRect.gd" type="Script" id=10]
 
 [node name="AboutSettings" type="Control"]
 anchor_right = 1.0
@@ -34,7 +35,7 @@ size_flags_vertical = 3
 follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/About"]
-margin_right = 505.0
+margin_right = 1004.0
 margin_bottom = 634.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -49,6 +50,7 @@ margin_bottom = 128.0
 rect_min_size = Vector2( 128, 128 )
 texture = ExtResource( 1 )
 expand = true
+script = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/About/VBoxContainer/HBoxContainer"]
 margin_left = 132.0
@@ -136,6 +138,7 @@ size_flags_vertical = 3
 texture = ExtResource( 4 )
 expand = true
 stretch_mode = 5
+script = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/About/VBoxContainer/Godot/HBoxContainer"]
 margin_left = 80.0
@@ -188,6 +191,7 @@ size_flags_vertical = 3
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 5
+script = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/About/VBoxContainer/FFMPEG/HBoxContainer"]
 margin_left = 80.0
@@ -239,6 +243,7 @@ rect_min_size = Vector2( 76, 76 )
 size_flags_vertical = 3
 expand = true
 stretch_mode = 5
+script = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/About/VBoxContainer/godot-videodecoder/HBoxContainer"]
 margin_left = 80.0
@@ -294,6 +299,7 @@ size_flags_vertical = 3
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 5
+script = ExtResource( 10 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/About/VBoxContainer/ControllerIcons/HBoxContainer"]
 margin_left = 80.0

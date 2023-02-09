@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/config/settings/RegionSettings.gd" type="Script" id=1]
 [ext_resource path="res://assets/ratings/esrb/E.png" type="Texture" id=2]
 [ext_resource path="res://assets/systems/nes-photo.png" type="Texture" id=3]
 [ext_resource path="res://assets/ratings/pegi/3.png" type="Texture" id=4]
 [ext_resource path="res://assets/ratings/cero/A.png" type="Texture" id=5]
+[ext_resource path="res://scenes/ui_nodes/LazyTextureRect.gd" type="Script" id=6]
 [ext_resource path="res://assets/systems/tg16-photo.png" type="Texture" id=7]
 [ext_resource path="res://assets/systems/tg-cd-photo.png" type="Texture" id=8]
 [ext_resource path="res://assets/systems/snes-photo.png" type="Texture" id=9]
@@ -150,6 +151,7 @@ rect_min_size = Vector2( 100, 100 )
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
+script = ExtResource( 6 )
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
 margin_left = 154.0
@@ -176,6 +178,7 @@ rect_min_size = Vector2( 100, 100 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
+script = ExtResource( 6 )
 
 [node name="HBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
 margin_left = 308.0
@@ -202,6 +205,7 @@ rect_min_size = Vector2( 100, 100 )
 texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
+script = ExtResource( 6 )
 
 [node name="HBoxContainer4" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
 margin_left = 462.0
@@ -228,6 +232,7 @@ rect_min_size = Vector2( 100, 100 )
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
+script = ExtResource( 6 )
 
 [node name="HBoxContainer5" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
 margin_left = 616.0
@@ -255,6 +260,7 @@ rect_min_size = Vector2( 100, 100 )
 texture = ExtResource( 8 )
 expand = true
 stretch_mode = 6
+script = ExtResource( 6 )
 
 [node name="HBoxContainer6" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
 margin_left = 770.0
@@ -281,6 +287,7 @@ rect_min_size = Vector2( 100, 100 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
+script = ExtResource( 6 )
 
 [connection signal="hide" from="." to="." method="_on_AppSettings_hide"]
 [connection signal="visibility_changed" from="." to="." method="_on_AppSettings_visibility_changed"]

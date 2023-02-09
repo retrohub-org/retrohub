@@ -63,12 +63,12 @@ func set_system_names(system_names: Dictionary):
 	n_tg_16.selected = 0 if system_names["tg16"] == "tg16" else 1
 	n_tg_cd.selected = 0 if system_names["tg-cd"] == "tg-cd" else 1
 	n_odyssey2.selected = 0 if system_names["odyssey2"] == "odyssey2" else 1
-	n_genesis_icon.texture = load("res://assets/systems/%s-photo.png" % system_names["genesis"])
-	n_nes_icon.texture = load("res://assets/systems/%s-photo.png" % system_names["nes"])
-	n_snes_icon.texture = load("res://assets/systems/%s-photo.png" % system_names["snes"])
-	n_tg_16_icon.texture = load("res://assets/systems/%s-photo.png" % system_names["tg16"])
-	n_tgcd_icon.texture = load("res://assets/systems/%s-photo.png" % system_names["tg-cd"])
-	n_odyssey2_icon.texture = load("res://assets/systems/%s-photo.png" % system_names["odyssey2"])
+	n_genesis_icon.set_texture(load("res://assets/systems/%s-photo.png" % system_names["genesis"]))
+	n_nes_icon.set_texture(load("res://assets/systems/%s-photo.png" % system_names["nes"]))
+	n_snes_icon.set_texture(load("res://assets/systems/%s-photo.png" % system_names["snes"]))
+	n_tg_16_icon.set_texture(load("res://assets/systems/%s-photo.png" % system_names["tg16"]))
+	n_tgcd_icon.set_texture(load("res://assets/systems/%s-photo.png" % system_names["tg-cd"]))
+	n_odyssey2_icon.set_texture(load("res://assets/systems/%s-photo.png" % system_names["odyssey2"]))
 
 func _on_config_ready(config_data: ConfigData):
 	set_region(config_data.region)
@@ -139,35 +139,35 @@ func _on_ResetRegion_pressed():
 
 func _on_Genesis_item_selected(index):
 	RetroHubConfig.config.system_names["genesis"] = "megadrive" if index == 1 else "genesis"
-	n_genesis_icon.texture = load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["genesis"])
+	n_genesis_icon.set_texture(load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["genesis"]))
 	emit_signal("theme_reload")
 
 
 func _on_NES_item_selected(index):
 	RetroHubConfig.config.system_names["nes"] = "famicom" if index == 1 else "nes"
-	n_nes_icon.texture = load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["nes"])
+	n_nes_icon.set_texture(load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["nes"]))
 	emit_signal("theme_reload")
 
 
 func _on_SNES_item_selected(index):
 	RetroHubConfig.config.system_names["snes"] = "sfc" if index == 1 else "snes"
-	n_snes_icon.texture = load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["snes"])
+	n_snes_icon.set_texture(load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["snes"]))
 	emit_signal("theme_reload")
 
 
 func _on_TG16_item_selected(index):
 	RetroHubConfig.config.system_names["tg16"] = "pcengine" if index == 1 else "tg16"
-	n_tg_16_icon.texture = load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["tg16"])
+	n_tg_16_icon.set_texture(load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["tg16"]))
 	emit_signal("theme_reload")
 
 
 func _on_TGCD_item_selected(index):
 	RetroHubConfig.config.system_names["tg-cd"] = "pcenginecd" if index == 1 else "tg-cd"
-	n_tgcd_icon.texture = load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["tg-cd"])
+	n_tgcd_icon.set_texture(load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["tg-cd"]))
 	emit_signal("theme_reload")
 
 
 func _on_Odyssey2_item_selected(index):
 	RetroHubConfig.config.system_names["odyssey2"] = "videopac" if index == 1 else "odyssey2"
-	n_odyssey2_icon.texture = load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["odyssey2"])
+	n_odyssey2_icon.set_texture(load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["odyssey2"]))
 	emit_signal("theme_reload")
