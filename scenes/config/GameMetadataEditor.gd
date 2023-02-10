@@ -106,8 +106,8 @@ func set_edit_nodes_enabled(enabled: bool):
 	n_fixed_players.disabled = !enabled
 	n_fixed_players_num.editable = enabled
 	n_variable_players.disabled = !enabled
-	n_variable_players_min.editable = enabled
-	n_variable_players_max.editable = enabled
+	n_variable_players_min.editable = !enabled
+	n_variable_players_max.editable = !enabled
 	n_favorite.disabled = !enabled
 	n_num_times_played.editable = enabled
 

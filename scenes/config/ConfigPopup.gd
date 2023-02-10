@@ -50,9 +50,12 @@ func _on_ConfigPopup_about_to_show():
 
 func _on_ScrollContainer_focus_entered():
 	last_tab.grab_focus()
+	last_tab.set_pressed_no_signal(false)
 
 func _on_SettingsTab_focus_entered():
 	n_main.get_current_tab_control().grab_focus()
+	if last_tab:
+		last_tab.set_pressed_no_signal(true)
 
 
 func _on_ConfigPopup_popup_hide():

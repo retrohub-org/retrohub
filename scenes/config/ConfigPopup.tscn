@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/icons/first_time/emulators.svg" type="Texture" id=2]
-[ext_resource path="res://assets/icons/first_time/systems.svg" type="Texture" id=3]
-[ext_resource path="res://assets/icons/first_time/region.svg" type="Texture" id=4]
+[ext_resource path="res://assets/icons/first_time/emulators_small.png" type="Texture" id=2]
+[ext_resource path="res://assets/icons/first_time/systems_small.png" type="Texture" id=3]
+[ext_resource path="res://assets/icons/first_time/region_small.png" type="Texture" id=4]
 [ext_resource path="res://scenes/config/ThemeSettings.gd" type="Script" id=5]
 [ext_resource path="res://scenes/config/ConfigPopup.gd" type="Script" id=6]
 [ext_resource path="res://scenes/config/NoThemeSettings.tscn" type="PackedScene" id=7]
@@ -42,15 +42,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer"]
-margin_right = 130.0
+margin_right = 160.0
 margin_bottom = 480.0
-rect_min_size = Vector2( 130, 0 )
+rect_min_size = Vector2( 160, 0 )
 focus_mode = 2
 follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="Panel" type="Panel" parent="Panel/HBoxContainer/ScrollContainer"]
-margin_right = 130.0
+margin_right = 160.0
 margin_bottom = 480.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -58,15 +58,15 @@ theme_type_variation = "MenuSidePanel"
 
 [node name="PanelContainer" type="VBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel"]
 unique_name_in_owner = true
-margin_right = 118.0
-margin_bottom = 733.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = "MenuSidePanel"
 custom_constants/separation = 1
 
 [node name="QuitTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 100, 30 )
 theme = ExtResource( 1 )
@@ -78,7 +78,7 @@ text = "Quit"
 [node name="GameTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
 margin_top = 31.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 131.0
 rect_min_size = Vector2( 100, 100 )
 theme = ExtResource( 1 )
@@ -89,7 +89,7 @@ text = "Game"
 
 [node name="ScraperTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 132.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 232.0
 rect_min_size = Vector2( 100, 100 )
 theme = ExtResource( 1 )
@@ -100,7 +100,7 @@ text = "Scraper"
 
 [node name="ThemeTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 233.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 333.0
 rect_min_size = Vector2( 100, 100 )
 theme = ExtResource( 1 )
@@ -111,19 +111,19 @@ text = "Theme"
 
 [node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 334.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 338.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 339.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 367.0
 text = "Settings"
 align = 1
 
 [node name="GeneralTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 368.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 428.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
@@ -134,7 +134,7 @@ text = "General"
 
 [node name="InputTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 429.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 489.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
@@ -145,7 +145,7 @@ text = "Input"
 
 [node name="RegionTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 490.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 550.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
@@ -154,11 +154,11 @@ toggle_mode = true
 group = SubResource( 1 )
 text = "Region"
 icon = ExtResource( 4 )
-expand_icon = true
+icon_align = 2
 
 [node name="SystemsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 551.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 611.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
@@ -167,11 +167,11 @@ toggle_mode = true
 group = SubResource( 1 )
 text = "Systems"
 icon = ExtResource( 3 )
-expand_icon = true
+icon_align = 2
 
 [node name="EmulatorsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 612.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 672.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
@@ -180,11 +180,11 @@ toggle_mode = true
 group = SubResource( 1 )
 text = "Emulators"
 icon = ExtResource( 2 )
-expand_icon = true
+icon_align = 2
 
 [node name="AboutTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 margin_top = 673.0
-margin_right = 118.0
+margin_right = 160.0
 margin_bottom = 733.0
 rect_min_size = Vector2( 100, 60 )
 focus_neighbour_bottom = NodePath("../QuitTab")
@@ -196,7 +196,7 @@ text = "About"
 expand_icon = true
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
-margin_left = 134.0
+margin_left = 164.0
 margin_right = 870.0
 margin_bottom = 480.0
 size_flags_horizontal = 3
@@ -208,7 +208,7 @@ custom_constants/margin_bottom = 7
 [node name="SettingsTab" type="TabContainer" parent="Panel/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 margin_top = 7.0
-margin_right = 729.0
+margin_right = 699.0
 margin_bottom = 473.0
 focus_mode = 2
 size_flags_horizontal = 3
