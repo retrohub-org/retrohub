@@ -31,8 +31,9 @@ var is_echo : bool = false
 
 const version_major := 0
 const version_minor := 0
-const version_patch := 5
-const version_str := "0.0.5-alpha"
+const version_patch := 6
+const version_extra := "-alpha"
+const version_str := "%d.%d.%d%s" % [version_major, version_minor, version_patch, version_extra]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
