@@ -5,6 +5,7 @@ onready var n_viewport : Viewport = $ViewportContainer/Viewport
 
 onready var n_config_popup : Popup = $ConfigPopup
 onready var n_filesystem_popup : Popup = $FileSystemPopup
+onready var n_keyboard_popup := $"%Keyboard"
 
 onready var popup_nodes := [
 	n_config_popup,
@@ -26,6 +27,7 @@ func _ready():
 
 	# Add popups to UI singleton
 	RetroHubUI._n_filesystem_popup = n_filesystem_popup
+	RetroHubUI._n_virtual_keyboard = n_keyboard_popup
 
 	# Handle viewport changes
 	get_viewport().connect("size_changed", self, "_on_vp_size_changed")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/root/Root.gd" type="Script" id=1]
+[ext_resource path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" type="Script" id=2]
 [ext_resource path="res://scenes/config/ConfigPopup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/root/Viewport.gd" type="Script" id=4]
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=5]
@@ -48,7 +49,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ConfigPopup" parent="." instance=ExtResource( 3 )]
-popup_exclusive = true
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
 anchor_left = 0.5
@@ -64,6 +64,20 @@ window_title = "Open a File"
 mode = 0
 access = 2
 show_hidden_files = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enable = true
+
+[node name="Keyboard" type="PanelContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 576.0
+margin_bottom = 268.0
+theme = ExtResource( 5 )
+script = ExtResource( 2 )
+autoShow = false
+customLayoutFile = "res://addons/onscreenkeyboard/customize/keyboardLayouts/keyboard_layout_de.json"
 
 [connection signal="about_to_show" from="ConfigPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]
