@@ -78,7 +78,6 @@ margin_bottom = 268.0
 theme = ExtResource( 5 )
 script = ExtResource( 2 )
 autoShow = false
-customLayoutFile = "res://addons/onscreenkeyboard/customize/keyboardLayouts/keyboard_layout_de.json"
 
 [connection signal="about_to_show" from="ConfigPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]
