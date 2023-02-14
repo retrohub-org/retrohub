@@ -22,7 +22,6 @@ func _ready():
 	closed_popup()
 	RetroHub.connect("_theme_loaded", self, "_on_theme_loaded")
 	RetroHub.connect("_game_loaded", self, "_on_game_loaded")
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 
 	# Add popups to UI singleton
@@ -34,12 +33,14 @@ func _ready():
 	n_viewport.connect("gui_focus_changed", self, "_on_vp_gui_focus_changed")
 	_on_vp_size_changed()
 
-func _on_config_ready(config_data: ConfigData):
-	if config_data.is_first_time:
+	# Wait an idle frame for the config to load
+	yield(get_tree(), "idle_frame")
+	if RetroHubConfig.config.is_first_time:
 		show_first_time_popup()
-	OS.window_fullscreen = config_data.fullscreen
-	OS.set_use_vsync(config_data.vsync)
-	setup_controller_remap(config_data.custom_input_remap)
+	OS.window_fullscreen = RetroHubConfig.config.fullscreen
+	OS.set_use_vsync(RetroHubConfig.config.vsync)
+	setup_controller_remap(RetroHubConfig.config.custom_input_remap)
+
 
 func _on_config_updated(key: String, old, new):
 	match key:
