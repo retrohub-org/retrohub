@@ -136,7 +136,7 @@ jobs:
         uses: ./godot/.github/actions/godot-build
         with:
           root: ./godot
-          sconsflags: verbose=yes warnings=all werror=yes arch=x86_64
+          sconsflags: verbose=yes warnings=all werror=yes use_lto=yes optimize=size arch=x86_64
           platform: osx
           target: release
           tools: false
@@ -146,7 +146,7 @@ jobs:
         uses: ./godot/.github/actions/godot-build
         with:
           root: ./godot
-          sconsflags: verbose=yes warnings=all werror=yes arch=arm64
+          sconsflags: verbose=yes warnings=all werror=yes use_lto=yes optimize=size arch=arm64
           platform: osx
           target: release
           tools: false

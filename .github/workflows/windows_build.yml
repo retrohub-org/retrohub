@@ -115,7 +115,7 @@ jobs:
         uses: ./godot/.github/actions/godot-build
         with:
           root: ./godot
-          sconsflags: verbose=yes warnings=all werror=yes bits=${{ matrix.bits }}
+          sconsflags: verbose=yes warnings=all werror=yes use_lto=yes bits=${{ matrix.bits }}
           platform: windows
           target: release
           tools: false
