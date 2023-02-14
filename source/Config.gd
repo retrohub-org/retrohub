@@ -53,21 +53,21 @@ func _ready():
 	bootstrap_config_dir()
 	load_config_file()
 
-	load_user_data()
-	handle_key_remaps()
-	handle_controller_axis_remaps()
-	handle_controller_button_remaps()
+	if not config.is_first_time:
+		load_user_data()
+		handle_key_remaps()
+		handle_controller_axis_remaps()
+		handle_controller_button_remaps()
 
-	# Wait until all other nodes have processed _ready
-	yield(get_tree(), "idle_frame")
-	emit_signal("config_ready", config)
+		# Wait until all other nodes have processed _ready
+		yield(get_tree(), "idle_frame")
+		emit_signal("config_ready", config)
 	config.connect("config_updated", self, "_on_config_updated")
 
 func load_user_data():
-	if not config.is_first_time:
-		load_systems()
-		load_emulators()
-		load_game_data_files()
+	load_systems()
+	load_emulators()
+	load_game_data_files()
 
 func load_systems():
 	# Default systems
@@ -104,9 +104,11 @@ func load_emulators():
 
 func set_system_renaming():
 	for name in config.system_names:
-		if name != config.system_names[name]:
-			_system_renames[name] = config.system_names[name]
-			_systems_raw.erase(name)
+		var renames = config.get_system_rename_options(name)
+		for rename in renames:
+			if rename != config.system_names[name]:
+				_system_renames[name] = config.system_names[name]
+				_systems_raw.erase(rename)
 
 func _get_scancode(e: InputEventKey):
 	return e.physical_scancode if e.scancode == 0 else e.scancode
@@ -197,7 +199,6 @@ func handle_controller_button_remap(key: String, old: int, new: int):
 	var event := InputEventJoypadButton.new()
 	event.button_index = new
 	InputMap.action_add_event(key, event)
-
 
 func load_config_file():
 	var err = config.load_config_from_path(get_config_file())

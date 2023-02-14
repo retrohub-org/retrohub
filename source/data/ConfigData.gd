@@ -84,6 +84,24 @@ static func default_system_names() -> Dictionary:
 		"odyssey2": "odyssey2"
 	}
 
+static func get_system_rename_options(system: String) -> Array:
+	match system:
+		"genesis":
+			return ["genesis", "megadrive"]
+		"nes":
+			return ["nes", "famicom"]
+		"snes":
+			return ["snes", "sfc"]
+		"tg16":
+			return ["tg16", "pcengine"]
+		"tg-cd":
+			return ["tg-cd", "pcenginecd"]
+		"odyssey2":
+			return ["odyssey2", "videopac"]
+		_:
+			return [system]
+
+
 static func default_input_key_map() -> Dictionary:
 	return {
 		"rh_accept": [KEY_ENTER],
