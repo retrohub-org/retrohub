@@ -49,6 +49,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ConfigPopup" parent="." instance=ExtResource( 3 )]
+popup_exclusive = true
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
 anchor_left = 0.5
@@ -65,16 +66,12 @@ mode = 0
 access = 2
 show_hidden_files = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-follow_viewport_enable = true
-
-[node name="Keyboard" type="PanelContainer" parent="CanvasLayer"]
+[node name="Keyboard" type="PopupPanel" parent="."]
 unique_name_in_owner = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 576.0
-margin_bottom = 268.0
+margin_top = 586.0
+margin_bottom = 278.0
 theme = ExtResource( 5 )
 script = ExtResource( 2 )
 autoShow = false

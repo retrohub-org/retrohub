@@ -1,5 +1,5 @@
 tool
-extends PanelContainer
+extends PopupPanel
 
 enum Direction {
 	UP,
@@ -35,6 +35,7 @@ signal layoutChanged
 
 func _enter_tree():
 	get_tree().get_root().connect("size_changed", self, "size_changed")
+	connect("popup_hide", self, "hide")
 	_initKeyboard()
 	visible = false
 
@@ -82,11 +83,6 @@ var tweenOnTop = false
 onready var bottomPos := get_viewport().get_visible_rect().size.y
 
 func _initKeyboard():
-	var panel := Panel.new()
-	panel.size_flags_horizontal = SIZE_EXPAND_FILL
-	panel.size_flags_vertical = SIZE_EXPAND_FILL
-	add_child(panel)
-
 	if customLayoutFile == null:
 		var defaultLayout = preload("default_layout.gd").new()
 		_createKeyboard(defaultLayout.data)
@@ -107,7 +103,8 @@ func _initKeyboard():
 var focusObject = null
 
 func show():
-	visible = true
+	#visible = true
+	popup()
 	_showKeyboard()
 	
 func hide():
@@ -145,7 +142,9 @@ func _hideKeyboard(keyData=null,x=null,y=null):
 	keyboardVisible = false
 	emit_signal("visibilityChanged",keyboardVisible)
 	yield(tweenPosition,"tween_all_completed")
-	visible = false
+	# Keyboard may be retriggered during animation
+	if keyboardVisible == false:
+		visible = false
 
 
 func _showKeyboard(keyData=null,x=null,y=null):
