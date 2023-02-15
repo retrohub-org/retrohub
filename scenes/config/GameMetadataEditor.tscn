@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/ui_nodes/AgeRatingTextureRect.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/config/GameMetadataEditor.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/ratings/cero/A.png" type="Texture" id=4]
 [ext_resource path="res://assets/ratings/pegi/3.png" type="Texture" id=5]
 [ext_resource path="res://scenes/popups/age_rating/AgeRatingPopup.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/utils/SpinBoxHandler.gd" type="Script" id=7]
+[ext_resource path="res://source/utils/SpinBoxHandler.gd" type="Script" id=8]
 
 [sub_resource type="ButtonGroup" id=1]
 
@@ -22,8 +24,8 @@ anchor_bottom = 1.0
 follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 426.0
-margin_bottom = 572.0
+margin_right = 1024.0
+margin_bottom = 576.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -265,11 +267,17 @@ margin_left = 104.0
 margin_right = 300.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 100, 0 )
+focus_neighbour_bottom = NodePath("../../HBoxContainer2/VariablePlayersMin")
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 1000.0
 value = 1.0
 suffix = "player"
+
+[node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 7 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer"]
 margin_top = 28.0
@@ -290,10 +298,16 @@ margin_left = 104.0
 margin_right = 179.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 75, 0 )
+focus_neighbour_bottom = NodePath("../../../../HBoxContainer9/Favorite")
 min_value = 1.0
 max_value = 1000.0
 value = 1.0
 editable = false
+
+[node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 7 )
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2"]
 margin_left = 183.0
@@ -308,12 +322,18 @@ margin_left = 200.0
 margin_right = 300.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 100, 0 )
+focus_neighbour_bottom = NodePath("../../../../HBoxContainer9/Favorite")
 size_flags_horizontal = 3
 min_value = 2.0
 max_value = 1000.0
 value = 2.0
 editable = false
 suffix = "players"
+
+[node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMax"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 7 )
 
 [node name="HBoxContainer9" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 504.0
@@ -351,6 +371,11 @@ margin_left = 950.0
 margin_right = 1024.0
 margin_bottom = 24.0
 allow_greater = true
+
+[node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 8 )
 
 [node name="AgeRatingPopup" parent="." instance=ExtResource( 6 )]
 unique_name_in_owner = true

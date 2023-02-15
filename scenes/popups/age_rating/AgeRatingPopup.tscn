@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/popups/age_rating/AgeRatingPopup.gd" type="Script" id=1]
 [ext_resource path="res://scenes/popups/age_rating/AgeRatingPicker.tscn" type="PackedScene" id=2]
@@ -14,8 +14,10 @@
 [ext_resource path="res://assets/ratings/pegi/16.png" type="Texture" id=12]
 [ext_resource path="res://assets/ratings/cero/unknown.png" type="Texture" id=13]
 [ext_resource path="res://assets/ratings/pegi/unknown.png" type="Texture" id=14]
+[ext_resource path="res://source/utils/SpinBoxHandler.gd" type="Script" id=15]
 
 [node name="AgeRatingPopup" type="WindowDialog"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 resizable = true
@@ -47,11 +49,16 @@ margin_left = 934.0
 margin_right = 1008.0
 margin_bottom = 24.0
 focus_neighbour_top = NodePath("../../HBoxContainer3/Ok")
-focus_mode = 2
+focus_neighbour_bottom = NodePath("../../ESRB")
 min_value = 3.0
 max_value = 18.0
 value = 3.0
 rounded = true
+
+[node name="SpinBoxHandler" type="Control" parent="VBoxContainer/HBoxContainer/MinAge"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 15 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 28.0
@@ -149,9 +156,9 @@ texture = ExtResource( 4 )
 texture = ExtResource( 3 )
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 564.0
+margin_top = 540.0
 margin_right = 1008.0
-margin_bottom = 584.0
+margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 10
 

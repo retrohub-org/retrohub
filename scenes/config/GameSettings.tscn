@@ -65,7 +65,6 @@ focus_neighbour_bottom = NodePath("../HBoxContainer/HBoxContainer/Save")
 
 [node name="VBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer" index="0"]
 margin_right = 1012.0
-margin_bottom = 572.0
 
 [node name="HBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 1012.0
