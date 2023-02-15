@@ -1,7 +1,7 @@
 extends Node
 
 var _n_filesystem_popup : FileDialog setget _set_filesystem_popup
-var _n_virtual_keyboard : PanelContainer setget _set_virtual_keyboard
+var _n_virtual_keyboard : PopupPanel setget _set_virtual_keyboard
 
 var color_success := Color("41eb83")
 var color_warning := Color("ffd24a")
@@ -17,7 +17,7 @@ func _set_filesystem_popup(popup: FileDialog):
 	_n_filesystem_popup.connect("dir_selected", self, "_on_popup_selected")
 	_n_filesystem_popup.connect("popup_hide", self, "_on_popup_hide")
 
-func _set_virtual_keyboard(keyboard: PanelContainer):
+func _set_virtual_keyboard(keyboard: PopupPanel):
 	_n_virtual_keyboard = keyboard
 
 func _on_popup_selected(file: String):
