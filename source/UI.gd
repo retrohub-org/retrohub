@@ -42,5 +42,8 @@ func request_folder_load(base_path: String) -> void:
 func show_virtual_keyboard() -> void:
 	_n_virtual_keyboard.show()
 
+func is_virtual_keyboard_visible() -> bool:
+	return _n_virtual_keyboard.keyboardVisible
+
 func hide_virtual_keyboard() -> void:
 	_n_virtual_keyboard.hide()

@@ -28,7 +28,8 @@ func _on_AgeRatingPopup_confirmed():
 
 
 func _on_AgeRatingPopup_about_to_show():
-	n_min_age.grab_focus()
+	yield(get_tree(), "idle_frame")
+	n_min_age.get_line_edit().grab_focus()
 
 func _on_Cancel_pressed():
 	hide()

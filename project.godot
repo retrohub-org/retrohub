@@ -114,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/theme/Theme.gd"
 }, {
+"base": "Control",
+"class": "SpinBoxHandler",
+"language": "GDScript",
+"path": "res://source/utils/SpinBoxHandler.gd"
+}, {
 "base": "Node",
 "class": "XML2JSON",
 "language": "GDScript",
@@ -141,6 +146,7 @@ _global_script_class_icons={
 "RetroHubSupportModel": "",
 "RetroHubSystemData": "",
 "RetroHubTheme": "",
+"SpinBoxHandler": "",
 "XML2JSON": ""
 }
 
