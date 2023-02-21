@@ -47,7 +47,7 @@ all usable output-values can be found in keylist.gd
 {
 	"type": "special",
 	"output": "Return",
-	"display": "Enter",
+	"display-icon": "PREDEFINED:ENTER",
 }
 ```
 

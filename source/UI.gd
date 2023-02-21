@@ -45,5 +45,8 @@ func show_virtual_keyboard() -> void:
 func is_virtual_keyboard_visible() -> bool:
 	return _n_virtual_keyboard.keyboardVisible
 
+func is_event_from_virtual_keyboard() -> bool:
+	return _n_virtual_keyboard.sendingEvent
+
 func hide_virtual_keyboard() -> void:
 	_n_virtual_keyboard.hide()

@@ -135,7 +135,7 @@ var data = {
 			{
 			  "type": "special",
 			  "output": "Return",
-			  "display": "Enter",
+			  "display-icon": "PREDEFINED:ENTER",
 			  "stretch-ratio": 1.5
 			}
 		  ]
@@ -361,7 +361,7 @@ var data = {
 			{
 			  "type": "special",
 			  "output": "Return",
-			  "display": "Enter",
+			  "display-icon": "PREDEFINED:ENTER",
 			  "stretch-ratio": 2
 			}
 		  ]

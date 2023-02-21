@@ -60,10 +60,11 @@ func _input(event):
 			if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion:
 				get_tree().set_input_as_handled()
 				_handleKeyEvents(event)
-		elif event is InputEventKey and event.scancode == KEY_ENTER and isKeyboardFocusObject(focusObject):
+		elif event is InputEventKey and event.scancode == KEY_ENTER and isKeyboardFocusObjectCompleteOnEnter(focusObject):
 			_hideKeyboard()
 
 func size_changed():
+	rect_size.x = get_viewport().get_visible_rect().size.x
 	bottomPos = get_viewport().get_visible_rect().size.y
 	if keyboardVisible:
 		if tweenOnTop:
@@ -148,7 +149,6 @@ func show():
 func hide():
 	_hideKeyboard()
 
-var released = true
 func _updateAutoDisplayOnInput(event):
 	if autoShow == false:
 		return
@@ -165,7 +165,7 @@ func _updateAutoDisplayOnInput(event):
 			elif not clickOnKeyboard:
 				hide()
 
-func _hideKeyboard(keyData=null,x=null,y=null):
+func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
 	if tweenOnTop:
 		tweenPosition.interpolate_property(self,"rect_position",rect_position, Vector2(0,-rect_size.y), tweenSpeed, Tween.TRANS_SINE, Tween.EASE_OUT)
 	else:
@@ -198,6 +198,8 @@ func _showKeyboard(keyData=null,x=null,y=null):
 
 
 func _handleKeyEvents(event):
+	# Manually trigger ControllerIcons to consume event
+	ControllerIcons._input(event)
 	# Selection
 	if event.is_action_pressed("ui_left"):
 		focusKey(focusedKeyX - 1, focusedKeyY)
@@ -211,8 +213,6 @@ func _handleKeyEvents(event):
 		focusKeys[focusedKeyY][focusedKeyX].pressing = true
 	elif event.is_action_released("ui_accept"):
 		focusKeys[focusedKeyY][focusedKeyX].pressing = false
-	elif event.is_action_pressed("ui_cancel"):
-		_hideKeyboard()
 
 ###########################
 ##  KEY LAYOUT
@@ -246,7 +246,7 @@ func _hideLayout(layout):
 	layout.hide()
 
 
-func _switchLayout(keyData,x,y):
+func _switchLayout(keyData,x,y,steal_focus):
 	yield(get_tree(), "idle_frame")
 	prevPrevLayout = previousLayout
 	previousLayout = currentLayout
@@ -285,15 +285,16 @@ func _setCapsLock(value):
 		key.changeUppercase(value)
 
 
-func _triggerUppercase(keyData,x,y):
+func _triggerUppercase(keyData,x,y,steal_focus):
 	uppercase = !uppercase
 	_setCapsLock(uppercase)
 
 
-func _keyDown(keyData,x,y):
-	focusKey(x,y)
+func _keyDown(keyData,x,y,steal_focus):
+	if steal_focus:
+		focusKey(x,y)
 
-func _keyReleased(keyData,x,y):
+func _keyReleased(keyData,x,y,steal_focus):
 	
 	if keyData.has("output"):
 		var keyValue = keyData.get("output")
@@ -316,8 +317,11 @@ func _keyReleased(keyData,x,y):
 		inputEventKey.scancode = KeyListHandler.getScancodeFromString(keyValue)
 
 		sendingEvent = true
+		# Manually disable ControllerIcons for this event
+		ControllerIcons.set_process_input(false)
 		Input.parse_input_event(inputEventKey)
 		yield(get_tree(), "idle_frame")
+		ControllerIcons.set_process_input(true)
 		sendingEvent = false
 		
 		###########################
@@ -382,6 +386,7 @@ func _createKeyboard(layoutData):
 			focusKeys = layoutKeys[layoutContainer]
 
 		for row in layout.get("rows"):
+			var firstShift = true
 			var focusRowKeys = []
 			loopLayoutKeys.push_back(focusRowKeys)
 
@@ -391,6 +396,9 @@ func _createKeyboard(layoutData):
 			
 			for key in row.get("keys"):
 				var newKey = KeyboardButton.new(key)
+				newKey.expand_icon = true
+				newKey.show_only = 2
+				newKey.force_type = 2
 				newKey.id_x = focusRowKeys.size()
 				newKey.id_y = loopLayoutKeys.size()-1
 				focusRowKeys.push_back(newKey)
@@ -411,17 +419,36 @@ func _createKeyboard(layoutData):
 				newKey.connect("released",self,"_keyReleased")
 				
 				if key.has("type"):
+					if key.get("type") == "char" and key.get("output") == "Space":
+						newKey.path = "rh_minor_option"
 					if key.get("type") == "switch-layout":
+						newKey.path = "rh_major_option"
 						newKey.connect("released",self,"_switchLayout")
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 					elif key.get("type") == "special":
+						match key.get("output"):
+							"Backspace":
+								newKey.path = "rh_back"
+								newKey.icon_align = Button.ALIGN_RIGHT
+							"Return":
+								newKey.path = "rh_right_trigger"
+								newKey.icon_align = Button.ALIGN_RIGHT
+							"LeftArrow":
+								newKey.path = "rh_left_shoulder"
+							"RightArrow":
+								newKey.path = "rh_right_shoulder"
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 					elif key.get("type") == "special-shift":
+						newKey.path = "rh_left_trigger"
+						newKey.icon_align = Button.ALIGN_LEFT if firstShift else Button.ALIGN_RIGHT
+						firstShift = false
 						newKey.connect("released",self,"_triggerUppercase")
 						newKey.toggle_mode = true
 						capslockKeys.push_back(newKey)
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 					elif key.get("type") == "special-hide-keyboard":
+						newKey.path = "rh_menu"
+						newKey.icon_align = Button.ALIGN_RIGHT
 						newKey.connect("released",self,"_hideKeyboard")
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 				
@@ -447,9 +474,6 @@ func _createKeyboard(layoutData):
 						print(key.get("display-icon"))
 						var texture = load(key.get("display-icon"))
 						newKey.setIcon(texture)
-						
-					if fontColor != null:
-						newKey.setIconColor(fontColor)
 				
 				keyRow.add_child(newKey)
 				keys.push_back(newKey)

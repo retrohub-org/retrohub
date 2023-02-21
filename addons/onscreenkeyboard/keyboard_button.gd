@@ -1,11 +1,11 @@
-extends Button
+extends ControllerButton
 
 var keyData
 
 signal released
 signal down
 
-var iconTexRect
+var iconTex : Texture
 
 var focused = false setget set_focused
 var pressing = false setget set_pressing
@@ -25,8 +25,14 @@ func set_pressing(_pressing):
 	pressing = _pressing
 	update()
 
-func _enter_tree():
-	pass
+func _input(event):
+	if not RetroHubUI.is_event_from_virtual_keyboard() and is_visible_in_tree() \
+		and path and event.is_action(path):
+		get_tree().set_input_as_handled()
+		if event.is_pressed():
+			button_down(false)
+		else:
+			button_up(false)
 
 
 func _draw():
@@ -38,19 +44,60 @@ func _draw():
 	if focused:
 		draw_style_box(get_stylebox("focus"), Rect2(Vector2.ZERO, rect_size))
 	var font = get_font("font")
-	var text_ofs = ((rect_size - style.get_minimum_size() - font.get_string_size(text)) / 2.0) + style.get_offset();
-	text_ofs.y += font.get_ascent();
-	font.draw(get_canvas_item(), text_ofs, text)
+	var icon_region := Rect2()
+	if icon:
+		var valign = rect_size.y - style.get_minimum_size().y
+		var icon_ofs_region = 0
+		var style_offset := Vector2()
+		var icon_size = icon.get_size()
+		if icon_align == ALIGN_LEFT:
+			style_offset.x = style.get_margin(MARGIN_LEFT)
+		elif icon_align == ALIGN_RIGHT:
+			style_offset.x = -style.get_margin(MARGIN_RIGHT)
+		style_offset.y = style.get_margin(MARGIN_TOP)
 
-func item_rect_changed():
-	if iconTexRect != null:
-		iconTexRect.rect_size = rect_size
+		if expand_icon:
+			var _size = rect_size - style.get_offset() * 2
+			var icon_text_separation = 0 if text.empty() else get_constant("h_separation")
+			_size.x -= icon_text_separation + icon_ofs_region
+			var icon_width = icon.get_width() * _size.y / icon.get_height()
+			var icon_height = _size.y
+
+			if icon_width > _size.x:
+				icon_width = _size.x
+				icon_height = icon.get_height() * icon_width / icon.get_width()
+
+			icon_size = Vector2(icon_width, icon_height)
+
+		if icon_align == ALIGN_LEFT:
+			icon_region = Rect2(style_offset + Vector2(icon_ofs_region, floor((valign - icon_size.y) * 0.5)), icon_size)
+		else:
+			icon_region = Rect2(style_offset + Vector2(icon_ofs_region + rect_size.x - icon_size.x, floor((valign - icon_size.y) * 0.5)), icon_size)
+
+		if icon_region.size.x > 0:
+			draw_texture_rect_region(icon, icon_region, Rect2(Vector2(), icon.get_size()))
+	var icon_ofs = Vector2(icon_region.size.x + get_constant("hseparation"), 0) if icon else Vector2()
+	var text_ofs = ((rect_size - style.get_minimum_size() + icon_ofs - font.get_string_size(text)) / 2.0) + style.get_offset()
+	text_ofs.y += font.get_ascent()
+	font.draw(get_canvas_item(), text_ofs, text)
+	if iconTex:
+		var iconSize := iconTex.get_size()
+		var origY = iconSize.y
+		iconSize.y = min(iconSize.y, rect_size.y)
+		iconSize.x = iconSize.y * iconSize.x / origY
+
+		var iconRect := Rect2(Vector2((rect_size.x / 2.0) - (iconSize.x / 2.0), 0), iconSize)
+		if icon:
+			if icon_align == ALIGN_LEFT:
+				iconRect.position.x += icon.get_width() / 4.0
+			else:
+				iconRect.position.x -= icon.get_width() / 4.0
+		draw_texture_rect(iconTex, iconRect, false)
 
 func _init(_keyData):
 	keyData = _keyData
 	connect("button_up",self,"button_up")
 	connect("button_down",self,"button_down")
-	connect("item_rect_changed",self,"item_rect_changed")
 	
 	size_flags_horizontal = SIZE_EXPAND_FILL
 	size_flags_vertical = SIZE_EXPAND_FILL
@@ -63,18 +110,8 @@ func _init(_keyData):
 	if keyData.has("stretch-ratio"):
 		size_flags_stretch_ratio = keyData.get("stretch-ratio")
 
-
-func setIconColor(color):
-	if iconTexRect != null:
-		iconTexRect.modulate = color
-
 func setIcon(texture):
-	iconTexRect = TextureRect.new()
-	iconTexRect.expand = true
-	iconTexRect.stretch_mode = 6
-	iconTexRect.texture = texture
-	add_child(iconTexRect)
-
+	iconTex = texture
 
 func changeUppercase(value):
 	if value:
@@ -85,8 +122,8 @@ func changeUppercase(value):
 			text = keyData.get("display")
 
 
-func button_up():
-	emit_signal("released",keyData,id_x,id_y)
+func button_up(steal_focus: bool = true):
+	emit_signal("released",keyData,id_x,id_y,steal_focus)
 	
-func button_down():
-	emit_signal("down",keyData,id_x,id_y)
+func button_down(steal_focus: bool = true):
+	emit_signal("down",keyData,id_x,id_y,steal_focus)
