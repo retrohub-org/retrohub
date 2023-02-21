@@ -2,21 +2,21 @@
   "debug": true,
   "layouts": [
     {
-      "name": "standart-characters",
+      "name": "standard-characters",
       "rows": [
         {
           "keys": [
             {
               "type": "char",
-              "output": "Q",
-              "display": "q",
-              "display-uppercase": "Q"
+              "output": "A",
+              "display": "a",
+              "display-uppercase": "A"
             },
             {
               "type": "char",
-              "output": "W",
-              "display": "w",
-              "display-uppercase": "W"
+              "output": "Z",
+              "display": "z",
+              "display-uppercase": "Z"
             },
             {
               "type": "char",
@@ -78,9 +78,9 @@
           "keys": [
             {
               "type": "char",
-              "output": "A",
-              "display": "a",
-              "display-uppercase": "A"
+              "output": "Q",
+              "display": "q",
+              "display-uppercase": "Q"
             },
             {
               "type": "char",
@@ -131,6 +131,12 @@
               "display-uppercase": "L"
             },
             {
+              "type": "char",
+              "output": "M",
+              "display": "m",
+              "display-uppercase": "M"
+            },
+            {
               "type": "special",
               "output": "Return",
               "display": "Enter",
@@ -147,9 +153,9 @@
             },
             {
               "type": "char",
-              "output": "Z",
-              "display": "z",
-              "display-uppercase": "Z"
+              "output": "W",
+              "display": "w",
+              "display-uppercase": "W"
             },
             {
               "type": "char",
@@ -180,12 +186,6 @@
               "output": "N",
               "display": "n",
               "display-uppercase": "N"
-            },
-            {
-              "type": "char",
-              "output": "M",
-              "display": "m",
-              "display-uppercase": "M"
             },
             {
               "type": "special-shift",
@@ -437,7 +437,7 @@
           "keys": [
             {
               "type": "switch-layout",
-              "layout-name": "standart-characters",
+              "layout-name": "standard-characters",
               "display": "ABC",
               "stretch-ratio": 1.5
             },

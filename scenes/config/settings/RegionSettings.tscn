@@ -71,10 +71,10 @@ margin_bottom = 146.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_top = 33.0
 margin_right = 870.0
-margin_bottom = 47.0
+margin_bottom = 14.0
 size_flags_horizontal = 3
+size_flags_vertical = 0
 text = "Rating system:"
 
 [node name="RatingSystem" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
@@ -96,10 +96,10 @@ margin_bottom = 180.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_top = 8.0
 margin_right = 720.0
-margin_bottom = 22.0
+margin_bottom = 14.0
 size_flags_horizontal = 3
+size_flags_vertical = 0
 text = "Date format:"
 
 [node name="DateFormat" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
