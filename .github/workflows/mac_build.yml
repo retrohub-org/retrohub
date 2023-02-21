@@ -27,7 +27,11 @@ jobs:
       - name: "Extract SDK"
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          ./tools/gen_sdk_package.sh
+          #ls /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs
+          #sed 's/\^MacOSX13\.\*|//g' tools/gen_sdk_package.sh > tools/gen_sdk_package.sh.patched
+          #mv tools/gen_sdk_package.sh.patched tools/gen_sdk_package.sh
+          #chmod +x tools/gen_sdk_package.sh
+          XCODEDIR=/Applications/Xcode_14.0.1.app ./tools/gen_sdk_package.sh
           mkdir -p -v ~/cached_builds/sdk
           mv MacOSX12.3.sdk.tar.xz ~/cached_builds/sdk
 
