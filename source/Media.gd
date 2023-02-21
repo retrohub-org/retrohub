@@ -60,7 +60,7 @@ func t_process_media_requests():
 		_processing_mutex.unlock()
 
 		var media_data := retrieve_media_data(game_data, types)
-		emit_signal("media_loaded", media_data, game_data, types)
+		call_deferred("emit_signal", "media_loaded", media_data, game_data, types)
 
 func _clear_media_cache():
 	_media_cache.clear()
