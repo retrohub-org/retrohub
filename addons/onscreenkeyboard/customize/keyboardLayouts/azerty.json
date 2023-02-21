@@ -139,7 +139,7 @@
             {
               "type": "special",
               "output": "Return",
-              "display": "Enter",
+              "display-icon": "PREDEFINED:ENTER",
               "stretch-ratio": 1.5
             }
           ]
@@ -359,7 +359,7 @@
             {
               "type": "special",
               "output": "Return",
-              "display": "Enter",
+              "display-icon": "PREDEFINED:ENTER",
               "stretch-ratio": 2
             }
           ]
@@ -453,7 +453,7 @@
             },
             {
               "type": "char",
-              "output": " ",
+              "output": "Space",
               "stretch-ratio": 5
             },
             {
