@@ -18,7 +18,7 @@ func _ready():
 	n_panel_container.get_parent().minimum_size_changed()
 
 func _input(event: InputEvent):
-	if not RetroHub.running_game:
+	if not RetroHub._running_game:
 		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
 			get_tree().set_input_as_handled()
 			if not visible:

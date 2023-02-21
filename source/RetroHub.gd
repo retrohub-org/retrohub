@@ -19,15 +19,15 @@ signal game_media_received(game_data, game_media_data)
 signal _theme_loaded(theme)
 signal _game_loaded(game_data)
 
-var running_game := false
-var running_game_pid := -1
+var _running_game := false
+var _running_game_pid := -1
 
 var curr_game_data : RetroHubGameData = null
 
 var launched_system_data : RetroHubSystemData = null
 var launched_game_data : RetroHubGameData = null
 
-var is_echo : bool = false
+var _is_echo : bool = false
 
 const version_major := 0
 const version_minor := 0
@@ -53,24 +53,18 @@ func _on_game_scrape_finished(game_data : RetroHubGameData):
 	print("Game finished scraping!")
 
 func _process(delta):
-	if running_game:
-		if running_game_pid == -1 or not OS.is_process_running(running_game_pid):
+	if _running_game:
+		if _running_game_pid == -1 or not OS.is_process_running(_running_game_pid):
 			stop_game()
 
 func _on_app_closing():
 	emit_signal("app_closing")
 
 func _on_app_received_focus():
-	if running_game:
-		emit_signal("app_running_received_focus")
-	else:
-		emit_signal("app_received_focus")
+	emit_signal("app_received_focus")
 
 func _on_app_lost_focus():
-	if running_game:
-		emit_signal("app_running_lost_focus")
-	else:
-		emit_signal("app_lost_focus")
+	emit_signal("app_lost_focus")
 
 func load_theme():
 	# Signal themes
@@ -97,8 +91,6 @@ func load_theme():
 func set_curr_game_data(game_data: RetroHubGameData) -> void:
 	curr_game_data = game_data
 
-func is_input_echo() -> bool:
-	return is_echo
 
 func is_main_app() -> bool:
 	return true
@@ -122,8 +114,8 @@ func launch_game() -> void:
 	print("Launching game ", launched_game_data.name)
 	RetroHubMedia._stop_thread()
 	emit_signal("_game_loaded", launched_game_data)
-	running_game = true
-	running_game_pid = _launch_game_process()
+	_running_game = true
+	_running_game_pid = _launch_game_process()
 	RetroHubConfig.unload_theme()
 
 func _launch_game_process() -> int:
@@ -154,8 +146,8 @@ func _update_game_statistics():
 func stop_game() -> void:
 	print("Stopping game")
 	OS.move_window_to_foreground()
-	running_game = false
-	running_game_pid = -1
+	_running_game = false
+	_running_game_pid = -1
 	load_theme()
 	yield(get_tree(), "idle_frame")
 	emit_signal("app_returning", launched_system_data, launched_game_data)
