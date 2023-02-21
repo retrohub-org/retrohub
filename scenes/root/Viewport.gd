@@ -32,9 +32,9 @@ func _on_joypad_echo_interval_timeout():
 
 func _input(event):
 	if event == _joypad_last_event:
-		RetroHub.is_echo = true
+		RetroHub._is_echo = true
 		return
-	RetroHub.is_echo = event.is_echo()
+	RetroHub._is_echo = event.is_echo()
 	if event is InputEventJoypadMotion or event is InputEventJoypadButton:
 		if Input.is_action_just_released("ui_left") or Input.is_action_just_released("ui_up") \
 			or Input.is_action_just_released("ui_right") or Input.is_action_just_released("ui_down"):

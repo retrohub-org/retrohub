@@ -10,13 +10,6 @@ signal system_data_updated(system_data)
 signal game_data_updated(game_data)
 signal game_media_data_updated(game_media_data)
 
-enum OS_ID {
-	WINDOWS,
-	MACOS,
-	LINUX,
-	UNSUPPORTED
-}
-
 var config := ConfigData.new()
 var theme : Node
 var theme_path : String
@@ -271,14 +264,15 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 				game.path = full_path
 				game.system = systems[renamed_system]
 				game.system_path = system_name
+				game.has_metadata = true
 				# Check if metadata exists, in the form of a .json file
 				var metadata_path = get_game_data_path_from_file(system_name, full_path)
 				if dir.file_exists(metadata_path):
 					if not fetch_game_data(metadata_path, game):
 						print("Metadata file corrupt!")
 						game.name = file_name
+						game.age_rating = "0/0/0"
 						game.has_metadata = false
-					game.has_metadata = true
 				else:
 					game.name = file_name
 					game.age_rating = "0/0/0"
@@ -588,7 +582,7 @@ func remove_custom_emulator(emulator_raw: Dictionary):
 func get_config_dir() -> String:
 	var path : String
 	match FileUtils.get_os_id():
-		OS_ID.WINDOWS:
+		FileUtils.OS_ID.WINDOWS:
 			path = FileUtils.get_home_dir() + "/RetroHub"
 			if RetroHub._is_dev_env():
 				path += "-Dev"
