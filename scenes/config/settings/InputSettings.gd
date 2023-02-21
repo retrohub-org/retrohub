@@ -9,6 +9,10 @@ onready var n_cn_start_layout := $"%CNStartLayout"
 onready var n_cn_clear_layout := $"%CNClearLayout"
 onready var n_cn_icon_type := $"%CNIconType"
 
+onready var n_vkb_layout := $"%VirtualKeyboardLayout"
+onready var n_vkb_show_on_controller := $"%VirtualKeyboardOnController"
+onready var n_vkb_show_on_mouse := $"%VirtualKeyboardOnMouse"
+
 onready var n_controller_layout_popup := $"%ControllerLayout"
 onready var n_clear_layout_popup := $"%ClearLayoutPopup"
 onready var n_key_remap_popup := $"%KeyboardRemap"
@@ -34,6 +38,15 @@ func grab_focus():
 func _on_config_ready(config_data: ConfigData):
 	n_cn_clear_layout.disabled = config_data.custom_input_remap.empty()
 	n_cn_icon_type.selected = config_data.input_controller_icon_type
+	match config_data.virtual_keyboard_layout:
+		"qwertz":
+			n_vkb_layout.selected = 1
+		"azerty":
+			n_vkb_layout.selected = 2
+		"qwerty", _:
+			n_vkb_layout.selected = 0
+	n_vkb_show_on_controller.pressed = config_data.virtual_keyboard_show_on_controller
+	n_vkb_show_on_mouse.pressed = config_data.virtual_keyboard_show_on_mouse
 
 func _on_config_updated(key: String, _old_value, new_value):
 	match key:
@@ -135,3 +148,19 @@ func _on_CNReset_pressed():
 	RetroHubConfig.config.input_controller_secondary_axis = 2
 	RetroHubConfig.save_config()
 
+
+func _on_VirtualKeyboardLayout_item_selected(index):
+	match index:
+		1:
+			RetroHubConfig.config.virtual_keyboard_layout = "qwertz"
+		2:
+			RetroHubConfig.config.virtual_keyboard_layout = "azerty"
+		0, _:
+			RetroHubConfig.config.virtual_keyboard_layout = "qwerty"
+
+func _on_VirtualKeyboardOnController_toggled(button_pressed):
+	RetroHubConfig.config.virtual_keyboard_show_on_controller = button_pressed
+
+
+func _on_VirtualKeyboardOnMouse_toggled(button_pressed):
+	RetroHubConfig.config.virtual_keyboard_show_on_mouse = button_pressed

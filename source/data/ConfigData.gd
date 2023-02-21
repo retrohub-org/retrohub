@@ -27,6 +27,9 @@ var input_controller_map : Dictionary = default_input_controller_map() setget _s
 var input_controller_main_axis : int = JOY_ANALOG_LX setget _set_input_controller_main_axis
 var input_controller_secondary_axis : int = JOY_ANALOG_RX setget _set_input_controller_secondary_axis
 var input_controller_icon_type : int = -1 setget _set_input_controller_icon_type
+var virtual_keyboard_layout : String = "qwerty" setget _set_virtual_keyboard_layout
+var virtual_keyboard_show_on_controller : bool = true setget _set_virtual_keyboard_show_on_controller
+var virtual_keyboard_show_on_mouse : bool = false setget _set_virtual_keyboard_show_on_mouse
 
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
@@ -48,6 +51,10 @@ const KEY_INPUT_CONTROLLER_MAP = "input_controller_map"
 const KEY_INPUT_CONTROLLER_MAIN_AXIS = "input_controller_main_axis"
 const KEY_INPUT_CONTROLLER_SECONDARY_AXIS = "input_controller_secondary_axis"
 const KEY_INPUT_CONTROLLER_ICON_TYPE = "input_controller_icon_type"
+const KEY_VIRTUAL_KEYBOARD_LAYOUT = "virtual_keyboard_layout"
+const KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER = "virtual_keyboard_show_on_controller"
+const KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE = "virtual_keyboard_show_on_mouse"
+
 
 const _keys = [
 	KEY_IS_FIRST_TIME,
@@ -69,7 +76,10 @@ const _keys = [
 	KEY_INPUT_CONTROLLER_MAP,
 	KEY_INPUT_CONTROLLER_MAIN_AXIS,
 	KEY_INPUT_CONTROLLER_SECONDARY_AXIS,
-	KEY_INPUT_CONTROLLER_ICON_TYPE
+	KEY_INPUT_CONTROLLER_ICON_TYPE,
+	KEY_VIRTUAL_KEYBOARD_LAYOUT,
+	KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER,
+	KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE
 ]
 
 var _should_save : bool = true
@@ -232,6 +242,18 @@ func _set_input_controller_secondary_axis(_input_controller_secondary_axis):
 func _set_input_controller_icon_type(_input_controller_icon_type):
 	mark_for_saving()
 	input_controller_icon_type = _input_controller_icon_type
+
+func _set_virtual_keyboard_layout(_virtual_keyboard_layout):
+	mark_for_saving()
+	virtual_keyboard_layout = _virtual_keyboard_layout
+
+func _set_virtual_keyboard_show_on_controller(_virtual_keyboard_show_on_controller):
+	mark_for_saving()
+	virtual_keyboard_show_on_controller = _virtual_keyboard_show_on_controller
+
+func _set_virtual_keyboard_show_on_mouse(_virtual_keyboard_show_on_mouse):
+	mark_for_saving()
+	virtual_keyboard_show_on_mouse = _virtual_keyboard_show_on_mouse
 
 func mark_for_saving():
 	if _should_save:

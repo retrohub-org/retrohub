@@ -2,7 +2,7 @@
   "debug": true,
   "layouts": [
     {
-      "name": "standart-characters",
+      "name": "standard-characters",
       "rows": [
         {
           "keys": [
@@ -65,12 +65,6 @@
               "output": "P",
               "display": "p",
               "display-uppercase": "P"
-            },
-            {
-              "type": "char",
-              "output": "è",
-              "display": "è",
-              "display-uppercase": "È"
             },
             {
               "type": "special",
@@ -137,21 +131,9 @@
               "display-uppercase": "L"
             },
             {
-              "type": "char",
-              "output": "é",
-              "display": "é",
-              "display-uppercase": "É"
-            },
-            {
-              "type": "char",
-              "output": "à",
-              "display": "à",
-              "display-uppercase": "À"
-            },
-            {
               "type": "special",
               "output": "Return",
-              "display-icon": "PREDEFINED:ENTER",
+              "display": "Enter",
               "stretch-ratio": 1.5
             }
           ]
@@ -204,12 +186,6 @@
               "output": "M",
               "display": "m",
               "display-uppercase": "M"
-            },
-            {
-              "type": "char",
-              "output": "@",
-              "display": "@",
-              "display-uppercase": "@"
             },
             {
               "type": "special-shift",
@@ -383,7 +359,7 @@
             {
               "type": "special",
               "output": "Return",
-              "display-icon": "PREDEFINED:ENTER",
+              "display": "Enter",
               "stretch-ratio": 2
             }
           ]
@@ -461,7 +437,7 @@
           "keys": [
             {
               "type": "switch-layout",
-              "layout-name": "standart-characters",
+              "layout-name": "standard-characters",
               "display": "ABC",
               "stretch-ratio": 1.5
             },
@@ -477,7 +453,7 @@
             },
             {
               "type": "char",
-              "output": "Space",
+              "output": " ",
               "stretch-ratio": 5
             },
             {

@@ -35,6 +35,8 @@ func _input_button(event: InputEventJoypadButton):
 				control.theme_type_variation = "HyperFocused"
 				control.caret_position = control.text.length()
 				return
+			if not RetroHubConfig.config.virtual_keyboard_show_on_controller:
+				return
 			if prev_focus != control:
 				if control is LineEdit:
 					control.caret_position = control.text.length()

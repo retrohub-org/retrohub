@@ -36,8 +36,22 @@ signal layoutChanged
 func _enter_tree():
 	get_tree().get_root().connect("size_changed", self, "size_changed")
 	connect("popup_hide", self, "hide")
-	_initKeyboard()
 	visible = false
+
+func _ready():
+	RetroHubConfig.connect("config_ready", self, "on_config_ready")
+	RetroHubConfig.connect("config_updated", self, "on_config_updated")
+
+func on_config_ready(config_data: ConfigData):
+	_initKeyboard(config_data.virtual_keyboard_layout)
+	autoShow = config_data.virtual_keyboard_show_on_mouse
+
+func on_config_updated(key: String, old, new):
+	match key:
+		ConfigData.KEY_VIRTUAL_KEYBOARD_LAYOUT:
+			_initKeyboard(new)
+		ConfigData.KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE:
+			autoShow = new
 
 func _input(event):
 	_updateAutoDisplayOnInput(event)
@@ -82,7 +96,31 @@ var tweenSpeed = .2
 var tweenOnTop = false
 onready var bottomPos := get_viewport().get_visible_rect().size.y
 
-func _initKeyboard():
+func _initKeyboard(config_value: String):
+	match config_value:
+		"qwertz":
+			customLayoutFile = "res://addons/onscreenkeyboard/customize/keyboardLayouts/qwertz.json"
+		"azerty":
+			customLayoutFile = "res://addons/onscreenkeyboard/customize/keyboardLayouts/azerty.json"
+		"qwerty", _:
+			customLayoutFile = "res://addons/onscreenkeyboard/customize/keyboardLayouts/qwerty.json"
+
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()
+	
+	layouts = []
+	keys = []
+	layoutKeys = {}
+	focusKeys = null
+	capslockKeys = []
+	uppercase = false
+
+	focusedKeyX = 0
+	focusedKeyY = 0
+	keyboardVisible = false
+	sendingEvent = false
+
 	if customLayoutFile == null:
 		var defaultLayout = preload("default_layout.gd").new()
 		_createKeyboard(defaultLayout.data)
@@ -115,11 +153,7 @@ func _updateAutoDisplayOnInput(event):
 	if autoShow == false:
 		return
 	
-	if event is InputEventMouseButton:
-		released = !released
-		if released == false:
-			return
-		
+	if event is InputEventMouseButton and not event.pressed:
 		var focusObject = get_focus_owner()
 		if focusObject != null:
 			var clickOnInput = Rect2(focusObject.rect_global_position,focusObject.rect_size).has_point(get_global_mouse_position())
@@ -127,9 +161,9 @@ func _updateAutoDisplayOnInput(event):
 			
 			if clickOnInput:
 				if isKeyboardFocusObject(focusObject):
-					_showKeyboard()
+					show()
 			elif not clickOnKeyboard:
-				_hideKeyboard()
+				hide()
 
 func _hideKeyboard(keyData=null,x=null,y=null):
 	if tweenOnTop:
