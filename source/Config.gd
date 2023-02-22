@@ -376,7 +376,6 @@ func load_theme_data():
 
 	theme_data = RetroHubTheme.new()
 	theme_data.id = theme_raw["id"]
-	load_theme_config()
 	if theme_raw.has("name"):
 		theme_data.name = theme_raw["name"]
 	if theme_raw.has("description"):
