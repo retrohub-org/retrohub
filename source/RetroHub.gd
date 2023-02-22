@@ -31,7 +31,7 @@ var _is_echo : bool = false
 
 const version_major := 0
 const version_minor := 0
-const version_patch := 6
+const version_patch := 7
 const version_extra := "-alpha"
 const version_str := "%d.%d.%d%s" % [version_major, version_minor, version_patch, version_extra]
 

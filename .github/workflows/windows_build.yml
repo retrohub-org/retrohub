@@ -2,7 +2,7 @@ name: 🏁 Windows Builds
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
 
 jobs:
@@ -147,8 +147,8 @@ jobs:
       - name: "Package default themes"
         uses: ./retrohub/.github/actions/get-default-themes
         with:
-          default-tag: v0.0.4-alpha
-          es-wrapper-tag: v0.0.2-alpha
+          default-tag: v0.0.5-alpha
+          es-wrapper-tag: v0.0.3-alpha
 
       - name: "Exporting RetroHub"
         working-directory: retrohub
