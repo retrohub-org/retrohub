@@ -76,6 +76,8 @@ func load_theme():
 		return
 	RetroHubMedia._start_thread()
 	emit_signal("_theme_loaded", RetroHubConfig.theme_data)
+	# Load theme config
+	RetroHubConfig.load_theme_config()
 
 	if not systems.empty():
 		emit_signal("system_receive_start")
@@ -97,6 +99,9 @@ func is_main_app() -> bool:
 
 func _is_dev_env() -> bool:
 	return not OS.has_feature("standalone")
+
+func is_input_echo() -> bool:
+	return _is_echo
 
 func quit():
 	RetroHubConfig.save_config()

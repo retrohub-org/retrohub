@@ -47,8 +47,11 @@ func _on_joypad_echo_delay_timeout():
 
 func _input(event):
 	_event_handled = false
+	RetroHub._is_echo = false
 	if hyper_focused_control:
 		get_tree().set_input_as_handled()
+	if event is InputEventKey:
+		RetroHub._is_echo = event.is_echo()
 	if event is InputEventJoypadButton:
 		_input_button(event)
 	elif event is InputEventJoypadMotion:
@@ -108,6 +111,7 @@ func _input_motion_spinbox(event):
 
 func _input_ui_movement_button(event: InputEventJoypadButton):
 	if event == _joypad_last_event:
+		RetroHub._is_echo = true
 		return
 	if event.is_action_released("ui_left") or event.is_action_released("ui_up") \
 		or event.is_action_released("ui_right") or event.is_action_released("ui_down"):
@@ -123,6 +127,7 @@ func _input_ui_movement_button(event: InputEventJoypadButton):
 
 func _input_ui_movement_motion(event: InputEventJoypadMotion):
 	if event == _joypad_last_event:
+		RetroHub._is_echo = true
 		return
 	var action : String
 	# Godot uses the same action for both directions of an axis, for some reason...
