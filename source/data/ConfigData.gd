@@ -27,6 +27,8 @@ var input_controller_map : Dictionary = default_input_controller_map() setget _s
 var input_controller_main_axis : int = JOY_ANALOG_LX setget _set_input_controller_main_axis
 var input_controller_secondary_axis : int = JOY_ANALOG_RX setget _set_input_controller_secondary_axis
 var input_controller_icon_type : int = -1 setget _set_input_controller_icon_type
+var input_controller_echo_pre_delay: float = 0.75 setget _set_input_controller_echo_pre_delay
+var input_controller_echo_delay: float = 0.15 setget _set_input_controller_echo_delay
 var virtual_keyboard_layout : String = "qwerty" setget _set_virtual_keyboard_layout
 var virtual_keyboard_show_on_controller : bool = true setget _set_virtual_keyboard_show_on_controller
 var virtual_keyboard_show_on_mouse : bool = false setget _set_virtual_keyboard_show_on_mouse
@@ -51,6 +53,8 @@ const KEY_INPUT_CONTROLLER_MAP = "input_controller_map"
 const KEY_INPUT_CONTROLLER_MAIN_AXIS = "input_controller_main_axis"
 const KEY_INPUT_CONTROLLER_SECONDARY_AXIS = "input_controller_secondary_axis"
 const KEY_INPUT_CONTROLLER_ICON_TYPE = "input_controller_icon_type"
+const KEY_INPUT_CONTROLLER_ECHO_PRE_DELAY = "input_controller_echo_pre_delay"
+const KEY_INPUT_CONTROLLER_ECHO_DELAY = "input_controller_echo_delay"
 const KEY_VIRTUAL_KEYBOARD_LAYOUT = "virtual_keyboard_layout"
 const KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER = "virtual_keyboard_show_on_controller"
 const KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE = "virtual_keyboard_show_on_mouse"
@@ -77,6 +81,8 @@ const _keys = [
 	KEY_INPUT_CONTROLLER_MAIN_AXIS,
 	KEY_INPUT_CONTROLLER_SECONDARY_AXIS,
 	KEY_INPUT_CONTROLLER_ICON_TYPE,
+	KEY_INPUT_CONTROLLER_ECHO_PRE_DELAY,
+	KEY_INPUT_CONTROLLER_ECHO_DELAY,
 	KEY_VIRTUAL_KEYBOARD_LAYOUT,
 	KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER,
 	KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE
@@ -242,6 +248,14 @@ func _set_input_controller_secondary_axis(_input_controller_secondary_axis):
 func _set_input_controller_icon_type(_input_controller_icon_type):
 	mark_for_saving()
 	input_controller_icon_type = _input_controller_icon_type
+
+func _set_input_controller_echo_pre_delay(_input_controller_echo_pre_delay):
+	mark_for_saving()
+	input_controller_echo_pre_delay = _input_controller_echo_pre_delay
+
+func _set_input_controller_echo_delay(_input_controller_echo_delay):
+	mark_for_saving()
+	input_controller_echo_delay = _input_controller_echo_delay
 
 func _set_virtual_keyboard_layout(_virtual_keyboard_layout):
 	mark_for_saving()

@@ -57,7 +57,7 @@ func _input(event):
 	_updateAutoDisplayOnInput(event)
 	if keyboardVisible:
 		if not sendingEvent:
-			if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion or event is InputEventAction:
 				get_tree().set_input_as_handled()
 				_handleKeyEvents(event)
 		elif event is InputEventKey and event.scancode == KEY_ENTER and isKeyboardFocusObjectCompleteOnEnter(focusObject):
@@ -201,13 +201,13 @@ func _handleKeyEvents(event):
 	# Manually trigger ControllerIcons to consume event
 	ControllerIcons._input(event)
 	# Selection
-	if event.is_action_pressed("ui_left"):
+	if event.is_action_pressed("ui_left", true):
 		focusKey(focusedKeyX - 1, focusedKeyY)
-	elif event.is_action_pressed("ui_right"):
+	elif event.is_action_pressed("ui_right", true):
 		focusKey(focusedKeyX + 1, focusedKeyY)
-	elif event.is_action_pressed("ui_up"):
+	elif event.is_action_pressed("ui_up", true):
 		focusKeyDir(Direction.UP)
-	elif event.is_action_pressed("ui_down"):
+	elif event.is_action_pressed("ui_down", true):
 		focusKeyDir(Direction.DOWN)
 	elif event.is_action_pressed("ui_accept"):
 		focusKeys[focusedKeyY][focusedKeyX].pressing = true
