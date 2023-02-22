@@ -8,6 +8,8 @@ onready var n_cn_reset := $"%CNReset"
 onready var n_cn_start_layout := $"%CNStartLayout"
 onready var n_cn_clear_layout := $"%CNClearLayout"
 onready var n_cn_icon_type := $"%CNIconType"
+onready var n_cn_pre_delay := $"%CNPreDelay"
+onready var n_cn_delay := $"%CNDelay"
 
 onready var n_vkb_layout := $"%VirtualKeyboardLayout"
 onready var n_vkb_show_on_controller := $"%VirtualKeyboardOnController"
@@ -38,6 +40,8 @@ func grab_focus():
 func _on_config_ready(config_data: ConfigData):
 	n_cn_clear_layout.disabled = config_data.custom_input_remap.empty()
 	n_cn_icon_type.selected = config_data.input_controller_icon_type
+	n_cn_pre_delay.value = config_data.input_controller_echo_pre_delay
+	n_cn_delay.value = config_data.input_controller_echo_delay
 	match config_data.virtual_keyboard_layout:
 		"qwertz":
 			n_vkb_layout.selected = 1
@@ -136,6 +140,13 @@ func _on_CNIconType_item_selected(index):
 	RetroHubConfig.config.input_controller_icon_type = index
 	ControllerIcons.refresh()
 
+func _on_CNPreDelay_value_changed(value):
+	RetroHubConfig.config.input_controller_echo_pre_delay = value
+
+
+func _on_CNDelay_value_changed(value):
+	RetroHubConfig.config.input_controller_echo_delay = value
+
 
 func _on_KBReset_pressed():
 	RetroHubConfig.config.input_key_map = ConfigData.default_input_key_map()
@@ -164,3 +175,5 @@ func _on_VirtualKeyboardOnController_toggled(button_pressed):
 
 func _on_VirtualKeyboardOnMouse_toggled(button_pressed):
 	RetroHubConfig.config.virtual_keyboard_show_on_mouse = button_pressed
+
+
