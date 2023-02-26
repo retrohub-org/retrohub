@@ -66,7 +66,6 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -399,6 +398,7 @@ path = "rh_right_shoulder"
 force_type = 1
 
 [node name="Controller" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/InputTab"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -872,32 +872,6 @@ text = "On Mouse Click/Touch"
 
 [node name="ControllerLayout" parent="." instance=ExtResource( 15 )]
 unique_name_in_owner = true
-
-[node name="ClearLayoutPopup" type="AcceptDialog" parent="."]
-unique_name_in_owner = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -174.0
-margin_top = -115.5
-margin_right = 174.0
-margin_bottom = 115.5
-dialog_autowrap = true
-
-[node name="Label2" type="Label" parent="ClearLayoutPopup"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -36.0
-text = "Custom layout cleared.
-
-You must restart RetroHub for it to load the default layout again."
-align = 1
-valign = 1
-autowrap = true
 
 [node name="KeyboardRemap" parent="." instance=ExtResource( 16 )]
 unique_name_in_owner = true

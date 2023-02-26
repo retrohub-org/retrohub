@@ -16,7 +16,6 @@ onready var n_vkb_show_on_controller := $"%VirtualKeyboardOnController"
 onready var n_vkb_show_on_mouse := $"%VirtualKeyboardOnMouse"
 
 onready var n_controller_layout_popup := $"%ControllerLayout"
-onready var n_clear_layout_popup := $"%ClearLayoutPopup"
 onready var n_key_remap_popup := $"%KeyboardRemap"
 onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
 onready var n_ctrl_axis_remap_popup := $"%ControllerAxisRemap"
@@ -71,9 +70,11 @@ func _on_StartLayout_pressed():
 
 
 func _on_ClearLayout_pressed():
+	var splits := RetroHubConfig.config.custom_input_remap.split(",")
+	if splits.size() > 1:
+		Input.remove_joy_mapping(splits[0])
 	RetroHubConfig.config.custom_input_remap = ""
 	RetroHubConfig.save_config()
-	n_clear_layout_popup.popup_centered()
 	n_cn_clear_layout.disabled = true
 
 

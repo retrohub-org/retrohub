@@ -121,8 +121,6 @@ onready var n_press_progress := $"%PressProgress"
 onready var n_timer := $"%Timer"
 onready var n_action_desc := $"%ActionDescription"
 
-onready var n_diagram := $"%Diagram"
-
 func _input(event):
 	if curr_step == -1:
 		return
@@ -251,6 +249,8 @@ func reset():
 	n_action_desc.visible = true
 
 func start():
+	# Disable custom controller handler while this popup is visible
+	ControllerHandler.set_process_input(false)
 	joy_guid = Input.get_joy_guid(0)
 	joy_name = Input.get_joy_name(0)
 	Input.remove_joy_mapping(joy_guid)
@@ -307,7 +307,7 @@ func _on_SkipButton_pressed():
 	step()
 
 func _on_ControllerLayout_popup_hide():
-	n_diagram.texture = null
+	ControllerHandler.set_process_input(true)
 	reset()
 
 func _on_ControllerLayout_about_to_show():
