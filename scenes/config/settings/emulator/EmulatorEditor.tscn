@@ -24,6 +24,7 @@ margin_bottom = 98.0
 rect_min_size = Vector2( 80, 80 )
 focus_neighbour_bottom = NodePath("../HBoxContainer3/Name")
 size_flags_horizontal = 0
+disabled = true
 clip_text = true
 expand_icon = true
 
