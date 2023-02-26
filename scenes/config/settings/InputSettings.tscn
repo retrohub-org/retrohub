@@ -16,17 +16,17 @@
 [ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture" id=14]
 [ext_resource path="res://scenes/config/settings/input/ControllerLayout.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/config/settings/input/KeyboardRemap.tscn" type="PackedScene" id=16]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/r_stick.png" type="Texture" id=17]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/l_stick.png" type="Texture" id=18]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/lb.png" type="Texture" id=19]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/rb.png" type="Texture" id=20]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/x.png" type="Texture" id=21]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/rb.png" type="Texture" id=17]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/start.png" type="Texture" id=18]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/back.png" type="Texture" id=19]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/lb.png" type="Texture" id=20]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/y.png" type="Texture" id=21]
 [ext_resource path="res://addons/controller_icons/assets/xboxone/a.png" type="Texture" id=22]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/y.png" type="Texture" id=23]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/b.png" type="Texture" id=24]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/menu.png" type="Texture" id=25]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=23]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/b.png" type="Texture" id=24]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/l_stick.png" type="Texture" id=25]
 [ext_resource path="res://addons/controller_icons/objects/Button.gd" type="Script" id=26]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/view.png" type="Texture" id=27]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/x.png" type="Texture" id=27]
 [ext_resource path="res://addons/controller_icons/assets/xbox360/a.png" type="Texture" id=28]
 [ext_resource path="res://scenes/config/settings/input/ControllerButtonRemap.tscn" type="PackedScene" id=29]
 [ext_resource path="res://addons/controller_icons/assets/xboxseries/a.png" type="Texture" id=30]
@@ -572,7 +572,7 @@ margin_right = 506.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer6/CNThemeMenu")
-icon = ExtResource( 22 )
+icon = ExtResource( 28 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_accept"
@@ -621,7 +621,7 @@ margin_right = 506.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer2/CNSecondaryMov")
-icon = ExtResource( 21 )
+icon = ExtResource( 27 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_major_option"
@@ -646,7 +646,7 @@ margin_right = 506.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer3/CNSlideLeft")
-icon = ExtResource( 23 )
+icon = ExtResource( 21 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_minor_option"
@@ -672,7 +672,7 @@ margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer4/CNSlideRight")
 focus_neighbour_bottom = NodePath("../../../../VBoxContainer/HBoxContainer4/CNReset")
-icon = ExtResource( 25 )
+icon = ExtResource( 18 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_menu"
@@ -702,7 +702,7 @@ margin_right = 506.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer/CNAccept")
-icon = ExtResource( 27 )
+icon = ExtResource( 19 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_theme_menu"
@@ -727,7 +727,7 @@ margin_right = 506.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer2/CNBack")
-icon = ExtResource( 18 )
+icon = ExtResource( 25 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_left"
@@ -752,7 +752,7 @@ margin_right = 506.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer3/CNMajorOpt")
-icon = ExtResource( 17 )
+icon = ExtResource( 23 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_rstick_left"
@@ -777,7 +777,7 @@ margin_right = 506.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer4/CNMinorOpt")
-icon = ExtResource( 19 )
+icon = ExtResource( 20 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_left_shoulder"
@@ -802,7 +802,7 @@ margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer5/CNRetroHubMenu")
 focus_neighbour_bottom = NodePath("../../../../VBoxContainer/HBoxContainer4/CNReset")
-icon = ExtResource( 20 )
+icon = ExtResource( 17 )
 expand_icon = true
 script = ExtResource( 26 )
 path = "rh_right_shoulder"
