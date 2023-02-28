@@ -414,7 +414,7 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 			return FAILED
 
 	var medias_raw : Array = json["medias"]
-	var scrape = JSONUtils.find_all_by_key(medias_raw, "type", scraper_names)
+	var scrape = find_all_by_key(medias_raw, "type", scraper_names)
 	if scrape.empty():
 		return FAILED
 	var res = extract_json_region(scrape)
@@ -519,7 +519,7 @@ func extract_json_region(json_arr: Array) -> Dictionary:
 	regions.erase(curr_region)
 	regions.push_front(curr_region)
 
-	var result = JSONUtils.find_by_key(json_arr, "region", regions)
+	var result = find_by_key(json_arr, "region", regions)
 	
 	return json_arr[0] if result.empty() else result
 
@@ -529,14 +529,14 @@ func extract_json_language(json_arr: Array) -> Dictionary:
 	languages.erase(curr_language)
 	languages.push_front(curr_language)
 
-	var result = JSONUtils.find_by_key(json_arr, "langue", languages)
+	var result = find_by_key(json_arr, "langue", languages)
 
 	return json_arr[0] if result.empty() else result
 
 func extract_json_age_rating(classifications: Array):
-	var rating_usa = JSONUtils.find_by_key(classifications, "type", ["ESRB"])
-	var rating_eur = JSONUtils.find_by_key(classifications, "type", ["PEGI"])
-	var rating_jpn = JSONUtils.find_by_key(classifications, "type", ["CERO"])
+	var rating_usa = find_by_key(classifications, "type", ["ESRB"])
+	var rating_eur = find_by_key(classifications, "type", ["PEGI"])
+	var rating_jpn = find_by_key(classifications, "type", ["CERO"])
 	var rating_final : String
 	if not rating_usa.empty():
 		match rating_usa["text"]:
@@ -588,3 +588,18 @@ func extract_json_age_rating(classifications: Array):
 		rating_final += "/0"
 
 	return rating_final
+
+func find_by_key(input_arr: Array, key: String, values: Array) -> Dictionary:
+	for val in values:
+		for input in input_arr:
+			if input.has(key) and input[key] == val:
+				return input
+	return {}
+
+func find_all_by_key(input_arr: Array, key: String, values: Array) -> Array:
+	var output := []
+	for val in values:
+		for input in input_arr:
+			if input.has(key) and input[key] == val:
+				output.push_back(input)
+	return output
