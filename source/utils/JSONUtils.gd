@@ -45,20 +45,6 @@ func make_system_specific(json: Dictionary, curr_system: String):
 		elif value is Dictionary:
 			make_system_specific(value, curr_system)
 
-func find_by_key(input_arr: Array, key: String, values: Array) -> Dictionary:
-	for val in values:
-		for input in input_arr:
-			if input.has(key) and input[key] == val:
-				return input
-	return {}
-
-func find_all_by_key(input_arr: Array, key: String, values: Array) -> Array:
-	var output := []
-	for val in values:
-		for input in input_arr:
-			if input.has(key) and input[key] == val:
-				output.push_back(input)
-	return output
 
 func map_array_by_key(input: Array, key: String) -> Dictionary:
 	var dict := {}
