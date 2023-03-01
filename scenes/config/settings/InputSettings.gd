@@ -38,7 +38,33 @@ func grab_focus():
 
 func _on_config_ready(config_data: ConfigData):
 	n_cn_clear_layout.disabled = config_data.custom_input_remap.empty()
-	n_cn_icon_type.selected = config_data.input_controller_icon_type
+	match RetroHubConfig.config.input_controller_icon_type:
+		"xbox360":
+			n_cn_icon_type.selected = 1
+		"xboxone":
+			n_cn_icon_type.selected = 2
+		"xboxseries":
+			n_cn_icon_type.selected = 3
+		"ps3":
+			n_cn_icon_type.selected = 4
+		"ps4":
+			n_cn_icon_type.selected = 5
+		"ps5":
+			n_cn_icon_type.selected = 6
+		"switch":
+			n_cn_icon_type.selected = 7
+		"joycon":
+			n_cn_icon_type.selected = 8
+		"steam":
+			n_cn_icon_type.selected = 9
+		"steamdeck":
+			n_cn_icon_type.selected = 10
+		"luna":
+			n_cn_icon_type.selected = 11
+		"stadia":
+			n_cn_icon_type.selected = 12
+		"auto", _:
+			n_cn_icon_type.selected = 0
 	n_cn_pre_delay.value = config_data.input_controller_echo_pre_delay
 	n_cn_delay.value = config_data.input_controller_echo_delay
 	match config_data.virtual_keyboard_layout:
@@ -138,7 +164,33 @@ func _on_ControllerAxisRemap_remap_done(action, old_axis, new_axis):
 
 
 func _on_CNIconType_item_selected(index):
-	RetroHubConfig.config.input_controller_icon_type = index
+	match index:
+		1:
+			RetroHubConfig.config.input_controller_icon_type = "xbox360"
+		2:
+			RetroHubConfig.config.input_controller_icon_type = "xboxone"
+		3:
+			RetroHubConfig.config.input_controller_icon_type = "xboxseries"
+		4:
+			RetroHubConfig.config.input_controller_icon_type = "ps3"
+		5:
+			RetroHubConfig.config.input_controller_icon_type = "ps4"
+		6:
+			RetroHubConfig.config.input_controller_icon_type = "ps5"
+		7:
+			RetroHubConfig.config.input_controller_icon_type = "switch"
+		8:
+			RetroHubConfig.config.input_controller_icon_type = "joycon"
+		9:
+			RetroHubConfig.config.input_controller_icon_type = "steam"
+		10:
+			RetroHubConfig.config.input_controller_icon_type = "steamdeck"
+		11:
+			RetroHubConfig.config.input_controller_icon_type = "luna"
+		12:
+			RetroHubConfig.config.input_controller_icon_type = "stadia"
+		0, _:
+			RetroHubConfig.config.input_controller_icon_type = "auto"
 	ControllerIcons.refresh()
 
 func _on_CNPreDelay_value_changed(value):
@@ -156,8 +208,8 @@ func _on_KBReset_pressed():
 
 func _on_CNReset_pressed():
 	RetroHubConfig.config.input_controller_map = ConfigData.default_input_controller_map()
-	RetroHubConfig.config.input_controller_main_axis = 0
-	RetroHubConfig.config.input_controller_secondary_axis = 2
+	RetroHubConfig.config.input_controller_main_axis = "left"
+	RetroHubConfig.config.input_controller_secondary_axis = "right"
 	RetroHubConfig.save_config()
 
 

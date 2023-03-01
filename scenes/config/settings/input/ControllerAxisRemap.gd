@@ -52,5 +52,6 @@ func _on_ControllerButtonRemap_popup_hide():
 
 
 func _on_Icon_pressed(axis):
-	emit_signal("remap_done", action, old_axis, axis)
+	var axis_name = "right" if old_axis == JOY_ANALOG_RX else "left"
+	emit_signal("remap_done", action, axis_name, axis)
 	hide()

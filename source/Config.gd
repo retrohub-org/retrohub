@@ -153,8 +153,19 @@ func handle_controller_button_remaps():
 
 func handle_controller_axis_remaps():
 	# Handle axis remaps
-	var main_axis := config.input_controller_main_axis
-	var sec_axis := config.input_controller_secondary_axis
+	var main_axis : int
+	var sec_axis : int
+	match config.input_controller_main_axis:
+		"right":
+			main_axis = 2
+		"left", _:
+			main_axis = 0
+	match config.input_controller_secondary_axis:
+		"right":
+			sec_axis = 2
+		"left", _:
+			sec_axis = 0
+
 	var data := {
 		"rh_left": [main_axis, -1],
 		"rh_right": [main_axis, 1],

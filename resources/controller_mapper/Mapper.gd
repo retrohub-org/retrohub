@@ -5,29 +5,29 @@ func _convert_joypad_path(path: String, fallback: int) -> String:
 		return ._convert_joypad_path(path, fallback)
 
 	match RetroHubConfig.config.input_controller_icon_type:
-		1: # Xbox 360
+		"xbox360":
 			return ._convert_joypad_to_xbox360(path)
-		2: # Xbox One
+		"xboxone":
 			return ._convert_joypad_to_xboxone(path)
-		3: # Xbox Series
+		"xboxseries":
 			return ._convert_joypad_to_xboxseries(path)
-		4: # PS3
+		"ps3":
 			return ._convert_joypad_to_ps3(path)
-		5: # PS4
+		"ps4":
 			return ._convert_joypad_to_ps4(path)
-		6: # PS5
+		"ps5":
 			return ._convert_joypad_to_ps5(path)
-		7: # Switch (Controller)
+		"switch":
 			return ._convert_joypad_to_switch(path)
-		8: # Switch (Joy-Con)
+		"joycon":
 			return ._convert_joypad_to_joycon(path)
-		9: # Steam Controller
+		"steam":
 			return ._convert_joypad_to_steam(path)
-		10: # Steam Deck
+		"steamdeck":
 			return ._convert_joypad_to_steamdeck(path)
-		11: # Amazon Luna
+		"luna":
 			return ._convert_joypad_to_luna(path)
-		12: # Google Stadia
+		"stadia":
 			return ._convert_joypad_to_stadia(path)
-		_: # 0 or something new; Automatic
+		"auto", _:
 			return ._convert_joypad_path(path, fallback)
