@@ -19,8 +19,6 @@ var rating_system : String = "esrb" setget _set_rating_system
 var date_format : String = "mm/dd/yyyy" setget _set_date_format
 var system_names : Dictionary = default_system_names() setget _set_system_names
 var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_custom_account
-var scraper_ss_username : String = "" setget _set_scraper_ss_username
-var scraper_ss_password : String = "" setget _set_scraper_ss_password
 var custom_input_remap : String = "" setget _set_custom_input_remap
 var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_map
 var input_controller_map : Dictionary = default_input_controller_map() setget _set_input_controller_map
@@ -45,8 +43,6 @@ const KEY_RATING_SYSTEM = "rating_system"
 const KEY_DATE_FORMAT = "date_format"
 const KEY_SYSTEM_NAMES = "system_names"
 const KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT = "scraper_ss_use_custom_account"
-const KEY_SCRAPER_SS_USERNAME = "scraper_ss_username"
-const KEY_SCRAPER_SS_PASSWORD = "scraper_ss_password"
 const KEY_CUSTOM_INPUT_REMAP = "custom_input_remap"
 const KEY_INPUT_KEY_MAP = "input_key_map"
 const KEY_INPUT_CONTROLLER_MAP = "input_controller_map"
@@ -73,8 +69,6 @@ const _keys = [
 	KEY_DATE_FORMAT,
 	KEY_SYSTEM_NAMES,
 	KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT,
-	KEY_SCRAPER_SS_USERNAME,
-	KEY_SCRAPER_SS_PASSWORD,
 	KEY_CUSTOM_INPUT_REMAP,
 	KEY_INPUT_KEY_MAP,
 	KEY_INPUT_CONTROLLER_MAP,
@@ -203,14 +197,6 @@ func _set_scraper_ss_use_custom_account(_scraper_ss_use_custom_account):
 	mark_for_saving()
 	scraper_ss_use_custom_account = _scraper_ss_use_custom_account
 
-func _set_scraper_ss_username(_scraper_ss_username):
-	mark_for_saving()
-	scraper_ss_username = _scraper_ss_username
-
-func _set_scraper_ss_password(_scraper_ss_password):
-	mark_for_saving()
-	scraper_ss_password = _scraper_ss_password
-
 func _set_custom_input_remap(_custom_input_remap):
 	mark_for_saving()
 	custom_input_remap = _custom_input_remap
@@ -286,6 +272,9 @@ func load_config_from_path(path: String) -> int:
 	if(json_result.error):
 		print("Error parsing config file!")
 		return ERR_FILE_CORRUPT
+	
+	# Pre-process configuration due to app updates
+	process_raw_config_changes(json_result.result)
 
 	# Dictionary ready for retrieval
 	_old_config = json_result.result
@@ -334,3 +323,16 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 
 	_old_config = dict.duplicate(true)
 	return OK
+
+func process_raw_config_changes(config: Dictionary):
+	# Scraper credentials were moved to a dedicated file
+	var creds := [
+		"scraper_ss_username",
+		"scraper_ss_password"
+	]
+
+	for cred in creds:
+		if config.has(cred):
+			RetroHubConfig._set_credential(cred, config[cred])
+			config.erase(cred)
+			_should_save = true

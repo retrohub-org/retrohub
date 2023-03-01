@@ -75,6 +75,7 @@ margin_right = 1012.0
 margin_bottom = 4.0
 
 [node name="ScreenScrapperSettings" parent="VBoxContainer/ScrollContainer/VBoxContainer/CustomSettingsRoot" instance=ExtResource( 3 )]
+unique_name_in_owner = true
 margin_top = 4.0
 margin_right = 1012.0
 margin_bottom = 176.0

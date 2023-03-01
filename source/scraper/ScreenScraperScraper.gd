@@ -194,8 +194,8 @@ func ss_get_api_keys(buf: Array, flag: bool) -> String:
 
 func ss_add_user_account(header_data: Dictionary):
 	if RetroHubConfig.config.scraper_ss_use_custom_account:
-		header_data["ssid"] = RetroHubConfig.config.scraper_ss_username
-		header_data["sspassword"] = RetroHubConfig.config.scraper_ss_password
+		header_data["ssid"] = RetroHubConfig._get_credential("scraper_ss_username")
+		header_data["sspassword"] = RetroHubConfig._get_credential("scraper_ss_password")
 
 func get_ss_system_mapping(system_name) -> int:
 	if ss_system_map.has(system_name):
