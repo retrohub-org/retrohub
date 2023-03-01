@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/popups/first_time/EmulatorsSection.gd" type="Script" id=2]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=3]
+[ext_resource path="res://source/utils/ScrollContainerHandler.gd" type="Script" id=4]
 
 [node name="EmulatorsSection" type="Control"]
 anchor_right = 1.0
@@ -35,48 +34,39 @@ margin_top = 60.0
 margin_right = 1024.0
 margin_bottom = 80.0
 
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/Systems"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 84.0
 margin_right = 1024.0
-margin_bottom = 568.0
+margin_bottom = 544.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="EmulatorInfoTab" type="TabContainer" parent="VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 margin_right = 1024.0
-margin_bottom = 484.0
+margin_bottom = 460.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tabs_visible = false
 
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/ScrollContainer"]
+script = ExtResource( 4 )
+
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 572.0
+margin_top = 548.0
 margin_right = 1024.0
-margin_bottom = 576.0
+margin_bottom = 552.0
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
-margin_top = 580.0
+margin_top = 556.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 576.0
 text = "Next"
-
-[node name="ControllerTextureRect" type="TextureRect" parent="."]
-visible = false
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 3.0
-margin_top = -20.0
-margin_right = 43.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 40, 40 )
-texture = ExtResource( 3 )
-expand = true
-script = ExtResource( 1 )
-path = "joypad/r_stick"
-show_only = 2
 
 [connection signal="item_selected" from="VBoxContainer/Systems" to="." method="_on_Systems_item_selected"]
 [connection signal="pressed" from="VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

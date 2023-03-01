@@ -47,3 +47,7 @@ func _on_SystemTrees_system_selected(system: Dictionary):
 	n_system_info.visible = system != null
 	if system:
 		n_system_info.set_system(system)
+
+
+func _on_Categories_item_activated():
+	n_system_trees.grab_focus()

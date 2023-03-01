@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/popups/first_time/SystemsSection.gd" type="Script" id=1]
 [ext_resource path="res://scenes/popups/first_time/SystemTrees.gd" type="Script" id=2]
 [ext_resource path="res://scenes/popups/first_time/SystemInfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/utils/ScrollContainerHandler.gd" type="Script" id=4]
 
 [node name="SystemsSection" type="Control"]
 anchor_right = 1.0
@@ -37,17 +38,11 @@ margin_bottom = 552.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
-margin_right = 150.0
-margin_bottom = 509.0
-rect_min_size = Vector2( 150, 0 )
-
-[node name="Categories" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="Categories" type="Tree" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_right = 150.0
 margin_bottom = 509.0
-focus_neighbour_right = NodePath("../../ScrollContainer2/SystemTrees")
-size_flags_horizontal = 3
+rect_min_size = Vector2( 150, 0 )
 size_flags_vertical = 3
 column_titles_visible = true
 hide_folding = true
@@ -58,89 +53,111 @@ margin_left = 154.0
 margin_right = 158.0
 margin_bottom = 509.0
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="SystemTrees" type="Control" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 margin_left = 162.0
 margin_right = 342.0
 margin_bottom = 509.0
 rect_min_size = Vector2( 180, 0 )
-
-[node name="SystemTrees" type="Control" parent="VBoxContainer/HBoxContainer/ScrollContainer2"]
-unique_name_in_owner = true
-margin_right = 180.0
-margin_bottom = 509.0
-size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 2 )
 
-[node name="Consoles" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees"]
+[node name="Consoles" type="Tree" parent="VBoxContainer/HBoxContainer/SystemTrees"]
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-focus_neighbour_left = NodePath("../../../ScrollContainer/Categories")
+focus_neighbour_left = NodePath("../../Categories")
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 column_titles_visible = true
 hide_folding = true
 
-[node name="Arcades" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees"]
-unique_name_in_owner = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-focus_neighbour_left = NodePath("../../../ScrollContainer/Categories")
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 2
-column_titles_visible = true
-hide_folding = true
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer/SystemTrees/Consoles"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
 
-[node name="Computers" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees"]
-unique_name_in_owner = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-focus_neighbour_left = NodePath("../../../ScrollContainer/Categories")
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 2
-column_titles_visible = true
-hide_folding = true
-
-[node name="Engines" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees"]
+[node name="Arcades" type="Tree" parent="VBoxContainer/HBoxContainer/SystemTrees"]
 unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-focus_neighbour_left = NodePath("../../../ScrollContainer/Categories")
+focus_neighbour_left = NodePath("../../Categories")
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 column_titles_visible = true
 hide_folding = true
 
-[node name="ModernConsoles" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees"]
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer/SystemTrees/Arcades"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+
+[node name="Computers" type="Tree" parent="VBoxContainer/HBoxContainer/SystemTrees"]
 unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-focus_neighbour_left = NodePath("../../../ScrollContainer/Categories")
+focus_neighbour_left = NodePath("../../Categories")
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 column_titles_visible = true
 hide_folding = true
+
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer/SystemTrees/Computers"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+
+[node name="Engines" type="Tree" parent="VBoxContainer/HBoxContainer/SystemTrees"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_neighbour_left = NodePath("../../Categories")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+column_titles_visible = true
+hide_folding = true
+
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer/SystemTrees/Engines"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+
+[node name="ModernConsoles" type="Tree" parent="VBoxContainer/HBoxContainer/SystemTrees"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_neighbour_left = NodePath("../../Categories")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+column_titles_visible = true
+hide_folding = true
+
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer/SystemTrees/ModernConsoles"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 346.0
 margin_right = 350.0
 margin_bottom = 509.0
 
-[node name="ScrollContainer3" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 354.0
 margin_right = 1024.0
 margin_bottom = 509.0
 size_flags_horizontal = 3
 
-[node name="SystemInfo" parent="VBoxContainer/HBoxContainer/ScrollContainer3" instance=ExtResource( 3 )]
+[node name="SystemInfo" parent="VBoxContainer/HBoxContainer/ScrollContainer" instance=ExtResource( 3 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -178,16 +195,22 @@ align = 1
 valign = 1
 autowrap = true
 
-[connection signal="cell_selected" from="VBoxContainer/HBoxContainer/ScrollContainer/Categories" to="." method="_on_Categories_cell_selected"]
-[connection signal="system_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" to="." method="_on_SystemTrees_system_selected"]
-[connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Consoles" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Consoles_item_edited"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Consoles" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Consoles_item_selected"]
-[connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Arcades" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Arcades_item_edited"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Arcades" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Arcades_item_selected"]
-[connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Computers" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Computers_item_edited"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Computers" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Computers_item_selected"]
-[connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Engines" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Engines_item_edited"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/Engines" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_Engines_item_selected"]
-[connection signal="item_edited" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/ModernConsoles" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_ModernConsoles_item_edited"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees/ModernConsoles" to="VBoxContainer/HBoxContainer/ScrollContainer2/SystemTrees" method="_on_ModernConsoles_item_selected"]
+[connection signal="cell_selected" from="VBoxContainer/HBoxContainer/Categories" to="." method="_on_Categories_cell_selected"]
+[connection signal="item_activated" from="VBoxContainer/HBoxContainer/Categories" to="." method="_on_Categories_item_activated"]
+[connection signal="system_selected" from="VBoxContainer/HBoxContainer/SystemTrees" to="." method="_on_SystemTrees_system_selected"]
+[connection signal="item_activated" from="VBoxContainer/HBoxContainer/SystemTrees/Consoles" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Consoles_item_activated"]
+[connection signal="item_edited" from="VBoxContainer/HBoxContainer/SystemTrees/Consoles" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Consoles_item_edited"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/SystemTrees/Consoles" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Consoles_item_selected"]
+[connection signal="item_activated" from="VBoxContainer/HBoxContainer/SystemTrees/Arcades" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Arcades_item_activated"]
+[connection signal="item_edited" from="VBoxContainer/HBoxContainer/SystemTrees/Arcades" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Arcades_item_edited"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/SystemTrees/Arcades" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Arcades_item_selected"]
+[connection signal="item_activated" from="VBoxContainer/HBoxContainer/SystemTrees/Computers" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Computers_item_activated"]
+[connection signal="item_edited" from="VBoxContainer/HBoxContainer/SystemTrees/Computers" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Computers_item_edited"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/SystemTrees/Computers" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Computers_item_selected"]
+[connection signal="item_activated" from="VBoxContainer/HBoxContainer/SystemTrees/Engines" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Engines_item_activated"]
+[connection signal="item_edited" from="VBoxContainer/HBoxContainer/SystemTrees/Engines" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Engines_item_edited"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/SystemTrees/Engines" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_Engines_item_selected"]
+[connection signal="item_activated" from="VBoxContainer/HBoxContainer/SystemTrees/ModernConsoles" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_ModernConsoles_item_activated"]
+[connection signal="item_edited" from="VBoxContainer/HBoxContainer/SystemTrees/ModernConsoles" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_ModernConsoles_item_edited"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/SystemTrees/ModernConsoles" to="VBoxContainer/HBoxContainer/SystemTrees" method="_on_ModernConsoles_item_selected"]
 [connection signal="pressed" from="VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

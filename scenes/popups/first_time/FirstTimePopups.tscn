@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/popups/first_time/EmulatorsSection.tscn" type="PackedScene" id=2]
@@ -16,8 +16,11 @@
 [ext_resource path="res://scenes/popups/first_time/GamesSection.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/popups/first_time/ImportSettingsSection.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/popups/first_time/SystemsSection.tscn" type="PackedScene" id=16]
+[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=17]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/r_stick.png" type="Texture" id=18]
 
 [node name="FirstTimePopup" type="Popup"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 28.0
@@ -243,6 +246,37 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
+
+[node name="RStickTip" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -104.0
+margin_right = 104.0
+margin_bottom = 33.0
+size_flags_horizontal = 7
+
+[node name="ControllerTextureRect" type="TextureRect" parent="RStickTip"]
+margin_right = 32.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 10
+texture = ExtResource( 18 )
+expand = true
+script = ExtResource( 17 )
+path = "rh_rstick_left"
+force_type = 2
+max_width = 32
+
+[node name="Label" type="Label" parent="RStickTip"]
+margin_left = 36.0
+margin_top = 2.0
+margin_right = 208.0
+margin_bottom = 30.0
+size_flags_horizontal = 2
+text = "for scrolling information"
 
 [connection signal="about_to_show" from="." to="." method="_on_FirstTimePopup_about_to_show"]
 [connection signal="popup_hide" from="." to="." method="_on_FirstTimePopup_popup_hide"]
