@@ -268,6 +268,7 @@ unique_name_in_owner = true
 margin_left = 909.0
 margin_right = 1024.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/MediaSupportTex")
 text = "Selected only"
 items = [ "Selected only", null, false, 0, null, "Without metadata", null, false, 1, null, "Without media", null, false, 2, null, "All", null, false, 3, null, "Custom...", null, false, 4, null ]
 selected = 0

@@ -3,6 +3,9 @@ extends Control
 onready var n_game_metadata_editor := $"%GameMetadataEditor"
 onready var n_no_data := $"%NoData"
 
+func grab_focus():
+	n_game_metadata_editor.grab_focus()
+
 func set_entry(game_entry: RetroHubScraperGameEntry):
 	if(game_entry.data):
 		n_game_metadata_editor.visible = true

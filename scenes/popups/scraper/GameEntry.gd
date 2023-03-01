@@ -2,7 +2,7 @@ extends Button
 
 class_name RetroHubScraperGameEntry
 
-signal game_selected(entry)
+signal game_selected(entry, by_app)
 
 enum State {
 	SUCCESS,
@@ -23,7 +23,7 @@ var description := ""
 
 func _on_GameEntry_toggled(button_pressed):
 	if button_pressed:
-		emit_signal("game_selected", self)
+		emit_signal("game_selected", self, false)
 
 func set_game_data(_game_data: RetroHubGameData):
 	game_data = _game_data
@@ -52,7 +52,7 @@ func set_state(_state: int):
 			set_font_color(Color("ffffff"))
 			icon = null
 	if pressed:
-		emit_signal("game_selected", self)
+		emit_signal("game_selected", self, true)
 
 func set_font_color(color: Color):
 	add_color_override("font_color", color)

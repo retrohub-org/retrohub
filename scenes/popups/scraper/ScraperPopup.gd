@@ -2,8 +2,12 @@ extends Popup
 
 signal scrape_step(game_entry)
 
-export(int, 1, 100) var max_queued_scrapes : int
 export(PackedScene) var system_entry_scene : PackedScene
+
+onready var n_scraper_done := $"%ScraperDone"
+onready var n_scraper_warning := $"%ScraperWarning"
+onready var n_scraper_error := $"%ScraperError"
+onready var n_scraper_pending := $"%ScraperPending"
 
 onready var n_game_entries := $"%GameEntries"
 onready var n_game_entry_editor := $"%GameEntryEditor"
@@ -14,6 +18,12 @@ onready var n_warning := $"%Warning"
 onready var n_stop_scraper_dialog := $"%StopScraperDialog"
 
 onready var button_group := ButtonGroup.new()
+
+
+
+func _on_GameEntries_focus_exited():
+	pass # Replace with function body.
+
 
 class Request:
 	enum Type {
@@ -33,6 +43,9 @@ var media_bitmask : int
 var scene_entry_list := {}
 var game_entry_list := []
 
+var num_games_success : int
+var num_games_warning : int
+var num_games_error : int
 var num_games_pending : int
 
 # Thread variables
@@ -48,6 +61,11 @@ var pending_medias := {}
 
 var scraper : RetroHubScraper
 
+func _ready():
+	n_scraper_done.modulate = RetroHubUI.color_success
+	n_scraper_warning.modulate = RetroHubUI.color_warning
+	n_scraper_error.modulate = RetroHubUI.color_error
+
 func begin_scraping(_game_list_arr: Array, _scraper: RetroHubScraper, _scrape_data: bool, _scrape_media: bool, _media_bitmask: int):
 	game_list_arr = _game_list_arr
 	scrape_data = _scrape_data
@@ -60,7 +78,7 @@ func begin_scraping(_game_list_arr: Array, _scraper: RetroHubScraper, _scrape_da
 	clear_game_entries()
 	populate_game_entries()
 	fetch_game_entries_async()
-	n_game_entries.get_child(0).grab_focus()
+	n_game_entries.grab_focus()
 
 
 func fetch_game_entries_async():
@@ -177,7 +195,7 @@ func thread_fetch_game_entries():
 	scraper.disconnect("media_scrape_not_found", self, "t_on_media_scrape_not_found")
 	scraper.disconnect("media_scrape_error", self, "t_on_media_scrape_error")
 
-func _ensure_valid_req(game_data):
+func _ensure_valid_req(game_data: RetroHubGameData):
 	if not pending_datas.has(game_data):
 		for req in requests_curr:
 			if req.game_entry.game_data == game_data:
@@ -205,6 +223,8 @@ func t_on_game_scrape_multiple_available(game_data: RetroHubGameData, results: A
 	pending_datas.erase(game_data)
 	game_entry.set_deferred("data", results)
 	game_entry.set_deferred("state", RetroHubScraperGameEntry.State.WARNING)
+	call_deferred("incr_num_games_warning")
+	call_deferred("decr_num_games_pending")
 
 func t_on_game_scrape_not_found(game_data: RetroHubGameData):
 	var req : Request = _ensure_valid_req(game_data)
@@ -226,8 +246,13 @@ func t_on_game_scrape_error(game_data: RetroHubGameData, details: String):
 	var game_entry := req.game_entry
 	requests_curr.erase(req)
 	pending_datas.erase(game_data)
+	# Request may already be in error state, e.g. user canceled it
+	if game_entry.state == RetroHubScraperGameEntry.State.ERROR:
+		return
 	game_entry.set_deferred("data", [details, req])
 	game_entry.set_deferred("state", RetroHubScraperGameEntry.State.ERROR)
+	call_deferred("decr_num_games_pending")
+	call_deferred("incr_num_games_error")
 
 func prepare_media_scrape(game_entry: RetroHubScraperGameEntry):
 	if scrape_media && media_bitmask > 0:
@@ -299,8 +324,8 @@ func t_on_media_scrape_error(game_data: RetroHubGameData, type: int, details: St
 func _finish_scrape(game_entry: RetroHubScraperGameEntry):
 	game_entry.set_deferred("data", scrape_data)
 	game_entry.set_deferred("state", RetroHubScraperGameEntry.State.SUCCESS)
-	set_deferred("num_games_pending", num_games_pending - 1)
-	call_deferred("update_games_pending")
+	call_deferred("incr_num_games_success")
+	call_deferred("decr_num_games_pending")
 	if scrape_data:
 		RetroHubConfig.call_deferred("save_game_data", game_entry.game_data)
 
@@ -342,22 +367,36 @@ func populate_game_entries():
 		var data = game_data.duplicate() if not scrape_data else game_data
 		var game_entry : RetroHubScraperGameEntry = scene_entry_list[game_data.system].add_game_entry(data, button_group)
 		game_entry.connect("game_selected", self, "_on_game_entry_selected")
+		game_entry.connect("focus_exited", n_game_entries, "_on_game_entry_focus_exited")
+		game_entry.connect("game_selected", n_game_entries, "_on_game_entry_selected")
 		game_entry_list.push_back(game_entry)
+	num_games_success = 0
+	num_games_warning = 0
+	num_games_error = 0
 	num_games_pending = game_list_arr.size()
-	update_games_pending()
+	update_games_stats()
 
-func update_games_pending():
-	match num_games_pending:
+func update_games_stats():
+	n_scraper_done.text = str(num_games_success)
+	n_scraper_warning.text = str(num_games_warning)
+	n_scraper_error.text = str(num_games_error)
+	n_scraper_pending.text = str(num_games_pending)
+
+	var remaining = num_games_warning + num_games_error + num_games_pending
+	match remaining:
 		0:
 			n_pending_games.text = "All games have been successfully scrapped"
 		1:
 			n_pending_games.text = "There is 1 game yet to be sucessfully scrapped"
 		_:
-			n_pending_games.text = "There are %d games yet to be successfully scrapped" % num_games_pending
+			n_pending_games.text = "There are %d games yet to be successfully scrapped" % remaining
 
-func _on_game_entry_selected(game_entry: RetroHubScraperGameEntry):
+func _on_game_entry_selected(game_entry: RetroHubScraperGameEntry, by_app: bool):
 	n_game_entry_editor.current_tab = game_entry.state
 	n_game_entry_editor.get_current_tab_control().set_entry(game_entry)
+	print(by_app, "|", n_game_entries.focused)
+	if not by_app or not n_game_entries.focused:
+		n_game_entry_editor.get_current_tab_control().grab_focus()
 
 
 func _on_Warning_request_search(search: String, game_data: RetroHubGameData):
@@ -365,6 +404,9 @@ func _on_Warning_request_search(search: String, game_data: RetroHubGameData):
 		if game_entry.game_data == game_data:
 			game_entry.data = search
 			game_entry.state = RetroHubScraperGameEntry.State.WAITING
+			num_games_warning -= 1
+			num_games_pending += 1
+			update_games_stats()
 			requests_mutex.lock()
 			add_data_request(game_entry, Request.Type.DATA_SEARCH, true)
 			requests_mutex.unlock()
@@ -375,24 +417,29 @@ func _on_Warning_search_completed(orig_game_data: RetroHubGameData, new_game_dat
 	for game_entry in game_entry_list:
 		if game_entry.game_data == orig_game_data:
 			game_entry.state = RetroHubScraperGameEntry.State.WAITING
+			num_games_warning -= 1
+			num_games_pending += 1
+			update_games_stats()
 			if not prepare_media_scrape_from_search(game_entry, new_game_data):
 				_finish_scrape(game_entry)
 			break
 
 func cancel_scrape(game_entry: RetroHubScraperGameEntry):
+	game_entry.data = ["Canceled", null]
+	game_entry.state = RetroHubScraperGameEntry.State.ERROR
+	num_games_pending = num_games_pending - 1
+	num_games_error = num_games_error + 1
+	update_games_stats()
+
 	# Cancel in data
 	for game_data in pending_datas:
 		if pending_datas[game_data].game_entry == game_entry:
 			scraper.cancel(game_data)
-			game_entry.set_deferred("data", "Canceled")
-			game_entry.set_deferred("state", RetroHubScraperGameEntry.State.ERROR)
 
 	# Cancel in media (current)
 	for req in requests_curr:
 		if req.type == Request.Type.MEDIA and req.game_entry == game_entry:
 			scraper.cancel(game_entry.game_data)
-			game_entry.set_deferred("data", "Canceled")
-			game_entry.set_deferred("state", RetroHubScraperGameEntry.State.ERROR)
 			break
 
 	# Cancel in media (pending)
@@ -412,8 +459,6 @@ func cancel_scrape(game_entry: RetroHubScraperGameEntry):
 	requests_mutex.unlock()
 	if pending_medias.has(game_entry.game_data):
 		pending_medias.erase(game_entry.game_data)
-	game_entry.set_deferred("data", "Canceled")
-	game_entry.set_deferred("state", RetroHubScraperGameEntry.State.ERROR)
 	processing_request_mutex.unlock()
 
 
@@ -435,8 +480,11 @@ func cancel_entry(game_entry: RetroHubScraperGameEntry):
 	to_delete.clear()
 	requests_semaphore.wait()
 	requests_mutex.unlock()
-	game_entry.data = "Canceled"
+	game_entry.data = ["Canceled", null]
 	game_entry.state = RetroHubScraperGameEntry.State.ERROR
+	num_games_pending -= 1
+	num_games_error += 1
+	update_games_stats()
 	processing_request_mutex.unlock()
 
 func finish_scraping():
@@ -458,8 +506,9 @@ func finish_scraping():
 	hide()
 
 func _on_Finish_pressed():
-	if num_games_pending > 0:
-		n_stop_scraper_dialog.set_num_games_pending(num_games_pending)
+	var remaining = num_games_error + num_games_warning + num_games_pending
+	if remaining > 0:
+		n_stop_scraper_dialog.set_num_games_pending(remaining)
 		n_stop_scraper_dialog.popup_centered()
 	else:
 		finish_scraping()
@@ -470,10 +519,17 @@ func _on_StopScraperDialog_confirmed():
 
 func _on_Error_retry_entry(game_entry: RetroHubScraperGameEntry, req: Request):
 	requests_mutex.lock()
-	requests_queue.push_front(req)
-	requests_semaphore.post()
+	if req == null:
+		# No request, so start by scratch
+		add_data_request(game_entry, Request.Type.DATA_HASH, true)
+	else:
+		requests_queue.push_front(req)
+		requests_semaphore.post()
 	requests_mutex.unlock()
 	game_entry.state = RetroHubScraperGameEntry.State.WAITING
+	num_games_error -= 1
+	num_games_pending += 1
+	update_games_stats()
 
 
 func _on_Waiting_cancel_entry(game_entry: RetroHubScraperGameEntry):
@@ -481,3 +537,35 @@ func _on_Waiting_cancel_entry(game_entry: RetroHubScraperGameEntry):
 
 func _on_Working_cancel_entry(game_entry: RetroHubScraperGameEntry):
 	cancel_scrape(game_entry)
+
+func incr_num_games_pending():
+	num_games_pending += 1
+	update_games_stats()
+
+func incr_num_games_error():
+	num_games_error += 1
+	update_games_stats()
+
+func incr_num_games_warning():
+	num_games_warning += 1
+	update_games_stats()
+
+func incr_num_games_success():
+	num_games_success += 1
+	update_games_stats()
+
+func decr_num_games_pending():
+	num_games_pending -= 1
+	update_games_stats()
+
+func decr_num_games_error():
+	num_games_error -= 1
+	update_games_stats()
+
+func decr_num_games_warning():
+	num_games_warning -= 1
+	update_games_stats()
+
+func decr_num_games_success():
+	num_games_success -= 1
+	update_games_stats()

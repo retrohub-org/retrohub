@@ -3,10 +3,15 @@ extends Control
 signal retry_entry(game_entry, req)
 
 onready var n_label = $"%ErrorLabel"
+onready var n_retry = $"%ErrorRetryButton"
+
 onready var base_text = n_label.text
 
 var game_entry
 var req
+
+func grab_focus():
+	n_retry.grab_focus()
 
 func set_entry(_game_entry: RetroHubScraperGameEntry):
 	game_entry = _game_entry
