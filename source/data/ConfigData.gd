@@ -22,9 +22,9 @@ var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_cust
 var custom_input_remap : String = "" setget _set_custom_input_remap
 var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_map
 var input_controller_map : Dictionary = default_input_controller_map() setget _set_input_controller_map
-var input_controller_main_axis : int = JOY_ANALOG_LX setget _set_input_controller_main_axis
-var input_controller_secondary_axis : int = JOY_ANALOG_RX setget _set_input_controller_secondary_axis
-var input_controller_icon_type : int = 0 setget _set_input_controller_icon_type
+var input_controller_main_axis : String = "left" setget _set_input_controller_main_axis
+var input_controller_secondary_axis : String = "right" setget _set_input_controller_secondary_axis
+var input_controller_icon_type : String = "auto" setget _set_input_controller_icon_type
 var input_controller_echo_pre_delay: float = 0.75 setget _set_input_controller_echo_pre_delay
 var input_controller_echo_delay: float = 0.15 setget _set_input_controller_echo_delay
 var virtual_keyboard_layout : String = "qwerty" setget _set_virtual_keyboard_layout
@@ -336,3 +336,50 @@ func process_raw_config_changes(config: Dictionary):
 			RetroHubConfig._set_credential(cred, config[cred])
 			config.erase(cred)
 			_should_save = true
+	
+	# Old raw configs that were renamed
+	if config.has(KEY_INPUT_CONTROLLER_MAIN_AXIS) and config[KEY_INPUT_CONTROLLER_MAIN_AXIS] is float:
+		_should_save = true
+		match int(config[KEY_INPUT_CONTROLLER_MAIN_AXIS]):
+			JOY_ANALOG_RX:
+				config[KEY_INPUT_CONTROLLER_MAIN_AXIS] = "right"
+			JOY_ANALOG_LX, _:
+				config[KEY_INPUT_CONTROLLER_MAIN_AXIS] = "left"
+	
+	if config.has(KEY_INPUT_CONTROLLER_SECONDARY_AXIS) and config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] is float:
+		_should_save = true
+		match int(config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS]):
+			JOY_ANALOG_RX:
+				config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] = "right"
+			JOY_ANALOG_LX, _:
+				config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] = "left"
+	
+	if config.has(KEY_INPUT_CONTROLLER_ICON_TYPE) and config[KEY_INPUT_CONTROLLER_ICON_TYPE] is float:
+		_should_save = true
+		match int(config[KEY_INPUT_CONTROLLER_ICON_TYPE]):
+			1:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "xbox360"
+			2:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "xboxone"
+			3:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "xboxseries"
+			4:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "ps3"
+			5:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "ps4"
+			6:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "ps5"
+			7:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "switch"
+			8:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "joycon"
+			9:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "steam"
+			10:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "steamdeck"
+			11:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "luna"
+			12:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "stadia"
+			0, _:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "auto"

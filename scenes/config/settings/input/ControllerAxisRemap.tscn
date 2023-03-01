@@ -42,5 +42,5 @@ path = "joypad/r_stick"
 force_type = 2
 
 [connection signal="popup_hide" from="." to="." method="_on_ControllerButtonRemap_popup_hide"]
-[connection signal="pressed" from="HBoxContainer/LStick" to="." method="_on_Icon_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="HBoxContainer/RStick" to="." method="_on_Icon_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="HBoxContainer/LStick" to="." method="_on_Icon_pressed" binds= [ "left" ]]
+[connection signal="pressed" from="HBoxContainer/RStick" to="." method="_on_Icon_pressed" binds= [ "right" ]]
