@@ -20,7 +20,6 @@
 [ext_resource path="res://addons/controller_icons/assets/xboxone/r_stick.png" type="Texture" id=18]
 
 [node name="FirstTimePopup" type="Popup"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 28.0

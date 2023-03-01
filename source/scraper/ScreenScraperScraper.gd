@@ -42,9 +42,9 @@ class RequestDetails:
 
 	func cancel():
 		_http.cancel_request()
-		_http.emit_signal("request_completed", FAILED, 400, PoolStringArray(), PoolByteArray())
+		_http.emit_signal("request_completed", -1, 0, PoolStringArray(), PoolByteArray())
 
-const MAX_REQUESTS := 3
+const MAX_REQUESTS := 2
 
 var _req_semaphore := Semaphore.new()
 
@@ -260,6 +260,9 @@ func _process(_delta):
 					HTTPRequest.RESULT_TIMEOUT:
 						# Timeout
 						details = "The service took too much time to answer. This might be due to a slow/unreliable internet connection, or the service is too busy."
+					-1:
+						# Request was canceled
+						details = "Canceled by user"
 			match req.type:
 				RequestDetails.Type.DATA:
 					emit_signal("game_scrape_error", game_data, details)
@@ -515,7 +518,7 @@ func extract_json_date(date: String) -> String:
 
 func extract_json_region(json_arr: Array) -> Dictionary:
 	var regions = ["wor", "ss", "us", "eu", "jp"]
-	var curr_region = RetroHubConfig.config.region
+	var curr_region = convert_region_to_ss(RetroHubConfig.config.region)
 	regions.erase(curr_region)
 	regions.push_front(curr_region)
 
@@ -603,3 +606,14 @@ func find_all_by_key(input_arr: Array, key: String, values: Array) -> Array:
 			if input.has(key) and input[key] == val:
 				output.push_back(input)
 	return output
+
+func convert_region_to_ss(region: String) -> String:
+	match region:
+		"usa":
+			return "us"
+		"eur":
+			return "eu"
+		"jpn":
+			return "jp"
+		_:
+			return "region"

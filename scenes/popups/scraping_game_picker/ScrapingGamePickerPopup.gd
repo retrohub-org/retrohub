@@ -13,7 +13,20 @@ func _ready():
 	n_game_tree.set_column_expand(0, true)
 	n_game_tree.set_column_expand(1, false)
 	n_game_tree.set_column_min_width(1, 100)
-
+	
+	# Set focus neighbors
+	var ok = get_ok()
+	var cancel = get_cancel()
+	
+	var path = "../../%s/%s" % [cancel.get_parent().name, cancel.name]
+	n_game_tree.focus_neighbour_bottom = path
+	n_game_tree.focus_neighbour_top = path
+	
+	path = "../../%s/%s" % [n_game_tree.get_parent().name, n_game_tree.name]
+	ok.focus_neighbour_top = path
+	ok.focus_neighbour_bottom = path
+	cancel.focus_neighbour_top = path
+	cancel.focus_neighbour_bottom = path
 
 func _on_ScrapingGamePickerPopup_about_to_show():
 	n_game_tree.clear()
@@ -26,10 +39,16 @@ func _on_ScrapingGamePickerPopup_about_to_show():
 		var item = n_game_tree.create_item(root)
 		set_item_settings(item, system.fullname)
 		systems_items[system] = item
+	# Then all games
 	for game in RetroHubConfig.games:
 		var item = n_game_tree.create_item(systems_items[game.system])
 		set_item_settings(item, game.path.get_file())
 		item.set_metadata(0, game)
+	# Focus tree
+	yield(get_tree(), "idle_frame")
+	n_game_tree.grab_focus()
+	n_game_tree.scroll_to_item(root)
+	root.select(0)
 
 func set_item_settings(item: TreeItem, name: String):
 	item.set_text(0, name)
@@ -61,7 +80,10 @@ func set_item_checked_up(item: TreeItem):
 
 
 func _on_GameTree_item_edited():
-	var edited = n_game_tree.get_edited()
+	handle_tree_edit(n_game_tree.get_edited())
+
+
+func handle_tree_edit(edited: TreeItem):
 	set_item_checked_down(edited.get_children(), edited.is_checked(1))
 	set_item_checked_up(edited.get_parent())
 
@@ -90,3 +112,13 @@ func get_selected_items(root: TreeItem):
 					selected_items.append(next.get_metadata(0))
 				next = next.get_next()
 	return selected_items
+
+
+func _on_GameTree_item_activated():
+	var item : TreeItem = n_game_tree.get_selected()
+	if n_game_tree.get_selected_column() == 0:
+		if item.get_children() != null:
+			item.collapsed = not item.collapsed
+		else:
+			item.set_checked(1, not item.is_checked(1))
+			handle_tree_edit(item)

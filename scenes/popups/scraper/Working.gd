@@ -4,8 +4,12 @@ signal cancel_entry(game_entry)
 
 onready var n_label = $"%WorkingLabel"
 onready var n_progress = $"%WorkingProgress"
+onready var n_cancel = $"%WorkingCancelButton"
 
 var game_entry : RetroHubScraperGameEntry
+
+func grab_focus():
+	n_cancel.grab_focus()
 
 func set_entry(_game_entry: RetroHubScraperGameEntry):
 	game_entry = _game_entry

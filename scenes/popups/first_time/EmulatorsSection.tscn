@@ -48,8 +48,8 @@ size_flags_vertical = 3
 
 [node name="EmulatorInfoTab" type="TabContainer" parent="VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
-margin_right = 1024.0
-margin_bottom = 460.0
+margin_right = 8.0
+margin_bottom = 12.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tabs_visible = false

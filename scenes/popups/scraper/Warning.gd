@@ -26,6 +26,12 @@ var thread : Thread = null
 var req_semaphore := Semaphore.new()
 var req_datas := []
 
+func grab_focus():
+	if n_game_search_entries.get_child_count() > 0:
+		n_game_search_entries.get_child(0).grab_focus()
+	else:
+		n_search_field.grab_focus()
+
 func set_scraper(_scraper: RetroHubScraper) -> void:
 	scraper = _scraper
 	start_thread()

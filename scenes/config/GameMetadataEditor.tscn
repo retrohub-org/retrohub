@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/ui_nodes/AgeRatingTextureRect.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/config/GameMetadataEditor.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/ratings/cero/A.png" type="Texture" id=4]
 [ext_resource path="res://assets/ratings/pegi/3.png" type="Texture" id=5]
 [ext_resource path="res://scenes/popups/age_rating/AgeRatingPopup.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/utils/ScrollContainerHandler.gd" type="Script" id=7]
 [ext_resource path="res://source/utils/SpinBoxHandler.gd" type="Script" id=8]
 
 [sub_resource type="ButtonGroup" id=1]
@@ -376,6 +377,9 @@ margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 8 )
 
+[node name="ScrollHandler" type="Control" parent="ScrollContainer"]
+script = ExtResource( 7 )
+
 [node name="AgeRatingPopup" parent="." instance=ExtResource( 6 )]
 unique_name_in_owner = true
 visible = false
@@ -397,10 +401,10 @@ margin_bottom = 235.5
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer6/Publisher" to="." method="_on_change_ocurred"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer12/ChangeAgeRating" to="." method="_on_ChangeAgeRating_pressed"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Genres" to="." method="_on_change_ocurred"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_FixedPlayers_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_change_ocurred"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_FixedPlayersNum_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_FixedPlayers_toggled"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_change_ocurred"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_FixedPlayersNum_value_changed"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_VariablePlayers_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_change_ocurred"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin" to="." method="_on_VariablePlayersMin_value_changed"]
@@ -409,5 +413,5 @@ margin_bottom = 235.5
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer9/Favorite" to="." method="_on_change_ocurred"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed" to="." method="_on_change_ocurred"]
 [connection signal="popup_hide" from="AgeRatingPopup" to="." method="_on_AgeRatingPopup_popup_hide"]
-[connection signal="rating_defined" from="AgeRatingPopup" to="." method="_on_AgeRatingPopup_rating_defined"]
 [connection signal="rating_defined" from="AgeRatingPopup" to="." method="_on_change_ocurred"]
+[connection signal="rating_defined" from="AgeRatingPopup" to="." method="_on_AgeRatingPopup_rating_defined"]
