@@ -33,6 +33,7 @@ custom_constants/separation = 15
 unique_name_in_owner = true
 margin_right = 871.0
 margin_bottom = 24.0
+focus_mode = 0
 size_flags_horizontal = 3
 editable = false
 placeholder_text = "<empty>"
@@ -42,6 +43,7 @@ unique_name_in_owner = true
 margin_left = 886.0
 margin_right = 1024.0
 margin_bottom = 24.0
+focus_neighbour_top = NodePath("../../NextButton")
 text = "Choose directory"
 icon = ExtResource( 2 )
 
@@ -64,9 +66,10 @@ autowrap = true
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 580.0
+margin_top = 556.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 576.0
+focus_neighbour_bottom = NodePath("../HBoxContainer/ChooseDir")
 disabled = true
 text = "Next"
 

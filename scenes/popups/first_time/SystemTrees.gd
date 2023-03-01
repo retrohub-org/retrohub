@@ -15,11 +15,20 @@ onready var n_systems := [
 	n_engines, n_modern_consoles
 ]
 
+func _ready():
+	for system in n_systems:
+		system.connect("focus_entered", self, "_on_tree_focus_entered", [system])
+
+func _on_tree_focus_entered(tree: Tree):
+	if not tree.get_selected():
+		tree.get_root().select(1)
+	tree.emit_signal("item_selected")
+
 func grab_focus():
 	for tree in n_systems:
 		if tree.visible:
 			tree.grab_focus()
-			break
+			return
 
 
 func setup_systems(categories: Array):
@@ -30,6 +39,7 @@ func setup_systems(categories: Array):
 		var root : TreeItem = n_systems[idx].create_item()
 		root.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 		root.set_checked(0, true)
+		root.set_selectable(0, false)
 		root.set_editable(0, true)
 		root.set_text(1, "<all>")
 
@@ -40,6 +50,7 @@ func setup_systems(categories: Array):
 		child.set_checked(0, system["name"] in RetroHubConfig.systems)
 		set_item_checked_up(child.get_parent())
 		child.set_editable(0, true)
+		child.set_selectable(0, false)
 		child.set_metadata(0, system)
 		child.set_text(1, system["name"])
 	
@@ -76,8 +87,7 @@ func set_item_checked_up(item: TreeItem):
 		item.set_checked(0, all_checked)
 		set_item_checked_up(item.get_parent())
 
-func _on_item_edited(tree: Tree):
-	var edited = tree.get_edited()
+func _on_item_edited(edited: TreeItem):
 	if is_edit_valid(edited):
 		set_item_checked_down(edited.get_children(), edited.is_checked(0))
 		set_item_checked_up(edited.get_parent())
@@ -90,7 +100,7 @@ func is_edit_valid(item: TreeItem):
 	if system:
 		var name = system["name"]
 		if RetroHubConfig.systems.has(name):
-			return RetroHubConfig.systems[name].num_games == 0 
+			return RetroHubConfig.systems[name].num_games == 0
 	return true
 
 func save():
@@ -108,23 +118,19 @@ func _on_item_selected(tree: Tree):
 	emit_signal("system_selected", system)
 
 func _on_Consoles_item_edited():
-	_on_item_edited(n_consoles)
+	_on_item_edited(n_consoles.get_edited())
 
 func _on_Arcades_item_edited():
-	_on_item_edited(n_arcades)
-
+	_on_item_edited(n_arcades.get_edited())
 
 func _on_Computers_item_edited():
-	_on_item_edited(n_computers)
-
+	_on_item_edited(n_computers.get_edited())
 
 func _on_Engines_item_edited():
-	_on_item_edited(n_engines)
-
+	_on_item_edited(n_engines.get_edited())
 
 func _on_ModernConsoles_item_edited():
-	_on_item_edited(n_modern_consoles)
-
+	_on_item_edited(n_modern_consoles.get_edited())
 
 func _on_Consoles_item_selected():
 	_on_item_selected(n_consoles)
@@ -132,14 +138,36 @@ func _on_Consoles_item_selected():
 func _on_Arcades_item_selected():
 	_on_item_selected(n_arcades)
 
-
 func _on_Computers_item_selected():
 	_on_item_selected(n_computers)
-
 
 func _on_Engines_item_selected():
 	_on_item_selected(n_engines)
 
-
 func _on_ModernConsoles_item_selected():
 	_on_item_selected(n_modern_consoles)
+
+func _on_Consoles_item_activated():
+	var item : TreeItem = n_consoles.get_selected()
+	item.set_checked(0, not item.is_checked(0))
+	_on_item_edited(item)
+
+func _on_Arcades_item_activated():
+	var item : TreeItem = n_arcades.get_selected()
+	item.set_checked(0, not item.is_checked(0))
+	_on_item_edited(item)
+
+func _on_Computers_item_activated():
+	var item : TreeItem = n_computers.get_selected()
+	item.set_checked(0, not item.is_checked(0))
+	_on_item_edited(item)
+
+func _on_Engines_item_activated():
+	var item : TreeItem = n_engines.get_selected()
+	item.set_checked(0, not item.is_checked(0))
+	_on_item_edited(item)
+
+func _on_ModernConsoles_item_activated():
+	var item : TreeItem = n_modern_consoles.get_selected()
+	item.set_checked(0, not item.is_checked(0))
+	_on_item_edited(item)

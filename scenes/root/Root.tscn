@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/root/Root.gd" type="Script" id=1]
 [ext_resource path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" type="Script" id=2]
 [ext_resource path="res://scenes/config/ConfigPopup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/root/Viewport.gd" type="Script" id=4]
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=5]
+[ext_resource path="res://scenes/root/FileSystemPopup.gd" type="Script" id=6]
 [ext_resource path="res://scenes/no_theme/NoTheme.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=1]
@@ -65,6 +66,7 @@ window_title = "Open a File"
 mode = 0
 access = 2
 show_hidden_files = true
+script = ExtResource( 6 )
 
 [node name="Keyboard" type="PopupPanel" parent="."]
 unique_name_in_owner = true

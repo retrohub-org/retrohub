@@ -42,6 +42,11 @@ func _ready():
 	RetroHubConfig.connect("config_ready", self, "on_config_ready")
 	RetroHubConfig.connect("config_updated", self, "on_config_updated")
 
+	# Wait a frame for the config to load
+	yield(get_tree(), "idle_frame")
+	if RetroHubConfig.config.is_first_time:
+		_initKeyboard("qwerty")
+
 func on_config_ready(config_data: ConfigData):
 	_initKeyboard(config_data.virtual_keyboard_layout)
 	autoShow = config_data.virtual_keyboard_show_on_mouse

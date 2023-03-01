@@ -14,19 +14,16 @@ func _init():
 	ControllerIcons.connect("input_type_changed", self, "_on_input_type_changed")
 
 func _ready():
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 	yield(get_tree(), "idle_frame")
 	raise()
+	_joypad_echo_pre_delay.wait_time = RetroHubConfig.config.input_controller_echo_pre_delay
+	_joypad_echo_delay.wait_time = RetroHubConfig.config.input_controller_echo_delay
 	_joypad_echo_pre_delay.one_shot = true
 	_joypad_echo_pre_delay.connect("timeout", self, "_on_joypad_echo_pre_delay_timeout")
 	_joypad_echo_delay.connect("timeout", self, "_on_joypad_echo_delay_timeout")
 	add_child(_joypad_echo_pre_delay)
 	add_child(_joypad_echo_delay)
-
-func _on_config_ready(config_data: ConfigData):
-	_joypad_echo_pre_delay.wait_time = config_data.input_controller_echo_pre_delay
-	_joypad_echo_delay.wait_time = config_data.input_controller_echo_delay
 
 func _on_config_updated(key: String, old, new):
 	match key:

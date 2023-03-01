@@ -67,6 +67,7 @@ unique_name_in_owner = true
 margin_left = 55.0
 margin_right = 110.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../../../NextButton")
 text = "USA"
 items = [ "USA", null, false, 0, null, "Europe", null, false, 1, null, "Japan", null, false, 2, null ]
 selected = 0
@@ -373,6 +374,7 @@ stretch_mode = 6
 margin_top = 556.0
 margin_right = 1024.0
 margin_bottom = 576.0
+focus_neighbour_bottom = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer/RegionOptions")
 text = "Next"
 
 [connection signal="item_selected" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/RegionOptions" to="." method="_on_RegionOptions_item_selected"]
