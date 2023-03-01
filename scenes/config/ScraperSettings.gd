@@ -21,6 +21,8 @@ onready var n_scrape = $"%Scrape"
 onready var n_scraping_game_picker_popup = $"%ScrapingGamePickerPopup"
 onready var n_scrape_popup = $"%ScraperPopup"
 
+onready var n_ss_settings := $"%ScreenScrapperSettings"
+
 onready var n_media_nodes = [
 	n_media_logo,
 	n_media_title_screen,
@@ -114,6 +116,8 @@ func _on_Scrape_pressed():
 func _on_ScraperSettings_visibility_changed():
 	if visible:
 		update_scrape_stats(true)
+	else:
+		n_ss_settings.save_credentials()
 
 
 func _on_ScraperPopup_popup_hide():

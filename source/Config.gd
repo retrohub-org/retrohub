@@ -202,6 +202,17 @@ func load_config_file():
 		config.save_config_to_path(get_config_file(), true)
 		# TODO: behavior for when file is corrupt
 
+func _get_credential(key: String) -> String:
+	var json : Dictionary = JSONUtils.load_json_file(get_config_dir() + "/rh_credentials.json")
+	if not json.empty() and json.has(key):
+		return json[key]
+	return ""
+
+func _set_credential(key: String, value: String):
+	var json : Dictionary = JSONUtils.load_json_file(get_config_dir() + "/rh_credentials.json")
+	json[key] = value
+	JSONUtils.save_json_file(json, get_config_dir() + "/rh_credentials.json")
+
 func _on_config_updated(key, old_value, new_value):
 	match key:
 		ConfigData.KEY_GAMES_DIR:
@@ -472,6 +483,9 @@ func bootstrap_config_dir():
 				return
 			_file.store_string(JSON.print([], "\t"))
 			_file.close()
+		
+		# Bootstrap credentials file
+		JSONUtils.save_json_file({}, get_config_dir() + "/rh_credentials.json")
 
 func save_config():
 	config.save_config_to_path(get_config_file())
