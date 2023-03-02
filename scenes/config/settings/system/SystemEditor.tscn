@@ -191,4 +191,5 @@ hide_root = true
 [connection signal="text_changed" from="HBoxContainer3/Name" to="." method="_on_item_change"]
 [connection signal="item_selected" from="HBoxContainer4/Category" to="." method="_on_item_change"]
 [connection signal="pressed" from="HBoxContainer6/ChangeExtensions" to="." method="_on_ChangeExtensions_pressed"]
-[connection signal="button_pressed" from="Emulators" to="." method="_on_Emulators_button_pressed"]
+[connection signal="pressed" from="HBoxContainer5/HBoxContainer/AddEmulator" to="." method="_on_AddEmulator_pressed"]
+[connection signal="item_activated" from="Emulators" to="." method="_on_Emulators_item_activated"]

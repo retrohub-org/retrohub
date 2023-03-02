@@ -11,7 +11,9 @@ onready var n_custom_opt := $"%CustomOptions"
 onready var n_restore_system := $"%RestoreSystem"
 
 onready var n_select_extensions_popup := $"%SelectExtensionsPopup"
-onready var n_add_custom_info_popup = $"%AddCustomInfoPopup"
+onready var n_add_custom_info_popup := $"%AddCustomInfoPopup"
+onready var n_add_existing_info_popup := $"%AddExistingInfoPopup"
+
 
 var sep_idx := -1
 
@@ -147,3 +149,18 @@ func _on_RemoveSystem_pressed():
 				idx -= 1
 			n_system_selection.select(idx)
 			_on_SystemSelection_item_selected(idx)
+
+
+func _on_SystemEditor_request_add_emulator():
+	n_add_existing_info_popup.start(RetroHubConfig.emulators_map, n_system_editor.curr_system["emulator"], "res://assets/emulators/%s.png","emulator")
+
+
+func _on_AddExistingInfoPopup_identifier_picked(emulator_name: String):
+	var added_info
+	if emulator_name == "retroarch":
+		added_info = {"retroarch": []}
+	else:
+		added_info = emulator_name
+	n_system_editor.emulators.append(added_info)
+	n_system_editor.add_emulator(added_info)
+	_on_SystemEditor_change_ocurred()
