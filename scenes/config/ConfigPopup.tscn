@@ -312,4 +312,4 @@ visible = false
 [connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_focus_entered" binds= [ 9 ]]
 [connection signal="focus_entered" from="Panel/HBoxContainer/MarginContainer/SettingsTab" to="." method="_on_SettingsTab_focus_entered"]
 [connection signal="theme_reload" from="Panel/HBoxContainer/MarginContainer/SettingsTab/RegionSettings" to="." method="_on_theme_reload"]
-[connection signal="theme_reload" from="Panel/HBoxContainer/MarginContainer/SettingsTab/SystemSettings" to="." method="_on_SystemSettings_theme_reload"]
+[connection signal="theme_reload" from="Panel/HBoxContainer/MarginContainer/SettingsTab/SystemSettings" to="." method="_on_theme_reload"]

@@ -6,7 +6,9 @@ signal request_add_emulator()
 signal request_edit_emulator()
 
 var curr_system : Dictionary setget set_curr_system
+var emulators : Array
 var extensions := []
+var emulator_tree_root : TreeItem
 
 onready var n_photo := $"%Photo"
 onready var n_logo := $"%Logo"
@@ -36,23 +38,32 @@ func set_curr_system(_curr_system: Dictionary):
 	n_fullname.text = curr_system["fullname"]
 	n_category.selected = RetroHubSystemData.category_to_idx(curr_system["category"])
 	extensions = curr_system["extension"].duplicate()
+	emulators = curr_system["emulator"].duplicate(true)
 	set_extension_label()
-	
+
 	n_emulators.clear()
-	var root = n_emulators.create_item()
-	for emulator in curr_system["emulator"]:
-		var child = n_emulators.create_item(root)
-		if emulator is Dictionary:
-			# RetroArch
-			var text : String = get_emulator_name(emulator.keys()[0]) + " ["
-			for core in emulator.values()[0]:
-				text += core + ","
+	emulator_tree_root = n_emulators.create_item()
+	for emulator in emulators:
+		add_emulator(emulator)
+
+func add_emulator(emulator):
+	var child = n_emulators.create_item(emulator_tree_root)
+	child.set_metadata(0, emulator)
+	if emulator is Dictionary:
+		# RetroArch
+		var text : String = get_emulator_name(emulator.keys()[0]) + " ["
+		for core in emulator.values()[0]:
+			text += core + ","
+		if text.rfind(",") != -1:
 			text[text.rfind(",")] = "]"
-			child.set_text(0, text)
-			child.add_button(1, preload("res://assets/icons/load.svg"))
 		else:
-			child.set_text(0, get_emulator_name(emulator))
-		child.add_button(2, preload("res://assets/icons/failure.svg"))
+			text += "]"
+		child.set_text(0, text)
+		child.set_icon(1, preload("res://assets/icons/settings.svg"))
+	else:
+		child.set_text(0, get_emulator_name(emulator))
+		child.set_selectable(1, false)
+	child.set_icon(2, preload("res://assets/icons/failure.svg"))
 
 func get_emulator_name(name: String):
 	if RetroHubConfig.emulators_map.has(name):
@@ -63,6 +74,7 @@ func save() -> Dictionary:
 	curr_system["fullname"] = n_fullname.text
 	curr_system["category"] = RetroHubSystemData.idx_to_category(n_category.selected)
 	curr_system["extension"] = extensions.duplicate()
+	curr_system["emulator"] = emulators.duplicate(true)
 
 	return curr_system
 
@@ -94,5 +106,15 @@ func _on_ChangeExtensions_pressed():
 	emit_signal("request_extensions", curr_system["name"], extensions)
 
 
-func _on_Emulators_button_pressed(item: TreeItem, column, id):
-	pass
+func _on_Emulators_item_activated():
+	var selected : TreeItem = n_emulators.get_selected()
+	match n_emulators.get_selected_column():
+		2: # Delete
+			var emulator = selected.get_metadata(0)
+			emulators.erase(emulator)
+			selected.free()
+			emit_signal("change_ocurred")
+
+
+func _on_AddEmulator_pressed():
+	emit_signal("request_add_emulator")
