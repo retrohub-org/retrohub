@@ -3,12 +3,17 @@ extends Control
 onready var n_save := $"%Save"
 onready var n_discard := $"%Discard"
 onready var n_emulator_selection := $"%EmulatorSelection"
-onready var n_emulator_editor := $"%EmulatorEditor"
 onready var n_default_opt := $"%DefaultOptions"
 onready var n_custom_opt := $"%CustomOptions"
 onready var n_restore_emulator := $"%RestoreEmulator"
 
-onready var n_add_custom_info_popup = $"%AddCustomInfoPopup"
+onready var n_emulator_editors_tab := $"%EmulatorEditorsTab"
+onready var n_emulator_editor := $"%EmulatorEditor"
+onready var n_retro_arch_emulator_editor := $"%RetroArchEmulatorEditor"
+
+onready var n_add_custom_info_popup := $"%AddCustomInfoPopup"
+onready var n_add_custom_core_info_popup := $"%AddCustomCoreInfoPopup"
+
 
 var sep_idx := -1
 
@@ -46,24 +51,38 @@ func _on_EmulatorSelection_item_selected(index):
 	n_default_opt.visible = !is_custom
 	n_custom_opt.visible = is_custom
 	n_restore_emulator.disabled = not data.has("#modified")
-	n_emulator_editor.curr_emulator = data
+	
+	match data["name"]:
+		"retroarch":
+			n_emulator_editors_tab.current_tab = 1
+		_:
+			n_emulator_editors_tab.current_tab = 0
+	
+	get_current_emulator_editor().curr_emulator = data
 
 
 func _on_EmulatorSettings_visibility_changed():
-	if n_emulator_selection and n_emulator_editor:
+	if n_emulator_selection and n_emulator_editor and n_retro_arch_emulator_editor:
 		if visible:
 			_on_EmulatorSelection_item_selected(n_emulator_selection.selected)
 		else:
 			n_emulator_editor.clear_icons()
+			n_retro_arch_emulator_editor.clear_icons()
 
 
 func _on_EmulatorEditor_change_ocurred():
 	n_save.disabled = false
 	n_discard.disabled = false
 
+func get_current_emulator_editor():
+	if n_emulator_editors_tab.current_tab == 0:
+		return n_emulator_editor
+	elif n_emulator_editors_tab.current_tab == 1:
+		return n_retro_arch_emulator_editor
+	return null
 
 func save_changes():
-	var emulator_raw : Dictionary = n_emulator_editor.save()
+	var emulator_raw : Dictionary = get_current_emulator_editor().save()
 	RetroHubConfig.save_emulator(emulator_raw)
 	update_emulator_selection(emulator_raw)
 	n_save.disabled = true
@@ -71,14 +90,14 @@ func save_changes():
 	n_restore_emulator.disabled = false
 
 func discard_changes():
-	n_emulator_editor.reset()
+	get_current_emulator_editor().reset()
 	n_save.disabled = true
 	n_discard.disabled = true
 
 
 func _on_RestoreEmulator_pressed():
-	var default_emulator = RetroHubConfig.restore_emulator(n_emulator_editor.curr_emulator)
-	n_emulator_editor.curr_emulator = default_emulator
+	var default_emulator = RetroHubConfig.restore_emulator(get_current_emulator_editor().curr_emulator)
+	get_current_emulator_editor().curr_emulator = default_emulator
 	update_emulator_selection(default_emulator)
 	n_save.disabled = true
 	n_discard.disabled = true
@@ -112,12 +131,28 @@ func _on_AddCustomInfoPopup_identifier_picked(id):
 	_on_EmulatorSelection_item_selected(idx)
 
 
+func _on_AddCustomCoreInfoPopup_identifier_picked(id):
+	var core : Dictionary
+	core["name"] = id
+	core["fullname"] = ""
+	core["file"] = ""
+
+	n_retro_arch_emulator_editor.add_core(core)
+
+
 func _on_AddEmulator_pressed():
 	n_add_custom_info_popup.start(RetroHubConfig.emulators_map.keys(), "emulator")
 
 
+func _on_RetroArchEmulatorEditor_request_add_core():
+	var keys := []
+	for data in n_retro_arch_emulator_editor.cores:
+		keys.push_back(data["name"])
+	n_add_custom_core_info_popup.start(keys, "core")
+
+
 func _on_RemoveEmulator_pressed():
-	var emulator_raw : Dictionary = n_emulator_editor.curr_emulator
+	var emulator_raw : Dictionary = get_current_emulator_editor().curr_emulator
 	RetroHubConfig.remove_custom_emulator(emulator_raw)
 	
 	for idx in n_emulator_selection.get_item_count():
@@ -130,3 +165,13 @@ func _on_RemoveEmulator_pressed():
 				idx -= 1
 			n_emulator_selection.select(idx)
 			_on_EmulatorSelection_item_selected(idx)
+	n_emulator_selection.grab_focus()
+
+func _on_HSeparatorTop_focus_entered():
+	get_current_emulator_editor().focus_node_from_top()
+
+
+func _on_EmulatorEditorsTab_focus_entered():
+	get_current_emulator_editor().focus_node_from_bottom()
+
+

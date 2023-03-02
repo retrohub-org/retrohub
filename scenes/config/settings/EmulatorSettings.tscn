@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/config/settings/emulator/EmulatorEditor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/config/settings/EmulatorSettings.gd" type="Script" id=2]
 [ext_resource path="res://scenes/config/settings/AddCustomInfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/config/settings/emulator/RetroArchEmulatorEditor.tscn" type="PackedScene" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="EmulatorSettings" type="Control"]
 anchor_right = 1.0
@@ -23,7 +26,7 @@ margin_bottom = 20.0
 unique_name_in_owner = true
 margin_right = 803.0
 margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2/VarButton")
+focus_neighbour_top = NodePath("../../EmulatorEditorsTab")
 focus_neighbour_bottom = NodePath("../../HBoxContainer2/AddEmulator")
 size_flags_horizontal = 3
 expand_icon = true
@@ -33,7 +36,7 @@ unique_name_in_owner = true
 margin_left = 807.0
 margin_right = 904.0
 margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2/VarButton")
+focus_neighbour_top = NodePath("../../EmulatorEditorsTab")
 text = "Save changes"
 
 [node name="Discard" type="Button" parent="VBoxContainer/HBoxContainer"]
@@ -41,7 +44,7 @@ unique_name_in_owner = true
 margin_left = 908.0
 margin_right = 1024.0
 margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2/VarButton")
+focus_neighbour_top = NodePath("../../EmulatorEditorsTab")
 text = "Discard changes"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
@@ -53,7 +56,7 @@ margin_bottom = 44.0
 margin_left = 508.0
 margin_right = 659.0
 margin_bottom = 20.0
-focus_neighbour_bottom = NodePath("../../ScrollContainer/EmulatorEditor/Logo")
+focus_neighbour_bottom = NodePath("../../HSeparatorTop")
 size_flags_horizontal = 10
 text = "Add custom emulator"
 
@@ -72,7 +75,7 @@ margin_bottom = 20.0
 unique_name_in_owner = true
 margin_right = 171.0
 margin_bottom = 20.0
-focus_neighbour_bottom = NodePath("../../../ScrollContainer/EmulatorEditor/Logo")
+focus_neighbour_bottom = NodePath("../../../HSeparatorTop")
 text = "Restore default emulator"
 
 [node name="CustomOptions" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2"]
@@ -84,41 +87,78 @@ margin_bottom = 20.0
 [node name="RemoveEmulator" type="Button" parent="VBoxContainer/HBoxContainer2/CustomOptions"]
 margin_right = 178.0
 margin_bottom = 20.0
-focus_neighbour_bottom = NodePath("../../../ScrollContainer/EmulatorEditor/Logo")
+focus_neighbour_bottom = NodePath("../../../HSeparatorTop")
 text = "Remove custom emulator"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparatorTop" type="HSeparator" parent="VBoxContainer"]
 margin_top = 48.0
 margin_right = 1024.0
 margin_bottom = 52.0
+focus_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+[node name="EmulatorEditorsTab" type="TabContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 margin_top = 56.0
 margin_right = 1024.0
 margin_bottom = 576.0
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+tabs_visible = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/EmulatorEditorsTab"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 scroll_horizontal_enabled = false
 
-[node name="EmulatorEditor" parent="VBoxContainer/ScrollContainer" instance=ExtResource( 1 )]
+[node name="EmulatorEditor" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer" instance=ExtResource( 1 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1024.0
 margin_bottom = 520.0
 
-[node name="Logo" parent="VBoxContainer/ScrollContainer/EmulatorEditor" index="1"]
-focus_neighbour_top = NodePath("../../../HBoxContainer2/AddEmulator")
+[node name="Logo" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="1"]
+focus_neighbour_top = NodePath("../../../../HBoxContainer2/AddEmulator")
 
-[node name="VarButton" parent="VBoxContainer/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer" index="0"]
+[node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer" index="0"]
+focus_neighbour_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
+
+[node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2" index="0"]
+focus_neighbour_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/EmulatorEditorsTab"]
+visible = false
+margin_right = 12.0
+margin_bottom = 12.0
+follow_focus = true
+
+[node name="RetroArchEmulatorEditor" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 258.0
+margin_bottom = 372.0
+
+[node name="Logo" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="1"]
+focus_neighbour_top = NodePath("../../../../HBoxContainer2/AddEmulator")
+
+[node name="CoreFileName" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8" index="1"]
 focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
 
-[node name="VarButton" parent="VBoxContainer/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2" index="0"]
+[node name="LoadCoreFileName" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8" index="2"]
 focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="AddCustomInfoPopup" parent="." instance=ExtResource( 3 )]
 unique_name_in_owner = true
+
+[node name="AddCustomCoreInfoPopup" parent="." instance=ExtResource( 3 )]
+unique_name_in_owner = true
+window_title = "Add Core"
 
 [connection signal="visibility_changed" from="." to="." method="_on_EmulatorSettings_visibility_changed"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/EmulatorSelection" to="." method="_on_EmulatorSelection_item_selected"]
@@ -127,7 +167,13 @@ unique_name_in_owner = true
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/AddEmulator" to="." method="_on_AddEmulator_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/DefaultOptions/RestoreEmulator" to="." method="_on_RestoreEmulator_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/CustomOptions/RemoveEmulator" to="." method="_on_RemoveEmulator_pressed"]
-[connection signal="change_ocurred" from="VBoxContainer/ScrollContainer/EmulatorEditor" to="." method="_on_EmulatorEditor_change_ocurred"]
+[connection signal="focus_entered" from="VBoxContainer/HSeparatorTop" to="." method="_on_HSeparatorTop_focus_entered"]
+[connection signal="focus_entered" from="VBoxContainer/EmulatorEditorsTab" to="." method="_on_EmulatorEditorsTab_focus_entered"]
+[connection signal="change_ocurred" from="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" to="." method="_on_EmulatorEditor_change_ocurred"]
+[connection signal="change_ocurred" from="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" to="." method="_on_EmulatorEditor_change_ocurred"]
+[connection signal="request_add_core" from="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" to="." method="_on_RetroArchEmulatorEditor_request_add_core"]
 [connection signal="identifier_picked" from="AddCustomInfoPopup" to="." method="_on_AddCustomInfoPopup_identifier_picked"]
+[connection signal="identifier_picked" from="AddCustomCoreInfoPopup" to="." method="_on_AddCustomCoreInfoPopup_identifier_picked"]
 
-[editable path="VBoxContainer/ScrollContainer/EmulatorEditor"]
+[editable path="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor"]
+[editable path="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor"]
