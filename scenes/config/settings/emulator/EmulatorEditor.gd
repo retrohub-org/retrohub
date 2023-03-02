@@ -10,6 +10,12 @@ onready var n_fullname := $"%Name"
 onready var n_path := $"%Path"
 onready var n_command := $"%Command"
 
+func focus_node_from_top():
+	n_logo.grab_focus()
+
+func focus_node_from_bottom():
+	$HFlowContainer/HBoxContainer/VarButton.grab_focus()
+
 func set_curr_emulator(_curr_emulator: Dictionary):
 	curr_emulator = _curr_emulator
 	n_logo.icon = load("res://assets/emulators/%s.png" % curr_emulator["name"])
