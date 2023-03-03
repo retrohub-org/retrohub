@@ -14,7 +14,6 @@ enum Dir {
 	PREVIOUS
 }
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize
 	mouse_filter = MOUSE_FILTER_IGNORE
@@ -23,6 +22,7 @@ func _ready():
 	if not spin_box:
 		return
 	spin_box.focus_mode = FOCUS_ALL
+	#warning-ignore:return_value_discarded
 	spin_box.connect("focus_entered", self, "_on_focus_entered")
 	for dir in [
 		Dir.TOP,
@@ -54,7 +54,7 @@ func handle_neighbors(dir: int):
 	if not neighbor:
 		return
 
-	var neighbor_obj = get_node("../" + neighbor)
+	var neighbor_obj := get_node("../" + neighbor)
 
 	var raw_path := ".."
 	for i in range(neighbor.get_name_count()):

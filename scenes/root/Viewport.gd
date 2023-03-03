@@ -1,6 +1,6 @@
 extends Viewport
 
-onready var n_theme_node = $NoTheme
+onready var n_theme_node := $NoTheme
 
 func set_theme(node: Node):
 	remove_child(n_theme_node)

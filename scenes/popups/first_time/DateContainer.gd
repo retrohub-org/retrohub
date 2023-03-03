@@ -7,7 +7,6 @@ func select(idx: int):
 	n_options.select(idx)
 	_on_DateOptions_item_selected(idx)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	_on_DateOptions_item_selected(n_options.selected)
 
@@ -23,8 +22,8 @@ func _on_DateOptions_item_selected(index):
 
 
 func _on_Timer_timeout():
-	var time = Time.get_datetime_dict_from_system()
-	var raw_time = "%04d%02d%02dT%02d%02d%02d" % [
+	var time := Time.get_datetime_dict_from_system()
+	var raw_time := "%04d%02d%02dT%02d%02d%02d" % [
 			time["year"], time["month"], time["day"],
 			time["hour"], time["minute"], time["second"]
 	]

@@ -1,29 +1,29 @@
 extends Control
 
-onready var n_service = $"%Service"
-onready var n_games_selected = $"%GamesSelected"
-onready var n_games_type = $"%GamesType"
-onready var n_metadata = $"%Metadata"
-onready var n_media = $"%Media"
-onready var n_media_select_all = $"%MediaSelectAll"
-onready var n_media_deselect_all = $"%MediaDeselectAll"
-onready var n_media_logo = $"%MediaLogo"
-onready var n_media_title_screen = $"%MediaTitleScreen"
-onready var n_media_screenshot = $"%MediaScreenshot"
-onready var n_media_video = $"%MediaVideo"
-onready var n_media_box_render = $"%MediaBoxRender"
-onready var n_media_box_tex = $"%MediaBoxTex"
-onready var n_media_support_render = $"%MediaSupportRender"
-onready var n_media_support_tex = $"%MediaSupportTex"
-onready var n_media_manual = $"%MediaManual"
-onready var n_scrape = $"%Scrape"
+onready var n_service := $"%Service"
+onready var n_games_selected := $"%GamesSelected"
+onready var n_games_type := $"%GamesType"
+onready var n_metadata := $"%Metadata"
+onready var n_media := $"%Media"
+onready var n_media_select_all := $"%MediaSelectAll"
+onready var n_media_deselect_all := $"%MediaDeselectAll"
+onready var n_media_logo := $"%MediaLogo"
+onready var n_media_title_screen := $"%MediaTitleScreen"
+onready var n_media_screenshot := $"%MediaScreenshot"
+onready var n_media_video := $"%MediaVideo"
+onready var n_media_box_render := $"%MediaBoxRender"
+onready var n_media_box_tex := $"%MediaBoxTex"
+onready var n_media_support_render := $"%MediaSupportRender"
+onready var n_media_support_tex := $"%MediaSupportTex"
+onready var n_media_manual := $"%MediaManual"
+onready var n_scrape := $"%Scrape"
 
-onready var n_scraping_game_picker_popup = $"%ScrapingGamePickerPopup"
-onready var n_scrape_popup = $"%ScraperPopup"
+onready var n_scraping_game_picker_popup := $"%ScrapingGamePickerPopup"
+onready var n_scrape_popup := $"%ScraperPopup"
 
 onready var n_ss_settings := $"%ScreenScrapperSettings"
 
-onready var n_media_nodes = [
+onready var n_media_nodes := [
 	n_media_logo,
 	n_media_title_screen,
 	n_media_screenshot,
@@ -43,7 +43,7 @@ func grab_focus():
 func toggle_scrape_button():
 	n_scrape.disabled = selected_game_datas.empty() or !(n_metadata.pressed or n_media.pressed)
 
-func _on_Metadata_toggled(button_pressed):
+func _on_Metadata_toggled(_button_pressed):
 	toggle_scrape_button()
 
 func _on_Media_toggled(button_pressed):
@@ -64,7 +64,7 @@ func _on_MediaDeselectAll_pressed():
 		node.pressed = false
 
 
-func _on_GamesType_item_selected(index):
+func _on_GamesType_item_selected(_index):
 	update_scrape_stats(false)
 
 func update_scrape_stats(passive: bool):
@@ -97,9 +97,9 @@ func update_scrape_stats(passive: bool):
 			n_games_selected.text = "%d games selected" % size
 	toggle_scrape_button()
 
-func get_media_bitmask():
-	var bitmask = 0
-	var idx = 0
+func get_media_bitmask() -> int:
+	var bitmask := 0
+	var idx := 0
 	for media in n_media_nodes:
 		bitmask |= int(media.pressed) << (idx)
 		idx += 1
@@ -107,7 +107,7 @@ func get_media_bitmask():
 
 func _on_Scrape_pressed():
 	n_scrape_popup.popup()
-	var media_bitmask = get_media_bitmask()
+	var media_bitmask := get_media_bitmask()
 	# TODO: Make Scraper generation dynamic according to selection
 	var scraper := RetroHubScreenScraperScraper.new()
 	n_scrape_popup.begin_scraping(selected_game_datas, scraper, n_metadata.pressed, n_media.pressed, media_bitmask)

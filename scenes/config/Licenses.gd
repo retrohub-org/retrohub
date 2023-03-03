@@ -8,10 +8,9 @@ onready var n_content := $"%Content"
 var licenses := {}
 var root : TreeItem
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	# Load licenses
-	var license_files = [
+	var license_files := [
 		["GPLv3", "gpl3.txt"],
 		["MIT (RetroHub)", "mit_retrohub.txt"],
 		["MIT (Godot Engine)", "mit_godot.txt"],
@@ -28,14 +27,14 @@ func _ready():
 			licenses[license[0]] = file.get_as_text()
 			file.close()
 		else:
-			print("Error reading license file %s!" % LICENSE_PATH + license[1])
-	
+			push_error("Error reading license file %s!" % LICENSE_PATH + license[1])
+
 	# Populate tree
 	root = n_names.create_item()
 	for key in licenses:
 		var child : TreeItem = n_names.create_item(root)
 		child.set_text(0, key)
-	
+
 	if root.get_children() != null:
 		root.get_children().select(0)
 		_on_Names_item_selected()
@@ -56,7 +55,7 @@ func select_license(license_key: String) -> bool:
 			return true
 		child = child.get_next()
 	return false
-		
+
 func convert_license_key(key: String) -> String:
 	match key:
 		"gpl3":

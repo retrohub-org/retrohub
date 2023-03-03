@@ -14,11 +14,11 @@ onready var n_retro_arch_emulator_editor := $"%RetroArchEmulatorEditor"
 onready var n_add_custom_info_popup := $"%AddCustomInfoPopup"
 onready var n_add_custom_core_info_popup := $"%AddCustomCoreInfoPopup"
 
-
 var sep_idx := -1
 
 func _ready():
-	n_emulator_selection.get_popup().max_height = 350
+	n_emulator_selection.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
 	n_save.disabled = true
 	n_discard.disabled = true
@@ -28,8 +28,8 @@ func _ready():
 func grab_focus():
 	n_emulator_selection.grab_focus()
 
-func _on_config_ready(config_data: ConfigData):
-	var idx = 0
+func _on_config_ready(_config_data: ConfigData):
+	var idx := 0
 	var found_custom := false
 	for emulator in RetroHubConfig.emulators_map.values():
 		if not found_custom and emulator.has("#custom"):
@@ -47,17 +47,17 @@ func _on_config_ready(config_data: ConfigData):
 func _on_EmulatorSelection_item_selected(index):
 	var data : Dictionary = n_emulator_selection.get_item_metadata(index)
 	discard_changes()
-	var is_custom = data.has("#custom")
+	var is_custom := data.has("#custom")
 	n_default_opt.visible = !is_custom
 	n_custom_opt.visible = is_custom
 	n_restore_emulator.disabled = not data.has("#modified")
-	
+
 	match data["name"]:
 		"retroarch":
 			n_emulator_editors_tab.current_tab = 1
 		_:
 			n_emulator_editors_tab.current_tab = 0
-	
+
 	get_current_emulator_editor().curr_emulator = data
 
 
@@ -96,7 +96,7 @@ func discard_changes():
 
 
 func _on_RestoreEmulator_pressed():
-	var default_emulator = RetroHubConfig.restore_emulator(get_current_emulator_editor().curr_emulator)
+	var default_emulator : Dictionary = RetroHubConfig.restore_emulator(get_current_emulator_editor().curr_emulator)
 	get_current_emulator_editor().curr_emulator = default_emulator
 	update_emulator_selection(default_emulator)
 	n_save.disabled = true
@@ -114,12 +114,13 @@ func update_emulator_selection(emulator: Dictionary):
 
 
 func _on_AddCustomInfoPopup_identifier_picked(id):
-	var emulator : Dictionary
-	emulator["name"] = id
-	emulator["fullname"] = ""
-	emulator["binpath"] = []
-	emulator["command"] = ""
-	emulator["#custom"] = true
+	var emulator := {
+		"name": id,
+		"fullname": "",
+		"binpath": [],
+		"command": "",
+		"#custom": true,
+	}
 
 	RetroHubConfig.emulators_map[id] = emulator
 	RetroHubConfig.save_emulator(emulator)
@@ -132,10 +133,11 @@ func _on_AddCustomInfoPopup_identifier_picked(id):
 
 
 func _on_AddCustomCoreInfoPopup_identifier_picked(id):
-	var core : Dictionary
-	core["name"] = id
-	core["fullname"] = ""
-	core["file"] = ""
+	var core := {
+		"name": id,
+		"fullname": "",
+		"file": "",
+	}
 
 	n_retro_arch_emulator_editor.add_core(core)
 
@@ -154,7 +156,7 @@ func _on_RetroArchEmulatorEditor_request_add_core():
 func _on_RemoveEmulator_pressed():
 	var emulator_raw : Dictionary = get_current_emulator_editor().curr_emulator
 	RetroHubConfig.remove_custom_emulator(emulator_raw)
-	
+
 	for idx in n_emulator_selection.get_item_count():
 		if idx == sep_idx:
 			continue

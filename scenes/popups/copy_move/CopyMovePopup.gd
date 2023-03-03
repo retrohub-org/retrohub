@@ -9,7 +9,7 @@ onready var n_section_labels := [
 	$"%CopyFiles",
 	$"%MoveDisadvantage",
 	$"%CopyAdvantage"
-] 
+]
 onready var n_size := $"%Size"
 onready var n_space_left := $"%SpaceLeft"
 onready var n_move_copy_button := $"%MoveCopyButton"
@@ -20,22 +20,22 @@ var base_texts := []
 var size : int
 var space_left : int
 
+var importer : RetroHubImporter
+var thread := Thread.new()
+
 func _ready():
 	for label in n_section_labels:
 		base_texts.push_back((label as Label).text)
-
-var importer : RetroHubImporter
-
-var thread := Thread.new()
 
 func set_importer(_importer):
 	importer = _importer
 	for idx in range(n_section_labels.size()):
 		n_section_labels[idx].text = base_texts[idx] % importer.get_name()
-	
+
 	n_size.text = "Calculating..."
 	n_space_left.text = "Calculating..."
-	thread.start(self, "t_get_size")
+	if thread.start(self, "t_get_size"):
+		push_error("Thread start failed [t_get_size]")
 
 func t_get_size():
 	size = importer.get_estimated_size()
@@ -48,8 +48,8 @@ func thread_finished():
 	n_space_left.text = get_human_readable_size(space_left) if space_left > 0 else "Could not measure"
 
 func get_human_readable_size(size_raw: int):
-	var value : float = size_raw
-	var multiplier = 0
+	var value := float(size_raw)
+	var multiplier := 0
 	while value > 1024:
 		value /= 1024
 		multiplier += 1
@@ -76,8 +76,8 @@ func _on_Cancel_pressed():
 
 
 func _on_MoveCopyButton_toggled(button_pressed):
-	n_move_section.modulate.a = 0.25 if button_pressed else 1
-	n_copy_section.modulate.a = 1 if button_pressed else 0.25 
+	n_move_section.modulate.a = 0.25 if button_pressed else 1.0
+	n_copy_section.modulate.a = 1.0 if button_pressed else 0.25
 
 
 func _on_Import_pressed():

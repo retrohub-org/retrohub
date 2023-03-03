@@ -75,7 +75,7 @@ func get_estimated_size() -> int:
 		var dir := Directory.new()
 		folder_size = 0
 		if not dir.open(media_path) and not dir.list_dir_begin(true):
-			var next = dir.get_next()
+			var next := dir.get_next()
 			while not next.empty():
 				if dir.current_is_dir():
 					folder_size += FileUtils.get_folder_size(media_path + "/" + next, ES_MEDIA_NAMES)
@@ -91,53 +91,55 @@ func is_available() -> bool:
 	var dir := Directory.new()
 	if not dir.dir_exists(config_path):
 		return false
-	
+
 	# Are the theme's config version too recent?
-	var theme_path = config_path + "/themes"
+	var theme_path := config_path + "/themes"
 	var config_level : int = -1
 	if not dir.open(theme_path):
 		if not dir.list_dir_begin(true):
 			var next := dir.get_next()
 			while not next.empty():
 				if dir.current_is_dir():
-					config_level = max(config_level, check_theme_config_level(theme_path + "/" + next))
-					print(config_level)
+					config_level = int(max(config_level, check_theme_config_level(theme_path + "/" + next)))
 				next = dir.get_next()
-	
+
 	if config_level <= MAXIMUM_SUPPORTED_CONFIG_LEVEL:
 		theme_support = CompatibilityLevel.SUPPORTED
 	else:
 		theme_support = CompatibilityLevel.PARTIAL
 	return true
 
-func check_theme_config_level(base_path: String):
+func check_theme_config_level(base_path: String) -> int:
 	var dir := Directory.new()
-	
+
 	# Query first at root, and only move to folders if it doesn't exist
-	var root_file = base_path + "/theme.xml"
+	var root_file := base_path + "/theme.xml"
 	if dir.file_exists(root_file):
-		var config_level = inspect_theme_xml(root_file)
+		var config_level := inspect_theme_xml(root_file)
 		if config_level != -1:
 			return config_level
-	
+
 	# Query system folders
-	dir.open(base_path)
-	if not dir.list_dir_begin(true):
-		var path = dir.get_next()
-		while not path.empty():
-			var file = base_path + "/" + path + "/theme.xml"
-			if dir.file_exists(file):
-				var config_level = inspect_theme_xml(file)
-				if config_level != -1:
-					return config_level
-			path = dir.get_next()
+	if dir.open(base_path) or dir.list_dir_begin(true):
+		push_error("Failed to open ES theme " + base_path)
+		return -1
+	var path := dir.get_next()
+	while not path.empty():
+		var file := base_path + "/" + path + "/theme.xml"
+		if dir.file_exists(file):
+			var config_level := inspect_theme_xml(file)
+			if config_level != -1:
+				return config_level
+		path = dir.get_next()
 
 	return -1
 
 func inspect_theme_xml(path: String) -> int:
 	var file := File.new()
-	file.open(path, File.READ)
-	
+	if file.open(path, File.READ):
+		push_error("Failed to open ES theme XML " + path)
+		return -1
+
 	# No need to parse the whole XML. We only want to find <formatVersion> tags.
 	var line := file.get_line()
 	var start_tk := "<formatVersion>"
@@ -149,14 +151,14 @@ func inspect_theme_xml(path: String) -> int:
 			var end_idx := line.find(end_tk)
 			if end_idx == -1:
 				continue
-			var version_str = line.substr(start_idx, end_idx - start_idx)
+			var version_str := line.substr(start_idx, end_idx - start_idx)
 			file.close()
 			return version_str.strip_edges().to_int()
-		
+
 		line = file.get_line()
-	
+
 	return -1
-	
+
 
 # Begins the import process. `copy` determines if the user wants
 # to copy previous data and, therefore, not affect the other game library
@@ -177,7 +179,7 @@ func begin_import(copy: bool):
 func import_config():
 	reset_minor(1)
 	progress_minor("Reading game directory...")
-	var config = XML2JSON.parse(config_path + "/es_settings.xml")
+	var config := XML2JSON.parse(config_path + "/es_settings.xml")
 	if config.has("string"):
 		for child in config["string"]:
 			if child.has("#attributes") and child["#attributes"]["name"] == "ROMDirectory":
@@ -190,12 +192,12 @@ func import_metadata():
 	var gamelists := {}
 	var total_games := 0
 	if not dir.open(gamelists_path) and not dir.list_dir_begin(true):
-		var next_folder = dir.get_next()
+		var next_folder := dir.get_next()
 		while not next_folder.empty():
 			if dir.current_is_dir():
-				var gamelist_path = gamelists_path + "/" + next_folder + "/gamelist.xml"
+				var gamelist_path := gamelists_path + "/" + next_folder + "/gamelist.xml"
 				progress_minor("Reading gamedata from \"%s\"..." % next_folder)
-				var gamelist_dict = XML2JSON.parse(gamelist_path)
+				var gamelist_dict := XML2JSON.parse(gamelist_path)
 				if not gamelist_dict.empty() and gamelist_dict.has("gameList"):
 					gamelist_dict = gamelist_dict["gameList"]
 					if gamelist_dict.has("game"):
@@ -208,18 +210,18 @@ func import_metadata():
 			next_folder = dir.get_next()
 	reset_minor(total_games)
 	for system in gamelists.keys():
-		var base_path = RetroHubConfig.get_gamelists_dir() + "/" + system
-		dir.make_dir_recursive(base_path)
+		var base_path := RetroHubConfig.get_gamelists_dir() + "/" + (system as String)
+		FileUtils.ensure_path(base_path)
 		var data = gamelists[system]
 		if data is Array:
 			for child in data:
 				process_metadata(system, child)
 		elif data is Dictionary:
 			process_metadata(system, data)
-		
+
 func process_metadata(system: String, dict: Dictionary):
 	var game_data := RetroHubGameData.new()
-	var root_path = RetroHubConfig.config.games_dir + "/" + system
+	var root_path := RetroHubConfig.config.games_dir + "/" + system
 	game_data.has_metadata = true
 	game_data.path = root_path + "/" + dict["path"].substr(2)
 	progress_minor("Converting \"%s\" (\"%s\")" % [game_data.path.get_file(), system])
@@ -250,7 +252,7 @@ func process_metadata(system: String, dict: Dictionary):
 		game_data.last_played = dict["lastplayed"]
 	if dict.has("favorite"):
 		game_data.favorite = bool(dict["favorite"])
-	var short_path = system + "/" + game_data.path.get_file().get_basename()
+	var short_path := system + "/" + game_data.path.get_file().get_basename()
 	game_datas[short_path] = game_data
 
 
@@ -258,25 +260,25 @@ func import_media(copy: bool):
 	var dir := Directory.new()
 	var count := 0
 	if not dir.open(media_path) and not dir.list_dir_begin(true):
-		var next = dir.get_next()
+		var next := dir.get_next()
 		while not next.empty():
 			if dir.current_is_dir():
 				count += FileUtils.get_file_count(media_path + "/" + next, ES_MEDIA_NAMES)
 			next = dir.get_next()
 	reset_minor(count)
 	if not dir.list_dir_begin(true):
-		var next = dir.get_next()
+		var next := dir.get_next()
 		while not next.empty():
 			if dir.current_is_dir():
-				var base_path = RetroHubConfig.get_gamemedia_dir() + "/" + next
-				dir.make_dir_recursive(base_path)
+				var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + next
+				FileUtils.ensure_path(base_path)
 				process_media_subfolder(media_path + "/" + next, next, copy)
 			next = dir.get_next()
-	
+
 func process_media_subfolder(path: String, system: String, copy: bool):
 	var dir := Directory.new()
 	if not dir.open(path) and not dir.list_dir_begin(true):
-		var next = dir.get_next()
+		var next := dir.get_next()
 		while not next.empty():
 			if dir.current_is_dir() and next in ES_MEDIA_NAMES:
 				process_media(path + "/" + next, system, RH_MEDIA_NAMES[ES_MEDIA_NAMES.find(next)], copy)
@@ -285,19 +287,21 @@ func process_media_subfolder(path: String, system: String, copy: bool):
 func process_media(path: String, system: String, media_name: String, copy: bool):
 	var dir := Directory.new()
 	if not dir.open(path) and not dir.list_dir_begin(true):
-		var next = dir.get_next()
+		var next := dir.get_next()
 		while not next.empty():
 			if not dir.current_is_dir():
-				var from_path = path + "/" + next
-				var to_path = RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name + "/" + from_path.get_file()
+				var from_path := path + "/" + next
+				var to_path := RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name + "/" + from_path.get_file()
 				FileUtils.ensure_path(to_path)
 				if copy:
 					progress_minor("Copying \"%s\" (\"%s\")" % [from_path.get_file(), system])
-					dir.copy(from_path, to_path)
+					if dir.copy(from_path, to_path):
+						push_error("Failed to copy \"%s\" to \"%s\"" % [from_path, to_path])
 				else:
 					progress_minor("Moving \"%s\" (\"%s\")" % [from_path.get_file(), system])
-					dir.rename(from_path, to_path)
-				var short_path = system + "/" + from_path.get_file().get_basename()
+					if dir.rename(from_path, to_path):
+						push_error("Failed to move \"%s\" to \"%s\"" % [from_path, to_path])
+				var short_path := system + "/" + from_path.get_file().get_basename()
 				if game_datas.has(short_path):
 					game_datas[short_path].has_media = true
 			next = dir.get_next()
@@ -306,7 +310,8 @@ func save_game_data():
 	reset_minor(game_datas.size())
 	for game_data in game_datas.values():
 		progress_minor("Saving \"%s\" metadata" % game_data.name)
-		RetroHubConfig.save_game_data(game_data)
+		if not RetroHubConfig.save_game_data(game_data):
+			push_error("Failed to save game data for \"%s\"" % game_data.name)
 
 
 func cleanup():

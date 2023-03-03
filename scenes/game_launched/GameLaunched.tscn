@@ -9,9 +9,9 @@ script = ExtResource( 1 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 356.0
-margin_top = 276.0
+margin_top = 264.0
 margin_right = 667.0
-margin_bottom = 324.0
+margin_bottom = 312.0
 text = "Currently running %s
 
 Close the game/emulator to wake RetroHub up..."

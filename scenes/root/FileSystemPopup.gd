@@ -23,14 +23,14 @@ func _ready():
 	box.add_child_below_node(box.get_child(0), back_icon)
 	var select_icon := create_icon(controller_icon_rect, "rh_major_option")
 	box.add_child_below_node(box.get_child(3), select_icon)
-	
+
 	box = upwards_button.get_parent()
-	var upwards_icon = create_icon(controller_icon_rect, "rh_minor_option")
+	var upwards_icon := create_icon(controller_icon_rect, "rh_minor_option")
 	box.add_child(upwards_icon)
 	box.move_child(upwards_icon, 0)
-	var refresh_icon = create_icon(controller_icon_rect, "rh_theme_menu")
+	var refresh_icon := create_icon(controller_icon_rect, "rh_theme_menu")
 	box.add_child_below_node(box.get_child(4), refresh_icon)
-	var hide_icon = create_icon(controller_icon_rect, "rh_menu")
+	var hide_icon := create_icon(controller_icon_rect, "rh_menu")
 	box.add_child_below_node(box.get_child(6), hide_icon)
 
 	# Tree should focus cancel button on down
@@ -47,13 +47,13 @@ func _ready():
 	]
 	ok_button.focus_neighbour_top = path
 	cancel_button.focus_neighbour_top = path
-	
+
 	## Create Folder nodes
 	var create_folder_popup : ConfirmationDialog = get_child(5)
 	var create_folder_line_edit : LineEdit = create_folder_popup.get_child(3).get_child(1).get_child(0)
 	var create_folder_ok_button := create_folder_popup.get_ok()
 	var create_folder_cancel_button := create_folder_popup.get_cancel()
-	
+
 	# Set focus neighbors
 	# Line edit should focus cancel button on down
 	path = "../../../%s/%s" % [
@@ -61,7 +61,7 @@ func _ready():
 		create_folder_cancel_button.name
 	]
 	create_folder_line_edit.focus_neighbour_bottom = path
-	
+
 	# Ok and Cancel buttons should focus line edit on up
 	path = "../../%s/%s/%s" % [
 		create_folder_line_edit.get_parent().get_parent().name,
@@ -93,5 +93,5 @@ func create_icon(base: GDScript, path: String) -> Control:
 	icon.path = path
 	icon.max_width = 32
 	icon.show_only = 2
-	
+
 	return icon

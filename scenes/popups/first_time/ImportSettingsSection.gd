@@ -2,12 +2,12 @@ extends Control
 
 signal advance_section
 
-onready var n_import_options = $"%ImportOptions"
-onready var n_compatibility_details = $"%CompatibilityDetails"
+onready var n_import_options := $"%ImportOptions"
+onready var n_compatibility_details := $"%CompatibilityDetails"
 
 onready var n_copy_move_popup := $"%CopyMovePopup"
 
-onready var importers = [
+onready var importers := [
 	EmulationStationImporter.new(),
 	RetroArchImporter.new()
 ]
@@ -16,7 +16,7 @@ var thread := Thread.new()
 var importer_support := []
 
 func _ready():
-	n_import_options.get_popup().max_height = 350
+	n_import_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
 
 func grab_focus():
 	n_import_options.grab_focus()
@@ -27,8 +27,9 @@ func query_importers():
 	n_import_options.add_item("Searching for available platforms...")
 	n_import_options.disabled = true
 	n_compatibility_details.visible = false
-	
-	thread.start(self, "t_query_importers")
+
+	if thread.start(self, "t_query_importers"):
+		push_error("Thread start failed [t_query_importers]")
 
 func t_query_importers():
 	for importer in importers:
@@ -41,8 +42,8 @@ func thread_finished():
 
 func set_importer_buttons():
 	n_import_options.clear()
-	var not_found = true
-	var idx = 0
+	var not_found := true
+	var idx := 0
 	for support in importer_support:
 		if support:
 			not_found = false
@@ -57,8 +58,8 @@ func set_importer_buttons():
 		n_import_options.add_item("Don't import settings", idx + 1)
 		n_import_options.emit_signal("item_selected", n_import_options.selected)
 
-func _on_ImportOptions_item_selected(index):
-	var importer = get_importer_selected()
+func _on_ImportOptions_item_selected(_index):
+	var importer := get_importer_selected()
 	if importer:
 		n_compatibility_details.visible = true
 		n_compatibility_details.set_importer_status(importer)
@@ -72,7 +73,7 @@ func get_importer_selected() -> RetroHubImporter:
 		return null
 
 func _on_NextButton_pressed():
-	var importer = get_importer_selected()
+	var importer := get_importer_selected()
 	if importer:
 		n_copy_move_popup.set_importer(importer)
 		n_copy_move_popup.popup()

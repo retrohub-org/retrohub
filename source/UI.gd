@@ -9,6 +9,8 @@ var color_error := Color("ff5d5d")
 var color_pending := Color("dddddd")
 var color_unavailable := Color("999999")
 
+const max_popupmenu_height := 300
+
 enum Icons {
 	DOWNLOADING,
 	ERROR,
@@ -27,8 +29,11 @@ signal path_selected(file)
 
 func _set_filesystem_popup(popup: FileDialog):
 	_n_filesystem_popup = popup
+	#warning-ignore:return_value_discarded
 	_n_filesystem_popup.connect("file_selected", self, "_on_popup_selected")
+	#warning-ignore:return_value_discarded
 	_n_filesystem_popup.connect("dir_selected", self, "_on_popup_selected")
+	#warning-ignore:return_value_discarded
 	_n_filesystem_popup.connect("popup_hide", self, "_on_popup_hide")
 
 func _set_virtual_keyboard(keyboard: PopupPanel):
@@ -54,7 +59,7 @@ func request_folder_load(base_path: String) -> void:
 	_n_filesystem_popup.popup()
 
 func load_app_icon(icon: int) -> Texture:
-	var path = "res://assets/icons/%s.svg" % Icons.keys()[icon].to_lower()
+	var path : String = "res://assets/icons/%s.svg" % Icons.keys()[icon].to_lower()
 	return (load(path) as Texture)
 
 func show_virtual_keyboard() -> void:

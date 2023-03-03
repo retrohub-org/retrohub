@@ -11,8 +11,8 @@ var key := ""
 var oldcode := 0
 var scancode := 0
 
-func start(key: String):
-	self.key = key
+func start(_key: String):
+	key = _key
 	self.scancode = 0
 	self.oldcode = find_old_keycode(key)
 	n_key_icon.texture = null
@@ -26,8 +26,8 @@ func _input(event):
 		n_key_icon.texture = ControllerIcons.parse_event(event)
 		n_key_label.text = OS.get_scancode_string(scancode)
 
-func find_old_keycode(key: String):
-	for ev in InputMap.get_action_list(key):
+func find_old_keycode(raw_key: String):
+	for ev in InputMap.get_action_list(raw_key):
 		if ev is InputEventKey:
 			return ev.physical_scancode if ev.scancode == 0 else ev.scancode
 	return 0

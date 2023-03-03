@@ -12,5 +12,5 @@ func set_logo(texture: Texture):
 
 func set_found(found: bool, details: String):
 	n_path_section.set_found(found, details)
-	modulate.a = 1 if found else 0.5 
+	modulate.a = 1.0 if found else 0.5
 

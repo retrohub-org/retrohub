@@ -62,7 +62,7 @@ func get_estimated_size() -> int:
 		var dir := Directory.new()
 		folder_size = 0
 		if not dir.open(thumbnails_path) and not dir.list_dir_begin(true):
-			var next = dir.get_next()
+			var next := dir.get_next()
 			while not next.empty():
 				if dir.current_is_dir() and next != "cheevos":
 					folder_size += FileUtils.get_folder_size(thumbnails_path + "/" + next, RA_MEDIA_NAMES)
@@ -74,7 +74,7 @@ func get_estimated_size() -> int:
 # thread. Therefore, you shouldn't use any unsafe-thread API, and limit
 # to finding local files, reading content, and determining compatibility levels
 func is_available() -> bool:
-	var path = RetroHubRetroArchEmulator.get_config_path()
+	var path := RetroHubRetroArchEmulator.get_config_path()
 	if not path.empty():
 		set_paths(path)
 		return true
@@ -105,23 +105,23 @@ func import_metadata():
 	var gamelists := {}
 	var total_games := 0
 	if not dir.open(playlists_path) and not dir.list_dir_begin(true):
-		var next = dir.get_next()
+		var next := dir.get_next()
 		while not next.empty():
 			if not dir.current_is_dir() and next.to_lower().ends_with(".lpl"):
-				var lpl_file = playlists_path + "/" + next
+				var lpl_file := playlists_path + "/" + next
 				progress_minor("Reading gamedata from \"%s\"..." % next)
-				var system_name = guess_system_name(lpl_file)
+				var system_name := guess_system_name(lpl_file)
 				if not system_name.empty():
 					gamelists[system_name] = process_lpl_file(lpl_file)
 			next = dir.get_next()
 	reset_minor(total_games)
 	for system in gamelists.keys():
-		var base_path = RetroHubConfig.get_gamelists_dir() + "/" + system
-		dir.make_dir_recursive(base_path)
+		var base_path := RetroHubConfig.get_gamelists_dir() + "/" + (system as String)
+		FileUtils.ensure_path(base_path)
 		for child in gamelists[system]:
 			process_metadata(system, child)
 
-func guess_system_name(name: String):
+func guess_system_name(name: String) -> String:
 	# RetroArch saves system information in the file name as full name.
 	# We have to try and match it to known entries
 	if "Nintendo - Nintendo 64" in name:
@@ -132,11 +132,12 @@ func guess_system_name(name: String):
 		return "snes"
 	elif "Nintendo - GameCube" in name:
 		return "gc"
+	# TODO: More names
 	return ""
 
 func process_lpl_file(path: String) -> Array:
 	# RetroArch 1.7.5 onwards saves data in JSON format.
-	var json = JSONUtils.load_json_file(path)
+	var json : Dictionary = JSONUtils.load_json_file(path)
 	var names := []
 	if not json.empty():
 		if json.has("items"):
@@ -144,11 +145,11 @@ func process_lpl_file(path: String) -> Array:
 				names.append({"name": child["label"], "path": child["path"]})
 	else:
 		# Deprecated format. File consists of 6-line chunks of information
-		var file = File.new()
+		var file := File.new()
 		if not file.open(path, File.READ):
 			while not file.eof_reached():
-				var file_path = file.get_line()
-				var name = file.get_line()
+				var file_path := file.get_line()
+				var name := file.get_line()
 				names.push_back({"name": name, "path": file_path})
 				for _i in range(4):
 					file.get_line()
@@ -157,13 +158,13 @@ func process_lpl_file(path: String) -> Array:
 
 func process_metadata(system: String, dict: Dictionary):
 	var game_data := RetroHubGameData.new()
-	var root_path = RetroHubConfig.config.games_dir + "/" + system
+	var root_path := RetroHubConfig.config.games_dir + "/" + system
 	game_data.has_metadata = true
 	game_data.path = root_path + "/" + dict["path"].substr(2)
 	progress_minor("Converting \"%s\" (\"%s\")" % [game_data.path.get_file(), system])
 	if dict.has("name"):
 		game_data.name = dict["name"]
-	var short_path = system + "/" + game_data.path.get_file().get_basename()
+	var short_path := system + "/" + game_data.path.get_file().get_basename()
 	game_datas[short_path] = game_data
 
 
@@ -171,27 +172,27 @@ func import_media(copy: bool):
 	var dir := Directory.new()
 	var count := 0
 	if not dir.open(thumbnails_path) and not dir.list_dir_begin(true):
-		var next = dir.get_next()
+		var next := dir.get_next()
 		while not next.empty():
 			if dir.current_is_dir() and next != "cheevos":
 				count += FileUtils.get_file_count(thumbnails_path + "/" + next, RA_MEDIA_NAMES)
 			next = dir.get_next()
 	reset_minor(count)
 	if not dir.list_dir_begin(true):
-		var next = dir.get_next()
+		var next := dir.get_next()
 		while not next.empty():
 			if dir.current_is_dir() and next != "cheevos":
-				var system_name = guess_system_name(next)
+				var system_name := guess_system_name(next)
 				if not system_name.empty():
-					var base_path = RetroHubConfig.get_gamemedia_dir() + "/" + system_name
-					dir.make_dir_recursive(base_path)
+					var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + system_name
+					FileUtils.ensure_path(base_path)
 					process_media_subfolder(thumbnails_path + "/" + next, system_name, copy)
 			next = dir.get_next()
-	
+
 func process_media_subfolder(path: String, system: String, copy: bool):
 	var dir := Directory.new()
 	if not dir.open(path) and not dir.list_dir_begin(true):
-		var next = dir.get_next()
+		var next := dir.get_next()
 		while not next.empty():
 			if dir.current_is_dir() and next in RA_MEDIA_NAMES:
 				process_media(path + "/" + next, system, RH_MEDIA_NAMES[RA_MEDIA_NAMES.find(next)], copy)
@@ -200,22 +201,24 @@ func process_media_subfolder(path: String, system: String, copy: bool):
 func process_media(path: String, system: String, media_name: String, copy: bool):
 	var dir := Directory.new()
 	if not dir.open(path) and not dir.list_dir_begin(true):
-		var next = dir.get_next()
-		var base_path = RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name
+		var next := dir.get_next()
+		var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name
 		while not next.empty():
 			if not dir.current_is_dir():
-				var from_path = path + "/" + next
+				var from_path := path + "/" + next
 				# RetroHub uses game name for media names.
-				var game_data = find_game_data_with_label(next.get_basename())
+				var game_data := find_game_data_with_label(next.get_basename())
 				if game_data:
-					var to_path = base_path + "/" + game_data.path.get_file().get_basename() + "." + next.get_extension()
+					var to_path := base_path + "/" + game_data.path.get_file().get_basename() + "." + next.get_extension()
 					FileUtils.ensure_path(to_path)
 					if copy:
 						progress_minor("Copying \"%s\" (\"%s\")" % [from_path.get_file(), system])
-						dir.copy(from_path, to_path)
+						if dir.copy(from_path, to_path):
+							push_error("Failed to copy \"%s\" to \"%s\"" % [from_path, to_path])
 					else:
 						progress_minor("Moving \"%s\" (\"%s\")" % [from_path.get_file(), system])
-						dir.rename(from_path, to_path)
+						if dir.rename(from_path, to_path):
+							push_error("Failed to move \"%s\" to \"%s\"" % [from_path, to_path])
 					game_data.has_media = true
 				next = dir.get_next()
 
@@ -229,7 +232,8 @@ func save_game_data():
 	reset_minor(game_datas.size())
 	for game_data in game_datas.values():
 		progress_minor("Saving \"%s\" metadata" % game_data.name)
-		RetroHubConfig.save_game_data(game_data)
+		if not RetroHubConfig.save_game_data(game_data):
+			push_error("Failed to save game data for \"%s\"" % game_data.name)
 
 
 func cleanup():

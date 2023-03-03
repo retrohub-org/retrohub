@@ -10,7 +10,8 @@ onready var n_rstick_tip := $"%RStickTip"
 
 onready var num_sections := n_sidebar.get_child_count()
 
-func _ready():
+func _enter_tree():
+	#warning-ignore:return_value_discarded
 	ControllerIcons.connect("input_type_changed", self, "_on_input_type_changed")
 
 func _on_input_type_changed(input_type: int):
@@ -34,8 +35,8 @@ func _on_FirstTimePopup_about_to_show():
 
 func _on_MainContent_tab_changed(tab):
 	n_main_content.get_tab_control(tab).grab_focus()
-	
-	var counter = 0
+
+	var counter := 0
 	for child in n_sidebar.get_children():
 		if counter == tab:
 			child.modulate = color_current

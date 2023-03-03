@@ -1,4 +1,3 @@
-tool
 extends PopupPanel
 
 enum Direction {
@@ -30,7 +29,7 @@ signal visibilityChanged
 signal layoutChanged
 
 ###########################
-## PANEL 
+## PANEL
 ###########################
 
 func _enter_tree():
@@ -305,7 +304,7 @@ func _keyReleased(keyData,x,y,steal_focus):
 		var keyValue = keyData.get("output")
 		
 		###########################
-		## DISPATCH InputEvent 
+		## DISPATCH InputEvent
 		###########################
 		
 		var inputEventKey = InputEventKey.new()
@@ -330,7 +329,7 @@ func _keyReleased(keyData,x,y,steal_focus):
 		sendingEvent = false
 		
 		###########################
-		## DISABLE CAPSLOCK AFTER 
+		## DISABLE CAPSLOCK AFTER
 		###########################
 		_setCapsLock(false)
 

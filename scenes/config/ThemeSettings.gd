@@ -3,6 +3,7 @@ extends ScrollContainer
 export(PackedScene) var no_theme_settings_scene : PackedScene
 
 func _ready():
+	#warning-ignore:return_value_discarded
 	RetroHub.connect("_theme_loaded", self, "_on_theme_loaded")
 
 func grab_focus():

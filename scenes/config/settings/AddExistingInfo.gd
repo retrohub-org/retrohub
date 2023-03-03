@@ -2,15 +2,15 @@ extends WindowDialog
 
 signal identifier_picked(id)
 
-onready var n_intro_label = $"%IntroLabel"
+onready var n_intro_label := $"%IntroLabel"
 
 onready var n_options := $"%Options"
-onready var n_ok = $"%OK"
+onready var n_ok := $"%OK"
 
 onready var base_text_intro : String = n_intro_label.text
 
 func _ready():
-	n_options.get_popup().max_height = 300
+	n_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
 
 func start(data: Dictionary, existing: Array, asset_format: String, data_name: String):
 	n_intro_label.text = base_text_intro % data_name
@@ -21,11 +21,11 @@ func start(data: Dictionary, existing: Array, asset_format: String, data_name: S
 
 func populate_options(datas: Array, existing_keys: Array, asset_format: String):
 	for data in datas:
-		var shortname = data["name"]
+		var shortname : String = data["name"]
 		if shortname in existing_keys or check_complex(shortname, existing_keys):
 			continue
-		var fullname = data["fullname"]
-		var asset_name = asset_format % shortname
+		var fullname : String = data["fullname"]
+		var asset_name := asset_format % shortname
 		n_options.add_icon_item(load(asset_name), fullname)
 		n_options.set_item_metadata(n_options.get_item_count()-1, shortname)
 	if n_options.get_item_count() == 0:

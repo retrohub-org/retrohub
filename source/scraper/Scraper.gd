@@ -3,25 +3,32 @@ class_name RetroHubScraper
 
 # Signals that a game scrape has finished successfully, returning the
 # modified game data.
+#warning-ignore:unused_signal
 signal game_scrape_finished(game_data)
 # Signals that a game scrape is incomplete since there are multiple
 # possible results. Returns the list of game datas of all results.
 # A further scrape will be called under one of these datas to uniquely
 # identify it and finish the scraping process properly.
+#warning-ignore:unused_signal
 signal game_scrape_multiple_available(game_data, results)
 # Signals that a game scrape has failed because no results were found.
+#warning-ignore:unused_signal
 signal game_scrape_not_found(game_data)
 # Signals that a game scrape resulted in an error, returning further
 # details to show to the user.
+#warning-ignore:unused_signal
 signal game_scrape_error(game_data, details)
 
 # Signals that a media scrape has completed, returning it's
 # type (from RetroHubMedia), raw content and file extension.
+#warning-ignore:unused_signal
 signal media_scrape_finished(game_data, type, data, extension)
 # Signals that a media scrape has failed because no results were found.
+#warning-ignore:unused_signal
 signal media_scrape_not_found(game_data, type)
 # Signals that a media scrape resulted in an error, returning further
 # details to show to the user.
+#warning-ignore:unused_signal
 signal media_scrape_error(game_data, type, details)
 
 
@@ -40,14 +47,14 @@ signal media_scrape_error(game_data, type, details)
 # game filenames. If the game cannot be uniquely identified by this
 # method, this should signal "game_scrape_not_found". RetroHub may
 # then try doing a scrape by search if configured to do so.
-func scrape_game_by_hash(game_data: RetroHubGameData) -> int:
+func scrape_game_by_hash(_game_data: RetroHubGameData) -> int:
 	return -1
 
 # Start a metadata scrape by searching by the supplied search term.
 # This may result in multiple scrape results, in which case this
 # function must signal `game_scrape_multiple_available`. If no results
 # are found, it should signal "game_scrape_not_found".
-func scrape_game_by_search(game_data: RetroHubGameData, search_term: String) -> int:
+func scrape_game_by_search(_game_data: RetroHubGameData, _search_term: String) -> int:
 	return -1
 
 # Start a media scrape for a specific media type. This will
@@ -58,7 +65,7 @@ func scrape_game_by_search(game_data: RetroHubGameData, search_term: String) -> 
 # temporary datas returned in the `game_scrape_multiple_available` signal.
 # This function can fail immediately, in which case the main app will
 # skip this media file.
-func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
+func scrape_media(_game_data: RetroHubGameData, _media_type: int) -> int:
 	return -1
 
 # Start a media scrape for a specific media type. This will
@@ -70,21 +77,21 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 # `media_type` is a value from the RetroHubMedia.Type enum.
 # This function can fail immediately, in which case the main app will
 # skip thimedia file.
-func scrape_media_from_search(orig_game_data: RetroHubGameData, search_game_data: RetroHubGameData, media_type: int) -> int:
+func scrape_media_from_search(_orig_game_data: RetroHubGameData, _search_game_data: RetroHubGameData, _media_type: int) -> int:
 	return -1
 
 # Marks a given game data as fully scraped, meaning RetroHub won't require any more
 # information from it, and so any data associated with it can be freed by
 # the scraper. If the app needs to rescrape it for some reason, it will
 # restart the scraping process of without prior assumptions
-func scrape_completed(game_data: RetroHubGameData) -> void:
+func scrape_completed(_game_data: RetroHubGameData) -> void:
 	return
 
 # Cancels a pending request associated with a game data. This function
 # must return immediately. A given request might still finish even
 # after cancelation depending on it's state, but will be ignored by
 # RetroHub.
-func cancel(game_data: RetroHubGameData) -> void:
+func cancel(_game_data: RetroHubGameData) -> void:
 	return
 
 # Cancels all pending requests. This function must return immediately.

@@ -1,6 +1,6 @@
 extends Control
 
-signal theme_reload()
+signal theme_reload
 
 onready var n_save := $"%Save"
 onready var n_discard := $"%Discard"
@@ -18,7 +18,8 @@ onready var n_retro_arch_config := $"%RetroArchConfig"
 var sep_idx := -1
 
 func _ready():
-	n_system_selection.get_popup().max_height = 350
+	n_system_selection.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
 	n_save.disabled = true
 	n_discard.disabled = true
@@ -28,8 +29,8 @@ func _ready():
 func grab_focus():
 	n_system_selection.grab_focus()
 
-func _on_config_ready(config_data: ConfigData):
-	var idx = 0
+func _on_config_ready(_config_data: ConfigData):
+	var idx := 0
 	var found_custom := false
 	for system in RetroHubConfig._systems_raw.values():
 		if not found_custom and system.has("#custom"):
@@ -49,7 +50,7 @@ func _on_SystemSelection_item_selected(index):
 		return
 	var data : Dictionary = n_system_selection.get_item_metadata(index)
 	discard_changes()
-	var is_custom = data.has("#custom")
+	var is_custom := data.has("#custom")
 	n_default_opt.visible = !is_custom
 	n_custom_opt.visible = is_custom
 	n_restore_system.disabled = not data.has("#modified")
@@ -93,7 +94,7 @@ func _on_SystemEditor_request_extensions(system_name, curr_extensions):
 
 
 func _on_RestoreSystem_pressed():
-	var default_system = RetroHubConfig.restore_system(n_system_editor.curr_system)
+	var default_system : Dictionary = RetroHubConfig.restore_system(n_system_editor.curr_system)
 	n_system_editor.curr_system = default_system
 	update_system_selection(default_system)
 	emit_signal("theme_reload")
@@ -112,14 +113,15 @@ func update_system_selection(system: Dictionary):
 
 
 func _on_AddCustomInfoPopup_identifier_picked(id):
-	var system : Dictionary
-	system["name"] = id
-	system["platform"] = id
-	system["fullname"] = ""
-	system["extension"] = []
-	system["emulator"] = []
-	system["category"] = RetroHubSystemData.idx_to_category(0)
-	system["#custom"] = true
+	var system := {
+		"name": id,
+		"platform": id,
+		"fullname": "",
+		"extension": [],
+		"emulator": [],
+		"category": RetroHubSystemData.idx_to_category(0),
+		"#custom": true,
+	}
 
 	RetroHubConfig._systems_raw[id] = system
 	RetroHubConfig.save_system(system)
@@ -138,7 +140,7 @@ func _on_AddSystem_pressed():
 func _on_RemoveSystem_pressed():
 	var system_raw : Dictionary = n_system_editor.curr_system
 	RetroHubConfig.remove_custom_system(system_raw)
-	
+
 	for idx in n_system_selection.get_item_count():
 		if idx == sep_idx:
 			continue

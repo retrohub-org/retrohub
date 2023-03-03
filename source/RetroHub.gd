@@ -6,15 +6,13 @@ signal app_received_focus
 signal app_lost_focus
 signal app_returning(system_data, game_data)
 
-signal system_receive_start()
+signal system_receive_start
 signal system_received(system_data)
-signal system_receive_end()
+signal system_receive_end
 
-signal game_receive_start()
+signal game_receive_start
 signal game_received(game_data)
-signal game_receive_end()
-
-signal game_media_received(game_data, game_media_data)
+signal game_receive_end
 
 signal _theme_loaded(theme)
 signal _game_loaded(game_data)
@@ -35,9 +33,10 @@ const version_patch := 7
 const version_extra := "-alpha"
 const version_str := "%d.%d.%d%s" % [version_major, version_minor, version_patch, version_extra]
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 	emit_signal("app_initializing", true)
 
@@ -45,14 +44,11 @@ func _on_config_ready(config_data: ConfigData):
 	if not config_data.is_first_time:
 		load_theme()
 
-func _on_config_updated(key: String, old_value, new_value):
+func _on_config_updated(key: String, _old, _new):
 	if key == ConfigData.KEY_CURRENT_THEME:
 		load_theme()
 
-func _on_game_scrape_finished(game_data : RetroHubGameData):
-	print("Game finished scraping!")
-
-func _process(delta):
+func _process(_delta):
 	if _running_game:
 		if _running_game_pid == -1 or not OS.is_process_running(_running_game_pid):
 			stop_game()
@@ -110,7 +106,7 @@ func quit():
 
 func launch_game() -> void:
 	if not curr_game_data:
-		printerr("No game data selected!")
+		push_error("No game data selected!")
 		return
 
 	launched_game_data = curr_game_data
@@ -124,8 +120,8 @@ func launch_game() -> void:
 	RetroHubConfig.unload_theme()
 
 func _launch_game_process() -> int:
-	var system_emulators = RetroHubConfig._systems_raw[launched_system_data.name]["emulator"]
-	var emulators = RetroHubConfig.emulators_map
+	var system_emulators : Array = RetroHubConfig._systems_raw[launched_system_data.name]["emulator"]
+	var emulators := RetroHubConfig.emulators_map
 	var emulator
 	for system_emulator in system_emulators:
 		if system_emulator is Dictionary and system_emulator.has("retroarch"):
@@ -145,7 +141,8 @@ func _update_game_statistics():
 	var time_dict := Time.get_datetime_dict_from_system()
 	launched_game_data.last_played = RegionUtils.globalize_date_dict(time_dict)
 	launched_game_data.play_count += 1
-	RetroHubConfig.save_game_data(launched_game_data)
+	if not RetroHubConfig.save_game_data(launched_game_data):
+		push_error("Failed to update statistics for game %s" % launched_game_data.name)
 
 
 func stop_game() -> void:

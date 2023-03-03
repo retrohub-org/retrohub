@@ -30,13 +30,13 @@ func start(curr_action: String, pos: Vector2):
 	# Set intended position and popup
 	rect_global_position = pos
 	popup()
-	
+
 	# Popup internally tries to focus, so wait until it's shown to grab focus
 	yield(get_tree(), "idle_frame")
 	focus_holder.grab_focus()
 
-func _find_axis_from_action(action: String):
-	for event in InputMap.get_action_list(action):
+func _find_axis_from_action(raw_action: String):
+	for event in InputMap.get_action_list(raw_action):
 		if event is InputEventJoypadMotion:
 			if event.axis == JOY_ANALOG_LX or event.axis == JOY_ANALOG_LY:
 				return JOY_ANALOG_LX
@@ -52,6 +52,6 @@ func _on_ControllerButtonRemap_popup_hide():
 
 
 func _on_Icon_pressed(axis):
-	var axis_name = "right" if old_axis == JOY_ANALOG_RX else "left"
+	var axis_name := "right" if old_axis == JOY_ANALOG_RX else "left"
 	emit_signal("remap_done", action, axis_name, axis)
 	hide()

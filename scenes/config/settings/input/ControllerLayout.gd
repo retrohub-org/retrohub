@@ -53,8 +53,8 @@ class JoyMapping:
 		"rightx": JOY_AXIS_2,
 	}
 
-	var type = TYPE.NONE
-	var idx = -1
+	var type : int = TYPE.NONE
+	var idx := -1
 
 	func _init(p_type = TYPE.NONE, p_idx = -1):
 		type = p_type
@@ -63,19 +63,19 @@ class JoyMapping:
 	func _to_string():
 		if type == TYPE.NONE:
 			return ""
-		var ts = "b" if type == TYPE.BTN else "a"
-		var prefix = ""
+		var ts := "b" if type == TYPE.BTN else "a"
+		var prefix := ""
 		return "%s%s%d" % [prefix, ts, idx]
 
 const DEADZONE = 0.6
 const DEADZONE_IDLE = 0.2
 
-var joy_guid = ""
-var joy_name = ""
+var joy_guid := ""
+var joy_name := ""
 
-var steps = JoyMapping.BASE.keys()
-var curr_step = -1
-var cur_mapping = {}
+var steps := JoyMapping.BASE.keys()
+var curr_step := -1
+var cur_mapping := {}
 var last_axis := -1
 var done := false
 
@@ -128,12 +128,12 @@ func _input(event):
 		_input_done(event)
 	elif event is InputEventJoypadMotion:
 		get_tree().set_input_as_handled()
-		var motion = event as InputEventJoypadMotion
+		var motion := event as InputEventJoypadMotion
 		if abs(motion.axis_value) > DEADZONE:
-			var idx = motion.axis
+			var idx := motion.axis
 			if last_axis != idx:
 				last_axis = idx
-				var map = JoyMapping.new(JoyMapping.TYPE.AXIS, idx)
+				var map := JoyMapping.new(JoyMapping.TYPE.AXIS, idx)
 				cur_mapping[steps[curr_step]] = map
 				n_timer.start()
 		elif abs(motion.axis_value) > DEADZONE_IDLE or \
@@ -143,8 +143,8 @@ func _input(event):
 	elif event is InputEventJoypadButton:
 		get_tree().set_input_as_handled()
 		if event.pressed:
-			var btn = event as InputEventJoypadButton
-			var map = JoyMapping.new(JoyMapping.TYPE.BTN, btn.button_index)
+			var btn := event as InputEventJoypadButton
+			var map := JoyMapping.new(JoyMapping.TYPE.BTN, btn.button_index)
 			cur_mapping[steps[curr_step]] = map
 			n_timer.start()
 		else:
@@ -205,26 +205,26 @@ func _input_done(event):
 func _on_Timer_timeout():
 	next()
 
-func _process(delta):
+func _process(_delta):
 	if n_timer.is_stopped():
 		n_press_progress.value = 0
 	else:
 		n_press_progress.value = n_timer.wait_time - n_timer.time_left
 
-func create_mapping_string(mapping):
-	var string = "%s,%s," % [joy_guid, joy_name]
+func create_mapping_string(mapping) -> String:
+	var string := "%s,%s," % [joy_guid, joy_name]
 	for k in mapping:
 		var m = mapping[k]
 		if typeof(m) == TYPE_OBJECT and m.type == JoyMapping.TYPE.NONE:
 			continue
 		string += "%s:%s," % [k, str(m)]
-	var platform = "Unknown"
+	var platform := "Unknown"
 	if JoyMapping.PLATFORMS.keys().has(OS.get_name()):
 		platform = JoyMapping.PLATFORMS[OS.get_name()]
 	return string + "platform:" + platform
 
 func remap(mapping):
-	var mapping_str = create_mapping_string(mapping)
+	var mapping_str := create_mapping_string(mapping)
 	RetroHubConfig.config.custom_input_remap = mapping_str
 	RetroHubConfig.save_config()
 	mark_done()
@@ -295,7 +295,7 @@ func next():
 
 func _on_SkipButton_pressed():
 	# Use existing default value
-	var key = steps[curr_step]
+	var key : String = steps[curr_step]
 	var mapping : JoyMapping
 	if curr_step > 15:
 		# Axis

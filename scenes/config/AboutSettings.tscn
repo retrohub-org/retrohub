@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/icons/app/retrohub_logo_1024px_draft.png" type="Texture" id=1]
 [ext_resource path="res://resources/fonts/default_big.tres" type="DynamicFont" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/copyright/ffmpeg.png" type="Texture" id=6]
 [ext_resource path="res://assets/copyright/controller_icons.png" type="Texture" id=7]
 [ext_resource path="res://scenes/config/Licenses.gd" type="Script" id=8]
+[ext_resource path="res://source/utils/ScrollContainerHandler.gd" type="Script" id=9]
 [ext_resource path="res://scenes/ui_nodes/LazyTextureRect.gd" type="Script" id=10]
 [ext_resource path="res://assets/copyright/onscreenkeyboard.png" type="Texture" id=11]
 [ext_resource path="res://assets/icons/scrapers/screenscraper.png" type="Texture" id=12]
@@ -588,6 +589,11 @@ size_flags_vertical = 3
 readonly = true
 smooth_scrolling = true
 wrap_enabled = true
+
+[node name="ScrollHandler" type="Control" parent="TabContainer/Licenses/HBoxContainer/Content"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 9 )
 
 [connection signal="pressed" from="TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer/OpenWebsiteButton" to="." method="_on_OpenWebsiteButton_pressed"]
 [connection signal="pressed" from="TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer/OpenIssuesButton" to="." method="_on_OpenIssuesButton_pressed"]

@@ -2,9 +2,9 @@ extends Control
 
 signal cancel_entry(game_entry)
 
-onready var n_label = $"%WorkingLabel"
-onready var n_progress = $"%WorkingProgress"
-onready var n_cancel = $"%WorkingCancelButton"
+onready var n_label := $"%WorkingLabel"
+onready var n_progress := $"%WorkingProgress"
+onready var n_cancel := $"%WorkingCancelButton"
 
 var game_entry : RetroHubScraperGameEntry
 

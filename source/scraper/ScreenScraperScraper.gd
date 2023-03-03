@@ -18,6 +18,7 @@ class RequestDetails:
 	var _req_body : PoolByteArray
 
 	func _init():
+		#warning-ignore:return_value_discarded
 		_http.connect("request_completed", self, "_on_request_completed")
 		_http.use_threads = true
 		_http.timeout = 10
@@ -35,7 +36,9 @@ class RequestDetails:
 		_http.download_chunk_size = 1024 * 1024 # 1MB
 		if big:
 			_http.download_chunk_size *= 4 # 4MB
-		_http.request(url)
+		if _http.request(url):
+			push_error("Failed to perform request [ScreenScraper]")
+			cancel()
 
 	func is_content_on_body(content: String):
 		return content in _req_body.get_string_from_utf8()
@@ -53,7 +56,7 @@ var _cached_search_data := {}
 var _pending_requests := {}
 var _curr_requests := {}
 
-var ss_system_map = {
+var ss_system_map := {
 	"megadrive": 1,
 	"genesis": 1,
 	"mastersystem": 2,
@@ -204,14 +207,16 @@ func get_ss_system_mapping(system_name) -> int:
 
 func _init():
 	for __ in range(MAX_REQUESTS):
+		#warning-ignore:return_value_discarded
 		_req_semaphore.post()
 
 
 func _process(_delta):
 	if not _pending_requests.empty():
-		var game_data = _pending_requests.keys()[0]
-		var req = _pending_requests[game_data].pop_front()
+		var game_data : RetroHubGameData = _pending_requests.keys()[0]
+		var req : RequestDetails = _pending_requests[game_data].pop_front()
 		if _pending_requests[game_data].empty():
+			#warning-ignore:return_value_discarded
 			_pending_requests.erase(game_data)
 		if _curr_requests.has(game_data):
 			_curr_requests[game_data].push_back(req)
@@ -220,6 +225,7 @@ func _process(_delta):
 
 		req.perform_request(req.type == RequestDetails.Type.MEDIA)
 		yield(req._http, "request_completed")
+		#warning-ignore:return_value_discarded
 		_req_semaphore.post()
 
 		# If request got canceled, exit early
@@ -227,6 +233,7 @@ func _process(_delta):
 			return
 		_curr_requests[game_data].erase(req)
 		if _curr_requests[game_data].empty():
+			#warning-ignore:return_value_discarded
 			_curr_requests.erase(game_data)
 
 		if req.is_ok():
@@ -268,15 +275,15 @@ func _process(_delta):
 					emit_signal("game_scrape_error", game_data, details)
 				RequestDetails.Type.MEDIA:
 					emit_signal("media_scrape_error", game_data, req.data["type"], details)
-			
+
 
 func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
-	var json = JSON.parse(req._req_body.get_string_from_utf8())
+	var json := JSON.parse(req._req_body.get_string_from_utf8())
 	if json.error:
-		var details = req._req_body.get_string_from_utf8()
+		var details := req._req_body.get_string_from_utf8()
 		emit_signal("game_scrape_error", game_data, details)
 	else:
-		var json_raw = json.result
+		var json_raw : Dictionary = json.result
 		# Preprocess json a bit due to ScreenScraper structure
 		json_raw = json_raw["response"]
 		# If game has only one game, it has key "jeu", otherwise has key "jeux"
@@ -292,7 +299,7 @@ func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 				emit_signal("game_scrape_not_found", game_data)
 		else:
 			json_raw = json_raw["jeux"]
-			var details = []
+			var details := []
 			_cached_search_data[game_data] = {}
 			for child in json_raw:
 				if not child.empty():
@@ -304,8 +311,8 @@ func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 			emit_signal("game_scrape_multiple_available", game_data, details)
 
 func _process_req_media(req: RequestDetails, game_data):
-	var extension = req.data["format"]
-	var type = req.data["type"]
+	var extension : String = req.data["format"]
+	var type : int = req.data["type"]
 	emit_signal("media_scrape_finished", game_data, type, req._req_body, extension)
 
 func _new_request_details(game_data: RetroHubGameData) -> RequestDetails:
@@ -324,26 +331,34 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 		emit_signal("game_scrape_finished", game_data)
 		return OK
 
+	#warning-ignore:return_value_discarded
 	_req_semaphore.wait()
 
 	# Compute game's hash
-	var file = File.new()
-	file.open(game_data.path, File.READ)
-	var md5 : String = file.get_md5(game_data.path)
-	var header_data = {
+	var file := File.new()
+	var md5 := ""
+	if not file.open(game_data.path, File.READ):
+		md5 = file.get_md5(game_data.path)
+	else:
+		push_error("Couldn't open file " + game_data.path)
+		
+	var header_data := {
 		"devid": ss_get_api_keys(ss_api_user, false),
 		"devpassword": ss_get_api_keys(ss_api_pass, true),
 		"softname": "RetroHub",
 		"output": "json",
 		"romtype": "rom",
-		"md5": md5,
+		
 		"systemeid": str(get_ss_system_mapping(game_data.system.name)),
 		"romnom": game_data.path.get_file(),
 		"romtaille": str(file.get_len())
 	}
+	if not md5.empty():
+		header_data["md5"]= md5
+
 	ss_add_user_account(header_data)
 	file.close()
-	
+
 	var http_client := HTTPClient.new()
 
 	var req := _new_request_details(game_data)
@@ -360,9 +375,10 @@ func scrape_game_by_search(game_data: RetroHubGameData, search_term: String, typ
 		emit_signal("game_scrape_finished", game_data)
 		return OK
 
+	#warning-ignore:return_value_discarded
 	_req_semaphore.wait()
 
-	var header_data = {
+	var header_data := {
 		"devid": ss_get_api_keys(ss_api_user, false),
 		"devpassword": ss_get_api_keys(ss_api_pass, true),
 		"softname": "RetroHub",
@@ -402,7 +418,7 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 			scraper_names = ["manuel"]
 		_:
 			return FAILED
-	
+
 	var json : Dictionary = {}
 	if _cached_requests_data.has(game_data):
 		json = _cached_requests_data[game_data]
@@ -413,15 +429,16 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 				break
 		if json.empty():
 			# App is guaranteed to scrape data before media, so something is wrong
-			print("\t Internal error: need to scrape metadata first!")
+			push_error("\t Internal error: need to scrape metadata first!")
 			return FAILED
 
 	var medias_raw : Array = json["medias"]
-	var scrape = find_all_by_key(medias_raw, "type", scraper_names)
+	var scrape := find_all_by_key(medias_raw, "type", scraper_names)
 	if scrape.empty():
 		return FAILED
-	var res = extract_json_region(scrape)
-	
+	var res := extract_json_region(scrape)
+
+	#warning-ignore:return_value_discarded
 	_req_semaphore.wait()
 
 	var req := _new_request_details(game_data)
@@ -433,27 +450,31 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 func scrape_media_from_search(orig_game_data: RetroHubGameData, search_game_data: RetroHubGameData, media_type: int):
 	if _cached_search_data.has(orig_game_data):
 		_cached_requests_data[orig_game_data] = _cached_search_data[orig_game_data][search_game_data]
+		#warning-ignore:return_value_discarded
 		_cached_search_data.erase(orig_game_data)
 
 	return scrape_media(orig_game_data, media_type)
 
 func scrape_completed(game_data: RetroHubGameData) -> void:
-	if _cached_requests_data.has(game_data):
-		_cached_requests_data.erase(game_data)
-	if _cached_search_data.has(game_data):
-		_cached_search_data.erase(game_data)
+	#warning-ignore:return_value_discarded
+	_cached_requests_data.erase(game_data)
+	#warning-ignore:return_value_discarded
+	_cached_search_data.erase(game_data)
 
 func cancel(game_data: RetroHubGameData) -> void:
 	# Cancel current requests
 	if _curr_requests.has(game_data):
 		for req in _curr_requests[game_data]:
 			req.cancel()
+		#warning-ignore:return_value_discarded
 		_curr_requests.erase(game_data)
 
 	# Cancel pending requests
 	if _pending_requests.has(game_data):
 		for __ in range(_pending_requests[game_data].size()):
+			#warning-ignore:return_value_discarded
 			_req_semaphore.post()
+		#warning-ignore:return_value_discarded
 		_pending_requests.erase(game_data)
 
 func cancel_all() -> void:
@@ -467,6 +488,7 @@ func cancel_all() -> void:
 	_pending_requests.clear()
 	_req_semaphore = Semaphore.new()
 	for __ in range(MAX_REQUESTS):
+		#warning-ignore:return_value_discarded
 		_req_semaphore.post()
 
 func _is_hash_in_response(json: Dictionary, md5: String):
@@ -496,7 +518,7 @@ func _process_raw_game_data(json: Dictionary, game_data: RetroHubGameData):
 
 	# Handle tricker cases
 	if json.has("genres"):
-		var genres = json["genres"]
+		var genres : Array = json["genres"]
 		game_data.genres = []
 		for genre in genres:
 			game_data.genres.push_back(extract_json_language(genre["noms"])["text"])
@@ -517,29 +539,29 @@ func extract_json_date(date: String) -> String:
 		return "%s0101T000000" % splits[0]
 
 func extract_json_region(json_arr: Array) -> Dictionary:
-	var regions = ["wor", "ss", "us", "eu", "jp"]
-	var curr_region = convert_region_to_ss(RetroHubConfig.config.region)
+	var regions := ["wor", "ss", "us", "eu", "jp"]
+	var curr_region := convert_region_to_ss(RetroHubConfig.config.region)
 	regions.erase(curr_region)
 	regions.push_front(curr_region)
 
-	var result = find_by_key(json_arr, "region", regions)
-	
+	var result := find_by_key(json_arr, "region", regions)
+
 	return json_arr[0] if result.empty() else result
 
 func extract_json_language(json_arr: Array) -> Dictionary:
-	var languages = ["en"]
-	var curr_language = RetroHubConfig.config.lang
+	var languages := ["en"]
+	var curr_language := RetroHubConfig.config.lang
 	languages.erase(curr_language)
 	languages.push_front(curr_language)
 
-	var result = find_by_key(json_arr, "langue", languages)
+	var result := find_by_key(json_arr, "langue", languages)
 
 	return json_arr[0] if result.empty() else result
 
 func extract_json_age_rating(classifications: Array):
-	var rating_usa = find_by_key(classifications, "type", ["ESRB"])
-	var rating_eur = find_by_key(classifications, "type", ["PEGI"])
-	var rating_jpn = find_by_key(classifications, "type", ["CERO"])
+	var rating_usa := find_by_key(classifications, "type", ["ESRB"])
+	var rating_eur := find_by_key(classifications, "type", ["PEGI"])
+	var rating_jpn := find_by_key(classifications, "type", ["CERO"])
 	var rating_final : String
 	if not rating_usa.empty():
 		match rating_usa["text"]:

@@ -2,7 +2,7 @@ extends ConfirmationDialog
 
 signal games_selected(game_data_array)
 
-onready var n_game_tree = $"%GameTree"
+onready var n_game_tree := $"%GameTree"
 
 var root : TreeItem
 var systems_items : Dictionary
@@ -13,15 +13,15 @@ func _ready():
 	n_game_tree.set_column_expand(0, true)
 	n_game_tree.set_column_expand(1, false)
 	n_game_tree.set_column_min_width(1, 100)
-	
+
 	# Set focus neighbors
-	var ok = get_ok()
-	var cancel = get_cancel()
-	
-	var path = "../../%s/%s" % [cancel.get_parent().name, cancel.name]
+	var ok := get_ok()
+	var cancel := get_cancel()
+
+	var path := "../../%s/%s" % [cancel.get_parent().name, cancel.name]
 	n_game_tree.focus_neighbour_bottom = path
 	n_game_tree.focus_neighbour_top = path
-	
+
 	path = "../../%s/%s" % [n_game_tree.get_parent().name, n_game_tree.name]
 	ok.focus_neighbour_top = path
 	ok.focus_neighbour_bottom = path
@@ -36,12 +36,12 @@ func _on_ScrapingGamePickerPopup_about_to_show():
 
 	# First, create all systems
 	for system in RetroHubConfig.systems.values():
-		var item = n_game_tree.create_item(root)
+		var item : TreeItem = n_game_tree.create_item(root)
 		set_item_settings(item, system.fullname)
 		systems_items[system] = item
 	# Then all games
 	for game in RetroHubConfig.games:
-		var item = n_game_tree.create_item(systems_items[game.system])
+		var item : TreeItem = n_game_tree.create_item(systems_items[game.system])
 		set_item_settings(item, game.path.get_file())
 		item.set_metadata(0, game)
 	# Focus tree
@@ -68,8 +68,8 @@ func set_item_checked_down(item: TreeItem, checked: bool):
 
 func set_item_checked_up(item: TreeItem):
 	if item:
-		var all_checked = true
-		var next = item.get_children()
+		var all_checked := true
+		var next := item.get_children()
 		while next:
 			if not next.is_checked(1):
 				all_checked = false
@@ -97,20 +97,17 @@ func _on_ScrapingGamePickerPopup_popup_hide():
 	emit_signal("games_selected", [])
 
 
-func get_selected_items(root: TreeItem):
+func get_selected_items(_root: TreeItem):
 	var selected_items := []
-	if root:
-		if root.get_children():
-			var next = root
-			while next:
+	if _root:
+		var next := _root
+		while next:
+			if _root.get_children():
 				selected_items.append_array(get_selected_items(next.get_children()))
 				next = next.get_next()
-		else:
-			var next = root
-			while next:
-				if next.is_checked(1):
-					selected_items.append(next.get_metadata(0))
-				next = next.get_next()
+			elif next.is_checked(1):
+				selected_items.append(next.get_metadata(0))
+			next = next.get_next()
 	return selected_items
 
 
