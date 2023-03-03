@@ -20,21 +20,25 @@ onready var n_key_remap_popup := $"%KeyboardRemap"
 onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
 onready var n_ctrl_axis_remap_popup := $"%ControllerAxisRemap"
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+	#warning-ignore:return_value_discarded
 	ControllerIcons.connect("input_type_changed", self, "_on_input_type_changed")
 
-	n_cn_icon_type.get_popup().max_height = 350
+	n_cn_icon_type.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
 
 func grab_focus():
 	# Keyboard
 	if n_input_tab.current_tab == 0:
 		n_kb_reset.grab_focus()
 	# Controller
-	else:
+	elif n_input_tab.current_tab == 1:
 		n_cn_reset.grab_focus()
+	elif n_input_tab.current_tab == 2:
+		n_vkb_layout.grab_focus()
 
 func _on_config_ready(config_data: ConfigData):
 	n_cn_clear_layout.disabled = config_data.custom_input_remap.empty()

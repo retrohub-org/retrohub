@@ -1,8 +1,8 @@
 extends Control
 
-signal change_ocurred()
+signal change_ocurred
 signal request_extensions(system_name, curr_extensions)
-signal request_add_emulator()
+signal request_add_emulator
 signal request_retroarch_config(existing_cores)
 
 var curr_system : Dictionary setget set_curr_system
@@ -47,7 +47,7 @@ func set_curr_system(_curr_system: Dictionary):
 		add_emulator(emulator)
 
 func add_emulator(emulator):
-	var child = n_emulators.create_item(emulator_tree_root)
+	var child : TreeItem = n_emulators.create_item(emulator_tree_root)
 	child.set_metadata(0, emulator)
 	if emulator is Dictionary:
 		# RetroArch
@@ -62,7 +62,7 @@ func add_emulator(emulator):
 	child.set_icon(2, preload("res://assets/icons/failure.svg"))
 
 func get_retroarch_pretty_name(cores: Array):
-	var text = "["
+	var text := "["
 	for core in cores:
 		text += core + ","
 	if text.rfind(",") != -1:
@@ -92,8 +92,8 @@ func clear_icons():
 	n_photo.icon = null
 	n_logo.icon = null
 
-func extensions_picked(extensions: Array):
-	self.extensions = extensions
+func extensions_picked(_extensions: Array):
+	extensions = _extensions
 	set_extension_label()
 	emit_signal("change_ocurred")
 

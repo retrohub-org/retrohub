@@ -17,7 +17,6 @@ func _on_NextButton_pressed():
 	RetroHubConfig.load_game_data_files()
 	emit_signal("advance_section")
 
-
 func _on_ChooseDir_pressed():
 	RetroHubUI.request_folder_load(n_path.text)
 	set_path(yield(RetroHubUI, "path_selected"))

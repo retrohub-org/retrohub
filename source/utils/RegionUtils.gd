@@ -3,12 +3,12 @@ extends Node
 func localize_date(date_raw: String) -> String:
 	if date_raw == "null" or date_raw.empty():
 		return date_raw
-	var year = date_raw.substr(0, 4)
-	var month = date_raw.substr(4, 2)
-	var day = date_raw.substr(6, 2)
-	var hour = date_raw.substr(9, 2)
-	var minute = date_raw.substr(11, 2)
-	var second = date_raw.substr(13, 2)
+	var year := date_raw.substr(0, 4)
+	var month := date_raw.substr(4, 2)
+	var day := date_raw.substr(6, 2)
+	var hour := date_raw.substr(9, 2)
+	var minute := date_raw.substr(11, 2)
+	var second := date_raw.substr(13, 2)
 	var format_arr : Array
 	match RetroHubConfig.config.date_format:
 		"dd/mm/yyyy":
@@ -22,7 +22,7 @@ func localize_date(date_raw: String) -> String:
 func globalize_date_str(date_raw: String, source_format: String = ""):
 	if date_raw == "null" or date_raw.empty():
 		return date_raw
-	var date_split = date_raw.split(" ")
+	var date_split := date_raw.split(" ")
 	var year := 1970
 	var month := 1
 	var day := 1
@@ -30,7 +30,7 @@ func globalize_date_str(date_raw: String, source_format: String = ""):
 	var minute := 0
 	var second := 0
 
-	var format = RetroHubConfig.config.date_format if source_format.empty() else source_format
+	var format : String = RetroHubConfig.config.date_format if source_format.empty() else source_format
 	match format:
 		"dd/mm/yyyy":
 			day = int(date_split[0].get_slice("/", 0))
@@ -51,7 +51,7 @@ func globalize_date_str(date_raw: String, source_format: String = ""):
 
 	return "%04d%02d%02dT%02d%02d%02d" % [year, month, day, hour, minute, second]
 
-func globalize_date_dict(date_dict: Dictionary, source_format: String = ''):
+func globalize_date_dict(date_dict: Dictionary):
 	var year : int = date_dict["year"]
 	var month : int = date_dict["month"]
 	var day : int = date_dict["day"]
@@ -70,7 +70,7 @@ func localize_age_rating(age_rating_raw: String) -> Control:
 			rating_idx = 2
 		"esrb", _:
 			rating_idx = 0
-	var rating_node = preload("res://scenes/ui_nodes/AgeRatingTextureRect.tscn").instance()
+	var rating_node : Control = preload("res://scenes/ui_nodes/AgeRatingTextureRect.tscn").instance()
 	rating_node.from_rating_str(age_rating_raw, rating_idx)
 	return rating_node
 

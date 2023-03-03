@@ -4,16 +4,13 @@ onready var n_main := $"%SettingsTab"
 onready var n_game_tab := $"%GameTab"
 onready var n_panel_container := $"%PanelContainer"
 
-onready var n_game = $"%GameSettings"
-
-onready var n_root = $".."
+onready var n_game := $"%GameSettings"
 
 var last_tab : Control = null
 var should_reload_theme := false
 
 func _ready():
 	last_tab = n_game_tab
-	print(n_panel_container.rect_size)
 	n_panel_container.get_parent().rect_min_size.y = n_panel_container.rect_size.y
 	n_panel_container.get_parent().minimum_size_changed()
 
@@ -27,10 +24,6 @@ func _input(event: InputEvent):
 			else:
 				hide()
 				RetroHubConfig.save_theme_config()
-
-func show_first_time_popup():
-	hide()
-	n_root.show_first_time_popup()
 
 func _on_Tab_pressed(idx: int):
 	n_main.current_tab = idx

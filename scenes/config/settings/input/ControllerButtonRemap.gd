@@ -36,13 +36,13 @@ func start(curr_action: String, pos: Vector2):
 	# Set intended position and popup
 	rect_global_position = pos
 	popup()
-	
+
 	# Popup internally tries to focus, so wait until it's shown to grab focus
 	yield(get_tree(), "idle_frame")
 	focus_holder.grab_focus()
 
-func _find_button_from_action(action: String):
-	for event in InputMap.get_action_list(action):
+func _find_button_from_action(raw_action: String):
+	for event in InputMap.get_action_list(raw_action):
 		if event is InputEventJoypadButton:
 			return event.button_index
 	return -1

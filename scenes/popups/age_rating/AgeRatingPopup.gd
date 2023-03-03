@@ -2,14 +2,14 @@ extends WindowDialog
 
 signal rating_defined(rating_str)
 
-onready var n_min_age = $"%MinAge"
+onready var n_min_age := $"%MinAge"
 
 onready var n_rating_nodes := [
 	$"%ESRB", $"%PEGI", $"%CERO"
 ]
 
 func set_rating_str(rating_str: String):
-	var splits = rating_str.split_floats("/")
+	var splits := rating_str.split_floats("/")
 	for i in range(splits.size()):
 		n_rating_nodes[i].set_idx(splits[i])
 

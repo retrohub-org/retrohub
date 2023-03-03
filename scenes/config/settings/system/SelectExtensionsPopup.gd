@@ -23,9 +23,10 @@ func start(system_name: String, _extensions: Array):
 	var game_path : String = RetroHubConfig.config.games_dir + "/" + system_name
 	var dir := Directory.new()
 	if dir.open(game_path) == OK:
+		#warning-ignore:return_value_discarded
 		dir.list_dir_begin()
 		var curr_extensions := []
-		var file_name = dir.get_next()
+		var file_name := dir.get_next()
 		while file_name != "":
 			if not dir.current_is_dir():
 				var ext : String = "." + file_name.get_extension()
@@ -34,7 +35,7 @@ func start(system_name: String, _extensions: Array):
 					var btn := create_new_extension_button(ext)
 					btn.disabled = ext in extensions
 			file_name = dir.get_next()
-	
+
 	popup_centered()
 	yield(get_tree(), "idle_frame")
 	if n_new_extensions.get_child_count():
@@ -46,17 +47,18 @@ func reset():
 	for child in n_new_extensions.get_children():
 		n_new_extensions.remove_child(child)
 		child.queue_free()
-	
+
 	for child in n_curr_extensions.get_children():
 		n_curr_extensions.remove_child(child)
 		child.queue_free()
-	
+
 	n_ext_line_edit.text = ""
 	n_add_extension.disabled = true
 
-func create_curr_extension_button(name: String) -> Button:
+func create_curr_extension_button(name: String):
 	var btn := Button.new()
 	btn.text = name
+	#warning-ignore:return_value_discarded
 	btn.connect("pressed", self, "_on_curr_button_pressed", [btn, n_curr_extensions.get_child_count()])
 	n_curr_extensions.add_child(btn)
 
@@ -64,11 +66,10 @@ func create_curr_extension_button(name: String) -> Button:
 		if child.text == name:
 			child.disabled = true
 
-	return btn
-
 func create_new_extension_button(name: String) -> Button:
 	var btn := Button.new()
 	btn.text = name
+	#warning-ignore:return_value_discarded
 	btn.connect("pressed", self, "_on_new_button_pressed", [btn])
 	n_new_extensions.add_child(btn)
 	return btn
@@ -86,7 +87,7 @@ func _on_curr_button_pressed(btn: Button, idx: int):
 		n_curr_extensions.get_child(n_curr_extensions.get_child_count()-1).grab_focus()
 	else:
 		n_add_extension.grab_focus()
-	
+
 	btn.queue_free()
 	for child in n_new_extensions.get_children():
 		if child.text == ext:

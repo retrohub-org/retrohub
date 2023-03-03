@@ -4,14 +4,14 @@ signal identifier_picked(id)
 
 var keys : Array
 
-onready var n_intro_label = $"%IntroLabel"
-onready var n_existing_label = $"%ExistingLabel"
+onready var n_intro_label := $"%IntroLabel"
+onready var n_existing_label := $"%ExistingLabel"
 
-onready var n_line_edit = $"%LineEdit"
-onready var n_check_lower = $"%CheckLower"
-onready var n_check_special = $"%CheckSpecial"
-onready var n_check_existing = $"%CheckExisting"
-onready var n_ok = $"%OK"
+onready var n_line_edit := $"%LineEdit"
+onready var n_check_lower := $"%CheckLower"
+onready var n_check_special := $"%CheckSpecial"
+onready var n_check_existing := $"%CheckExisting"
+onready var n_ok := $"%OK"
 
 onready var base_text_intro : String = n_intro_label.text
 onready var base_text_existing : String = n_existing_label.text
@@ -37,15 +37,16 @@ func check_text(text: String = n_line_edit.text):
 
 	var enable_ok := true
 	var check : bool
-	
+
 	# Lowercase
 	check = text.to_lower() == text
 	set_check_enabled(n_check_lower, check)
 	enable_ok = enable_ok and check
 	# Special chars
 	var regex := RegEx.new()
-	regex.compile("[^a-zA-Z_0-9]+")
-	var results = regex.search(text)
+	if regex.compile("[^a-zA-Z_0-9]+"):
+		push_error("Internal error compiling regex")
+	var results := regex.search(text)
 	if results:
 		check = results.strings.empty()
 	else:

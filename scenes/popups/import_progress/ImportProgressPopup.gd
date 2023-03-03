@@ -18,10 +18,13 @@ func _on_CopyMovePopup_import_begin(_importer: RetroHubImporter, copy_mode: bool
 	popup()
 	importer = _importer
 	n_import.text = base_text % importer.get_name()
+	#warning-ignore:return_value_discarded
 	importer.connect("import_major_step", self, "_on_import_major_step")
+	#warning-ignore:return_value_discarded
 	importer.connect("import_minor_step", self, "_on_import_minor_step")
-	
-	thread.start(self, "t_import_begin", copy_mode)
+
+	if thread.start(self, "t_import_begin", copy_mode):
+		push_error("Thread start failed [t_import_begin]")
 
 func t_import_begin(copy_mode: bool):
 	importer.begin_import(copy_mode)

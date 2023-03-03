@@ -24,5 +24,5 @@ func _ready():
 
 func set_game_data(_game_data : RetroHubGameData):
 	game_data = _game_data
-	
+
 	$Label.text = label_text % game_data.name

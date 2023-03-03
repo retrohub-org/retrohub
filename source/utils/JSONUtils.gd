@@ -1,18 +1,18 @@
 extends Node
 
 func load_json_file(filepath: String):
-	var file = File.new()
+	var file := File.new()
 	if file.open(filepath, File.READ):
-		print("Error when opening " + filepath)
+		push_error("Error when opening " + filepath)
 		return {}
 	var json := JSON.parse(file.get_as_text())
 	if json.error:
-		print("Error when parsing JSON for " + filepath)
+		push_error("Error when parsing JSON for " + filepath)
 		return {}
 	return json.result
 
 func save_json_file(json, file_path: String):
-	var file = File.new()
+	var file := File.new()
 	var err : int = file.open(file_path, File.WRITE)
 	if err:
 		return err
@@ -20,7 +20,6 @@ func save_json_file(json, file_path: String):
 	file.close()
 
 func make_system_specific(json: Dictionary, curr_system: String):
-	
 	for key in json.keys():
 		var value = json[key]
 		if value is Array:
@@ -33,9 +32,9 @@ func make_system_specific(json: Dictionary, curr_system: String):
 						json[key] = system[curr_system]
 						found = true
 						break
-				
+
 				if not found:
-					print("Error, JSON doesn't have required system, leaving as is...")
+					push_error("Error, JSON doesn't have required system, leaving as is...")
 			else:
 				# Not what we're looking for, recurse it
 				for arr_value in value:
@@ -48,7 +47,7 @@ func make_system_specific(json: Dictionary, curr_system: String):
 
 func map_array_by_key(input: Array, key: String) -> Dictionary:
 	var dict := {}
-	var subkeys = []
+	var subkeys := []
 	for value in input:
 		subkeys.push_back(value[key])
 	subkeys.sort()
@@ -61,18 +60,18 @@ func map_array_by_key(input: Array, key: String) -> Dictionary:
 	return dict
 
 func format_string_with_substitutes(raw_str: String, substitutes: Dictionary, tk_start: String = "{", tk_end: String = "}", remove_empty: bool = false) -> String:
-	var format_str = raw_str
-	var idx = format_str.find(tk_start)
+	var format_str := raw_str
+	var idx := format_str.find(tk_start)
 	while idx != -1:
 		if idx > 0 and format_str[idx - 1] == "\\":
 			format_str.erase(idx - 1, 1)
 			idx = format_str.find(tk_start, idx)
 			continue
-		var end_idx = format_str.find(tk_end, idx)
+		var end_idx := format_str.find(tk_end, idx)
 		if end_idx == -1:
-			print("Invalid format string" + raw_str + "!")
+			push_error("Invalid format string" + raw_str + "!")
 			return raw_str
-		var token = format_str.substr(idx + tk_start.length(), end_idx - (idx + tk_start.length()))
+		var token := format_str.substr(idx + tk_start.length(), end_idx - (idx + tk_start.length()))
 		if token in substitutes:
 			format_str = format_str.replace(tk_start + token + tk_end, substitutes[token])
 		elif remove_empty:

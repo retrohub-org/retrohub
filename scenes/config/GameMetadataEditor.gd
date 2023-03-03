@@ -3,32 +3,33 @@ extends Control
 signal change_ocurred
 signal reset_state
 
-onready var n_name = $"%Name"
-onready var n_description = $"%Description"
-onready var n_rating_lbl = $"%RatingLabel"
-onready var n_rating = $"%Rating"
-onready var n_release_date = $"%ReleaseDate"
-onready var n_developer = $"%Developer"
-onready var n_publisher = $"%Publisher"
-onready var n_esrb = $"%ESRB"
-onready var n_pegi = $"%PEGI"
-onready var n_cero = $"%CERO"
-onready var n_change_age_rating = $"%ChangeAgeRating"
-onready var n_genres = $"%Genres"
-onready var n_fixed_players = $"%FixedPlayers"
-onready var n_fixed_players_num = $"%FixedPlayersNum"
-onready var n_variable_players = $"%VariablePlayers"
-onready var n_variable_players_min = $"%VariablePlayersMin"
-onready var n_variable_players_max = $"%VariablePlayersMax"
-onready var n_favorite = $"%Favorite"
-onready var n_num_times_played = $"%NumTimesPlayed"
+onready var n_name := $"%Name"
+onready var n_description := $"%Description"
+onready var n_rating_lbl := $"%RatingLabel"
+onready var n_rating := $"%Rating"
+onready var n_release_date := $"%ReleaseDate"
+onready var n_developer := $"%Developer"
+onready var n_publisher := $"%Publisher"
+onready var n_esrb := $"%ESRB"
+onready var n_pegi := $"%PEGI"
+onready var n_cero := $"%CERO"
+onready var n_change_age_rating := $"%ChangeAgeRating"
+onready var n_genres := $"%Genres"
+onready var n_fixed_players := $"%FixedPlayers"
+onready var n_fixed_players_num := $"%FixedPlayersNum"
+onready var n_variable_players := $"%VariablePlayers"
+onready var n_variable_players_min := $"%VariablePlayersMin"
+onready var n_variable_players_max := $"%VariablePlayersMax"
+onready var n_favorite := $"%Favorite"
+onready var n_num_times_played := $"%NumTimesPlayed"
 
-onready var n_age_rating_popup = $"%AgeRatingPopup"
+onready var n_age_rating_popup := $"%AgeRatingPopup"
 
 var game_data : RetroHubGameData setget set_game_data
 var rating_str : String
 
 func _ready():
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("game_data_updated", self, "_on_game_data_updated")
 
 func _on_game_data_updated(_game_data: RetroHubGameData):
@@ -54,7 +55,7 @@ func discard_changes():
 		n_pegi.from_rating_str(game_data.age_rating, 1)
 		n_cero.from_rating_str(game_data.age_rating, 2)
 		n_genres.text = game_data.genres[0] if game_data.genres.size() > 0 else ""
-		var players_splits = game_data.num_players.split_floats("-")
+		var players_splits := game_data.num_players.split_floats("-")
 		if players_splits.size() >= 2:
 			if players_splits[0] == players_splits[1]:
 				n_fixed_players.pressed = true
@@ -130,8 +131,8 @@ func save_changes():
 			game_data.num_players = "%d-%d" % [n_variable_players_min.value, n_variable_players_max.value]
 		game_data.favorite = n_favorite.pressed
 		game_data.play_count = n_num_times_played.value
-		RetroHubConfig.save_game_data(game_data)
-		emit_signal("reset_state")
+		if RetroHubConfig.save_game_data(game_data):
+			emit_signal("reset_state")
 
 func grab_focus():
 	n_name.grab_focus()
@@ -156,13 +157,13 @@ func _on_ChangeAgeRating_pressed():
 	n_age_rating_popup.popup()
 
 
-func _on_FixedPlayers_toggled(button_pressed):
+func _on_FixedPlayers_toggled(_button_pressed):
 	n_fixed_players_num.editable = true
 	n_variable_players_max.editable = false
 	n_variable_players_min.editable = false
 
 
-func _on_VariablePlayers_toggled(button_pressed):
+func _on_VariablePlayers_toggled(_button_pressed):
 	n_fixed_players_num.editable = false
 	n_variable_players_max.editable = true
 	n_variable_players_min.editable = true

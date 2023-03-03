@@ -44,7 +44,7 @@ func setup_systems(categories: Array):
 		root.set_text(1, "<all>")
 
 	for system in RetroHubConfig._systems_raw.values():
-		var idx = RetroHubSystemData.category_to_idx(system["category"])
+		var idx := RetroHubSystemData.category_to_idx(system["category"])
 		var child : TreeItem = n_systems[idx].create_item(n_systems[idx].get_root())
 		child.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 		child.set_checked(0, system["name"] in RetroHubConfig.systems)
@@ -53,7 +53,7 @@ func setup_systems(categories: Array):
 		child.set_selectable(0, false)
 		child.set_metadata(0, system)
 		child.set_text(1, system["name"])
-	
+
 	set_systems_visible(0)
 
 func set_systems_visible(idx: int):
@@ -77,8 +77,8 @@ func set_item_checked_down(item: TreeItem, checked: bool):
 
 func set_item_checked_up(item: TreeItem):
 	if item:
-		var all_checked = true
-		var next = item.get_children()
+		var all_checked := true
+		var next := item.get_children()
 		while next:
 			if not next.is_checked(0):
 				all_checked = false
@@ -96,9 +96,9 @@ func _on_item_edited(edited: TreeItem):
 		edited.set_checked(0, true)
 
 func is_edit_valid(item: TreeItem):
-	var system = item.get_metadata(0)
+	var system : Dictionary = item.get_metadata(0)
 	if system:
-		var name = system["name"]
+		var name : String = system["name"]
 		if RetroHubConfig.systems.has(name):
 			return RetroHubConfig.systems[name].num_games == 0
 	return true
@@ -108,13 +108,12 @@ func save():
 		var next : TreeItem = tree.get_root().get_children()
 		while next:
 			if next.is_checked(0):
-				var system = next.get_metadata(0)
+				var system : Dictionary = next.get_metadata(0)
 				RetroHubConfig.make_system_folder(system)
 			next = next.get_next()
 
 func _on_item_selected(tree: Tree):
-	var item = tree.get_selected()
-	var system = item.get_metadata(0)
+	var system : Dictionary = tree.get_selected().get_metadata(0)
 	emit_signal("system_selected", system)
 
 func _on_Consoles_item_edited():

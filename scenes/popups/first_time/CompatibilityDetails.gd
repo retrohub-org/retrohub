@@ -12,10 +12,6 @@ onready var n_theme_icon := $"%ThemeIcon"
 onready var n_theme_status := $"%ThemeStatus"
 onready var n_theme_details := $"%ThemeDetails"
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 func set_importer_status(importer: RetroHubImporter):
 	# Labels
 	set_label(n_metadata_status, importer.get_metadata_compatibility_level())

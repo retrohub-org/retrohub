@@ -18,6 +18,6 @@ func _on_RatingOptions_item_selected(index):
 			RetroHubConfig.config.rating_system = "pegi"
 		2:
 			RetroHubConfig.config.rating_system = "cero"
-	
+
 	for i in range(n_rating_icons.get_child_count()):
 		n_rating_icons.get_child(i).from_idx(i+1, index)

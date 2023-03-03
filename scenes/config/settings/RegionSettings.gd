@@ -2,9 +2,9 @@ extends Control
 
 signal theme_reload
 
-onready var n_region = $"%Region"
-onready var n_rating_system = $"%RatingSystem"
-onready var n_date_format = $"%DateFormat"
+onready var n_region := $"%Region"
+onready var n_rating_system := $"%RatingSystem"
+onready var n_date_format := $"%DateFormat"
 
 onready var n_genesis := $"%Genesis"
 onready var n_nes := $"%NES"
@@ -21,9 +21,10 @@ onready var n_tgcd_icon := $"%TGCDIcon"
 onready var n_odyssey2_icon := $"%Odyssey2Icon"
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 
 func grab_focus():

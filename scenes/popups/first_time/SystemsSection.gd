@@ -29,7 +29,7 @@ func _on_NextButton_pressed():
 
 func setup_categories():
 	n_categories.set_column_title(0, "Category")
-	var root = n_categories.create_item()
+	var root : TreeItem = n_categories.create_item()
 
 	# Tied to RetroHubSystemData.Category
 	for idx in range(categories.size()):

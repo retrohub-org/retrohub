@@ -261,18 +261,18 @@ func mark_for_saving():
 
 func load_config_from_path(path: String) -> int:
 	# Open file
-	var file = File.new()
-	var err = file.open(path, File.READ)
+	var file := File.new()
+	var err := file.open(path, File.READ)
 	if err:
-		print("Error opening config file " + path + " for reading!")
+		push_error("Error opening config file " + path + " for reading!")
 		return err
 
 	# Parse file
-	var json_result = JSON.parse(file.get_as_text())
+	var json_result := JSON.parse(file.get_as_text())
 	if(json_result.error):
-		print("Error parsing config file!")
+		push_error("Error parsing config file!")
 		return ERR_FILE_CORRUPT
-	
+
 	# Pre-process configuration due to app updates
 	process_raw_config_changes(json_result.result)
 
@@ -296,16 +296,16 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 	# Open file
 	var file := File.new()
 	if(file.open(path, File.WRITE)):
-		print("Error opening config file " + path + "for saving!")
+		push_error("Error opening config file " + path + "for saving!")
 		return ERR_CANT_OPEN
 
 	# Construct dict and save config
-	var dict = {}
+	var dict := {}
 	for key in _keys:
 		dict[key] = get(key)
 
 	# Save JSON to file
-	var json_output = JSON.print(dict, "\t")
+	var json_output := JSON.print(dict, "\t")
 	file.store_string(json_output)
 	file.close()
 	_config_changed = false
@@ -334,9 +334,10 @@ func process_raw_config_changes(config: Dictionary):
 	for cred in creds:
 		if config.has(cred):
 			RetroHubConfig._set_credential(cred, config[cred])
+			#warning-ignore:return_value_discarded
 			config.erase(cred)
 			_should_save = true
-	
+
 	# Old raw configs that were renamed
 	if config.has(KEY_INPUT_CONTROLLER_MAIN_AXIS) and config[KEY_INPUT_CONTROLLER_MAIN_AXIS] is float:
 		_should_save = true
@@ -345,7 +346,7 @@ func process_raw_config_changes(config: Dictionary):
 				config[KEY_INPUT_CONTROLLER_MAIN_AXIS] = "right"
 			JOY_ANALOG_LX, _:
 				config[KEY_INPUT_CONTROLLER_MAIN_AXIS] = "left"
-	
+
 	if config.has(KEY_INPUT_CONTROLLER_SECONDARY_AXIS) and config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] is float:
 		_should_save = true
 		match int(config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS]):
@@ -353,7 +354,7 @@ func process_raw_config_changes(config: Dictionary):
 				config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] = "right"
 			JOY_ANALOG_LX, _:
 				config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] = "left"
-	
+
 	if config.has(KEY_INPUT_CONTROLLER_ICON_TYPE) and config[KEY_INPUT_CONTROLLER_ICON_TYPE] is float:
 		_should_save = true
 		match int(config[KEY_INPUT_CONTROLLER_ICON_TYPE]):

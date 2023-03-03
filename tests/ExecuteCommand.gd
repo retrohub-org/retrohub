@@ -1,6 +1,6 @@
 extends Control
 
-var output = []
+var output := []
 
 func _on_Button_pressed():
 	$FileDialog.popup()
@@ -15,13 +15,13 @@ func _on_FileDialog_file_selected(path):
 
 func _on_LaunchButton_pressed():
 	$VBoxContainer/RichTextLabel.text = ""
-	var arr = $VBoxContainer/Command.text.split(" ")
-	var command = arr[0]
+	var arr : Array = $VBoxContainer/Command.text.split(" ")
+	var command : String = arr[0]
 	arr.remove(0)
 	if($VBoxContainer/HBoxContainer/FileSelectField.text.length()):
 		arr.push_back($VBoxContainer/HBoxContainer/FileSelectField.text)
 	print("Executing command ", command, " with arg len ", arr.size())
-	var pid = OS.execute(command, arr, false, output)
+	var _pid := OS.execute(command, arr, false, output)
 
 
 func _on_Timer_timeout():

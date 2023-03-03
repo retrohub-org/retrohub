@@ -3,12 +3,10 @@ extends Node
 signal config_ready(config_data)
 signal config_updated(key, old_value, new_value)
 
-signal theme_config_ready()
+signal theme_config_ready
 signal theme_config_updated(key, old_value, new_value)
 
-signal system_data_updated(system_data)
 signal game_data_updated(game_data)
-signal game_media_data_updated(game_media_data)
 
 var config := ConfigData.new()
 var theme : Node
@@ -36,7 +34,6 @@ var _implicit_mappings := {
 	"rh_down": "ui_down"
 }
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	OS.min_window_size = Vector2(1024, 576)
 	if FileUtils.get_os_id() == FileUtils.OS_ID.UNSUPPORTED:
@@ -55,6 +52,7 @@ func _ready():
 		# Wait until all other nodes have processed _ready
 		yield(get_tree(), "idle_frame")
 		emit_signal("config_ready", config)
+	#warning-ignore:return_value_discarded
 	config.connect("config_updated", self, "_on_config_updated")
 
 func load_user_data():
@@ -65,7 +63,7 @@ func load_user_data():
 func load_systems():
 	# Default systems
 	_systems_raw = JSONUtils.map_array_by_key(JSONUtils.load_json_file(get_systems_file()), "name")
-	
+
 	# Custom systems
 	var _custom_systems : Array = JSONUtils.load_json_file(get_custom_systems_file())
 	for child in _custom_systems:
@@ -78,7 +76,7 @@ func load_systems():
 	for key in _systems_raw:
 		if _systems_raw[key].has("extends"):
 			_systems_raw[key].merge(_systems_raw[_systems_raw[key]["extends"]])
-	
+
 	set_system_renaming()
 
 func load_emulators():
@@ -97,10 +95,11 @@ func load_emulators():
 
 func set_system_renaming():
 	for name in config.system_names:
-		var renames = config.get_system_rename_options(name)
+		var renames := config.get_system_rename_options(name)
 		for rename in renames:
 			if rename != config.system_names[name]:
 				_system_renames[name] = config.system_names[name]
+				#warning-ignore:return_value_discarded
 				_systems_raw.erase(rename)
 
 func _get_scancode(e: InputEventKey):
@@ -205,13 +204,15 @@ func handle_controller_button_remap(key: String, old: int, new: int):
 	InputMap.action_add_event(key, event)
 
 func load_config_file():
-	var err = config.load_config_from_path(get_config_file())
-	if err == ERR_FILE_NOT_FOUND:
-		config.save_config_to_path(get_config_file(), true)
-	elif err == ERR_FILE_CORRUPT:
-		print("File is corrupt!")
-		config.save_config_to_path(get_config_file(), true)
-		# TODO: behavior for when file is corrupt
+	match config.load_config_from_path(get_config_file()):
+		ERR_FILE_NOT_FOUND:
+			if config.save_config_to_path(get_config_file(), true):
+				push_error("Failed to save config file")
+		ERR_FILE_CORRUPT:
+			push_error("File is corrupt!")
+			if config.save_config_to_path(get_config_file(), true):
+				push_error("Failed to save config file")
+			# TODO: behavior for when file is corrupt
 
 func _get_credential(key: String) -> String:
 	var json : Dictionary = JSONUtils.load_json_file(get_config_dir() + "/rh_credentials.json")
@@ -241,9 +242,9 @@ func load_game_data_files():
 	games.clear()
 	systems.clear()
 	if _dir.open(config.games_dir) or _dir.list_dir_begin(true):
-		print("Error when opening game directory " + config.games_dir)
+		push_error("Error when opening game directory " + config.games_dir)
 		return
-	var file_name = _dir.get_next()
+	var file_name := _dir.get_next()
 	while file_name != "":
 		if _dir.current_is_dir() and \
 			((_systems_raw.has(file_name) and not _systems_raw[file_name].has("#delete")) or \
@@ -256,15 +257,15 @@ func load_game_data_files():
 	games.sort_custom(RetroHubGameData, "sort")
 
 func load_system_gamelists_files(folder_path: String, system_name: String):
-	var renamed_system = _system_renames[system_name] if _system_renames.has(system_name) else system_name
+	var renamed_system : String = _system_renames[system_name] if _system_renames.has(system_name) else system_name
 	print("Loading games from directory " + folder_path)
-	var dir = Directory.new()
+	var dir := Directory.new()
 	if dir.open(folder_path) or dir.list_dir_begin(true):
-		print("Error when opening game directory " + folder_path)
+		push_error("Error when opening game directory " + folder_path)
 		return
-	var file_name = dir.get_next()
+	var file_name := dir.get_next()
 	while file_name != "":
-		var full_path = folder_path + "/" + file_name
+		var full_path := folder_path + "/" + file_name
 		if dir.current_is_dir():
 			# Recurse
 			# TODO: prevent infinite recursion with shortcuts/symlinks
@@ -288,10 +289,10 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 				game.system_path = system_name
 				game.has_metadata = true
 				# Check if metadata exists, in the form of a .json file
-				var metadata_path = get_game_data_path_from_file(system_name, full_path)
+				var metadata_path := get_game_data_path_from_file(system_name, full_path)
 				if dir.file_exists(metadata_path):
 					if not fetch_game_data(metadata_path, game):
-						print("Metadata file corrupt!")
+						push_error("Metadata file corrupt!")
 						game.name = file_name
 						game.age_rating = "0/0/0"
 						game.has_metadata = false
@@ -304,15 +305,16 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 	dir.list_dir_end()
 
 func make_system_folder(system_raw: Dictionary):
-	var path = config.games_dir + "/" + system_raw["name"]
+	var path : String = config.games_dir + "/" + system_raw["name"]
 	if not _dir.dir_exists(path):
-		_dir.make_dir_recursive(path)
+		if _dir.make_dir_recursive(path):
+			push_error("Failed to create system folder " + path)
 
 func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 	var data : Dictionary = JSONUtils.load_json_file(path)
 	if data.empty():
 		return false
-	
+
 	game.name = data["name"]
 	game.description = data["description"]
 	game.rating = data["rating"]
@@ -329,32 +331,33 @@ func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 
 	return true
 
-func get_game_data_path_from_file(system_name: String, file_name: String):
+func get_game_data_path_from_file(system_name: String, file_name: String) -> String:
 	return get_gamelists_dir() + "/" + system_name + "/" + file_name.get_file().trim_suffix(file_name.get_extension()) + "json"
 
 func save_game_data(game_data: RetroHubGameData) -> bool:
-	var metadata_path = get_game_data_path_from_file(game_data.system.name, game_data.path)
+	var metadata_path := get_game_data_path_from_file(game_data.system.name, game_data.path)
 	FileUtils.ensure_path(metadata_path)
-	var game_data_raw = {}
-	game_data_raw["name"] = game_data.name
-	game_data_raw["description"] = game_data.description
-	game_data_raw["rating"] = game_data.rating
-	game_data_raw["release_date"] = game_data.release_date
-	game_data_raw["developer"] = game_data.developer
-	game_data_raw["publisher"] = game_data.publisher
-	game_data_raw["genres"] = game_data.genres
-	game_data_raw["num_players"] = game_data.num_players
-	game_data_raw["age_rating"] = game_data.age_rating
-	game_data_raw["favorite"] = game_data.favorite
-	game_data_raw["play_count"] = game_data.play_count
-	game_data_raw["last_played"] = game_data.last_played
-	game_data_raw["has_media"] = game_data.has_media
-	
+	var game_data_raw := {
+		"name": game_data.name,
+		"description": game_data.description,
+		"rating": game_data.rating,
+		"release_date": game_data.release_date,
+		"developer": game_data.developer,
+		"publisher": game_data.publisher,
+		"genres": game_data.genres,
+		"num_players": game_data.num_players,
+		"age_rating": game_data.age_rating,
+		"favorite": game_data.favorite,
+		"play_count": game_data.play_count,
+		"last_played": game_data.last_played,
+		"has_media": game_data.has_media,
+	}
+
 	if _file.open(metadata_path, File.WRITE):
-		print("Error when opening file %s!" % metadata_path)
+		push_error("Error when opening file %s!" % metadata_path)
 		_file.close()
 		return false
-	
+
 	_file.store_string(JSON.print(game_data_raw, "\t"))
 	_file.close()
 
@@ -364,11 +367,11 @@ func save_game_data(game_data: RetroHubGameData) -> bool:
 
 func is_file_from_system(file_name: String, system_name: String) -> bool:
 	var extensions : Array = _systems_raw[system_name]["extension"]
-	var file_extension = ("." + file_name.get_extension()).to_lower()
+	var file_extension := ("." + file_name.get_extension()).to_lower()
 	for extension in extensions:
 		if extension.to_lower() == file_extension:
 			return true
-	
+
 	return false
 
 
@@ -379,7 +382,7 @@ func load_theme() -> bool:
 	else:
 		theme_path = get_default_themes_dir() + "/" + current_theme + ".pck"
 	if !ProjectSettings.load_resource_pack(theme_path, false):
-		print("Error when loading theme " + theme_path)
+		push_error("Error when loading theme " + theme_path)
 		return false
 
 	if theme_data and is_instance_valid(theme_data.entry_scene):
@@ -393,7 +396,7 @@ func load_theme() -> bool:
 func load_theme_data():
 	var theme_raw : Dictionary = JSONUtils.load_json_file("res://theme.json")
 	if theme_raw.empty() or not theme_raw.has("id"):
-		print("Error when loading theme data!")
+		push_error("Error when loading theme data!")
 		return
 
 	theme_data = RetroHubTheme.new()
@@ -423,7 +426,7 @@ func unload_theme():
 		save_theme_config()
 
 		if !ProjectSettings.unload_resource_pack(theme_path):
-			print("Error when unloading theme " + theme_path)
+			push_error("Error when unloading theme " + theme_path)
 			return
 
 func get_theme_config(key, default_value):
@@ -438,10 +441,10 @@ func set_theme_config(key, value):
 func load_theme_config():
 	_theme_config = {}
 	_theme_config_changed = false
-	var theme_config_path = get_theme_config_dir() + "/config.json"
+	var theme_config_path := get_theme_config_dir() + "/config.json"
 	# If the config file doesn't exist, don't try reading it
 	if not _dir.file_exists(theme_config_path):
-		return;
+		return
 	if not _file.open(theme_config_path, File.READ):
 		var result := JSON.parse(_file.get_as_text())
 		_file.close()
@@ -449,17 +452,17 @@ func load_theme_config():
 			_theme_config = result.result
 			_theme_config_old = _theme_config.duplicate()
 		else:
-			print("Error when parsing theme config at %s" % theme_config_path)
+			push_error("Error when parsing theme config at %s" % theme_config_path)
 	else:
-		print("Error when reading theme config at %s" % theme_config_path)
+		push_error("Error when reading theme config at %s" % theme_config_path)
 	emit_signal("theme_config_ready")
 
 func save_theme_config():
 	if _theme_config_changed:
-		var theme_config_path = get_theme_config_dir() + "/config.json"
+		var theme_config_path := get_theme_config_dir() + "/config.json"
 		FileUtils.ensure_path(theme_config_path)
 		if _file.open(theme_config_path, File.WRITE):
-			print("Error when saving theme config at %s" % theme_config_path)
+			push_error("Error when saving theme config at %s" % theme_config_path)
 			return
 		_file.store_string(JSON.print(_theme_config, "\t"))
 		_file.close()
@@ -469,7 +472,7 @@ func save_theme_config():
 				emit_signal("theme_config_updated", key, "", _theme_config[key])
 			elif _theme_config_old[key] != _theme_config[key]:
 				emit_signal("theme_config_updated", key, _theme_config_old[key], _theme_config[key])
-		
+
 		_theme_config_changed = false
 
 func _exit_tree():
@@ -481,25 +484,26 @@ func bootstrap_config_dir():
 		print("First time!")
 		# Create base directories
 		var dir := Directory.new()
-		dir.make_dir_recursive(get_config_dir())
-		dir.make_dir_recursive(get_themes_dir())
-		dir.make_dir_recursive(get_gamelists_dir())
-		dir.make_dir_recursive(get_gamemedia_dir())
-		
+		var paths := [get_config_dir(), get_themes_dir(), get_gamelists_dir(), get_gamemedia_dir()]
+		for path in paths:
+			if dir.make_dir_recursive(path):
+				push_error("Error when creating directory " + path)
+
 		# Bootstrap system specific configs
 		for filename in ["emulators.json", "systems.json"]:
-			var filepathOut = get_config_dir() + "/rh_" + filename;
-			if(_file.open(filepathOut, File.WRITE)):
-				print("Error when opening file " + filepathOut + " for saving")
+			var filepath_out := get_config_dir() + "/rh_" + (filename as String)
+			if(_file.open(filepath_out, File.WRITE)):
+				push_error("Error when opening file " + filepath_out + " for saving")
 				return
 			_file.store_string(JSON.print([], "\t"))
 			_file.close()
-		
+
 		# Bootstrap credentials file
 		JSONUtils.save_json_file({}, get_config_dir() + "/rh_credentials.json")
 
 func save_config():
-	config.save_config_to_path(get_config_file())
+	if config.save_config_to_path(get_config_file()):
+		push_error("Error when saving config to " + get_config_file())
 	save_theme_config()
 
 func _restore_keys(dict: Dictionary, keys: Array):
@@ -543,8 +547,9 @@ func restore_system(system_raw: Dictionary):
 
 func remove_custom_system(system_raw: Dictionary):
 	if not system_raw.has("#custom"):
-		print("Tried to delete default system!")
+		push_error("Tried to delete default system!")
 		return
+	#warning-ignore:return_value_discarded
 	_systems_raw.erase(system_raw["name"])
 	# Find original config and modify it
 	var system_config : Array = JSONUtils.load_json_file(get_custom_systems_file())
@@ -592,8 +597,9 @@ func restore_emulator(emulator_raw: Dictionary):
 
 func remove_custom_emulator(emulator_raw: Dictionary):
 	if not emulator_raw.has("#custom"):
-		print("Tried to delete default emulator!")
+		push_error("Tried to delete default emulator!")
 		return
+	#warning-ignore:return_value_discarded
 	emulators_map.erase(emulator_raw["name"])
 	# Find original config and modify it
 	var emulator_config : Array = JSONUtils.load_json_file(get_custom_emulators_file())

@@ -9,8 +9,8 @@ enum Category {
 	ModernConsole	# Modern consoles (7th generation upwards)
 }
 
-static func category_to_idx(category: String) -> int:
-	match category:
+static func category_to_idx(_category: String) -> int:
+	match _category:
 		"computer":
 			return Category.Computer
 		"engine":

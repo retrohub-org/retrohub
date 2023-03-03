@@ -3,8 +3,10 @@ extends Node
 class_name RetroHubImporter
 
 # Signals a major step in the import process (for example, metadata; media; themes; etc...)
+#warning-ignore:unused_signal
 signal import_major_step(curr, total, description)
 # Signals a minor step in the import process (for example, individual files)
+#warning-ignore:unused_signal
 signal import_minor_step(curr, total, description)
 
 var progress_major_curr := 0
@@ -49,32 +51,32 @@ func get_theme_compatibility_level() -> int:
 # game metadata compatibility level
 func get_metadata_compatibility_level_description() -> String:
 	match get_metadata_compatibility_level():
-		CompatibilityLevel.PARTIAL, _:
-			return "Some game metadata information can be re-used."
 		CompatibilityLevel.SUPPORTED:
 			return "All game metadata information can be re-used."
+		CompatibilityLevel.PARTIAL, _:
+			return "Some game metadata information can be re-used."
 
 # Returns a description/note to give more information about the
 # game media compatibility level
 func get_media_compatibility_level_description() -> String:
 	match get_media_compatibility_level():
-		CompatibilityLevel.UNSUPPORTED, _:
-			return "No game media files can be re-used."
 		CompatibilityLevel.PARTIAL:
 			return "Some game media files can be re-used."
 		CompatibilityLevel.SUPPORTED:
 			return "All game media files can be re-used."
+		CompatibilityLevel.UNSUPPORTED, _:
+			return "No game media files can be re-used."
 
 # Returns a description/note to give more information about the
 # theme compatibility level
 func get_theme_compatibility_level_description() -> String:
 	match get_theme_compatibility_level():
-		CompatibilityLevel.UNSUPPORTED, _:
-			return "Themes under this platform cannot be used as there's no wrapper for it."
 		CompatibilityLevel.PARTIAL:
 			return "Themes under this platform can be partially used under a wrapper."
 		CompatibilityLevel.SUPPORTED:
 			return "Themes under this platform can be totally used under a wrapper."
+		CompatibilityLevel.UNSUPPORTED, _:
+			return "Themes under this platform cannot be used as there's no wrapper for it."
 
 # Returns the estimated size needed to copy the platform's data to RetroHub, in bytes.
 # This will run in a thread, so avoid any unsafe-thread API
@@ -102,18 +104,16 @@ func reset_minor(total: int):
 # Increases progress on major task, emitting a signal
 func progress_major(description: String):
 	call_deferred("emit_signal","import_major_step", progress_major_curr, progress_major_total, description)
-	#emit_signal("import_major_step", progress_major_curr, progress_major_total, description)
 	progress_major_curr += 1
 
 # Increases progress on minor task, emitting a signal
 func progress_minor(description: String):
 	call_deferred("emit_signal", "import_minor_step", progress_minor_curr, progress_minor_total, description)
-	#emit_signal("import_minor_step", progress_minor_curr, progress_minor_total, description)
 	progress_minor_curr += 1
 
 
 # Begins the import process. `copy` determines if the user wants
 # to copy previous data and, therefore, not affect the other game library
 # platform. This will be run in a thread, so avoid any unsafe-thread API
-func begin_import(copy: bool):
+func begin_import(_copy: bool):
 	pass

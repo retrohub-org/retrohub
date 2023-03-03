@@ -3,16 +3,16 @@ extends Control
 signal request_search(search, game_data)
 signal search_completed(orig_game_data, new_game_data)
 
-onready var n_search_field = $"%SearchField"
-onready var n_search = $"%Search"
-onready var n_screenshot = $"%Screenshot"
-onready var n_developer = $"%Developer"
-onready var n_publisher = $"%Publisher"
-onready var n_num_players = $"%NumPlayers"
-onready var n_name = $"%Name"
-onready var n_description = $"%Description"
-onready var n_game_search_entries = $"%GameSearchEntries"
-onready var n_confirm = $"%Confirm"
+onready var n_search_field := $"%SearchField"
+onready var n_search := $"%Search"
+onready var n_screenshot := $"%Screenshot"
+onready var n_developer := $"%Developer"
+onready var n_publisher := $"%Publisher"
+onready var n_num_players := $"%NumPlayers"
+onready var n_name := $"%Name"
+onready var n_description := $"%Description"
+onready var n_game_search_entries := $"%GameSearchEntries"
+onready var n_confirm := $"%Confirm"
 
 onready var button_group := ButtonGroup.new()
 
@@ -37,13 +37,16 @@ func set_scraper(_scraper: RetroHubScraper) -> void:
 	start_thread()
 
 func t_request_screenshots():
+	#warning-ignore:return_value_discarded
 	scraper.connect("media_scrape_finished", self, "_on_media_scrape_finished")
 	while true:
+		#warning-ignore:return_value_discarded
 		req_semaphore.wait()
 
 		if req_datas.empty():
 			break
 		var game_data : RetroHubGameData = req_datas.pop_front()
+		#warning-ignore:return_value_discarded
 		scraper.scrape_media(game_data, RetroHubMedia.Type.SCREENSHOT)
 	scraper.disconnect("media_scrape_finished", self, "_on_media_scrape_finished")
 
@@ -51,10 +54,12 @@ func start_thread():
 	if thread:
 		thread.wait_to_finish()
 	thread = Thread.new()
-	thread.start(self, "t_request_screenshots")
+	if thread.start(self, "t_request_screenshots"):
+		push_error("Thread start failed [t_request_screenshots]")
 
 func stop_thread():
 	req_datas.clear()
+	#warning-ignore:return_value_discarded
 	req_semaphore.post()
 
 func set_entry(game_entry: RetroHubScraperGameEntry):
@@ -62,7 +67,7 @@ func set_entry(game_entry: RetroHubScraperGameEntry):
 	if orig_game_data != game_entry.game_data:
 		orig_game_data = game_entry.game_data
 		n_search_field.text = orig_game_data.name.get_basename()
-	var game_datas = game_entry.data
+	var game_datas : Array = game_entry.data
 	n_search.disabled = false
 	if game_datas.empty():
 		var button := create_entry(null)
@@ -103,16 +108,20 @@ func populate_info(game_data: RetroHubGameData):
 func request_screenshot(game_data: RetroHubGameData):
 	cached_images[game_data] = null
 	req_datas.push_front(game_data)
+	#warning-ignore:return_value_discarded
 	req_semaphore.post()
 
-func _on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: PoolByteArray, extension: String):
+func _on_media_scrape_finished(game_data: RetroHubGameData, _type: int, data: PoolByteArray, extension: String):
 	var image := Image.new()
 	match extension:
 		"png":
+			#warning-ignore:return_value_discarded
 			image.load_png_from_buffer(data)
 		"jpg, jpeg":
+			#warning-ignore:return_value_discarded
 			image.load_jpg_from_buffer(data)
 		"webp":
+			#warning-ignore:return_value_discarded
 			image.load_webp_from_buffer(data)
 		_:
 			# Unsupported format, exit
@@ -128,13 +137,14 @@ func _on_entry_toggled(button_pressed: bool, game_data: RetroHubGameData):
 		populate_info(game_data)
 
 func create_entry(game_data: RetroHubGameData) -> Button:
-	var button = Button.new()
+	var button := Button.new()
 	button.align = Button.ALIGN_LEFT
 	button.clip_text = true
 	button.size_flags_horizontal = SIZE_EXPAND_FILL
 	button.rect_min_size.y = 28
 	button.group = button_group
 	button.toggle_mode = true
+	#warning-ignore:return_value_discarded
 	button.connect("toggled", self, "_on_entry_toggled", [game_data])
 	n_game_search_entries.add_child(button)
 	return button
@@ -148,5 +158,6 @@ func _on_Search_pressed():
 	emit_signal("request_search", n_search_field.text, orig_game_data)
 
 func _on_Confirm_pressed():
+	#warning-ignore:return_value_discarded
 	cached_images.erase(new_game_data)
 	emit_signal("search_completed", orig_game_data, new_game_data)

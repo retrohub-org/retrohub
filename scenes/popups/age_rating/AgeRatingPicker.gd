@@ -4,20 +4,20 @@ export(Array) var mapping : Array
 var raw_age : int setget set_raw_age
 export(Color) var disabled_modulate : Color
 
-onready var n_age = $"%Age"
+onready var n_age := $"%Age"
 
-onready var n_unknown = $"%Unknown"
+onready var n_unknown := $"%Unknown"
 
-onready var n_images = [
+onready var n_images := [
 	$"%1", $"%2", $"%3", $"%4", $"%5"
 ]
 
 func _gui_input(event):
 	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
 		get_tree().set_input_as_handled()
-		var age = get_actual_age()
+		var age := get_actual_age()
 		if raw_age == age:
-			var age_idx = mapping.find(age)
+			var age_idx := mapping.find(age)
 			if event.is_action_pressed("ui_left") and age_idx > 0:
 				set_raw_age(mapping[age_idx-1])
 			elif event.is_action_pressed("ui_right") and age_idx < mapping.size() - 1:
@@ -42,11 +42,11 @@ func set_raw_age(_raw_age: int):
 	else:
 		n_unknown.modulate = disabled_modulate
 
-		raw_age = clamp(_raw_age, 3, 18)
+		raw_age = int(clamp(_raw_age, 3, 18))
 		if not n_images or not n_age:
 			return
 
-		var age = get_actual_age()
+		var age := get_actual_age()
 		for i in range(n_images.size()):
 			if age > mapping[i+1]:
 				n_images[i].modulate = disabled_modulate
@@ -57,8 +57,8 @@ func set_raw_age(_raw_age: int):
 func get_age_index():
 	return mapping.find(get_actual_age())
 
-func get_actual_age():
-	var last_age = -1
+func get_actual_age() -> int:
+	var last_age := -1
 	for val in mapping:
 		if val > raw_age:
 			return last_age

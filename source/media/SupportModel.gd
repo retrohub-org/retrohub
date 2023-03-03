@@ -19,8 +19,8 @@ func set_texture(_texture: Texture):
 		material.albedo_texture = texture
 
 func scale_to_wu():
-	var aabb = mesh_path.mesh.get_aabb()
+	var aabb := mesh_path.mesh.get_aabb()
 	print("Short axis:", aabb.get_longest_axis_size())
-	var scalar = 1.0 / aabb.get_longest_axis_size()
+	var scalar := 1.0 / aabb.get_longest_axis_size()
 	print("Scaling by a factor of x", scalar)
 	scale *= scalar

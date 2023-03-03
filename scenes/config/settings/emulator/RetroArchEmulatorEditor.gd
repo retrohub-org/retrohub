@@ -1,6 +1,6 @@
 extends Control
 
-signal change_ocurred()
+signal change_ocurred
 signal request_add_core
 
 var curr_emulator : Dictionary setget set_curr_emulator
@@ -27,7 +27,7 @@ func focus_node_from_bottom():
 	n_core_file_name.grab_focus()
 
 func _ready():
-	n_core_option.get_popup().max_height = 300
+	n_core_option.get_popup().max_height = RetroHubUI.max_popupmenu_height
 
 func set_curr_emulator(_curr_emulator: Dictionary):
 	curr_emulator = _curr_emulator
@@ -47,7 +47,7 @@ func set_curr_emulator(_curr_emulator: Dictionary):
 	n_core_option.clear()
 	cores = curr_emulator["cores"].duplicate(true)
 	for core in cores:
-		var text = "<%s>" % core["name"] if core["fullname"].empty() else core["fullname"]
+		var text : String = "<%s>" % core["name"] if core["fullname"].empty() else core["fullname"]
 		n_core_option.add_item(text)
 		n_core_option.set_item_metadata(n_core_option.get_item_count()-1, core)
 	n_remove_core.disabled = n_core_option.get_item_count() == 0
@@ -59,14 +59,14 @@ func save() -> Dictionary:
 	curr_emulator["binpath"] = n_path.text
 	curr_emulator["corepath"] = n_core_path.text
 	curr_emulator["command"] = n_command.text
-	
-	var core = n_core_option.get_selected_metadata()
+
+	var core : Dictionary = n_core_option.get_selected_metadata()
 	if core:
 		core["fullname"] = n_core_name.text
 		core["file"] = n_core_file_name.text
-		var text = "<%s>" % n_core_identifier.text if n_core_name.text.empty() else n_core_name.text
+		var text : String = "<%s>" % n_core_identifier.text if n_core_name.text.empty() else n_core_name.text
 		n_core_option.set_item_text(n_core_option.selected, text)
-	
+
 	curr_emulator["cores"] = cores.duplicate(true)
 
 	return curr_emulator
@@ -84,8 +84,6 @@ func add_core(core: Dictionary):
 	n_core_option.set_item_metadata(n_core_option.get_item_count()-1, core)
 	n_core_option.selected = n_core_option.get_item_count()-1
 	_on_CoreOption_item_selected(n_core_option.selected)
-
-	save()
 
 func _on_item_change(__):
 	emit_signal("change_ocurred")
@@ -121,7 +119,7 @@ func _on_LoadCorePath_pressed():
 
 
 func _on_CoreOption_item_selected(index):
-	var core = n_core_option.get_item_metadata(index)
+	var core : Dictionary = n_core_option.get_item_metadata(index)
 	n_core_identifier.text = core["name"]
 	n_core_name.text = core["fullname"]
 	n_core_file_name.text = core["file"]
@@ -146,7 +144,7 @@ func _on_RemoveCore_pressed():
 	emit_signal("change_ocurred")
 	var core : Dictionary = n_core_option.get_selected_metadata()
 	cores.erase(core)
-	var idx = n_core_option.selected
+	var idx : int = n_core_option.selected
 	n_core_option.remove_item(idx)
 	idx -= 1
 	if idx < 0 and n_core_option.get_item_count() > 0:

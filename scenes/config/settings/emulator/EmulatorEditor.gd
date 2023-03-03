@@ -1,6 +1,6 @@
 extends Control
 
-signal change_ocurred()
+signal change_ocurred
 
 var curr_emulator : Dictionary setget set_curr_emulator
 

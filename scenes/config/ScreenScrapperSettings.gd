@@ -4,8 +4,8 @@ onready var n_use_account := $"%UseAccount"
 onready var n_username := $"%Username"
 onready var n_password := $"%Password"
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
 
 
