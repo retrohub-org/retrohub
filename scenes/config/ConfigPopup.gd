@@ -17,13 +17,15 @@ func _ready():
 func _input(event: InputEvent):
 	if not RetroHub._running_game:
 		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
-			get_tree().set_input_as_handled()
-			if not visible:
-				popup()
-				n_game.set_game_data(RetroHub.curr_game_data)
-			else:
-				hide()
-				RetroHubConfig.save_theme_config()
+			var modal_top := get_viewport().get_modal_stack_top()
+			if modal_top == null or modal_top == self:
+				get_tree().set_input_as_handled()
+				if not visible:
+					popup()
+					n_game.set_game_data(RetroHub.curr_game_data)
+				else:
+					hide()
+					RetroHubConfig.save_theme_config()
 
 func _on_Tab_pressed(idx: int):
 	n_main.current_tab = idx
