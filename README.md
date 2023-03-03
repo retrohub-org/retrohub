@@ -14,4 +14,4 @@ Stay tuned for more news and updates, hopefully very shortly!
 
 ## License
 
-Not yet set in stone until an official release, but it's either MIT or GPL3, determined by any dependencies added later on.
+RetroHub's source code is released under the [MIT license](LICENSE). Pre-compiled binaries are released under the [GPLv3 license](LICENSE_BINARY).
