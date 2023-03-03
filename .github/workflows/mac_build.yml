@@ -195,6 +195,12 @@ jobs:
         working-directory: retrohub
         run: |
           ../cached_builds/editor/Godot.app/Contents/MacOS/Godot --export "Mac" ../export/macos/RetroHub.app
+        
+      - name: "Sign executable"
+        working-directory: export/macos
+        run: |
+          xattr -dr com.apple.quarantine "RetroHub.app"
+          codesign -s - --force --deep "RetroHub.app"
 
       - name: "Upload Artifacts"
         uses: actions/upload-artifact@v3
