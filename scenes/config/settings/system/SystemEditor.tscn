@@ -187,6 +187,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 3
 hide_root = true
+single_click_select = true
 
 [connection signal="text_changed" from="HBoxContainer3/Name" to="." method="_on_item_change"]
 [connection signal="item_selected" from="HBoxContainer4/Category" to="." method="_on_item_change"]

@@ -132,7 +132,7 @@ func _launch_game_process() -> int:
 			var system_cores : Array = system_emulator["retroarch"]
 			emulator = RetroHubRetroArchEmulator.new(emulators["retroarch"], launched_game_data, system_cores)
 			break
-		else:
+		elif emulators.has(system_emulator):
 			emulator = RetroHubGenericEmulator.new(emulators[system_emulator], launched_game_data)
 			break
 

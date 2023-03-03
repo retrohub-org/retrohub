@@ -13,7 +13,7 @@ onready var n_restore_system := $"%RestoreSystem"
 onready var n_select_extensions_popup := $"%SelectExtensionsPopup"
 onready var n_add_custom_info_popup := $"%AddCustomInfoPopup"
 onready var n_add_existing_info_popup := $"%AddExistingInfoPopup"
-
+onready var n_retro_arch_config := $"%RetroArchConfig"
 
 var sep_idx := -1
 
@@ -164,3 +164,18 @@ func _on_AddExistingInfoPopup_identifier_picked(emulator_name: String):
 	n_system_editor.emulators.append(added_info)
 	n_system_editor.add_emulator(added_info)
 	_on_SystemEditor_change_ocurred()
+
+
+func _on_SystemEditor_request_retroarch_config(existing_cores: Array):
+	var retroarch_config : Dictionary = RetroHubConfig.emulators_map["retroarch"]
+	var cores := []
+	for name in existing_cores:
+		for core in retroarch_config["cores"]:
+			if core["name"] == name:
+				cores.push_back(core)
+				break
+	n_retro_arch_config.start(retroarch_config["cores"], cores)
+
+
+func _on_RetroArchConfig_cores_picked(cores):
+	n_system_editor.set_retroarch_cores(cores)

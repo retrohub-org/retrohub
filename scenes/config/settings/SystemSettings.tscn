@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/config/settings/SystemSettings.gd" type="Script" id=1]
 [ext_resource path="res://scenes/config/settings/system/SystemEditor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/config/settings/system/SelectExtensionsPopup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/config/settings/AddCustomInfo.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/config/settings/AddExistingInfo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/config/settings/system/RetroArchConfig.tscn" type="PackedScene" id=6]
 
 [node name="SystemSettings" type="Control"]
 anchor_right = 1.0
@@ -117,22 +118,22 @@ focus_neighbour_top = NodePath("../../../../../HBoxContainer/SystemSelection")
 [node name="Logo" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer/VBoxContainer2" index="1"]
 focus_neighbour_top = NodePath("../../../../../HBoxContainer/SystemSelection")
 
-[node name="Category" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer4" index="1"]
-items = [ "Console", null, false, 0, null, "Arcade", null, false, 1, null, "Computer", null, false, 2, null, "Game Engine", null, false, 3, null, "Modern Console", null, false, 4, null ]
-
 [node name="Emulators" parent="VBoxContainer/ScrollContainer/SystemEditor" index="7"]
 margin_bottom = 520.0
 focus_neighbour_bottom = NodePath("../../../HBoxContainer/SystemSelection")
 
 [node name="SelectExtensionsPopup" parent="." instance=ExtResource( 3 )]
 unique_name_in_owner = true
-visible = false
 
 [node name="AddCustomInfoPopup" parent="." instance=ExtResource( 4 )]
 unique_name_in_owner = true
 
 [node name="AddExistingInfoPopup" parent="." instance=ExtResource( 5 )]
 unique_name_in_owner = true
+
+[node name="RetroArchConfig" parent="." instance=ExtResource( 6 )]
+unique_name_in_owner = true
+visible = false
 
 [connection signal="visibility_changed" from="." to="." method="_on_SystemSettings_visibility_changed"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/SystemSelection" to="." method="_on_SystemSelection_item_selected"]
@@ -144,8 +145,10 @@ unique_name_in_owner = true
 [connection signal="change_ocurred" from="VBoxContainer/ScrollContainer/SystemEditor" to="." method="_on_SystemEditor_change_ocurred"]
 [connection signal="request_add_emulator" from="VBoxContainer/ScrollContainer/SystemEditor" to="." method="_on_SystemEditor_request_add_emulator"]
 [connection signal="request_extensions" from="VBoxContainer/ScrollContainer/SystemEditor" to="." method="_on_SystemEditor_request_extensions"]
+[connection signal="request_retroarch_config" from="VBoxContainer/ScrollContainer/SystemEditor" to="." method="_on_SystemEditor_request_retroarch_config"]
 [connection signal="extensions_picked" from="SelectExtensionsPopup" to="." method="_on_SelectExtensionsPopup_extensions_picked"]
 [connection signal="identifier_picked" from="AddCustomInfoPopup" to="." method="_on_AddCustomInfoPopup_identifier_picked"]
 [connection signal="identifier_picked" from="AddExistingInfoPopup" to="." method="_on_AddExistingInfoPopup_identifier_picked"]
+[connection signal="cores_picked" from="RetroArchConfig" to="." method="_on_RetroArchConfig_cores_picked"]
 
 [editable path="VBoxContainer/ScrollContainer/SystemEditor"]

@@ -3,7 +3,7 @@ extends Control
 signal change_ocurred()
 signal request_extensions(system_name, curr_extensions)
 signal request_add_emulator()
-signal request_edit_emulator()
+signal request_retroarch_config(existing_cores)
 
 var curr_system : Dictionary setget set_curr_system
 var emulators : Array
@@ -51,19 +51,25 @@ func add_emulator(emulator):
 	child.set_metadata(0, emulator)
 	if emulator is Dictionary:
 		# RetroArch
-		var text : String = get_emulator_name(emulator.keys()[0]) + " ["
-		for core in emulator.values()[0]:
-			text += core + ","
-		if text.rfind(",") != -1:
-			text[text.rfind(",")] = "]"
-		else:
-			text += "]"
+		var text : String = get_emulator_name(emulator.keys()[0])
+		if emulator.keys()[0] == "retroarch":
+			text += " " + get_retroarch_pretty_name(emulator.values()[0])
 		child.set_text(0, text)
 		child.set_icon(1, preload("res://assets/icons/settings.svg"))
 	else:
 		child.set_text(0, get_emulator_name(emulator))
 		child.set_selectable(1, false)
 	child.set_icon(2, preload("res://assets/icons/failure.svg"))
+
+func get_retroarch_pretty_name(cores: Array):
+	var text = "["
+	for core in cores:
+		text += core + ","
+	if text.rfind(",") != -1:
+		text[text.rfind(",")] = "]"
+	else:
+		text += "]"
+	return text
 
 func get_emulator_name(name: String):
 	if RetroHubConfig.emulators_map.has(name):
@@ -91,6 +97,20 @@ func extensions_picked(extensions: Array):
 	set_extension_label()
 	emit_signal("change_ocurred")
 
+func set_retroarch_cores(cores: Array):
+	var core_names := []
+	for core in cores:
+		core_names.push_back(core["name"])
+	var item : TreeItem = emulator_tree_root.get_children()
+	while item != null:
+		var core_def = item.get_metadata(0)
+		if core_def is Dictionary and core_def.keys()[0] == "retroarch":
+			emit_signal("change_ocurred")
+			core_def["retroarch"] = core_names
+			item.set_text(0, get_emulator_name("retroarch") + " " + get_retroarch_pretty_name(core_names))
+			return
+		item = item.get_next()
+
 func _on_item_change(__):
 	emit_signal("change_ocurred")
 
@@ -108,9 +128,13 @@ func _on_ChangeExtensions_pressed():
 
 func _on_Emulators_item_activated():
 	var selected : TreeItem = n_emulators.get_selected()
+	var emulator = selected.get_metadata(0)
 	match n_emulators.get_selected_column():
+		1: # Emulator config
+			match emulator.keys()[0]:
+				"retroarch":
+					emit_signal("request_retroarch_config", emulator.values()[0])
 		2: # Delete
-			var emulator = selected.get_metadata(0)
 			emulators.erase(emulator)
 			selected.free()
 			emit_signal("change_ocurred")
