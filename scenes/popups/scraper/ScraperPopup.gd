@@ -242,7 +242,7 @@ func t_on_game_scrape_not_found(game_data: RetroHubGameData):
 	#warning-ignore:return_value_discarded
 	pending_datas.erase(game_data)
 	if req.type == Request.Type.DATA_HASH:
-		game_entry.data = game_entry.game_data.name
+		game_entry.data = game_entry.game_data.name.get_basename()
 		requests_mutex.lock()
 		add_data_request(game_entry, Request.Type.DATA_SEARCH, true)
 		requests_mutex.unlock()
