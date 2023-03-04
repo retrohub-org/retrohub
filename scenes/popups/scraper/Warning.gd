@@ -3,6 +3,9 @@ extends Control
 signal request_search(search, game_data)
 signal search_completed(orig_game_data, new_game_data)
 
+onready var n_no_games_lbl := $"%NoGamesLabel"
+onready var n_multiple_games_lbl := $"%MultipleGamesLabel"
+
 onready var n_search_field := $"%SearchField"
 onready var n_search := $"%Search"
 onready var n_screenshot := $"%Screenshot"
@@ -69,6 +72,8 @@ func set_entry(game_entry: RetroHubScraperGameEntry):
 		n_search_field.text = orig_game_data.name.get_basename()
 	var game_datas : Array = game_entry.data
 	n_search.disabled = false
+	n_no_games_lbl.visible = game_datas.empty()
+	n_multiple_games_lbl.visible = not game_datas.empty()
 	if game_datas.empty():
 		var button := create_entry(null)
 		button.text = "No games found"
@@ -161,3 +166,7 @@ func _on_Confirm_pressed():
 	#warning-ignore:return_value_discarded
 	cached_images.erase(new_game_data)
 	emit_signal("search_completed", orig_game_data, new_game_data)
+
+
+func _on_SearchField_text_entered(_new_text):
+	_on_Search_pressed()

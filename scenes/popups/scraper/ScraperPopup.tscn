@@ -19,6 +19,7 @@
 [ext_resource path="res://scenes/popups/scraper/GameEntries.gd" type="Script" id=17]
 
 [node name="ScraperPopup" type="PopupPanel"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -151,6 +152,7 @@ size_flags_vertical = 3
 tabs_visible = false
 
 [node name="Success" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -234,9 +236,9 @@ step = 1.0
 [node name="WorkingCancelButton" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer"]
 unique_name_in_owner = true
 margin_left = 271.0
-margin_top = 172.0
+margin_top = 162.0
 margin_right = 325.0
-margin_bottom = 192.0
+margin_bottom = 182.0
 size_flags_horizontal = 4
 text = "Cancel"
 
@@ -259,9 +261,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Waiting" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting/VBoxContainer"]
-margin_top = 74.0
+margin_top = 69.0
 margin_right = 596.0
-margin_bottom = 94.0
+margin_bottom = 89.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 6 )
@@ -273,15 +275,14 @@ autowrap = true
 [node name="WaitingCancelButton" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting/VBoxContainer"]
 unique_name_in_owner = true
 margin_left = 271.0
-margin_top = 172.0
+margin_top = 162.0
 margin_right = 325.0
-margin_bottom = 192.0
+margin_bottom = 182.0
 size_flags_horizontal = 4
 text = "Cancel"
 
 [node name="Warning" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
 unique_name_in_owner = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -294,16 +295,25 @@ script = ExtResource( 8 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
+[node name="NoGamesLabel" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
+unique_name_in_owner = true
 margin_right = 596.0
 margin_bottom = 31.0
-text = "This game could not be uniquely identified by the scraper. Select the correct entry below, or indicate a search term (use simple words and avoid special characters)."
+text = "This game could not be uniquely identified by the scraper. Indicate a search term to search for (use simple words and avoid special characters)."
+autowrap = true
+
+[node name="MultipleGamesLabel" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 35.0
+margin_right = 596.0
+margin_bottom = 66.0
+text = "This game could not be uniquely identified by the scraper. Select the correct entry below, or indicate a different search term (use simple words and avoid special characters)."
 autowrap = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
-margin_top = 35.0
+margin_top = 70.0
 margin_right = 596.0
-margin_bottom = 59.0
+margin_bottom = 94.0
 
 [node name="SearchField" type="LineEdit" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -321,19 +331,19 @@ disabled = true
 text = "Search"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
-margin_top = 63.0
+margin_top = 98.0
 margin_right = 596.0
-margin_bottom = 498.0
+margin_bottom = 488.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
 margin_right = 384.0
-margin_bottom = 435.0
+margin_bottom = 390.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer"]
-margin_right = 384.0
+margin_right = 372.0
 margin_bottom = 515.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -430,16 +440,16 @@ autowrap = true
 [node name="HSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
 margin_left = 388.0
 margin_right = 392.0
-margin_bottom = 435.0
+margin_bottom = 390.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
 margin_left = 396.0
 margin_right = 596.0
-margin_bottom = 435.0
+margin_bottom = 390.0
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_right = 200.0
-margin_bottom = 403.0
+margin_bottom = 358.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_vertical = 3
 follow_focus = true
@@ -447,7 +457,7 @@ follow_focus = true
 [node name="GameSearchEntries" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/ScrollContainer2"]
 unique_name_in_owner = true
 margin_right = 200.0
-margin_bottom = 403.0
+margin_bottom = 358.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -455,15 +465,15 @@ size_flags_vertical = 3
 script = ExtResource( 13 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 407.0
+margin_top = 362.0
 margin_right = 200.0
-margin_bottom = 411.0
+margin_bottom = 366.0
 
 [node name="Confirm" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 415.0
+margin_top = 370.0
 margin_right = 200.0
-margin_bottom = 435.0
+margin_bottom = 390.0
 disabled = true
 text = "Confirm"
 
@@ -576,6 +586,7 @@ valign = 1
 [connection signal="request_search" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" to="." method="_on_Warning_request_search"]
 [connection signal="search_completed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" to="." method="_on_Warning_search_completed"]
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/SearchField" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_SearchField_text_changed"]
+[connection signal="text_entered" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/SearchField" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_SearchField_text_entered"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/Search" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_Search_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/Confirm" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_Confirm_pressed"]
 [connection signal="retry_entry" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Error" to="." method="_on_Error_retry_entry"]

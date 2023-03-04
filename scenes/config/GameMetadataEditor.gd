@@ -60,22 +60,30 @@ func discard_changes():
 		var players_splits := game_data.num_players.split_floats("-")
 		if players_splits.size() >= 2:
 			if players_splits[0] == players_splits[1]:
-				n_fixed_players.pressed = true
+				n_fixed_players.set_pressed_no_signal(true)
+				n_variable_players.set_pressed_no_signal(false)
+				if not disable_edits:
+					_on_FixedPlayers_toggled(true)
 				n_fixed_players_num.value = players_splits[0]
 				n_variable_players_min.value = 1
 				n_variable_players_max.value = 2
 			else:
-				n_variable_players.pressed = true
+				n_variable_players.set_pressed_no_signal(true)
+				n_fixed_players.set_pressed_no_signal(false)
+				if not disable_edits:
+					_on_VariablePlayers_toggled(true)
 				n_variable_players_min.value = players_splits[0]
 				n_variable_players_max.value = players_splits[1]
 				n_fixed_players_num.value = 1
 		else:
-			n_fixed_players.pressed = true
+			n_fixed_players.set_pressed_no_signal(true)
+			if not disable_edits:
+				_on_FixedPlayers_toggled(true)
 			n_fixed_players_num.value = 1
-			n_variable_players.pressed = false
+			n_variable_players.set_pressed_no_signal(false)
 			n_variable_players_min.value = 1
 			n_variable_players_max.value = 2
-		n_favorite.pressed = game_data.favorite
+		n_favorite.set_pressed_no_signal(game_data.favorite)
 		n_num_times_played.value = game_data.play_count
 	else:
 		set_edit_nodes_enabled(false)
@@ -88,12 +96,13 @@ func discard_changes():
 		rating_str = "0/0/0"
 		set_rating_icons()
 		n_genres.text = ""
-		n_fixed_players.pressed = true
+		n_fixed_players.set_pressed_no_signal(true)
+		_on_FixedPlayers_toggled(true)
 		n_fixed_players_num.value = 1
-		n_variable_players.pressed = false
+		n_variable_players.set_pressed_no_signal(false)
 		n_variable_players_min.value = 1
 		n_variable_players_max.value = 2
-		n_favorite.pressed = false
+		n_favorite.set_pressed_no_signal(false)
 		n_num_times_played.value = 0
 	emit_signal("reset_state")
 
@@ -111,8 +120,8 @@ func set_edit_nodes_enabled(enabled: bool):
 	n_fixed_players.disabled = !enabled
 	n_fixed_players_num.editable = enabled
 	n_variable_players.disabled = !enabled
-	n_variable_players_min.editable = !enabled
-	n_variable_players_max.editable = !enabled
+	n_variable_players_min.editable = enabled
+	n_variable_players_max.editable = enabled
 	n_favorite.disabled = !enabled
 	n_num_times_played.editable = enabled
 
