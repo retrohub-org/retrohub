@@ -150,6 +150,15 @@ jobs:
           default-tag: v0.0.5-alpha
           es-wrapper-tag: v0.0.3-alpha
 
+      - name: "Setup rcedit"
+        run: |
+          sudo apt-get install wine-stable
+          wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+          cached_builds/editor/godot -q
+          echo "export/windows/wine = \"/usr/bin/wine\"" >> ~/.config/godot/editor_settings-3.tres
+          echo "export/windows/rcedit = \"$(pwd)/rcedit-x64.exe\"" >> ~/.config/godot/editor_settings-3.tres
+          tail -n2 ~/.config/godot/editor_settings-3.tres
+
       - name: "Exporting RetroHub"
         working-directory: retrohub
         run: |
