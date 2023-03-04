@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/popups/first_time/EmulatorsSection.gd" type="Script" id=2]
-[ext_resource path="res://source/utils/ScrollContainerHandler.gd" type="Script" id=4]
+[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=4]
 
 [node name="EmulatorsSection" type="Control"]
 anchor_right = 1.0

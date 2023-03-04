@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/icons/app/retrohub_logo_1024px_draft.png" type="Texture" id=1]
 [ext_resource path="res://resources/fonts/default_big.tres" type="DynamicFont" id=2]
@@ -8,109 +8,121 @@
 [ext_resource path="res://assets/copyright/ffmpeg.png" type="Texture" id=6]
 [ext_resource path="res://assets/copyright/controller_icons.png" type="Texture" id=7]
 [ext_resource path="res://scenes/config/Licenses.gd" type="Script" id=8]
-[ext_resource path="res://source/utils/ScrollContainerHandler.gd" type="Script" id=9]
+[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=9]
 [ext_resource path="res://scenes/ui_nodes/LazyTextureRect.gd" type="Script" id=10]
 [ext_resource path="res://assets/copyright/onscreenkeyboard.png" type="Texture" id=11]
 [ext_resource path="res://assets/icons/scrapers/screenscraper.png" type="Texture" id=12]
+[ext_resource path="res://source/utils/TabContainerHandler.gd" type="Script" id=13]
+[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=14]
+[ext_resource path="res://resources/default_theme.tres" type="Theme" id=15]
+[ext_resource path="res://addons/controller_icons/assets/key/q.png" type="Texture" id=16]
+[ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture" id=17]
 
 [node name="AboutSettings" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
-[node name="TabContainer" type="TabContainer" parent="."]
+[node name="TabContainerHandler" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 13 )
+signal_tab_change = true
+
+[node name="TabContainer" type="TabContainer" parent="TabContainerHandler"]
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 15 )
 tab_align = 0
 
-[node name="About" type="ScrollContainer" parent="TabContainer"]
+[node name="About" type="ScrollContainer" parent="TabContainerHandler/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 5.0
+margin_top = 35.0
+margin_right = -5.0
+margin_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/About"]
-margin_right = 1016.0
-margin_bottom = 540.0
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/About"]
+margin_right = 1014.0
+margin_bottom = 536.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/About/VBoxContainer"]
-margin_right = 1016.0
-margin_bottom = 128.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
+margin_right = 1014.0
+margin_bottom = 139.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/About/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer"]
 margin_right = 128.0
-margin_bottom = 128.0
+margin_bottom = 139.0
 rect_min_size = Vector2( 128, 128 )
 texture = ExtResource( 1 )
 expand = true
 script = ExtResource( 10 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/About/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer"]
 margin_left = 132.0
-margin_top = 12.0
-margin_right = 351.0
-margin_bottom = 115.0
+margin_right = 359.0
+margin_bottom = 139.0
 size_flags_vertical = 4
 
-[node name="Name" type="Label" parent="TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_right = 219.0
-margin_bottom = 67.0
+[node name="Name" type="Label" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_right = 227.0
+margin_bottom = 75.0
 custom_fonts/font = ExtResource( 2 )
 text = "RetroHub"
 
-[node name="Version" type="Label" parent="TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Version" type="Label" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 71.0
-margin_right = 219.0
-margin_bottom = 85.0
+margin_top = 79.0
+margin_right = 227.0
+margin_bottom = 107.0
 text = "Version %s"
 
-[node name="EngineVersion" type="Label" parent="TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="EngineVersion" type="Label" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 89.0
-margin_right = 219.0
-margin_bottom = 103.0
+margin_top = 111.0
+margin_right = 227.0
+margin_bottom = 139.0
 text = "Engine version %s"
 
-[node name="HFlowContainer" type="VBoxContainer" parent="TabContainer/About/VBoxContainer/HBoxContainer"]
-margin_left = 866.0
-margin_right = 1016.0
-margin_bottom = 128.0
+[node name="HFlowContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer"]
+margin_left = 858.0
+margin_right = 1014.0
+margin_bottom = 139.0
 size_flags_horizontal = 10
 
-[node name="OpenWebsiteButton" type="Button" parent="TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
+[node name="OpenWebsiteButton" type="Button" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
+margin_right = 156.0
+margin_bottom = 28.0
 focus_neighbour_top = NodePath("../OpenIssuesButton")
 text = "Open project website"
 
-[node name="OpenIssuesButton" type="Button" parent="TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 44.0
+[node name="OpenIssuesButton" type="Button" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
+margin_top = 32.0
+margin_right = 156.0
+margin_bottom = 60.0
 focus_neighbour_bottom = NodePath("../OpenWebsiteButton")
 text = "Report issues"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/About/VBoxContainer"]
-margin_top = 132.0
-margin_right = 1016.0
-margin_bottom = 136.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
+margin_top = 143.0
+margin_right = 1014.0
+margin_bottom = 147.0
 
-[node name="Text" type="RichTextLabel" parent="TabContainer/About/VBoxContainer"]
-margin_top = 140.0
-margin_right = 1016.0
-margin_bottom = 170.0
+[node name="Text" type="RichTextLabel" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
+margin_top = 151.0
+margin_right = 1014.0
+margin_bottom = 201.0
 bbcode_enabled = true
 bbcode_text = "Copyright (C) 2021-present Ricardo Subtil ([url=https://github.com/rsubtil/]@rsubtil[/url])
 Icon designed by [url=https://github.com/lynnpepin]@lynnpepin[/url], distributed under [url=ccby40]CC-BY-4.0[/url]"
@@ -118,62 +130,65 @@ text = "Copyright (C) 2021-present Ricardo Subtil (@rsubtil)
 Icon designed by @lynnpepin, distributed under CC-BY-4.0"
 fit_content_height = true
 
-[node name="LicenseText" type="RichTextLabel" parent="TabContainer/About/VBoxContainer"]
-margin_top = 174.0
-margin_right = 1016.0
-margin_bottom = 189.0
+[node name="LicenseText" type="RichTextLabel" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
+margin_top = 205.0
+margin_right = 1014.0
+margin_bottom = 234.0
 bbcode_enabled = true
 bbcode_text = "RetroHub's source code is distributed under the [url=mit_retrohub]MIT[/url] license."
 text = "RetroHub's source code is distributed under the MIT license."
 fit_content_height = true
 
-[node name="GPLText" type="RichTextLabel" parent="TabContainer/About/VBoxContainer"]
+[node name="GPLText" type="RichTextLabel" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 193.0
-margin_right = 1016.0
-margin_bottom = 208.0
+margin_top = 238.0
+margin_right = 1014.0
+margin_bottom = 267.0
 bbcode_enabled = true
 bbcode_text = "This build is distributed under the [url=gpl3]GPL3[/url] license."
 text = "This build is distributed under the GPL3 license."
 fit_content_height = true
 
-[node name="Libraries" type="ScrollContainer" parent="TabContainer"]
+[node name="ScrollHandler" type="Control" parent="TabContainerHandler/TabContainer/About"]
+script = ExtResource( 9 )
+
+[node name="Libraries" type="ScrollContainer" parent="TabContainerHandler/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 5.0
+margin_top = 35.0
+margin_right = -5.0
+margin_bottom = -5.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Libraries"]
-margin_right = 1016.0
-margin_bottom = 555.0
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries"]
+margin_right = 1014.0
+margin_bottom = 779.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="TabContainer/Libraries/VBoxContainer"]
-margin_right = 1004.0
-margin_bottom = 14.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_right = 1002.0
+margin_bottom = 28.0
 text = "Libraries, frameworks, and Godot plugins used:"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Libraries/VBoxContainer"]
-margin_top = 18.0
-margin_right = 1004.0
-margin_bottom = 22.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_top = 32.0
+margin_right = 1002.0
+margin_bottom = 36.0
 
-[node name="Godot" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer"]
-margin_top = 26.0
-margin_right = 1004.0
-margin_bottom = 128.0
+[node name="Godot" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_top = 40.0
+margin_right = 1002.0
+margin_bottom = 184.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Libraries/VBoxContainer/Godot"]
-margin_right = 1004.0
-margin_bottom = 76.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot"]
+margin_right = 1002.0
+margin_bottom = 104.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer"]
 margin_right = 76.0
-margin_bottom = 76.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 76, 76 )
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -181,22 +196,22 @@ expand = true
 stretch_mode = 5
 script = ExtResource( 10 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer"]
 margin_left = 80.0
-margin_right = 1004.0
-margin_bottom = 76.0
+margin_right = 1002.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
-margin_right = 924.0
-margin_bottom = 42.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
+margin_right = 922.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 5 )
 text = "Godot Engine"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
-margin_top = 46.0
-margin_right = 924.0
-margin_bottom = 76.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 922.0
+margin_bottom = 104.0
 bbcode_enabled = true
 bbcode_text = "Website: [url=https://godotengine.org/]https://godotengine.org/[/url]
 License: [url=mit_godot]MIT[/url]"
@@ -204,29 +219,29 @@ text = "Website: https://godotengine.org/
 License: MIT"
 fit_content_height = true
 
-[node name="Label" type="Label" parent="TabContainer/Libraries/VBoxContainer/Godot"]
-margin_top = 80.0
-margin_right = 1004.0
-margin_bottom = 94.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot"]
+margin_top = 108.0
+margin_right = 1002.0
+margin_bottom = 136.0
 text = "Main game engine behind RetroHub"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Libraries/VBoxContainer/Godot"]
-margin_top = 98.0
-margin_right = 1004.0
-margin_bottom = 102.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot"]
+margin_top = 140.0
+margin_right = 1002.0
+margin_bottom = 144.0
 
-[node name="FFMPEG" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer"]
-margin_top = 132.0
-margin_right = 1004.0
-margin_bottom = 234.0
+[node name="FFMPEG" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_top = 188.0
+margin_right = 1002.0
+margin_bottom = 332.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Libraries/VBoxContainer/FFMPEG"]
-margin_right = 1004.0
-margin_bottom = 76.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG"]
+margin_right = 1002.0
+margin_bottom = 104.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer"]
 margin_right = 76.0
-margin_bottom = 76.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 76, 76 )
 size_flags_vertical = 3
 texture = ExtResource( 6 )
@@ -234,22 +249,22 @@ expand = true
 stretch_mode = 5
 script = ExtResource( 10 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer"]
 margin_left = 80.0
-margin_right = 1004.0
-margin_bottom = 76.0
+margin_right = 1002.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer"]
-margin_right = 924.0
-margin_bottom = 42.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer"]
+margin_right = 922.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 5 )
 text = "FFmpeg"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer"]
-margin_top = 46.0
-margin_right = 924.0
-margin_bottom = 76.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 922.0
+margin_bottom = 104.0
 bbcode_enabled = true
 bbcode_text = "Website: [url=https://ffmpeg.org/]https://ffmpeg.org/[/url]
 License: [url=gpl3]GPL3[/url]"
@@ -257,41 +272,41 @@ text = "Website: https://ffmpeg.org/
 License: GPL3"
 fit_content_height = true
 
-[node name="Label" type="Label" parent="TabContainer/Libraries/VBoxContainer/FFMPEG"]
-margin_top = 80.0
-margin_right = 1004.0
-margin_bottom = 94.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG"]
+margin_top = 108.0
+margin_right = 1002.0
+margin_bottom = 136.0
 text = "Video/audio playback"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Libraries/VBoxContainer/FFMPEG"]
-margin_top = 98.0
-margin_right = 1004.0
-margin_bottom = 102.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG"]
+margin_top = 140.0
+margin_right = 1002.0
+margin_bottom = 144.0
 
-[node name="godot-videodecoder" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer"]
-margin_top = 238.0
-margin_right = 1004.0
-margin_bottom = 341.0
+[node name="godot-videodecoder" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_top = 336.0
+margin_right = 1002.0
+margin_bottom = 481.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
-margin_right = 1004.0
-margin_bottom = 76.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
+margin_right = 1002.0
+margin_bottom = 104.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer"]
-margin_right = 1004.0
-margin_bottom = 76.0
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer"]
+margin_right = 1002.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer"]
-margin_right = 1004.0
-margin_bottom = 42.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer"]
+margin_right = 1002.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 5 )
 text = "godot-videodecoder"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer"]
-margin_top = 46.0
-margin_right = 1004.0
-margin_bottom = 76.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 1002.0
+margin_bottom = 104.0
 bbcode_enabled = true
 bbcode_text = "Website: [url=https://github.com/kidrigger/godot-videodecoder]https://github.com/kidrigger/godot-videodecoder[/url]
 License: [url=mit_videodecoder]MIT[/url]"
@@ -299,32 +314,32 @@ text = "Website: https://github.com/kidrigger/godot-videodecoder
 License: MIT"
 fit_content_height = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
-margin_top = 80.0
-margin_right = 1004.0
-margin_bottom = 95.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
+margin_top = 108.0
+margin_right = 1002.0
+margin_bottom = 137.0
 bbcode_enabled = true
 bbcode_text = "Addon for integrating FFMPEG with Godot. Custom fork is used at [url=https://github.com/retrohub-org/godot-videodecoder]https://github.com/retrohub-org/godot-videodecoder[url]"
 text = "Addon for integrating FFMPEG with Godot. Custom fork is used at https://github.com/retrohub-org/godot-videodecoder"
 fit_content_height = true
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
-margin_top = 99.0
-margin_right = 1004.0
-margin_bottom = 103.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
+margin_top = 141.0
+margin_right = 1002.0
+margin_bottom = 145.0
 
-[node name="ControllerIcons" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer"]
-margin_top = 345.0
-margin_right = 1004.0
-margin_bottom = 448.0
+[node name="ControllerIcons" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_top = 485.0
+margin_right = 1002.0
+margin_bottom = 630.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Libraries/VBoxContainer/ControllerIcons"]
-margin_right = 1004.0
-margin_bottom = 76.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons"]
+margin_right = 1002.0
+margin_bottom = 104.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer"]
 margin_right = 76.0
-margin_bottom = 76.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 76, 76 )
 size_flags_vertical = 3
 texture = ExtResource( 7 )
@@ -332,22 +347,22 @@ expand = true
 stretch_mode = 5
 script = ExtResource( 10 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer"]
 margin_left = 80.0
-margin_right = 1004.0
-margin_bottom = 76.0
+margin_right = 1002.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer"]
-margin_right = 924.0
-margin_bottom = 42.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer"]
+margin_right = 922.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 5 )
 text = "Controller Icons"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer"]
-margin_top = 46.0
-margin_right = 924.0
-margin_bottom = 76.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 922.0
+margin_bottom = 104.0
 bbcode_enabled = true
 bbcode_text = "Website: [url=https://github.com/rsubtil/controller_icons]https://github.com/rsubtil/controller_icons[/url]
 License: [url=mit_controllericons]MIT[/url] (Icons: [url=cc0]CC0[/url])"
@@ -355,32 +370,32 @@ text = "Website: https://github.com/rsubtil/controller_icons
 License: MIT (Icons: CC0)"
 fit_content_height = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Libraries/VBoxContainer/ControllerIcons"]
-margin_top = 80.0
-margin_right = 1004.0
-margin_bottom = 95.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons"]
+margin_top = 108.0
+margin_right = 1002.0
+margin_bottom = 137.0
 bbcode_enabled = true
 bbcode_text = "Addon for automatic keyboard/controller icons."
 text = "Addon for automatic keyboard/controller icons."
 fit_content_height = true
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Libraries/VBoxContainer/ControllerIcons"]
-margin_top = 99.0
-margin_right = 1004.0
-margin_bottom = 103.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons"]
+margin_top = 141.0
+margin_right = 1002.0
+margin_bottom = 145.0
 
-[node name="OnScreenKeyboard" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer"]
-margin_top = 452.0
-margin_right = 1004.0
-margin_bottom = 555.0
+[node name="OnScreenKeyboard" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_top = 634.0
+margin_right = 1002.0
+margin_bottom = 779.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Libraries/VBoxContainer/OnScreenKeyboard"]
-margin_right = 1004.0
-margin_bottom = 76.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard"]
+margin_right = 1002.0
+margin_bottom = 104.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer"]
 margin_right = 76.0
-margin_bottom = 76.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 76, 76 )
 size_flags_vertical = 3
 texture = ExtResource( 11 )
@@ -388,22 +403,22 @@ expand = true
 stretch_mode = 5
 script = ExtResource( 10 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer"]
 margin_left = 80.0
-margin_right = 1004.0
-margin_bottom = 76.0
+margin_right = 1002.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer"]
-margin_right = 924.0
-margin_bottom = 42.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer"]
+margin_right = 922.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 5 )
 text = "Onscreen Keyboard"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer"]
-margin_top = 46.0
-margin_right = 924.0
-margin_bottom = 76.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 922.0
+margin_bottom = 104.0
 bbcode_enabled = true
 bbcode_text = "Website: [url=https://github.com/martinfuchs/Godot-Onscreen-Keyboard]https://github.com/martinfuchs/Godot-Onscreen-Keyboard[/url]
 License: [url=mit_onscreenkeyboard]MIT[/url]"
@@ -411,57 +426,60 @@ text = "Website: https://github.com/martinfuchs/Godot-Onscreen-Keyboard
 License: MIT"
 fit_content_height = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Libraries/VBoxContainer/OnScreenKeyboard"]
-margin_top = 80.0
-margin_right = 1004.0
-margin_bottom = 95.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard"]
+margin_top = 108.0
+margin_right = 1002.0
+margin_bottom = 137.0
 bbcode_enabled = true
 bbcode_text = "Addon implementing a virtual screen keyboard."
 text = "Addon implementing a virtual screen keyboard."
 fit_content_height = true
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Libraries/VBoxContainer/OnScreenKeyboard"]
-margin_top = 99.0
-margin_right = 1004.0
-margin_bottom = 103.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard"]
+margin_top = 141.0
+margin_right = 1002.0
+margin_bottom = 145.0
 
-[node name="Assets" type="ScrollContainer" parent="TabContainer"]
+[node name="ScrollHandler" type="Control" parent="TabContainerHandler/TabContainer/Libraries"]
+script = ExtResource( 9 )
+
+[node name="Assets" type="ScrollContainer" parent="TabContainerHandler/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 5.0
+margin_top = 35.0
+margin_right = -5.0
+margin_bottom = -5.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Assets"]
-margin_right = 1016.0
-margin_bottom = 540.0
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets"]
+margin_right = 1014.0
+margin_bottom = 536.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="TabContainer/Assets/VBoxContainer"]
-margin_right = 1016.0
-margin_bottom = 14.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer"]
+margin_right = 1014.0
+margin_bottom = 28.0
 text = "Assets used:"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Assets/VBoxContainer"]
-margin_top = 18.0
-margin_right = 1016.0
-margin_bottom = 22.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer"]
+margin_top = 32.0
+margin_right = 1014.0
+margin_bottom = 36.0
 
-[node name="Godot" type="VBoxContainer" parent="TabContainer/Assets/VBoxContainer"]
-margin_top = 26.0
-margin_right = 1016.0
-margin_bottom = 128.0
+[node name="Godot" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer"]
+margin_top = 40.0
+margin_right = 1014.0
+margin_bottom = 184.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Assets/VBoxContainer/Godot"]
-margin_right = 1016.0
-margin_bottom = 76.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot"]
+margin_right = 1014.0
+margin_bottom = 104.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Assets/VBoxContainer/Godot/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer"]
 margin_right = 76.0
-margin_bottom = 76.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 76, 76 )
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -469,22 +487,22 @@ expand = true
 stretch_mode = 5
 script = ExtResource( 10 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Assets/VBoxContainer/Godot/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer"]
 margin_left = 80.0
-margin_right = 1016.0
-margin_bottom = 76.0
+margin_right = 1014.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
-margin_right = 936.0
-margin_bottom = 42.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
+margin_right = 934.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 5 )
 text = "Godot Engine"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
-margin_top = 46.0
-margin_right = 936.0
-margin_bottom = 76.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 934.0
+margin_bottom = 104.0
 bbcode_enabled = true
 bbcode_text = "Website: [url=https://godotengine.org/]https://godotengine.org/[/url]
 License: [url=mit_godot]MIT[/url]"
@@ -492,29 +510,29 @@ text = "Website: https://godotengine.org/
 License: MIT"
 fit_content_height = true
 
-[node name="Label" type="Label" parent="TabContainer/Assets/VBoxContainer/Godot"]
-margin_top = 80.0
-margin_right = 1016.0
-margin_bottom = 94.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot"]
+margin_top = 108.0
+margin_right = 1014.0
+margin_bottom = 136.0
 text = "Default UI elements"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Assets/VBoxContainer/Godot"]
-margin_top = 98.0
-margin_right = 1016.0
-margin_bottom = 102.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot"]
+margin_top = 140.0
+margin_right = 1014.0
+margin_bottom = 144.0
 
-[node name="ScreenScraper" type="VBoxContainer" parent="TabContainer/Assets/VBoxContainer"]
-margin_top = 132.0
-margin_right = 1016.0
-margin_bottom = 251.0
+[node name="ScreenScraper" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer"]
+margin_top = 188.0
+margin_right = 1014.0
+margin_bottom = 355.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Assets/VBoxContainer/ScreenScraper"]
-margin_right = 1016.0
-margin_bottom = 76.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper"]
+margin_right = 1014.0
+margin_bottom = 104.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer"]
 margin_right = 180.0
-margin_bottom = 76.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 180, 76 )
 size_flags_vertical = 3
 texture = ExtResource( 12 )
@@ -522,22 +540,22 @@ expand = true
 stretch_mode = 6
 script = ExtResource( 10 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer"]
 margin_left = 184.0
-margin_right = 1016.0
-margin_bottom = 76.0
+margin_right = 1014.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer"]
-margin_right = 832.0
-margin_bottom = 42.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer"]
+margin_right = 830.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 5 )
 text = "ScreenScraper"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer"]
-margin_top = 46.0
-margin_right = 832.0
-margin_bottom = 76.0
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 830.0
+margin_bottom = 104.0
 bbcode_enabled = true
 bbcode_text = "Website: [url=https://godotengine.org/]https://godotengine.org/[/url]
 License: [url=ccbyncsa40]CC BY-NC-SA 4.0[/url]"
@@ -545,67 +563,95 @@ text = "Website: https://godotengine.org/
 License: CC BY-NC-SA 4.0"
 fit_content_height = true
 
-[node name="Label" type="Label" parent="TabContainer/Assets/VBoxContainer/ScreenScraper"]
-margin_top = 80.0
-margin_right = 1016.0
-margin_bottom = 111.0
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper"]
+margin_top = 108.0
+margin_right = 1014.0
+margin_bottom = 159.0
 text = "System photos and logos
 Scraped metadata and media files"
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Assets/VBoxContainer/ScreenScraper"]
-margin_top = 115.0
-margin_right = 1016.0
-margin_bottom = 119.0
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper"]
+margin_top = 163.0
+margin_right = 1014.0
+margin_bottom = 167.0
 
-[node name="Licenses" type="Control" parent="TabContainer"]
+[node name="ScrollHandler" type="Control" parent="TabContainerHandler/TabContainer/Assets"]
+script = ExtResource( 9 )
+
+[node name="Licenses" type="Control" parent="TabContainerHandler/TabContainer"]
 unique_name_in_owner = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 5.0
+margin_top = 35.0
+margin_right = -5.0
+margin_bottom = -5.0
 script = ExtResource( 8 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Licenses"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Licenses"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Names" type="Tree" parent="TabContainer/Licenses/HBoxContainer"]
+[node name="Names" type="Tree" parent="TabContainerHandler/TabContainer/Licenses/HBoxContainer"]
 unique_name_in_owner = true
 margin_right = 200.0
-margin_bottom = 540.0
+margin_bottom = 536.0
 rect_min_size = Vector2( 200, 0 )
 hide_root = true
 
-[node name="Content" type="TextEdit" parent="TabContainer/Licenses/HBoxContainer"]
-unique_name_in_owner = true
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainerHandler/TabContainer/Licenses/HBoxContainer"]
 margin_left = 204.0
-margin_right = 1016.0
-margin_bottom = 540.0
+margin_right = 1014.0
+margin_bottom = 536.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-readonly = true
-smooth_scrolling = true
-wrap_enabled = true
 
-[node name="ScrollHandler" type="Control" parent="TabContainer/Licenses/HBoxContainer/Content"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="Content" type="Label" parent="TabContainerHandler/TabContainer/Licenses/HBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+margin_top = 254.0
+margin_right = 810.0
+margin_bottom = 282.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+autowrap = true
+
+[node name="ScrollHandler" type="Control" parent="TabContainerHandler/TabContainer/Licenses/HBoxContainer/ScrollContainer"]
 script = ExtResource( 9 )
+scroll_multiplier = 1500.0
 
-[connection signal="pressed" from="TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer/OpenWebsiteButton" to="." method="_on_OpenWebsiteButton_pressed"]
-[connection signal="pressed" from="TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer/OpenIssuesButton" to="." method="_on_OpenIssuesButton_pressed"]
-[connection signal="meta_clicked" from="TabContainer/About/VBoxContainer/Text" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/About/VBoxContainer/LicenseText" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/About/VBoxContainer/GPLText" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/Libraries/VBoxContainer/godot-videodecoder/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="item_selected" from="TabContainer/Licenses/HBoxContainer/Names" to="TabContainer/Licenses" method="_on_Names_item_selected"]
+[node name="ControllerSlideLeft" type="TextureRect" parent="TabContainerHandler"]
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+texture = ExtResource( 16 )
+expand = true
+script = ExtResource( 14 )
+path = "rh_left_shoulder"
+max_width = 30
+
+[node name="ControllerSlideRight" type="TextureRect" parent="TabContainerHandler"]
+margin_left = 309.0
+margin_right = 339.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+texture = ExtResource( 17 )
+expand = true
+script = ExtResource( 14 )
+path = "rh_right_shoulder"
+max_width = 30
+
+[connection signal="tab_changed" from="TabContainerHandler" to="." method="_on_TabContainerHandler_tab_changed"]
+[connection signal="pressed" from="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer/OpenWebsiteButton" to="." method="_on_OpenWebsiteButton_pressed"]
+[connection signal="pressed" from="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer/OpenIssuesButton" to="." method="_on_OpenIssuesButton_pressed"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/About/VBoxContainer/Text" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/About/VBoxContainer/LicenseText" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/About/VBoxContainer/GPLText" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="item_selected" from="TabContainerHandler/TabContainer/Licenses/HBoxContainer/Names" to="TabContainerHandler/TabContainer/Licenses" method="_on_Names_item_selected"]

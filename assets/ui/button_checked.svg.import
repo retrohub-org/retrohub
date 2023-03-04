@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/emulators_small.png-336cfe22276343bc194434d2665d7790.stex"
+path="res://.import/button_checked.svg-e4f44d9c131d569a8402fc464824e4d3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/first_time/emulators_small.png"
-dest_files=[ "res://.import/emulators_small.png-336cfe22276343bc194434d2665d7790.stex" ]
+source_file="res://assets/ui/button_checked.svg"
+dest_files=[ "res://.import/button_checked.svg-e4f44d9c131d569a8402fc464824e4d3.stex" ]
 
 [params]
 

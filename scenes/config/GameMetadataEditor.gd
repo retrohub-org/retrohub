@@ -28,6 +28,8 @@ onready var n_age_rating_popup := $"%AgeRatingPopup"
 var game_data : RetroHubGameData setget set_game_data
 var rating_str : String
 
+export(bool) var disable_edits := false
+
 func _ready():
 	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("game_data_updated", self, "_on_game_data_updated")
@@ -96,6 +98,8 @@ func discard_changes():
 	emit_signal("reset_state")
 
 func set_edit_nodes_enabled(enabled: bool):
+	if disable_edits:
+		enabled = false
 	n_name.editable = enabled
 	n_description.readonly = !enabled
 	n_rating.editable = enabled

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/config/ScraperSettings.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/NotoSans-Italic.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/icons/scrapers/screenscraper.png" type="Texture" id=4]
 [ext_resource path="res://scenes/popups/scraping_game_picker/ScrapingGamePickerPopup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/popups/scraper/ScraperPopup.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 14
@@ -235,6 +236,9 @@ margin_bottom = 272.0
 hint_tooltip = "Game manual"
 pressed = true
 text = "Manual"
+
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/ScrollContainer"]
+script = ExtResource( 7 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 524.0

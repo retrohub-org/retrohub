@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/region_small.png-34826ca9b9d744a9d1952e097c05b98c.stex"
+path="res://.import/scraper.png-b6edcdbc34f84dfca39afb70d29a3f4b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/first_time/region_small.png"
-dest_files=[ "res://.import/region_small.png-34826ca9b9d744a9d1952e097c05b98c.stex" ]
+source_file="res://assets/icons/config/scraper.png"
+dest_files=[ "res://.import/scraper.png-b6edcdbc34f84dfca39afb70d29a3f4b.stex" ]
 
 [params]
 

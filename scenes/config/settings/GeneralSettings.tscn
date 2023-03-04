@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/config/settings/GeneralSettings.gd" type="Script" id=1]
 [ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/icons/load.svg" type="Texture" id=3]
+[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=4]
 
 [node name="GeneralSettings" type="Control"]
 anchor_right = 1.0
@@ -82,17 +83,17 @@ custom_constants/separation = 15
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/User/HBoxContainer2"]
 margin_top = 8.0
-margin_right = 617.0
+margin_right = 621.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Theme:"
 
 [node name="Themes" type="OptionButton" parent="ScrollContainer/VBoxContainer/User/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 632.0
+margin_left = 636.0
 margin_right = 866.0
 margin_bottom = 30.0
-rect_min_size = Vector2( 234, 30 )
+rect_min_size = Vector2( 230, 30 )
 
 [node name="SetThemePath" type="Button" parent="ScrollContainer/VBoxContainer/User/HBoxContainer2"]
 unique_name_in_owner = true
@@ -227,6 +228,9 @@ step = 5.0
 value = 100.0
 tick_count = 11
 ticks_on_borders = true
+
+[node name="ScrollHandler" type="Control" parent="ScrollContainer"]
+script = ExtResource( 4 )
 
 [node name="FirstTimeWizardWarning" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true

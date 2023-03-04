@@ -17,7 +17,7 @@
 [ext_resource path="res://scenes/popups/first_time/ImportSettingsSection.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/popups/first_time/SystemsSection.tscn" type="PackedScene" id=16]
 [ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=17]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/r_stick.png" type="Texture" id=18]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=18]
 
 [node name="FirstTimePopup" type="Popup"]
 anchor_right = 1.0

@@ -12,6 +12,9 @@ var scroll_h : HScrollBar = null
 var scroll_v : VScrollBar = null
 var scroll_h_speed := 0.0
 var scroll_v_speed := 0.0
+
+export(float) var scroll_multiplier := 500.0
+
 func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize
 	mouse_filter = MOUSE_FILTER_IGNORE
@@ -25,8 +28,6 @@ func _ready():
 		_handle_popup_menu(parent.get_popup())
 	elif parent is PopupMenu:
 		_handle_popup_menu(parent)
-	elif parent is TextEdit:
-		_handle_internal_children(parent)
 
 	if not scroll_h and not scroll_v:
 		push_error("ScrollHandler added to a non-scrollable node! Queueing free...")
@@ -57,23 +58,19 @@ func _handle_popup_menu(node: PopupMenu):
 			return
 
 func _process(delta):
-	if not scroll_h and not scroll_v:
-		return
-
 	if scroll_h:
-		scroll_h.value += scroll_h_speed * delta * 500
+		scroll_h.value += scroll_h_speed * delta * scroll_multiplier
 	if scroll_v:
-		scroll_v.value += scroll_v_speed * delta * 500
+		scroll_v.value += scroll_v_speed * delta * scroll_multiplier
 
 func _unhandled_input(event):
-	if (not scroll_h and not scroll_v) or \
-		(not scroll_h.is_visible_in_tree() and not scroll_v.is_visible_in_tree()) or \
-		RetroHub.is_input_echo():
+	if RetroHub.is_input_echo():
 		return
 
-	if scroll_h and (event.is_action("rh_rstick_left") or event.is_action("rh_rstick_right")):
-		scroll_h_speed = Input.get_axis("rh_rstick_left", "rh_rstick_right")
-		get_tree().set_input_as_handled()
-	if scroll_v and (event.is_action("rh_rstick_up") or event.is_action("rh_rstick_down")):
-		scroll_v_speed = Input.get_axis("rh_rstick_up", "rh_rstick_down")
-		get_tree().set_input_as_handled()
+	if (scroll_h and scroll_h.is_visible_in_tree()) or (scroll_v and scroll_v.is_visible_in_tree()):
+		if scroll_h and (event.is_action("rh_rstick_left") or event.is_action("rh_rstick_right")):
+			scroll_h_speed = Input.get_axis("rh_rstick_left", "rh_rstick_right")
+			get_tree().set_input_as_handled()
+		if scroll_v and (event.is_action("rh_rstick_up") or event.is_action("rh_rstick_down")):
+			scroll_v_speed = Input.get_axis("rh_rstick_up", "rh_rstick_down")
+			get_tree().set_input_as_handled()

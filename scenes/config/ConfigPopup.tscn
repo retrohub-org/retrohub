@@ -1,9 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/icons/first_time/emulators_small.png" type="Texture" id=2]
-[ext_resource path="res://assets/icons/first_time/systems_small.png" type="Texture" id=3]
-[ext_resource path="res://assets/icons/first_time/region_small.png" type="Texture" id=4]
+[ext_resource path="res://assets/icons/config/emulators.png" type="Texture" id=2]
+[ext_resource path="res://assets/icons/config/systems.png" type="Texture" id=3]
+[ext_resource path="res://assets/icons/config/region.png" type="Texture" id=4]
 [ext_resource path="res://scenes/config/ThemeSettings.gd" type="Script" id=5]
 [ext_resource path="res://scenes/config/ConfigPopup.gd" type="Script" id=6]
 [ext_resource path="res://scenes/config/NoThemeSettings.tscn" type="PackedScene" id=7]
@@ -16,6 +16,14 @@
 [ext_resource path="res://scenes/config/settings/RegionSettings.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/config/QuitSettings.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/config/AboutSettings.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/icons/config/quit.png" type="Texture" id=17]
+[ext_resource path="res://assets/icons/config/game.png" type="Texture" id=18]
+[ext_resource path="res://assets/icons/config/scraper.png" type="Texture" id=19]
+[ext_resource path="res://assets/icons/config/theme.png" type="Texture" id=20]
+[ext_resource path="res://assets/icons/config/general.png" type="Texture" id=21]
+[ext_resource path="res://assets/icons/config/input.png" type="Texture" id=22]
+[ext_resource path="res://assets/icons/config/about.png" type="Texture" id=23]
+[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=24]
 
 [sub_resource type="ButtonGroup" id=1]
 
@@ -73,79 +81,100 @@ theme_type_variation = "MenuSideTopButton"
 toggle_mode = true
 group = SubResource( 1 )
 text = "Quit"
+icon = ExtResource( 17 )
+icon_align = 2
+expand_icon = true
 
 [node name="GameTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
 margin_top = 31.0
 margin_right = 160.0
-margin_bottom = 131.0
-rect_min_size = Vector2( 100, 100 )
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 90 )
 theme = ExtResource( 1 )
 theme_type_variation = "MenuSideButton"
 toggle_mode = true
 group = SubResource( 1 )
 text = "Game"
+icon = ExtResource( 18 )
+align = 2
+icon_align = 2
+expand_icon = true
 
 [node name="ScraperTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 132.0
+margin_top = 122.0
 margin_right = 160.0
-margin_bottom = 232.0
-rect_min_size = Vector2( 100, 100 )
+margin_bottom = 212.0
+rect_min_size = Vector2( 100, 90 )
 theme = ExtResource( 1 )
 theme_type_variation = "MenuSideButton"
 toggle_mode = true
 group = SubResource( 1 )
 text = "Scraper"
+icon = ExtResource( 19 )
+align = 2
+icon_align = 2
+expand_icon = true
 
 [node name="ThemeTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 233.0
+margin_top = 213.0
 margin_right = 160.0
-margin_bottom = 333.0
-rect_min_size = Vector2( 100, 100 )
+margin_bottom = 303.0
+rect_min_size = Vector2( 100, 90 )
 theme = ExtResource( 1 )
 theme_type_variation = "MenuSideButton"
 toggle_mode = true
 group = SubResource( 1 )
 text = "Theme"
+icon = ExtResource( 20 )
+align = 2
+icon_align = 2
+expand_icon = true
 
 [node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 334.0
+margin_top = 304.0
 margin_right = 160.0
-margin_bottom = 338.0
+margin_bottom = 308.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 339.0
+margin_top = 309.0
 margin_right = 160.0
-margin_bottom = 367.0
+margin_bottom = 337.0
 text = "Settings"
 align = 1
 
 [node name="GeneralTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 368.0
+margin_top = 338.0
 margin_right = 160.0
-margin_bottom = 428.0
+margin_bottom = 398.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
 theme_type_variation = "MenuSideButton"
 toggle_mode = true
 group = SubResource( 1 )
 text = "General"
+icon = ExtResource( 21 )
+icon_align = 2
+expand_icon = true
 
 [node name="InputTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 429.0
+margin_top = 399.0
 margin_right = 160.0
-margin_bottom = 489.0
+margin_bottom = 459.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
 theme_type_variation = "MenuSideButton"
 toggle_mode = true
 group = SubResource( 1 )
 text = "Input"
+icon = ExtResource( 22 )
+icon_align = 2
+expand_icon = true
 
 [node name="RegionTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 490.0
+margin_top = 460.0
 margin_right = 160.0
-margin_bottom = 550.0
+margin_bottom = 520.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
 theme_type_variation = "MenuSideButton"
@@ -154,11 +183,12 @@ group = SubResource( 1 )
 text = "Region"
 icon = ExtResource( 4 )
 icon_align = 2
+expand_icon = true
 
 [node name="SystemsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 551.0
+margin_top = 521.0
 margin_right = 160.0
-margin_bottom = 611.0
+margin_bottom = 581.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
 theme_type_variation = "MenuSideButton"
@@ -167,11 +197,12 @@ group = SubResource( 1 )
 text = "Systems"
 icon = ExtResource( 3 )
 icon_align = 2
+expand_icon = true
 
 [node name="EmulatorsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 612.0
+margin_top = 582.0
 margin_right = 160.0
-margin_bottom = 672.0
+margin_bottom = 642.0
 rect_min_size = Vector2( 100, 60 )
 theme = ExtResource( 1 )
 theme_type_variation = "MenuSideButton"
@@ -180,11 +211,12 @@ group = SubResource( 1 )
 text = "Emulators"
 icon = ExtResource( 2 )
 icon_align = 2
+expand_icon = true
 
 [node name="AboutTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 673.0
+margin_top = 643.0
 margin_right = 160.0
-margin_bottom = 733.0
+margin_bottom = 703.0
 rect_min_size = Vector2( 100, 60 )
 focus_neighbour_bottom = NodePath("../QuitTab")
 theme = ExtResource( 1 )
@@ -192,6 +224,8 @@ theme_type_variation = "MenuSideBottomButton"
 toggle_mode = true
 group = SubResource( 1 )
 text = "About"
+icon = ExtResource( 23 )
+icon_align = 2
 expand_icon = true
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
@@ -249,6 +283,9 @@ follow_focus = true
 scroll_horizontal_enabled = false
 script = ExtResource( 5 )
 no_theme_settings_scene = ExtResource( 7 )
+
+[node name="ScrollHandler" type="Control" parent="Panel/HBoxContainer/MarginContainer/SettingsTab/ThemeSettings"]
+script = ExtResource( 24 )
 
 [node name="GeneralSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 12 )]
 unique_name_in_owner = true
