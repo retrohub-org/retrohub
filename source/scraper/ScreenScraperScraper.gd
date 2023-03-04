@@ -283,7 +283,7 @@ func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 		var details := req._req_body.get_string_from_utf8()
 		emit_signal("game_scrape_error", game_data, details)
 	else:
-		var json_raw : Dictionary = json.result
+		var json_raw = json.result
 		# Preprocess json a bit due to ScreenScraper structure
 		json_raw = json_raw["response"]
 		# If game has only one game, it has key "jeu", otherwise has key "jeux"
