@@ -42,6 +42,7 @@ func _ready():
 func _on_Names_item_selected():
 	var item : TreeItem = n_names.get_selected()
 	n_content.text = licenses[item.get_text(0)]
+	(n_content.get_parent() as ScrollContainer).scroll_vertical = 0
 
 func select_license(license_key: String) -> bool:
 	var license := convert_license_key(license_key)

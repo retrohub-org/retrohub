@@ -12,7 +12,7 @@
 [ext_resource path="res://scenes/popups/scraper/StopScraperDialog.gd" type="Script" id=10]
 [ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=11]
 [ext_resource path="res://assets/icons/success.svg" type="Texture" id=12]
-[ext_resource path="res://source/utils/ScrollContainerHandler.gd" type="Script" id=13]
+[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=13]
 [ext_resource path="res://assets/icons/loading.svg" type="Texture" id=14]
 [ext_resource path="res://assets/icons/warning.svg" type="Texture" id=15]
 [ext_resource path="res://assets/icons/error.svg" type="Texture" id=16]
@@ -165,16 +165,17 @@ anchor_bottom = 1.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
 margin_right = 596.0
-margin_bottom = 14.0
-text = "Scrape completed. You may confirm and edit the game's metadata below."
+margin_bottom = 31.0
+text = "Scrape completed. You may confirm the game's metadata below, and edit after finishing scraping."
+autowrap = true
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
-margin_top = 18.0
+margin_top = 35.0
 margin_right = 596.0
-margin_bottom = 22.0
+margin_bottom = 39.0
 
 [node name="Root" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
-margin_top = 26.0
+margin_top = 43.0
 margin_right = 596.0
 margin_bottom = 488.0
 size_flags_horizontal = 3
@@ -182,6 +183,7 @@ size_flags_vertical = 3
 
 [node name="GameMetadataEditor" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root" instance=ExtResource( 3 )]
 unique_name_in_owner = true
+disable_edits = true
 
 [node name="NoData" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root"]
 unique_name_in_owner = true

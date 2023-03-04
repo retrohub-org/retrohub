@@ -117,12 +117,17 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ScrollHandler",
 "language": "GDScript",
-"path": "res://source/utils/ScrollContainerHandler.gd"
+"path": "res://source/utils/ScrollHandler.gd"
 }, {
 "base": "Control",
 "class": "SpinBoxHandler",
 "language": "GDScript",
 "path": "res://source/utils/SpinBoxHandler.gd"
+}, {
+"base": "Control",
+"class": "TabContainerHandler",
+"language": "GDScript",
+"path": "res://source/utils/TabContainerHandler.gd"
 }, {
 "base": "Node",
 "class": "XML2JSON",
@@ -153,6 +158,7 @@ _global_script_class_icons={
 "RetroHubTheme": "",
 "ScrollHandler": "",
 "SpinBoxHandler": "",
+"TabContainerHandler": "",
 "XML2JSON": ""
 }
 

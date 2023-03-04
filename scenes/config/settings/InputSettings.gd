@@ -234,3 +234,5 @@ func _on_VirtualKeyboardOnMouse_toggled(button_pressed):
 	RetroHubConfig.config.virtual_keyboard_show_on_mouse = button_pressed
 
 
+func _on_TabContainerHandler_tab_changed(_tab_container):
+	grab_focus()

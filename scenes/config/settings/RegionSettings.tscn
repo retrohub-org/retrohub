@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/config/settings/RegionSettings.gd" type="Script" id=1]
 [ext_resource path="res://assets/ratings/esrb/E.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/systems/snes-photo.png" type="Texture" id=9]
 [ext_resource path="res://assets/systems/videopac-photo.png" type="Texture" id=10]
 [ext_resource path="res://assets/systems/genesis-photo.png" type="Texture" id=11]
+[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=12]
 
 [node name="RegionSettings" type="Control"]
 anchor_right = 1.0
@@ -288,6 +289,9 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 6 )
+
+[node name="ScrollHandler" type="Control" parent="ScrollContainer"]
+script = ExtResource( 12 )
 
 [connection signal="hide" from="." to="." method="_on_AppSettings_hide"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer/Region" to="." method="_on_Region_item_selected"]

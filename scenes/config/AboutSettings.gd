@@ -7,6 +7,7 @@ onready var n_version := $"%Version"
 onready var n_engine_version := $"%EngineVersion"
 onready var n_gpl_text := $"%GPLText"
 onready var n_licenses := $"%Licenses"
+onready var n_licenses_names := $"%Names"
 
 onready var n_tabs := $"%TabContainer"
 onready var n_open_website_button := $"%OpenWebsiteButton"
@@ -19,7 +20,11 @@ func _ready():
 	n_engine_version.text = n_engine_version.text % Engine.get_version_info()["string"]
 
 func grab_focus():
-	n_open_website_button.grab_focus()
+	match n_tabs.current_tab:
+		0: # About RetroHub
+			n_open_website_button.grab_focus()
+		3: # Licenses
+			n_licenses_names.grab_focus()
 
 func _on_RichTextLabel_meta_clicked(meta):
 	if "http" in meta:
@@ -38,3 +43,7 @@ func _on_OpenWebsiteButton_pressed():
 func _on_OpenIssuesButton_pressed():
 	#warning-ignore:return_value_discarded
 	OS.shell_open(ISSUES_URL)
+
+
+func _on_TabContainerHandler_tab_changed(_tab_container):
+	grab_focus()
