@@ -1295,5 +1295,23 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "mednafen",
+		"fullname": "Mednafen",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/mednafen/mednafen.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/mednafen",
+					"/usr/bin/mednafen"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]

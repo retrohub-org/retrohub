@@ -91,7 +91,8 @@
 				"retroarch": [
 					"mame"
 				]
-			}
+			},
+			"mednafen"
 		]
 	},
 	{
@@ -909,7 +910,8 @@
 					"handy",
 					"beetle-lynx"
 				]
-			}
+			},
+			"mednafen"
 		]
 	},
 	{
@@ -1062,7 +1064,8 @@
 					"gearboy"
 				]
 			},
-			"ares"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1088,7 +1091,8 @@
 					"vba-m"
 				]
 			},
-			"ares"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1146,7 +1150,8 @@
 				]
 			},
 			"ares",
-			"blastem"
+			"blastem",
+			"mednafen"
 		]
 	},
 	{
@@ -1207,7 +1212,8 @@
 					"picodrive"
 				]
 			},
-			"ares"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1295,7 +1301,8 @@
 					"quicknes"
 				]
 			},
-			"ares"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1315,7 +1322,8 @@
 					"race"
 				]
 			},
-			"ares"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1369,7 +1377,8 @@
 					"beetle-pce-fast"
 				]
 			},
-			"ares"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1403,7 +1412,8 @@
 				"retroarch": [
 					"beetle-pc-fx"
 				]
-			}
+			},
+			"mednafen"
 		]
 	},
 	{
@@ -1485,7 +1495,8 @@
 					"pcsx-rearmed"
 				]
 			},
-			"duckstation"
+			"duckstation",
+			"mednafen"
 		]
 	},
 	{
@@ -1512,7 +1523,8 @@
 					"yabasanshiro",
 					"yabause"
 				]
-			}
+			},
+			"mednafen"
 		]
 	},
 	{
@@ -1549,7 +1561,8 @@
 				]
 			},
 			"snes9x",
-			"ares"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1650,7 +1663,8 @@
 				"retroarch": [
 					"beetle-vb"
 				]
-			}
+			},
+			"mednafen"
 		]
 	},
 	{
@@ -1669,7 +1683,8 @@
 					"beetle-wswan"
 				]
 			},
-			"ares"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
