@@ -1271,5 +1271,29 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "duckstation",
+		"fullname": "DuckStation",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/duckstation/duckstation-qt-x64-ReleaseLTCG.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/DuckStation.app/Contents/MacOS/DuckStation"
+				]
+			},
+			{
+				"linux": [
+					"/bin/duckstation-qt",
+					"/usr/bin/duckstation-qt",
+					"/var/lib/flatpak/exports/bin/org.duckstation.DuckStation"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
