@@ -978,7 +978,8 @@
 					"bluemsx",
 					"gearcoleco"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1060,7 +1061,8 @@
 					"gambatte",
 					"gearboy"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1085,7 +1087,8 @@
 					"mgba",
 					"vba-m"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1141,7 +1144,8 @@
 					"blastem",
 					"picodrive"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1201,7 +1205,8 @@
 					"genesis-plus-gx",
 					"picodrive"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1230,7 +1235,8 @@
 					"parallel-n64"
 				]
 			},
-			"mupen64plus"
+			"mupen64plus",
+			"ares"
 		]
 	},
 	{
@@ -1286,7 +1292,8 @@
 					"mesen",
 					"quicknes"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1305,7 +1312,8 @@
 					"beetle-ngp",
 					"race"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1358,7 +1366,8 @@
 					"beetle-supergrafx",
 					"beetle-pce-fast"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1536,7 +1545,8 @@
 					"mesen-s"
 				]
 			},
-			"snes9x"
+			"snes9x",
+			"ares"
 		]
 	},
 	{
@@ -1579,7 +1589,8 @@
 					"genesis-plus-gx",
 					"bluemsx"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{
@@ -1654,7 +1665,8 @@
 				"retroarch": [
 					"beetle-wswan"
 				]
-			}
+			},
+			"ares"
 		]
 	},
 	{

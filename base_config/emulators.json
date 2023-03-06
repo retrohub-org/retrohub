@@ -1205,5 +1205,29 @@
 			}
 		],
 		"command": "{binpath} -b -e \"{rompath}\""
+	},
+	{
+		"name": "ares",
+		"fullname": "ares",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/ares/ares.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/ares.app/Contents/MacOS/ares"
+				]
+			},
+			{
+				"linux": [
+					"/bin/ares",
+					"/usr/bin/ares",
+					"/var/lib/flatpak/exports/bin/dev.ares.ares"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
