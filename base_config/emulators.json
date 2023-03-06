@@ -1253,5 +1253,29 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "desmume",
+		"fullname": "DeSmuME",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/desmume/DeSmuME_*.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/DeSmuME.app/Contents/MacOS/DeSmuME"
+				]
+			},
+			{
+				"linux": [
+					"/bin/desmume",
+					"/usr/bin/desmume",
+					"/var/lib/flatpak/exports/bin/org.desmume.DeSmuME"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
