@@ -1229,5 +1229,29 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "blastem",
+		"fullname": "BlastEm",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/blastem/blastem.exe"
+				]
+			},
+			{
+				"macos": [
+					"Emulators/blastem/blastem"
+				]
+			},
+			{
+				"linux": [
+					"/bin/blastem",
+					"/usr/bin/blastem",
+					"/var/lib/flatpak/exports/bin/com.retrodev.blastem"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
