@@ -1182,9 +1182,7 @@
 		"binpath": [
 			{
 				"windows": [
-					"Dolphin-x64/Dolphin.exe",
-					"Emulators/Dolphin-x64/Dolphin.exe",
-					"../Dolphin-x64/Dolphin.exe"
+					"Emulators/dolphin/Dolphin.exe"
 				]
 			},
 			{
@@ -1196,11 +1194,7 @@
 				"linux": [
 						"/bin/dolphin-emu",
 						"/usr/bin/dolphin-emu",
-						"/var/lib/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
-						"~/.local/share/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
-						"~/Applications/Dolphin_Emulator*.AppImage",
-						"~/.local/bin/Dolphin_Emulator*.AppImage",
-						"~/bin/Dolphin_Emulator*.AppImage"
+						"/var/lib/flatpak/exports/bin/org.DolphinEmu.dolphin-emu"
 				]
 			}
 		],
