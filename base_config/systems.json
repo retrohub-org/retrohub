@@ -1922,7 +1922,9 @@
 			".rpx"
 		],
 		"platform": "wiiu",
-		"emulator": []
+		"emulator": [
+			"cemu"
+		]
 	},
 	{
 		"name": "xbox360",

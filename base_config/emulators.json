@@ -1249,6 +1249,29 @@
 		"command": "{binpath} \"{rompath}\""
 	},
 	{
+		"name": "cemu",
+		"fullname": "Cemu",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/cemu/Cemu.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Cemu.app/Contents/MacOS/Cemu"
+				]
+			},
+			{
+				"linux": [
+					"/bin/cemu",
+					"/usr/bin/cemu"
+				]
+			}
+		],
+		"command": "{binpath} -g \"{rompath}\" -f"
+	},
+	{
 		"name": "citra",
 		"fullname": "Citra",
 		"binpath": [
