@@ -1356,5 +1356,31 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "pcsx2",
+		"fullname": "PCSX2",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/pcsx2/pcsx2-qtx64-avx2.exe",
+					"Emulators/pcsx2/pcsx2-qtx64.exe",
+					"Emulators/pcsx2/pcsx2-qt.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/PCSX2*.app/Contents/MacOS/PCSX2"
+				]
+			},
+			{
+				"linux": [
+					"/bin/pcsx2-qt",
+					"/usr/bin/pcsx2-qt",
+					"/var/lib/flatpak/exports/bin/net.pcsx2.PCSX2"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
