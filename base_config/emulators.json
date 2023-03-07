@@ -1313,5 +1313,29 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "melonds",
+		"fullname": "melonDS",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/melonds/melonDS.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/melonDS.app/Contents/MacOS/melonDS"
+				]
+			},
+			{
+				"linux": [
+					"/bin/melonDS",
+					"/usr/bin/melonDS",
+					"/var/lib/flatpak/exports/bin/net.kuribo64.melonDS"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
