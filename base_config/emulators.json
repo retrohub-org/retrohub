@@ -1439,6 +1439,30 @@
 		"command": "{binpath} \"{rompath}\""
 	},
 	{
+		"name": "sameboy",
+		"fullname": "SameBoy",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/sameboy/sameboy.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/SameBoy.app/Contents/MacOS/SameBoy"
+				]
+			},
+			{
+				"linux": [
+					"/bin/sameboy",
+					"/usr/bin/sameboy",
+					"/var/lib/flatpak/exports/bin/io.github.sameboy.SameBoy"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
 		"name": "yuzu",
 		"fullname": "yuzu",
 		"binpath": [
