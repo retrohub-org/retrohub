@@ -11,11 +11,7 @@
 					"C:/Program Files/RetroArch-Win64/retroarch.exe",
 					"C:/Program Files/RetroArch/retroarch.exe",
 					"C:/Program Files (x86)/RetroArch-Win64/retroarch.exe",
-					"C:/Program Files (x86)/RetroArch/retroarch.exe",
-					"C:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
-					"D:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
-					"C:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe",
-					"D:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe"
+					"C:/Program Files (x86)/RetroArch/retroarch.exe"
 				]
 			},
 			{
@@ -27,11 +23,7 @@
 				"linux": [
 					"/bin/retroarch",
 					"/usr/bin/retroarch",
-					"/var/lib/flatpak/exports/bin/org.libretro.RetroArch",
-					"~/.local/share/flatpak/exports/bin/org.libretro.RetroArch",
-					"~/Applications/RetroArch-Linux-x86_64.AppImage",
-					"~/.local/bin/RetroArch-Linux-x86_64.AppImage",
-					"~/bin/RetroArch-Linux-x86_64.AppImage"
+					"/var/lib/flatpak/exports/bin/org.libretro.RetroArch"
 				]
 			}
 		],
@@ -1126,25 +1118,18 @@
 		"binpath": [
 			{
 				"windows": [
-					"mupen64plus/mupen64plus-ui-console.exe",
-					"Emulators/mupen64plus/mupen64plus-ui-console.exe",
-					"../mupen64plus/mupen64plus-ui-console.exe"
+					"Emulators/mupen64plus/mupen64plus-ui-console.exe"
 				]
 			},
 			{
 				"macos": [
-					"/Applications/mupen64plus.app/Contents/MacOS/mupen64plus",
-					"/usr/local/bin/mupen64plus"
+					"/Applications/mupen64plus.app/Contents/MacOS/mupen64plus"
 				]
 			},
 			{
 				"linux": [
-					"/bin/m64p",
 					"/bin/mupen64plus",
-					"/usr/bin/m64p",
-					"/usr/bin/mupen64plus",
-					"/var/lib/flatpak/exports/bin/io.github.m64p.m64p",
-					"~/.local/share/flatpak/exports/bin/io.github.m64p.m64p"
+					"/usr/bin/mupen64plus"
 				]
 			}
 		],
@@ -1156,9 +1141,7 @@
 		"binpath": [
 			{
 				"windows": [
-					"snes9x/snes9x-x64.exe",
-					"Emulators/snes9x/snes9x-x64.exe",
-					"../snes9x/snes9x-x64.exe"
+					"Emulators/snes9x/snes9x-x64.exe"
 				]
 			},
 			{
