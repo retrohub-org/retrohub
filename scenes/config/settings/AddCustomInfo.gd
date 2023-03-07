@@ -68,3 +68,8 @@ func set_check_enabled(node: Control, enabled: bool):
 func _on_OK_pressed():
 	emit_signal("identifier_picked", n_line_edit.text)
 	hide()
+
+
+func _on_LineEdit_text_entered(new_text):
+	if not n_ok.disabled:
+		_on_OK_pressed()
