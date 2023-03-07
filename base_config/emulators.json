@@ -1413,5 +1413,54 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "ryujinx",
+		"fullname": "Ryujinx",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/ryujinx/Ryujinx.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Ryujinx.app/Contents/MacOS/Ryujinx"
+				]
+			},
+			{
+				"linux": [
+					"/bin/Ryujinx",
+					"/usr/bin/Ryujinx",
+					"/var/lib/flatpak/exports/bin/org.ryujinx.Ryujinx"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "yuzu",
+		"fullname": "yuzu",
+		"binpath": [
+			{
+				"windows": [
+					"~/AppData/Local/yuzu/yuzu-windows-msvc/yuzu.exe",
+					"Emulators/yuzu/yuzu.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/yuzu.app/Contents/MacOS/yuzu"
+				]
+			},
+			{
+				"linux": [
+					"/bin/yuzu",
+					"/usr/bin/yuzu",
+					"/var/lib/flatpak/exports/bin/org.yuzu_emu.yuzu"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
