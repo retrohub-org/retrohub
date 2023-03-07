@@ -4,6 +4,7 @@
 [ext_resource path="res://assets/icons/success.svg" type="Texture" id=2]
 
 [node name="AddCustomInfoPopup" type="WindowDialog"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -124,4 +125,5 @@ size_flags_vertical = 10
 text = "Ok"
 
 [connection signal="text_changed" from="VBoxContainer/LineEdit" to="." method="check_text"]
+[connection signal="text_entered" from="VBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="VBoxContainer/OK" to="." method="_on_OK_pressed"]
