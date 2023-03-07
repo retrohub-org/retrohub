@@ -83,6 +83,7 @@ func get_current_emulator_editor():
 
 func save_changes():
 	var emulator_raw : Dictionary = get_current_emulator_editor().save()
+	emulator_raw["#modified"] = true
 	RetroHubConfig.save_emulator(emulator_raw)
 	update_emulator_selection(emulator_raw)
 	n_save.disabled = true
