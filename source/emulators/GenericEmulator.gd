@@ -14,7 +14,7 @@ func _init(emulator_raw : Dictionary, game_data : RetroHubGameData):
 static func find_and_substitute_str(paths, substitutes: Dictionary) -> String:
 	if paths is Array:
 		return substitute_str(FileUtils.test_for_valid_path(paths), substitutes)
-	return substitute_str(paths, substitutes)
+	return substitute_str(FileUtils.expand_path(paths), substitutes)
 
 static func substitute_str(path, substitutes: Dictionary) -> String:
 	return JSONUtils.format_string_with_substitutes(path, substitutes)

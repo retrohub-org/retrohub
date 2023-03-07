@@ -10,12 +10,15 @@ enum OS_ID {
 # Finds the first file/folder that exists from the array of paths.
 func test_for_valid_path(paths) -> String:
 	var dir := Directory.new()
-	if paths is String and (dir.dir_exists(paths) or dir.file_exists(paths)):
-		return paths
+	if paths is String:
+		var expanded_path := expand_path(paths)
+		if dir.dir_exists(expanded_path) or dir.file_exists(expanded_path):
+			return expanded_path
 	if paths is Array:
 		for path in paths:
-			if dir.dir_exists(path) or dir.file_exists(path):
-				return path
+			var expanded_path := expand_path(path)
+			if dir.dir_exists(expanded_path) or dir.file_exists(expanded_path):
+				return expanded_path
 	return ""
 
 func ensure_path(path: String):
@@ -23,8 +26,12 @@ func ensure_path(path: String):
 	if dir.make_dir_recursive(path.get_base_dir()):
 		push_error("Failed to create directory %s" % path.get_base_dir())
 
-func expand_path(path: String):
+func expand_path(path: String) -> String:
+	# Replace ~ by home
 	path = path.replace("~", get_home_dir())
+	# If path is relative, add executable path
+	if path.is_rel_path():
+		path = OS.get_executable_path().get_base_dir().plus_file(path)
 	return path
 
 func get_space_left() -> int:
