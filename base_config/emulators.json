@@ -1382,5 +1382,36 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "ppsspp",
+		"fullname": "PPSSPP",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files/PPSSPP/PPSSPPWindows64.exe",
+					"C:/Program Files/PPSSPP/PPSSPPWindows.exe",
+					"C:/Program Files (x86)/PPSSPP/PPSSPPWindows64.exe",
+					"C:/Program Files (x86)/PPSSPP/PPSSPPWindows.exe",
+					"Emulators/ppsspp/PPSSPPWindows64.exe",
+					"Emulators/ppsspp/PPSSPPWindows.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/PPSSPPSDL.app/Contents/MacOS/PPSSPPSDL"
+				]
+			},
+			{
+				"linux": [
+					"/bin/PPSSPPQt",
+					"/bin/PPSSPPSDL",
+					"/usr/bin/PPSSPPQt",
+					"/usr/bin/PPSSPPSDL",
+					"/var/lib/flatpak/exports/bin/org.ppsspp.PPSSPP"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
