@@ -1249,6 +1249,31 @@
 		"command": "{binpath} \"{rompath}\""
 	},
 	{
+		"name": "citra",
+		"fullname": "Citra",
+		"binpath": [
+			{
+				"windows": [
+					"~/AppData/Local/Citra/nightly-mingw/citra-qt.exe",
+					"Emulators/citra/citra-qt.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Citra.app/Contents/MacOS/citra-qt"
+				]
+			},
+			{
+				"linux": [
+					"/bin/citra-qt",
+					"/usr/bin/citra-qt",
+					"/var/lib/flatpak/exports/bin/org.citra_emu.citra"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
 		"name": "desmume",
 		"fullname": "DeSmuME",
 		"binpath": [
