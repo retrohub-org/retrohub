@@ -1337,5 +1337,24 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "nestopia",
+		"fullname": "Nestopia",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/nestopia/nestopia.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/nestopia",
+					"/usr/bin/nestopia",
+					"/var/lib/flatpak/exports/bin/ca._0ldsk00l.Nestopia"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
