@@ -1,16 +1,25 @@
-# RetroHub
+<img src="https://raw.githubusercontent.com/retrohub-org/retrohub/main/icon.png" width=15%>
 
-### An upcoming emulator front-end designed to be deeply customized!
+# RetroHub - Retro-gaming library frontend
 
----
+RetroHub is a frontend application, allowing you to manage and launch your retro-gaming library. It is designed to be user-friendly and easy to use, yet packed with features and highly customizable.
 
-This is currently a work in progress but being heavily developed and hopefully an alpha will be released within the year.
+RetroHub leverages the [Godot engine](https://godotengine.org/) to provide a powerful 2D and 3D game engine for theme developers. This way, themes can be very versatile and unique, creating a platform of endless possibilities for customizing your gaming setup.
 
-The core change from popular emulator fronteds like EmulationStation and Pegasus is that RetroHub was designed such that themes have near full control of their look and behavior. By leveraging the Godot engine, themes are created as Godot scenes, and thus can be anything, from regular 2D interfaces to full 3D hub worlds.
+> *Note*
+> RetroHub is still in early development. Although it's ready for daily usage, do not move your library setup if you're already using another frontend.
 
-Other than that, it also aims to offer a better controller experience out of the box, and a better user-friendly usage overall.
+## Downloads
 
-Stay tuned for more news and updates, hopefully very shortly!
+RetroHub is available for Windows, macOS and Linux. It comes pre-configured with a large number of systems and emulators, requiring next to zero configuration to get started.
+
+Pre-compiled binaries are available on the [Releases page](https://github.com/retrohub-org/retrohub/releases).
+
+## Support
+
+Check out the [docs](https://retrohub.readthedocs.io/en/latest/) for help setting up your library and using RetroHub.
+
+If you find any bugs, have any suggestions, please [open an issue](https://github.com/retrohub-org/retrohub/issues) reporting it. You can also each out to us on [Discord](https://discord.gg/ZyunJshWG4) and/or [Reddit](https://www.reddit.com/r/RetroHub/).
 
 ## License
 
