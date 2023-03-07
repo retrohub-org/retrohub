@@ -3,6 +3,8 @@ extends Node
 var _n_filesystem_popup : FileDialog setget _set_filesystem_popup
 var _n_virtual_keyboard : PopupPanel setget _set_virtual_keyboard
 
+var color_theme_accent := Color("ffbb89")
+
 var color_success := Color("41eb83")
 var color_warning := Color("ffd24a")
 var color_error := Color("ff5d5d")
