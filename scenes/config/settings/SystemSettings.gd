@@ -59,7 +59,7 @@ func _on_SystemSelection_item_selected(index):
 
 func _on_SystemSettings_visibility_changed():
 	if n_system_selection and n_system_editor:
-		if visible:
+		if is_visible_in_tree():
 			_on_SystemSelection_item_selected(n_system_selection.selected)
 		else:
 			n_system_editor.clear_icons()
@@ -72,6 +72,7 @@ func _on_SystemEditor_change_ocurred():
 
 func save_changes():
 	var system_raw : Dictionary = n_system_editor.save()
+	system_raw["#modified"] = true
 	RetroHubConfig.save_system(system_raw)
 	update_system_selection(system_raw)
 	emit_signal("theme_reload")

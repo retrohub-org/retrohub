@@ -543,6 +543,8 @@ func restore_system(system_raw: Dictionary):
 			var system_defaults : Array = JSONUtils.load_json_file(get_systems_file())
 			for default_child in system_defaults:
 				if default_child["name"] == system_raw["name"]:
+					if default_child.has("extends") and _systems_raw.has(default_child["extends"]):
+						default_child.merge(_systems_raw[default_child["extends"]])
 					return default_child
 
 func remove_custom_system(system_raw: Dictionary):
