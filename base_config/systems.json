@@ -31,8 +31,7 @@
 					"puae",
 					"puae2021"
 				]
-			},
-			"fs-uae"
+			}
 		]
 	},
 	{
@@ -74,8 +73,7 @@
 					"caprice32",
 					"crocods"
 				]
-			},
-			"caprice"
+			}
 		]
 	},
 	{
@@ -94,9 +92,7 @@
 					"mame"
 				]
 			},
-			"mame",
-			"linapple",
-			"applewin"
+			"mednafen"
 		]
 	},
 	{
@@ -125,9 +121,7 @@
 				"retroarch": [
 					"atari800"
 				]
-			},
-			"atari800",
-			"altirra"
+			}
 		]
 	},
 	{
@@ -153,8 +147,7 @@
 				"retroarch": [
 					"hatari"
 				]
-			},
-			"hatari"
+			}
 		]
 	},
 	{
@@ -173,10 +166,7 @@
 			".zip"
 		],
 		"platform": "bbcmicro",
-		"emulator": [
-			"beebem",
-			"b-em"
-		]
+		"emulator": []
 	},
 	{
 		"name": "c64",
@@ -231,9 +221,7 @@
 					"vice128",
 					"frodo"
 				]
-			},
-			"vice",
-			"denise"
+			}
 		]
 	},
 	{
@@ -259,9 +247,7 @@
 			".dgn"
 		],
 		"platform": "coco",
-		"emulator": [
-			"xroar"
-		]
+		"emulator": []
 	},
 	{
 		"name": "dos",
@@ -292,10 +278,7 @@
 					"dosbox",
 					"dosboxpure"
 				]
-			},
-			"dosbox",
-			"86box",
-			"pcem"
+			}
 		]
 	},
 	{
@@ -320,9 +303,7 @@
 				"retroarch": [
 					"minivmac"
 				]
-			},
-			"minivmac",
-			"basilisk2"
+			}
 		]
 	},
 	{
@@ -370,8 +351,7 @@
 					"bluemsx",
 					"fmsx"
 				]
-			},
-			"openmsx"
+			}
 		]
 	},
 	{
@@ -395,9 +375,7 @@
 			".wav"
 		],
 		"platform": "oric",
-		"emulator": [
-			"oricutron"
-		]
+		"emulator": []
 	},
 	{
 		"name": "palm",
@@ -438,8 +416,7 @@
 				"retroarch": [
 					"quasi88"
 				]
-			},
-			"xm8"
+			}
 		]
 	},
 	{
@@ -491,8 +468,7 @@
 				"retroarch": [
 					"simcoupe"
 				]
-			},
-			"simcoupe"
+			}
 		]
 	},
 	{
@@ -513,9 +489,7 @@
 			".ctg"
 		],
 		"platform": "ti99",
-		"emulator": [
-			"ti99sim"
-		]
+		"emulator": []
 	},
 	{
 		"name": "to8",
@@ -535,10 +509,7 @@
 			".zip"
 		],
 		"platform": "trs-80",
-		"emulator": [
-			"sdltrs",
-			"trs80gp"
-		]
+		"emulator": []
 	},
 	{
 		"name": "vic20",
@@ -615,9 +586,7 @@
 			".zip"
 		],
 		"platform": "zmachine",
-		"emulator": [
-			"frotz"
-		]
+		"emulator": []
 	},
 	{
 		"name": "zx81",
@@ -634,8 +603,7 @@
 				"retroarch": [
 					"eightyone"
 				]
-			},
-			"zesaurux"
+			}
 		]
 	},
 	{
@@ -662,9 +630,7 @@
 				"retroarch": [
 					"fuse"
 				]
-			},
-			"fuse",
-			"zesaurux"
+			}
 		]
 	},
 	{
@@ -715,8 +681,7 @@
 				"retroarch": [
 					"prboom"
 				]
-			},
-			"zdoom"
+			}
 		]
 	},
 	{
@@ -733,8 +698,7 @@
 				"retroarch": [
 					"godot"
 				]
-			},
-			"godot"
+			}
 		]
 	},
 	{
@@ -762,9 +726,7 @@
 			".pak"
 		],
 		"platform": "openbor",
-		"emulator": [
-			"openbor"
-		]
+		"emulator": []
 	},
 	{
 		"name": "pico8",
@@ -775,9 +737,7 @@
 			".png"
 		],
 		"platform": "pico8",
-		"emulator": [
-			"pico8"
-		]
+		"emulator": []
 	},
 	{
 		"name": "scummvm",
@@ -792,8 +752,7 @@
 				"retroarch": [
 					"scummvm"
 				]
-			},
-			"scummvm"
+			}
 		]
 	},
 	{
@@ -804,9 +763,7 @@
 			".solarus"
 		],
 		"platform": "solarus",
-		"emulator": [
-			"solarus"
-		]
+		"emulator": []
 	},
 	{
 		"name": "stratagus",
@@ -817,9 +774,7 @@
 			""
 		],
 		"platform": "stratagus",
-		"emulator": [
-			"stratagus"
-		]
+		"emulator": []
 	},
 	{
 		"name": "tic80",
@@ -834,8 +789,7 @@
 				"retroarch": [
 					"tic80"
 				]
-			},
-			"tic80"
+			}
 		]
 	},
 	{
@@ -855,8 +809,7 @@
 				"retroarch": [
 					"opera"
 				]
-			},
-			"opera"
+			}
 		]
 	},
 	{
@@ -886,8 +839,7 @@
 				"retroarch": [
 					"stella"
 				]
-			},
-			"stella"
+			}
 		]
 	},
 	{
@@ -911,9 +863,7 @@
 				"retroarch": [
 					"prosystem"
 				]
-			},
-			"prosystem",
-			"a7800"
+			}
 		]
 	},
 	{
@@ -935,16 +885,13 @@
 				"retroarch": [
 					"virtualjaguar"
 				]
-			},
-			"virtualjaguar"
+			}
 		]
 	},
 	{
 		"name": "atarijaguarcd",
 		"fullname": "Atari Jaguar CD",
-		"emulator": [
-			"project-tempest"
-		],
+		"emulator": [],
 		"extends": "atarijaguar"
 	},
 	{
@@ -1034,10 +981,7 @@
 					"gearcoleco"
 				]
 			},
-			"colem",
-			"dsp",
-			"ares",
-			"higan"
+			"ares"
 		]
 	},
 	{
@@ -1062,9 +1006,7 @@
 				"retroarch": [
 					"flycast"
 				]
-			},
-			"flycast",
-			"redream"
+			}
 		]
 	},
 	{
@@ -1122,9 +1064,9 @@
 					"gearboy"
 				]
 			},
-			"sameboy",
-			"gambatte",
-			"gearboy"
+			"ares",
+			"mednafen",
+			"sameboy"
 		]
 	},
 	{
@@ -1150,8 +1092,8 @@
 					"vba-m"
 				]
 			},
-			"mgba",
-			"vba-m"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1208,7 +1150,9 @@
 					"picodrive"
 				]
 			},
-			"blastem"
+			"ares",
+			"blastem",
+			"mednafen"
 		]
 	},
 	{
@@ -1248,9 +1192,7 @@
 				"retroarch": [
 					"freeintv"
 				]
-			},
-			"freeintv",
-			"jzintv"
+			}
 		]
 	},
 	{
@@ -1271,7 +1213,8 @@
 					"picodrive"
 				]
 			},
-			"emulicious"
+			"ares",
+			"mednafen"
 		]
 	},
 	{
@@ -1301,7 +1244,7 @@
 				]
 			},
 			"mupen64plus",
-			"project64"
+			"ares"
 		]
 	},
 	{
@@ -1335,9 +1278,7 @@
 					"mame",
 					"fbneo"
 				]
-			},
-			"mame",
-			"fbneo"
+			}
 		],
 		"extends": "neogeo"
 	},
@@ -1362,8 +1303,8 @@
 					"quicknes"
 				]
 			},
-			"mesen",
-			"punes",
+			"ares",
+			"mednafen",
 			"nestopia"
 		]
 	},
@@ -1385,8 +1326,7 @@
 				]
 			},
 			"ares",
-			"mednafen",
-			"higan"
+			"mednafen"
 		]
 	},
 	{
@@ -1409,9 +1349,7 @@
 					"o2em",
 					"mame"
 				]
-			},
-			"o2em",
-			"mame"
+			}
 		]
 	},
 	{
@@ -1442,6 +1380,7 @@
 					"beetle-pce-fast"
 				]
 			},
+			"ares",
 			"mednafen"
 		]
 	},
@@ -1493,9 +1432,7 @@
 				"retroarch": [
 					"pokemini"
 				]
-			},
-			"pokemini",
-			"gbe-plus"
+			}
 		]
 	},
 	{
@@ -1529,8 +1466,7 @@
 					"play!"
 				]
 			},
-			"pcsx2",
-			"play!"
+			"pcsx2"
 		]
 	},
 	{
@@ -1629,7 +1565,7 @@
 				]
 			},
 			"snes9x",
-			"bsnes",
+			"ares",
 			"mednafen"
 		]
 	},
@@ -1674,9 +1610,7 @@
 					"bluemsx"
 				]
 			},
-			"mastergear",
-			"ares",
-			"higan"
+			"ares"
 		]
 	},
 	{
@@ -1715,9 +1649,7 @@
 				"retroarch": [
 					"vecx"
 				]
-			},
-			"parajve",
-			"vecx"
+			}
 		]
 	},
 	{
@@ -1755,9 +1687,8 @@
 					"beetle-wswan"
 				]
 			},
-			"mednafen",
 			"ares",
-			"higan"
+			"mednafen"
 		]
 	},
 	{
@@ -1773,9 +1704,7 @@
 			".iso"
 		],
 		"platform": "xbox",
-		"emulator": [
-			"xemu"
-		]
+		"emulator": []
 	},
 	{
 		"name": "arcade",
@@ -1793,9 +1722,7 @@
 					"mame2003-plus",
 					"mame2010"
 				]
-			},
-			"mame",
-			"dice"
+			}
 		]
 	},
 	{
@@ -1812,10 +1739,7 @@
 			".daphne"
 		],
 		"platform": "daphne",
-		"emulator": [
-			"daphne",
-			"hypseus"
-		]
+		"emulator": []
 	},
 	{
 		"name": "fba",
@@ -1865,8 +1789,7 @@
 					"mame2003-plus",
 					"mame2010"
 				]
-			},
-			"mame"
+			}
 		]
 	},
 	{
@@ -1896,9 +1819,7 @@
 					"fbneo",
 					"fba2012"
 				]
-			},
-			"mame",
-			"fbneo"
+			}
 		]
 	},
 	{
@@ -1935,9 +1856,7 @@
 			".iso"
 		],
 		"platform": "ps3",
-		"emulator": [
-			"rpcs3"
-		]
+		"emulator": []
 	},
 	{
 		"name": "psp",
@@ -1968,9 +1887,7 @@
 			".vpk"
 		],
 		"platform": "psvita",
-		"emulator": [
-			"vita3k"
-		]
+		"emulator": []
 	},
 	{
 		"name": "switch",
@@ -2017,8 +1934,6 @@
 			".xex"
 		],
 		"platform": "xbox360",
-		"emulator": [
-			"xenia"
-		]
+		"emulator": []
 	}
 ]

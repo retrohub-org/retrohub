@@ -11,11 +11,7 @@
 					"C:/Program Files/RetroArch-Win64/retroarch.exe",
 					"C:/Program Files/RetroArch/retroarch.exe",
 					"C:/Program Files (x86)/RetroArch-Win64/retroarch.exe",
-					"C:/Program Files (x86)/RetroArch/retroarch.exe",
-					"C:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
-					"D:/Program Files (x86)/Steam/steamapps/common/RetroArch/retroarch.exe",
-					"C:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe",
-					"D:/Program Files/Steam/steamapps/common/RetroArch/retroarch.exe"
+					"C:/Program Files (x86)/RetroArch/retroarch.exe"
 				]
 			},
 			{
@@ -27,11 +23,7 @@
 				"linux": [
 					"/bin/retroarch",
 					"/usr/bin/retroarch",
-					"/var/lib/flatpak/exports/bin/org.libretro.RetroArch",
-					"~/.local/share/flatpak/exports/bin/org.libretro.RetroArch",
-					"~/Applications/RetroArch-Linux-x86_64.AppImage",
-					"~/.local/bin/RetroArch-Linux-x86_64.AppImage",
-					"~/bin/RetroArch-Linux-x86_64.AppImage"
+					"/var/lib/flatpak/exports/bin/org.libretro.RetroArch"
 				]
 			}
 		],
@@ -1126,25 +1118,18 @@
 		"binpath": [
 			{
 				"windows": [
-					"mupen64plus/mupen64plus-ui-console.exe",
-					"Emulators/mupen64plus/mupen64plus-ui-console.exe",
-					"../mupen64plus/mupen64plus-ui-console.exe"
+					"Emulators/mupen64plus/mupen64plus-ui-console.exe"
 				]
 			},
 			{
 				"macos": [
-					"/Applications/mupen64plus.app/Contents/MacOS/mupen64plus",
-					"/usr/local/bin/mupen64plus"
+					"/Applications/mupen64plus.app/Contents/MacOS/mupen64plus"
 				]
 			},
 			{
 				"linux": [
-					"/bin/m64p",
 					"/bin/mupen64plus",
-					"/usr/bin/m64p",
-					"/usr/bin/mupen64plus",
-					"/var/lib/flatpak/exports/bin/io.github.m64p.m64p",
-					"~/.local/share/flatpak/exports/bin/io.github.m64p.m64p"
+					"/usr/bin/mupen64plus"
 				]
 			}
 		],
@@ -1156,9 +1141,7 @@
 		"binpath": [
 			{
 				"windows": [
-					"snes9x/snes9x-x64.exe",
-					"Emulators/snes9x/snes9x-x64.exe",
-					"../snes9x/snes9x-x64.exe"
+					"Emulators/snes9x/snes9x-x64.exe"
 				]
 			},
 			{
@@ -1182,9 +1165,7 @@
 		"binpath": [
 			{
 				"windows": [
-					"Dolphin-x64/Dolphin.exe",
-					"Emulators/Dolphin-x64/Dolphin.exe",
-					"../Dolphin-x64/Dolphin.exe"
+					"Emulators/dolphin/Dolphin.exe"
 				]
 			},
 			{
@@ -1196,14 +1177,345 @@
 				"linux": [
 						"/bin/dolphin-emu",
 						"/usr/bin/dolphin-emu",
-						"/var/lib/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
-						"~/.local/share/flatpak/exports/bin/org.DolphinEmu.dolphin-emu",
-						"~/Applications/Dolphin_Emulator*.AppImage",
-						"~/.local/bin/Dolphin_Emulator*.AppImage",
-						"~/bin/Dolphin_Emulator*.AppImage"
+						"/var/lib/flatpak/exports/bin/org.DolphinEmu.dolphin-emu"
 				]
 			}
 		],
 		"command": "{binpath} -b -e \"{rompath}\""
+	},
+	{
+		"name": "ares",
+		"fullname": "ares",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/ares/ares.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/ares.app/Contents/MacOS/ares"
+				]
+			},
+			{
+				"linux": [
+					"/bin/ares",
+					"/usr/bin/ares",
+					"/var/lib/flatpak/exports/bin/dev.ares.ares"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "blastem",
+		"fullname": "BlastEm",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/blastem/blastem.exe"
+				]
+			},
+			{
+				"macos": [
+					"Emulators/blastem/blastem"
+				]
+			},
+			{
+				"linux": [
+					"/bin/blastem",
+					"/usr/bin/blastem",
+					"/var/lib/flatpak/exports/bin/com.retrodev.blastem"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "cemu",
+		"fullname": "Cemu",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/cemu/Cemu.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Cemu.app/Contents/MacOS/Cemu"
+				]
+			},
+			{
+				"linux": [
+					"/bin/cemu",
+					"/usr/bin/cemu"
+				]
+			}
+		],
+		"command": "{binpath} -g \"{rompath}\" -f"
+	},
+	{
+		"name": "citra",
+		"fullname": "Citra",
+		"binpath": [
+			{
+				"windows": [
+					"~/AppData/Local/Citra/nightly-mingw/citra-qt.exe",
+					"Emulators/citra/citra-qt.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Citra.app/Contents/MacOS/citra-qt"
+				]
+			},
+			{
+				"linux": [
+					"/bin/citra-qt",
+					"/usr/bin/citra-qt",
+					"/var/lib/flatpak/exports/bin/org.citra_emu.citra"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "desmume",
+		"fullname": "DeSmuME",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/desmume/DeSmuME_*.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/DeSmuME.app/Contents/MacOS/DeSmuME"
+				]
+			},
+			{
+				"linux": [
+					"/bin/desmume",
+					"/usr/bin/desmume",
+					"/var/lib/flatpak/exports/bin/org.desmume.DeSmuME"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "duckstation",
+		"fullname": "DuckStation",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/duckstation/duckstation-qt-x64-ReleaseLTCG.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/DuckStation.app/Contents/MacOS/DuckStation"
+				]
+			},
+			{
+				"linux": [
+					"/bin/duckstation-qt",
+					"/usr/bin/duckstation-qt",
+					"/var/lib/flatpak/exports/bin/org.duckstation.DuckStation"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "mednafen",
+		"fullname": "Mednafen",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/mednafen/mednafen.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/mednafen",
+					"/usr/bin/mednafen"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "melonds",
+		"fullname": "melonDS",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/melonds/melonDS.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/melonDS.app/Contents/MacOS/melonDS"
+				]
+			},
+			{
+				"linux": [
+					"/bin/melonDS",
+					"/usr/bin/melonDS",
+					"/var/lib/flatpak/exports/bin/net.kuribo64.melonDS"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "nestopia",
+		"fullname": "Nestopia",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/nestopia/nestopia.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/nestopia",
+					"/usr/bin/nestopia",
+					"/var/lib/flatpak/exports/bin/ca._0ldsk00l.Nestopia"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "pcsx2",
+		"fullname": "PCSX2",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/pcsx2/pcsx2-qtx64-avx2.exe",
+					"Emulators/pcsx2/pcsx2-qtx64.exe",
+					"Emulators/pcsx2/pcsx2-qt.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/PCSX2*.app/Contents/MacOS/PCSX2"
+				]
+			},
+			{
+				"linux": [
+					"/bin/pcsx2-qt",
+					"/usr/bin/pcsx2-qt",
+					"/var/lib/flatpak/exports/bin/net.pcsx2.PCSX2"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "ppsspp",
+		"fullname": "PPSSPP",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files/PPSSPP/PPSSPPWindows64.exe",
+					"C:/Program Files/PPSSPP/PPSSPPWindows.exe",
+					"C:/Program Files (x86)/PPSSPP/PPSSPPWindows64.exe",
+					"C:/Program Files (x86)/PPSSPP/PPSSPPWindows.exe",
+					"Emulators/ppsspp/PPSSPPWindows64.exe",
+					"Emulators/ppsspp/PPSSPPWindows.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/PPSSPPSDL.app/Contents/MacOS/PPSSPPSDL"
+				]
+			},
+			{
+				"linux": [
+					"/bin/PPSSPPQt",
+					"/bin/PPSSPPSDL",
+					"/usr/bin/PPSSPPQt",
+					"/usr/bin/PPSSPPSDL",
+					"/var/lib/flatpak/exports/bin/org.ppsspp.PPSSPP"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "ryujinx",
+		"fullname": "Ryujinx",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/ryujinx/Ryujinx.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Ryujinx.app/Contents/MacOS/Ryujinx"
+				]
+			},
+			{
+				"linux": [
+					"/bin/Ryujinx",
+					"/usr/bin/Ryujinx",
+					"/var/lib/flatpak/exports/bin/org.ryujinx.Ryujinx"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "sameboy",
+		"fullname": "SameBoy",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/sameboy/sameboy.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/SameBoy.app/Contents/MacOS/SameBoy"
+				]
+			},
+			{
+				"linux": [
+					"/bin/sameboy",
+					"/usr/bin/sameboy",
+					"/var/lib/flatpak/exports/bin/io.github.sameboy.SameBoy"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "yuzu",
+		"fullname": "yuzu",
+		"binpath": [
+			{
+				"windows": [
+					"~/AppData/Local/yuzu/yuzu-windows-msvc/yuzu.exe",
+					"Emulators/yuzu/yuzu.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/yuzu.app/Contents/MacOS/yuzu"
+				]
+			},
+			{
+				"linux": [
+					"/bin/yuzu",
+					"/usr/bin/yuzu",
+					"/var/lib/flatpak/exports/bin/org.yuzu_emu.yuzu"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
