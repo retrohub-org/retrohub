@@ -147,8 +147,8 @@ jobs:
       - name: "Package default themes"
         uses: ./retrohub/.github/actions/get-default-themes
         with:
-          default-tag: v0.0.6-alpha
-          es-wrapper-tag: v0.0.4-alpha
+          default-tag: v0.1.0-beta
+          es-wrapper-tag: v0.1.0-beta
 
       - name: "Exporting RetroHub"
         working-directory: retrohub
