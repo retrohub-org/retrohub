@@ -11,10 +11,12 @@ RetroHub leverages the [Godot engine](https://godotengine.org/) to provide a pow
 
 ## Screenshots
 ![RetroHub - Main Screen](https://i.imgur.com/tnUWdbC.png)
-![RetroHub - Game Preview Window](https://user-images.githubusercontent.com/62868183/223935571-c7740cc8-d3ce-402d-b54f-ea0d6bf6f9b4.png)
-![RetroHub - Configure Emulator](https://user-images.githubusercontent.com/62868183/223935518-a3419d6d-5727-4117-858b-f99723aee010.png)
-![RetroHub - Scraper Menu](https://user-images.githubusercontent.com/62868183/223935693-37a741be-5a22-43db-87c5-38884fad204b.png)
 
+![RetroHub - Game Preview Window](https://user-images.githubusercontent.com/62868183/223935571-c7740cc8-d3ce-402d-b54f-ea0d6bf6f9b4.png)
+
+![RetroHub - Edit Game Preview](https://user-images.githubusercontent.com/62868183/223935693-37a741be-5a22-43db-87c5-38884fad204b.png)
+
+![RetroHub - Configure Emulator](https://user-images.githubusercontent.com/62868183/223935518-a3419d6d-5727-4117-858b-f99723aee010.png)
 
 ## Downloads
 
