@@ -104,7 +104,6 @@ func get_selected_items(_root: TreeItem):
 		while next:
 			if _root.get_children():
 				selected_items.append_array(get_selected_items(next.get_children()))
-				next = next.get_next()
 			elif next.is_checked(1):
 				selected_items.append(next.get_metadata(0))
 			next = next.get_next()
