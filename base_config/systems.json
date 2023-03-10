@@ -1742,57 +1742,6 @@
 		"emulator": []
 	},
 	{
-		"name": "fba",
-		"fullname": "FinalBurn Alpha",
-		"category": "arcade",
-		"extension": [
-			".iso",
-			".zip"
-		],
-		"platform": "fba",
-		"emulator": [
-			{
-				"retroarch": [
-					"fba2012"
-				]
-			}
-		]
-	},
-	{
-		"name": "fbneo",
-		"fullname": "FinalBurn Neo",
-		"category": "arcade",
-		"extension": [
-			".zip"
-		],
-		"platform": "fbneo",
-		"emulator": [
-			{
-				"retroarch": [
-					"fbneo"
-				]
-			}
-		]
-	},
-	{
-		"name": "mame",
-		"fullname": "Multiple Arcade Machine Emulator",
-		"category": "arcade",
-		"extension": [
-			".zip"
-		],
-		"platform": "mame",
-		"emulator": [
-			{
-				"retroarch": [
-					"mame",
-					"mame2003-plus",
-					"mame2010"
-				]
-			}
-		]
-	},
-	{
 		"name": "naomi",
 		"fullname": "Sega NAOMI",
 		"category": "arcade",
