@@ -385,8 +385,6 @@ func load_theme() -> bool:
 		push_error("Error when loading theme " + theme_path)
 		return false
 
-	if theme_data and is_instance_valid(theme_data.entry_scene):
-		theme_data.entry_scene.free()
 	load_theme_data()
 	if theme_data.entry_scene:
 		return true
@@ -425,6 +423,10 @@ func unload_theme():
 	if theme_data:
 		save_theme_config()
 
+		if is_instance_valid(theme_data.entry_scene):
+			theme_data.entry_scene.free()
+
+		theme_data = null
 		if !ProjectSettings.unload_resource_pack(theme_path):
 			push_error("Error when unloading theme " + theme_path)
 			return
