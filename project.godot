@@ -351,7 +351,7 @@ locale_filter=[ 0, [  ] ]
 
 [memory]
 
-limits/message_queue/max_size_kb=32768
+limits/message_queue/max_size_mb=128
 limits/command_queue/multithreading_queue_size_kb=1024
 
 [physics]
