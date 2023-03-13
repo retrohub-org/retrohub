@@ -110,32 +110,34 @@ func launch_game() -> void:
 		return
 
 	launched_game_data = curr_game_data
-	_update_game_statistics()
 	launched_system_data = launched_game_data.system
+	_running_game_pid = _launch_game_process()
+	if _running_game_pid == -1:
+		print("No valid emulators were found for game \"%s\"!" % curr_game_data.name)
+		launched_system_data = null
+		launched_game_data = null
+		return
+	_running_game = true
+	_update_game_statistics()
 	print("Launching game ", launched_game_data.name)
 	RetroHubMedia._stop_thread()
 	emit_signal("_game_loaded", launched_game_data)
-	_running_game = true
-	_running_game_pid = _launch_game_process()
 	RetroHubConfig.unload_theme()
 
 func _launch_game_process() -> int:
 	var system_emulators : Array = RetroHubConfig._systems_raw[launched_system_data.name]["emulator"]
 	var emulators := RetroHubConfig.emulators_map
-	var emulator
 	for system_emulator in system_emulators:
+		var emulator
 		if system_emulator is Dictionary and system_emulator.has("retroarch"):
 			var system_cores : Array = system_emulator["retroarch"]
 			emulator = RetroHubRetroArchEmulator.new(emulators["retroarch"], launched_game_data, system_cores)
-			break
 		elif emulators.has(system_emulator):
 			emulator = RetroHubGenericEmulator.new(emulators[system_emulator], launched_game_data)
-			break
 
-	if emulator:
-		return emulator.launch_game()
-	else:
-		return -1
+		if emulator and emulator.is_valid():
+			return emulator.launch_game()
+	return -1
 
 func _update_game_statistics():
 	var time_dict := Time.get_datetime_dict_from_system()

@@ -8,8 +8,11 @@ var _substitutes := {}
 func _init(emulator_raw : Dictionary, game_data : RetroHubGameData):
 	_substitutes["rompath"] = game_data.path
 	var binpath := find_and_substitute_str(emulator_raw["binpath"], _substitutes)
-	_substitutes["binpath"] = binpath
-	command = substitute_str(emulator_raw["command"], _substitutes)
+	if not binpath.empty():
+		_substitutes["binpath"] = binpath
+		command = substitute_str(emulator_raw["command"], _substitutes)
+	else:
+		print("Could not find binpath for emulator \"%s\"" % emulator_raw["name"])
 
 static func find_and_substitute_str(paths, substitutes: Dictionary) -> String:
 	if paths is Array:
@@ -19,12 +22,14 @@ static func find_and_substitute_str(paths, substitutes: Dictionary) -> String:
 static func substitute_str(path, substitutes: Dictionary) -> String:
 	return JSONUtils.format_string_with_substitutes(path, substitutes)
 
+func is_valid() -> bool:
+	return not command.empty()
 
-func launch_game():
+func launch_game() -> int:
 	var regex := RegEx.new()
 	if regex.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'"):
 		push_error("Failed to compile regex [GenericEmulator]")
-		return
+		return -1
 	var regex_results := regex.search_all(command)
 	var command_base : String = regex_results[0].strings[0]
 	var command_args := []

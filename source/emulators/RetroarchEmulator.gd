@@ -63,4 +63,5 @@ func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores
 	if not corefile.empty():
 		command = substitute_str(command, _substitutes)
 	else:
-		push_error("Could not find valid core file for emulator \"%s\"" % game_data.system.name)
+		print("Could not find valid core file for emulator \"%s\"" % game_data.system.name)
+		command = ""
