@@ -6,6 +6,7 @@ onready var n_viewport : Viewport = $ViewportContainer/Viewport
 onready var n_config_popup : Popup = $ConfigPopup
 onready var n_filesystem_popup : Popup = $FileSystemPopup
 onready var n_keyboard_popup := $"%Keyboard"
+onready var n_warning_popup := $"%WarningPopup"
 
 onready var popup_nodes := [
 	n_config_popup,
@@ -29,6 +30,8 @@ func _ready():
 	# Add popups to UI singleton
 	RetroHubUI._n_filesystem_popup = n_filesystem_popup
 	RetroHubUI._n_virtual_keyboard = n_keyboard_popup
+	RetroHubUI._n_config_popup = n_config_popup
+	RetroHubUI._n_warning_popup = n_warning_popup
 
 	# Handle viewport changes
 	#warning-ignore:return_value_discarded
@@ -94,7 +97,10 @@ func _on_theme_loaded(theme_data: RetroHubTheme):
 func _on_game_loaded(game_data: RetroHubGameData):
 	var game_launched_child : Node = load("res://scenes/game_launched/GameLaunched.tscn").instance()
 	n_viewport.set_theme(game_launched_child)
-	game_launched_child.game_data = game_data
+	game_launched_child.set_info(
+		"res://assets/emulators/%s.png" % RetroHub.launched_emulator["name"],
+		game_data.name,
+		RetroHub.launched_emulator["fullname"])
 	print("Loaded game")
 
 func set_theme_input_enabled(enabled : bool):

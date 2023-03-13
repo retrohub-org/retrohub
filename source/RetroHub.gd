@@ -24,6 +24,7 @@ var curr_game_data : RetroHubGameData = null
 
 var launched_system_data : RetroHubSystemData = null
 var launched_game_data : RetroHubGameData = null
+var launched_emulator : Dictionary = {}
 
 var _is_echo : bool = false
 
@@ -32,6 +33,12 @@ const version_minor := 1
 const version_patch := 0
 const version_extra := "-beta"
 const version_str := "%d.%d.%d%s" % [version_major, version_minor, version_patch, version_extra]
+
+const NO_EMULATOR_WARNING_TEXT := """No valid emulators were found for game \"%s\"!
+Please check your settings:
+
+Systems: Check if your desired emulator was added
+Emulators: Check if your desired emulator has valid paths and the command is correct."""
 
 func _ready():
 	#warning-ignore:return_value_discarded
@@ -116,6 +123,9 @@ func launch_game() -> void:
 		print("No valid emulators were found for game \"%s\"!" % curr_game_data.name)
 		launched_system_data = null
 		launched_game_data = null
+		launched_emulator = {}
+		RetroHubUI.open_app_config(RetroHubUI.ConfigTabs.SETTINGS_SYSTEMS)
+		RetroHubUI.show_warning(NO_EMULATOR_WARNING_TEXT % curr_game_data.name)
 		return
 	_running_game = true
 	_update_game_statistics()
@@ -136,6 +146,10 @@ func _launch_game_process() -> int:
 			emulator = RetroHubGenericEmulator.new(emulators[system_emulator], launched_game_data)
 
 		if emulator and emulator.is_valid():
+			if system_emulator is Dictionary and system_emulator.has("retroarch"):
+				launched_emulator = emulators["retroarch"]
+			else:
+				launched_emulator = emulators[system_emulator]
 			return emulator.launch_game()
 	return -1
 
@@ -152,10 +166,17 @@ func stop_game() -> void:
 	OS.move_window_to_foreground()
 	_running_game = false
 	_running_game_pid = -1
+	launched_emulator = {}
 	load_theme()
 	yield(get_tree(), "idle_frame")
 	emit_signal("app_returning", launched_system_data, launched_game_data)
+	launched_system_data = null
+	launched_game_data = null
 
 func request_theme_reload():
 	yield(get_tree(), "idle_frame")
 	load_theme()
+
+func kill_game_process():
+	if _running_game and _running_game_pid != -1:
+		OS.kill(_running_game_pid)

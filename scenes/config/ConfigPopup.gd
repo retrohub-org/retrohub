@@ -29,10 +29,8 @@ func _input(event: InputEvent):
 				get_tree().set_input_as_handled()
 				if not visible:
 					popup()
-					n_game.set_game_data(RetroHub.curr_game_data)
 				else:
 					hide()
-					RetroHubConfig.save_theme_config()
 
 func _on_Tab_pressed(idx: int):
 	n_main.current_tab = idx
@@ -54,6 +52,7 @@ func _on_QuitTab_pressed():
 	n_main.current_tab = 0
 
 func _on_ConfigPopup_about_to_show():
+	n_game.set_game_data(RetroHub.curr_game_data)
 	yield(get_tree(), "idle_frame")
 	if last_tab:
 		last_tab.grab_focus()
@@ -75,6 +74,7 @@ func _on_ConfigPopup_popup_hide():
 		RetroHubConfig.load_user_data()
 		RetroHub.load_theme()
 	should_reload_theme = false
+	RetroHubConfig.save_theme_config()
 
 
 func _on_theme_reload():
