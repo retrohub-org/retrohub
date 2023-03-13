@@ -10,6 +10,7 @@
 [ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=8]
 
 [node name="ControllerLayout" type="WindowDialog"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

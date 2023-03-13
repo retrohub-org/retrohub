@@ -1,10 +1,17 @@
-extends CenterContainer
-
-var game_data : RetroHubGameData setget set_game_data
-var label_text : String
+extends Control
 
 var low_cpu_mode_orig : bool
 var low_cpu_mode_sleep_orig : int
+
+onready var n_emu_logo := $"%EmuLogo"
+onready var n_game_name := $"%GameName"
+onready var n_emu_name := $"%EmuName"
+
+onready var n_kill_press_progress := $"%KillPressProgress"
+onready var n_timer := $"%Timer"
+
+onready var game_name_orig_text : String = n_game_name.text
+onready var emu_name_orig_text : String = n_emu_name.text
 
 func _enter_tree():
 	low_cpu_mode_orig = OS.low_processor_usage_mode
@@ -19,10 +26,34 @@ func _exit_tree():
 	OS.low_processor_usage_mode = low_cpu_mode_orig
 	OS.low_processor_usage_mode_sleep_usec = low_cpu_mode_sleep_orig
 
-func _ready():
-	label_text = $Label.text
+func _notification(what):
+	match what:
+		NOTIFICATION_WM_FOCUS_IN:
+			# 30 FPS
+			OS.low_processor_usage_mode_sleep_usec = 1000000 / 30
+		NOTIFICATION_WM_FOCUS_OUT:
+			# 10 FPS
+			OS.low_processor_usage_mode_sleep_usec = 1000000 / 10
+			n_timer.stop()
 
-func set_game_data(_game_data : RetroHubGameData):
-	game_data = _game_data
+func _process(delta):
+	if n_timer.is_stopped():
+		n_kill_press_progress.value = 0
+	else:
+		n_kill_press_progress.value = n_timer.wait_time - n_timer.time_left
 
-	$Label.text = label_text % game_data.name
+func _input(event):
+	if OS.is_window_focused():
+		if event.is_action_released("rh_menu"):
+			n_timer.stop()
+		if event.is_action_pressed("rh_menu"):
+			n_timer.start()
+
+func set_info(logo_path: String, game_name: String, emu_name: String):
+	n_emu_logo.texture = load(logo_path)
+	n_game_name.text = game_name_orig_text % game_name
+	n_emu_name.text = emu_name_orig_text % emu_name
+
+
+func _on_Timer_timeout():
+	RetroHub.kill_game_process()

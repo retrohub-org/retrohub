@@ -68,6 +68,32 @@ access = 2
 show_hidden_files = true
 script = ExtResource( 6 )
 
+[node name="WarningPopup" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -304.0
+margin_top = -173.0
+margin_right = 304.0
+margin_bottom = 173.0
+theme = ExtResource( 5 )
+
+[node name="WarningLabel" type="Label" parent="WarningPopup"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -44.0
+text = "
+"
+align = 1
+valign = 1
+autowrap = true
+
 [node name="Keyboard" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 anchor_right = 1.0

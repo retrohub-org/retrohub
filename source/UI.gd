@@ -2,6 +2,8 @@ extends Node
 
 var _n_filesystem_popup : FileDialog setget _set_filesystem_popup
 var _n_virtual_keyboard : PopupPanel setget _set_virtual_keyboard
+var _n_config_popup : Popup setget _set_config_popup
+var _n_warning_popup : AcceptDialog setget _set_warning_popup
 
 var color_theme_accent := Color("ffbb89")
 
@@ -27,6 +29,19 @@ enum Icons {
 	WARNING
 }
 
+enum ConfigTabs {
+	QUIT,
+	GAME,
+	SCRAPER,
+	THEME,
+	SETTINGS_GENERAL,
+	SETTINGS_INPUT,
+	SETTINGS_REGION,
+	SETTINGS_SYSTEMS,
+	SETTINGS_EMULATORS,
+	SETTINGS_ABOUT
+}
+
 signal path_selected(file)
 
 func _set_filesystem_popup(popup: FileDialog):
@@ -40,6 +55,12 @@ func _set_filesystem_popup(popup: FileDialog):
 
 func _set_virtual_keyboard(keyboard: PopupPanel):
 	_n_virtual_keyboard = keyboard
+
+func _set_config_popup(config_popup: Popup):
+	_n_config_popup = config_popup
+
+func _set_warning_popup(warning_popup: AcceptDialog):
+	_n_warning_popup = warning_popup
 
 func _on_popup_selected(file: String):
 	emit_signal("path_selected", file)
@@ -75,3 +96,19 @@ func is_event_from_virtual_keyboard() -> bool:
 
 func hide_virtual_keyboard() -> void:
 	_n_virtual_keyboard.hide()
+
+func open_app_config(tab: int = -1):
+	if _n_config_popup:
+		if tab != -1:
+			tab = int(clamp(tab, 0, _n_config_popup.n_tab_buttons.size()))
+			_n_config_popup.n_tab_buttons[tab].grab_focus()
+			_n_config_popup.n_tab_buttons[tab].pressed = true
+			_n_config_popup._on_Tab_pressed(tab)
+		_n_config_popup.popup()
+
+func show_warning(text: String):
+	if _n_warning_popup:
+		_n_warning_popup.get_node("%WarningLabel").text = text
+		_n_warning_popup.popup_centered()
+		yield(get_tree(), "idle_frame")
+		_n_warning_popup.get_ok().grab_focus()
