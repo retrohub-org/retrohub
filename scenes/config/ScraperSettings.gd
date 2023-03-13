@@ -4,6 +4,10 @@ onready var n_service := $"%Service"
 onready var n_games_selected := $"%GamesSelected"
 onready var n_games_type := $"%GamesType"
 onready var n_metadata := $"%Metadata"
+onready var n_search_by_hash := $"%Hash"
+onready var n_search_by_name := $"%Filename"
+onready var n_hash_max_size_lbl := $"%HashMaxSizeLabel"
+onready var n_hash_max_size := $"%HashMaxSize"
 onready var n_media := $"%Media"
 onready var n_media_select_all := $"%MediaSelectAll"
 onready var n_media_deselect_all := $"%MediaDeselectAll"
@@ -37,11 +41,20 @@ onready var n_media_nodes := [
 
 var selected_game_datas : Array
 
+func _ready():
+	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+
+func _on_config_ready(config_data: ConfigData):
+	set_hash_max_size_text(config_data.scraper_hash_file_size)
+	n_hash_max_size.value = convert_hash_size_to_range(config_data.scraper_hash_file_size)
+
 func grab_focus():
 	n_service.grab_focus()
 
 func toggle_scrape_button():
-	n_scrape.disabled = selected_game_datas.empty() or !(n_metadata.pressed or n_media.pressed)
+	n_scrape.disabled = selected_game_datas.empty() or \
+		!(n_metadata.pressed or n_media.pressed) or \
+		!(n_search_by_hash.pressed or n_search_by_name.pressed)
 
 func _on_Metadata_toggled(_button_pressed):
 	toggle_scrape_button()
@@ -106,11 +119,13 @@ func get_media_bitmask() -> int:
 	return bitmask
 
 func _on_Scrape_pressed():
+	n_ss_settings.save_credentials()
 	n_scrape_popup.popup()
 	var media_bitmask := get_media_bitmask()
 	# TODO: Make Scraper generation dynamic according to selection
 	var scraper := RetroHubScreenScraperScraper.new()
-	n_scrape_popup.begin_scraping(selected_game_datas, scraper, n_metadata.pressed, n_media.pressed, media_bitmask)
+	n_scrape_popup.begin_scraping(selected_game_datas, scraper, n_metadata.pressed, n_media.pressed,
+		n_search_by_hash.pressed, n_search_by_name.pressed, media_bitmask)
 
 
 func _on_ScraperSettings_visibility_changed():
@@ -118,9 +133,67 @@ func _on_ScraperSettings_visibility_changed():
 		update_scrape_stats(true)
 	else:
 		n_ss_settings.save_credentials()
-
+		RetroHubConfig.save_config()
 
 func _on_ScraperPopup_popup_hide():
 	update_scrape_stats(true)
 
+func convert_hash_size_from_range(value: float) -> int:
+	# Value is actually an int
+	var value_i := int(value)
+	if value == 129:
+		# Unlimited
+		return 0
+	if value >= 96:
+		# 2GB to 10GB
+		return 2048 + (value_i - 96) * 256
+	elif value >= 64:
+		# 512MB to 2GB
+		return 512 + (value_i - 64) * 48
+	elif value >= 32:
+		# 64MB to 512MB
+		return 64 + (value_i - 32) * 14
+	elif value > 1:
+		# 2MB to 64MB
+		return (value_i - 1) * 2
+	# 1MB
+	return 1
 
+func convert_hash_size_to_range(value: int):
+	if value == 0:
+		# Unlimited
+		return 129
+	if value >= 2048:
+		# 2GB to 10GB
+		return 96 + (value - 2048) / 256
+	elif value >= 512:
+		# 512MB to 2GB
+		return 64 + (value - 512) / 48
+	elif value >= 64:
+		# 64MB to 512MB
+		return 32 + (value - 64) / 14
+	elif value > 0:
+		# 1MB to 64MB
+		return value
+	return 1
+
+func _on_HashMaxSize_value_changed(value: float):
+	var mb_size = convert_hash_size_from_range(value)
+	RetroHubConfig.config.scraper_hash_file_size = mb_size
+	set_hash_max_size_text(mb_size)
+
+func set_hash_max_size_text(value: int):
+	if value == 0:
+		n_hash_max_size_lbl.text = "Unlimited"
+	elif value > 1024:
+		n_hash_max_size_lbl.text = "%.2f GB" % (value / 1024.0)
+	else:
+		n_hash_max_size_lbl.text = "%d MB" % value
+
+func _on_Hash_toggled(button_pressed):
+	toggle_scrape_button()
+	n_hash_max_size.editable = button_pressed
+
+
+func _on_Filename_toggled(button_pressed):
+	toggle_scrape_button()

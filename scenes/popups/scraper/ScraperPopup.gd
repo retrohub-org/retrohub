@@ -33,6 +33,8 @@ class Request:
 var game_list_arr : Array
 var scrape_data : bool
 var scrape_media : bool
+var scrape_by_hash : bool
+var scrape_by_name : bool
 var media_bitmask : int
 var scene_entry_list := {}
 var game_entry_list := []
@@ -60,10 +62,12 @@ func _ready():
 	n_scraper_warning.modulate = RetroHubUI.color_warning
 	n_scraper_error.modulate = RetroHubUI.color_error
 
-func begin_scraping(_game_list_arr: Array, _scraper: RetroHubScraper, _scrape_data: bool, _scrape_media: bool, _media_bitmask: int):
+func begin_scraping(_game_list_arr: Array, _scraper: RetroHubScraper, _scrape_data: bool, _scrape_media: bool, _scrape_by_hash: bool, _scrape_by_name: bool, _media_bitmask: int):
 	game_list_arr = _game_list_arr
 	scrape_data = _scrape_data
 	scrape_media = _scrape_media
+	scrape_by_hash = _scrape_by_hash
+	scrape_by_name = _scrape_by_name
 	media_bitmask = _media_bitmask
 
 	scraper = _scraper
@@ -82,8 +86,7 @@ func fetch_game_entries_async():
 	requests_queue.clear()
 	requests_curr.clear()
 	for game_entry in game_entry_list:
-		# TODO: Allow changing default behavior, hash or search
-		add_data_request(game_entry, Request.Type.DATA_HASH)
+		add_data_request(game_entry, Request.Type.DATA_HASH if scrape_by_hash else Request.Type.DATA_SEARCH)
 	requests_mutex.unlock()
 
 	if thread.start(self, "thread_fetch_game_entries"):
@@ -92,6 +95,8 @@ func fetch_game_entries_async():
 func add_data_request(game_entry: RetroHubScraperGameEntry, type: int, priority: bool = false) -> void:
 	var req := Request.new()
 	req.type = type
+	if type == Request.Type.DATA_SEARCH and not game_entry.data:
+		game_entry.data = game_entry.game_data.name.get_basename()
 	req.game_entry = game_entry
 	if priority:
 		requests_queue.push_front(req)
@@ -242,10 +247,20 @@ func t_on_game_scrape_not_found(game_data: RetroHubGameData):
 	#warning-ignore:return_value_discarded
 	pending_datas.erase(game_data)
 	if req.type == Request.Type.DATA_HASH:
-		game_entry.data = game_entry.game_data.name.get_basename()
-		requests_mutex.lock()
-		add_data_request(game_entry, Request.Type.DATA_SEARCH, true)
-		requests_mutex.unlock()
+		if scrape_by_name:
+			# Hash failed, try by filename
+			game_entry.data = game_entry.game_data.name.get_basename()
+			requests_mutex.lock()
+			add_data_request(game_entry, Request.Type.DATA_SEARCH, true)
+			requests_mutex.unlock()
+		else:
+			# Hash failed and user doesn't want to search by name
+			game_entry.set_deferred("data", ["Identification by hash has failed, either because this game is bigger than the set hash file size limit, or the scraper does not have this hash in their database.\n\nSearching by file name is disabled. To try it instead, you must enable it on the scraper options.", req])
+			game_entry.set_deferred("state", RetroHubScraperGameEntry.State.ERROR)
+			call_deferred("decr_num_games_pending")
+			call_deferred("incr_num_games_error")
+
+
 
 func t_on_game_scrape_error(game_data: RetroHubGameData, details: String):
 	var req : Request = _ensure_valid_req(game_data)
@@ -536,7 +551,7 @@ func _on_Error_retry_entry(game_entry: RetroHubScraperGameEntry, req: Request):
 	requests_mutex.lock()
 	if req == null:
 		# No request, so start by scratch
-		add_data_request(game_entry, Request.Type.DATA_HASH, true)
+		add_data_request(game_entry, Request.Type.DATA_HASH if scrape_by_hash else Request.Type.DATA_SEARCH, true)
 	else:
 		requests_queue.push_front(req)
 		#warning-ignore:return_value_discarded

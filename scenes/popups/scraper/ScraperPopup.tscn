@@ -19,7 +19,6 @@
 [ext_resource path="res://scenes/popups/scraper/GameEntries.gd" type="Script" id=17]
 
 [node name="ScraperPopup" type="PopupPanel"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -152,7 +151,6 @@ size_flags_vertical = 3
 tabs_visible = false
 
 [node name="Success" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -283,6 +281,7 @@ text = "Cancel"
 
 [node name="Warning" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
 unique_name_in_owner = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -343,7 +342,7 @@ margin_bottom = 390.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer"]
-margin_right = 372.0
+margin_right = 384.0
 margin_bottom = 515.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -490,19 +489,19 @@ script = ExtResource( 9 )
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 94.0
-margin_bottom = -121.0
+margin_top = 41.0
+margin_bottom = -68.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer"]
 margin_right = 596.0
-margin_bottom = 257.0
+margin_bottom = 355.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ErrorLabel" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 margin_right = 596.0
-margin_bottom = 257.0
+margin_bottom = 355.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "There was an error when downloading information for
@@ -513,12 +512,15 @@ align = 1
 valign = 1
 autowrap = true
 
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer/ScrollContainer"]
+script = ExtResource( 13 )
+
 [node name="ErrorRetryButton" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer"]
 unique_name_in_owner = true
 margin_left = 275.0
-margin_top = 261.0
+margin_top = 359.0
 margin_right = 320.0
-margin_bottom = 281.0
+margin_bottom = 379.0
 size_flags_horizontal = 6
 size_flags_vertical = 0
 text = "Retry"

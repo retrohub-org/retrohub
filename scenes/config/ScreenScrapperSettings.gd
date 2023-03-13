@@ -4,6 +4,8 @@ onready var n_use_account := $"%UseAccount"
 onready var n_username := $"%Username"
 onready var n_password := $"%Password"
 
+var changed := false
+
 func _ready():
 	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
@@ -17,16 +19,12 @@ func _on_config_ready(config_data: ConfigData):
 	n_password.text = RetroHubConfig._get_credential("scraper_ss_password")
 
 
+func _on_text_changed(_new_text):
+	changed = true
+
+
 func _on_ShowPassword_toggled(button_pressed):
 	n_password.secret = !button_pressed
-
-
-func _on_Username_text_changed(new_text):
-	RetroHubConfig.config.scraper_ss_username = new_text
-
-
-func _on_Password_text_changed(new_text):
-	RetroHubConfig.config.scraper_ss_password = new_text
 
 
 func _on_UseAccount_toggled(button_pressed):
@@ -36,5 +34,7 @@ func _on_UseAccount_toggled(button_pressed):
 
 
 func save_credentials():
-	RetroHubConfig._set_credential("scraper_ss_username", n_username.text)
-	RetroHubConfig._set_credential("scraper_ss_password", n_password.text)
+	if changed:
+		RetroHubConfig._set_credential("scraper_ss_username", n_username.text)
+		RetroHubConfig._set_credential("scraper_ss_password", n_password.text)
+		changed = false

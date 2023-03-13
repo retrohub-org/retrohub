@@ -18,6 +18,7 @@ var region : String = "usa" setget _set_region
 var rating_system : String = "esrb" setget _set_rating_system
 var date_format : String = "mm/dd/yyyy" setget _set_date_format
 var system_names : Dictionary = default_system_names() setget _set_system_names
+var scraper_hash_file_size : int = 64 setget _set_scraper_hash_file_size
 var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_custom_account
 var custom_input_remap : String = "" setget _set_custom_input_remap
 var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_map
@@ -42,6 +43,7 @@ const KEY_REGION = "region"
 const KEY_RATING_SYSTEM = "rating_system"
 const KEY_DATE_FORMAT = "date_format"
 const KEY_SYSTEM_NAMES = "system_names"
+const KEY_SCRAPER_HASH_FILE_SIZE = "scraper_hash_file_size"
 const KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT = "scraper_ss_use_custom_account"
 const KEY_CUSTOM_INPUT_REMAP = "custom_input_remap"
 const KEY_INPUT_KEY_MAP = "input_key_map"
@@ -68,6 +70,7 @@ const _keys = [
 	KEY_RATING_SYSTEM,
 	KEY_DATE_FORMAT,
 	KEY_SYSTEM_NAMES,
+	KEY_SCRAPER_HASH_FILE_SIZE,
 	KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT,
 	KEY_CUSTOM_INPUT_REMAP,
 	KEY_INPUT_KEY_MAP,
@@ -192,6 +195,10 @@ func _set_date_format(_date_format):
 func _set_system_names(_system_names):
 	mark_for_saving()
 	system_names = _system_names.duplicate(true)
+
+func _set_scraper_hash_file_size(_scraper_hash_file_size):
+	mark_for_saving()
+	scraper_hash_file_size = _scraper_hash_file_size
 
 func _set_scraper_ss_use_custom_account(_scraper_ss_use_custom_account):
 	mark_for_saving()
