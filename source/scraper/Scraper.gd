@@ -45,8 +45,9 @@ signal media_scrape_error(game_data, type, details)
 # Start a metadata scrape by the game file's hash.
 # This allows a scrape to be uniquely identified regardless of the
 # game filenames. If the game cannot be uniquely identified by this
-# method, this should signal "game_scrape_not_found". RetroHub may
-# then try doing a scrape by search if configured to do so.
+# method or if the hash cannot be computed, this should signal
+# "game_scrape_not_found". RetroHub may then try doing a scrape by
+# search if configured to do so.
 func scrape_game_by_hash(_game_data: RetroHubGameData) -> int:
 	return -1
 

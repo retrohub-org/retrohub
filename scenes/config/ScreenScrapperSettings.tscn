@@ -147,4 +147,6 @@ fit_content_height = true
 scroll_active = false
 
 [connection signal="toggled" from="HBoxContainer/UseAccount" to="." method="_on_UseAccount_toggled"]
+[connection signal="text_changed" from="HBoxContainer2/Username" to="." method="_on_text_changed"]
 [connection signal="toggled" from="HBoxContainer3/ShowPassword" to="." method="_on_ShowPassword_toggled"]
+[connection signal="text_changed" from="HBoxContainer3/Password" to="." method="_on_text_changed"]

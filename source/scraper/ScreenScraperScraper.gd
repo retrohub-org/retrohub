@@ -331,30 +331,35 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 		emit_signal("game_scrape_finished", game_data)
 		return OK
 
+	# If file is too big, we must fail
+	var file := File.new()
+	if file.open(game_data.path, File.READ):
+		push_error("Couldn't open file " + game_data.path)
+		emit_signal("game_scrape_not_found", game_data)
+		return ERR_CANT_OPEN
+	
+	var max_size := RetroHubConfig.config.scraper_hash_file_size
+	if max_size > 0 and file.get_len() > max_size * 1024 * 1024:
+		emit_signal("game_scrape_not_found", game_data)
+		return FAILED
+
 	#warning-ignore:return_value_discarded
 	_req_semaphore.wait()
 
 	# Compute game's hash
-	var file := File.new()
-	var md5 := ""
-	if not file.open(game_data.path, File.READ):
-		md5 = file.get_md5(game_data.path)
-	else:
-		push_error("Couldn't open file " + game_data.path)
-		
+	var md5 := file.get_md5(game_data.path)
+
 	var header_data := {
 		"devid": ss_get_api_keys(ss_api_user, false),
 		"devpassword": ss_get_api_keys(ss_api_pass, true),
 		"softname": "RetroHub",
 		"output": "json",
 		"romtype": "rom",
-		
+		"md5": md5,
 		"systemeid": str(get_ss_system_mapping(game_data.system.name)),
 		"romnom": game_data.path.get_file(),
 		"romtaille": str(file.get_len())
 	}
-	if not md5.empty():
-		header_data["md5"]= md5
 
 	ss_add_user_account(header_data)
 	file.close()

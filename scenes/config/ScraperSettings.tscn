@@ -30,7 +30,7 @@ follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_right = 1012.0
-margin_bottom = 540.0
+margin_bottom = 618.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 5
@@ -86,10 +86,75 @@ margin_top = 176.0
 margin_right = 1012.0
 margin_bottom = 180.0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 239.0
 margin_right = 1012.0
 margin_bottom = 291.0
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
+margin_right = 900.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Search mode:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
+margin_left = 904.0
+margin_right = 1012.0
+margin_bottom = 52.0
+
+[node name="Hash" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 108.0
+margin_bottom = 24.0
+pressed = true
+text = "By file hash"
+
+[node name="Filename" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 28.0
+margin_right = 108.0
+margin_bottom = 52.0
+pressed = true
+text = "By file name"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_top = 296.0
+margin_right = 1012.0
+margin_bottom = 312.0
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+margin_right = 671.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "File hash size limit:"
+
+[node name="HashMaxSizeLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+unique_name_in_owner = true
+margin_left = 675.0
+margin_top = 1.0
+margin_right = 708.0
+margin_bottom = 15.0
+text = "1 MB"
+
+[node name="HashMaxSize" type="HSlider" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+unique_name_in_owner = true
+margin_left = 712.0
+margin_right = 1012.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 300, 0 )
+min_value = 1.0
+max_value = 129.0
+value = 1.0
+rounded = true
+tick_count = 5
+ticks_on_borders = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_top = 317.0
+margin_right = 1012.0
+margin_bottom = 369.0
 
 [node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
 margin_right = 921.0
@@ -119,9 +184,9 @@ pressed = true
 text = "Media"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 296.0
+margin_top = 374.0
 margin_right = 1012.0
-margin_bottom = 540.0
+margin_bottom = 618.0
 
 [node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
 margin_right = 753.0
@@ -301,6 +366,7 @@ dialog_hide_on_ok = false
 
 [node name="ScraperPopup" parent="." instance=ExtResource( 6 )]
 unique_name_in_owner = true
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -311,6 +377,9 @@ margin_right = 476.5
 margin_bottom = 271.0
 
 [connection signal="visibility_changed" from="." to="." method="_on_ScraperSettings_visibility_changed"]
+[connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer/Hash" to="." method="_on_Hash_toggled"]
+[connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer/Filename" to="." method="_on_Filename_toggled"]
+[connection signal="value_changed" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/HashMaxSize" to="." method="_on_HashMaxSize_value_changed"]
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/VBoxContainer/Metadata" to="." method="_on_Metadata_toggled"]
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/VBoxContainer/Media" to="." method="_on_Media_toggled"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer/MediaSelectAll" to="." method="_on_MediaSelectAll_pressed"]
