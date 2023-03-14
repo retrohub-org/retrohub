@@ -1,12 +1,5 @@
 name: Get Default Themes
 description: Downloads default themes to be packaged for RetroHub
-inputs:
-  default-tag:
-    description: The tag version for the default theme to download
-    required: true
-  es-wrapper-tag:
-    description: The tag version for the ES theme wrapper to download
-    required: true
 
 runs:
   using: composite
@@ -20,17 +13,19 @@ runs:
       shell: sh
       env:
         THEME_NAME: default.pck
+        THEME_VERSION: v0.1.1-beta
       run: |
         cd themes_workdir
-        curl -L https://github.com/retrohub-org/default-theme/releases/download/${{ inputs.default-tag }}/${{ env.THEME_NAME }} --output ${{ env.THEME_NAME }}
+        curl -L https://github.com/retrohub-org/default-theme/releases/download/${{ env.THEME_VERSION }}/${{ env.THEME_NAME }} --output ${{ env.THEME_NAME }}
 
     - name: Download [es-theme-wrapper]
       shell: sh
       env:
         THEME_NAME: es-theme-wrapper.pck
+        THEME_VERSION: v0.1.0-beta
       run: |
         cd themes_workdir
-        curl -L https://github.com/retrohub-org/es-theme-wrapper/releases/download/${{ inputs.es-wrapper-tag }}/${{ env.THEME_NAME }} --output ${{ env.THEME_NAME }}
+        curl -L https://github.com/retrohub-org/es-theme-wrapper/releases/download/${{ env.THEME_VERSION }}/${{ env.THEME_NAME }} --output ${{ env.THEME_NAME }}
 
     - name: Package themes
       shell: sh
