@@ -47,7 +47,8 @@ class RequestDetails:
 		_http.cancel_request()
 		_http.emit_signal("request_completed", -1, 0, PoolStringArray(), PoolByteArray())
 
-const MAX_REQUESTS := 2
+var MAX_REQUESTS := 2
+var _checked_user_threads := false
 
 var _req_semaphore := Semaphore.new()
 
@@ -205,11 +206,17 @@ func get_ss_system_mapping(system_name) -> int:
 		return ss_system_map[system_name]
 	return -1
 
+func _send_user_threads(owner: String):
+	return "Using %d thread%s (%s quota)" % [
+		MAX_REQUESTS,
+		"s" if MAX_REQUESTS > 1 else "",
+		owner
+	]
+
 func _init():
 	for __ in range(MAX_REQUESTS):
 		#warning-ignore:return_value_discarded
 		_req_semaphore.post()
-
 
 func _process(_delta):
 	if not _pending_requests.empty():
@@ -239,6 +246,7 @@ func _process(_delta):
 		if req.is_ok():
 			match req.type:
 				RequestDetails.Type.DATA:
+					_process_req_meta(req)
 					_process_req_data(req, game_data)
 				RequestDetails.Type.MEDIA:
 					_process_req_media(req, game_data)
@@ -276,6 +284,46 @@ func _process(_delta):
 				RequestDetails.Type.MEDIA:
 					emit_signal("media_scrape_error", game_data, req.data["type"], details)
 
+func _process_req_meta(req: RequestDetails):
+	# Num of threads will not change during scraping, we only have to check this once
+	if _checked_user_threads:
+		return
+
+	# If custom accounts are disabled, return
+	if not RetroHubConfig.config.scraper_ss_use_custom_account:
+		_checked_user_threads = true
+		emit_signal("scraper_details", _send_user_threads("RetroHub"))
+		return
+
+	# Handle growth/shrink in threads
+	var json := JSON.parse(req._req_body.get_string_from_utf8())
+	if not json.error:
+		var json_raw = json.result
+		# Preprocess json a bit due to ScreenScraper structure
+		json_raw = json_raw["response"]
+		if json_raw.has("ssuser") and json_raw["ssuser"].has("maxthreads"):
+			_checked_user_threads = true
+			# Ensure user is really logged in
+			if json_raw["ssuser"].has("numid") and json_raw["ssuser"]["numid"] == "0":
+				_checked_user_threads = true
+				emit_signal("scraper_details", _send_user_threads("Credentials failed; using RetroHub"))
+				return
+			var max_threads := int(json_raw["ssuser"]["maxthreads"])
+			if RetroHubConfig.config.scraper_ss_max_threads > 0:
+				max_threads = int(min(max_threads, RetroHubConfig.config.scraper_ss_max_threads))
+			if max_threads <= 0:
+				return
+			if max_threads > MAX_REQUESTS:
+				for __ in range(max_threads - MAX_REQUESTS):
+					#warning-ignore:return_value_discarded
+					_req_semaphore.post()
+				MAX_REQUESTS = max_threads
+			elif max_threads < MAX_REQUESTS:
+				for __ in range(MAX_REQUESTS - max_threads):
+					#warning-ignore:return_value_discarded
+					_req_semaphore.wait()
+				MAX_REQUESTS = max_threads
+			emit_signal("scraper_details", _send_user_threads("user"))
 
 func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 	var json := JSON.parse(req._req_body.get_string_from_utf8())
@@ -330,6 +378,9 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 		_process_raw_game_data(json, game_data)
 		emit_signal("game_scrape_finished", game_data)
 		return OK
+	
+	if not _checked_user_threads:
+		emit_signal("scraper_details", "Querying threads...")
 
 	# If file is too big, we must fail
 	var file := File.new()

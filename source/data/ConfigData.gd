@@ -20,6 +20,7 @@ var date_format : String = "mm/dd/yyyy" setget _set_date_format
 var system_names : Dictionary = default_system_names() setget _set_system_names
 var scraper_hash_file_size : int = 64 setget _set_scraper_hash_file_size
 var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_custom_account
+var scraper_ss_max_threads : int = 6 setget _set_scraper_ss_max_threads
 var custom_input_remap : String = "" setget _set_custom_input_remap
 var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_map
 var input_controller_map : Dictionary = default_input_controller_map() setget _set_input_controller_map
@@ -45,6 +46,7 @@ const KEY_DATE_FORMAT = "date_format"
 const KEY_SYSTEM_NAMES = "system_names"
 const KEY_SCRAPER_HASH_FILE_SIZE = "scraper_hash_file_size"
 const KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT = "scraper_ss_use_custom_account"
+const KEY_SCRAPER_SS_MAX_THREADS = "scraper_ss_max_threads"
 const KEY_CUSTOM_INPUT_REMAP = "custom_input_remap"
 const KEY_INPUT_KEY_MAP = "input_key_map"
 const KEY_INPUT_CONTROLLER_MAP = "input_controller_map"
@@ -72,6 +74,7 @@ const _keys = [
 	KEY_SYSTEM_NAMES,
 	KEY_SCRAPER_HASH_FILE_SIZE,
 	KEY_SCRAPER_SS_USE_CUSTOM_ACCOUNT,
+	KEY_SCRAPER_SS_MAX_THREADS,
 	KEY_CUSTOM_INPUT_REMAP,
 	KEY_INPUT_KEY_MAP,
 	KEY_INPUT_CONTROLLER_MAP,
@@ -203,6 +206,10 @@ func _set_scraper_hash_file_size(_scraper_hash_file_size):
 func _set_scraper_ss_use_custom_account(_scraper_ss_use_custom_account):
 	mark_for_saving()
 	scraper_ss_use_custom_account = _scraper_ss_use_custom_account
+
+func _set_scraper_ss_max_threads(_scraper_ss_max_threads):
+	mark_for_saving()
+	scraper_ss_max_threads = _scraper_ss_max_threads
 
 func _set_custom_input_remap(_custom_input_remap):
 	mark_for_saving()

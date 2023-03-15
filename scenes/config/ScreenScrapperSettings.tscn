@@ -146,7 +146,41 @@ text = " Warning: Due to the way ScreenScraper works, the password will be store
 fit_content_height = true
 scroll_active = false
 
+[node name="HBoxContainer5" type="HBoxContainer" parent="."]
+margin_top = 176.0
+margin_right = 1024.0
+margin_bottom = 206.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer5"]
+margin_top = 8.0
+margin_right = 708.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Scraper maximum thread count:"
+
+[node name="ThreadCountLabel" type="Label" parent="HBoxContainer5"]
+unique_name_in_owner = true
+margin_left = 712.0
+margin_top = 8.0
+margin_right = 720.0
+margin_bottom = 22.0
+text = "1"
+
+[node name="ThreadCount" type="HSlider" parent="HBoxContainer5"]
+unique_name_in_owner = true
+margin_left = 724.0
+margin_right = 1024.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 300, 30 )
+min_value = 2.0
+max_value = 11.0
+value = 2.0
+tick_count = 10
+ticks_on_borders = true
+
 [connection signal="toggled" from="HBoxContainer/UseAccount" to="." method="_on_UseAccount_toggled"]
 [connection signal="text_changed" from="HBoxContainer2/Username" to="." method="_on_text_changed"]
 [connection signal="toggled" from="HBoxContainer3/ShowPassword" to="." method="_on_ShowPassword_toggled"]
 [connection signal="text_changed" from="HBoxContainer3/Password" to="." method="_on_text_changed"]
+[connection signal="value_changed" from="HBoxContainer5/ThreadCount" to="." method="_on_ThreadCount_value_changed"]
