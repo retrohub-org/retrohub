@@ -8,6 +8,7 @@ onready var n_scraper_done := $"%ScraperDone"
 onready var n_scraper_warning := $"%ScraperWarning"
 onready var n_scraper_error := $"%ScraperError"
 onready var n_scraper_pending := $"%ScraperPending"
+onready var n_scraper_details := $"%ScraperDetails"
 
 onready var n_game_entries := $"%GameEntries"
 onready var n_game_entry_editor := $"%GameEntryEditor"
@@ -129,6 +130,7 @@ func add_media_request(game_entry: RetroHubScraperGameEntry, priority: bool = fa
 
 
 func thread_fetch_game_entries():
+	scraper.connect("scraper_details", self, "t_on_scraper_details")
 	#warning-ignore:return_value_discarded
 	scraper.connect("game_scrape_finished", self, "t_on_game_scrape_finished")
 	#warning-ignore:return_value_discarded
@@ -197,6 +199,7 @@ func thread_fetch_game_entries():
 					requests_curr.erase(req)
 					game_entry.curr += 1
 
+	scraper.disconnect("scraper_details", self, "t_on_scraper_details")
 	scraper.disconnect("game_scrape_finished", self, "t_on_game_scrape_finished")
 	scraper.disconnect("game_scrape_multiple_available", self, "t_on_game_scrape_multiple_available")
 	scraper.disconnect("game_scrape_not_found", self, "t_on_game_scrape_not_found")
@@ -213,6 +216,9 @@ func _ensure_valid_req(game_data: RetroHubGameData):
 		return null
 	else:
 		return pending_datas[game_data]
+
+func t_on_scraper_details(text: String):
+	n_scraper_details.set_deferred("text", text)
 
 func t_on_game_scrape_finished(game_data: RetroHubGameData):
 	var req : Request = _ensure_valid_req(game_data)

@@ -1,6 +1,10 @@
 extends Node
 class_name RetroHubScraper
 
+# Signal to share any details specific to this scraper. Use this to
+# display some important information to the user regarding the scraper.
+#warning-ignore:unused_signal
+signal scraper_details(text)
 # Signals that a game scrape has finished successfully, returning the
 # modified game data.
 #warning-ignore:unused_signal
