@@ -424,7 +424,7 @@ func unload_theme():
 		save_theme_config()
 
 		if is_instance_valid(theme_data.entry_scene):
-			theme_data.entry_scene.free()
+			theme_data.entry_scene.queue_free()
 
 		theme_data = null
 		if !ProjectSettings.unload_resource_pack(theme_path):
