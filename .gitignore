@@ -18,6 +18,9 @@ godotOld
 # Ignore pre-built FFMPEG binaries
 addons/godot-videodecoder/**
 
+# Ignore pre-built godot-tts, it is bundled on release
+addons/godot-tts/target/
+
 # Ignore specific addons
 addons/wakatime
 

@@ -54,8 +54,10 @@ func _on_QuitTab_pressed():
 func _on_ConfigPopup_about_to_show():
 	n_game.set_game_data(RetroHub.curr_game_data)
 	yield(get_tree(), "idle_frame")
+	TTS.speak("Configuration opened.")
 	if last_tab:
 		last_tab.grab_focus()
+		TTS.speak("Currently selected tab. " + tts_text(last_tab), false)
 
 func _on_ScrollContainer_focus_entered():
 	last_tab.grab_focus()
@@ -75,7 +77,14 @@ func _on_ConfigPopup_popup_hide():
 		RetroHub.load_theme()
 	should_reload_theme = false
 	RetroHubConfig.save_theme_config()
+	TTS.speak("Configuration closed.")
 
 
 func _on_theme_reload():
 	should_reload_theme = true
+
+func tts_text(focused_node: Node) -> String:
+	# Tab buttons got focused?
+	if focused_node in n_tab_buttons:
+		return (focused_node.get_child(0).get_child(0) as Label).text
+	return ""
