@@ -10,7 +10,7 @@ jobs:
     runs-on: "macos-12"
     name: Extract SDK
     steps:
-      - name : "Load cache"
+      - name: "Load cache"
         uses: actions/cache@v3
         id: "cache"
         with:
@@ -41,15 +41,15 @@ jobs:
     name: Compile FFMPEG
 
     steps:
-      - name : "Load cache (SDK)"
+      - name: "Load cache (SDK)"
         uses: actions/cache@v3
         id: "cache-sdk"
         with:
           path: ~/cached_builds/sdk
           key: MacOS-sdk
         continue-on-error: false
-      
-      - name : "Load cache (videodecoder)"
+
+      - name: "Load cache (videodecoder)"
         uses: actions/cache@v3
         id: "cache-videodecoder"
         with:
@@ -85,29 +85,37 @@ jobs:
         with:
           path: "retrohub"
 
-      - name : "Load cached objects (Godot editor)"
+      - name: "Load cached objects (Godot editor)"
         uses: actions/cache@v3
         id: "cache_editor"
         with:
           path: cached_builds/editor/Godot.app
           key: MacOS-editor-build
         continue-on-error: true
-      
-      - name : "Load cached objects (Godot templates)"
+
+      - name: "Load cached objects (Godot templates)"
         uses: actions/cache@v3
         id: "cache_template"
         with:
           path: cached_builds/template/osx.zip
           key: MacOS-template-build
         continue-on-error: true
-      
-      - name : "Load cached objects (Videodecoder)"
+
+      - name: "Load cached objects (Videodecoder)"
         uses: actions/cache@v3
         id: "cache_videodecoder"
         with:
           path: cached_builds/videodecoder/osx
           key: MacOS-videodecoder-build
         continue-on-error: false
+
+      - name: "load cached objects (godot-tts)"
+        uses: actions/cache@v3
+        id: "cache_tts"
+        with:
+          path: cached_builds/tts/${{ matrix.bits }}
+          key: MacOS-${{ matrix.bits }}-tts-build
+        continue-on-error: true
 
       - name: "Checkout Custom Godot"
         if: steps.cache_template.outputs.cache-hit != 'true'
@@ -116,6 +124,25 @@ jobs:
           repository: retrohub-org/godot
           ref: retrohub_patches
           path: "godot"
+
+      - name: "Download godot-tts"
+        if: steps.cache_tts.outputs.cache-hit != 'true'
+        uses: robinraju/release-downloader@v1.7
+        with:
+          repository: retrohub-org/godot-tts
+          tag: v1.0.0
+          fileName: godot-tts.zip
+          tarBall: false
+          zipBall: false
+          out-file-path: ""
+
+      - name: "Cache godot-tts"
+        if: steps.cache_tts.outputs.cache-hit != 'true'
+        run: |
+          unzip godot-tts.zip -d $RUNNER_TEMP
+          mkdir -p -v cached_builds/tts
+          mv -v $RUNNER_TEMP/godot-tts/target/release/*.dylib cached_builds/tts
+
 
       - name: "[Godot] Dependencies"
         if: steps.cache_template.outputs.cache-hit != 'true'
@@ -187,6 +214,12 @@ jobs:
 
       - name: "Package default themes"
         uses: ./retrohub/.github/actions/get-default-themes
+
+      - name: "Package godot-tts"
+        run: |
+          mkdir -p -v retrohub/addons/godot-tts/target/release
+          cp -r -v cached_builds/tts/* retrohub/addons/godot-tts/target/release
+
 
       - name: "Exporting RetroHub"
         working-directory: retrohub

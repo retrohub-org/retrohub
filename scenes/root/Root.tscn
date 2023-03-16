@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/root/Root.gd" type="Script" id=1]
 [ext_resource path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/root/Viewport.gd" type="Script" id=4]
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=5]
 [ext_resource path="res://scenes/root/FileSystemPopup.gd" type="Script" id=6]
+[ext_resource path="res://addons/godot-accessibility/ScreenReader.gd" type="Script" id=7]
 [ext_resource path="res://scenes/no_theme/NoTheme.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=1]
@@ -41,6 +42,7 @@ render_target_update_mode = 3
 script = ExtResource( 4 )
 
 [node name="NoTheme" parent="ViewportContainer/Viewport" instance=ExtResource( 10 )]
+focus_mode = 2
 
 [node name="DarkenOverlay" type="ColorRect" parent="."]
 visible = false
@@ -48,6 +50,7 @@ modulate = Color( 0.74902, 0.74902, 0.74902, 1 )
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+focus_mode = 2
 
 [node name="ConfigPopup" parent="." instance=ExtResource( 3 )]
 popup_exclusive = true
@@ -61,6 +64,7 @@ margin_left = -376.0
 margin_top = -208.5
 margin_right = 376.0
 margin_bottom = 208.5
+focus_mode = 2
 theme = ExtResource( 5 )
 window_title = "Open a File"
 mode = 0
@@ -78,6 +82,7 @@ margin_left = -304.0
 margin_top = -173.0
 margin_right = 304.0
 margin_bottom = 173.0
+focus_mode = 2
 theme = ExtResource( 5 )
 
 [node name="WarningLabel" type="Label" parent="WarningPopup"]
@@ -103,6 +108,10 @@ margin_bottom = 278.0
 theme = ExtResource( 5 )
 script = ExtResource( 2 )
 autoShow = false
+
+[node name="ScreenReader" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 7 )
 
 [connection signal="about_to_show" from="ConfigPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]

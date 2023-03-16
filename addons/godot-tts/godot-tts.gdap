@@ -1,0 +1,5 @@
+[config]
+
+name="GodotTTS"
+binary_type="local"
+binary="godot-tts.aar"

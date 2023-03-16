@@ -182,6 +182,7 @@ RetroHub="*res://source/RetroHub.gd"
 RetroHubMedia="*res://source/Media.gd"
 ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
 ControllerHandler="*res://source/utils/ControllerHandler.gd"
+TTS="*res://addons/godot-tts/TTS.gd"
 
 [display]
 
@@ -191,7 +192,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/controller_icons/plugin.cfg", "res://addons/onscreenkeyboard/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/controller_icons/plugin.cfg", "res://addons/godot-accessibility/plugin.cfg", "res://addons/onscreenkeyboard/plugin.cfg" )
 
 [gdnative]
 

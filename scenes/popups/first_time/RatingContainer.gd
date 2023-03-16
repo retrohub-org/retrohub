@@ -19,5 +19,5 @@ func _on_RatingOptions_item_selected(index):
 		2:
 			RetroHubConfig.config.rating_system = "cero"
 
-	for i in range(n_rating_icons.get_child_count()):
+	for i in range(n_rating_icons.get_child_count()-1):
 		n_rating_icons.get_child(i).from_idx(i+1, index)

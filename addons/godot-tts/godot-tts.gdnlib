@@ -1,0 +1,22 @@
+[entry]
+
+Server.64="res://addons/godot-tts/target/release/libgodot_tts.so"
+Windows.64="res://addons/godot-tts/target/release/godot_tts.dll"
+Windows.32="res://addons/godot-tts/target/release/32/godot_tts.dll"
+UWP.64="res://addons/godot-tts/target/release/godot_tts.uwp.dll"
+X11.64="res://addons/godot-tts/target/release/libgodot_tts.so"
+X11.32="res://addons/godot-tts/target/release/32/libgodot_tts.so"
+OSX.64="res://addons/godot-tts/target/release/libgodot_tts.dylib"
+IOS="res://addons/godot-tts/target/release/libgodot_tts.a"
+
+[dependencies]
+
+Windows.64=[ "res://addons/godot-tts/target/release/nvdaControllerClient64.dll", "res://addons/godot-tts/target/release/SAAPI64.dll" ]
+Windows.32=[ "res://addons/godot-tts/target/release/32/dolapi32.dll", "res://addons/godot-tts/target/release/32/nvdaControllerClient32.dll", "res://addons/godot-tts/target/release/32/SAAPI32.dll" ]
+
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="godot_"
+reloadable=false

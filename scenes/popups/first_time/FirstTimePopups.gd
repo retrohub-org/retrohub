@@ -38,6 +38,8 @@ func _on_MainContent_tab_changed(tab):
 
 	var counter := 0
 	for child in n_sidebar.get_children():
+		if child.is_in_group("rh_access"):
+			continue
 		if counter == tab:
 			child.modulate = color_current
 		elif counter < tab:

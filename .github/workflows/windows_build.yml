@@ -17,11 +17,13 @@ jobs:
             bin: godot.windows.opt.32.exe
             template: godot_32.exe
             videodecoder: win32
+            godot-tts: target/release/32
           - name: 64 Bits
             bits: 64
             bin: godot.windows.opt.64.exe
             template: godot_64.exe
             videodecoder: win64
+            godot-tts: target/release
 
     steps:
       - name: "Checkout RetroHub"
@@ -29,28 +31,36 @@ jobs:
         with:
           path: "retrohub"
 
-      - name : "Load cached objects (Godot editor)"
+      - name: "Load cached objects (Godot editor)"
         uses: actions/cache@v3
         id: "cache_editor"
         with:
           path: cached_builds/editor/godot
           key: editor-build
         continue-on-error: true
-      
-      - name : "Load cached objects (Godot templates)"
+
+      - name: "Load cached objects (Godot templates)"
         uses: actions/cache@v3
         id: "cache_template"
         with:
           path: cached_builds/template/godot_${{ matrix.bits }}.exe
           key: Windows-${{ matrix.bits }}-template-build
         continue-on-error: true
-      
-      - name : "Load cached objects (Videodecoder)"
+
+      - name: "Load cached objects (Videodecoder)"
         uses: actions/cache@v3
         id: "cache_videodecoder"
         with:
           path: cached_builds/videodecoder/${{ matrix.videodecoder }}
           key: Windows-${{ matrix.bits }}-videodecoder-build
+        continue-on-error: true
+
+      - name: "load cached objects (godot-tts)"
+        uses: actions/cache@v3
+        id: "cache_tts"
+        with:
+          path: cached_builds/tts/${{ matrix.bits }}
+          key: Windows-${{ matrix.bits }}-tts-build
         continue-on-error: true
 
       - name: "Checkout Custom Godot"
@@ -68,6 +78,24 @@ jobs:
           repository: retrohub-org/godot-videodecoder
           submodules: recursive
           path: "videodecoder"
+
+      - name: "Download godot-tts"
+        if: steps.cache_tts.outputs.cache-hit != 'true'
+        uses: robinraju/release-downloader@v1.7
+        with:
+          repository: retrohub-org/godot-tts
+          tag: v1.0.0
+          fileName: godot-tts.zip
+          tarBall: false
+          zipBall: false
+          out-file-path: ""
+      
+      - name: "Cache godot-tts"
+        if: steps.cache_tts.outputs.cache-hit != 'true'
+        run: |
+          unzip godot-tts.zip -d $RUNNER_TEMP
+          mkdir -p -v cached_builds/tts/${{ matrix.bits }}
+          mv -v $RUNNER_TEMP/godot-tts/${{ matrix.godot-tts }}/*.dll cached_builds/tts/${{ matrix.bits }}
 
       - name: "[Videodecoder] Compilation"
         if: steps.cache_videodecoder.outputs.cache-hit != 'true'
@@ -155,6 +183,11 @@ jobs:
           echo "export/windows/wine = \"/usr/bin/wine\"" >> ~/.config/godot/editor_settings-3.tres
           echo "export/windows/rcedit = \"$(pwd)/rcedit-x64.exe\"" >> ~/.config/godot/editor_settings-3.tres
           tail -n2 ~/.config/godot/editor_settings-3.tres
+
+      - name: "Package godot-tts"
+        run: |
+          mkdir -p -v retrohub/addons/godot-tts/${{ matrix.godot-tts }}
+          cp -r -v cached_builds/tts/${{ matrix.bits }}/* retrohub/addons/godot-tts/${{ matrix.godot-tts }}
 
       - name: "Exporting RetroHub"
         working-directory: retrohub

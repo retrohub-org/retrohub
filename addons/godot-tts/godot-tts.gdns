@@ -1,0 +1,9 @@
+[gd_resource type="NativeScript" load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot-tts/godot-tts.gdnlib" type="GDNativeLibrary" id=1]
+
+[resource]
+
+resource_name = "TTS"
+class_name = "TTS"
+library = ExtResource( 1 )
