@@ -12,6 +12,7 @@ onready var n_cn_pre_delay := $"%CNPreDelay"
 onready var n_cn_delay := $"%CNDelay"
 
 onready var n_vkb_layout := $"%VirtualKeyboardLayout"
+onready var n_vkb_type := $"%VirtualKeyboardType"
 onready var n_vkb_show_on_controller := $"%VirtualKeyboardOnController"
 onready var n_vkb_show_on_mouse := $"%VirtualKeyboardOnMouse"
 
@@ -80,6 +81,12 @@ func _on_config_ready(config_data: ConfigData):
 			n_vkb_layout.selected = 0
 	n_vkb_show_on_controller.pressed = config_data.virtual_keyboard_show_on_controller
 	n_vkb_show_on_mouse.pressed = config_data.virtual_keyboard_show_on_mouse
+	match config_data.virtual_keyboard_type:
+		"steam":
+			n_vkb_type.selected = 1
+		"builtin", _:
+			n_vkb_type.selected = 0
+	n_vkb_layout.disabled = n_vkb_type.selected != 0
 
 func _on_config_updated(key: String, _old_value, new_value):
 	match key:
@@ -236,3 +243,12 @@ func _on_VirtualKeyboardOnMouse_toggled(button_pressed):
 
 func _on_TabContainerHandler_tab_changed(_tab_container):
 	grab_focus()
+
+
+func _on_VirtualKeyboardType_item_selected(index):
+	match index:
+		1:
+			RetroHubConfig.config.virtual_keyboard_type = "steam"
+		0, _:
+			RetroHubConfig.config.virtual_keyboard_type = "builtin"
+	n_vkb_layout.disabled = index != 0

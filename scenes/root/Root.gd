@@ -75,6 +75,8 @@ func show_first_time_popup():
 	first_time_popup.connect("popup_hide", self, "closed_popup")
 	#warning-ignore:return_value_discarded
 	first_time_popup.connect("popup_hide", self, "_on_first_time_popup_closed", [first_time_popup])
+	# Wait a frame for the window to be at the right resolution
+	yield(get_tree(), "idle_frame")
 	first_time_popup.popup()
 
 func _on_vp_size_changed() -> void:

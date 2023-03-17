@@ -116,3 +116,6 @@ func get_os_string() -> String:
 			return "linux"
 		_:
 			return "null"
+
+func is_steam_deck():
+	return get_os_id() == OS_ID.LINUX and not OS.get_environment("SteamDeck").empty()
