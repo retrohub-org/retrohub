@@ -30,6 +30,7 @@ var input_controller_icon_type : String = "auto" setget _set_input_controller_ic
 var input_controller_echo_pre_delay: float = 0.75 setget _set_input_controller_echo_pre_delay
 var input_controller_echo_delay: float = 0.15 setget _set_input_controller_echo_delay
 var virtual_keyboard_layout : String = "qwerty" setget _set_virtual_keyboard_layout
+var virtual_keyboard_type : String = default_virtual_keyboard_type() setget _set_virtual_keyboard_type
 var virtual_keyboard_show_on_controller : bool = true setget _set_virtual_keyboard_show_on_controller
 var virtual_keyboard_show_on_mouse : bool = false setget _set_virtual_keyboard_show_on_mouse
 var accessibility_screen_reader_enabled : bool = true setget _set_accessibility_screen_reader_enabled
@@ -57,6 +58,7 @@ const KEY_INPUT_CONTROLLER_ICON_TYPE = "input_controller_icon_type"
 const KEY_INPUT_CONTROLLER_ECHO_PRE_DELAY = "input_controller_echo_pre_delay"
 const KEY_INPUT_CONTROLLER_ECHO_DELAY = "input_controller_echo_delay"
 const KEY_VIRTUAL_KEYBOARD_LAYOUT = "virtual_keyboard_layout"
+const KEY_VIRTUAL_KEYBOARD_TYPE = "virtual_keyboard_type"
 const KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER = "virtual_keyboard_show_on_controller"
 const KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE = "virtual_keyboard_show_on_mouse"
 const KEY_ACCESSIBILITY_SCREEN_READER_ENABLED = "accessibility_screen_reader_enabled"
@@ -86,6 +88,7 @@ const _keys = [
 	KEY_INPUT_CONTROLLER_ECHO_PRE_DELAY,
 	KEY_INPUT_CONTROLLER_ECHO_DELAY,
 	KEY_VIRTUAL_KEYBOARD_LAYOUT,
+	KEY_VIRTUAL_KEYBOARD_TYPE,
 	KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER,
 	KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE,
 	KEY_ACCESSIBILITY_SCREEN_READER_ENABLED
@@ -154,6 +157,12 @@ static func default_input_controller_map() -> Dictionary:
 		"rh_left_trigger": [JOY_L2],
 		"rh_right_trigger": [JOY_R2]
 	}
+
+static func default_virtual_keyboard_type() -> String:
+	if FileUtils.is_steam_deck():
+		return "steam"
+	else:
+		return "builtin"
 
 func _set_is_first_time(_is_first_time):
 	mark_for_saving()
@@ -263,6 +272,10 @@ func _set_input_controller_echo_delay(_input_controller_echo_delay):
 func _set_virtual_keyboard_layout(_virtual_keyboard_layout):
 	mark_for_saving()
 	virtual_keyboard_layout = _virtual_keyboard_layout
+
+func _set_virtual_keyboard_type(_virtual_keyboard_type):
+	mark_for_saving()
+	virtual_keyboard_type = _virtual_keyboard_type
 
 func _set_virtual_keyboard_show_on_controller(_virtual_keyboard_show_on_controller):
 	mark_for_saving()

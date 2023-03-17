@@ -165,9 +165,9 @@ func _updateAutoDisplayOnInput(event):
 			
 			if clickOnInput:
 				if isKeyboardFocusObject(focusObject):
-					show()
+					RetroHubUI.show_virtual_keyboard()
 			elif not clickOnKeyboard:
-				hide()
+				RetroHubUI.hide_virtual_keyboard()
 
 func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
 	if tweenOnTop:

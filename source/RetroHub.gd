@@ -47,6 +47,15 @@ func _ready():
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 	emit_signal("app_initializing", true)
 
+func _notification(what):
+	match what:
+		NOTIFICATION_WM_FOCUS_IN:
+			emit_signal("app_received_focus")
+		NOTIFICATION_WM_FOCUS_OUT:
+			emit_signal("app_lost_focus")
+		NOTIFICATION_WM_QUIT_REQUEST:
+			quit()
+
 func _on_config_ready(config_data: ConfigData):
 	if not config_data.is_first_time:
 		load_theme()
