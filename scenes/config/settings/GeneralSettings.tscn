@@ -222,12 +222,49 @@ margin_left = 824.0
 margin_right = 1024.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 200, 0 )
-focus_neighbour_bottom = NodePath("../../../User/HBoxContainer/SetGamePath")
+focus_neighbour_bottom = NodePath("../../../Accessibility/HBoxContainer/ScreenReader")
 min_value = 50.0
 step = 5.0
 value = 100.0
 tick_count = 11
 ticks_on_borders = true
+
+[node name="Accessibility" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 278.0
+margin_right = 1024.0
+margin_bottom = 350.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Accessibility"]
+margin_right = 1024.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Accessibility"
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/Accessibility"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 28.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Accessibility"]
+margin_top = 32.0
+margin_right = 1024.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+custom_constants/separation = 15
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer"]
+margin_top = 13.0
+margin_right = 933.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "Enable screen reader:"
+
+[node name="ScreenReader" type="CheckButton" parent="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 948.0
+margin_right = 1024.0
+margin_bottom = 40.0
+focus_neighbour_bottom = NodePath("../../../User/HBoxContainer/SetGamePath")
 
 [node name="ScrollHandler" type="Control" parent="ScrollContainer"]
 script = ExtResource( 4 )
@@ -272,4 +309,5 @@ autowrap = true
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/Graphics/HBoxContainer2/VSync" to="." method="_on_VSync_toggled"]
 [connection signal="drag_ended" from="ScrollContainer/VBoxContainer/Graphics/HBoxContainer3/RenderRes" to="." method="_on_RenderRes_drag_ended"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/Graphics/HBoxContainer3/RenderRes" to="." method="_on_RenderRes_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer/ScreenReader" to="." method="_on_ScreenReader_toggled"]
 [connection signal="confirmed" from="FirstTimeWizardWarning" to="." method="_on_FirstTimeWizardWarning_confirmed"]

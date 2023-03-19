@@ -10,6 +10,7 @@ onready var n_graphics_mode := $"%GraphicsMode"
 onready var n_vsync := $"%VSync"
 onready var n_render_res_label := $"%RenderResLabel"
 onready var n_render_res := $"%RenderRes"
+onready var n_screen_reader := $"%ScreenReader"
 
 var theme_id_map := {}
 
@@ -68,6 +69,7 @@ func _on_config_ready(config_data: ConfigData):
 	n_vsync.set_pressed_no_signal(config_data.vsync)
 	n_render_res.value = config_data.render_resolution
 	set_language(config_data.lang)
+	n_screen_reader.set_pressed_no_signal(config_data.accessibility_screen_reader_enabled)
 
 func _on_config_updated(key: String, _old_value, new_value):
 	match key:
@@ -109,6 +111,7 @@ func _on_AppSettings_visibility_changed():
 
 func _on_FirstTimeWizardWarning_confirmed():
 	RetroHubConfig.config.is_first_time = true
+	RetroHubConfig.config.accessibility_screen_reader_enabled = true
 	RetroHub.quit()
 
 
@@ -130,3 +133,7 @@ func _on_RenderRes_value_changed(value):
 	RetroHubConfig.config.render_resolution = value
 	n_render_res_label.text = str(value) + "%"
 
+
+func _on_ScreenReader_toggled(button_pressed):
+	RetroHubConfig.config.accessibility_screen_reader_enabled = button_pressed
+	RetroHubConfig.save_config()

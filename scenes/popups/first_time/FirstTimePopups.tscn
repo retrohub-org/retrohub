@@ -279,6 +279,8 @@ size_flags_horizontal = 2
 text = "for scrolling information"
 
 [node name="ScreenReader" type="Node" parent="."]
+pause_mode = 2
+unique_name_in_owner = true
 script = ExtResource( 19 )
 
 [connection signal="about_to_show" from="." to="." method="_on_FirstTimePopup_about_to_show"]

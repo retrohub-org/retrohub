@@ -7,6 +7,7 @@ export(Color) var color_prev := Color(0.4, 0.8, 0.4, 1)
 onready var n_sidebar := $"%Sidebar"
 onready var n_main_content := $"%MainContent"
 onready var n_rstick_tip := $"%RStickTip"
+onready var n_screenreader := $"%ScreenReader"
 
 onready var num_sections := n_sidebar.get_child_count()
 

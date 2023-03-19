@@ -32,6 +32,7 @@ var input_controller_echo_delay: float = 0.15 setget _set_input_controller_echo_
 var virtual_keyboard_layout : String = "qwerty" setget _set_virtual_keyboard_layout
 var virtual_keyboard_show_on_controller : bool = true setget _set_virtual_keyboard_show_on_controller
 var virtual_keyboard_show_on_mouse : bool = false setget _set_virtual_keyboard_show_on_mouse
+var accessibility_screen_reader_enabled : bool = true setget _set_accessibility_screen_reader_enabled
 
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
@@ -58,6 +59,7 @@ const KEY_INPUT_CONTROLLER_ECHO_DELAY = "input_controller_echo_delay"
 const KEY_VIRTUAL_KEYBOARD_LAYOUT = "virtual_keyboard_layout"
 const KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER = "virtual_keyboard_show_on_controller"
 const KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE = "virtual_keyboard_show_on_mouse"
+const KEY_ACCESSIBILITY_SCREEN_READER_ENABLED = "accessibility_screen_reader_enabled"
 
 
 const _keys = [
@@ -85,7 +87,8 @@ const _keys = [
 	KEY_INPUT_CONTROLLER_ECHO_DELAY,
 	KEY_VIRTUAL_KEYBOARD_LAYOUT,
 	KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER,
-	KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE
+	KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE,
+	KEY_ACCESSIBILITY_SCREEN_READER_ENABLED
 ]
 
 var _should_save : bool = true
@@ -269,6 +272,10 @@ func _set_virtual_keyboard_show_on_mouse(_virtual_keyboard_show_on_mouse):
 	mark_for_saving()
 	virtual_keyboard_show_on_mouse = _virtual_keyboard_show_on_mouse
 
+func _set_accessibility_screen_reader_enabled(_accessibility_screen_reader_enabled):
+	mark_for_saving()
+	accessibility_screen_reader_enabled = _accessibility_screen_reader_enabled
+
 func mark_for_saving():
 	if _should_save:
 		_config_changed = true
@@ -298,6 +305,7 @@ func load_config_from_path(path: String) -> int:
 		if _old_config.has(key):
 			set(key, _old_config[key])
 		else:
+			process_new_change(key)
 			_config_changed = true
 	_should_save = true
 
@@ -337,6 +345,11 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 
 	_old_config = dict.duplicate(true)
 	return OK
+
+func process_new_change(key: String):
+	match key:
+		KEY_ACCESSIBILITY_SCREEN_READER_ENABLED:
+			accessibility_screen_reader_enabled = is_first_time
 
 func process_raw_config_changes(config: Dictionary):
 	# Scraper credentials were moved to a dedicated file

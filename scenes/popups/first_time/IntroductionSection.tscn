@@ -16,9 +16,8 @@ anchor_bottom = 1.0
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 margin_left = 384.0
-margin_top = 18.0
 margin_right = 640.0
-margin_bottom = 274.0
+margin_bottom = 256.0
 rect_min_size = Vector2( 256, 256 )
 size_flags_horizontal = 4
 size_flags_vertical = 10
@@ -27,9 +26,13 @@ expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 278.0
+unique_name_in_owner = true
+margin_top = 260.0
 margin_right = 1024.0
-margin_bottom = 326.0
+margin_bottom = 308.0
+focus_neighbour_top = NodePath("../NextButton")
+focus_neighbour_bottom = NodePath("../ScreenReader")
+focus_mode = 2
 size_flags_vertical = 2
 text = "Welcome to RetroHub!
 
@@ -38,11 +41,27 @@ align = 1
 valign = 1
 autowrap = true
 
+[node name="ScreenReader" type="CheckButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+margin_left = 402.0
+margin_top = 408.0
+margin_right = 622.0
+margin_bottom = 448.0
+focus_neighbour_top = NodePath("../Label")
+focus_neighbour_bottom = NodePath("../NextButton")
+size_flags_horizontal = 4
+size_flags_vertical = 2
+text = "Enable screen reader?"
+
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 556.0
 margin_right = 1024.0
 margin_bottom = 576.0
+focus_neighbour_top = NodePath("../ScreenReader")
+focus_neighbour_bottom = NodePath("../Label")
 text = "Let's Go!"
 
+[connection signal="focus_entered" from="VBoxContainer/Label" to="." method="_on_Label_focus_entered"]
+[connection signal="toggled" from="VBoxContainer/ScreenReader" to="." method="_on_ScreenReader_toggled"]
 [connection signal="pressed" from="VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]
