@@ -63,9 +63,9 @@ func _accept_dialog_speak():
 			if c is Label:
 				text = c.text
 	if text:
-		TTS.speak("Dialog: %s" % text, false)
+		TTS.speak("Dialog: %s" % text)
 	else:
-		TTS.speak("Dialog", false)
+		TTS.speak("Dialog")
 
 
 func _accept_dialog_focused():
@@ -76,15 +76,21 @@ func _accept_dialog_focused():
 
 
 func _accept_dialog_about_to_show():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	_accept_dialog_speak()
 	#ScreenReader.should_stop_on_focus = false
 
 
 func _basebutton_button_down():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	TTS.stop()
 
 
 func checkbox_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	var tokens = PoolStringArray([])
 	if node.text:
 		tokens.append(node.text)
@@ -93,10 +99,12 @@ func checkbox_focused():
 	else:
 		tokens.append("unchecked")
 	tokens.append(" checkbox")
-	TTS.speak(tokens.join(" "), false)
+	TTS.speak(tokens.join(" "))
 
 
 func _checkbox_or_checkbutton_toggled(checked):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if node.has_focus():
 		if checked:
 			TTS.speak("checked", true)
@@ -105,6 +113,8 @@ func _checkbox_or_checkbutton_toggled(checked):
 
 
 func _checkbutton_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	var tokens = PoolStringArray([])
 	if node.text:
 		tokens.append(node.text)
@@ -113,13 +123,15 @@ func _checkbutton_focused():
 	else:
 		tokens.append("unchecked")
 	tokens.append(" check button")
-	TTS.speak(tokens.join(" "), false)
+	TTS.speak(tokens.join(" "))
 
 
 var spoke_hint_tooltip
 
 
 func _button_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	var tokens = PoolStringArray([])
 	if node.text:
 		tokens.append(node.text)
@@ -131,7 +143,7 @@ func _button_focused():
 	tokens.append("button")
 	if node.disabled:
 		tokens.append("disabled")
-	TTS.speak(tokens.join(": "), false)
+	TTS.speak(tokens.join(": "))
 
 
 func try_to_get_text_in_theme(theme, texture):
@@ -160,6 +172,8 @@ func _get_graphical_button_text(texture):
 
 
 func _texturebutton_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	var tokens = PoolStringArray([])
 	tokens.append(_get_graphical_button_text(node.texture_normal))
 	tokens.append("button")
@@ -167,6 +181,8 @@ func _texturebutton_focused():
 
 
 func item_list_item_focused(idx):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	var tokens = PoolStringArray([])
 	var text = node.get_item_text(idx)
 	if text:
@@ -179,12 +195,14 @@ func item_list_item_focused(idx):
 
 
 func item_list_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	var count = node.get_item_count()
 	var selected = node.get_selected_items()
 	print_debug(selected)
 	if len(selected) == 0:
 		if node.get_item_count() == 0:
-			return TTS.speak("list, 0 items", false)
+			return TTS.speak("list, 0 items")
 		selected = 0
 		node.select(selected)
 		node.emit_signal("item_list_item_selected", selected)
@@ -195,18 +213,26 @@ func item_list_focused():
 
 
 func item_list_item_selected(index):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	item_list_item_focused(index)
 
 
 func item_list_multi_selected(index, selected):
-	TTS.speak("Multiselect", false)
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	TTS.speak("Multiselect")
 
 
 func item_list_nothing_selected():
-	TTS.speak("Nothing selected", true)
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	TTS.speak("Nothing selected")
 
 
 func item_list_input(event):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if event.is_action_pressed("ui_right") or event.is_action_pressed("ui_left"):
 		return node.accept_event()
 	var old_count = node.get_item_count()
@@ -244,7 +270,7 @@ func _label_focused():
 	if text == "":
 		text = "blank"
 	tokens.append(text)
-	TTS.speak(tokens.join(": "), false)
+	TTS.speak(tokens.join(": "))
 
 
 func line_edit_focused():
@@ -258,7 +284,7 @@ func line_edit_focused():
 	var type = "editable text"
 	if not node.editable:
 		type = "text"
-	TTS.speak("%s: %s" % [text, type], false)
+	TTS.speak("%s: %s" % [text, type])
 
 
 var old_text = ""
@@ -267,6 +293,8 @@ var old_pos
 
 
 func line_edit_text_changed(text):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if text == null or old_text == null:
 		return
 	if len(text) > len(old_text):
@@ -304,14 +332,16 @@ func menu_button_focused():
 		tokens.append(node.hint_tooltip)
 		spoke_hint_tooltip = true
 	tokens.append("menu")
-	TTS.speak(tokens.join(": "), false)
+	TTS.speak(tokens.join(": "))
 
 
 func popup_menu_focused():
-	TTS.speak("menu", false)
+	TTS.speak("menu")
 
 
 func popup_menu_item_id_focused(index):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	print_debug("item id focus %s" % index)
 	var tokens = PoolStringArray([])
 	var shortcut = node.get_item_shortcut(index)
@@ -346,6 +376,8 @@ func popup_menu_item_id_focused(index):
 
 
 func popup_menu_item_id_pressed(index):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if node.is_item_checkable(index):
 		if node.is_item_checked(index):
 			TTS.speak("checked", true)
@@ -368,10 +400,12 @@ func range_focused():
 	tokens.append("maximum %s" % node.max_value)
 	if OS.has_touchscreen_ui_hint():
 		tokens.append("Swipe up and down to change.")
-	TTS.speak(tokens.join(": "), false)
+	TTS.speak(tokens.join(": "))
 
 
 func range_value_changed(value):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if node.has_focus():
 		TTS.speak("%s" % value, true)
 
@@ -386,7 +420,7 @@ func text_edit_focus():
 		tokens.append("read-only edit text")
 	else:
 		tokens.append("edit text")
-	TTS.speak(tokens.join(": "), false)
+	TTS.speak(tokens.join(": "))
 
 
 func text_edit_input(event):
@@ -451,11 +485,15 @@ var prev_selected_cell
 
 
 func _tree_item_or_cell_selected():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	button_index = null
 	_tree_item_render()
 
 
 func tree_item_multi_selected(item, column, selected):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if selected:
 		TTS.speak("selected", true)
 	else:
@@ -520,6 +558,8 @@ var _was_collapsed
 
 
 func _tree_item_collapsed(item):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if node.has_focus():
 		var selected = false
 		for column in range(node.columns):
@@ -536,8 +576,8 @@ func _tree_item_collapsed(item):
 
 func progress_bar_focused():
 	var percentage = int(node.ratio * 100)
-	TTS.speak("%s percent" % percentage, false)
-	TTS.speak("progress bar", false)
+	TTS.speak("%s percent" % percentage)
+	TTS.speak("progress bar")
 
 
 var last_percentage_spoken
@@ -546,6 +586,8 @@ var last_percentage_spoken_at = 0
 
 
 func progress_bar_value_changed(value):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	var percentage = node.value / (node.max_value - node.min_value) * 100
 	percentage = int(percentage)
 	if (
@@ -560,10 +602,12 @@ func progress_bar_value_changed(value):
 func tab_container_focused():
 	var text = node.get_tab_title(node.current_tab)
 	text += ": tab: " + str(node.current_tab + 1) + " of " + str(node.get_tab_count())
-	TTS.speak(text, false)
+	TTS.speak(text)
 
 
 func tab_container_tab_changed(tab):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if node.has_focus():
 		TTS.stop()
 		tab_container_focused()
@@ -586,15 +630,16 @@ func tab_container_input(event):
 
 
 func focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	print_debug("Focus: %s" % node)
-	TTS.stop()
 	if not node is Label:
 		var label = _guess_label()
 		if label:
 			if label is Label:
 				label = label.text
 			if label and label != "":
-				TTS.speak(label, false)
+				TTS.speak(label)
 	# Check if any node implements a custom TTS message
 	var n : Node = node
 	while n:
@@ -642,15 +687,19 @@ func focused():
 		#TTS.speak(node.get_class(), true)
 		print_debug("No handler")
 	if node.hint_tooltip and not spoke_hint_tooltip:
-		TTS.speak(node.hint_tooltip, false)
+		TTS.speak(node.hint_tooltip)
 	spoke_hint_tooltip = false
 
 
 func unfocused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	position_in_children = 0
 
 
 func click_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if node.has_focus():
 		return
 	if node.focus_mode == Control.FOCUS_ALL:
@@ -658,13 +707,15 @@ func click_focused():
 
 
 func gui_input(event):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
 	if (
 		event is InputEventKey
 		and Input.is_action_just_pressed("ui_accept")
 		and event.control
 		and event.alt
 	):
-		TTS.speak("click", false)
+		TTS.speak("click")
 		click()
 	elif event is InputEventKey and event.pressed and not event.echo and event.scancode == KEY_MENU:
 		node.get_tree().root.warp_mouse(node.rect_global_position)
@@ -727,7 +778,7 @@ func editor_inspector_section_focused():
 			tokens.append("expanded")
 		else:
 			tokens.append("collapsed")
-	TTS.speak(tokens.join(": "), false)
+	TTS.speak(tokens.join(": "))
 
 
 func editor_inspector_section_input(event):
@@ -751,9 +802,6 @@ func _init(node):
 	self.node = node
 	#if _is_focusable(node):
 	#	node.set_focus_mode(Control.FOCUS_ALL)
-	var label = _guess_label()
-	if label and label is Label:
-		label.set_focus_mode(Control.FOCUS_NONE)
 	node.connect("focus_entered", self, "focused")
 	node.connect("mouse_entered", self, "click_focused")
 	node.connect("focus_exited", self, "unfocused")

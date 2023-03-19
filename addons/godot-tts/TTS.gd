@@ -20,7 +20,7 @@ func _init():
 		tts = Engine.get_singleton("TTS")
 	else:
 		TTS = preload("godot-tts.gdns")
-	if TTS and (TTS.can_instance() or Engine.editor_hint):
+	if TTS and (TTS.can_instance() or Engine.editor_hint) and RetroHubConfig.config.accessibility_screen_reader_enabled:
 		tts = TTS.new()
 	if tts:
 		if not tts is JNISingleton:
@@ -127,6 +127,8 @@ var normal_rate_percentage setget , _get_rate_percentage
 
 
 func speak(text, interrupt := true):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return ""
 	var utterance
 	if tts != null:
 		utterance = tts.speak(text, interrupt)

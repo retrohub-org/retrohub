@@ -13,6 +13,8 @@ var Accessible = preload("Accessible.gd")
 
 export var enabled = true
 
+export var control_lifetime = false
+
 export var min_swipe_distance = 5
 
 export var tap_execute_interval = 125
@@ -60,9 +62,23 @@ func find_focusable_control(node):
 
 
 func _enter_tree():
+	pause_mode = Node.PAUSE_MODE_PROCESS
+
+func _ready():
+	if control_lifetime:
+		RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	else:
+		init()
+
+func _on_config_ready(config: ConfigData):
+	if config.accessibility_screen_reader_enabled:
+		init()
+	else:
+		queue_free()
+
+func init():
 	if Engine.is_editor_hint() and not TTS.editor_accessibility_enabled:
 		return
-	pause_mode = Node.PAUSE_MODE_PROCESS
 	if enabled:
 		augment_tree(get_tree().root)
 	#get_tree().connect("node_added", self, "augment_node")
@@ -168,7 +184,7 @@ var in_focus_mode_handler = false
 func _input(event):
 	if Engine.is_editor_hint() and not TTS.editor_accessibility_enabled:
 		return
-	if not enabled:
+	if not enabled or not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
 	var focus = find_focusable_control(get_tree().root)
 	if focus:
@@ -270,7 +286,7 @@ func _input(event):
 func _process(delta):
 	if Engine.is_editor_hint() and not TTS.editor_accessibility_enabled:
 		return
-	if not enabled:
+	if not enabled or not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
 	if (
 		touch_stop_time
