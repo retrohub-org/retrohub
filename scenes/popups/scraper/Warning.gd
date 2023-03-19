@@ -64,6 +64,7 @@ func stop_thread():
 	req_datas.clear()
 	#warning-ignore:return_value_discarded
 	req_semaphore.post()
+	thread.wait_to_finish()
 
 func set_entry(game_entry: RetroHubScraperGameEntry):
 	clear_entries()
