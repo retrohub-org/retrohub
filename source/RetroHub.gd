@@ -83,7 +83,9 @@ func load_theme():
 	print("Config is ready, parsing metadata...")
 	var systems : Dictionary = RetroHubConfig.systems
 	var games : Array = RetroHubConfig.games
-	RetroHubConfig.unload_theme()
+	var result = RetroHubConfig.unload_theme()
+	if(result is GDScriptFunctionState and result.is_valid()):
+		yield(result, "completed")
 	if not RetroHubConfig.load_theme():
 		return
 	RetroHubMedia._start_thread()
