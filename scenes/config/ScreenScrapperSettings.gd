@@ -20,7 +20,7 @@ func _on_config_ready(config_data: ConfigData):
 	n_password.editable = config_data.scraper_ss_use_custom_account
 	n_username.text = RetroHubConfig._get_credential("scraper_ss_username")
 	n_password.text = RetroHubConfig._get_credential("scraper_ss_password")
-	n_thread_count.value = thread_count_to_range(config_data.scraper_ss_max_threads)
+	n_thread_count.set_value_no_signal(thread_count_to_range(config_data.scraper_ss_max_threads))
 	update_thread_count_label(config_data.scraper_ss_max_threads)
 
 func _on_text_changed(_new_text):

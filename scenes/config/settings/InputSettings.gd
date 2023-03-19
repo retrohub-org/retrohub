@@ -70,8 +70,8 @@ func _on_config_ready(config_data: ConfigData):
 			n_cn_icon_type.selected = 12
 		"auto", _:
 			n_cn_icon_type.selected = 0
-	n_cn_pre_delay.value = config_data.input_controller_echo_pre_delay
-	n_cn_delay.value = config_data.input_controller_echo_delay
+	n_cn_pre_delay.set_value_no_signal(config_data.input_controller_echo_pre_delay)
+	n_cn_delay.set_value_no_signal(config_data.input_controller_echo_delay)
 	match config_data.virtual_keyboard_layout:
 		"qwertz":
 			n_vkb_layout.selected = 1
@@ -79,8 +79,8 @@ func _on_config_ready(config_data: ConfigData):
 			n_vkb_layout.selected = 2
 		"qwerty", _:
 			n_vkb_layout.selected = 0
-	n_vkb_show_on_controller.pressed = config_data.virtual_keyboard_show_on_controller
-	n_vkb_show_on_mouse.pressed = config_data.virtual_keyboard_show_on_mouse
+	n_vkb_show_on_controller.set_pressed_no_signal(config_data.virtual_keyboard_show_on_controller)
+	n_vkb_show_on_mouse.set_pressed_no_signal(config_data.virtual_keyboard_show_on_mouse)
 	match config_data.virtual_keyboard_type:
 		"steam":
 			n_vkb_type.selected = 1

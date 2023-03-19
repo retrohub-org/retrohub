@@ -46,7 +46,7 @@ func _ready():
 
 func _on_config_ready(config_data: ConfigData):
 	set_hash_max_size_text(config_data.scraper_hash_file_size)
-	n_hash_max_size.value = convert_hash_size_to_range(config_data.scraper_hash_file_size)
+	n_hash_max_size.set_value_no_signal(convert_hash_size_to_range(config_data.scraper_hash_file_size))
 
 func grab_focus():
 	n_service.grab_focus()
