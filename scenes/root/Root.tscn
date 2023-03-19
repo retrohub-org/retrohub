@@ -69,7 +69,6 @@ theme = ExtResource( 5 )
 window_title = "Open a File"
 mode = 0
 access = 2
-show_hidden_files = true
 script = ExtResource( 6 )
 
 [node name="WarningPopup" type="AcceptDialog" parent="."]
