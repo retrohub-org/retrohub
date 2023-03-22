@@ -128,6 +128,13 @@ func handle_key_remap(key: String, old: int, new: int):
 		if e is InputEventKey and _get_scancode(e) == old:
 			InputMap.action_erase_event(key, e)
 			break
+	# ui_up/ui_down are replaced by ui_focus_next/ui_focus_prev when screen readers are enabled
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		match key:
+			"ui_up":
+				key = "ui_focus_prev"
+			"ui_down":
+				key = "ui_focus_next"
 	# Now add the new one
 	var key_event := InputEventKey.new()
 	key_event.physical_scancode = new
@@ -186,7 +193,19 @@ func handle_controller_axis_remaps():
 		ev.axis_value = data[key][1]
 		InputMap.action_add_event(key, ev)
 		if _implicit_mappings.has(key):
-			InputMap.action_add_event(_implicit_mappings[key], ev)
+			# ui_up/ui_down are replaced by ui_focus_next/ui_focus_prev when screen readers are enabled
+			if RetroHubConfig.config.accessibility_screen_reader_enabled:
+				match key:
+					"rh_up":
+						key = "ui_focus_prev"
+						InputMap.action_add_event(key, ev)
+					"rh_down":
+						key = "ui_focus_next"
+						InputMap.action_add_event(key, ev)
+					_:
+						InputMap.action_add_event(_implicit_mappings[key], ev)
+			else:
+				InputMap.action_add_event(_implicit_mappings[key], ev)
 
 	# Signal ControllerIcons to update icons
 	ControllerIcons.refresh()
@@ -194,10 +213,21 @@ func handle_controller_axis_remaps():
 func handle_controller_button_remap(key: String, old: int, new: int):
 	# Find existing actions to remove them first
 	var events := InputMap.get_action_list(key)
+	if key == "ui_up":
+		events.append_array(InputMap.get_action_list("ui_focus_prev"))
+	elif key == "ui_down":
+		events.append_array(InputMap.get_action_list("ui_focus_next"))
 	for e in events:
 		if e is InputEventJoypadButton and e.button_index == old:
 			InputMap.action_erase_event(key, e)
 			break
+	# ui_up/ui_down are replaced by ui_focus_next/ui_focus_prev when screen readers are enabled
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		match key:
+			"ui_up":
+				key = "ui_focus_prev"
+			"ui_down":
+				key = "ui_focus_next"
 	# Now add the new one
 	var event := InputEventJoypadButton.new()
 	event.button_index = new
@@ -234,6 +264,10 @@ func _on_config_updated(key, old_value, new_value):
 		ConfigData.KEY_INPUT_CONTROLLER_MAP:
 			handle_controller_button_remaps()
 		ConfigData.KEY_INPUT_CONTROLLER_MAIN_AXIS, ConfigData.KEY_INPUT_CONTROLLER_SECONDARY_AXIS:
+			handle_controller_axis_remaps()
+		ConfigData.KEY_ACCESSIBILITY_SCREEN_READER_ENABLED:
+			handle_key_remaps()
+			handle_controller_button_remaps()
 			handle_controller_axis_remaps()
 
 	emit_signal("config_updated", key, old_value, new_value)
