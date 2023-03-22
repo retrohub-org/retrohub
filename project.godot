@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "AccessibilityFocus",
+"language": "GDScript",
+"path": "res://scenes/ui_nodes/AccessibilityFocus.gd"
+}, {
 "base": "Resource",
 "class": "ConfigData",
 "language": "GDScript",
@@ -135,6 +140,7 @@ _global_script_classes=[ {
 "path": "res://addons/xml2json/XML2JSON.gd"
 } ]
 _global_script_class_icons={
+"AccessibilityFocus": "",
 "ConfigData": "",
 "ControllerButton": "",
 "ControllerMapper": "",
