@@ -5,6 +5,7 @@
 [ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=3]
 
 [node name="ImportProgressPopup" type="PopupDialog"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

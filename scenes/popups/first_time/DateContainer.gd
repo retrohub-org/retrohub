@@ -28,3 +28,19 @@ func _on_Timer_timeout():
 			time["hour"], time["minute"], time["second"]
 	]
 	n_example.text = RegionUtils.localize_date(raw_time)
+
+func tts_text(focused: Control) -> String:
+	if focused == n_options:
+		return tts_popup_menu_item_text(n_options.selected, n_options.get_popup())
+	return ""
+
+func tts_popup_menu_item_text(idx: int, menu: PopupMenu) -> String:
+	if menu == n_options.get_popup():
+		match idx:
+			0:
+				return "month/day/year"
+			1:
+				return "day/month/year"
+			2:
+				return "year/month/day"
+	return ""

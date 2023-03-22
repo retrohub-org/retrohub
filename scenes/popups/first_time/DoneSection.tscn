@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=1]
-[ext_resource path="res://addons/controller_icons/assets/key/esc.png" type="Texture" id=2]
+[ext_resource path="res://addons/controller_icons/assets/key/shift_alt.png" type="Texture" id=2]
 [ext_resource path="res://scenes/popups/first_time/DoneSection.gd" type="Script" id=3]
-[ext_resource path="res://addons/controller_icons/assets/key/shift_alt.png" type="Texture" id=4]
+[ext_resource path="res://addons/controller_icons/assets/key/esc.png" type="Texture" id=4]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=5]
 
 [node name="DoneSection" type="Control"]
 anchor_right = 1.0
@@ -16,10 +17,11 @@ script = ExtResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 187.0
+[node name="IntroLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 175.0
 margin_right = 1024.0
-margin_bottom = 286.0
+margin_bottom = 274.0
 size_flags_vertical = 14
 text = "All set! You can now add games to your library and customize RetroHub to your liking.
 
@@ -31,20 +33,24 @@ align = 1
 valign = 1
 autowrap = true
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/IntroLabel"]
+script = ExtResource( 5 )
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 413.0
+margin_top = 395.0
 margin_right = 1024.0
-margin_bottom = 453.0
+margin_bottom = 435.0
 size_flags_vertical = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="ButtonsPrompt" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 margin_left = 273.0
 margin_right = 751.0
 margin_bottom = 40.0
 size_flags_horizontal = 6
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/ButtonsPrompt"]
 margin_top = 13.0
 margin_right = 35.0
 margin_bottom = 27.0
@@ -52,29 +58,9 @@ size_flags_horizontal = 0
 text = "Press"
 align = 1
 
-[node name="ControllerTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="ControllerTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/ButtonsPrompt"]
 margin_left = 39.0
 margin_right = 79.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource( 2 )
-expand = true
-script = ExtResource( 1 )
-path = "rh_menu"
-
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
-margin_left = 83.0
-margin_top = 13.0
-margin_right = 265.0
-margin_bottom = 27.0
-size_flags_horizontal = 0
-text = "to open the main menu, and"
-
-[node name="ControllerTextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
-margin_left = 269.0
-margin_right = 309.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 size_flags_horizontal = 0
@@ -82,9 +68,29 @@ size_flags_vertical = 0
 texture = ExtResource( 4 )
 expand = true
 script = ExtResource( 1 )
+path = "rh_menu"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/ButtonsPrompt"]
+margin_left = 83.0
+margin_top = 13.0
+margin_right = 265.0
+margin_bottom = 27.0
+size_flags_horizontal = 0
+text = "to open the main menu, and"
+
+[node name="ControllerTextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ButtonsPrompt"]
+margin_left = 269.0
+margin_right = 309.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+expand = true
+script = ExtResource( 1 )
 path = "rh_theme_menu"
 
-[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/ButtonsPrompt"]
 margin_left = 313.0
 margin_top = 13.0
 margin_right = 478.0
@@ -92,11 +98,14 @@ margin_bottom = 27.0
 size_flags_horizontal = 0
 text = "to open the theme menu."
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/HBoxContainer/ButtonsPrompt"]
+script = ExtResource( 5 )
+
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 580.0
+margin_top = 556.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 576.0
 text = "Let's Go!"
 
 [connection signal="pressed" from="VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

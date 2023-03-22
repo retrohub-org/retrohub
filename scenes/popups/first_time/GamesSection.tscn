@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/popups/first_time/GamesSection.gd" type="Script" id=1]
 [ext_resource path="res://assets/icons/load.svg" type="Texture" id=2]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=3]
 
 [node name="GamesSection" type="Control"]
 anchor_right = 1.0
@@ -14,7 +15,8 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="IntroLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 margin_right = 1024.0
 margin_bottom = 14.0
 size_flags_vertical = 1
@@ -22,6 +24,9 @@ text = "Choose a gaming library path. This can be pre-existing, or completely ne
 align = 1
 valign = 1
 autowrap = true
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/IntroLabel"]
+script = ExtResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 18.0
@@ -63,6 +68,9 @@ To add games, simply create the system folder if it doesn't exist (either from R
 
 RetroHub will automatically filter files based on common extensions per system and recognize your game files. This is configurable per system if tweaks are needed."
 autowrap = true
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Label2"]
+script = ExtResource( 3 )
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true

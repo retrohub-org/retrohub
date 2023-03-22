@@ -25,3 +25,11 @@ func set_found(found: bool, details: String):
 	n_found_label.text = "Found" if found else "Not found"
 	n_found_details.add_color_override("font_color", RetroHubUI.color_success if found else RetroHubUI.color_unavailable)
 	n_found_details.text = details
+
+func tts_prompt() -> String:
+	var text : String = n_label.text + ": " + n_found_label.text
+	if n_found_label.text == "Found":
+		text += " at " + n_found_details.text
+	else:
+		text += ". Searched paths: " + n_found_details.text
+	return text

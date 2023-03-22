@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/popups/first_time/IntroductionSection.gd" type="Script" id=1]
 [ext_resource path="res://assets/icons/app/retrohub_logo_1024px_draft.png" type="Texture" id=2]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=3]
 
 [node name="IntroductionSection" type="Control"]
 anchor_right = 1.0
@@ -30,9 +31,6 @@ unique_name_in_owner = true
 margin_top = 260.0
 margin_right = 1024.0
 margin_bottom = 308.0
-focus_neighbour_top = NodePath("../NextButton")
-focus_neighbour_bottom = NodePath("../ScreenReader")
-focus_mode = 2
 size_flags_vertical = 2
 text = "Welcome to RetroHub!
 
@@ -41,17 +39,27 @@ align = 1
 valign = 1
 autowrap = true
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Label"]
+script = ExtResource( 3 )
+previous = NodePath("../../NextButton")
+next = NodePath("../../ScreenReader")
+
 [node name="ScreenReader" type="CheckButton" parent="VBoxContainer"]
 unique_name_in_owner = true
 margin_left = 402.0
 margin_top = 408.0
 margin_right = 622.0
 margin_bottom = 448.0
-focus_neighbour_top = NodePath("../Label")
+focus_neighbour_top = NodePath("../NextButton")
 focus_neighbour_bottom = NodePath("../NextButton")
 size_flags_horizontal = 4
 size_flags_vertical = 2
 text = "Enable screen reader?"
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScreenReader"]
+script = ExtResource( 3 )
+previous = NodePath("../../Label")
+next = NodePath("../../NextButton")
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -59,8 +67,13 @@ margin_top = 556.0
 margin_right = 1024.0
 margin_bottom = 576.0
 focus_neighbour_top = NodePath("../ScreenReader")
-focus_neighbour_bottom = NodePath("../Label")
+focus_neighbour_bottom = NodePath("../ScreenReader")
 text = "Let's Go!"
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/NextButton"]
+script = ExtResource( 3 )
+previous = NodePath("../../ScreenReader")
+next = NodePath("../../Label")
 
 [connection signal="focus_entered" from="VBoxContainer/Label" to="." method="_on_Label_focus_entered"]
 [connection signal="toggled" from="VBoxContainer/ScreenReader" to="." method="_on_ScreenReader_toggled"]

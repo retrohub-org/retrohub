@@ -48,3 +48,20 @@ func set_icon(node: TextureRect, level: int):
 			node.texture = preload("res://assets/icons/warning.svg")
 		RetroHubImporter.CompatibilityLevel.SUPPORTED:
 			node.texture = preload("res://assets/icons/success.svg")
+
+func tts_text(focused: Control) -> String:
+	var text := ""
+	# Game Metadata
+	text += "Game Metadata: "
+	text += n_metadata_status.text + ". "
+	text += n_metadata_details.text + ". "
+	# Game Media
+	text += "Game Media: "
+	text += n_media_status.text + ". "
+	text += n_media_details.text + ". "
+	# Game Theme
+	text += "Existing themes: "
+	text += n_theme_status.text + ". "
+	text += n_theme_details.text + ". "
+	
+	return text

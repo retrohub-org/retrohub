@@ -49,5 +49,4 @@ func _on_MainContent_tab_changed(tab):
 
 func _on_FirstTimePopup_popup_hide():
 	RetroHubConfig.emit_signal("config_ready", RetroHubConfig.config)
-	get_parent().remove_child(self)
 	queue_free()
