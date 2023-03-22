@@ -7,7 +7,6 @@ export(Color) var color_prev := Color(0.4, 0.8, 0.4, 1)
 onready var n_sidebar := $"%Sidebar"
 onready var n_main_content := $"%MainContent"
 onready var n_rstick_tip := $"%RStickTip"
-onready var n_screenreader := $"%ScreenReader"
 
 onready var num_sections := n_sidebar.get_child_count()
 
@@ -39,8 +38,6 @@ func _on_MainContent_tab_changed(tab):
 
 	var counter := 0
 	for child in n_sidebar.get_children():
-		if child.is_in_group("rh_access"):
-			continue
 		if counter == tab:
 			child.modulate = color_current
 		elif counter < tab:

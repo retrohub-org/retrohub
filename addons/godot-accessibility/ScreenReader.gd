@@ -1,299 +1,739 @@
 tool
 extends Node
 
-signal swipe_left
-
-signal swipe_right
-
-signal swipe_up
-
-signal swipe_down
-
-var Accessible = preload("Accessible.gd")
-
 export var enabled = true
 
-export var control_lifetime = false
+export var theme_viewport : NodePath
 
-export var min_swipe_distance = 5
-
-export var tap_execute_interval = 125
-
-export var explore_by_touch_interval = 200
-
-export var enable_focus_mode = false
-
-var should_stop_on_focus = true
-
-
-func _get_enabled():
-	return enabled
-
-
-func augment_node(node):
-	if not enabled:
-		return
-	if node is Control:
-		Accessible.new(node)
-
-
-func augment_tree(node):
-	if not enabled:
-		return
-	if node is Accessible:
-		return
-	augment_node(node)
-	for child in node.get_children():
-		augment_tree(child)
-
-
-func find_focusable_control(node):
-	if (
-		node is Control
-		and node.is_visible_in_tree()
-		and (node.focus_mode == Control.FOCUS_CLICK or node.focus_mode == Control.FOCUS_ALL)
-	):
-		return node
-	for child in node.get_children():
-		var result = find_focusable_control(child)
-		if result:
-			return result
-	return null
-
+var node : Control
 
 func _enter_tree():
 	pause_mode = Node.PAUSE_MODE_PROCESS
 
 func _ready():
-	if control_lifetime:
-		RetroHubConfig.connect("config_ready", self, "_on_config_ready")
-	else:
-		init()
-
-func _on_config_ready(config: ConfigData):
-	if config.accessibility_screen_reader_enabled:
-		init()
-	else:
-		queue_free()
-
-func init():
 	if Engine.is_editor_hint() and not TTS.editor_accessibility_enabled:
 		return
-	if enabled:
-		augment_tree(get_tree().root)
-	#get_tree().connect("node_added", self, "augment_node")
-	connect("swipe_right", self, "swipe_right")
-	connect("swipe_left", self, "swipe_left")
-	connect("swipe_up", self, "swipe_up")
-	connect("swipe_down", self, "swipe_down")
+	get_viewport().connect("gui_focus_changed", self, "gui_focus_changed")
+	if theme_viewport:
+		get_node(theme_viewport).connect("gui_focus_changed", self, "gui_focus_changed")
 
 
-func _press_and_release(action, fake_via_keyboard = false):
-	if fake_via_keyboard:
-		for event in InputMap.get_action_list(action):
-			if event is InputEventKey:
-				event.pressed = true
-				Input.action_press(action)
-				get_tree().input_event(event)
-				event.pressed = false
-				Input.action_release(action)
-				get_tree().input_event(event)
-				return
-	var event = InputEventAction.new()
-	event.action = action
-	event.pressed = true
-	Input.action_press(action)
-	get_tree().input_event(event)
-	event.pressed = false
-	Input.action_release(action)
-	get_tree().input_event(event)
+func click(item := node, button_index = BUTTON_LEFT):
+	print_debug("Click")
+	var click = InputEventMouseButton.new()
+	click.button_index = button_index
+	click.pressed = true
+	if item is Node:
+		click.position = item.rect_global_position
+	else:
+		click.position = node.get_tree().root.get_mouse_position()
+	node.get_tree().input_event(click)
+	click.pressed = false
+	node.get_tree().input_event(click)
 
 
-func _ui_left(fake_via_keyboard = false):
-	_press_and_release("ui_left", fake_via_keyboard)
-
-
-func _ui_right(fake_via_keyboard = false):
-	_press_and_release("ui_right", fake_via_keyboard)
-
-
-func _ui_up(fake_via_keyboard = false):
-	_press_and_release("ui_up", fake_via_keyboard)
-
-
-func _ui_down(fake_via_keyboard = false):
-	_press_and_release("ui_down", fake_via_keyboard)
-
-
-func _ui_focus_next(fake_via_keyboard = false):
-	_press_and_release("ui_focus_next", fake_via_keyboard)
-
-
-func _ui_focus_prev(fake_via_keyboard = false):
-	_press_and_release("ui_focus_prev", fake_via_keyboard)
-
-
-func swipe_right():
-	var fake_via_keyboard = false
-	if OS.get_name() == "Android":
-		fake_via_keyboard = true
-	_ui_focus_next(fake_via_keyboard)
-
-
-func swipe_left():
-	var fake_via_keyboard = false
-	if OS.get_name() == "Android":
-		fake_via_keyboard = true
-	_ui_focus_prev(fake_via_keyboard)
-
-
-func swipe_up():
-	var focus = find_focusable_control(get_tree().root)
-	if focus:
-		focus = focus.get_focus_owner()
-		if focus:
-			if focus is Range:
-				_press_and_release("ui_right")
-
-
-func swipe_down():
-	var focus = find_focusable_control(get_tree().root)
-	if focus:
-		focus = focus.get_focus_owner()
-		if focus:
-			if focus is Range:
-				_press_and_release("ui_left")
-
-
-var touch_index = null
-
-var touch_position = null
-
-var touch_start_time = null
-
-var touch_stop_time = null
-
-var explore_by_touch = false
-
-var tap_count = 0
-
-var focus_mode = false
-var in_focus_mode_handler = false
-
-
-func _input(event):
-	if Engine.is_editor_hint() and not TTS.editor_accessibility_enabled:
+func _guess_label():
+	if node is Label:
 		return
-	if not enabled or not RetroHubConfig.config.accessibility_screen_reader_enabled:
+	if not node is LineEdit and not node is TextEdit and node.get("text"):
 		return
-	var focus = find_focusable_control(get_tree().root)
-	if focus:
-		focus = focus.get_focus_owner()
-		if focus is Tree and Input.is_action_just_pressed("ui_accept"):
-			var accessible
-			for n in focus.get_children():
-				if n is Accessible:
-					accessible = n
-					break
-			if accessible and accessible.button_index != null:
-				accessible._tree_input(event)
-				get_tree().set_input_as_handled()
-	if enable_focus_mode:
+	var tokens = PoolStringArray([])
+	var to_check = node
+	while to_check:
+		if to_check.is_class("AcceptDialog"):
+			return
+		if to_check.is_class("EditorProperty") and to_check.label:
+			tokens.append(to_check.label)
 		if (
-			event is InputEventKey
-			and Input.is_key_pressed(KEY_ESCAPE)
-			and Input.is_key_pressed(KEY_SHIFT)
-			and not event.echo
+			(to_check.is_class("EditorProperty") or to_check.is_class("EditorInspectorCategory"))
+			and to_check.get_tooltip_text()
 		):
-			get_tree().set_input_as_handled()
-			if focus_mode:
-				focus_mode = false
-				TTS.speak("UI mode", true)
+			tokens.append(to_check.get_tooltip_text())
+		var label = tokens.join(": ")
+		if label:
+			return label
+		for child in to_check.get_children():
+			if child is Label:
+				return child
+		to_check = to_check.get_parent()
+
+
+func _accept_dialog_speak(node):
+	var text
+	if node.dialog_text != "":
+		text = node.dialog_text
+	else:
+		for c in node.get_children():
+			if c is Label:
+				text = c.text
+	if text:
+		TTS.speak("Dialog: %s" % text)
+	else:
+		TTS.speak("Dialog")
+
+
+func _accept_dialog_focused(node):
+	_accept_dialog_speak(node)
+	if node.get_parent() and node.get_parent().is_class("ProjectSettingsEditor"):
+		yield(node.get_tree().create_timer(5), "timeout")
+		node.get_ok().emit_signal("pressed")
+
+
+func _accept_dialog_about_to_show(node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	_accept_dialog_speak(node)
+	#ScreenReader.should_stop_on_focus = false
+
+
+func _basebutton_button_down():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	TTS.stop()
+
+
+func checkbox_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	var tokens = PoolStringArray([])
+	if node.text:
+		tokens.append(node.text)
+	if node.pressed:
+		tokens.append("checked")
+	else:
+		tokens.append("unchecked")
+	tokens.append(" checkbox")
+	TTS.speak(tokens.join(" "))
+
+
+func _checkbox_or_checkbutton_toggled(checked, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if node.has_focus():
+		if checked:
+			TTS.speak("checked", true)
+		else:
+			TTS.speak("unchecked", true)
+
+
+func _checkbutton_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	var tokens = PoolStringArray([])
+	if node.text:
+		tokens.append(node.text)
+	if node.pressed:
+		tokens.append("checked")
+	else:
+		tokens.append("unchecked")
+	tokens.append(" check button")
+	TTS.speak(tokens.join(" "))
+
+
+var spoke_hint_tooltip
+
+
+func _button_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	var tokens = PoolStringArray([])
+	if node.text:
+		tokens.append(node.text)
+	elif node.hint_tooltip:
+		spoke_hint_tooltip = true
+		tokens.append(node.hint_tooltip)
+	else:
+		tokens.append(_get_graphical_button_text(node.icon))
+	tokens.append("button")
+	if node.disabled:
+		tokens.append("disabled")
+	TTS.speak(tokens.join(": "))
+
+
+func try_to_get_text_in_theme(theme, texture):
+	if theme == null:
+		return ""
+
+	for type in theme.get_type_list(""):
+		for icon in theme.get_icon_list(type):
+			var icon_texture = theme.get_icon(icon, type)
+			if icon_texture == texture:
+				return icon
+
+	return ""
+
+
+func _get_graphical_button_text(texture):
+	var default_theme_copy = Theme.new()
+	default_theme_copy.copy_default_theme()
+	var current = node
+	while current != null:
+		var text = try_to_get_text_in_theme(current.theme, texture)
+		if text != "":
+			return text
+		current = current.get_parent_control()
+	return try_to_get_text_in_theme(default_theme_copy, texture)
+
+
+func _texturebutton_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	var tokens = PoolStringArray([])
+	tokens.append(_get_graphical_button_text(node.texture_normal))
+	tokens.append("button")
+	TTS.speak(tokens.join(": "))
+
+
+func item_list_item_focused(idx, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	var tokens = PoolStringArray([])
+	var text = node.get_item_text(idx)
+	if text:
+		tokens.append(text)
+	text = node.get_item_tooltip(idx)
+	if text:
+		tokens.append(text)
+	tokens.append("%s of %s" % [idx + 1, node.get_item_count()])
+	TTS.speak(tokens.join(": "))
+
+
+func item_list_focused():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	var count = node.get_item_count()
+	var selected = node.get_selected_items()
+	print_debug(selected)
+	if len(selected) == 0:
+		if node.get_item_count() == 0:
+			return TTS.speak("list, 0 items")
+		selected = 0
+		node.select(selected)
+		node.emit_signal("item_list_item_selected", selected)
+	else:
+		selected = selected[0]
+	item_list_item_focused(selected, node)
+
+
+func item_list_item_selected(index, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	item_list_item_focused(index, node)
+
+
+func item_list_multi_selected(index, selected):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	TTS.speak("Multiselect")
+
+
+func item_list_nothing_selected():
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	TTS.speak("Nothing selected")
+
+
+func item_list_input(event):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if event.is_action_pressed("ui_right") or event.is_action_pressed("ui_left"):
+		return node.accept_event()
+	var old_count = node.get_item_count()
+	if event.is_action_pressed("ui_up"):
+		node.accept_event()
+	elif event.is_action_pressed("ui_down"):
+		node.accept_event()
+	elif event.is_action_pressed("ui_home"):
+		node.accept_event()
+	elif event.is_action_pressed("ui_end"):
+		node.accept_event()
+
+
+func _label_focused():
+	var tokens = PoolStringArray([])
+	if node.get_parent() is WindowDialog:
+		tokens.append("Dialog")
+	var text = node.text
+	if text == "":
+		text = "blank"
+	tokens.append(text)
+	TTS.speak(tokens.join(": "))
+
+
+func line_edit_focused():
+	var text = "blank"
+	if node.secret:
+		text = "password"
+	elif node.text != "":
+		text = node.text
+	elif node.placeholder_text != "":
+		text = node.placeholder_text
+	var type = "editable text"
+	if not node.editable:
+		type = "text"
+	TTS.speak("%s: %s" % [text, type])
+
+
+var old_text = ""
+
+var old_pos
+
+
+func line_edit_text_changed(text):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if text == null or old_text == null:
+		return
+	if len(text) > len(old_text):
+		for i in range(len(text)):
+			if text.substr(i, 1) != old_text.substr(i, 1):
+				TTS.speak(text.substr(i, 1))
 				return
+	else:
+		for i in range(len(old_text)):
+			if old_text.substr(i, 1) != text.substr(i, 1):
+				TTS.speak(old_text.substr(i, 1))
+				return
+
+
+func line_edit_input(event):
+	var pos = node.caret_position
+	if old_pos != null and old_pos != pos:
+		var text = node.text
+		if old_text == text:
+			if pos > len(text) - 1:
+				TTS.speak("blank", true)
 			else:
-				focus_mode = true
-				TTS.speak("Focus mode", true)
-				return
-		if focus_mode:
-			if (
-				Input.is_action_just_pressed("ui_left")
-				or Input.is_action_just_pressed("ui_right")
-				or Input.is_action_just_pressed("ui_up")
-				or Input.is_action_just_pressed("ui_down")
-				or Input.is_action_just_pressed("ui_focus_next")
-				or Input.is_action_just_pressed("ui_focus_prev")
-			):
-				if in_focus_mode_handler:
-					return
-				in_focus_mode_handler = true
-				if Input.is_action_just_pressed("ui_left"):
-					_ui_left()
-				elif Input.is_action_just_pressed("ui_right"):
-					_ui_right()
-				elif Input.is_action_just_pressed("ui_up"):
-					_ui_up()
-				elif Input.is_action_just_pressed("ui_down"):
-					_ui_down()
-				elif Input.is_action_just_pressed("ui_focus_prev"):
-					_ui_focus_prev()
-				elif Input.is_action_just_pressed("ui_focus_next"):
-					_ui_focus_next()
-				get_tree().set_input_as_handled()
-				in_focus_mode_handler = false
-				return
-	if event is InputEventScreenTouch:
-		get_tree().set_input_as_handled()
-		if touch_index and event.index != touch_index:
-			return
-		if event.pressed:
-			touch_index = event.index
-			touch_position = event.position
-			touch_start_time = OS.get_ticks_msec()
-			touch_stop_time = null
-		elif touch_position:
-			touch_index = null
-			var relative = event.position - touch_position
-			if relative.length() < min_swipe_distance:
-				tap_count += 1
-			elif not explore_by_touch:
-				if abs(relative.x) > abs(relative.y):
-					if relative.x > 0:
-						emit_signal("swipe_right")
-					else:
-						emit_signal("swipe_left")
-				else:
-					if relative.y > 0:
-						emit_signal("swipe_down")
-					else:
-						emit_signal("swipe_up")
-			touch_position = null
-			touch_start_time = null
-			touch_stop_time = OS.get_ticks_msec()
-			explore_by_touch = false
-	elif event is InputEventScreenDrag:
-		if touch_index and event.index != touch_index:
-			return
-		if (
-			not explore_by_touch
-			and OS.get_ticks_msec() - touch_start_time >= explore_by_touch_interval
-		):
-			explore_by_touch = true
-	if event is InputEventMouseButton:
-		if event.device == -1 and not explore_by_touch:
-			get_tree().set_input_as_handled()
+				TTS.speak(text[pos], true)
+		old_pos = pos
+	elif old_pos == null:
+		old_pos = pos
+	old_text = node.text
 
 
-func _process(delta):
-	if Engine.is_editor_hint() and not TTS.editor_accessibility_enabled:
+func menu_button_focused():
+	var tokens = PoolStringArray([])
+	if node.text:
+		tokens.append(node.text)
+	if node.hint_tooltip:
+		tokens.append(node.hint_tooltip)
+		spoke_hint_tooltip = true
+	tokens.append("menu")
+	TTS.speak(tokens.join(": "))
+
+
+func popup_menu_focused():
+	TTS.speak("menu")
+
+
+func popup_menu_item_id_focused(index, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
-	if not enabled or not RetroHubConfig.config.accessibility_screen_reader_enabled:
+	print_debug("item id focus %s" % index)
+	var tokens = PoolStringArray([])
+	var shortcut = node.get_item_shortcut(index)
+	var name
+	if shortcut:
+		name = shortcut.resource_name
+		if name:
+			tokens.append(name)
+		var text = shortcut.get_as_text()
+		if text != "None":
+			tokens.append(text)
+	var item = node.get_item_text(index)
+	if item and item != name:
+		tokens.append(item)
+	var submenu = node.get_item_submenu(index)
+	if submenu:
+		tokens.append(submenu)
+		tokens.append("menu")
+	if node.is_item_checkable(index):
+		if node.is_item_checked(index):
+			tokens.append("checked")
+		else:
+			tokens.append("unchecked")
+	var tooltip = node.get_item_tooltip(index)
+	if tooltip:
+		tokens.append(tooltip)
+	var disabled = node.is_item_disabled(index)
+	if disabled:
+		tokens.append("disabled")
+	tokens.append(str(index + 1) + " of " + str(node.get_item_count()))
+	TTS.speak(tokens.join(": "), true)
+
+
+func popup_menu_item_id_pressed(index, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if node.is_item_checkable(index):
+		if node.is_item_checked(index):
+			TTS.speak("checked", true)
+		else:
+			TTS.speak("unchecked", true)
+
+
+func range_focused():
+	var tokens = PoolStringArray([])
+	tokens.append(str(node.value))
+	if node is HSlider:
+		tokens.append("horizontal slider")
+	elif node is VSlider:
+		tokens.append("vertical slider")
+	elif node is SpinBox:
+		tokens.append("spin box")
+	else:
+		tokens.append("range")
+	tokens.append("minimum %s" % node.min_value)
+	tokens.append("maximum %s" % node.max_value)
+	if OS.has_touchscreen_ui_hint():
+		tokens.append("Swipe up and down to change.")
+	TTS.speak(tokens.join(": "))
+
+
+func range_value_changed(value, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if node.has_focus():
+		TTS.speak("%s" % value, true)
+
+
+func text_edit_focus():
+	var tokens = PoolStringArray([])
+	if node.text:
+		tokens.append(node.text)
+	else:
+		tokens.append("blank")
+	if node.readonly:
+		tokens.append("read-only edit text")
+	else:
+		tokens.append("edit text")
+	TTS.speak(tokens.join(": "))
+
+
+func text_edit_input(event):
+	pass
+
+
+var _last_tree_item_tokens
+
+var button_index
+
+
+func _tree_item_render(node):
+	if not node.has_focus():
+		return
+	var cell = node.get_selected()
+	var tokens = PoolStringArray([])
+	for i in range(node.columns):
+		if node.select_mode == Tree.SELECT_MULTI or cell.is_selected(i):
+			var title = node.get_column_title(i)
+			if title:
+				tokens.append(title)
+			var column_text = cell.get_text(i)
+			if column_text:
+				tokens.append(column_text)
+			if cell.get_children():
+				if cell.collapsed:
+					tokens.append("collapsed")
+				else:
+					tokens.append("expanded")
+			var button_count = cell.get_button_count(i)
+			if button_count != 0:
+				var column
+				for j in range(node.columns):
+					if cell.is_selected(j):
+						column = j
+						break
+				if column == i:
+					button_index = 0
+				else:
+					button_index = null
+				tokens.append(
+					(
+						str(button_count)
+						+ " "
+						+ TTS.singular_or_plural(button_count, "button", "buttons")
+					)
+				)
+				if button_index != null:
+					var button_tooltip = cell.get_button_tooltip(i, button_index)
+					if button_tooltip:
+						tokens.append(button_tooltip)
+						tokens.append("button")
+					if button_count > 1:
+						tokens.append("Use Home and End to switch focus.")
+	tokens.append("tree item")
+	if tokens != _last_tree_item_tokens:
+		TTS.speak(tokens.join(": "), true)
+	_last_tree_item_tokens = tokens
+
+
+var prev_selected_cell
+
+
+func _tree_item_or_cell_selected(node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	button_index = null
+	_tree_item_render(node)
+
+
+func tree_item_multi_selected(item, column, selected):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if selected:
+		TTS.speak("selected", true)
+	else:
+		TTS.speak("unselected", true)
+
+
+func _tree_input(event):
+	if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down"):
+		node.accept_event()
+	var item = node.get_selected()
+	var column
+	if item:
+		for i in range(node.columns):
+			if item.is_selected(i):
+				column = i
+				break
+	if item and event is InputEventKey and event.pressed and not event.echo:
+		var area
+		if column:
+			area = node.get_item_area_rect(item, column)
+		else:
+			area = node.get_item_area_rect(item)
+		var position = Vector2(
+			node.rect_global_position.x + area.position.x + area.size.x / 2,
+			node.rect_global_position.y + area.position.y + area.size.y / 2
+		)
+		node.get_tree().root.warp_mouse(position)
+	if item and column != null and item.get_button_count(column):
+		if Input.is_action_just_pressed("ui_accept"):
+			node.accept_event()
+			return node.emit_signal("button_pressed", item, column, button_index + 1)
+		var new_button_index = button_index
+		if event.is_action_pressed("ui_home"):
+			node.accept_event()
+			new_button_index += 1
+			if new_button_index >= item.get_button_count(column):
+				new_button_index = 0
+		elif event.is_action_pressed("ui_end"):
+			node.accept_event()
+			new_button_index -= 1
+			if new_button_index < 0:
+				new_button_index = item.get_button_count(column) - 1
+		if new_button_index != button_index and item.has_method("get_button_tooltip"):
+			button_index = new_button_index
+			var tokens = PoolStringArray([])
+			var tooltip = item.get_button_tooltip(column, button_index)
+			if tooltip:
+				tokens.append(tooltip)
+			tokens.append("button")
+			TTS.speak(tokens.join(": "), true)
+
+
+func tree_focused():
+	_last_tree_item_tokens = null
+	if node.get_selected():
+		_tree_item_render(node)
+	else:
+		TTS.speak("tree", true)
+
+
+var _was_collapsed
+
+
+func _tree_item_collapsed(item, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if node.has_focus():
+		var selected = false
+		for column in range(node.columns):
+			if item.is_selected(column):
+				selected = true
+				break
+		if selected and item.collapsed != _was_collapsed:
+			if item.collapsed:
+				TTS.speak("collapsed", true)
+			else:
+				TTS.speak("expanded", true)
+	_was_collapsed = item.collapsed
+
+
+func progress_bar_focused():
+	var percentage = int(node.ratio * 100)
+	TTS.speak("%s percent" % percentage)
+	TTS.speak("progress bar")
+
+
+var last_percentage_spoken
+
+var last_percentage_spoken_at = 0
+
+
+func progress_bar_value_changed(value, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	var percentage = node.value / (node.max_value - node.min_value) * 100
+	percentage = int(percentage)
+	if (
+		percentage != last_percentage_spoken
+		and OS.get_ticks_msec() - last_percentage_spoken_at >= 10000
+	):
+		TTS.speak("%s percent" % percentage)
+		last_percentage_spoken_at = OS.get_ticks_msec()
+		last_percentage_spoken = percentage
+
+
+func tab_container_focused():
+	var text = node.get_tab_title(node.current_tab)
+	text += ": tab: " + str(node.current_tab + 1) + " of " + str(node.get_tab_count())
+	TTS.speak(text)
+
+
+func tab_container_tab_changed(tab, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if node.has_focus():
+		TTS.stop()
+		tab_container_focused()
+
+
+func tab_container_input(event):
+	var new_tab = node.current_tab
+	if event.is_action_pressed("ui_right"):
+		node.accept_event()
+		new_tab += 1
+	elif event.is_action_pressed("ui_left"):
+		node.accept_event()
+		new_tab -= 1
+	if new_tab < 0:
+		new_tab = node.get_tab_count() - 1
+	elif new_tab >= node.get_tab_count():
+		new_tab = 0
+	if node.current_tab != new_tab:
+		node.current_tab = new_tab
+
+
+func gui_focus_changed(_node: Control):
+	node = _node
+	connect_signals()
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	print_debug("Focus: %s" % node)
+	if not node is Label:
+		var label = _guess_label()
+		if label:
+			if label is Label:
+				label = label.text
+			if label and label != "":
+				TTS.speak(label)
+	# Check if any node implements a custom TTS message
+	var n : Node = node
+	while n:
+		if n.has_method("tts_text"):
+			var text : String = n.tts_text(node)
+			if not text.empty():
+				TTS.speak(text)
+				return
+		n = n.get_parent()
+	if node is MenuButton:
+		menu_button_focused()
+	elif node is AcceptDialog:
+		_accept_dialog_focused(node)
+	elif node is CheckBox:
+		checkbox_focused()
+	elif node is CheckButton:
+		_checkbutton_focused()
+	elif node is Button:
+		_button_focused()
+	elif node is ItemList:
+		item_list_focused()
+	elif node is Label or node is RichTextLabel:
+		_label_focused()
+	elif node is LineEdit:
+		line_edit_focused()
+	elif node is LinkButton:
+		_button_focused()
+	elif node is PopupMenu:
+		popup_menu_focused()
+	elif node is ProgressBar:
+		progress_bar_focused()
+	elif node is Range:
+		range_focused()
+	elif node is TabContainer:
+		tab_container_focused()
+	elif node is TextEdit:
+		text_edit_focus()
+	elif node is TextureButton:
+		_texturebutton_focused()
+	elif node is Tree:
+		tree_focused()
+	else:
+		#TTS.speak(node.get_class(), true)
+		print_debug("No handler")
+	if node.hint_tooltip and not spoke_hint_tooltip:
+		TTS.speak(node.hint_tooltip)
+	spoke_hint_tooltip = false
+
+
+func gui_input(event):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
 	if (
-		touch_stop_time
-		and OS.get_ticks_msec() - touch_stop_time >= tap_execute_interval
-		and tap_count != 0
+		event is InputEventKey
+		and Input.is_action_just_pressed("ui_accept")
+		and event.control
+		and event.alt
 	):
-		touch_stop_time = null
-		if tap_count == 2:
-			_press_and_release("ui_accept")
-		tap_count = 0
+		TTS.speak("click")
+		click()
+	elif event is InputEventKey and event.pressed and not event.echo and event.scancode == KEY_MENU:
+		node.get_tree().root.warp_mouse(node.rect_global_position)
+		return click(null, BUTTON_RIGHT)
+	if node is TabContainer:
+		return tab_container_input(event)
+	elif node is ItemList:
+		return item_list_input(event)
+	elif node is LineEdit:
+		return line_edit_input(event)
+	elif node is TextEdit:
+		return text_edit_input(event)
+	elif node is Tree:
+		pass
+		#return _tree_input(event)
+
+func connect_signals():
+	if node.is_in_group("rh_accessible"):
+		return
+	node.add_to_group("rh_accessible")
+	if node is BaseButton:
+		node.connect("button_down", self, "_basebutton_button_down")
+	if node is AcceptDialog:
+		node.connect("about_to_show", self, "_accept_dialog_about_to_show", [node])
+	elif node is CheckBox or node is CheckButton:
+		node.connect("toggled", self, "_checkbox_or_checkbutton_toggled", [node])
+	elif node is ItemList:
+		node.connect("item_selected", self, "item_list_item_selected", [node])
+		node.connect("multi_selected", self, "item_list_multi_selected")
+		node.connect("nothing_selected", self, "item_list_nothing_selected")
+	elif node is LineEdit:
+		node.connect("text_changed", self, "line_edit_text_changed")
+	elif node is PopupMenu:
+		node.connect("id_focused", self, "popup_menu_item_id_focused", [node])
+		node.connect("id_pressed", self, "popup_menu_item_id_pressed", [node])
+	elif node is ProgressBar:
+		node.connect("value_changed", self, "progress_bar_value_changed", [node])
+	elif node is Range:
+		node.connect("value_changed", self, "range_value_changed", [node])
+	elif node is TabContainer:
+		node.connect("tab_changed", self, "tab_container_tab_changed", [node])
+	elif node is Tree:
+		node.connect("item_collapsed", self, "_tree_item_collapsed", [node])
+		node.connect("multi_selected", self, "tree_item_multi_selected")
+		if node.select_mode == Tree.SELECT_MULTI:
+			node.connect("cell_selected", self, "_tree_item_or_cell_selected", [node])
+		else:
+			node.connect("item_selected", self, "_tree_item_or_cell_selected", [node])
+	node.connect("tree_exiting", self, "queue_free", [], Object.CONNECT_DEFERRED)

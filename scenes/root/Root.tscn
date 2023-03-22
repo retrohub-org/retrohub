@@ -111,6 +111,7 @@ autoShow = false
 [node name="ScreenReader" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 7 )
+theme_viewport = NodePath("../ViewportContainer/Viewport")
 
 [connection signal="about_to_show" from="ConfigPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]
