@@ -2,6 +2,7 @@ extends PopupDialog
 
 signal import_begin(importer, copy_mode)
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_move_section := $"%MoveSection"
 onready var n_copy_section := $"%CopySection"
 onready var n_section_labels := [
@@ -78,8 +79,41 @@ func _on_Cancel_pressed():
 func _on_MoveCopyButton_toggled(button_pressed):
 	n_move_section.modulate.a = 0.25 if button_pressed else 1.0
 	n_copy_section.modulate.a = 1.0 if button_pressed else 0.25
+	TTS.speak(tts_move_copy_button())
 
 
 func _on_Import_pressed():
 	emit_signal("import_begin", importer, n_move_copy_button.pressed)
 	hide()
+
+func tts_text(focused: Control) -> String:
+	match focused:
+		n_move_section:
+			return tts_move_section()
+		n_copy_section:
+			return tts_copy_section()
+		n_move_copy_button:
+			return tts_move_copy_button()
+		_:
+			return ""
+
+func tts_move_section() -> String:
+	return $"%MoveFiles".text + ". Advantage: " + $VBoxContainer/HBoxContainer/MoveSection/HBoxContainer/Label.text \
+		+ ". Disadvantage: " + $"%MoveDisadvantage".text
+
+func tts_copy_section() -> String:
+	return $"%CopyFiles".text + ". Advantage: " + $"%CopyAdvantage".text \
+		+ ". Disadvantage: " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer2/Label.text \
+		+ ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer3/Label.text \
+		+ $"%Size".text + ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer4/Label.text \
+		+ $"%SpaceLeft".text
+
+func tts_move_copy_button() -> String:
+	return "CheckButton. Currently selected mode: " + ("copy" if n_move_copy_button.pressed else "move") \
+	+ ". Press to toggle mode."
+
+func _on_CopyMovePopup_about_to_show():
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_move_copy_button.grab_focus()

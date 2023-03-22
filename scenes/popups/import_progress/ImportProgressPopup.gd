@@ -22,9 +22,21 @@ func _on_CopyMovePopup_import_begin(_importer: RetroHubImporter, copy_mode: bool
 	importer.connect("import_major_step", self, "_on_import_major_step")
 	#warning-ignore:return_value_discarded
 	importer.connect("import_minor_step", self, "_on_import_minor_step")
+	TTS.speak(n_import.text + ". " + $VBoxContainer/Label2.text + ". Press the Control key to check the current progress.")
 
 	if thread.start(self, "t_import_begin", copy_mode):
 		push_error("Thread start failed [t_import_begin]")
+
+func _input(event: InputEvent):
+	if RetroHubConfig.config.accessibility_screen_reader_enabled and visible:
+		if event is InputEventKey and event.scancode == KEY_CONTROL:
+			tts_progress()
+
+func tts_progress():
+	var text := "Progress: " + str((float(n_major_progress.value) / n_major_progress.max_value) * 100) + " percent."
+	text += n_major.text
+	text += "File: " + n_minor.text
+	TTS.speak(text)
 
 func t_import_begin(copy_mode: bool):
 	importer.begin_import(copy_mode)

@@ -1,18 +1,10 @@
 extends Node
 class_name AccessibilityFocus
 
-export var neighbour_left : NodePath
-export var neighbour_top : NodePath
-export var neighbour_right : NodePath
-export var neighbour_bottom : NodePath
-export var next : NodePath
 export var previous : NodePath
-export(int, "None", "Click", "All") var mode : int = 0
+export var next : NodePath
+export(int, "None", "Click", "All") var mode : int = 2
 
-var _old_neighbour_left : NodePath
-var _old_neighbour_top : NodePath
-var _old_neighbour_right : NodePath
-var _old_neighbour_bottom : NodePath
 var _old_next : NodePath
 var _old_previous : NodePath
 var _old_mode : int
@@ -28,20 +20,12 @@ func _ready():
 		return
 
 	# Copy old settings
-	_old_neighbour_left = parent.focus_neighbour_left
-	_old_neighbour_top = parent.focus_neighbour_top
-	_old_neighbour_right = parent.focus_neighbour_right
-	_old_neighbour_bottom = parent.focus_neighbour_bottom
 	_old_next = parent.focus_next
 	_old_previous = parent.focus_previous
 	_old_mode = parent.focus_mode
 
 	# Change existing ones, as they're a layer deep
 	for neighbour_str in [
-		"neighbour_left",
-		"neighbour_top",
-		"neighbour_right",
-		"neighbour_bottom",
 		"next",
 		"previous"
 	]:
@@ -66,10 +50,6 @@ func _on_config_updated(key: String, old, new):
 		toggle_info(new)
 
 func toggle_info(flag: bool):
-	parent.focus_neighbour_left = neighbour_left if flag else _old_neighbour_left
-	parent.focus_neighbour_top = neighbour_top if flag else _old_neighbour_top
-	parent.focus_neighbour_right = neighbour_right if flag else _old_neighbour_right
-	parent.focus_neighbour_bottom = neighbour_bottom if flag else _old_neighbour_bottom
 	parent.focus_next = next if flag else _old_next
 	parent.focus_previous = previous if flag else _old_previous
 	parent.focus_mode = mode if flag else _old_mode

@@ -2,6 +2,7 @@ extends Control
 
 signal advance_section
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_systems := $"%Systems"
 onready var n_emulator_info_tab := $"%EmulatorInfoTab"
 
@@ -13,19 +14,32 @@ func _ready():
 
 func grab_focus():
 	RetroHubConfig.load_emulators()
-	n_systems.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_systems.grab_focus()
 	set_systems()
+
+var sorted_systems := []
+
+func _sort_by_fullname(a: Dictionary, b: Dictionary):
+	return a["fullname"].naturalnocasecmp_to(b["fullname"]) == -1
 
 func set_systems():
 	n_systems.clear()
 	clear_emulator_info()
+	
+	sorted_systems = RetroHubConfig._systems_raw.values().duplicate()
+	sorted_systems.sort_custom(self, "_sort_by_fullname")
 
-	for system in RetroHubConfig._systems_raw.values():
+	for system in sorted_systems:
 		var found := handle_emulator_info(system)
 		if found:
 			n_systems.add_icon_item(preload("res://assets/icons/success.svg"), system["fullname"])
+			n_systems.set_item_metadata(n_systems.get_item_count()-1, true)
 		else:
 			n_systems.add_icon_item(preload("res://assets/icons/failure.svg"), system["fullname"])
+			n_systems.set_item_metadata(n_systems.get_item_count()-1, false)
 	emulator_cache.clear()
 
 func handle_emulator_info(system_raw: Dictionary) -> bool:
@@ -165,3 +179,11 @@ func _on_NextButton_pressed():
 
 func _on_Systems_item_selected(index):
 	n_emulator_info_tab.current_tab = index
+
+func tts_text(focused: Control) -> String:
+	if focused == n_systems:
+		return tts_popup_menu_item_text(n_systems.get_item_index(n_systems.get_selected_id()), n_systems.get_popup())
+	return ""
+
+func tts_popup_menu_item_text(idx: int, menu: PopupMenu) -> String:
+	return menu.get_item_text(idx) + ". " + ("supported" if menu.get_item_metadata(idx) else "not supported")

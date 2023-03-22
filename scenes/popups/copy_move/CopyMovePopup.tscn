@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/icons/success.svg" type="Texture" id=1]
 [ext_resource path="res://assets/icons/failure.svg" type="Texture" id=2]
 [ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=3]
 [ext_resource path="res://scenes/popups/copy_move/CopyMovePopup.gd" type="Script" id=4]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=5]
 
 [node name="CopyMovePopup" type="PopupDialog"]
 anchor_right = 1.0
@@ -19,11 +20,15 @@ margin_top = 30.0
 margin_right = -50.0
 margin_bottom = -10.0
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="IntroLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 margin_right = 924.0
 margin_bottom = 14.0
 text = "Do you want to move or copy your existing setup to RetroHub?"
 align = 1
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/IntroLabel"]
+script = ExtResource( 5 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 18.0
@@ -33,16 +38,16 @@ margin_bottom = 22.0
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 26.0
 margin_right = 924.0
-margin_bottom = 492.0
+margin_bottom = 468.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
 [node name="MoveSection" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_top = 187.0
+margin_top = 175.0
 margin_right = 445.0
-margin_bottom = 279.0
+margin_bottom = 267.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
@@ -94,18 +99,21 @@ size_flags_horizontal = 3
 text = "Is very likely to break existing %s configuration, requiring you to reconfigure it."
 autowrap = true
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/HBoxContainer/MoveSection"]
+script = ExtResource( 5 )
+
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 460.0
 margin_right = 464.0
-margin_bottom = 466.0
+margin_bottom = 442.0
 
 [node name="CopySection" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 modulate = Color( 1, 1, 1, 0.25098 )
 margin_left = 479.0
-margin_top = 169.0
+margin_top = 157.0
 margin_right = 924.0
-margin_bottom = 297.0
+margin_bottom = 285.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
@@ -192,11 +200,14 @@ margin_right = 202.0
 margin_bottom = 14.0
 text = "Calculating.."
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/HBoxContainer/CopySection"]
+script = ExtResource( 5 )
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 margin_left = 387.0
-margin_top = 496.0
+margin_top = 472.0
 margin_right = 537.0
-margin_bottom = 536.0
+margin_bottom = 512.0
 size_flags_horizontal = 4
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
@@ -220,9 +231,9 @@ text = "Copy"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 margin_left = 332.0
-margin_top = 540.0
+margin_top = 516.0
 margin_right = 592.0
-margin_bottom = 560.0
+margin_bottom = 536.0
 size_flags_horizontal = 4
 custom_constants/separation = 150
 
@@ -239,6 +250,7 @@ margin_right = 260.0
 margin_bottom = 20.0
 text = "Import"
 
+[connection signal="about_to_show" from="." to="." method="_on_CopyMovePopup_about_to_show"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer2/MoveCopyButton" to="." method="_on_MoveCopyButton_toggled"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/Cancel" to="." method="_on_Cancel_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/Import" to="." method="_on_Import_pressed"]

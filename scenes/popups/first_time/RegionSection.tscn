@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/ui_nodes/AgeRatingTextureRect.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/popups/first_time/DateContainer.gd" type="Script" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/systems/videopac-photo.png" type="Texture" id=14]
 [ext_resource path="res://assets/systems/tg-cd-photo.png" type="Texture" id=15]
 [ext_resource path="res://scenes/popups/first_time/SystemsContainer.gd" type="Script" id=16]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=17]
 
 [node name="RegionSection" type="Control"]
 anchor_right = 1.0
@@ -42,7 +43,8 @@ margin_bottom = 552.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="IntroLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
 margin_right = 1024.0
 margin_bottom = 14.0
 size_flags_vertical = 1
@@ -50,6 +52,9 @@ text = "Select your current region. This is purely to change visual elements, an
 align = 1
 valign = 1
 autowrap = true
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/IntroLabel"]
+script = ExtResource( 17 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 18.0
@@ -62,6 +67,9 @@ margin_right = 51.0
 margin_bottom = 17.0
 text = "Region: "
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Label"]
+script = ExtResource( 17 )
+
 [node name="RegionOptions" type="OptionButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 55.0
@@ -72,12 +80,18 @@ text = "USA"
 items = [ "USA", null, false, 0, null, "Europe", null, false, 1, null, "Japan", null, false, 2, null ]
 selected = 0
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/RegionOptions"]
+script = ExtResource( 17 )
+
 [node name="Label2" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 42.0
 margin_right = 1024.0
 margin_bottom = 56.0
 text = "You can also manually configure the following fields to your desire:"
 align = 1
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/Label2"]
+script = ExtResource( 17 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 60.0
@@ -106,6 +120,9 @@ margin_right = 98.0
 margin_bottom = 17.0
 text = "Rating System: "
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer/HBoxContainer/Label"]
+script = ExtResource( 17 )
+
 [node name="RatingOptions" type="OptionButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 102.0
@@ -115,6 +132,9 @@ focus_neighbour_right = NodePath("../../../DateContainer/HBoxContainer/DateOptio
 text = "ESRB"
 items = [ "ESRB", null, false, 0, null, "PEGI", null, false, 1, null, "CERO", null, false, 2, null ]
 selected = 0
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer/HBoxContainer/RatingOptions"]
+script = ExtResource( 17 )
 
 [node name="RatingIcons" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer"]
 unique_name_in_owner = true
@@ -179,6 +199,9 @@ margin_right = 80.0
 margin_bottom = 17.0
 text = "Date format:"
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DateContainer/HBoxContainer/Label"]
+script = ExtResource( 17 )
+
 [node name="DateOptions" type="OptionButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DateContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 84.0
@@ -188,6 +211,9 @@ focus_neighbour_left = NodePath("../../../RatingContainer/HBoxContainer/RatingOp
 text = "MM/DD/YYYY"
 items = [ "MM/DD/YYYY", null, false, 0, null, "DD/MM/YYYY", null, false, 1, null, "YYYY/MM/DD", null, false, 2, null ]
 selected = 0
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DateContainer/HBoxContainer/DateOptions"]
+script = ExtResource( 17 )
 
 [node name="ExampleDate" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DateContainer"]
 unique_name_in_owner = true
@@ -214,7 +240,11 @@ script = ExtResource( 16 )
 [node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/SystemsContainer"]
 margin_right = 1024.0
 margin_bottom = 14.0
+hint_tooltip = "Pick the correct system names according to your region."
 text = "System names: "
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/SystemsContainer/Label"]
+script = ExtResource( 17 )
 
 [node name="HFlowContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/SystemsContainer"]
 margin_top = 18.0

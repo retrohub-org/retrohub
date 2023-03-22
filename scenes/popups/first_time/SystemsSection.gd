@@ -2,6 +2,7 @@ extends Control
 
 signal advance_section
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_categories := $"%Categories"
 onready var n_system_trees := $"%SystemTrees"
 onready var n_system_info := $"%SystemInfo"
@@ -21,7 +22,10 @@ func grab_focus():
 	RetroHubConfig.load_systems()
 	RetroHubConfig.load_game_data_files()
 	n_system_trees.setup_systems(categories)
-	n_categories.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_categories.grab_focus()
 
 func _on_NextButton_pressed():
 	n_system_trees.save()

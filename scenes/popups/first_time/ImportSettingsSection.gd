@@ -2,8 +2,11 @@ extends Control
 
 signal advance_section
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_import_options := $"%ImportOptions"
 onready var n_compatibility_details := $"%CompatibilityDetails"
+onready var n_next_btn := $"%NextButton"
+
 
 onready var n_copy_move_popup := $"%CopyMovePopup"
 
@@ -19,7 +22,10 @@ func _ready():
 	n_import_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
 
 func grab_focus():
-	n_import_options.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_import_options.grab_focus()
 	query_importers()
 
 func query_importers():
@@ -82,3 +88,7 @@ func _on_NextButton_pressed():
 
 func _on_ImportProgressPopup_import_finished():
 	emit_signal("advance_section")
+
+
+func _on_CopyMovePopup_popup_hide():
+	n_next_btn.grab_focus()

@@ -323,13 +323,22 @@ func menu_button_focused():
 
 
 func popup_menu_focused():
-	TTS.speak("menu")
+	popup_menu_item_id_focused(node.get_current_index(), node)
 
 
 func popup_menu_item_id_focused(index, node):
 	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
 	print_debug("item id focus %s" % index)
+	var n : Node = node
+	while n:
+		if n.has_method("tts_popup_menu_item_text"):
+			yield(get_tree(), "idle_frame")
+			var text : String = n.tts_popup_menu_item_text(index, node)
+			if not text.empty():
+				TTS.speak(text)
+				return
+		n = n.get_parent()
 	var tokens = PoolStringArray([])
 	var shortcut = node.get_item_shortcut(index)
 	var name
@@ -359,7 +368,7 @@ func popup_menu_item_id_focused(index, node):
 	if disabled:
 		tokens.append("disabled")
 	tokens.append(str(index + 1) + " of " + str(node.get_item_count()))
-	TTS.speak(tokens.join(": "), true)
+	TTS.speak(tokens.join(": "))
 
 
 func popup_menu_item_id_pressed(index, node):
@@ -367,9 +376,9 @@ func popup_menu_item_id_pressed(index, node):
 		return
 	if node.is_item_checkable(index):
 		if node.is_item_checked(index):
-			TTS.speak("checked", true)
+			TTS.speak("checked")
 		else:
-			TTS.speak("unchecked", true)
+			TTS.speak("unchecked")
 
 
 func range_focused():
@@ -390,11 +399,23 @@ func range_focused():
 	TTS.speak(tokens.join(": "))
 
 
+func spinbox_value_changed(value, node):
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		return
+	if node.has_focus():
+		var text := ""
+		if node.prefix:
+			text += node.prefix
+		text += str(value)
+		if node.suffix:
+			text += node.suffix
+		TTS.speak(text)
+
 func range_value_changed(value, node):
 	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
 	if node.has_focus():
-		TTS.speak("%s" % value, true)
+		TTS.speak("%s" % value)
 
 
 func text_edit_focus():
@@ -422,7 +443,16 @@ var button_index
 func _tree_item_render(node):
 	if not node.has_focus():
 		return
+	var n : Node = node
 	var cell = node.get_selected()
+	while n:
+		if n.has_method("tts_tree_item_text"):
+			yield(get_tree(), "idle_frame")
+			var text : String = n.tts_tree_item_text(cell, node)
+			if not text.empty():
+				TTS.speak(text)
+				return
+		n = n.get_parent()
 	var tokens = PoolStringArray([])
 	for i in range(node.columns):
 		if node.select_mode == Tree.SELECT_MULTI or cell.is_selected(i):
@@ -633,6 +663,7 @@ func gui_focus_changed(_node: Control):
 	var n : Node = node
 	while n:
 		if n.has_method("tts_text"):
+			yield(get_tree(), "idle_frame")
 			var text : String = n.tts_text(node)
 			if not text.empty():
 				TTS.speak(text)
@@ -674,7 +705,7 @@ func gui_focus_changed(_node: Control):
 		#TTS.speak(node.get_class(), true)
 		print_debug("No handler")
 	if node.hint_tooltip and not spoke_hint_tooltip:
-		TTS.speak(node.hint_tooltip)
+		TTS.speak(node.hint_tooltip, false)
 	spoke_hint_tooltip = false
 
 
@@ -726,7 +757,10 @@ func connect_signals():
 	elif node is ProgressBar:
 		node.connect("value_changed", self, "progress_bar_value_changed", [node])
 	elif node is Range:
-		node.connect("value_changed", self, "range_value_changed", [node])
+		if node is SpinBox:
+			node.connect("value_changed", self, "spinbox_value_changed", [node])
+		else:
+			node.connect("value_changed", self, "range_value_changed", [node])
 	elif node is TabContainer:
 		node.connect("tab_changed", self, "tab_container_tab_changed", [node])
 	elif node is Tree:
@@ -736,4 +770,5 @@ func connect_signals():
 			node.connect("cell_selected", self, "_tree_item_or_cell_selected", [node])
 		else:
 			node.connect("item_selected", self, "_tree_item_or_cell_selected", [node])
-	node.connect("tree_exiting", self, "queue_free", [], Object.CONNECT_DEFERRED)
+		node.connect("item_edited", self, "_tree_item_or_cell_selected", [node])
+		node.connect("item_activated", self, "_tree_item_or_cell_selected", [node])

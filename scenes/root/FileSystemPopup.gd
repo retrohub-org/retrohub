@@ -39,6 +39,7 @@ func _ready():
 		cancel_button.name
 	]
 	tree.focus_neighbour_bottom = path
+	tree.focus_next = path
 	# Ok and Cancel buttons should focus tree on up
 	path = "../../%s/%s/%s" % [
 		tree.get_parent().get_parent().name,
@@ -46,7 +47,9 @@ func _ready():
 		tree.name
 	]
 	ok_button.focus_neighbour_top = path
+	ok_button.focus_previous = path
 	cancel_button.focus_neighbour_top = path
+	cancel_button.focus_previous = path
 
 	## Create Folder nodes
 	var create_folder_popup : ConfirmationDialog = get_child(5)

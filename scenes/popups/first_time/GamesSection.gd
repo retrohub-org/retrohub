@@ -2,6 +2,7 @@ extends Control
 
 signal advance_section
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_path := $"%Path"
 onready var n_choose_dir := $"%ChooseDir"
 onready var n_next_button := $"%NextButton"
@@ -10,7 +11,10 @@ func _ready():
 	set_path(RetroHubConfig.config.games_dir)
 
 func grab_focus():
-	n_choose_dir.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_choose_dir.grab_focus()
 
 func _on_NextButton_pressed():
 	RetroHubConfig.config.games_dir = n_path.text

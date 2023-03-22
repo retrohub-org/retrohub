@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/popups/first_time/ImportSettingsSection.gd" type="Script" id=1]
 [ext_resource path="res://assets/icons/success.svg" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/popups/first_time/CompatibilityDetails.gd" type="Script" id=5]
 [ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=6]
 [ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=7]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=8]
 
 [node name="ImportSettingsSection" type="Control"]
 anchor_right = 1.0
@@ -19,7 +20,8 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="IntroLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 margin_right = 1024.0
 margin_bottom = 31.0
 size_flags_vertical = 1
@@ -27,6 +29,9 @@ text = "If you have an existing retro gaming library setup, you may be able to i
 align = 1
 valign = 1
 autowrap = true
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/IntroLabel"]
+script = ExtResource( 8 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 35.0
@@ -192,7 +197,11 @@ custom_fonts/font = ExtResource( 6 )
 text = "Details about themes"
 autowrap = true
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/VBoxContainer/CompatibilityDetails"]
+script = ExtResource( 8 )
+
 [node name="NextButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
 margin_top = 556.0
 margin_right = 1024.0
 margin_bottom = 576.0
@@ -215,4 +224,5 @@ margin_bottom = 252.0
 [connection signal="item_selected" from="VBoxContainer/VBoxContainer/ImportOptions" to="." method="_on_ImportOptions_item_selected"]
 [connection signal="pressed" from="VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]
 [connection signal="import_begin" from="CopyMovePopup" to="ImportProgressPopup" method="_on_CopyMovePopup_import_begin"]
+[connection signal="popup_hide" from="CopyMovePopup" to="." method="_on_CopyMovePopup_popup_hide"]
 [connection signal="import_finished" from="ImportProgressPopup" to="." method="_on_ImportProgressPopup_import_finished"]

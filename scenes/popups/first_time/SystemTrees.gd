@@ -15,6 +15,8 @@ onready var n_systems := [
 	n_engines, n_modern_consoles
 ]
 
+var _tts_last_item : TreeItem
+
 func _ready():
 	for system in n_systems:
 		system.connect("focus_entered", self, "_on_tree_focus_entered", [system])
@@ -30,6 +32,8 @@ func grab_focus():
 			tree.grab_focus()
 			return
 
+func _sort_fullname(a: Dictionary, b: Dictionary):
+	return a["fullname"].naturalnocasecmp_to(b["fullname"]) == -1
 
 func setup_systems(categories: Array):
 	for idx in range(n_systems.size()):
@@ -43,7 +47,13 @@ func setup_systems(categories: Array):
 		root.set_editable(0, true)
 		root.set_text(1, "<all>")
 
-	for system in RetroHubConfig._systems_raw.values():
+	var systems := RetroHubConfig._systems_raw.values()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		# Sort by fullname instead
+		systems = systems.duplicate()
+		systems.sort_custom(self, "_sort_fullname")
+
+	for system in systems:
 		var idx := RetroHubSystemData.category_to_idx(system["category"])
 		var child : TreeItem = n_systems[idx].create_item(n_systems[idx].get_root())
 		child.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
@@ -171,3 +181,14 @@ func _on_ModernConsoles_item_activated():
 	var item : TreeItem = n_modern_consoles.get_selected()
 	item.set_checked(0, not item.is_checked(0))
 	_on_item_edited(item)
+
+func tts_tree_item_text(item: TreeItem, tree: Tree):
+	var text : String
+	if item != _tts_last_item:
+		_tts_last_item = item
+		if item.get_text(1) == "<all>":
+			text = "All " + tree.get_column_title(1)
+		else:
+			text = item.get_metadata(0)["fullname"]
+	text += ". " + ("checked" if item.is_checked(0) else "unchecked")
+	return text
