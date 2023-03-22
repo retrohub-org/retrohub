@@ -105,9 +105,9 @@ func _input_hyper_focused(event):
 
 func _input_motion_spinbox(event):
 	var spin_box := hyper_focused_control as SpinBox
-	if event.is_action_pressed("ui_up"):
+	if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_focus_prev"):
 		spin_box.value += spin_box.step
-	if event.is_action_pressed("ui_down"):
+	if event.is_action_pressed("ui_down") or event.is_action_pressed("ui_focus_next"):
 		spin_box.value -= spin_box.step
 
 func _input_ui_movement_button(event: InputEventJoypadButton):
@@ -115,11 +115,13 @@ func _input_ui_movement_button(event: InputEventJoypadButton):
 		RetroHub._is_echo = true
 		return
 	if event.is_action_released("ui_left") or event.is_action_released("ui_up") \
-		or event.is_action_released("ui_right") or event.is_action_released("ui_down"):
+		or event.is_action_released("ui_right") or event.is_action_released("ui_down") \
+		or event.is_action_released("ui_focus_prev") or event.is_action_released("ui_focus_next"):
 		_joypad_echo_pre_delay.stop()
 		_joypad_echo_delay.stop()
 	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_up") \
-		or event.is_action_pressed("ui_right") or event.is_action_pressed("ui_down"):
+		or event.is_action_pressed("ui_right") or event.is_action_pressed("ui_down") \
+		or event.is_action_pressed("ui_focus_prev") or event.is_action_pressed("ui_focus_next"):
 		if _joypad_echo_pre_delay.is_stopped():
 			_joypad_last_event = event
 			_joypad_echo_pre_delay.start()
@@ -140,11 +142,18 @@ func _input_ui_movement_motion(event: InputEventJoypadMotion):
 			action = "ui_up"
 		else:
 			action = "ui_down"
+	elif event.is_action("ui_focus_prev"):
+		if event.axis_value < 0.0:
+			action = "ui_focus_prev"
+		else:
+			action = "ui_focus_next"
 	# This only happens with input bounces (releasing the stick)
 	elif event.is_action("ui_right"):
 		action = "ui_right"
 	elif event.is_action("ui_down"):
 		action = "ui_down"
+	elif event.is_action("ui_focus_next"):
+		action = "ui_focus_next"
 	else:
 		return
 	var deadzone := InputMap.action_get_deadzone(action)
@@ -201,6 +210,10 @@ func _is_action_opposite(action1: String, action2: String):
 			return action2 == "ui_down"
 		"ui_down":
 			return action2 == "ui_up"
+		"ui_focus_prev":
+			return action2 == "ui_focus_next"
+		"ui_focus_next":
+			return action2 == "ui_focus_prev"
 	return false
 
 func _mark_event_as_handled():
