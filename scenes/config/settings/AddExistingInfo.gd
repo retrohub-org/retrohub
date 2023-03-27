@@ -2,22 +2,25 @@ extends WindowDialog
 
 signal identifier_picked(id)
 
-onready var n_intro_label := $"%IntroLabel"
+onready var n_intro_lbl := $"%IntroLabel"
 
 onready var n_options := $"%Options"
 onready var n_ok := $"%OK"
 
-onready var base_text_intro : String = n_intro_label.text
+onready var base_text_intro : String = n_intro_lbl.text
 
 func _ready():
 	n_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
 
 func start(data: Dictionary, existing: Array, asset_format: String, data_name: String):
-	n_intro_label.text = base_text_intro % data_name
+	n_intro_lbl.text = base_text_intro % data_name
 	populate_options(data.values(), existing, asset_format)
 	popup_centered()
 	yield(get_tree(), "idle_frame")
-	n_options.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_options.grab_focus()
 
 func populate_options(datas: Array, existing_keys: Array, asset_format: String):
 	for data in datas:

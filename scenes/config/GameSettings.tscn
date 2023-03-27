@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/config/GameSettings.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
 [ext_resource path="res://scenes/config/GameMetadataEditor.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ButtonGroup" id=1]
@@ -39,6 +40,10 @@ focus_neighbour_top = NodePath("../../../GameMetadataEditor/ScrollContainer/VBox
 size_flags_horizontal = 3
 text = "Save changes"
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/HBoxContainer/HBoxContainer/Save"]
+script = ExtResource( 2 )
+previous = NodePath("../../../../GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed")
+
 [node name="Discard" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 101.0
@@ -65,12 +70,16 @@ focus_neighbour_bottom = NodePath("../HBoxContainer/HBoxContainer/Save")
 
 [node name="VBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer" index="0"]
 margin_right = 1012.0
+margin_bottom = 572.0
 
 [node name="HBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 1012.0
 
-[node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer" index="0"]
+[node name="IntroLabel" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer" index="0"]
 margin_right = 708.0
+
+[node name="AccessibilityFocus" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer/IntroLabel" index="0"]
+previous = NodePath("../../../../../../HBoxContainer/HBoxContainer/Discard")
 
 [node name="Name" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer" index="1"]
 margin_left = 712.0
@@ -194,6 +203,9 @@ margin_right = 934.0
 margin_left = 938.0
 margin_right = 1012.0
 focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/HBoxContainer/Save")
+
+[node name="AccessibilityFocus" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed" index="3"]
+next = NodePath("../../../../../../HBoxContainer/HBoxContainer/Save")
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/Save" to="VBoxContainer/GameMetadataEditor" method="save_changes"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/Discard" to="VBoxContainer/GameMetadataEditor" method="discard_changes"]

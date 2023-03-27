@@ -24,7 +24,7 @@ func _ready():
 func _on_tree_focus_entered(tree: Tree):
 	if not tree.get_selected():
 		tree.get_root().select(1)
-	tree.emit_signal("item_selected")
+	_on_item_selected(tree)
 
 func grab_focus():
 	for tree in n_systems:

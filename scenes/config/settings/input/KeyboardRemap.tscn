@@ -3,7 +3,7 @@
 [ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/config/settings/input/KeyboardRemap.gd" type="Script" id=2]
 
-[node name="KeyboardRemap" type="AcceptDialog"]
+[node name="KeyboardRemap" type="WindowDialog"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -12,7 +12,6 @@ margin_left = -141.5
 margin_top = -89.5
 margin_right = 141.5
 margin_bottom = 89.5
-window_title = ""
 resizable = true
 script = ExtResource( 2 )
 
@@ -25,9 +24,10 @@ margin_right = -8.0
 margin_bottom = -36.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 margin_right = 267.0
 margin_bottom = 14.0
-text = "Press a key..."
+text = "Press and hold a key to set it..."
 align = 1
 
 [node name="KeyIcon" type="TextureRect" parent="VBoxContainer"]
@@ -48,5 +48,9 @@ custom_fonts/font = ExtResource( 1 )
 text = "waiting for input"
 align = 1
 
-[connection signal="confirmed" from="." to="." method="_on_KeyboardRemap_confirmed"]
-[connection signal="popup_hide" from="." to="." method="_on_KeyboardRemap_popup_hide"]
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.2
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

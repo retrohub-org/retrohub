@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/config/settings/emulator/RetroArchEmulatorEditor.gd" type="Script" id=1]
 [ext_resource path="res://assets/icons/load.svg" type="Texture" id=2]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=3]
 
 [node name="RetroArchEmulatorEditor" type="VBoxContainer"]
 anchor_right = 1.0
@@ -15,6 +16,10 @@ script = ExtResource( 1 )
 margin_right = 1024.0
 margin_bottom = 14.0
 text = "Logo:"
+
+[node name="AccessibilityFocus" type="Node" parent="Label"]
+script = ExtResource( 3 )
+previous = NodePath("../../HBoxContainer8/LoadCoreFileName")
 
 [node name="Logo" type="Button" parent="."]
 unique_name_in_owner = true
@@ -51,6 +56,9 @@ margin_bottom = 14.0
 size_flags_horizontal = 3
 autowrap = true
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer2/Identifier"]
+script = ExtResource( 3 )
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="."]
 margin_top = 128.0
 margin_right = 1024.0
@@ -61,6 +69,9 @@ margin_top = 5.0
 margin_right = 46.0
 margin_bottom = 19.0
 text = "Name: "
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer3/Label"]
+script = ExtResource( 3 )
 
 [node name="Name" type="LineEdit" parent="HBoxContainer3"]
 unique_name_in_owner = true
@@ -83,6 +94,9 @@ margin_top = 5.0
 margin_right = 36.0
 margin_bottom = 19.0
 text = "Path: "
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer4/Label"]
+script = ExtResource( 3 )
 
 [node name="Path" type="LineEdit" parent="HBoxContainer4"]
 unique_name_in_owner = true
@@ -111,6 +125,9 @@ margin_top = 5.0
 margin_right = 76.0
 margin_bottom = 19.0
 text = "Cores path: "
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer9/Label"]
+script = ExtResource( 3 )
 
 [node name="CorePath" type="LineEdit" parent="HBoxContainer9"]
 unique_name_in_owner = true
@@ -142,6 +159,9 @@ margin_right = 73.0
 margin_bottom = 19.0
 text = "Command: "
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer5/Label"]
+script = ExtResource( 3 )
+
 [node name="Command" type="LineEdit" parent="HBoxContainer5"]
 unique_name_in_owner = true
 margin_left = 77.0
@@ -165,6 +185,9 @@ margin_right = 1024.0
 margin_bottom = 262.0
 text = "Available variables in command:"
 
+[node name="AccessibilityFocus" type="Node" parent="Label2"]
+script = ExtResource( 3 )
+
 [node name="HFlowContainer" type="HFlowContainer" parent="."]
 margin_top = 266.0
 margin_right = 1024.0
@@ -178,6 +201,7 @@ margin_bottom = 20.0
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer"]
 margin_right = 60.0
 margin_bottom = 20.0
+hint_tooltip = "Emulator executable path"
 focus_neighbour_top = NodePath("../../../HBoxContainer5/Command")
 focus_neighbour_right = NodePath("../../HBoxContainer2/VarButton")
 text = "binpath"
@@ -197,6 +221,7 @@ margin_bottom = 20.0
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer2"]
 margin_right = 66.0
 margin_bottom = 20.0
+hint_tooltip = "Game file full path"
 focus_neighbour_left = NodePath("../../HBoxContainer/VarButton")
 focus_neighbour_top = NodePath("../../../HBoxContainer5/Command")
 text = "rompath"
@@ -216,6 +241,7 @@ margin_bottom = 20.0
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer3"]
 margin_right = 68.0
 margin_bottom = 20.0
+hint_tooltip = "Libretro cores full path"
 focus_neighbour_right = NodePath("../../HBoxContainer4/VarButton")
 focus_neighbour_bottom = NodePath("../../../HBoxContainer/CoreOption")
 text = "corepath"
@@ -235,6 +261,7 @@ margin_bottom = 20.0
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer4"]
 margin_right = 60.0
 margin_bottom = 20.0
+hint_tooltip = "Libretro core file name"
 focus_neighbour_left = NodePath("../../HBoxContainer3/VarButton")
 focus_neighbour_bottom = NodePath("../../../HBoxContainer/CoreOption")
 text = "corefile"
@@ -261,6 +288,9 @@ margin_top = 3.0
 margin_right = 44.0
 margin_bottom = 17.0
 text = "Cores: "
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer/Label"]
+script = ExtResource( 3 )
 
 [node name="CoreOption" type="OptionButton" parent="HBoxContainer"]
 unique_name_in_owner = true
@@ -312,6 +342,9 @@ margin_bottom = 14.0
 size_flags_horizontal = 3
 autowrap = true
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer6/CoreIdentifier"]
+script = ExtResource( 3 )
+
 [node name="HBoxContainer7" type="HBoxContainer" parent="."]
 margin_top = 340.0
 margin_right = 1024.0
@@ -322,6 +355,9 @@ margin_top = 5.0
 margin_right = 46.0
 margin_bottom = 19.0
 text = "Name: "
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer7/Label"]
+script = ExtResource( 3 )
 
 [node name="CoreName" type="LineEdit" parent="HBoxContainer7"]
 unique_name_in_owner = true
@@ -345,6 +381,9 @@ margin_right = 67.0
 margin_bottom = 19.0
 text = "File name:"
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer8/Label"]
+script = ExtResource( 3 )
+
 [node name="CoreFileName" type="LineEdit" parent="HBoxContainer8"]
 unique_name_in_owner = true
 margin_left = 71.0
@@ -361,6 +400,10 @@ margin_right = 1024.0
 margin_bottom = 24.0
 text = "Load"
 icon = ExtResource( 2 )
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer8/LoadCoreFileName"]
+script = ExtResource( 3 )
+next = NodePath("../../../Label")
 
 [connection signal="text_changed" from="HBoxContainer3/Name" to="." method="_on_item_change"]
 [connection signal="text_changed" from="HBoxContainer4/Path" to="." method="_on_item_change"]

@@ -4,6 +4,7 @@ signal change_ocurred
 
 var curr_emulator : Dictionary setget set_curr_emulator
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_logo := $"%Logo"
 onready var n_name := $"%Identifier"
 onready var n_fullname := $"%Name"
@@ -11,10 +12,13 @@ onready var n_path := $"%Path"
 onready var n_command := $"%Command"
 
 func focus_node_from_top():
-	n_logo.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_logo.grab_focus()
 
 func focus_node_from_bottom():
-	$HFlowContainer/HBoxContainer/VarButton.grab_focus()
+	$HFlowContainer/HBoxContainer2/VarButton.grab_focus()
 
 func set_curr_emulator(_curr_emulator: Dictionary):
 	curr_emulator = _curr_emulator

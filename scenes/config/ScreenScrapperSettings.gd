@@ -63,3 +63,10 @@ func update_thread_count_label(value: int):
 		n_thread_count_lbl.text = "Unlimited"
 	else:
 		n_thread_count_lbl.text = str(value)
+
+func tts_range_value_text(value: float, node: Node) -> String:
+	if node == n_thread_count:
+		if is_equal_approx(value, 11):
+			return "Unlimited"
+		return str(value) + TTS.singular_or_plural(value, " thread", "threads")
+	return ""

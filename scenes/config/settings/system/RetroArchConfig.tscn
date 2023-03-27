@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/config/settings/system/RetroArchConfig.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
 
 [node name="RetroArchConfig" type="WindowDialog"]
 anchor_left = 0.5
@@ -21,11 +22,15 @@ margin_top = 10.0
 margin_right = -10.0
 margin_bottom = -10.0
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="IntroLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 margin_right = 519.0
 margin_bottom = 14.0
 text = "Select a core to add:"
 align = 1
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/IntroLabel"]
+script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 18.0
@@ -59,6 +64,9 @@ margin_right = 519.0
 margin_bottom = 64.0
 text = "Remove existing cores:"
 align = 1
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Label2"]
+script = ExtResource( 2 )
 
 [node name="Cores" type="Tree" parent="VBoxContainer"]
 unique_name_in_owner = true

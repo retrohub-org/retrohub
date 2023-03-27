@@ -11,6 +11,7 @@ onready var n_cn_icon_type := $"%CNIconType"
 onready var n_cn_pre_delay := $"%CNPreDelay"
 onready var n_cn_delay := $"%CNDelay"
 
+onready var n_vkb_intro_lbl := $"%IntroLabel"
 onready var n_vkb_layout := $"%VirtualKeyboardLayout"
 onready var n_vkb_type := $"%VirtualKeyboardType"
 onready var n_vkb_show_on_controller := $"%VirtualKeyboardOnController"
@@ -39,7 +40,10 @@ func grab_focus():
 	elif n_input_tab.current_tab == 1:
 		n_cn_reset.grab_focus()
 	elif n_input_tab.current_tab == 2:
-		n_vkb_layout.grab_focus()
+		if RetroHubConfig.config.accessibility_screen_reader_enabled:
+			n_vkb_intro_lbl.grab_focus()
+		else:
+			n_vkb_layout.grab_focus()
 
 func _on_config_ready(config_data: ConfigData):
 	n_cn_clear_layout.disabled = config_data.custom_input_remap.empty()
@@ -133,6 +137,7 @@ func _on_KeyboardRemap_key_remapped(key, old_code, new_code):
 		if key == _key:
 			continue
 		if new_code in keymap[_key]:
+			TTS.speak("This key was already being used for another action, so they were swapped." ,false)
 			keymap[_key].erase(new_code)
 			keymap[_key].push_back(old_code)
 	RetroHubConfig.config.mark_for_saving()
@@ -155,6 +160,7 @@ func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 		if key == _key:
 			continue
 		if new_button in map[_key]:
+			TTS.speak("This button was already being used for another action, so they were swapped." ,false)
 			map[_key].erase(new_button)
 			if not old_button in map[_key]:
 				map[_key].push_back(old_button)
@@ -241,8 +247,9 @@ func _on_VirtualKeyboardOnMouse_toggled(button_pressed):
 	RetroHubConfig.config.virtual_keyboard_show_on_mouse = button_pressed
 
 
-func _on_TabContainerHandler_tab_changed(_tab_container):
-	grab_focus()
+func _on_TabContainerHandler_tab_changed(_tab_container, enter_tab):
+	if enter_tab:
+		grab_focus()
 
 
 func _on_VirtualKeyboardType_item_selected(index):
@@ -252,3 +259,37 @@ func _on_VirtualKeyboardType_item_selected(index):
 		0, _:
 			RetroHubConfig.config.virtual_keyboard_type = "builtin"
 	n_vkb_layout.disabled = index != 0
+
+func tts_text(focused: Control):
+	if focused is ControllerButton:
+		return focused.hint_tooltip + ". Current " + ("key" if focused.force_type == 1 else "button") \
+			+ ": " + focused.get_tts_string()
+	elif focused == n_cn_icon_type and n_cn_icon_type.selected == 0:
+		var text := "detect automatically. detected as "
+		match ControllerIcons.Mapper._get_joypad_type(ControllerSettings.Devices.XBOX360):
+			ControllerSettings.Devices.LUNA:
+				text += "amazon luna"
+			ControllerSettings.Devices.PS3:
+				text += "playstation 3"
+			ControllerSettings.Devices.PS4:
+				text += "playstation 4"
+			ControllerSettings.Devices.PS5:
+				text += "playstation 5"
+			ControllerSettings.Devices.STADIA:
+				text += "google stadia"
+			ControllerSettings.Devices.STEAM:
+				text += "steam controller"
+			ControllerSettings.Devices.SWITCH:
+				text += "nintendo switch pro controller"
+			ControllerSettings.Devices.JOYCON:
+				text += "nintendo switch joy con"
+			ControllerSettings.Devices.XBOX360:
+				text += "xbox 360"
+			ControllerSettings.Devices.XBOXONE:
+				text += "xbox one"
+			ControllerSettings.Devices.XBOXSERIES:
+				text += "xbox series"
+			ControllerSettings.Devices.STEAM_DECK:
+				text += "steam deck"
+		return text
+	return ""

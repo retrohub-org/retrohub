@@ -3,6 +3,7 @@ extends Control
 signal change_ocurred
 signal reset_state
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_name := $"%Name"
 onready var n_description := $"%Description"
 onready var n_rating_lbl := $"%RatingLabel"
@@ -10,10 +11,7 @@ onready var n_rating := $"%Rating"
 onready var n_release_date := $"%ReleaseDate"
 onready var n_developer := $"%Developer"
 onready var n_publisher := $"%Publisher"
-onready var n_esrb := $"%ESRB"
-onready var n_pegi := $"%PEGI"
-onready var n_cero := $"%CERO"
-onready var n_change_age_rating := $"%ChangeAgeRating"
+onready var n_age_rating := $"%AgeRating"
 onready var n_genres := $"%Genres"
 onready var n_fixed_players := $"%FixedPlayers"
 onready var n_fixed_players_num := $"%FixedPlayersNum"
@@ -23,16 +21,52 @@ onready var n_variable_players_max := $"%VariablePlayersMax"
 onready var n_favorite := $"%Favorite"
 onready var n_num_times_played := $"%NumTimesPlayed"
 
-onready var n_age_rating_popup := $"%AgeRatingPopup"
-
 var game_data : RetroHubGameData setget set_game_data
-var rating_str : String
 
 export(bool) var disable_edits := false
 
 func _ready():
 	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("game_data_updated", self, "_on_game_data_updated")
+	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+
+	n_age_rating.get_popup().max_height = RetroHubUI.max_popupmenu_height
+
+func _on_config_ready(config: ConfigData):
+	update_age_rating_options(config.rating_system)
+
+func _on_config_updated(key: String, old, new):
+	if key == ConfigData.KEY_RATING_SYSTEM:
+		update_age_rating_options(new)
+		if game_data:
+			discard_changes()
+
+func update_age_rating_options(type: String):
+	n_age_rating.clear()
+	match type:
+		"pegi":
+			n_age_rating.add_icon_item(load("res://assets/ratings/pegi/unknown.png"), "Unknown")
+			n_age_rating.add_icon_item(load("res://assets/ratings/pegi/3.png"), "3+")
+			n_age_rating.add_icon_item(load("res://assets/ratings/pegi/7.png"), "7+")
+			n_age_rating.add_icon_item(load("res://assets/ratings/pegi/12.png"), "12+")
+			n_age_rating.add_icon_item(load("res://assets/ratings/pegi/16.png"), "16+")
+			n_age_rating.add_icon_item(load("res://assets/ratings/pegi/18.png"), "18+")
+		"cero":
+			n_age_rating.add_icon_item(load("res://assets/ratings/cero/unknown.png"), "Unknown")
+			n_age_rating.add_icon_item(load("res://assets/ratings/cero/A.png"), "All Ages")
+			n_age_rating.add_icon_item(load("res://assets/ratings/cero/B.png"), "12+")
+			n_age_rating.add_icon_item(load("res://assets/ratings/cero/C.png"), "15+")
+			n_age_rating.add_icon_item(load("res://assets/ratings/cero/D.png"), "17+")
+			n_age_rating.add_icon_item(load("res://assets/ratings/cero/Z.png"), "Adults Only")
+		"esrb", _:
+			n_age_rating.add_icon_item(load("res://assets/ratings/esrb/unknown.png"), "Unknown")
+			n_age_rating.add_icon_item(load("res://assets/ratings/esrb/E.png"), "Everyone")
+			n_age_rating.add_icon_item(load("res://assets/ratings/esrb/E10.png"), "Everyone 10+")
+			n_age_rating.add_icon_item(load("res://assets/ratings/esrb/T.png"), "Teen")
+			n_age_rating.add_icon_item(load("res://assets/ratings/esrb/M.png"), "Mature")
+			n_age_rating.add_icon_item(load("res://assets/ratings/esrb/AO.png"), "Adults Only")
+		
 
 func _on_game_data_updated(_game_data: RetroHubGameData):
 	if game_data == _game_data:
@@ -51,11 +85,7 @@ func discard_changes():
 		n_release_date.text = RegionUtils.localize_date(game_data.release_date)
 		n_developer.text = game_data.developer
 		n_publisher.text = game_data.publisher
-		rating_str = game_data.age_rating
-		set_rating_icons()
-		n_esrb.from_rating_str(game_data.age_rating, 0)
-		n_pegi.from_rating_str(game_data.age_rating, 1)
-		n_cero.from_rating_str(game_data.age_rating, 2)
+		n_age_rating.selected = int(game_data.age_rating.get_slice("/", RegionUtils.localize_age_rating_idx()))
 		n_genres.text = game_data.genres[0] if game_data.genres.size() > 0 else ""
 		var players_splits := game_data.num_players.split_floats("-")
 		if players_splits.size() >= 2:
@@ -93,8 +123,7 @@ func discard_changes():
 		n_release_date.text = ""
 		n_developer.text = ""
 		n_publisher.text = ""
-		rating_str = "0/0/0"
-		set_rating_icons()
+		n_age_rating.selected = 0
 		n_genres.text = ""
 		n_fixed_players.set_pressed_no_signal(true)
 		_on_FixedPlayers_toggled(true)
@@ -115,7 +144,7 @@ func set_edit_nodes_enabled(enabled: bool):
 	n_release_date.editable = enabled
 	n_developer.editable = enabled
 	n_publisher.editable = enabled
-	n_change_age_rating.disabled = !enabled
+	n_age_rating.disabled = !enabled
 	n_genres.editable = enabled
 	n_fixed_players.disabled = !enabled
 	n_fixed_players_num.editable = enabled
@@ -133,6 +162,12 @@ func save_changes():
 		game_data.release_date = RegionUtils.globalize_date_str(n_release_date.text)
 		game_data.developer = n_developer.text
 		game_data.publisher = n_publisher.text
+		var rating_idx := RegionUtils.localize_age_rating_idx()
+		var rating_str = "%d/%d/%d" % [
+			n_age_rating.selected if rating_idx == 0 else int(game_data.age_rating.get_slice("/", 0)),
+			n_age_rating.selected if rating_idx == 1 else int(game_data.age_rating.get_slice("/", 1)),
+			n_age_rating.selected if rating_idx == 2 else int(game_data.age_rating.get_slice("/", 2))
+		]
 		game_data.age_rating = rating_str
 		if game_data.genres.size():
 			game_data.genres[0] = n_genres.text
@@ -148,26 +183,13 @@ func save_changes():
 			emit_signal("reset_state")
 
 func grab_focus():
-	n_name.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_name.grab_focus()
 
 func _on_Rating_value_changed(value):
 	n_rating_lbl.text = str(value) + "%"
-
-func _on_AgeRatingPopup_rating_defined(_rating_str):
-	rating_str = _rating_str
-	set_rating_icons()
-
-func _on_AgeRatingPopup_popup_hide():
-	n_change_age_rating.grab_focus()
-
-func set_rating_icons():
-	n_esrb.from_rating_str(rating_str, 0)
-	n_pegi.from_rating_str(rating_str, 1)
-	n_cero.from_rating_str(rating_str, 2)
-
-func _on_ChangeAgeRating_pressed():
-	n_age_rating_popup.set_rating_str(rating_str)
-	n_age_rating_popup.popup()
 
 
 func _on_FixedPlayers_toggled(_button_pressed):

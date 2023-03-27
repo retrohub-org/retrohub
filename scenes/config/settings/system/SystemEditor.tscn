@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/config/settings/system/SystemEditor.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
 
 [node name="SystemEditor" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-focus_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
@@ -23,6 +23,11 @@ margin_right = 80.0
 margin_bottom = 14.0
 text = "Photo:"
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer/VBoxContainer/Label"]
+script = ExtResource( 2 )
+previous = NodePath("../../../../Emulators")
+next = NodePath("../../Photo")
+
 [node name="Photo" type="Button" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 18.0
@@ -33,6 +38,11 @@ focus_neighbour_bottom = NodePath("../../../HBoxContainer3/Name")
 disabled = true
 clip_text = true
 expand_icon = true
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer/VBoxContainer/Photo"]
+script = ExtResource( 2 )
+previous = NodePath("../../Label")
+next = NodePath("../../../VBoxContainer2/Label")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 84.0
@@ -45,6 +55,11 @@ margin_right = 940.0
 margin_bottom = 14.0
 text = "Logo:"
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer/VBoxContainer2/Label"]
+script = ExtResource( 2 )
+previous = NodePath("../../../VBoxContainer/Photo")
+next = NodePath("../../Logo")
+
 [node name="Logo" type="Button" parent="HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 margin_top = 18.0
@@ -56,6 +71,10 @@ size_flags_vertical = 3
 disabled = true
 clip_text = true
 expand_icon = true
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer/VBoxContainer2/Logo"]
+script = ExtResource( 2 )
+previous = NodePath("../../Label")
 
 [node name="HSeparator" type="HSeparator" parent="."]
 margin_top = 102.0
@@ -80,6 +99,9 @@ margin_bottom = 14.0
 size_flags_horizontal = 3
 autowrap = true
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer2/Identifier"]
+script = ExtResource( 2 )
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="."]
 margin_top = 128.0
 margin_right = 1024.0
@@ -90,6 +112,9 @@ margin_top = 5.0
 margin_right = 46.0
 margin_bottom = 19.0
 text = "Name: "
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer3/Label"]
+script = ExtResource( 2 )
 
 [node name="Name" type="LineEdit" parent="HBoxContainer3"]
 unique_name_in_owner = true
@@ -113,6 +138,9 @@ margin_right = 63.0
 margin_bottom = 17.0
 text = "Category: "
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer4/Label"]
+script = ExtResource( 2 )
+
 [node name="Category" type="OptionButton" parent="HBoxContainer4"]
 unique_name_in_owner = true
 margin_left = 67.0
@@ -134,6 +162,9 @@ margin_bottom = 14.0
 size_flags_vertical = 0
 text = "Supported extensions: "
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer6/Label"]
+script = ExtResource( 2 )
+
 [node name="Extensions" type="Label" parent="HBoxContainer6"]
 unique_name_in_owner = true
 margin_left = 151.0
@@ -143,6 +174,9 @@ margin_bottom = 17.0
 focus_neighbour_bottom = NodePath("../../HBoxContainer5/HBoxContainer/AddEmulator")
 size_flags_horizontal = 3
 autowrap = true
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer6/Extensions"]
+script = ExtResource( 2 )
 
 [node name="ChangeExtensions" type="Button" parent="HBoxContainer6"]
 unique_name_in_owner = true
@@ -163,6 +197,9 @@ margin_top = 3.0
 margin_right = 72.0
 margin_bottom = 17.0
 text = "Emulators: "
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer5/Label"]
+script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer5"]
 margin_left = 987.0
@@ -188,6 +225,10 @@ size_flags_vertical = 3
 columns = 3
 hide_root = true
 single_click_select = true
+
+[node name="AccessibilityFocus" type="Node" parent="Emulators"]
+script = ExtResource( 2 )
+next = NodePath("../../HBoxContainer/VBoxContainer/Label")
 
 [connection signal="text_changed" from="HBoxContainer3/Name" to="." method="_on_item_change"]
 [connection signal="item_selected" from="HBoxContainer4/Category" to="." method="_on_item_change"]

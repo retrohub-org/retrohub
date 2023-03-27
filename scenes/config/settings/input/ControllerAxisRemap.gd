@@ -23,6 +23,7 @@ func start(curr_action: String, pos: Vector2):
 	if map_idx != -1:
 		var icon : Button = n_icons[map_idx]
 		icon.disabled = true
+		icon.focus_mode = FOCUS_NONE
 		focus_holder = icon
 	else:
 		focus_holder = n_icons[0]
@@ -34,6 +35,7 @@ func start(curr_action: String, pos: Vector2):
 	# Popup internally tries to focus, so wait until it's shown to grab focus
 	yield(get_tree(), "idle_frame")
 	focus_holder.grab_focus()
+	TTS.speak("Choose the new axis for this action")
 
 func _find_axis_from_action(raw_action: String):
 	for event in InputMap.get_action_list(raw_action):
@@ -49,9 +51,15 @@ func _on_ControllerButtonRemap_popup_hide():
 	# Enable all the button from previous cases
 	for icon in n_icons:
 		icon.disabled = false
+		icon.focus_mode = FOCUS_ALL
 
 
 func _on_Icon_pressed(axis):
 	var axis_name := "right" if old_axis == JOY_ANALOG_RX else "left"
 	emit_signal("remap_done", action, axis_name, axis)
 	hide()
+
+func tts_text(focused: Control) -> String:
+	if focused is ControllerButton:
+		return focused.get_tts_string() + " axis"
+	return ""

@@ -23,14 +23,24 @@ func _ready():
 
 func _input(event: InputEvent):
 	if not RetroHub._running_game:
-		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
-			var modal_top := get_viewport().get_modal_stack_top()
-			if modal_top == null or modal_top == self:
+		var modal_top := get_viewport().get_modal_stack_top()
+		if modal_top == null or modal_top == self:
+			if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
 				get_tree().set_input_as_handled()
 				if not visible:
 					popup()
 				else:
 					hide()
+			if event.is_action_pressed("rh_back"):
+				# If using the default Backspace key, don't consume event if inside a
+				# text field, otherwise deleting text becomes impossible
+				if event.scancode == KEY_BACKSPACE and (get_focus_owner() is TextEdit \
+					or get_focus_owner() is LineEdit):
+					return
+				get_tree().set_input_as_handled()
+				if not last_tab:
+					last_tab = n_game_tab
+				last_tab.grab_focus()
 
 func _on_Tab_pressed(idx: int):
 	n_main.current_tab = idx

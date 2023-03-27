@@ -1,5 +1,6 @@
 extends Control
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_game_lib_dir := $"%GameLibDir"
 onready var n_set_game_path := $"%SetGamePath"
 onready var n_themes := $"%Themes"
@@ -21,7 +22,10 @@ func _ready():
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 
 func grab_focus():
-	n_set_game_path.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_set_game_path.grab_focus()
 
 func set_themes():
 	n_themes.clear()

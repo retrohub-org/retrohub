@@ -2,6 +2,7 @@ extends WindowDialog
 
 signal cores_picked(cores)
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_core_options := $"%CoreOptions"
 onready var n_add_core := $"%AddCore"
 onready var n_cores := $"%Cores"
@@ -32,7 +33,10 @@ func start(cores: Array, existing: Array):
 	# Popup
 	popup_centered()
 	yield(get_tree(), "idle_frame")
-	n_core_options.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_core_options.grab_focus()
 	n_add_core.disabled = n_core_options.get_child_count() == 0
 
 func reset():
@@ -82,3 +86,10 @@ func _on_AddCore_pressed():
 		idx = 0
 	n_core_options.selected = idx
 	n_add_core.disabled = n_core_options.get_item_count() == 0
+
+func tts_tree_item_text(item: TreeItem, tree: Tree) -> String:
+	if tree == n_cores:
+		if item:
+			if item.is_selected(1):
+				return "Remove emulator"
+	return ""

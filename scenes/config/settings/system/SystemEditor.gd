@@ -142,3 +142,12 @@ func _on_Emulators_item_activated():
 
 func _on_AddEmulator_pressed():
 	emit_signal("request_add_emulator")
+
+func tts_tree_item_text(item: TreeItem, tree: Tree) -> String:
+	if tree == n_emulators:
+		if item:
+			if item.is_selected(1):
+				return "Configure emulator"
+			if item.is_selected(2):
+				return "Remove emulator"
+	return ""

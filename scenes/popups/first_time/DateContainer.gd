@@ -31,7 +31,7 @@ func _on_Timer_timeout():
 
 func tts_text(focused: Control) -> String:
 	if focused == n_options:
-		return tts_popup_menu_item_text(n_options.selected, n_options.get_popup())
+		return tts_popup_menu_item_text(n_options.selected, n_options.get_popup()) + ". button"
 	return ""
 
 func tts_popup_menu_item_text(idx: int, menu: PopupMenu) -> String:
