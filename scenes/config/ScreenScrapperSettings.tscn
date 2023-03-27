@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/config/ScreenScrapperSettings.gd" type="Script" id=1]
 [ext_resource path="res://assets/icons/visibility_visible.svg" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/fonts/NotoSans-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/fonts/NotoSans-Italic.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/fonts/NotoSans-Bold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=2]
 size = 14
@@ -57,6 +58,9 @@ margin_bottom = 27.0
 size_flags_horizontal = 3
 text = "Use custom account?"
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer/Label"]
+script = ExtResource( 8 )
+
 [node name="UseAccount" type="CheckButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 948.0
@@ -75,6 +79,9 @@ margin_right = 720.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Username:"
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer2/Label"]
+script = ExtResource( 8 )
 
 [node name="Username" type="LineEdit" parent="HBoxContainer2"]
 unique_name_in_owner = true
@@ -100,6 +107,9 @@ margin_right = 686.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Password:"
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer3/Label"]
+script = ExtResource( 8 )
 
 [node name="ShowPassword" type="TextureButton" parent="HBoxContainer3"]
 margin_left = 690.0
@@ -146,6 +156,9 @@ text = " Warning: Due to the way ScreenScraper works, the password will be store
 fit_content_height = true
 scroll_active = false
 
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer4/Label"]
+script = ExtResource( 8 )
+
 [node name="HBoxContainer5" type="HBoxContainer" parent="."]
 margin_top = 176.0
 margin_right = 1024.0
@@ -158,6 +171,9 @@ margin_right = 708.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Scraper maximum thread count:"
+
+[node name="AccessibilityFocus" type="Node" parent="HBoxContainer5/Label"]
+script = ExtResource( 8 )
 
 [node name="ThreadCountLabel" type="Label" parent="HBoxContainer5"]
 unique_name_in_owner = true

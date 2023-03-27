@@ -135,6 +135,7 @@ selected = 0
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer/HBoxContainer/RatingOptions"]
 script = ExtResource( 17 )
+next = NodePath("../../../../DateContainer/HBoxContainer/Label")
 
 [node name="RatingIcons" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer"]
 unique_name_in_owner = true
@@ -201,6 +202,7 @@ text = "Date format:"
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DateContainer/HBoxContainer/Label"]
 script = ExtResource( 17 )
+previous = NodePath("../../../../RatingContainer/HBoxContainer/RatingOptions")
 
 [node name="DateOptions" type="OptionButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DateContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -214,6 +216,7 @@ selected = 0
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DateContainer/HBoxContainer/DateOptions"]
 script = ExtResource( 17 )
+next = NodePath("../../../../../SystemsContainer/Label")
 
 [node name="ExampleDate" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DateContainer"]
 unique_name_in_owner = true
@@ -245,6 +248,7 @@ text = "System names: "
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/SystemsContainer/Label"]
 script = ExtResource( 17 )
+previous = NodePath("../../../HBoxContainer2/DateContainer/HBoxContainer/DateOptions")
 
 [node name="HFlowContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/SystemsContainer"]
 margin_top = 18.0

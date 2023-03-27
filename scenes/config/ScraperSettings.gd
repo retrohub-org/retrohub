@@ -1,5 +1,6 @@
 extends Control
 
+onready var n_intro_lbl := $"%IntroLabel"
 onready var n_service := $"%Service"
 onready var n_games_selected := $"%GamesSelected"
 onready var n_games_type := $"%GamesType"
@@ -49,7 +50,10 @@ func _on_config_ready(config_data: ConfigData):
 	n_hash_max_size.set_value_no_signal(convert_hash_size_to_range(config_data.scraper_hash_file_size))
 
 func grab_focus():
-	n_service.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_service.grab_focus()
 
 func toggle_scrape_button():
 	n_scrape.disabled = selected_game_datas.empty() or \
@@ -197,3 +201,14 @@ func _on_Hash_toggled(button_pressed):
 
 func _on_Filename_toggled(button_pressed):
 	toggle_scrape_button()
+
+func tts_range_value_text(value: float, node: Node) -> String:
+	if node == n_hash_max_size:
+		var size := convert_hash_size_from_range(value)
+		if size == 0:
+			return "Unlimited"
+		elif size >= 1024:
+			return "%.2f GB" % (value / 1024.0)
+		else:
+			return "%d MB" % value
+	return ""

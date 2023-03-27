@@ -62,17 +62,19 @@ func globalize_date_dict(date_dict: Dictionary):
 	return "%04d%02d%02dT%02d%02d%02d" % [year, month, day, hour, minute, second]
 
 func localize_age_rating(age_rating_raw: String) -> Control:
-	var rating_idx : int
+	var rating_idx := localize_age_rating_idx()
+	var rating_node : Control = preload("res://scenes/ui_nodes/AgeRatingTextureRect.tscn").instance()
+	rating_node.from_idx(age_rating_raw.get_slice("/", rating_idx), rating_idx)
+	return rating_node
+
+func localize_age_rating_idx() -> int:
 	match RetroHubConfig.config.rating_system:
 		"pegi":
-			rating_idx = 1
+			return 1
 		"cero":
-			rating_idx = 2
+			return 2
 		"esrb", _:
-			rating_idx = 0
-	var rating_node : Control = preload("res://scenes/ui_nodes/AgeRatingTextureRect.tscn").instance()
-	rating_node.from_rating_str(age_rating_raw, rating_idx)
-	return rating_node
+			return 0
 
 func localize_system_name(system_name: String) -> String:
 	if RetroHubConfig.config.system_names.has(system_name):

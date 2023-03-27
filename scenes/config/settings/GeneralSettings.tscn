@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/config/settings/GeneralSettings.gd" type="Script" id=1]
 [ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/icons/load.svg" type="Texture" id=3]
 [ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=4]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=5]
 
 [node name="GeneralSettings" type="Control"]
 anchor_right = 1.0
@@ -28,11 +29,16 @@ size_flags_vertical = 3
 margin_right = 1024.0
 margin_bottom = 154.0
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/User"]
+[node name="IntroLabel" type="Label" parent="ScrollContainer/VBoxContainer/User"]
+unique_name_in_owner = true
 margin_right = 1024.0
 margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 text = "User"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/User/IntroLabel"]
+script = ExtResource( 5 )
+previous = NodePath("../../../Accessibility/HBoxContainer/ScreenReader")
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/User"]
 margin_top = 24.0
@@ -52,6 +58,9 @@ margin_right = 617.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Game library directory:"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/User/HBoxContainer/Label"]
+script = ExtResource( 5 )
 
 [node name="GameLibDir" type="LineEdit" parent="ScrollContainer/VBoxContainer/User/HBoxContainer"]
 unique_name_in_owner = true
@@ -88,6 +97,9 @@ margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Theme:"
 
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/User/HBoxContainer2/Label"]
+script = ExtResource( 5 )
+
 [node name="Themes" type="OptionButton" parent="ScrollContainer/VBoxContainer/User/HBoxContainer2"]
 unique_name_in_owner = true
 margin_left = 636.0
@@ -115,6 +127,9 @@ margin_right = 720.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Language:"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/User/HBoxContainer3/Label"]
+script = ExtResource( 5 )
 
 [node name="Language" type="OptionButton" parent="ScrollContainer/VBoxContainer/User/HBoxContainer3"]
 unique_name_in_owner = true
@@ -146,6 +161,9 @@ margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 text = "Graphics"
 
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Graphics/Label"]
+script = ExtResource( 5 )
+
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/Graphics"]
 margin_top = 24.0
 margin_right = 1024.0
@@ -164,6 +182,9 @@ margin_right = 913.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Mode:"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer/Label"]
+script = ExtResource( 5 )
 
 [node name="GraphicsMode" type="OptionButton" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer"]
 unique_name_in_owner = true
@@ -188,6 +209,9 @@ margin_bottom = 27.0
 size_flags_horizontal = 3
 text = "Enable V-Sync:"
 
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer2/Label"]
+script = ExtResource( 5 )
+
 [node name="VSync" type="CheckButton" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer2"]
 unique_name_in_owner = true
 margin_left = 948.0
@@ -208,6 +232,9 @@ margin_bottom = 15.0
 size_flags_horizontal = 3
 text = "Render resolution:"
 
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer3/Label"]
+script = ExtResource( 5 )
+
 [node name="RenderResLabel" type="Label" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer3"]
 unique_name_in_owner = true
 margin_left = 773.0
@@ -222,7 +249,6 @@ margin_left = 824.0
 margin_right = 1024.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 200, 0 )
-focus_neighbour_bottom = NodePath("../../../Accessibility/HBoxContainer/ScreenReader")
 min_value = 50.0
 step = 5.0
 value = 100.0
@@ -239,6 +265,9 @@ margin_right = 1024.0
 margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 text = "Accessibility"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Accessibility/Label"]
+script = ExtResource( 5 )
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/Accessibility"]
 margin_top = 24.0
@@ -259,12 +288,19 @@ margin_bottom = 27.0
 size_flags_horizontal = 3
 text = "Enable screen reader:"
 
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer/Label"]
+script = ExtResource( 5 )
+
 [node name="ScreenReader" type="CheckButton" parent="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer"]
 unique_name_in_owner = true
 margin_left = 948.0
 margin_right = 1024.0
 margin_bottom = 40.0
 focus_neighbour_bottom = NodePath("../../../User/HBoxContainer/SetGamePath")
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer/ScreenReader"]
+script = ExtResource( 5 )
+next = NodePath("../../../../User/IntroLabel")
 
 [node name="ScrollHandler" type="Control" parent="ScrollContainer"]
 script = ExtResource( 4 )

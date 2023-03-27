@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/config/settings/AddCustomInfo.gd" type="Script" id=1]
 [ext_resource path="res://assets/icons/success.svg" type="Texture" id=2]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=3]
 
 [node name="AddCustomInfoPopup" type="WindowDialog"]
 anchor_left = 0.5
@@ -32,6 +33,9 @@ This cannot be changed after being set."
 align = 1
 valign = 1
 autowrap = true
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/IntroLabel"]
+script = ExtResource( 3 )
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
 unique_name_in_owner = true

@@ -182,7 +182,7 @@ func _on_Systems_item_selected(index):
 
 func tts_text(focused: Control) -> String:
 	if focused == n_systems:
-		return tts_popup_menu_item_text(n_systems.get_item_index(n_systems.get_selected_id()), n_systems.get_popup())
+		return tts_popup_menu_item_text(n_systems.get_item_index(n_systems.get_selected_id()), n_systems.get_popup()) + ". button"
 	return ""
 
 func tts_popup_menu_item_text(idx: int, menu: PopupMenu) -> String:

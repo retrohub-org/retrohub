@@ -273,44 +273,6 @@ func line_edit_focused():
 		type = "text"
 	TTS.speak("%s: %s" % [text, type])
 
-
-var old_text = ""
-
-var old_pos
-
-
-func line_edit_text_changed(text):
-	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
-		return
-	if text == null or old_text == null:
-		return
-	if len(text) > len(old_text):
-		for i in range(len(text)):
-			if text.substr(i, 1) != old_text.substr(i, 1):
-				TTS.speak(text.substr(i, 1))
-				return
-	else:
-		for i in range(len(old_text)):
-			if old_text.substr(i, 1) != text.substr(i, 1):
-				TTS.speak(old_text.substr(i, 1))
-				return
-
-
-func line_edit_input(event):
-	var pos = node.caret_position
-	if old_pos != null and old_pos != pos:
-		var text = node.text
-		if old_text == text:
-			if pos > len(text) - 1:
-				TTS.speak("blank", true)
-			else:
-				TTS.speak(text[pos], true)
-		old_pos = pos
-	elif old_pos == null:
-		old_pos = pos
-	old_text = node.text
-
-
 func menu_button_focused():
 	var tokens = PoolStringArray([])
 	if node.text:
@@ -331,13 +293,14 @@ func popup_menu_item_id_focused(index, node):
 		return
 	print_debug("item id focus %s" % index)
 	var n : Node = node
-	while n:
+	var spoken_custom := false
+	while n and not spoken_custom:
 		if n.has_method("tts_popup_menu_item_text"):
 			yield(get_tree(), "idle_frame")
 			var text : String = n.tts_popup_menu_item_text(index, node)
 			if not text.empty():
 				TTS.speak(text)
-				return
+				spoken_custom = true
 		n = n.get_parent()
 	var tokens = PoolStringArray([])
 	var shortcut = node.get_item_shortcut(index)
@@ -350,7 +313,7 @@ func popup_menu_item_id_focused(index, node):
 		if text != "None":
 			tokens.append(text)
 	var item = node.get_item_text(index)
-	if item and item != name:
+	if item and not spoken_custom and item != name:
 		tokens.append(item)
 	var submenu = node.get_item_submenu(index)
 	if submenu:
@@ -368,7 +331,7 @@ func popup_menu_item_id_focused(index, node):
 	if disabled:
 		tokens.append("disabled")
 	tokens.append(str(index + 1) + " of " + str(node.get_item_count()))
-	TTS.speak(tokens.join(": "))
+	TTS.speak(tokens.join(": "), not spoken_custom)
 
 
 func popup_menu_item_id_pressed(index, node):
@@ -383,7 +346,19 @@ func popup_menu_item_id_pressed(index, node):
 
 func range_focused():
 	var tokens = PoolStringArray([])
-	tokens.append(str(node.value))
+	var n = node
+	while n:
+		if n.has_method("tts_range_value_text"):
+			break
+		n = n.get_parent()
+	if n:
+		var text : String = n.tts_range_value_text(node.value, node)
+		if not text.empty():
+			tokens.append(text)
+		else:
+			tokens.append(str(node.value))
+	else:
+		tokens.append(str(node.value))
 	if node is HSlider:
 		tokens.append("horizontal slider")
 	elif node is VSlider:
@@ -392,8 +367,20 @@ func range_focused():
 		tokens.append("spin box")
 	else:
 		tokens.append("range")
-	tokens.append("minimum %s" % node.min_value)
-	tokens.append("maximum %s" % node.max_value)
+	if n:
+		var min_text : String = n.tts_range_value_text(node.min_value, node)
+		var max_text : String = n.tts_range_value_text(node.max_value, node)
+		if not min_text.empty():
+			tokens.append("minimum %s" % min_text)
+		else:
+			tokens.append("minimum %s" % node.min_value)
+		if not max_text.empty():
+			tokens.append("maximum %s" % max_text)
+		else:
+			tokens.append("maximum %s" % node.max_value)
+	else:
+		tokens.append("minimum %s" % node.min_value)
+		tokens.append("maximum %s" % node.max_value)
 	if OS.has_touchscreen_ui_hint():
 		tokens.append("Swipe up and down to change.")
 	TTS.speak(tokens.join(": "))
@@ -415,6 +402,14 @@ func range_value_changed(value, node):
 	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
 	if node.has_focus():
+		var n = node
+		while n:
+			if n.has_method("tts_range_value_text"):
+				var text : String = n.tts_range_value_text(value, node)
+				if not text.empty():
+					TTS.speak(text)
+					return
+			n = n.get_parent()
 		TTS.speak("%s" % value)
 
 
@@ -430,15 +425,7 @@ func text_edit_focus():
 		tokens.append("edit text")
 	TTS.speak(tokens.join(": "))
 
-
-func text_edit_input(event):
-	pass
-
-
-var _last_tree_item_tokens
-
 var button_index
-
 
 func _tree_item_render(node):
 	if not node.has_focus():
@@ -454,48 +441,47 @@ func _tree_item_render(node):
 				return
 		n = n.get_parent()
 	var tokens = PoolStringArray([])
-	for i in range(node.columns):
-		if node.select_mode == Tree.SELECT_MULTI or cell.is_selected(i):
-			var title = node.get_column_title(i)
-			if title:
-				tokens.append(title)
-			var column_text = cell.get_text(i)
-			if column_text:
-				tokens.append(column_text)
-			if cell.get_children():
-				if cell.collapsed:
-					tokens.append("collapsed")
-				else:
-					tokens.append("expanded")
-			var button_count = cell.get_button_count(i)
-			if button_count != 0:
-				var column
-				for j in range(node.columns):
-					if cell.is_selected(j):
-						column = j
-						break
-				if column == i:
-					button_index = 0
-				else:
-					button_index = null
-				tokens.append(
-					(
-						str(button_count)
-						+ " "
-						+ TTS.singular_or_plural(button_count, "button", "buttons")
+	if cell:
+		for i in range(node.columns):
+			if node.select_mode == Tree.SELECT_MULTI or cell.is_selected(i):
+				var title = node.get_column_title(i)
+				if title:
+					tokens.append(title)
+				var column_text = cell.get_text(i)
+				if column_text:
+					tokens.append(column_text)
+				if cell.get_children():
+					if cell.collapsed:
+						tokens.append("collapsed")
+					else:
+						tokens.append("expanded")
+				var button_count = cell.get_button_count(i)
+				if button_count != 0:
+					var column
+					for j in range(node.columns):
+						if cell.is_selected(j):
+							column = j
+							break
+					if column == i:
+						button_index = 0
+					else:
+						button_index = null
+					tokens.append(
+						(
+							str(button_count)
+							+ " "
+							+ TTS.singular_or_plural(button_count, "button", "buttons")
+						)
 					)
-				)
-				if button_index != null:
-					var button_tooltip = cell.get_button_tooltip(i, button_index)
-					if button_tooltip:
-						tokens.append(button_tooltip)
-						tokens.append("button")
-					if button_count > 1:
-						tokens.append("Use Home and End to switch focus.")
-	tokens.append("tree item")
-	if tokens != _last_tree_item_tokens:
+					if button_index != null:
+						var button_tooltip = cell.get_button_tooltip(i, button_index)
+						if button_tooltip:
+							tokens.append(button_tooltip)
+							tokens.append("button")
+						if button_count > 1:
+							tokens.append("Use Home and End to switch focus.")
+		tokens.append("tree item")
 		TTS.speak(tokens.join(": "), true)
-	_last_tree_item_tokens = tokens
 
 
 var prev_selected_cell
@@ -564,7 +550,6 @@ func _tree_input(event):
 
 
 func tree_focused():
-	_last_tree_item_tokens = null
 	if node.get_selected():
 		_tree_item_render(node)
 	else:
@@ -629,21 +614,14 @@ func tab_container_tab_changed(tab, node):
 		TTS.stop()
 		tab_container_focused()
 
-
-func tab_container_input(event):
-	var new_tab = node.current_tab
-	if event.is_action_pressed("ui_right"):
-		node.accept_event()
-		new_tab += 1
-	elif event.is_action_pressed("ui_left"):
-		node.accept_event()
-		new_tab -= 1
-	if new_tab < 0:
-		new_tab = node.get_tab_count() - 1
-	elif new_tab >= node.get_tab_count():
-		new_tab = 0
-	if node.current_tab != new_tab:
-		node.current_tab = new_tab
+func tab_container_handler_changed(tab, enter_tab, node):
+	var n = node
+	while n:
+		if n.has_method("tts_text"):
+			var text = n.tts_text(node)
+			if text:
+				TTS.speak(text)
+				return
 
 
 func gui_focus_changed(_node: Control):
@@ -663,7 +641,6 @@ func gui_focus_changed(_node: Control):
 	var n : Node = node
 	while n:
 		if n.has_method("tts_text"):
-			yield(get_tree(), "idle_frame")
 			var text : String = n.tts_text(node)
 			if not text.empty():
 				TTS.speak(text)
@@ -709,7 +686,7 @@ func gui_focus_changed(_node: Control):
 	spoke_hint_tooltip = false
 
 
-func gui_input(event):
+func _input(event):
 	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
 	if (
@@ -723,17 +700,16 @@ func gui_input(event):
 	elif event is InputEventKey and event.pressed and not event.echo and event.scancode == KEY_MENU:
 		node.get_tree().root.warp_mouse(node.rect_global_position)
 		return click(null, BUTTON_RIGHT)
-	if node is TabContainer:
-		return tab_container_input(event)
 	elif node is ItemList:
 		return item_list_input(event)
-	elif node is LineEdit:
-		return line_edit_input(event)
-	elif node is TextEdit:
-		return text_edit_input(event)
-	elif node is Tree:
-		pass
-		#return _tree_input(event)
+	elif event is InputEventKey and event.is_pressed() and (node is LineEdit or node is TextEdit):
+		if (event.is_action("ui_left") or event.is_action("ui_right")) \
+			and event.scancode & SPKEY and node is LineEdit:
+			yield(get_tree(), "idle_frame")
+			if node.caret_position < node.text.length():
+				TTS.speak(node.text.substr(node.caret_position))
+		elif not (event.scancode & SPKEY):
+			TTS.speak(OS.get_scancode_string(event.scancode))
 
 func connect_signals():
 	if node.is_in_group("rh_accessible"):
@@ -749,8 +725,6 @@ func connect_signals():
 		node.connect("item_selected", self, "item_list_item_selected", [node])
 		node.connect("multi_selected", self, "item_list_multi_selected")
 		node.connect("nothing_selected", self, "item_list_nothing_selected")
-	elif node is LineEdit:
-		node.connect("text_changed", self, "line_edit_text_changed")
 	elif node is PopupMenu:
 		node.connect("id_focused", self, "popup_menu_item_id_focused", [node])
 		node.connect("id_pressed", self, "popup_menu_item_id_pressed", [node])
@@ -763,6 +737,8 @@ func connect_signals():
 			node.connect("value_changed", self, "range_value_changed", [node])
 	elif node is TabContainer:
 		node.connect("tab_changed", self, "tab_container_tab_changed", [node])
+	elif node is TabContainerHandler:
+		node.connect("tab_changed", self, "tab_container_handler_changed", [node])
 	elif node is Tree:
 		node.connect("item_collapsed", self, "_tree_item_collapsed", [node])
 		node.connect("multi_selected", self, "tree_item_multi_selected")

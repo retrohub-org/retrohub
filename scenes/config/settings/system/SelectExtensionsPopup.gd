@@ -2,6 +2,7 @@ extends Popup
 
 signal extensions_picked(extensions)
 
+onready var n_intro_lbl = $"%IntroLabel"
 onready var n_new_extensions := $"%NewExtensions"
 onready var n_ext_line_edit := $"%ExtLineEdit"
 onready var n_add_extension := $"%AddExtension"
@@ -38,10 +39,13 @@ func start(system_name: String, _extensions: Array):
 
 	popup_centered()
 	yield(get_tree(), "idle_frame")
-	if n_new_extensions.get_child_count():
-		n_new_extensions.get_child(0).grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
 	else:
-		n_ext_line_edit.grab_focus()
+		if n_new_extensions.get_child_count():
+			n_new_extensions.get_child(0).grab_focus()
+		else:
+			n_ext_line_edit.grab_focus()
 
 func reset():
 	for child in n_new_extensions.get_children():

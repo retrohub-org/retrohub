@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/config/QuitSettings.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
 
 [node name="QuitSettings" type="Control"]
 anchor_right = 1.0
@@ -25,6 +26,10 @@ margin_bottom = 20.0
 focus_neighbour_top = NodePath("../HBoxContainer2/Shutdown")
 size_flags_horizontal = 4
 text = "Quit Retrohub"
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Quit"]
+script = ExtResource( 2 )
+previous = NodePath("../../HBoxContainer2/Restart")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 40.0
@@ -72,5 +77,9 @@ margin_bottom = 20.0
 focus_neighbour_bottom = NodePath("../../Quit")
 disabled = true
 text = "Restart system"
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/HBoxContainer2/Restart"]
+script = ExtResource( 2 )
+next = NodePath("../../../Quit")
 
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

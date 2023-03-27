@@ -79,3 +79,8 @@ func convert_license_key(key: String) -> String:
 			return "CC BY NC SA 4.0"
 		_:
 			return ""
+
+
+func _on_Names_item_activated():
+	if n_content.focus_mode == FOCUS_ALL:
+		n_content.grab_focus()

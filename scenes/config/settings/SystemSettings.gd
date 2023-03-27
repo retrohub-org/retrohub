@@ -152,6 +152,8 @@ func _on_RemoveSystem_pressed():
 				idx -= 1
 			n_system_selection.select(idx)
 			_on_SystemSelection_item_selected(idx)
+	if not n_restore_system.visible:
+		n_restore_system.grab_focus()
 
 
 func _on_SystemEditor_request_add_emulator():

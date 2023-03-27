@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/icons/config/emulators.png" type="Texture" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://assets/icons/config/input.png" type="Texture" id=22]
 [ext_resource path="res://assets/icons/config/about.png" type="Texture" id=23]
 [ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=24]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=25]
 
 [sub_resource type="ButtonGroup" id=1]
 
@@ -455,6 +456,10 @@ rect_min_size = Vector2( 32, 0 )
 texture = ExtResource( 23 )
 expand = true
 stretch_mode = 6
+
+[node name="AccessibilityFocus" type="Node" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab"]
+script = ExtResource( 25 )
+next = NodePath("../../QuitTab")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
 margin_left = 164.0

@@ -150,7 +150,6 @@ func speak(text, interrupt := true):
 		print_debug("%s: %s" % [text, interrupt])
 	return utterance
 
-
 func stop():
 	if tts != null:
 		tts.stop()

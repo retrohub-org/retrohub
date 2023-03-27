@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/config/settings/AddExistingInfo.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
 
 [node name="AddExistingInfoPopup" type="WindowDialog"]
 anchor_left = 0.5
@@ -30,6 +31,9 @@ text = "Choose the %s to add:
 align = 1
 valign = 1
 autowrap = true
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/IntroLabel"]
+script = ExtResource( 2 )
 
 [node name="Options" type="OptionButton" parent="VBoxContainer"]
 unique_name_in_owner = true

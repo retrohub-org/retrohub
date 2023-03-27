@@ -2,6 +2,7 @@ extends Control
 
 signal theme_reload
 
+onready var n_intro_lbl = $"%IntroLabel"
 onready var n_region := $"%Region"
 onready var n_rating_system := $"%RatingSystem"
 onready var n_date_format := $"%DateFormat"
@@ -28,7 +29,10 @@ func _ready():
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 
 func grab_focus():
-	n_region.grab_focus()
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_intro_lbl.grab_focus()
+	else:
+		n_region.grab_focus()
 
 func set_region(region: String):
 	match region:
@@ -172,3 +176,19 @@ func _on_Odyssey2_item_selected(index):
 	RetroHubConfig.config.system_names["odyssey2"] = "videopac" if index == 1 else "odyssey2"
 	n_odyssey2_icon.set_texture(load("res://assets/systems/%s-photo.png" % RetroHubConfig.config.system_names["odyssey2"]))
 	emit_signal("theme_reload")
+
+func tts_text(focused: Control) -> String:
+	if focused == n_date_format:
+		return tts_popup_menu_item_text(n_date_format.selected, n_date_format.get_popup()) + ". button"
+	return ""
+
+func tts_popup_menu_item_text(idx: int, menu: PopupMenu) -> String:
+	if menu == n_date_format.get_popup():
+		match idx:
+			0:
+				return "month/day/year"
+			1:
+				return "day/month/year"
+			2:
+				return "year/month/day"
+	return ""
