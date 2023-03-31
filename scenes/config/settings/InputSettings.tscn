@@ -80,7 +80,6 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -861,6 +860,7 @@ script = ExtResource( 44 )
 next = NodePath("../../../../../../..")
 
 [node name="Virtual Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -977,7 +977,6 @@ script = ExtResource( 43 )
 
 [node name="ControllerLayout" parent="." instance=ExtResource( 15 )]
 unique_name_in_owner = true
-visible = false
 
 [node name="KeyboardRemap" parent="." instance=ExtResource( 16 )]
 unique_name_in_owner = true
