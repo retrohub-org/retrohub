@@ -209,9 +209,9 @@ func _handleKeyEvents(event):
 		focusKey(focusedKeyX - 1, focusedKeyY)
 	elif event.is_action_pressed("ui_right", true):
 		focusKey(focusedKeyX + 1, focusedKeyY)
-	elif event.is_action_pressed("ui_up", true):
+	elif event.is_action_pressed("ui_up", true) or event.is_action_pressed("ui_focus_prev", true):
 		focusKeyDir(Direction.UP)
-	elif event.is_action_pressed("ui_down", true):
+	elif event.is_action_pressed("ui_down", true) or event.is_action_pressed("ui_focus_next", true):
 		focusKeyDir(Direction.DOWN)
 	elif event.is_action_pressed("ui_accept"):
 		focusKeys[focusedKeyY][focusedKeyX].pressing = true
@@ -244,6 +244,24 @@ func _showLayout(layout):
 	focusedKeyX = 0
 	focusedKeyY = 0
 	focusKeys[focusedKeyY][focusedKeyX].focused = true
+	tts_speak_key(focusKeys[focusedKeyY][focusedKeyX])
+
+func tts_speak_key(key):
+	match key.keyData["type"]:
+		"switch-layout":
+			if key.keyData["layout-name"] == "special-characters":
+				TTS.speak("Change to special characters")
+			else:
+				TTS.speak("Change to normal characters")
+		"special-shift":
+			TTS.speak("Shift")
+		"special-hide-keyboard":
+			TTS.speak("Hide keyboard")
+		"special", "char":
+			if key.keyData.has("display"):
+				TTS.speak(key.keyData["display"])
+			else:
+				TTS.speak(key.keyData["output"])
 
 
 func _hideLayout(layout):
@@ -548,6 +566,8 @@ func focusKey(x, y):
 	focusedKeyX = x
 	focusedKeyY = y
 	focusKeys[focusedKeyY][focusedKeyX].focused = true
+	tts_speak_key(focusKeys[focusedKeyY][focusedKeyX])
+	
 
 func focusKeyDir(dir):
 	var currKey = focusKeys[focusedKeyY][focusedKeyX]

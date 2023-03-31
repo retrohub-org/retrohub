@@ -702,13 +702,15 @@ func _input(event):
 		return click(null, BUTTON_RIGHT)
 	elif node is ItemList:
 		return item_list_input(event)
-	elif event is InputEventKey and event.is_pressed() and (node is LineEdit or node is TextEdit):
-		if (event.is_action("ui_left") or event.is_action("ui_right")) \
-			and event.scancode & SPKEY and node is LineEdit:
-			yield(get_tree(), "idle_frame")
-			if node.caret_position < node.text.length():
-				TTS.speak(node.text.substr(node.caret_position))
-		elif not (event.scancode & SPKEY):
+	elif event is InputEventKey and event.is_pressed() and node is LineEdit:
+		if event.scancode & SPKEY:
+			if (RetroHubUI.is_event_from_virtual_keyboard() and \
+				(event.scancode == KEY_LEFT or event.scancode == KEY_RIGHT)) or \
+			(event.is_action("ui_left") or event.is_action("ui_right")):
+				yield(get_tree(), "idle_frame")
+				if node.caret_position < node.text.length():
+					TTS.speak(node.text.substr(node.caret_position))
+		else:
 			TTS.speak(OS.get_scancode_string(event.scancode))
 
 func connect_signals():
