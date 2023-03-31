@@ -78,6 +78,7 @@ var curr_step := -1
 var cur_mapping := {}
 var last_axis := -1
 var done := false
+var tts_joy_axis_utterance = null
 
 onready var joy_inputs := [
 	$"%A", $"%B", $"%Y", $"%X",
@@ -121,6 +122,29 @@ onready var n_press_progress := $"%PressProgress"
 onready var n_timer := $"%Timer"
 onready var n_action_desc := $"%ActionDescription"
 
+onready var lbl_press_orig_text : String = n_lbl_press.text
+onready var lbl_move_orig_text : String = n_lbl_move.text
+
+func _ready():
+	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+	TTS.connect("utterance_end", self, "_on_tts_utterance_end")
+
+func _on_config_ready(config: ConfigData):
+	handle_text_remap(config.accessibility_screen_reader_enabled)
+
+func _on_config_updated(key: String, old, new):
+	if key == ConfigData.KEY_ACCESSIBILITY_SCREEN_READER_ENABLED:
+		handle_text_remap(new)
+
+func _on_tts_utterance_end(utterance):
+	tts_joy_axis_utterance = null
+
+func handle_text_remap(is_screen_reader: bool):
+	var word := "requested" if is_screen_reader else "highlighted"
+	n_lbl_press.text = lbl_press_orig_text % word
+	n_lbl_move.text = lbl_move_orig_text % word
+
 func _input(event):
 	if curr_step == -1:
 		return
@@ -153,6 +177,11 @@ func _input(event):
 func _input_done(event):
 	if event is InputEventJoypadButton:
 		get_tree().set_input_as_handled()
+		if event.pressed:
+			var controller_tts := ControllerIcons.parse_path_to_tts(
+				ControllerIcons._convert_joypad_button_to_path(event.button_index)
+			)
+			TTS.speak(controller_tts)
 		match event.button_index:
 			JOY_XBOX_A:
 				$"%A".modulate = current_mapping if event.pressed else known_mapping
@@ -192,15 +221,31 @@ func _input_done(event):
 			JOY_ANALOG_LY:
 				$"%UpLStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, -event.axis_value))
 				$"%DownLStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, event.axis_value))
+				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
+					tts_joy_axis_utterance = TTS.speak("Up on Left Stick", false)
+				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
+					tts_joy_axis_utterance = TTS.speak("Down on Left Stick", false)
 			JOY_ANALOG_LX:
 				$"%LeftLStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, -event.axis_value))
 				$"%RightLStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, event.axis_value))
+				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
+					tts_joy_axis_utterance = TTS.speak("Left on Left Stick", false)
+				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
+					tts_joy_axis_utterance = TTS.speak("Right on Left Stick", false)
 			JOY_ANALOG_RY:
 				$"%UpRStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, -event.axis_value))
 				$"%DownRStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, event.axis_value))
+				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
+					tts_joy_axis_utterance = TTS.speak("Up on Right Stick", false)
+				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
+					tts_joy_axis_utterance = TTS.speak("Down on Right Stick", false)
 			JOY_ANALOG_RX:
 				$"%LeftRStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, -event.axis_value))
 				$"%RightRStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, event.axis_value))
+				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
+					tts_joy_axis_utterance = TTS.speak("Left on Right Stick", false)
+				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
+					tts_joy_axis_utterance = TTS.speak("Right on Right Stick", false)
 
 func _on_Timer_timeout():
 	next()
@@ -256,6 +301,15 @@ func start():
 	Input.remove_joy_mapping(joy_guid)
 	curr_step = 0
 	step()
+	yield(get_tree(), "idle_frame")
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_action_desc.grab_focus()
+		# We control how TTS works for the first frame ever
+		yield(get_tree(), "idle_frame")
+		TTS.speak(n_lbl_press.text)
+		TTS.speak(n_action_desc.text, false)
+	else:
+		n_btn_skip.grab_focus()
 
 func mark_done():
 	done = true
@@ -275,6 +329,8 @@ func mark_done():
 	n_btn_prev.visible = false
 	n_btn_reset.visible = true
 	n_action_desc.visible = false
+	if n_lbl_done.focus_mode == FOCUS_ALL:
+		n_lbl_done.grab_focus()
 
 func step():
 	n_btn_prev.disabled = curr_step == 0
@@ -288,6 +344,9 @@ func step():
 		joy_inputs[curr_step].modulate = current_mapping
 		n_lbl_move.visible = curr_step > 15
 		n_lbl_press.visible = curr_step <= 15
+		if curr_step == 16:
+			TTS.speak(n_lbl_move.text)
+		TTS.speak(n_action_desc.text, curr_step != 16)
 
 func next():
 	curr_step += 1

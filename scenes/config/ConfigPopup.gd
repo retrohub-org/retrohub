@@ -34,7 +34,7 @@ func _input(event: InputEvent):
 			if event.is_action_pressed("rh_back"):
 				# If using the default Backspace key, don't consume event if inside a
 				# text field, otherwise deleting text becomes impossible
-				if event.scancode == KEY_BACKSPACE and (get_focus_owner() is TextEdit \
+				if event is InputEventKey and event.scancode == KEY_BACKSPACE and (get_focus_owner() is TextEdit \
 					or get_focus_owner() is LineEdit):
 					return
 				get_tree().set_input_as_handled()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/config/settings/input/ControllerLayout.gd" type="Script" id=1]
 [ext_resource path="res://addons/controller_icons/assets/xboxone/diagram_simple.png" type="Texture" id=2]
@@ -8,9 +8,9 @@
 [ext_resource path="res://assets/icons/controller_mapper/circle_progress.png" type="Texture" id=6]
 [ext_resource path="res://assets/icons/controller_mapper/circle_progress_under.png" type="Texture" id=7]
 [ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=8]
+[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=9]
 
 [node name="ControllerLayout" type="WindowDialog"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -35,18 +35,24 @@ margin_bottom = 29.32
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Press the highlighted button on your controller"
+text = "Press and hold the %s button on your controller"
 align = 1
 valign = 1
+
+[node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Press"]
+script = ExtResource( 9 )
 
 [node name="Move" type="Label" parent="TopLabelRoot"]
 unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Move the highlighted stick on your controller to any of the two directions given."
+text = "Move and hold the %s stick on your controller to one of the two directions given."
 align = 1
 valign = 1
+
+[node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Move"]
+script = ExtResource( 9 )
 
 [node name="Done" type="Label" parent="TopLabelRoot"]
 unique_name_in_owner = true
@@ -56,6 +62,9 @@ anchor_bottom = 1.0
 text = "Layout complete! Test if the buttons are working as intended."
 align = 1
 valign = 1
+
+[node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Done"]
+script = ExtResource( 9 )
 
 [node name="ActionDescription" type="Label" parent="."]
 unique_name_in_owner = true
@@ -70,6 +79,9 @@ text = "Button Prompt"
 align = 1
 valign = 1
 autowrap = true
+
+[node name="AccessibilityFocus" type="Node" parent="ActionDescription"]
+script = ExtResource( 9 )
 
 [node name="Diagram" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -492,12 +504,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Previous"
 
+[node name="AccessibilityFocus" type="Node" parent="SecButtonRoot/PreviousButton"]
+script = ExtResource( 9 )
+
 [node name="ResetButton" type="Button" parent="SecButtonRoot"]
 unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Reset"
+
+[node name="AccessibilityFocus" type="Node" parent="SecButtonRoot/ResetButton"]
+script = ExtResource( 9 )
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true

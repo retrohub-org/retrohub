@@ -70,7 +70,7 @@ focus_neighbour_bottom = NodePath("../HBoxContainer/HBoxContainer/Save")
 
 [node name="VBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer" index="0"]
 margin_right = 1012.0
-margin_bottom = 572.0
+margin_bottom = 552.0
 
 [node name="HBoxContainer" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 1012.0
@@ -139,22 +139,10 @@ margin_right = 1012.0
 margin_right = 1012.0
 
 [node name="Label" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="0"]
-margin_right = 720.0
+margin_right = 848.0
 
-[node name="ESRB" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="1"]
-margin_left = 724.0
-margin_right = 804.0
-
-[node name="PEGI" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="2"]
-margin_left = 808.0
-margin_right = 888.0
-
-[node name="CERO" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="3"]
-margin_left = 892.0
-margin_right = 972.0
-
-[node name="ChangeAgeRating" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="4"]
-margin_left = 976.0
+[node name="AgeRating" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer/HBoxContainer12" index="1"]
+margin_left = 852.0
 margin_right = 1012.0
 
 [node name="HBoxContainer7" parent="VBoxContainer/GameMetadataEditor/ScrollContainer/VBoxContainer" index="7"]
