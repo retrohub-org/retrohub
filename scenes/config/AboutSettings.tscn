@@ -184,7 +184,7 @@ margin_bottom = -5.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries"]
 margin_right = 1014.0
-margin_bottom = 779.0
+margin_bottom = 1077.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -504,9 +504,117 @@ fit_content_height = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/RichTextLabel"]
 script = ExtResource( 18 )
-next = NodePath("../../../../../..")
 
 [node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard"]
+margin_top = 141.0
+margin_right = 1002.0
+margin_bottom = 145.0
+
+[node name="godot-accessibility" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_top = 783.0
+margin_right = 1002.0
+margin_bottom = 928.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility"]
+margin_right = 1002.0
+margin_bottom = 104.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer"]
+margin_right = 1002.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer"]
+margin_right = 1002.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 5 )
+text = "Godot Accessibility Plugin"
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer/Label"]
+script = ExtResource( 18 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 1002.0
+margin_bottom = 104.0
+bbcode_enabled = true
+bbcode_text = "Website: [url=https://github.com/lightsoutgames/godot-accessibility]https://github.com/lightsoutgames/godot-accessibility[/url]
+License: [url=mit_godot-accessibility]MIT[/url]"
+text = "Website: https://github.com/lightsoutgames/godot-accessibility
+License: MIT"
+fit_content_height = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer/RichTextLabel"]
+script = ExtResource( 18 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility"]
+margin_top = 108.0
+margin_right = 1002.0
+margin_bottom = 137.0
+bbcode_enabled = true
+bbcode_text = "Addon to make default Godot UI nodes accessible to screen readers."
+text = "Addon to make default Godot UI nodes accessible to screen readers."
+fit_content_height = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/RichTextLabel"]
+script = ExtResource( 18 )
+
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility"]
+margin_top = 141.0
+margin_right = 1002.0
+margin_bottom = 145.0
+
+[node name="godot-tts" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+margin_top = 932.0
+margin_right = 1002.0
+margin_bottom = 1077.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts"]
+margin_right = 1002.0
+margin_bottom = 104.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer"]
+margin_right = 1002.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer/VBoxContainer"]
+margin_right = 1002.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 5 )
+text = "Godot TTS"
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer/VBoxContainer/Label"]
+script = ExtResource( 18 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 1002.0
+margin_bottom = 104.0
+bbcode_enabled = true
+bbcode_text = "Website: [url=https://github.com/lightsoutgames/godot-tts]https://github.com/lightsoutgames/godot-tts[/url]
+License: [url=mit_godot-tts]MIT[/url]"
+text = "Website: https://github.com/lightsoutgames/godot-tts
+License: MIT"
+fit_content_height = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer/VBoxContainer/RichTextLabel"]
+script = ExtResource( 18 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts"]
+margin_top = 108.0
+margin_right = 1002.0
+margin_bottom = 137.0
+bbcode_enabled = true
+bbcode_text = "Addon to interface with screen reader/text-to-speech software across many platforms."
+text = "Addon to interface with screen reader/text-to-speech software across many platforms."
+fit_content_height = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/RichTextLabel"]
+script = ExtResource( 18 )
+next = NodePath("../../../../../..")
+
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts"]
 margin_top = 141.0
 margin_right = 1002.0
 margin_bottom = 145.0
@@ -755,6 +863,10 @@ max_width = 30
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="item_activated" from="TabContainerHandler/TabContainer/Licenses/HBoxContainer/Names" to="TabContainerHandler/TabContainer/Licenses" method="_on_Names_item_activated"]
