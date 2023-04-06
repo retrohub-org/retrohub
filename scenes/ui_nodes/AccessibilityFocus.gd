@@ -42,6 +42,9 @@ func _ready():
 	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
 
+	if RetroHub.is_main_app():
+		_on_config_ready(RetroHubConfig.config)
+
 func _on_config_ready(config: ConfigData):
 	toggle_info(config.accessibility_screen_reader_enabled)
 

@@ -687,7 +687,8 @@ func gui_focus_changed(_node: Control):
 
 
 func _input(event):
-	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled or \
+		not is_instance_valid(node):
 		return
 	if (
 		event is InputEventKey
