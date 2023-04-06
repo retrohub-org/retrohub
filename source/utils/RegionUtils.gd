@@ -64,7 +64,7 @@ func globalize_date_dict(date_dict: Dictionary):
 func localize_age_rating(age_rating_raw: String) -> Control:
 	var rating_idx := localize_age_rating_idx()
 	var rating_node : Control = preload("res://scenes/ui_nodes/AgeRatingTextureRect.tscn").instance()
-	rating_node.from_idx(age_rating_raw.get_slice("/", rating_idx), rating_idx)
+	rating_node.from_idx(int(age_rating_raw.get_slice("/", rating_idx)), rating_idx)
 	return rating_node
 
 func localize_age_rating_idx() -> int:

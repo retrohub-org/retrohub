@@ -18,6 +18,13 @@ onready var viewport_orig_size := Vector2(1024, 576)
 var n_last_focused : Control
 var is_popup_open : bool = false
 
+var resources_remap := []
+
+func _enter_tree():
+	resources_remap.append_array([
+		load("res://scenes/ui_nodes/AccessibilityFocus.gd").take_over_path("res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd")
+	])
+
 func _ready():
 	closed_popup()
 	#warning-ignore:return_value_discarded
