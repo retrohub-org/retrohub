@@ -32,32 +32,6 @@ func click(item := node, button_index = BUTTON_LEFT):
 	node.get_tree().input_event(click)
 
 
-func _guess_label():
-	if node is Label:
-		return
-	if not node is LineEdit and not node is TextEdit and node.get("text"):
-		return
-	var tokens = PoolStringArray([])
-	var to_check = node
-	while to_check:
-		if to_check.is_class("AcceptDialog"):
-			return
-		if to_check.is_class("EditorProperty") and to_check.label:
-			tokens.append(to_check.label)
-		if (
-			(to_check.is_class("EditorProperty") or to_check.is_class("EditorInspectorCategory"))
-			and to_check.get_tooltip_text()
-		):
-			tokens.append(to_check.get_tooltip_text())
-		var label = tokens.join(": ")
-		if label:
-			return label
-		for child in to_check.get_children():
-			if child is Label:
-				return child
-		to_check = to_check.get_parent()
-
-
 func _accept_dialog_speak(node):
 	var text
 	if node.dialog_text != "":
@@ -630,13 +604,6 @@ func gui_focus_changed(_node: Control):
 	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		return
 	print_debug("Focus: %s" % node)
-	if not node is Label:
-		var label = _guess_label()
-		if label:
-			if label is Label:
-				label = label.text
-			if label and label != "":
-				TTS.speak(label)
 	# Check if any node implements a custom TTS message
 	var n : Node = node
 	while n:
