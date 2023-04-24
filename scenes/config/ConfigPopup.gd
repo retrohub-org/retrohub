@@ -31,7 +31,7 @@ func _input(event: InputEvent):
 					popup()
 				else:
 					hide()
-			if event.is_action_pressed("rh_back"):
+			if visible and event.is_action_pressed("rh_back"):
 				# If using the default Backspace key, don't consume event if inside a
 				# text field, otherwise deleting text becomes impossible
 				if event is InputEventKey and event.scancode == KEY_BACKSPACE and (get_focus_owner() is TextEdit \
