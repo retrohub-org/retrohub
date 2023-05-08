@@ -29,7 +29,7 @@ func _start_thread():
 		_thread = Thread.new()
 		_semaphore = Semaphore.new()
 
-		if _thread.start(self, "t_process_media_requests"):
+		if _thread.start(Callable(self, "t_process_media_requests")):
 			push_error("Thread start failed [t_process_media_requests]")
 
 func _stop_thread():
@@ -52,7 +52,7 @@ func t_process_media_requests():
 		# Get a request type
 		_queue_mutex.lock()
 		# If queue is empty, app is signaling thread to finish
-		if _queue.empty():
+		if _queue.is_empty():
 			_processing_mutex.unlock()
 			_queue_mutex.unlock()
 			return
@@ -139,7 +139,7 @@ func retrieve_media_data(game_data: RetroHubGameData, types: int = Type.ALL) -> 
 				push_error("Error when loading logo image for game %s!" % game_data.name)
 			else:
 				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
+				image_texture.create_from_image(image) #,6
 				game_media_data.logo = image_texture
 
 	# Screenshot
@@ -150,7 +150,7 @@ func retrieve_media_data(game_data: RetroHubGameData, types: int = Type.ALL) -> 
 				push_error("Error when loading screenshot image for game %s!" % game_data.name)
 			else:
 				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
+				image_texture.create_from_image(image) #,6
 				game_media_data.screenshot = image_texture
 
 	# Title screen
@@ -161,7 +161,7 @@ func retrieve_media_data(game_data: RetroHubGameData, types: int = Type.ALL) -> 
 				push_error("Error when loading title screen image for game %s!" % game_data.name)
 			else:
 				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
+				image_texture.create_from_image(image) #,6
 				game_media_data.title_screen = image_texture
 
 	# Box render
@@ -172,7 +172,7 @@ func retrieve_media_data(game_data: RetroHubGameData, types: int = Type.ALL) -> 
 				push_error("Error when loading box render image for game %s!" % game_data.name)
 			else:
 				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
+				image_texture.create_from_image(image) #,6
 				game_media_data.box_render = image_texture
 
 	# Box texture
@@ -183,7 +183,7 @@ func retrieve_media_data(game_data: RetroHubGameData, types: int = Type.ALL) -> 
 				push_error("Error when loading box texture image for game %s!" % game_data.name)
 			else:
 				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
+				image_texture.create_from_image(image) #,6
 				game_media_data.box_texture = image_texture
 
 	# Support render
@@ -194,7 +194,7 @@ func retrieve_media_data(game_data: RetroHubGameData, types: int = Type.ALL) -> 
 				push_error("Error when loading support render image for game %s!" % game_data.name)
 			else:
 				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
+				image_texture.create_from_image(image) #,6
 				game_media_data.support_render = image_texture
 
 	# Support texture
@@ -205,7 +205,7 @@ func retrieve_media_data(game_data: RetroHubGameData, types: int = Type.ALL) -> 
 				push_error("Error when loading support texture image for game %s!" % game_data.name)
 			else:
 				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
+				image_texture.create_from_image(image) #,6
 				game_media_data.support_texture = image_texture
 
 	# Video
@@ -238,7 +238,7 @@ func retrieve_media_data_async(game_data: RetroHubGameData, types: int = Type.AL
 	_queue_mutex.unlock()
 
 func cancel_media_data_async(game_data: RetroHubGameData) -> void:
-	if _queue.empty():
+	if _queue.is_empty():
 		return
 	_processing_mutex.lock()
 	_queue_mutex.lock()

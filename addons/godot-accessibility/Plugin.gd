@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 var ScreenReader := preload("ScreenReader.gd")
@@ -10,7 +10,7 @@ func set_initial_screen_focus(screen):
 		return
 	TTS.speak("%s: screen" % screen, false)
 	var control = screen_reader.find_focusable_control(get_tree().root)
-	if control.get_focus_owner() != null:
+	if control.get_viewport().gui_get_focus_owner() != null:
 		return
 	screen_reader.augment_tree(get_tree().root)
 	var focus = screen_reader.find_focusable_control(get_tree().root)
@@ -49,7 +49,7 @@ func _process(delta):
 	if not screen_reader or not screen_reader.enabled:
 		return
 	var focus = screen_reader.find_focusable_control(get_tree().root)
-	focus = focus.get_focus_owner()
+	focus = focus.get_viewport().gui_get_focus_owner()
 	if focus:
 		_focus_loss_interval = 0
 	else:

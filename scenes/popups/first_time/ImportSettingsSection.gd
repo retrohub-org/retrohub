@@ -2,15 +2,15 @@ extends Control
 
 signal advance_section
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_import_options := $"%ImportOptions"
-onready var n_compatibility_details := $"%CompatibilityDetails"
-onready var n_next_btn := $"%NextButton"
+@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_import_options := $"%ImportOptions"
+@onready var n_compatibility_details := $"%CompatibilityDetails"
+@onready var n_next_btn := $"%NextButton"
 
 
-onready var n_copy_move_popup := $"%CopyMovePopup"
+@onready var n_copy_move_popup := $"%CopyMovePopup"
 
-onready var importers := [
+@onready var importers := [
 	EmulationStationImporter.new(),
 	RetroArchImporter.new()
 ]
@@ -34,7 +34,7 @@ func query_importers():
 	n_import_options.disabled = true
 	n_compatibility_details.visible = false
 
-	if thread.start(self, "t_query_importers"):
+	if thread.start(Callable(self, "t_query_importers")):
 		push_error("Thread start failed [t_query_importers]")
 
 func t_query_importers():

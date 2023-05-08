@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/popups/first_time/ImportSettingsSection.gd" type="Script" id=1]
-[ext_resource path="res://assets/icons/success.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/success.svg" type="Texture2D" id=2]
 [ext_resource path="res://scenes/popups/copy_move/CopyMovePopup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/popups/import_progress/ImportProgressPopup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/popups/first_time/CompatibilityDetails.gd" type="Script" id=5]
-[ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=6]
-[ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=7]
+[ext_resource path="res://resources/fonts/default_italic.tres" type="FontFile" id=6]
+[ext_resource path="res://resources/fonts/default_bold.tres" type="FontFile" id=7]
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=8]
 
 [node name="ImportSettingsSection" type="Control"]
@@ -22,8 +22,8 @@ anchor_bottom = 1.0
 
 [node name="IntroLabel" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 1024.0
-margin_bottom = 31.0
+offset_right = 1024.0
+offset_bottom = 31.0
 size_flags_vertical = 1
 text = "If you have an existing retro gaming library setup, you may be able to import it automatically for RetroHub. Select below your existing platform if detected, or click \"Next\" if you don't wish to import/don't have any existing setup."
 align = 1
@@ -34,30 +34,30 @@ autowrap = true
 script = ExtResource( 8 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 35.0
-margin_right = 1024.0
-margin_bottom = 39.0
+offset_top = 35.0
+offset_right = 1024.0
+offset_bottom = 39.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 43.0
-margin_right = 1024.0
-margin_bottom = 552.0
+offset_top = 43.0
+offset_right = 1024.0
+offset_bottom = 552.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ImportOptions" type="OptionButton" parent="VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 1024.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 0, 60 )
-focus_neighbour_top = NodePath("../../NextButton")
+offset_right = 1024.0
+offset_bottom = 60.0
+custom_minimum_size = Vector2( 0, 60 )
+focus_neighbor_top = NodePath("../../NextButton")
 expand_icon = true
 
 [node name="CompatibilityDetails" type="Control" parent="VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 64.0
-margin_right = 1024.0
-margin_bottom = 509.0
+offset_top = 64.0
+offset_right = 1024.0
+offset_bottom = 509.0
 size_flags_vertical = 3
 script = ExtResource( 5 )
 
@@ -66,134 +66,134 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer"]
-margin_right = 1024.0
-margin_bottom = 445.0
+offset_right = 1024.0
+offset_bottom = 445.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 25
+theme_override_constants/separation = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 56.0
+offset_right = 1024.0
+offset_bottom = 56.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 32.0
+offset_right = 1024.0
+offset_bottom = 32.0
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_top = 6.0
-margin_right = 119.0
-margin_bottom = 26.0
-custom_fonts/font = ExtResource( 7 )
+offset_top = 6.0
+offset_right = 119.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource( 7 )
 text = "Game metadata: "
 
 [node name="MetadataIcon" type="TextureRect" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 123.0
-margin_right = 155.0
-margin_bottom = 32.0
+offset_left = 123.0
+offset_right = 155.0
+offset_bottom = 32.0
 texture = ExtResource( 2 )
 
 [node name="MetadataStatus" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 159.0
-margin_top = 9.0
-margin_right = 163.0
-margin_bottom = 23.0
+offset_left = 159.0
+offset_top = 9.0
+offset_right = 163.0
+offset_bottom = 23.0
 text = " "
 
 [node name="MetadataDetails" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 36.0
-margin_right = 1024.0
-margin_bottom = 56.0
+offset_top = 36.0
+offset_right = 1024.0
+offset_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 6 )
+theme_override_fonts/font = ExtResource( 6 )
 text = "Details about metadata"
 autowrap = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer"]
-margin_top = 81.0
-margin_right = 1024.0
-margin_bottom = 137.0
+offset_top = 81.0
+offset_right = 1024.0
+offset_bottom = 137.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer2"]
-margin_right = 1024.0
-margin_bottom = 32.0
+offset_right = 1024.0
+offset_bottom = 32.0
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
-margin_top = 6.0
-margin_right = 95.0
-margin_bottom = 26.0
-custom_fonts/font = ExtResource( 7 )
+offset_top = 6.0
+offset_right = 95.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource( 7 )
 text = "Game media: "
 
 [node name="MediaIcon" type="TextureRect" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 99.0
-margin_right = 131.0
-margin_bottom = 32.0
+offset_left = 99.0
+offset_right = 131.0
+offset_bottom = 32.0
 texture = ExtResource( 2 )
 
 [node name="MediaStatus" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 135.0
-margin_top = 9.0
-margin_right = 139.0
-margin_bottom = 23.0
+offset_left = 135.0
+offset_top = 9.0
+offset_right = 139.0
+offset_bottom = 23.0
 text = " "
 
 [node name="MediaDetails" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
-margin_top = 36.0
-margin_right = 1024.0
-margin_bottom = 56.0
+offset_top = 36.0
+offset_right = 1024.0
+offset_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 6 )
+theme_override_fonts/font = ExtResource( 6 )
 text = "Details about media"
 autowrap = true
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer"]
-margin_top = 162.0
-margin_right = 1024.0
-margin_bottom = 218.0
+offset_top = 162.0
+offset_right = 1024.0
+offset_bottom = 218.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer3"]
-margin_right = 1024.0
-margin_bottom = 32.0
+offset_right = 1024.0
+offset_bottom = 32.0
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer3/HBoxContainer"]
-margin_top = 6.0
-margin_right = 62.0
-margin_bottom = 26.0
-custom_fonts/font = ExtResource( 7 )
+offset_top = 6.0
+offset_right = 62.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource( 7 )
 text = "Themes: "
 
 [node name="ThemeIcon" type="TextureRect" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer3/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 66.0
-margin_right = 98.0
-margin_bottom = 32.0
+offset_left = 66.0
+offset_right = 98.0
+offset_bottom = 32.0
 texture = ExtResource( 2 )
 
 [node name="ThemeStatus" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer3/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 102.0
-margin_top = 9.0
-margin_right = 106.0
-margin_bottom = 23.0
+offset_left = 102.0
+offset_top = 9.0
+offset_right = 106.0
+offset_bottom = 23.0
 text = " "
 
 [node name="ThemeDetails" type="Label" parent="VBoxContainer/VBoxContainer/CompatibilityDetails/ScrollContainer/VBoxContainer/VBoxContainer3"]
 unique_name_in_owner = true
-margin_top = 36.0
-margin_right = 1024.0
-margin_bottom = 56.0
+offset_top = 36.0
+offset_right = 1024.0
+offset_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 6 )
+theme_override_fonts/font = ExtResource( 6 )
 text = "Details about themes"
 autowrap = true
 
@@ -202,10 +202,10 @@ script = ExtResource( 8 )
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 556.0
-margin_right = 1024.0
-margin_bottom = 576.0
-focus_neighbour_bottom = NodePath("../VBoxContainer/ImportOptions")
+offset_top = 556.0
+offset_right = 1024.0
+offset_bottom = 576.0
+focus_neighbor_bottom = NodePath("../VBoxContainer/ImportOptions")
 text = "Next"
 
 [node name="CopyMovePopup" parent="." instance=ExtResource( 3 )]
@@ -214,10 +214,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -423.5
-margin_top = -252.0
-margin_right = 423.5
-margin_bottom = 252.0
+offset_left = -423.5
+offset_top = -252.0
+offset_right = 423.5
+offset_bottom = 252.0
 
 [node name="ImportProgressPopup" parent="." instance=ExtResource( 4 )]
 

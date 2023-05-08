@@ -2,13 +2,13 @@ extends Popup
 
 signal extensions_picked(extensions)
 
-onready var n_intro_lbl = $"%IntroLabel"
-onready var n_new_extensions := $"%NewExtensions"
-onready var n_ext_line_edit := $"%ExtLineEdit"
-onready var n_add_extension := $"%AddExtension"
-onready var n_curr_extensions := $"%CurrExtensions"
+@onready var n_intro_lbl = $"%IntroLabel"
+@onready var n_new_extensions := $"%NewExtensions"
+@onready var n_ext_line_edit := $"%ExtLineEdit"
+@onready var n_add_extension := $"%AddExtension"
+@onready var n_curr_extensions := $"%CurrExtensions"
 
-onready var n_ok := $"%OK"
+@onready var n_ok := $"%OK"
 
 var extensions := []
 
@@ -22,10 +22,10 @@ func start(system_name: String, _extensions: Array):
 
 	# Add new extensions
 	var game_path : String = RetroHubConfig.config.games_dir + "/" + system_name
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	if dir.open(game_path) == OK:
 		#warning-ignore:return_value_discarded
-		dir.list_dir_begin()
+		dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var curr_extensions := []
 		var file_name := dir.get_next()
 		while file_name != "":
@@ -38,7 +38,7 @@ func start(system_name: String, _extensions: Array):
 			file_name = dir.get_next()
 
 	popup_centered()
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:
@@ -63,7 +63,7 @@ func create_curr_extension_button(name: String):
 	var btn := Button.new()
 	btn.text = name
 	#warning-ignore:return_value_discarded
-	btn.connect("pressed", self, "_on_curr_button_pressed", [btn, n_curr_extensions.get_child_count()])
+	btn.connect("pressed", Callable(self, "_on_curr_button_pressed").bind(btn, n_curr_extensions.get_child_count()))
 	n_curr_extensions.add_child(btn)
 
 	for child in n_new_extensions.get_children():
@@ -74,12 +74,12 @@ func create_new_extension_button(name: String) -> Button:
 	var btn := Button.new()
 	btn.text = name
 	#warning-ignore:return_value_discarded
-	btn.connect("pressed", self, "_on_new_button_pressed", [btn])
+	btn.connect("pressed", Callable(self, "_on_new_button_pressed").bind(btn))
 	n_new_extensions.add_child(btn)
 	return btn
 
 func _on_ExtLineEdit_text_changed(new_text: String):
-	n_add_extension.disabled = new_text.empty()
+	n_add_extension.disabled = new_text.is_empty()
 
 func _on_curr_button_pressed(btn: Button, idx: int):
 	var ext := btn.text

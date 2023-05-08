@@ -42,16 +42,16 @@ Emulators: Check if your desired emulator has valid paths and the command is cor
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
 	emit_signal("app_initializing", true)
 
 func _notification(what):
 	match what:
-		NOTIFICATION_WM_FOCUS_IN:
+		NOTIFICATION_APPLICATION_FOCUS_IN:
 			emit_signal("app_received_focus")
-		NOTIFICATION_WM_FOCUS_OUT:
+		NOTIFICATION_APPLICATION_FOCUS_OUT:
 			emit_signal("app_lost_focus")
 		NOTIFICATION_WM_QUIT_REQUEST:
 			quit()
@@ -85,7 +85,7 @@ func load_theme():
 	var games : Array = RetroHubConfig.games
 	var result = RetroHubConfig.unload_theme()
 	if(result is GDScriptFunctionState and result.is_valid()):
-		yield(result, "completed")
+		await result.completed
 	if not RetroHubConfig.load_theme():
 		return
 	RetroHubMedia._start_thread()
@@ -93,7 +93,7 @@ func load_theme():
 	# Load theme config
 	RetroHubConfig.load_theme_config()
 
-	if not systems.empty():
+	if not systems.is_empty():
 		emit_signal("system_receive_start")
 		for system in systems.values():
 			emit_signal("system_received", system)
@@ -174,18 +174,18 @@ func _update_game_statistics():
 
 func stop_game() -> void:
 	print("Stopping game")
-	OS.move_window_to_foreground()
+	get_window().move_to_foreground()
 	_running_game = false
 	_running_game_pid = -1
 	launched_emulator = {}
 	load_theme()
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	emit_signal("app_returning", launched_system_data, launched_game_data)
 	launched_system_data = null
 	launched_game_data = null
 
 func request_theme_reload():
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	load_theme()
 
 func kill_game_process():

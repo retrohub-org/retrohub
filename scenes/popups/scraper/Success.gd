@@ -1,9 +1,9 @@
 extends Control
 
-onready var n_game_metadata_editor := $"%GameMetadataEditor"
-onready var n_no_data := $"%NoData"
+@onready var n_game_metadata_editor := $"%GameMetadataEditor"
+@onready var n_no_data := $"%NoData"
 
-onready var n_game_entries := $"%GameEntries"
+@onready var n_game_entries := $"%GameEntries"
 
 func grab_focus():
 	if n_game_metadata_editor.visible:

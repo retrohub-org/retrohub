@@ -3,18 +3,18 @@ extends Control
 const WEBSITE_URL := "https://github.com/retrohub-org/retrohub"
 const ISSUES_URL := "https://github.com/retrohub-org/retrohub/issues"
 
-onready var n_name := $"%Name"
-onready var n_version := $"%Version"
-onready var n_engine_version := $"%EngineVersion"
-onready var n_gpl_text := $"%GPLText"
-onready var n_licenses := $"%Licenses"
-onready var n_licenses_names := $"%Names"
+@onready var n_name := $"%Name"
+@onready var n_version := $"%Version"
+@onready var n_engine_version := $"%EngineVersion"
+@onready var n_gpl_text := $"%GPLText"
+@onready var n_licenses := $"%Licenses"
+@onready var n_licenses_names := $"%Names"
 
-onready var n_libraries_intro_lbl := $"%LibrariesIntroLabel"
-onready var n_assets_intro_lbl := $"%AssetsIntroLabel"
+@onready var n_libraries_intro_lbl := $"%LibrariesIntroLabel"
+@onready var n_assets_intro_lbl := $"%AssetsIntroLabel"
 
-onready var n_tabs := $"%TabContainer"
-onready var n_open_website_button := $"%OpenWebsiteButton"
+@onready var n_tabs := $"%TabContainer"
+@onready var n_open_website_button := $"%OpenWebsiteButton"
 
 
 func _ready():

@@ -1,25 +1,25 @@
 extends Control
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_game_lib_dir := $"%GameLibDir"
-onready var n_set_game_path := $"%SetGamePath"
-onready var n_themes := $"%Themes"
-onready var n_language := $"%Language"
-onready var n_first_time_wizard_warning := $"%FirstTimeWizardWarning"
+@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_game_lib_dir := $"%GameLibDir"
+@onready var n_set_game_path := $"%SetGamePath"
+@onready var n_themes := $"%Themes"
+@onready var n_language := $"%Language"
+@onready var n_first_time_wizard_warning := $"%FirstTimeWizardWarning"
 
-onready var n_graphics_mode := $"%GraphicsMode"
-onready var n_vsync := $"%VSync"
-onready var n_render_res_label := $"%RenderResLabel"
-onready var n_render_res := $"%RenderRes"
-onready var n_screen_reader := $"%ScreenReader"
+@onready var n_graphics_mode := $"%GraphicsMode"
+@onready var n_vsync := $"%VSync"
+@onready var n_render_res_label := $"%RenderResLabel"
+@onready var n_render_res := $"%RenderRes"
+@onready var n_screen_reader := $"%ScreenReader"
 
 var theme_id_map := {}
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
 
 func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
@@ -37,7 +37,7 @@ func set_themes():
 		# Skip first line
 		#warning-ignore:return_value_discarded
 		file.get_line()
-		while file.get_position() < file.get_len():
+		while file.get_position() < file.get_length():
 			var theme := file.get_line()
 			if theme.ends_with(".pck"):
 				n_themes.add_item(theme.get_file().get_basename(), id)
@@ -49,10 +49,10 @@ func set_themes():
 	n_themes.add_separator()
 	id += 1
 	# User themes
-	var dir := Directory.new()
-	if not dir.open(RetroHubConfig.get_themes_dir()) and not dir.list_dir_begin(true):
+	var dir := DirAccess.new()
+	if not dir.open(RetroHubConfig.get_themes_dir()) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if not dir.current_is_dir() and next.ends_with(".pck"):
 				n_themes.add_item(next, id)
 				if not RetroHubConfig.get_default_themes_dir() in RetroHubConfig.theme_path and \
@@ -92,10 +92,10 @@ func _on_SetThemePath_pressed():
 
 func _on_SetGamePath_pressed():
 	RetroHubUI.filesystem_filters([])
-	RetroHubUI.request_folder_load(FileUtils.get_home_dir() if n_game_lib_dir.text.empty() else n_game_lib_dir.text)
-	var path : String = yield(RetroHubUI, "path_selected")
+	RetroHubUI.request_folder_load(FileUtils.get_home_dir() if n_game_lib_dir.text.is_empty() else n_game_lib_dir.text)
+	var path : String = await RetroHubUI.path_selected
 	# Only save if path is different and existent, to prevent theme reloads
-	if not path.empty() and n_game_lib_dir.text != path:
+	if not path.is_empty() and n_game_lib_dir.text != path:
 		n_game_lib_dir.text = path
 		RetroHubConfig.config.games_dir = path
 

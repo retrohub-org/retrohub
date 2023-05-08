@@ -2,14 +2,14 @@ extends Control
 
 signal change_ocurred
 
-var curr_emulator : Dictionary setget set_curr_emulator
+var curr_emulator : Dictionary: set = set_curr_emulator
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_logo := $"%Logo"
-onready var n_name := $"%Identifier"
-onready var n_fullname := $"%Name"
-onready var n_path := $"%Path"
-onready var n_command := $"%Command"
+@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_logo := $"%Logo"
+@onready var n_name := $"%Identifier"
+@onready var n_fullname := $"%Name"
+@onready var n_path := $"%Path3D"
+@onready var n_command := $"%Command"
 
 func focus_node_from_top():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
@@ -48,9 +48,9 @@ func _on_item_change(__):
 
 func _on_VarButton_pressed(variable: String):
 	emit_signal("change_ocurred")
-	var curr_pos : int = n_command.caret_position
+	var curr_pos : int = n_command.caret_column
 	n_command.text = n_command.text.substr(0, curr_pos) + variable + n_command.text.substr(curr_pos)
-	n_command.caret_position = curr_pos + variable.length()
+	n_command.caret_column = curr_pos + variable.length()
 
 
 func _on_LoadPath_pressed():
@@ -61,7 +61,7 @@ func _on_LoadPath_pressed():
 		_:
 			RetroHubUI.filesystem_filters([])
 			RetroHubUI.request_file_load("/bin")
-	var path : String = yield(RetroHubUI, "path_selected")
-	if not path.empty():
+	var path : String = await RetroHubUI.path_selected
+	if not path.is_empty():
 		n_path.text = path
 		emit_signal("change_ocurred")

@@ -3,29 +3,29 @@
 [ext_resource path="res://scenes/config/settings/system/RetroArchConfig.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
 
-[node name="RetroArchConfig" type="WindowDialog"]
+[node name="RetroArchConfig" type="Window"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -269.5
-margin_top = -178.5
-margin_right = 269.5
-margin_bottom = 178.5
+offset_left = -269.5
+offset_top = -178.5
+offset_right = 269.5
+offset_bottom = 178.5
 script = ExtResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
 
 [node name="IntroLabel" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 519.0
-margin_bottom = 14.0
+offset_right = 519.0
+offset_bottom = 14.0
 text = "Select a core to add:"
 align = 1
 
@@ -33,35 +33,35 @@ align = 1
 script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 519.0
-margin_bottom = 38.0
+offset_top = 18.0
+offset_right = 519.0
+offset_bottom = 38.0
 size_flags_horizontal = 3
 
 [node name="CoreOptions" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 478.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../OK")
+offset_right = 478.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../OK")
 size_flags_horizontal = 3
 clip_text = true
 
 [node name="AddCore" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 482.0
-margin_right = 519.0
-margin_bottom = 20.0
+offset_left = 482.0
+offset_right = 519.0
+offset_bottom = 20.0
 text = "Add"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 42.0
-margin_right = 519.0
-margin_bottom = 46.0
+offset_top = 42.0
+offset_right = 519.0
+offset_bottom = 46.0
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
-margin_top = 50.0
-margin_right = 519.0
-margin_bottom = 64.0
+offset_top = 50.0
+offset_right = 519.0
+offset_bottom = 64.0
 text = "Remove existing cores:"
 align = 1
 
@@ -70,10 +70,10 @@ script = ExtResource( 2 )
 
 [node name="Cores" type="Tree" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 68.0
-margin_right = 519.0
-margin_bottom = 313.0
-focus_neighbour_bottom = NodePath("../OK")
+offset_top = 68.0
+offset_right = 519.0
+offset_bottom = 313.0
+focus_neighbor_bottom = NodePath("../OK")
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
@@ -82,11 +82,11 @@ single_click_select = true
 
 [node name="OK" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 244.0
-margin_top = 317.0
-margin_right = 274.0
-margin_bottom = 337.0
-focus_neighbour_bottom = NodePath("../HBoxContainer/CoreOptions")
+offset_left = 244.0
+offset_top = 317.0
+offset_right = 274.0
+offset_bottom = 337.0
+focus_neighbor_bottom = NodePath("../HBoxContainer/CoreOptions")
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Ok"

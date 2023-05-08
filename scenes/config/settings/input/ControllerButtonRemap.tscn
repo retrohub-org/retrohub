@@ -1,39 +1,39 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://addons/controller_icons/assets/xbox360/a.png" type="Texture" id=1]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/y.png" type="Texture" id=2]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/a.png" type="Texture2D" id=1]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/y.png" type="Texture2D" id=2]
 [ext_resource path="res://addons/controller_icons/objects/Button.gd" type="Script" id=3]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/b.png" type="Texture" id=4]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/x.png" type="Texture" id=5]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/lb.png" type="Texture" id=6]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/rb.png" type="Texture" id=7]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/lt.png" type="Texture" id=8]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/rt.png" type="Texture" id=9]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/l_stick_click.png" type="Texture" id=10]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick_click.png" type="Texture" id=11]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/start.png" type="Texture" id=12]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/back.png" type="Texture" id=13]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/b.png" type="Texture2D" id=4]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/x.png" type="Texture2D" id=5]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/lb.png" type="Texture2D" id=6]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/rb.png" type="Texture2D" id=7]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/lt.png" type="Texture2D" id=8]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/rt.png" type="Texture2D" id=9]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/l_stick_click.png" type="Texture2D" id=10]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick_click.png" type="Texture2D" id=11]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/start.png" type="Texture2D" id=12]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/back.png" type="Texture2D" id=13]
 [ext_resource path="res://scenes/config/settings/input/ControllerButtonRemap.gd" type="Script" id=14]
 
 [node name="ControllerButtonRemap" type="PopupPanel"]
-margin_right = 212.0
-margin_bottom = 160.0
+offset_right = 212.0
+offset_bottom = 160.0
 script = ExtResource( 14 )
 
 [node name="GridContainer" type="GridContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 columns = 4
 
 [node name="A" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_right = 48.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+offset_right = 48.0
+offset_bottom = 48.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 1 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -42,10 +42,10 @@ force_type = 2
 
 [node name="B" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 52.0
-margin_right = 100.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 52.0
+offset_right = 100.0
+offset_bottom = 48.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 4 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -54,10 +54,10 @@ force_type = 2
 
 [node name="X" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 104.0
-margin_right = 152.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 104.0
+offset_right = 152.0
+offset_bottom = 48.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 5 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -66,10 +66,10 @@ force_type = 2
 
 [node name="Y" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 156.0
-margin_right = 204.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 156.0
+offset_right = 204.0
+offset_bottom = 48.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 2 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -78,10 +78,10 @@ force_type = 2
 
 [node name="LB" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_top = 52.0
-margin_right = 48.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 48, 48 )
+offset_top = 52.0
+offset_right = 48.0
+offset_bottom = 100.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 6 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -90,11 +90,11 @@ force_type = 2
 
 [node name="RB" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 52.0
-margin_top = 52.0
-margin_right = 100.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 52.0
+offset_top = 52.0
+offset_right = 100.0
+offset_bottom = 100.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 7 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -103,11 +103,11 @@ force_type = 2
 
 [node name="LT" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 104.0
-margin_top = 52.0
-margin_right = 152.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 104.0
+offset_top = 52.0
+offset_right = 152.0
+offset_bottom = 100.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 8 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -116,11 +116,11 @@ force_type = 2
 
 [node name="RT" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 156.0
-margin_top = 52.0
-margin_right = 204.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 156.0
+offset_top = 52.0
+offset_right = 204.0
+offset_bottom = 100.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 9 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -129,10 +129,10 @@ force_type = 2
 
 [node name="Select" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_top = 104.0
-margin_right = 48.0
-margin_bottom = 152.0
-rect_min_size = Vector2( 48, 48 )
+offset_top = 104.0
+offset_right = 48.0
+offset_bottom = 152.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 13 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -141,11 +141,11 @@ force_type = 2
 
 [node name="Start" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 52.0
-margin_top = 104.0
-margin_right = 100.0
-margin_bottom = 152.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 52.0
+offset_top = 104.0
+offset_right = 100.0
+offset_bottom = 152.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 12 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -154,11 +154,11 @@ force_type = 2
 
 [node name="LStick" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 104.0
-margin_top = 104.0
-margin_right = 152.0
-margin_bottom = 152.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 104.0
+offset_top = 104.0
+offset_right = 152.0
+offset_bottom = 152.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 10 )
 expand_icon = true
 script = ExtResource( 3 )
@@ -167,11 +167,11 @@ force_type = 2
 
 [node name="RStick" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-margin_left = 156.0
-margin_top = 104.0
-margin_right = 204.0
-margin_bottom = 152.0
-rect_min_size = Vector2( 48, 48 )
+offset_left = 156.0
+offset_top = 104.0
+offset_right = 204.0
+offset_bottom = 152.0
+custom_minimum_size = Vector2( 48, 48 )
 icon = ExtResource( 11 )
 expand_icon = true
 script = ExtResource( 3 )

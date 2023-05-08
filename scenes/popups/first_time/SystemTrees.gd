@@ -2,15 +2,15 @@ extends Control
 
 signal system_selected(system)
 
-onready var n_consoles := $"%Consoles"
-onready var n_arcades := $"%Arcades"
-onready var n_computers := $"%Computers"
-onready var n_engines := $"%Engines"
-onready var n_modern_consoles := $"%ModernConsoles"
+@onready var n_consoles := $"%Consoles"
+@onready var n_arcades := $"%Arcades"
+@onready var n_computers := $"%Computers"
+@onready var n_engines := $"%Engines"
+@onready var n_modern_consoles := $"%ModernConsoles"
 
-onready var n_system_warning := $"%SystemWarning"
+@onready var n_system_warning := $"%SystemWarning"
 
-onready var n_systems := [
+@onready var n_systems := [
 	n_consoles, n_arcades, n_computers,
 	n_engines, n_modern_consoles
 ]
@@ -19,7 +19,7 @@ var _tts_last_item : TreeItem
 
 func _ready():
 	for system in n_systems:
-		system.connect("focus_entered", self, "_on_tree_focus_entered", [system])
+		system.connect("focus_entered", Callable(self, "_on_tree_focus_entered").bind(system))
 
 func _on_tree_focus_entered(tree: Tree):
 	if not tree.get_selected():
@@ -39,7 +39,7 @@ func setup_systems(categories: Array):
 	for idx in range(n_systems.size()):
 		n_systems[idx].set_column_title(1, categories[idx])
 		n_systems[idx].set_column_expand(0, false)
-		n_systems[idx].set_column_min_width(0, 32)
+		n_systems[idx].set_column_custom_minimum_width(0, 32)
 		var root : TreeItem = n_systems[idx].create_item()
 		root.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 		root.set_checked(0, true)
@@ -51,7 +51,7 @@ func setup_systems(categories: Array):
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		# Sort by fullname instead
 		systems = systems.duplicate()
-		systems.sort_custom(self, "_sort_fullname")
+		systems.sort_custom(Callable(self, "_sort_fullname"))
 
 	for system in systems:
 		var idx := RetroHubSystemData.category_to_idx(system["category"])

@@ -14,16 +14,16 @@ class RequestDetails:
 	var _http := HTTPRequest.new()
 	var _req_result : int
 	var _req_response_code : int
-	var _req_headers : PoolStringArray
-	var _req_body : PoolByteArray
+	var _req_headers : PackedStringArray
+	var _req_body : PackedByteArray
 
 	func _init():
 		#warning-ignore:return_value_discarded
-		_http.connect("request_completed", self, "_on_request_completed")
+		_http.connect("request_completed", Callable(self, "_on_request_completed"))
 		_http.use_threads = true
 		_http.timeout = 10
 
-	func _on_request_completed(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray):
+	func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
 		_req_result = result
 		_req_response_code = response_code
 		_req_headers = headers
@@ -45,7 +45,7 @@ class RequestDetails:
 
 	func cancel():
 		_http.cancel_request()
-		_http.emit_signal("request_completed", -1, 0, PoolStringArray(), PoolByteArray())
+		_http.emit_signal("request_completed", -1, 0, PackedStringArray(), PackedByteArray())
 
 var MAX_REQUESTS := 2
 var _checked_user_threads := false
@@ -219,10 +219,10 @@ func _init():
 		_req_semaphore.post()
 
 func _process(_delta):
-	if not _pending_requests.empty():
+	if not _pending_requests.is_empty():
 		var game_data : RetroHubGameData = _pending_requests.keys()[0]
 		var req : RequestDetails = _pending_requests[game_data].pop_front()
-		if _pending_requests[game_data].empty():
+		if _pending_requests[game_data].is_empty():
 			#warning-ignore:return_value_discarded
 			_pending_requests.erase(game_data)
 		if _curr_requests.has(game_data):
@@ -231,7 +231,7 @@ func _process(_delta):
 			_curr_requests[game_data] = [req]
 
 		req.perform_request(req.type == RequestDetails.Type.MEDIA)
-		yield(req._http, "request_completed")
+		await req._http.request_completed
 		#warning-ignore:return_value_discarded
 		_req_semaphore.post()
 
@@ -239,7 +239,7 @@ func _process(_delta):
 		if not _curr_requests.has(game_data):
 			return
 		_curr_requests[game_data].erase(req)
-		if _curr_requests[game_data].empty():
+		if _curr_requests[game_data].is_empty():
 			#warning-ignore:return_value_discarded
 			_curr_requests.erase(game_data)
 
@@ -296,7 +296,9 @@ func _process_req_meta(req: RequestDetails):
 		return
 
 	# Handle growth/shrink in threads
-	var json := JSON.parse(req._req_body.get_string_from_utf8())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(req._req_body.get_string_from_utf8())
+	var json := test_json_conv.get_data()
 	if not json.error:
 		var json_raw = json.result
 		# Preprocess json a bit due to ScreenScraper structure
@@ -326,7 +328,9 @@ func _process_req_meta(req: RequestDetails):
 			emit_signal("scraper_details", _send_user_threads("user"))
 
 func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
-	var json := JSON.parse(req._req_body.get_string_from_utf8())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(req._req_body.get_string_from_utf8())
+	var json := test_json_conv.get_data()
 	if json.error:
 		var details := req._req_body.get_string_from_utf8()
 		emit_signal("game_scrape_error", game_data, details)
@@ -350,7 +354,7 @@ func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 			var details := []
 			_cached_search_data[game_data] = {}
 			for child in json_raw:
-				if not child.empty():
+				if not child.is_empty():
 					var game_data_tmp := game_data.duplicate()
 					_process_raw_game_data(child, game_data_tmp)
 					_cached_search_data[game_data][game_data_tmp] = child
@@ -390,7 +394,7 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 		return ERR_CANT_OPEN
 	
 	var max_size := RetroHubConfig.config.scraper_hash_file_size
-	if max_size > 0 and file.get_len() > max_size * 1024 * 1024:
+	if max_size > 0 and file.get_length() > max_size * 1024 * 1024:
 		emit_signal("game_scrape_not_found", game_data)
 		return FAILED
 
@@ -409,7 +413,7 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 		"md5": md5,
 		"systemeid": str(get_ss_system_mapping(game_data.system.name)),
 		"romnom": game_data.path.get_file(),
-		"romtaille": str(file.get_len())
+		"romtaille": str(file.get_length())
 	}
 
 	ss_add_user_account(header_data)
@@ -483,14 +487,14 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 			if _cached_search_data[data].has(game_data):
 				json = _cached_search_data[data][game_data]
 				break
-		if json.empty():
+		if json.is_empty():
 			# App is guaranteed to scrape data before media, so something is wrong
 			push_error("\t Internal error: need to scrape metadata first!")
 			return FAILED
 
 	var medias_raw : Array = json["medias"]
 	var scrape := find_all_by_key(medias_raw, "type", scraper_names)
-	if scrape.empty():
+	if scrape.is_empty():
 		return FAILED
 	var res := extract_json_region(scrape)
 
@@ -602,7 +606,7 @@ func extract_json_region(json_arr: Array) -> Dictionary:
 
 	var result := find_by_key(json_arr, "region", regions)
 
-	return json_arr[0] if result.empty() else result
+	return json_arr[0] if result.is_empty() else result
 
 func extract_json_language(json_arr: Array) -> Dictionary:
 	var languages := ["en"]
@@ -612,14 +616,14 @@ func extract_json_language(json_arr: Array) -> Dictionary:
 
 	var result := find_by_key(json_arr, "langue", languages)
 
-	return json_arr[0] if result.empty() else result
+	return json_arr[0] if result.is_empty() else result
 
 func extract_json_age_rating(classifications: Array):
 	var rating_usa := find_by_key(classifications, "type", ["ESRB"])
 	var rating_eur := find_by_key(classifications, "type", ["PEGI"])
 	var rating_jpn := find_by_key(classifications, "type", ["CERO"])
 	var rating_final : String
-	if not rating_usa.empty():
+	if not rating_usa.is_empty():
 		match rating_usa["text"]:
 			"E":
 				rating_final = "1"
@@ -635,7 +639,7 @@ func extract_json_age_rating(classifications: Array):
 				rating_final = "0"
 	else:
 		rating_final = "0"
-	if not rating_eur.empty():
+	if not rating_eur.is_empty():
 		match rating_eur["text"]:
 			"3":
 				rating_final += "/1"
@@ -651,7 +655,7 @@ func extract_json_age_rating(classifications: Array):
 				rating_final += "/0"
 	else:
 		rating_final += "/0"
-	if not rating_jpn.empty():
+	if not rating_jpn.is_empty():
 		match rating_jpn["text"]:
 			"A":
 				rating_final += "/1"

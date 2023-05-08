@@ -3,15 +3,15 @@ extends Control
 var low_cpu_mode_orig : bool
 var low_cpu_mode_sleep_orig : int
 
-onready var n_emu_logo := $"%EmuLogo"
-onready var n_game_name := $"%GameName"
-onready var n_emu_name := $"%EmuName"
+@onready var n_emu_logo := $"%EmuLogo"
+@onready var n_game_name := $"%GameName"
+@onready var n_emu_name := $"%EmuName"
 
-onready var n_kill_press_progress := $"%KillPressProgress"
-onready var n_timer := $"%Timer"
+@onready var n_kill_press_progress := $"%KillPressProgress"
+@onready var n_timer := $"%Timer"
 
-onready var game_name_orig_text : String = n_game_name.text
-onready var emu_name_orig_text : String = n_emu_name.text
+@onready var game_name_orig_text : String = n_game_name.text
+@onready var emu_name_orig_text : String = n_emu_name.text
 
 func _enter_tree():
 	low_cpu_mode_orig = OS.low_processor_usage_mode
@@ -28,10 +28,10 @@ func _exit_tree():
 
 func _notification(what):
 	match what:
-		NOTIFICATION_WM_FOCUS_IN:
+		NOTIFICATION_APPLICATION_FOCUS_IN:
 			# 30 FPS
 			OS.low_processor_usage_mode_sleep_usec = 1000000 / 30
-		NOTIFICATION_WM_FOCUS_OUT:
+		NOTIFICATION_APPLICATION_FOCUS_OUT:
 			# 10 FPS
 			OS.low_processor_usage_mode_sleep_usec = 1000000 / 10
 			n_timer.stop()
@@ -43,7 +43,7 @@ func _process(delta):
 		n_kill_press_progress.value = n_timer.wait_time - n_timer.time_left
 
 func _input(event):
-	if OS.is_window_focused():
+	if get_window().has_focus():
 		if event.is_action_released("rh_menu"):
 			n_timer.stop()
 		if event.is_action_pressed("rh_menu"):

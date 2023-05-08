@@ -1,18 +1,18 @@
 extends VBoxContainer
 
-onready var n_genesis_opt := $"%GenesisOpt"
-onready var n_nes_opt := $"%NESOpt"
-onready var n_snes_opt := $"%SNESOpt"
-onready var n_tg_16_opt := $"%TG16Opt"
-onready var n_tg_cd_opt := $"%TGCDOpt"
-onready var n_odyssey2_opt := $"%Odyssey2Opt"
+@onready var n_genesis_opt := $"%GenesisOpt"
+@onready var n_nes_opt := $"%NESOpt"
+@onready var n_snes_opt := $"%SNESOpt"
+@onready var n_tg_16_opt := $"%TG16Opt"
+@onready var n_tg_cd_opt := $"%TGCDOpt"
+@onready var n_odyssey2_opt := $"%Odyssey2Opt"
 
-onready var n_genesis_icon := $"%GenesisIcon"
-onready var n_nes_icon := $"%NESIcon"
-onready var n_snes_icon := $"%SNESIcon"
-onready var n_tg_16_icon := $"%TG16Icon"
-onready var n_tgcd_icon := $"%TGCDIcon"
-onready var n_odyssey2_icon := $"%Odyssey2Icon"
+@onready var n_genesis_icon := $"%GenesisIcon"
+@onready var n_nes_icon := $"%NESIcon"
+@onready var n_snes_icon := $"%SNESIcon"
+@onready var n_tg_16_icon := $"%TG16Icon"
+@onready var n_tgcd_icon := $"%TGCDIcon"
+@onready var n_odyssey2_icon := $"%Odyssey2Icon"
 
 func select(idx: int):
 	set_system_regions(idx)

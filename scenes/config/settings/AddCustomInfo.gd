@@ -1,20 +1,20 @@
-extends WindowDialog
+extends Window
 
 signal identifier_picked(id)
 
 var keys : Array
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_existing_label := $"%ExistingLabel"
+@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_existing_label := $"%ExistingLabel"
 
-onready var n_line_edit := $"%LineEdit"
-onready var n_check_lower := $"%CheckLower"
-onready var n_check_special := $"%CheckSpecial"
-onready var n_check_existing := $"%CheckExisting"
-onready var n_ok := $"%OK"
+@onready var n_line_edit := $"%LineEdit"
+@onready var n_check_lower := $"%CheckLower"
+@onready var n_check_special := $"%CheckSpecial"
+@onready var n_check_existing := $"%CheckExisting"
+@onready var n_ok := $"%OK"
 
-onready var base_text_intro : String = n_intro_lbl.text
-onready var base_text_existing : String = n_existing_label.text
+@onready var base_text_intro : String = n_intro_lbl.text
+@onready var base_text_existing : String = n_existing_label.text
 
 func start(_keys: Array, data_name: String):
 	keys = _keys
@@ -23,7 +23,7 @@ func start(_keys: Array, data_name: String):
 	n_line_edit.text = ""
 	check_text()
 	popup_centered()
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:
@@ -31,7 +31,7 @@ func start(_keys: Array, data_name: String):
 
 func check_text(text: String = n_line_edit.text):
 	# If text is empty, exit early
-	if text.empty():
+	if text.is_empty():
 		set_check_enabled(n_check_lower, false)
 		set_check_enabled(n_check_special, false)
 		set_check_enabled(n_check_existing, false)
@@ -51,7 +51,7 @@ func check_text(text: String = n_line_edit.text):
 		push_error("Internal error compiling regex")
 	var results := regex.search(text)
 	if results:
-		check = results.strings.empty()
+		check = results.strings.is_empty()
 	else:
 		check = true
 	set_check_enabled(n_check_special, check)
@@ -65,7 +65,7 @@ func check_text(text: String = n_line_edit.text):
 
 func set_check_enabled(node: Control, enabled: bool):
 	node.get_child(0).visible = enabled
-	node.get_child(1).modulate = Color.white if enabled else Color.gray
+	node.get_child(1).modulate = Color.WHITE if enabled else Color.GRAY
 
 
 func _on_OK_pressed():

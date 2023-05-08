@@ -2,8 +2,8 @@
 
 [ext_resource path="res://tests/VideoTest.gd" type="Script" id=1]
 
-[node name="VideoPlayer" type="VideoPlayer"]
+[node name="VideoStreamPlayer" type="VideoStreamPlayer"]
 self_modulate = Color( 1, 0.364706, 0.886275, 1 )
-margin_right = 964.0
-margin_bottom = 532.0
+offset_right = 964.0
+offset_bottom = 532.0
 script = ExtResource( 1 )

@@ -11,19 +11,19 @@ game_entry_instance = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
-margin_right = 1024.0
-margin_bottom = 14.0
+offset_right = 1024.0
+offset_bottom = 14.0
 text = "System Name"
 
 [node name="HSeparator" type="HSeparator" parent="."]
-margin_top = 18.0
-margin_right = 1024.0
-margin_bottom = 22.0
+offset_top = 18.0
+offset_right = 1024.0
+offset_bottom = 22.0
 
 [node name="Children" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-margin_top = 26.0
-margin_right = 1024.0
-margin_bottom = 576.0
+offset_top = 26.0
+offset_right = 1024.0
+offset_bottom = 576.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

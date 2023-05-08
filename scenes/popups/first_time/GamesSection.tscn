@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/popups/first_time/GamesSection.gd" type="Script" id=1]
-[ext_resource path="res://assets/icons/load.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/load.svg" type="Texture2D" id=2]
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=3]
 
 [node name="GamesSection" type="Control"]
@@ -17,8 +17,8 @@ anchor_bottom = 1.0
 
 [node name="IntroLabel" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 1024.0
-margin_bottom = 14.0
+offset_right = 1024.0
+offset_bottom = 14.0
 size_flags_vertical = 1
 text = "Choose a gaming library path. This can be pre-existing, or completely new. This path is treated as read-only, and RetroHub will not alter any files within it."
 align = 1
@@ -29,15 +29,15 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 1024.0
-margin_bottom = 42.0
-custom_constants/separation = 15
+offset_top = 18.0
+offset_right = 1024.0
+offset_bottom = 42.0
+theme_override_constants/separation = 15
 
-[node name="Path" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+[node name="Path3D" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 871.0
-margin_bottom = 24.0
+offset_right = 871.0
+offset_bottom = 24.0
 focus_mode = 0
 size_flags_horizontal = 3
 editable = false
@@ -45,28 +45,28 @@ placeholder_text = "<empty>"
 
 [node name="ChooseDir" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 886.0
-margin_right = 1024.0
-margin_bottom = 24.0
-focus_neighbour_top = NodePath("../../NextButton")
+offset_left = 886.0
+offset_right = 1024.0
+offset_bottom = 24.0
+focus_neighbor_top = NodePath("../../NextButton")
 text = "Choose directory"
 icon = ExtResource( 2 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 46.0
-margin_right = 1024.0
-margin_bottom = 50.0
+offset_top = 46.0
+offset_right = 1024.0
+offset_bottom = 50.0
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
-margin_top = 54.0
-margin_right = 1024.0
-margin_bottom = 170.0
+offset_top = 54.0
+offset_right = 1024.0
+offset_bottom = 170.0
 size_flags_vertical = 2
 text = "This directory will contain all your games. It has a special structure: it consists of folders with short names of every system, where games are then placed inside them, leaving your gaming library tidy.
 
 To add games, simply create the system folder if it doesn't exist (either from RetroHub in the next section or manually) and drop your games inside it.
 
-RetroHub will automatically filter files based on common extensions per system and recognize your game files. This is configurable per system if tweaks are needed."
+RetroHub will automatically filter files based on common extensions per system and _recognize your game files. This is configurable per system if tweaks are needed."
 autowrap = true
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Label2"]
@@ -74,10 +74,10 @@ script = ExtResource( 3 )
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 556.0
-margin_right = 1024.0
-margin_bottom = 576.0
-focus_neighbour_bottom = NodePath("../HBoxContainer/ChooseDir")
+offset_top = 556.0
+offset_right = 1024.0
+offset_bottom = 576.0
+focus_neighbor_bottom = NodePath("../HBoxContainer/ChooseDir")
 disabled = true
 text = "Next"
 

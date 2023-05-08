@@ -3,22 +3,22 @@ extends Control
 signal change_ocurred
 signal request_add_core
 
-var curr_emulator : Dictionary setget set_curr_emulator
+var curr_emulator : Dictionary: set = set_curr_emulator
 var cores : Array
 
-onready var n_logo := $"%Logo"
-onready var n_name := $"%Identifier"
-onready var n_fullname := $"%Name"
-onready var n_path := $"%Path"
-onready var n_core_path := $"%CorePath"
-onready var n_command := $"%Command"
+@onready var n_logo := $"%Logo"
+@onready var n_name := $"%Identifier"
+@onready var n_fullname := $"%Name"
+@onready var n_path := $"%Path3D"
+@onready var n_core_path := $"%CorePath"
+@onready var n_command := $"%Command"
 
-onready var n_core_option := $"%CoreOption"
-onready var n_remove_core := $"%RemoveCore"
-onready var n_add_core := $"%AddCore"
-onready var n_core_identifier := $"%CoreIdentifier"
-onready var n_core_name := $"%CoreName"
-onready var n_core_file_name := $"%CoreFileName"
+@onready var n_core_option := $"%CoreOption"
+@onready var n_remove_core := $"%RemoveCore"
+@onready var n_add_core := $"%AddCore"
+@onready var n_core_identifier := $"%CoreIdentifier"
+@onready var n_core_name := $"%CoreName"
+@onready var n_core_file_name := $"%CoreFileName"
 
 func focus_node_from_top():
 	n_logo.grab_focus()
@@ -37,7 +37,7 @@ func set_curr_emulator(_curr_emulator: Dictionary):
 	n_fullname.text = curr_emulator["fullname"]
 	n_path.text = RetroHubGenericEmulator.find_and_substitute_str(curr_emulator["binpath"], {})
 	n_core_path.text = RetroHubRetroArchEmulator.get_custom_core_path()
-	if n_core_path.text.empty():
+	if n_core_path.text.is_empty():
 		n_core_path.text = RetroHubGenericEmulator.find_and_substitute_str(
 				curr_emulator["corepath"],
 				{"binpath": n_path.text}
@@ -47,7 +47,7 @@ func set_curr_emulator(_curr_emulator: Dictionary):
 	n_core_option.clear()
 	cores = curr_emulator["cores"].duplicate(true)
 	for core in cores:
-		var text : String = "<%s>" % core["name"] if core["fullname"].empty() else core["fullname"]
+		var text : String = "<%s>" % core["name"] if core["fullname"].is_empty() else core["fullname"]
 		n_core_option.add_item(text)
 		n_core_option.set_item_metadata(n_core_option.get_item_count()-1, core)
 	n_remove_core.disabled = n_core_option.get_item_count() == 0
@@ -64,7 +64,7 @@ func save() -> Dictionary:
 	if core:
 		core["fullname"] = n_core_name.text
 		core["file"] = n_core_file_name.text
-		var text : String = "<%s>" % n_core_identifier.text if n_core_name.text.empty() else n_core_name.text
+		var text : String = "<%s>" % n_core_identifier.text if n_core_name.text.is_empty() else n_core_name.text
 		n_core_option.set_item_text(n_core_option.selected, text)
 
 	curr_emulator["cores"] = cores.duplicate(true)
@@ -90,9 +90,9 @@ func _on_item_change(__):
 
 func _on_VarButton_pressed(variable: String):
 	emit_signal("change_ocurred")
-	var curr_pos : int = n_command.caret_position
+	var curr_pos : int = n_command.caret_column
 	n_command.text = n_command.text.substr(0, curr_pos) + variable + n_command.text.substr(curr_pos)
-	n_command.caret_position = curr_pos + variable.length()
+	n_command.caret_column = curr_pos + variable.length()
 
 
 func _on_LoadPath_pressed():
@@ -103,8 +103,8 @@ func _on_LoadPath_pressed():
 		_:
 			RetroHubUI.filesystem_filters([])
 			RetroHubUI.request_file_load("/bin")
-	var path : String = yield(RetroHubUI, "path_selected")
-	if not path.empty():
+	var path : String = await RetroHubUI.path_selected
+	if not path.is_empty():
 		n_path.text = path
 		emit_signal("change_ocurred")
 
@@ -112,8 +112,8 @@ func _on_LoadPath_pressed():
 func _on_LoadCorePath_pressed():
 	RetroHubUI.filesystem_filters([])
 	RetroHubUI.request_folder_load(n_path.text)
-	var path : String = yield(RetroHubUI, "path_selected")
-	if not path.empty():
+	var path : String = await RetroHubUI.path_selected
+	if not path.is_empty():
 		n_core_path.text = path
 		emit_signal("change_ocurred")
 
@@ -134,8 +134,8 @@ func _on_LoadCoreFileName_pressed():
 		FileUtils.OS_ID.LINUX:
 			RetroHubUI.filesystem_filters(["*.so ; SO libretro Cores"])
 	RetroHubUI.request_file_load(n_core_path.text)
-	var path : String = yield(RetroHubUI, "path_selected")
-	if not path.empty():
+	var path : String = await RetroHubUI.path_selected
+	if not path.is_empty():
 		n_core_file_name.text = path.get_file()
 		emit_signal("change_ocurred")
 

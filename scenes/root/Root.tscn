@@ -29,19 +29,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 
-[node name="ViewportContainer" type="ViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 stretch = true
 
-[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 size = Vector2( 1024, 576 )
-size_override_stretch = true
+size_2d_override_stretch = true
 handle_input_locally = false
 render_target_update_mode = 3
 script = ExtResource( 4 )
 
-[node name="NoTheme" parent="ViewportContainer/Viewport" instance=ExtResource( 10 )]
+[node name="NoTheme" parent="SubViewportContainer/SubViewport" instance=ExtResource( 10 )]
 focus_mode = 2
 
 [node name="DarkenOverlay" type="ColorRect" parent="."]
@@ -53,17 +53,17 @@ anchor_bottom = 1.0
 focus_mode = 2
 
 [node name="ConfigPopup" parent="." instance=ExtResource( 3 )]
-popup_exclusive = true
+exclusive = true
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -376.0
-margin_top = -208.5
-margin_right = 376.0
-margin_bottom = 208.5
+offset_left = -376.0
+offset_top = -208.5
+offset_right = 376.0
+offset_bottom = 208.5
 focus_mode = 2
 theme = ExtResource( 5 )
 window_title = "Open a File"
@@ -77,10 +77,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -304.0
-margin_top = -173.0
-margin_right = 304.0
-margin_bottom = 173.0
+offset_left = -304.0
+offset_top = -173.0
+offset_right = 304.0
+offset_bottom = 173.0
 focus_mode = 2
 theme = ExtResource( 5 )
 
@@ -88,10 +88,10 @@ theme = ExtResource( 5 )
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -44.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -44.0
 text = "
 "
 align = 1
@@ -102,18 +102,18 @@ autowrap = true
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 586.0
-margin_bottom = 278.0
+offset_top = 586.0
+offset_bottom = 278.0
 theme = ExtResource( 5 )
 script = ExtResource( 2 )
 autoShow = false
 
 [node name="ScreenReader" type="Node" parent="."]
-pause_mode = 2
+process_mode = 2
 script = ExtResource( 7 )
-theme_viewport = NodePath("../ViewportContainer/Viewport")
+theme_viewport = NodePath("../SubViewportContainer/SubViewport")
 
-[connection signal="about_to_show" from="ConfigPopup" to="." method="opened_popup"]
+[connection signal="about_to_popup" from="ConfigPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]
-[connection signal="about_to_show" from="FileSystemPopup" to="." method="opened_popup"]
+[connection signal="about_to_popup" from="FileSystemPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="FileSystemPopup" to="." method="closed_popup"]

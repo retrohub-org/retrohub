@@ -2,9 +2,9 @@ extends Control
 
 signal advance_section
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_buttons_prompt := $"%ButtonsPrompt"
-onready var n_next_button := $"%NextButton"
+@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_buttons_prompt := $"%ButtonsPrompt"
+@onready var n_next_button := $"%NextButton"
 
 func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:

@@ -5,7 +5,9 @@ func load_json_file(filepath: String):
 	if file.open(filepath, File.READ):
 		push_error("Error when opening " + filepath)
 		return {}
-	var json := JSON.parse(file.get_as_text())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(file.get_as_text())
+	var json := test_json_conv.get_data()
 	if json.error:
 		push_error("Error when parsing JSON for " + filepath)
 		return {}
@@ -16,7 +18,7 @@ func save_json_file(json, file_path: String):
 	var err : int = file.open(file_path, File.WRITE)
 	if err:
 		return err
-	file.store_string(JSON.print(json, "\t"))
+	file.store_string(JSON.stringify(json, "\t"))
 	file.close()
 
 func make_system_specific(json: Dictionary, curr_system: String):

@@ -29,7 +29,7 @@ func get_name() -> String:
 	return "EmulationStation / EmulationStation-DE"
 
 # Return this importer icon
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return preload("res://assets/frontends/es.png")
 
 # Returns the compatibility level regarding existing game metadata.
@@ -72,11 +72,11 @@ func get_theme_compatibility_level_description() -> String:
 # This will run in a thread, so avoid any unsafe-thread API
 func get_estimated_size() -> int:
 	if folder_size == -1:
-		var dir := Directory.new()
+		var dir := DirAccess.new()
 		folder_size = 0
-		if not dir.open(media_path) and not dir.list_dir_begin(true):
+		if not dir.open(media_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 			var next := dir.get_next()
-			while not next.empty():
+			while not next.is_empty():
 				if dir.current_is_dir():
 					folder_size += FileUtils.get_folder_size(media_path + "/" + next, ES_MEDIA_NAMES)
 				next = dir.get_next()
@@ -88,7 +88,7 @@ func get_estimated_size() -> int:
 # to finding local files, reading content, and determining compatibility levels
 func is_available() -> bool:
 	# Does ~/.emulationstation exist?
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	if not dir.dir_exists(config_path):
 		return false
 
@@ -96,9 +96,9 @@ func is_available() -> bool:
 	var theme_path := config_path + "/themes"
 	var config_level : int = -1
 	if not dir.open(theme_path):
-		if not dir.list_dir_begin(true):
+		if not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 			var next := dir.get_next()
-			while not next.empty():
+			while not next.is_empty():
 				if dir.current_is_dir():
 					config_level = int(max(config_level, check_theme_config_level(theme_path + "/" + next)))
 				next = dir.get_next()
@@ -110,7 +110,7 @@ func is_available() -> bool:
 	return true
 
 func check_theme_config_level(base_path: String) -> int:
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 
 	# Query first at root, and only move to folders if it doesn't exist
 	var root_file := base_path + "/theme.xml"
@@ -120,11 +120,11 @@ func check_theme_config_level(base_path: String) -> int:
 			return config_level
 
 	# Query system folders
-	if dir.open(base_path) or dir.list_dir_begin(true):
+	if dir.open(base_path) or dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		push_error("Failed to open ES theme " + base_path)
 		return -1
 	var path := dir.get_next()
-	while not path.empty():
+	while not path.is_empty():
 		var file := base_path + "/" + path + "/theme.xml"
 		if dir.file_exists(file):
 			var config_level := inspect_theme_xml(file)
@@ -179,7 +179,9 @@ func begin_import(copy: bool):
 func import_config():
 	reset_minor(1)
 	progress_minor("Reading game directory...")
-	var config := XML2JSON.parse(config_path + "/es_settings.xml")
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(config_path + "/es_settings.xml")
+	var config := XML2test_json_conv.get_data()
 	if config.has("string"):
 		for child in config["string"]:
 			if child.has("#attributes") and child["#attributes"]["name"] == "ROMDirectory":
@@ -188,17 +190,19 @@ func import_config():
 
 func import_metadata():
 	reset_minor(0)
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	var gamelists := {}
 	var total_games := 0
-	if not dir.open(gamelists_path) and not dir.list_dir_begin(true):
+	if not dir.open(gamelists_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next_folder := dir.get_next()
-		while not next_folder.empty():
+		while not next_folder.is_empty():
 			if dir.current_is_dir():
 				var gamelist_path := gamelists_path + "/" + next_folder + "/gamelist.xml"
 				progress_minor("Reading gamedata from \"%s\"..." % next_folder)
-				var gamelist_dict := XML2JSON.parse(gamelist_path)
-				if not gamelist_dict.empty() and gamelist_dict.has("gameList"):
+				var test_json_conv = JSON.new()
+				test_json_conv.parse(gamelist_path)
+				var gamelist_dict := XML2test_json_conv.get_data()
+				if not gamelist_dict.is_empty() and gamelist_dict.has("gameList"):
 					gamelist_dict = gamelist_dict["gameList"]
 					if gamelist_dict.has("game"):
 						var game = gamelist_dict["game"]
@@ -257,18 +261,18 @@ func process_metadata(system: String, dict: Dictionary):
 
 
 func import_media(copy: bool):
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	var count := 0
-	if not dir.open(media_path) and not dir.list_dir_begin(true):
+	if not dir.open(media_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if dir.current_is_dir():
 				count += FileUtils.get_file_count(media_path + "/" + next, ES_MEDIA_NAMES)
 			next = dir.get_next()
 	reset_minor(count)
-	if not dir.list_dir_begin(true):
+	if not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if dir.current_is_dir():
 				var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + next
 				FileUtils.ensure_path(base_path)
@@ -276,19 +280,19 @@ func import_media(copy: bool):
 			next = dir.get_next()
 
 func process_media_subfolder(path: String, system: String, copy: bool):
-	var dir := Directory.new()
-	if not dir.open(path) and not dir.list_dir_begin(true):
+	var dir := DirAccess.new()
+	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if dir.current_is_dir() and next in ES_MEDIA_NAMES:
 				process_media(path + "/" + next, system, RH_MEDIA_NAMES[ES_MEDIA_NAMES.find(next)], copy)
 			next = dir.get_next()
 
 func process_media(path: String, system: String, media_name: String, copy: bool):
-	var dir := Directory.new()
-	if not dir.open(path) and not dir.list_dir_begin(true):
+	var dir := DirAccess.new()
+	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if not dir.current_is_dir():
 				var from_path := path + "/" + next
 				var to_path := RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name + "/" + from_path.get_file()

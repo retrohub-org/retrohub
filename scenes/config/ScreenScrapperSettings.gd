@@ -1,17 +1,17 @@
 extends VBoxContainer
 
-onready var n_use_account := $"%UseAccount"
-onready var n_username := $"%Username"
-onready var n_password := $"%Password"
-onready var n_thread_count_lbl := $"%ThreadCountLabel"
-onready var n_thread_count := $"%ThreadCount"
+@onready var n_use_account := $"%UseAccount"
+@onready var n_username := $"%Username"
+@onready var n_password := $"%Password"
+@onready var n_thread_count_lbl := $"%ThreadCountLabel"
+@onready var n_thread_count := $"%ThreadCount"
 
 
 var changed := false
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 
 
 func _on_config_ready(config_data: ConfigData):

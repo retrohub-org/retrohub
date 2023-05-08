@@ -22,7 +22,7 @@ func get_name() -> String:
 	return "RetroArch"
 
 # Return this importer icon
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return preload("res://assets/frontends/retroarch.png")
 
 # Returns the compatibility level regarding existing game metadata.
@@ -59,11 +59,11 @@ func get_theme_compatibility_level_description() -> String:
 # This will run in a thread, so avoid any unsafe-thread API
 func get_estimated_size() -> int:
 	if folder_size == -1:
-		var dir := Directory.new()
+		var dir := DirAccess.new()
 		folder_size = 0
-		if not dir.open(thumbnails_path) and not dir.list_dir_begin(true):
+		if not dir.open(thumbnails_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 			var next := dir.get_next()
-			while not next.empty():
+			while not next.is_empty():
 				if dir.current_is_dir() and next != "cheevos":
 					folder_size += FileUtils.get_folder_size(thumbnails_path + "/" + next, RA_MEDIA_NAMES)
 				next = dir.get_next()
@@ -75,7 +75,7 @@ func get_estimated_size() -> int:
 # to finding local files, reading content, and determining compatibility levels
 func is_available() -> bool:
 	var path := RetroHubRetroArchEmulator.get_config_path()
-	if not path.empty():
+	if not path.is_empty():
 		set_paths(path)
 		return true
 	return false
@@ -101,17 +101,17 @@ func begin_import(copy: bool):
 
 func import_metadata():
 	reset_minor(0)
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	var gamelists := {}
 	var total_games := 0
-	if not dir.open(playlists_path) and not dir.list_dir_begin(true):
+	if not dir.open(playlists_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if not dir.current_is_dir() and next.to_lower().ends_with(".lpl"):
 				var lpl_file := playlists_path + "/" + next
 				progress_minor("Reading gamedata from \"%s\"..." % next)
 				var system_name := guess_system_name(lpl_file)
-				if not system_name.empty():
+				if not system_name.is_empty():
 					gamelists[system_name] = process_lpl_file(lpl_file)
 			next = dir.get_next()
 	reset_minor(total_games)
@@ -139,7 +139,7 @@ func process_lpl_file(path: String) -> Array:
 	# RetroArch 1.7.5 onwards saves data in JSON format.
 	var json : Dictionary = JSONUtils.load_json_file(path)
 	var names := []
-	if not json.empty():
+	if not json.is_empty():
 		if json.has("items"):
 			for child in json["items"]:
 				names.append({"name": child["label"], "path": child["path"]})
@@ -169,41 +169,41 @@ func process_metadata(system: String, dict: Dictionary):
 
 
 func import_media(copy: bool):
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	var count := 0
-	if not dir.open(thumbnails_path) and not dir.list_dir_begin(true):
+	if not dir.open(thumbnails_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if dir.current_is_dir() and next != "cheevos":
 				count += FileUtils.get_file_count(thumbnails_path + "/" + next, RA_MEDIA_NAMES)
 			next = dir.get_next()
 	reset_minor(count)
-	if not dir.list_dir_begin(true):
+	if not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if dir.current_is_dir() and next != "cheevos":
 				var system_name := guess_system_name(next)
-				if not system_name.empty():
+				if not system_name.is_empty():
 					var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + system_name
 					FileUtils.ensure_path(base_path)
 					process_media_subfolder(thumbnails_path + "/" + next, system_name, copy)
 			next = dir.get_next()
 
 func process_media_subfolder(path: String, system: String, copy: bool):
-	var dir := Directory.new()
-	if not dir.open(path) and not dir.list_dir_begin(true):
+	var dir := DirAccess.new()
+	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		while not next.empty():
+		while not next.is_empty():
 			if dir.current_is_dir() and next in RA_MEDIA_NAMES:
 				process_media(path + "/" + next, system, RH_MEDIA_NAMES[RA_MEDIA_NAMES.find(next)], copy)
 			next = dir.get_next()
 
 func process_media(path: String, system: String, media_name: String, copy: bool):
-	var dir := Directory.new()
-	if not dir.open(path) and not dir.list_dir_begin(true):
+	var dir := DirAccess.new()
+	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name
-		while not next.empty():
+		while not next.is_empty():
 			if not dir.current_is_dir():
 				var from_path := path + "/" + next
 				# RetroHub uses game name for media names.

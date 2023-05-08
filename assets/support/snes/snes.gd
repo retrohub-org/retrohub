@@ -1,6 +1,6 @@
 extends RetroHubSupportModel
 
-var support_mat : SpatialMaterial
+var support_mat : StandardMaterial3D
 
 func _ready():
 	mesh_path = $"Model/Object003_01 - Default_0"

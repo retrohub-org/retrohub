@@ -1,15 +1,15 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/config/ScraperSettings.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/NotoSans-Italic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/NotoSans-Italic.ttf" type="FontFile" id=2]
 [ext_resource path="res://scenes/config/ScreenScrapperSettings.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/icons/scrapers/screenscraper.png" type="Texture" id=4]
+[ext_resource path="res://assets/icons/scrapers/screenscraper.png" type="Texture2D" id=4]
 [ext_resource path="res://scenes/popups/scraping_game_picker/ScrapingGamePickerPopup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/popups/scraper/ScraperPopup.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=7]
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=8]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 14
 font_data = ExtResource( 2 )
 
@@ -23,28 +23,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 520.0
+offset_right = 1024.0
+offset_bottom = 520.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
-margin_right = 1012.0
-margin_bottom = 652.0
+offset_right = 1012.0
+offset_bottom = 652.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 5
+theme_override_constants/separation = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_right = 1012.0
-margin_bottom = 30.0
+offset_right = 1012.0
+offset_bottom = 30.0
 
 [node name="IntroLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_top = 8.0
-margin_right = 708.0
-margin_bottom = 22.0
+offset_top = 8.0
+offset_right = 708.0
+offset_bottom = 22.0
 size_flags_horizontal = 3
 text = "Scrapping service:"
 
@@ -54,11 +54,11 @@ previous = NodePath("../../../../../Scrape")
 
 [node name="Service" type="OptionButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 712.0
-margin_right = 1012.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 300, 30 )
-focus_neighbour_top = NodePath("../../../../Scrape")
+offset_left = 712.0
+offset_right = 1012.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 300, 30 )
+focus_neighbor_top = NodePath("../../../../Scrape")
 text = "ScreenScraper"
 icon = ExtResource( 4 )
 expand_icon = true
@@ -66,43 +66,43 @@ items = [ "ScreenScraper", ExtResource( 4 ), false, 0, null ]
 selected = 0
 
 [node name="Label2" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 35.0
-margin_right = 1012.0
-margin_bottom = 49.0
+offset_top = 35.0
+offset_right = 1012.0
+offset_bottom = 49.0
 text = "Scraper settings:"
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScrollContainer/VBoxContainer/Label2"]
 script = ExtResource( 8 )
 
 [node name="CustomSettingsRoot" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 54.0
-margin_right = 1012.0
-margin_bottom = 268.0
-custom_constants/separation = 0
+offset_top = 54.0
+offset_right = 1012.0
+offset_bottom = 268.0
+theme_override_constants/separation = 0
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/ScrollContainer/VBoxContainer/CustomSettingsRoot"]
-margin_right = 1012.0
-margin_bottom = 4.0
+offset_right = 1012.0
+offset_bottom = 4.0
 
 [node name="ScreenScrapperSettings" parent="VBoxContainer/ScrollContainer/VBoxContainer/CustomSettingsRoot" instance=ExtResource( 3 )]
 unique_name_in_owner = true
-margin_top = 4.0
-margin_right = 1012.0
-margin_bottom = 210.0
+offset_top = 4.0
+offset_right = 1012.0
+offset_bottom = 210.0
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer/ScrollContainer/VBoxContainer/CustomSettingsRoot"]
-margin_top = 210.0
-margin_right = 1012.0
-margin_bottom = 214.0
+offset_top = 210.0
+offset_right = 1012.0
+offset_bottom = 214.0
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 273.0
-margin_right = 1012.0
-margin_bottom = 325.0
+offset_top = 273.0
+offset_right = 1012.0
+offset_bottom = 325.0
 
 [node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
-margin_right = 900.0
-margin_bottom = 14.0
+offset_right = 900.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Search mode:"
@@ -111,33 +111,33 @@ text = "Search mode:"
 script = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
-margin_left = 904.0
-margin_right = 1012.0
-margin_bottom = 52.0
+offset_left = 904.0
+offset_right = 1012.0
+offset_bottom = 52.0
 
 [node name="Hash" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 108.0
-margin_bottom = 24.0
+offset_right = 108.0
+offset_bottom = 24.0
 pressed = true
 text = "By file hash"
 
 [node name="Filename" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 28.0
-margin_right = 108.0
-margin_bottom = 52.0
+offset_top = 28.0
+offset_right = 108.0
+offset_bottom = 52.0
 pressed = true
 text = "By file name"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 330.0
-margin_right = 1012.0
-margin_bottom = 346.0
+offset_top = 330.0
+offset_right = 1012.0
+offset_bottom = 346.0
 
 [node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
-margin_right = 671.0
-margin_bottom = 14.0
+offset_right = 671.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "File hash size limit:"
@@ -147,18 +147,18 @@ script = ExtResource( 8 )
 
 [node name="HashMaxSizeLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
 unique_name_in_owner = true
-margin_left = 675.0
-margin_top = 1.0
-margin_right = 708.0
-margin_bottom = 15.0
+offset_left = 675.0
+offset_top = 1.0
+offset_right = 708.0
+offset_bottom = 15.0
 text = "1 MB"
 
 [node name="HashMaxSize" type="HSlider" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
 unique_name_in_owner = true
-margin_left = 712.0
-margin_right = 1012.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 300, 0 )
+offset_left = 712.0
+offset_right = 1012.0
+offset_bottom = 16.0
+custom_minimum_size = Vector2( 300, 0 )
 min_value = 1.0
 max_value = 129.0
 value = 1.0
@@ -167,13 +167,13 @@ tick_count = 5
 ticks_on_borders = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 351.0
-margin_right = 1012.0
-margin_bottom = 403.0
+offset_top = 351.0
+offset_right = 1012.0
+offset_bottom = 403.0
 
 [node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_right = 921.0
-margin_bottom = 14.0
+offset_right = 921.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Content to scrape:"
@@ -182,33 +182,33 @@ text = "Content to scrape:"
 script = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_left = 925.0
-margin_right = 1012.0
-margin_bottom = 52.0
+offset_left = 925.0
+offset_right = 1012.0
+offset_bottom = 52.0
 
 [node name="Metadata" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 87.0
-margin_bottom = 24.0
+offset_right = 87.0
+offset_bottom = 24.0
 pressed = true
 text = "Metadata"
 
 [node name="Media" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 28.0
-margin_right = 87.0
-margin_bottom = 52.0
+offset_top = 28.0
+offset_right = 87.0
+offset_bottom = 52.0
 pressed = true
 text = "Media"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 408.0
-margin_right = 1012.0
-margin_bottom = 652.0
+offset_top = 408.0
+offset_right = 1012.0
+offset_bottom = 652.0
 
 [node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
-margin_right = 753.0
-margin_bottom = 14.0
+offset_right = 753.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Media to scrape:"
@@ -217,109 +217,109 @@ text = "Media to scrape:"
 script = ExtResource( 8 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
-margin_left = 757.0
-margin_right = 1012.0
-margin_bottom = 244.0
+offset_left = 757.0
+offset_right = 1012.0
+offset_bottom = 244.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
-margin_right = 255.0
-margin_bottom = 20.0
-custom_constants/separation = 25
+offset_right = 255.0
+offset_bottom = 20.0
+theme_override_constants/separation = 25
 
 [node name="MediaSelectAll" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 115.0
-margin_bottom = 20.0
+offset_right = 115.0
+offset_bottom = 20.0
 size_flags_horizontal = 3
 text = "Select all"
 
 [node name="MediaDeselectAll" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 140.0
-margin_right = 255.0
-margin_bottom = 20.0
+offset_left = 140.0
+offset_right = 255.0
+offset_bottom = 20.0
 size_flags_horizontal = 3
 text = "Deselect all"
 
 [node name="MediaLogo" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 255.0
-margin_bottom = 48.0
-hint_tooltip = "The game's logo, usually the title graphic."
+offset_top = 24.0
+offset_right = 255.0
+offset_bottom = 48.0
+tooltip_text = "The game's logo, usually the title graphic."
 pressed = true
 text = "Logo"
 
 [node name="MediaTitleScreen" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 52.0
-margin_right = 255.0
-margin_bottom = 76.0
-hint_tooltip = "Screenshot of the game's title screen"
+offset_top = 52.0
+offset_right = 255.0
+offset_bottom = 76.0
+tooltip_text = "Screenshot of the game's title screen"
 pressed = true
 text = "Title Screen"
 
 [node name="MediaScreenshot" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 80.0
-margin_right = 255.0
-margin_bottom = 104.0
-hint_tooltip = "Screenshot of the game during normal gameplay"
+offset_top = 80.0
+offset_right = 255.0
+offset_bottom = 104.0
+tooltip_text = "Screenshot of the game during normal gameplay"
 pressed = true
 text = "Screenshot"
 
 [node name="MediaVideo" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 108.0
-margin_right = 255.0
-margin_bottom = 132.0
-hint_tooltip = "Short video showing the game in action."
+offset_top = 108.0
+offset_right = 255.0
+offset_bottom = 132.0
+tooltip_text = "Short video showing the game in action."
 pressed = true
 text = "Gameplay video"
 
 [node name="MediaBoxRender" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 136.0
-margin_right = 255.0
-margin_bottom = 160.0
-hint_tooltip = "Game box, as a pre-rendered image"
+offset_top = 136.0
+offset_right = 255.0
+offset_bottom = 160.0
+tooltip_text = "Game box, as a pre-rendered image"
 pressed = true
 text = "Game box (2D render)"
 
 [node name="MediaBoxTex" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 164.0
-margin_right = 255.0
-margin_bottom = 188.0
-hint_tooltip = "Game box as a texture for 3D models, which RetroHub can then render."
+offset_top = 164.0
+offset_right = 255.0
+offset_bottom = 188.0
+tooltip_text = "Game box as a texture for 3D models, which RetroHub can then render."
 pressed = true
 text = "Game box (3D texture)"
 
 [node name="MediaSupportRender" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 192.0
-margin_right = 255.0
-margin_bottom = 216.0
-hint_tooltip = "Game's physical support, as a pre-rendered image"
+offset_top = 192.0
+offset_right = 255.0
+offset_bottom = 216.0
+tooltip_text = "Game's physical support, as a pre-rendered image"
 pressed = true
 text = "Game physical support (2D render)"
 
 [node name="MediaSupportTex" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 220.0
-margin_right = 255.0
-margin_bottom = 244.0
-hint_tooltip = "Game's physical support as a texture for 3D models, which RetroHub can then render."
+offset_top = 220.0
+offset_right = 255.0
+offset_bottom = 244.0
+tooltip_text = "Game's physical support as a texture for 3D models, which RetroHub can then render."
 pressed = true
 text = "Game physical support (3D texture)"
 
 [node name="MediaManual" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
-margin_top = 248.0
-margin_right = 255.0
-margin_bottom = 272.0
-hint_tooltip = "Game manual"
+offset_top = 248.0
+offset_right = 255.0
+offset_bottom = 272.0
+tooltip_text = "Game manual"
 pressed = true
 text = "Manual"
 
@@ -327,20 +327,20 @@ text = "Manual"
 script = ExtResource( 7 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 524.0
-margin_right = 1024.0
-margin_bottom = 528.0
+offset_top = 524.0
+offset_right = 1024.0
+offset_bottom = 528.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 532.0
-margin_right = 1024.0
-margin_bottom = 552.0
-custom_constants/separation = 10
+offset_top = 532.0
+offset_right = 1024.0
+offset_bottom = 552.0
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_top = 3.0
-margin_right = 444.0
-margin_bottom = 17.0
+offset_top = 3.0
+offset_right = 444.0
+offset_bottom = 17.0
 size_flags_horizontal = 3
 text = "Games to scrape:"
 
@@ -349,11 +349,11 @@ script = ExtResource( 8 )
 
 [node name="GamesSelected" type="Label" parent="VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 782.0
-margin_right = 899.0
-margin_bottom = 20.0
+offset_left = 782.0
+offset_right = 899.0
+offset_bottom = 20.0
 size_flags_horizontal = 10
-custom_fonts/font = SubResource( 1 )
+theme_override_fonts/font = SubResource( 1 )
 text = "No games selected"
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/HBoxContainer2/GamesSelected"]
@@ -361,21 +361,21 @@ script = ExtResource( 8 )
 
 [node name="GamesType" type="OptionButton" parent="VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 909.0
-margin_right = 1024.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/MediaSupportTex")
+offset_left = 909.0
+offset_right = 1024.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/MediaSupportTex")
 text = "Selected only"
 items = [ "Selected only", null, false, 0, null, "Without metadata", null, false, 1, null, "Without media", null, false, 2, null, "All", null, false, 3, null, "Custom...", null, false, 4, null ]
 selected = 0
 
 [node name="Scrape" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 936.0
-margin_top = 556.0
-margin_right = 1024.0
-margin_bottom = 576.0
-focus_neighbour_bottom = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer/Service")
+offset_left = 936.0
+offset_top = 556.0
+offset_right = 1024.0
+offset_bottom = 576.0
+focus_neighbor_bottom = NodePath("../ScrollContainer/VBoxContainer/HBoxContainer/Service")
 size_flags_horizontal = 8
 text = "Scrape now!"
 
@@ -389,10 +389,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -300.0
-margin_top = -245.5
-margin_right = 300.0
-margin_bottom = 245.5
+offset_left = -300.0
+offset_top = -245.5
+offset_right = 300.0
+offset_bottom = 245.5
 dialog_hide_on_ok = false
 
 [node name="ScraperPopup" parent="." instance=ExtResource( 6 )]
@@ -401,10 +401,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -476.5
-margin_top = -271.0
-margin_right = 476.5
-margin_bottom = 271.0
+offset_left = -476.5
+offset_top = -271.0
+offset_right = 476.5
+offset_bottom = 271.0
 
 [connection signal="visibility_changed" from="." to="." method="_on_ScraperSettings_visibility_changed"]
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer/Hash" to="." method="_on_Hash_toggled"]

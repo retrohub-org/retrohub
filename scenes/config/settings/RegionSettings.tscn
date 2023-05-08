@@ -1,16 +1,16 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/config/settings/RegionSettings.gd" type="Script" id=1]
-[ext_resource path="res://assets/ratings/esrb/E.png" type="Texture" id=2]
-[ext_resource path="res://assets/systems/nes-photo.png" type="Texture" id=3]
-[ext_resource path="res://assets/ratings/pegi/3.png" type="Texture" id=4]
-[ext_resource path="res://assets/ratings/cero/A.png" type="Texture" id=5]
+[ext_resource path="res://assets/ratings/esrb/E.png" type="Texture2D" id=2]
+[ext_resource path="res://assets/systems/nes-photo.png" type="Texture2D" id=3]
+[ext_resource path="res://assets/ratings/pegi/3.png" type="Texture2D" id=4]
+[ext_resource path="res://assets/ratings/cero/A.png" type="Texture2D" id=5]
 [ext_resource path="res://scenes/ui_nodes/LazyTextureRect.gd" type="Script" id=6]
-[ext_resource path="res://assets/systems/tg16-photo.png" type="Texture" id=7]
-[ext_resource path="res://assets/systems/tg-cd-photo.png" type="Texture" id=8]
-[ext_resource path="res://assets/systems/snes-photo.png" type="Texture" id=9]
-[ext_resource path="res://assets/systems/videopac-photo.png" type="Texture" id=10]
-[ext_resource path="res://assets/systems/genesis-photo.png" type="Texture" id=11]
+[ext_resource path="res://assets/systems/tg16-photo.png" type="Texture2D" id=7]
+[ext_resource path="res://assets/systems/tg-cd-photo.png" type="Texture2D" id=8]
+[ext_resource path="res://assets/systems/snes-photo.png" type="Texture2D" id=9]
+[ext_resource path="res://assets/systems/videopac-photo.png" type="Texture2D" id=10]
+[ext_resource path="res://assets/systems/genesis-photo.png" type="Texture2D" id=11]
 [ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=12]
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=13]
 
@@ -25,21 +25,21 @@ anchor_bottom = 1.0
 follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1024.0
-margin_bottom = 576.0
+offset_right = 1024.0
+offset_bottom = 576.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 30.0
+offset_right = 1024.0
+offset_bottom = 30.0
 size_flags_horizontal = 3
 
 [node name="IntroLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_top = 8.0
-margin_right = 720.0
-margin_bottom = 22.0
+offset_top = 8.0
+offset_right = 720.0
+offset_bottom = 22.0
 size_flags_horizontal = 3
 text = "Region:"
 
@@ -49,37 +49,37 @@ previous = NodePath("../../../SystemsContainer/HBoxContainer6/Odyssey2")
 
 [node name="Region" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 724.0
-margin_right = 1024.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 300, 30 )
-focus_neighbour_top = NodePath("../../SystemsContainer/HBoxContainer6/Odyssey2")
+offset_left = 724.0
+offset_right = 1024.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 300, 30 )
+focus_neighbor_top = NodePath("../../SystemsContainer/HBoxContainer6/Odyssey2")
 text = "USA"
 items = [ "USA", null, false, 0, null, "Europe", null, false, 1, null, "Japan", null, false, 2, null ]
 selected = 0
 
 [node name="ResetRegion" type="Button" parent="ScrollContainer/VBoxContainer"]
-margin_left = 877.0
-margin_top = 34.0
-margin_right = 1024.0
-margin_bottom = 54.0
+offset_left = 877.0
+offset_top = 34.0
+offset_right = 1024.0
+offset_bottom = 54.0
 size_flags_horizontal = 8
 text = "Reset region defaults"
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
-margin_top = 58.0
-margin_right = 1024.0
-margin_bottom = 62.0
+offset_top = 58.0
+offset_right = 1024.0
+offset_bottom = 62.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 66.0
-margin_right = 1024.0
-margin_bottom = 146.0
+offset_top = 66.0
+offset_right = 1024.0
+offset_bottom = 146.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 870.0
-margin_bottom = 14.0
+offset_right = 870.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Rating system:"
@@ -89,10 +89,10 @@ script = ExtResource( 13 )
 
 [node name="RatingSystem" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 874.0
-margin_right = 1024.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 150, 80 )
+offset_left = 874.0
+offset_right = 1024.0
+offset_bottom = 80.0
+custom_minimum_size = Vector2( 150, 80 )
 text = "ESRB"
 icon = ExtResource( 2 )
 expand_icon = true
@@ -100,14 +100,14 @@ items = [ "ESRB", ExtResource( 2 ), false, 0, null, "PEGI", ExtResource( 4 ), fa
 selected = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 150.0
-margin_right = 1024.0
-margin_bottom = 180.0
+offset_top = 150.0
+offset_right = 1024.0
+offset_bottom = 180.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_right = 720.0
-margin_bottom = 14.0
+offset_right = 720.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Date format:"
@@ -117,42 +117,42 @@ script = ExtResource( 13 )
 
 [node name="DateFormat" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 724.0
-margin_right = 1024.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 300, 30 )
+offset_left = 724.0
+offset_right = 1024.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 300, 30 )
 text = "MM/DD/YYYY"
 items = [ "MM/DD/YYYY", null, false, 0, null, "DD/MM/YYYY", null, false, 1, null, "YYYY/MM/DD", null, false, 2, null ]
 selected = 0
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
-margin_top = 184.0
-margin_right = 1024.0
-margin_bottom = 198.0
+offset_top = 184.0
+offset_right = 1024.0
+offset_bottom = 198.0
 text = "System names: "
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Label"]
 script = ExtResource( 13 )
 
 [node name="SystemsContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 202.0
-margin_right = 1024.0
-margin_bottom = 576.0
+offset_top = 202.0
+offset_right = 1024.0
+offset_bottom = 576.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+offset_right = 150.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 150, 0 )
 
 [node name="Genesis" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../../HBoxContainer3/DateFormat")
-focus_neighbour_bottom = NodePath("../../HBoxContainer5/TGCD")
+offset_right = 150.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../../HBoxContainer3/DateFormat")
+focus_neighbor_bottom = NodePath("../../HBoxContainer5/TGCD")
 size_flags_vertical = 4
 text = "Sega Genesis"
 items = [ "Sega Genesis", null, false, 0, null, "Sega Megadrive", null, false, 1, null ]
@@ -160,26 +160,26 @@ selected = 0
 
 [node name="GenesisIcon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
+offset_top = 24.0
+offset_right = 150.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 100, 100 )
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 6 )
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 154.0
-margin_right = 304.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+offset_left = 154.0
+offset_right = 304.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 150, 0 )
 
 [node name="NES" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../../HBoxContainer3/DateFormat")
+offset_right = 150.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../../HBoxContainer3/DateFormat")
 size_flags_vertical = 4
 text = "NES"
 items = [ "NES", null, false, 0, null, "Famicom", null, false, 1, null ]
@@ -187,26 +187,26 @@ selected = 0
 
 [node name="NESIcon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
+offset_top = 24.0
+offset_right = 150.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 100, 100 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 6 )
 
 [node name="HBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 308.0
-margin_right = 458.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+offset_left = 308.0
+offset_right = 458.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 150, 0 )
 
 [node name="SNES" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../../HBoxContainer3/DateFormat")
+offset_right = 150.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../../HBoxContainer3/DateFormat")
 size_flags_vertical = 4
 text = "SNES"
 items = [ "SNES", null, false, 0, null, "Super Famicom", null, false, 1, null ]
@@ -214,26 +214,26 @@ selected = 0
 
 [node name="SNESIcon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
+offset_top = 24.0
+offset_right = 150.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 100, 100 )
 texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 6 )
 
 [node name="HBoxContainer4" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 462.0
-margin_right = 612.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+offset_left = 462.0
+offset_right = 612.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 150, 0 )
 
 [node name="TG16" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer4"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../../HBoxContainer3/DateFormat")
+offset_right = 150.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../../HBoxContainer3/DateFormat")
 size_flags_vertical = 4
 text = "TurboGrafx-16"
 items = [ "TurboGrafx-16", null, false, 0, null, "PC Engine", null, false, 1, null ]
@@ -241,27 +241,27 @@ selected = 0
 
 [node name="TG16Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer4"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
+offset_top = 24.0
+offset_right = 150.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 100, 100 )
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 6 )
 
 [node name="HBoxContainer5" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 616.0
-margin_right = 766.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+offset_left = 616.0
+offset_right = 766.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 150, 0 )
 
 [node name="TGCD" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer5"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../HBoxContainer/Genesis")
-focus_neighbour_bottom = NodePath("../../../HBoxContainer/Region")
+offset_right = 150.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../HBoxContainer/Genesis")
+focus_neighbor_bottom = NodePath("../../../HBoxContainer/Region")
 size_flags_vertical = 4
 text = "TurboGrafx-CD"
 items = [ "TurboGrafx-CD", null, false, 0, null, "PC Engine CD", null, false, 1, null ]
@@ -269,26 +269,26 @@ selected = 0
 
 [node name="TGCDIcon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer5"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
+offset_top = 24.0
+offset_right = 150.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 100, 100 )
 texture = ExtResource( 8 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 6 )
 
 [node name="HBoxContainer6" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 770.0
-margin_right = 920.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+offset_left = 770.0
+offset_right = 920.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 150, 0 )
 
 [node name="Odyssey2" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer6"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_bottom = NodePath("../../../HBoxContainer/Region")
+offset_right = 150.0
+offset_bottom = 20.0
+focus_neighbor_bottom = NodePath("../../../HBoxContainer/Region")
 size_flags_vertical = 4
 text = "Videopac"
 items = [ "Videopac", null, false, 0, null, "Odyssey²", null, false, 1, null ]
@@ -300,10 +300,10 @@ next = NodePath("../../../../HBoxContainer/IntroLabel")
 
 [node name="Odyssey2Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer6"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
+offset_top = 24.0
+offset_right = 150.0
+offset_bottom = 124.0
+custom_minimum_size = Vector2( 100, 100 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6

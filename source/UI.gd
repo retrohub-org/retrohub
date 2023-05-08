@@ -1,9 +1,9 @@
 extends Control
 
-var _n_filesystem_popup : FileDialog setget _set_filesystem_popup
-var _n_virtual_keyboard : PopupPanel setget _set_virtual_keyboard
-var _n_config_popup : Popup setget _set_config_popup
-var _n_warning_popup : AcceptDialog setget _set_warning_popup
+var _n_filesystem_popup : FileDialog: set = _set_filesystem_popup
+var _n_virtual_keyboard : PopupPanel: set = _set_virtual_keyboard
+var _n_config_popup : Popup: set = _set_config_popup
+var _n_warning_popup : AcceptDialog: set = _set_warning_popup
 
 var color_theme_accent := Color("ffbb89")
 
@@ -54,11 +54,11 @@ func _input(event):
 func _set_filesystem_popup(popup: FileDialog):
 	_n_filesystem_popup = popup
 	#warning-ignore:return_value_discarded
-	_n_filesystem_popup.connect("file_selected", self, "_on_popup_selected")
+	_n_filesystem_popup.connect("file_selected", Callable(self, "_on_popup_selected"))
 	#warning-ignore:return_value_discarded
-	_n_filesystem_popup.connect("dir_selected", self, "_on_popup_selected")
+	_n_filesystem_popup.connect("dir_selected", Callable(self, "_on_popup_selected"))
 	#warning-ignore:return_value_discarded
-	_n_filesystem_popup.connect("popup_hide", self, "_on_popup_hide")
+	_n_filesystem_popup.connect("popup_hide", Callable(self, "_on_popup_hide"))
 
 func _set_virtual_keyboard(keyboard: PopupPanel):
 	_n_virtual_keyboard = keyboard
@@ -79,25 +79,25 @@ func filesystem_filters(filters: Array = []):
 	_n_filesystem_popup.filters = filters
 
 func request_file_load(base_path: String) -> void:
-	_n_filesystem_popup.mode = FileDialog.MODE_OPEN_FILE
+	_n_filesystem_popup.mode = FileDialog.FILE_MODE_OPEN_FILE
 	_n_filesystem_popup.current_dir = base_path
 	_n_filesystem_popup.popup()
 
 func request_folder_load(base_path: String) -> void:
-	_n_filesystem_popup.mode = FileDialog.MODE_OPEN_DIR
+	_n_filesystem_popup.mode = FileDialog.FILE_MODE_OPEN_DIR
 	_n_filesystem_popup.current_dir = base_path
 	_n_filesystem_popup.popup()
 
-func load_app_icon(icon: int) -> Texture:
+func load_app_icon(icon: int) -> Texture2D:
 	var path : String = "res://assets/icons/%s.svg" % Icons.keys()[icon].to_lower()
-	return (load(path) as Texture)
+	return (load(path) as Texture2D)
 
 func show_virtual_keyboard() -> void:
 	match RetroHubConfig.config.virtual_keyboard_type:
 		"steam":
-			var focused_control := get_focus_owner()
-			var _rect_pos := focused_control.rect_global_position
-			var _rect_size := focused_control.rect_size
+			var focused_control := get_viewport().gui_get_focus_owner()
+			var _rect_pos := focused_control.global_position
+			var _rect_size := focused_control.size
 			var uri := "steam://open/keyboard?XPosition=%d&YPosition=%d&Width=%d&Height=%d&Mode=%d" % [
 				int(_rect_pos.x), int(_rect_pos.y),
 				int(_rect_size.x), int(_rect_size.y),
@@ -137,7 +137,7 @@ func open_app_config(tab: int = -1):
 		if tab != -1:
 			tab = int(clamp(tab, 0, _n_config_popup.n_tab_buttons.size()))
 			_n_config_popup.n_tab_buttons[tab].grab_focus()
-			_n_config_popup.n_tab_buttons[tab].pressed = true
+			_n_config_popup.n_tab_buttons[tab].button_pressed = true
 			_n_config_popup._on_Tab_pressed(tab)
 		_n_config_popup.popup()
 
@@ -145,5 +145,5 @@ func show_warning(text: String):
 	if _n_warning_popup:
 		_n_warning_popup.get_node("%WarningLabel").text = text
 		_n_warning_popup.popup_centered()
-		yield(get_tree(), "idle_frame")
-		_n_warning_popup.get_ok().grab_focus()
+		await get_tree().idle_frame
+		_n_warning_popup.get_ok_button().grab_focus()

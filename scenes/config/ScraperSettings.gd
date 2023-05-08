@@ -1,34 +1,34 @@
 extends Control
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_service := $"%Service"
-onready var n_games_selected := $"%GamesSelected"
-onready var n_games_type := $"%GamesType"
-onready var n_metadata := $"%Metadata"
-onready var n_search_by_hash := $"%Hash"
-onready var n_search_by_name := $"%Filename"
-onready var n_hash_max_size_lbl := $"%HashMaxSizeLabel"
-onready var n_hash_max_size := $"%HashMaxSize"
-onready var n_media := $"%Media"
-onready var n_media_select_all := $"%MediaSelectAll"
-onready var n_media_deselect_all := $"%MediaDeselectAll"
-onready var n_media_logo := $"%MediaLogo"
-onready var n_media_title_screen := $"%MediaTitleScreen"
-onready var n_media_screenshot := $"%MediaScreenshot"
-onready var n_media_video := $"%MediaVideo"
-onready var n_media_box_render := $"%MediaBoxRender"
-onready var n_media_box_tex := $"%MediaBoxTex"
-onready var n_media_support_render := $"%MediaSupportRender"
-onready var n_media_support_tex := $"%MediaSupportTex"
-onready var n_media_manual := $"%MediaManual"
-onready var n_scrape := $"%Scrape"
+@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_service := $"%Service"
+@onready var n_games_selected := $"%GamesSelected"
+@onready var n_games_type := $"%GamesType"
+@onready var n_metadata := $"%Metadata"
+@onready var n_search_by_hash := $"%Hash"
+@onready var n_search_by_name := $"%Filename"
+@onready var n_hash_max_size_lbl := $"%HashMaxSizeLabel"
+@onready var n_hash_max_size := $"%HashMaxSize"
+@onready var n_media := $"%Media"
+@onready var n_media_select_all := $"%MediaSelectAll"
+@onready var n_media_deselect_all := $"%MediaDeselectAll"
+@onready var n_media_logo := $"%MediaLogo"
+@onready var n_media_title_screen := $"%MediaTitleScreen"
+@onready var n_media_screenshot := $"%MediaScreenshot"
+@onready var n_media_video := $"%MediaVideo"
+@onready var n_media_box_render := $"%MediaBoxRender"
+@onready var n_media_box_tex := $"%MediaBoxTex"
+@onready var n_media_support_render := $"%MediaSupportRender"
+@onready var n_media_support_tex := $"%MediaSupportTex"
+@onready var n_media_manual := $"%MediaManual"
+@onready var n_scrape := $"%Scrape"
 
-onready var n_scraping_game_picker_popup := $"%ScrapingGamePickerPopup"
-onready var n_scrape_popup := $"%ScraperPopup"
+@onready var n_scraping_game_picker_popup := $"%ScrapingGamePickerPopup"
+@onready var n_scrape_popup := $"%ScraperPopup"
 
-onready var n_ss_settings := $"%ScreenScrapperSettings"
+@onready var n_ss_settings := $"%ScreenScrapperSettings"
 
-onready var n_media_nodes := [
+@onready var n_media_nodes := [
 	n_media_logo,
 	n_media_title_screen,
 	n_media_screenshot,
@@ -43,7 +43,7 @@ onready var n_media_nodes := [
 var selected_game_datas : Array
 
 func _ready():
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 
 func _on_config_ready(config_data: ConfigData):
 	set_hash_max_size_text(config_data.scraper_hash_file_size)
@@ -56,7 +56,7 @@ func grab_focus():
 		n_service.grab_focus()
 
 func toggle_scrape_button():
-	n_scrape.disabled = selected_game_datas.empty() or \
+	n_scrape.disabled = selected_game_datas.is_empty() or \
 		!(n_metadata.pressed or n_media.pressed) or \
 		!(n_search_by_hash.pressed or n_search_by_name.pressed)
 
@@ -73,12 +73,12 @@ func _on_Media_toggled(button_pressed):
 
 func _on_MediaSelectAll_pressed():
 	for node in n_media_nodes:
-		node.pressed = true
+		node.button_pressed = true
 
 
 func _on_MediaDeselectAll_pressed():
 	for node in n_media_nodes:
-		node.pressed = false
+		node.button_pressed = false
 
 
 func _on_GamesType_item_selected(_index):
@@ -104,7 +104,7 @@ func update_scrape_stats(passive: bool):
 		4:	# Custom
 			if not passive:
 				n_scraping_game_picker_popup.popup()
-				selected_game_datas = yield(n_scraping_game_picker_popup, "games_selected")
+				selected_game_datas = await n_scraping_game_picker_popup.games_selected
 	match selected_game_datas.size():
 		0:
 			n_games_selected.text = "No games selected"

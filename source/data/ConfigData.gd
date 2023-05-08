@@ -7,33 +7,33 @@ var _config_changed := false
 var _old_config : Dictionary
 
 # Games directory
-var is_first_time : bool = true setget _set_is_first_time
-var games_dir : String = FileUtils.get_home_dir() + "/ROMS" setget _set_games_dir
-var current_theme : String = "default" setget _set_current_theme
-var lang : String = "en" setget _set_lang
-var fullscreen : bool = true setget _set_fullscreen
-var vsync : bool = true setget _set_vsync
-var render_resolution : int = 100 setget _set_render_resolution
-var region : String = "usa" setget _set_region
-var rating_system : String = "esrb" setget _set_rating_system
-var date_format : String = "mm/dd/yyyy" setget _set_date_format
-var system_names : Dictionary = default_system_names() setget _set_system_names
-var scraper_hash_file_size : int = 64 setget _set_scraper_hash_file_size
-var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_custom_account
-var scraper_ss_max_threads : int = 6 setget _set_scraper_ss_max_threads
-var custom_input_remap : String = "" setget _set_custom_input_remap
-var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_map
-var input_controller_map : Dictionary = default_input_controller_map() setget _set_input_controller_map
-var input_controller_main_axis : String = "left" setget _set_input_controller_main_axis
-var input_controller_secondary_axis : String = "right" setget _set_input_controller_secondary_axis
-var input_controller_icon_type : String = "auto" setget _set_input_controller_icon_type
-var input_controller_echo_pre_delay: float = 0.75 setget _set_input_controller_echo_pre_delay
-var input_controller_echo_delay: float = 0.15 setget _set_input_controller_echo_delay
-var virtual_keyboard_layout : String = "qwerty" setget _set_virtual_keyboard_layout
-var virtual_keyboard_type : String = default_virtual_keyboard_type() setget _set_virtual_keyboard_type
-var virtual_keyboard_show_on_controller : bool = true setget _set_virtual_keyboard_show_on_controller
-var virtual_keyboard_show_on_mouse : bool = false setget _set_virtual_keyboard_show_on_mouse
-var accessibility_screen_reader_enabled : bool = true setget _set_accessibility_screen_reader_enabled
+var is_first_time : bool = true: set = _set_is_first_time
+var games_dir : String = FileUtils.get_home_dir() + "/ROMS": set = _set_games_dir
+var current_theme : String = "default": set = _set_current_theme
+var lang : String = "en": set = _set_lang
+var fullscreen : bool = true: set = _set_fullscreen
+var vsync : bool = true: set = _set_vsync
+var render_resolution : int = 100: set = _set_render_resolution
+var region : String = "usa": set = _set_region
+var rating_system : String = "esrb": set = _set_rating_system
+var date_format : String = "mm/dd/yyyy": set = _set_date_format
+var system_names : Dictionary = default_system_names(): set = _set_system_names
+var scraper_hash_file_size : int = 64: set = _set_scraper_hash_file_size
+var scraper_ss_use_custom_account : bool = false: set = _set_scraper_ss_use_custom_account
+var scraper_ss_max_threads : int = 6: set = _set_scraper_ss_max_threads
+var custom_input_remap : String = "": set = _set_custom_input_remap
+var input_key_map : Dictionary = default_input_key_map(): set = _set_input_key_map
+var input_controller_map : Dictionary = default_input_controller_map(): set = _set_input_controller_map
+var input_controller_main_axis : String = "left": set = _set_input_controller_main_axis
+var input_controller_secondary_axis : String = "right": set = _set_input_controller_secondary_axis
+var input_controller_icon_type : String = "auto": set = _set_input_controller_icon_type
+var input_controller_echo_pre_delay: float = 0.75: set = _set_input_controller_echo_pre_delay
+var input_controller_echo_delay: float = 0.15: set = _set_input_controller_echo_delay
+var virtual_keyboard_layout : String = "qwerty": set = _set_virtual_keyboard_layout
+var virtual_keyboard_type : String = default_virtual_keyboard_type(): set = _set_virtual_keyboard_type
+var virtual_keyboard_show_on_controller : bool = true: set = _set_virtual_keyboard_show_on_controller
+var virtual_keyboard_show_on_mouse : bool = false: set = _set_virtual_keyboard_show_on_mouse
+var accessibility_screen_reader_enabled : bool = true: set = _set_accessibility_screen_reader_enabled
 
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
@@ -128,7 +128,7 @@ static func default_input_key_map() -> Dictionary:
 	return {
 		"rh_accept": [KEY_ENTER],
 		"rh_back": [KEY_BACKSPACE],
-		"rh_major_option": [KEY_CONTROL],
+		"rh_major_option": [KEY_CTRL],
 		"rh_minor_option": [KEY_ALT],
 		"rh_menu": [KEY_ESCAPE],
 		"rh_theme_menu": [KEY_SHIFT],
@@ -302,7 +302,9 @@ func load_config_from_path(path: String) -> int:
 		return err
 
 	# Parse file
-	var json_result := JSON.parse(file.get_as_text())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(file.get_as_text())
+	var json_result := test_json_conv.get_data()
 	if(json_result.error):
 		push_error("Error parsing config file!")
 		return ERR_FILE_CORRUPT
@@ -340,7 +342,7 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 		dict[key] = get(key)
 
 	# Save JSON to file
-	var json_output := JSON.print(dict, "\t")
+	var json_output := JSON.stringify(dict, "\t")
 	file.store_string(json_output)
 	file.close()
 	_config_changed = false

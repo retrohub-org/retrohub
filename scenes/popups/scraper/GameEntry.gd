@@ -12,8 +12,8 @@ enum State {
 	ERROR,
 }
 
-var game_data : RetroHubGameData setget set_game_data
-var state : int setget set_state
+var game_data : RetroHubGameData: set = set_game_data
+var state : int: set = set_state
 var data
 
 # Info status
@@ -55,6 +55,6 @@ func set_state(_state: int):
 		emit_signal("game_selected", self, true)
 
 func set_font_color(color: Color):
-	add_color_override("font_color", color)
-	add_color_override("font_color_hover", color)
-	add_color_override("font_color_focus", color)
+	add_theme_color_override("font_color", color)
+	add_theme_color_override("font_color_hover", color)
+	add_theme_color_override("font_color_focus", color)

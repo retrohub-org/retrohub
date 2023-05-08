@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/config/settings/GeneralSettings.gd" type="Script" id=1]
-[ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/icons/load.svg" type="Texture" id=3]
+[ext_resource path="res://resources/fonts/default_bold.tres" type="FontFile" id=2]
+[ext_resource path="res://assets/icons/load.svg" type="Texture2D" id=3]
 [ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=4]
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=5]
 
@@ -20,20 +20,20 @@ follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1024.0
-margin_bottom = 576.0
+offset_right = 1024.0
+offset_bottom = 576.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="User" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 154.0
+offset_right = 1024.0
+offset_bottom = 154.0
 
 [node name="IntroLabel" type="Label" parent="ScrollContainer/VBoxContainer/User"]
 unique_name_in_owner = true
-margin_right = 1024.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 2 )
+offset_right = 1024.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource( 2 )
 text = "User"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/User/IntroLabel"]
@@ -41,21 +41,21 @@ script = ExtResource( 5 )
 previous = NodePath("../../../Accessibility/HBoxContainer/ScreenReader")
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/User"]
-margin_top = 24.0
-margin_right = 1024.0
-margin_bottom = 28.0
+offset_top = 24.0
+offset_right = 1024.0
+offset_bottom = 28.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/User"]
-margin_top = 32.0
-margin_right = 1024.0
-margin_bottom = 62.0
+offset_top = 32.0
+offset_right = 1024.0
+offset_bottom = 62.0
 size_flags_horizontal = 3
-custom_constants/separation = 15
+theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/User/HBoxContainer"]
-margin_top = 8.0
-margin_right = 617.0
-margin_bottom = 22.0
+offset_top = 8.0
+offset_right = 617.0
+offset_bottom = 22.0
 size_flags_horizontal = 3
 text = "Game library directory:"
 
@@ -64,36 +64,36 @@ script = ExtResource( 5 )
 
 [node name="GameLibDir" type="LineEdit" parent="ScrollContainer/VBoxContainer/User/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 632.0
-margin_right = 932.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 300, 30 )
-focus_neighbour_top = NodePath("../../../Graphics/HBoxContainer3/RenderRes")
+offset_left = 632.0
+offset_right = 932.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 300, 30 )
+focus_neighbor_top = NodePath("../../../Graphics/HBoxContainer3/RenderRes")
 focus_mode = 0
 editable = false
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="SetGamePath" type="Button" parent="ScrollContainer/VBoxContainer/User/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 947.0
-margin_right = 1024.0
-margin_bottom = 30.0
-focus_neighbour_top = NodePath("../../../Graphics/HBoxContainer3/RenderRes")
+offset_left = 947.0
+offset_right = 1024.0
+offset_bottom = 30.0
+focus_neighbor_top = NodePath("../../../Graphics/HBoxContainer3/RenderRes")
 text = "Choose"
 icon = ExtResource( 3 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/User"]
-margin_top = 66.0
-margin_right = 1024.0
-margin_bottom = 96.0
+offset_top = 66.0
+offset_right = 1024.0
+offset_bottom = 96.0
 size_flags_horizontal = 3
-custom_constants/separation = 15
+theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/User/HBoxContainer2"]
-margin_top = 8.0
-margin_right = 621.0
-margin_bottom = 22.0
+offset_top = 8.0
+offset_right = 621.0
+offset_bottom = 22.0
 size_flags_horizontal = 3
 text = "Theme:"
 
@@ -102,29 +102,29 @@ script = ExtResource( 5 )
 
 [node name="Themes" type="OptionButton" parent="ScrollContainer/VBoxContainer/User/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 636.0
-margin_right = 866.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 230, 30 )
+offset_left = 636.0
+offset_right = 866.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 230, 30 )
 
 [node name="SetThemePath" type="Button" parent="ScrollContainer/VBoxContainer/User/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 881.0
-margin_right = 1024.0
-margin_bottom = 30.0
+offset_left = 881.0
+offset_right = 1024.0
+offset_bottom = 30.0
 text = "Open theme path"
 icon = ExtResource( 3 )
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/User"]
-margin_top = 100.0
-margin_right = 1024.0
-margin_bottom = 130.0
+offset_top = 100.0
+offset_right = 1024.0
+offset_bottom = 130.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/User/HBoxContainer3"]
-margin_top = 8.0
-margin_right = 720.0
-margin_bottom = 22.0
+offset_top = 8.0
+offset_right = 720.0
+offset_bottom = 22.0
 size_flags_horizontal = 3
 text = "Language:"
 
@@ -133,53 +133,53 @@ script = ExtResource( 5 )
 
 [node name="Language" type="OptionButton" parent="ScrollContainer/VBoxContainer/User/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 724.0
-margin_right = 1024.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 300, 30 )
+offset_left = 724.0
+offset_right = 1024.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 300, 30 )
 text = "English (en)"
 items = [ "English (en)", null, false, 0, null ]
 selected = 0
 
 [node name="SetupWizardButton" type="Button" parent="ScrollContainer/VBoxContainer/User"]
 unique_name_in_owner = true
-margin_left = 862.0
-margin_top = 134.0
-margin_right = 1024.0
-margin_bottom = 154.0
+offset_left = 862.0
+offset_top = 134.0
+offset_right = 1024.0
+offset_bottom = 154.0
 size_flags_horizontal = 8
 text = "Re-run first time wizard"
 
 [node name="Graphics" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 158.0
-margin_right = 1024.0
-margin_bottom = 274.0
+offset_top = 158.0
+offset_right = 1024.0
+offset_bottom = 274.0
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Graphics"]
-margin_right = 1024.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 2 )
+offset_right = 1024.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource( 2 )
 text = "Graphics"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Graphics/Label"]
 script = ExtResource( 5 )
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/Graphics"]
-margin_top = 24.0
-margin_right = 1024.0
-margin_bottom = 28.0
+offset_top = 24.0
+offset_right = 1024.0
+offset_bottom = 28.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Graphics"]
-margin_top = 32.0
-margin_right = 1024.0
-margin_bottom = 52.0
+offset_top = 32.0
+offset_right = 1024.0
+offset_bottom = 52.0
 size_flags_horizontal = 3
-custom_constants/separation = 15
+theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer"]
-margin_top = 3.0
-margin_right = 913.0
-margin_bottom = 17.0
+offset_top = 3.0
+offset_right = 913.0
+offset_bottom = 17.0
 size_flags_horizontal = 3
 text = "Mode:"
 
@@ -188,24 +188,24 @@ script = ExtResource( 5 )
 
 [node name="GraphicsMode" type="OptionButton" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 928.0
-margin_right = 1024.0
-margin_bottom = 20.0
+offset_left = 928.0
+offset_right = 1024.0
+offset_bottom = 20.0
 text = "Windowed"
 items = [ "Windowed", null, false, 0, null, "Fullscreen", null, false, 1, null ]
 selected = 0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Graphics"]
-margin_top = 56.0
-margin_right = 1024.0
-margin_bottom = 96.0
+offset_top = 56.0
+offset_right = 1024.0
+offset_bottom = 96.0
 size_flags_horizontal = 3
-custom_constants/separation = 15
+theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer2"]
-margin_top = 13.0
-margin_right = 933.0
-margin_bottom = 27.0
+offset_top = 13.0
+offset_right = 933.0
+offset_bottom = 27.0
 size_flags_horizontal = 3
 text = "Enable V-Sync:"
 
@@ -214,21 +214,21 @@ script = ExtResource( 5 )
 
 [node name="VSync" type="CheckButton" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 948.0
-margin_right = 1024.0
-margin_bottom = 40.0
+offset_left = 948.0
+offset_right = 1024.0
+offset_bottom = 40.0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Graphics"]
-margin_top = 100.0
-margin_right = 1024.0
-margin_bottom = 116.0
+offset_top = 100.0
+offset_right = 1024.0
+offset_bottom = 116.0
 size_flags_horizontal = 3
-custom_constants/separation = 15
+theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer3"]
-margin_top = 1.0
-margin_right = 758.0
-margin_bottom = 15.0
+offset_top = 1.0
+offset_right = 758.0
+offset_bottom = 15.0
 size_flags_horizontal = 3
 text = "Render resolution:"
 
@@ -237,18 +237,18 @@ script = ExtResource( 5 )
 
 [node name="RenderResLabel" type="Label" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 773.0
-margin_top = 1.0
-margin_right = 809.0
-margin_bottom = 15.0
+offset_left = 773.0
+offset_top = 1.0
+offset_right = 809.0
+offset_bottom = 15.0
 text = "100%"
 
 [node name="RenderRes" type="HSlider" parent="ScrollContainer/VBoxContainer/Graphics/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 824.0
-margin_right = 1024.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 200, 0 )
+offset_left = 824.0
+offset_right = 1024.0
+offset_bottom = 16.0
+custom_minimum_size = Vector2( 200, 0 )
 min_value = 50.0
 step = 5.0
 value = 100.0
@@ -256,35 +256,35 @@ tick_count = 11
 ticks_on_borders = true
 
 [node name="Accessibility" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 278.0
-margin_right = 1024.0
-margin_bottom = 350.0
+offset_top = 278.0
+offset_right = 1024.0
+offset_bottom = 350.0
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Accessibility"]
-margin_right = 1024.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 2 )
+offset_right = 1024.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource( 2 )
 text = "Accessibility"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Accessibility/Label"]
 script = ExtResource( 5 )
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/Accessibility"]
-margin_top = 24.0
-margin_right = 1024.0
-margin_bottom = 28.0
+offset_top = 24.0
+offset_right = 1024.0
+offset_bottom = 28.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Accessibility"]
-margin_top = 32.0
-margin_right = 1024.0
-margin_bottom = 72.0
+offset_top = 32.0
+offset_right = 1024.0
+offset_bottom = 72.0
 size_flags_horizontal = 3
-custom_constants/separation = 15
+theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer"]
-margin_top = 13.0
-margin_right = 933.0
-margin_bottom = 27.0
+offset_top = 13.0
+offset_right = 933.0
+offset_bottom = 27.0
 size_flags_horizontal = 3
 text = "Enable screen reader:"
 
@@ -293,10 +293,10 @@ script = ExtResource( 5 )
 
 [node name="ScreenReader" type="CheckButton" parent="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 948.0
-margin_right = 1024.0
-margin_bottom = 40.0
-focus_neighbour_bottom = NodePath("../../../User/HBoxContainer/SetGamePath")
+offset_left = 948.0
+offset_right = 1024.0
+offset_bottom = 40.0
+focus_neighbor_bottom = NodePath("../../../User/HBoxContainer/SetGamePath")
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Accessibility/HBoxContainer/ScreenReader"]
 script = ExtResource( 5 )
@@ -311,20 +311,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -246.5
-margin_top = -166.0
-margin_right = 250.5
-margin_bottom = 166.0
+offset_left = -246.5
+offset_top = -166.0
+offset_right = 250.5
+offset_bottom = 166.0
 
 [node name="Label2" type="Label" parent="FirstTimeWizardWarning"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -240.5
-margin_top = -158.0
-margin_right = 240.5
-margin_bottom = 130.0
+offset_left = -240.5
+offset_top = -158.0
+offset_right = 240.5
+offset_bottom = 130.0
 text = "Re-running the first time wizard will override most of your settings.
 
 If you proceed, RetroHub will be closed, and you must open it again.

@@ -6,7 +6,7 @@ class_name TabContainerHandler
 
 signal tab_changed(tab_container, enter_tab)
 
-export(bool) var signal_tab_change := false
+@export var signal_tab_change: bool := false
 
 var tab : TabContainer
 
@@ -14,10 +14,10 @@ var _focused := false
 
 func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	focus_mode = Control.FOCUS_ALL
-	connect("focus_entered", self, "_on_focus_entered")
-	connect("focus_exited", self, "_on_focus_exited")
+	connect("focus_entered", Callable(self, "_on_focus_entered"))
+	connect("focus_exited", Callable(self, "_on_focus_exited"))
 	tab = get_child(0) if get_child_count() > 0 else null
 	if not tab or not tab is TabContainer:
 		push_error("TabContainerHandler has no TabContainer child! Queueing free...")
@@ -35,7 +35,7 @@ func _input(event):
 	if is_visible_in_tree():
 		if event.is_action_pressed("rh_left_shoulder") or \
 			(_focused and event.is_action_pressed("ui_left")):
-			get_tree().set_input_as_handled()
+			get_viewport().set_input_as_handled()
 			if tab.current_tab > 0:
 				tab.current_tab -= 1
 			else:
@@ -43,7 +43,7 @@ func _input(event):
 			handle_focus(not _focused)
 		elif event.is_action_pressed("rh_right_shoulder") or \
 			(_focused and event.is_action_pressed("ui_right")):
-			get_tree().set_input_as_handled()
+			get_viewport().set_input_as_handled()
 			if tab.current_tab < tab.get_tab_count() - 1:
 				tab.current_tab += 1
 			else:
@@ -51,7 +51,7 @@ func _input(event):
 			handle_focus(not _focused)
 		elif _focused and (event.is_action_pressed("ui_down") or \
 			event.is_action_pressed("rh_accept")):
-			get_tree().set_input_as_handled()
+			get_viewport().set_input_as_handled()
 			handle_focus(true)
 
 func handle_focus(enter_tab: bool):

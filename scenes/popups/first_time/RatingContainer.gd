@@ -1,7 +1,7 @@
 extends VBoxContainer
 
-onready var n_options := $"%RatingOptions"
-onready var n_rating_icons := $"%RatingIcons"
+@onready var n_options := $"%RatingOptions"
+@onready var n_rating_icons := $"%RatingIcons"
 
 func select(idx: int):
 	n_options.select(idx)

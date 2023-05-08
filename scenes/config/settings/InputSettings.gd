@@ -1,34 +1,34 @@
 extends Control
 
-onready var n_input_tab := $"%InputTab"
+@onready var n_input_tab := $"%InputTab"
 
-onready var n_kb_reset := $"%KBReset"
+@onready var n_kb_reset := $"%KBReset"
 
-onready var n_cn_reset := $"%CNReset"
-onready var n_cn_start_layout := $"%CNStartLayout"
-onready var n_cn_clear_layout := $"%CNClearLayout"
-onready var n_cn_icon_type := $"%CNIconType"
-onready var n_cn_pre_delay := $"%CNPreDelay"
-onready var n_cn_delay := $"%CNDelay"
+@onready var n_cn_reset := $"%CNReset"
+@onready var n_cn_start_layout := $"%CNStartLayout"
+@onready var n_cn_clear_layout := $"%CNClearLayout"
+@onready var n_cn_icon_type := $"%CNIconType"
+@onready var n_cn_pre_delay := $"%CNPreDelay"
+@onready var n_cn_delay := $"%CNDelay"
 
-onready var n_vkb_intro_lbl := $"%IntroLabel"
-onready var n_vkb_layout := $"%VirtualKeyboardLayout"
-onready var n_vkb_type := $"%VirtualKeyboardType"
-onready var n_vkb_show_on_controller := $"%VirtualKeyboardOnController"
-onready var n_vkb_show_on_mouse := $"%VirtualKeyboardOnMouse"
+@onready var n_vkb_intro_lbl := $"%IntroLabel"
+@onready var n_vkb_layout := $"%VirtualKeyboardLayout"
+@onready var n_vkb_type := $"%VirtualKeyboardType"
+@onready var n_vkb_show_on_controller := $"%VirtualKeyboardOnController"
+@onready var n_vkb_show_on_mouse := $"%VirtualKeyboardOnMouse"
 
-onready var n_controller_layout_popup := $"%ControllerLayout"
-onready var n_key_remap_popup := $"%KeyboardRemap"
-onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
-onready var n_ctrl_axis_remap_popup := $"%ControllerAxisRemap"
+@onready var n_controller_layout_popup := $"%ControllerLayout"
+@onready var n_key_remap_popup := $"%KeyboardRemap"
+@onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
+@onready var n_ctrl_axis_remap_popup := $"%ControllerAxisRemap"
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
 	#warning-ignore:return_value_discarded
-	ControllerIcons.connect("input_type_changed", self, "_on_input_type_changed")
+	ControllerIcons.connect("input_type_changed", Callable(self, "_on_input_type_changed"))
 
 	n_cn_icon_type.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
 
@@ -46,7 +46,7 @@ func grab_focus():
 			n_vkb_layout.grab_focus()
 
 func _on_config_ready(config_data: ConfigData):
-	n_cn_clear_layout.disabled = config_data.custom_input_remap.empty()
+	n_cn_clear_layout.disabled = config_data.custom_input_remap.is_empty()
 	match RetroHubConfig.config.input_controller_icon_type:
 		"xbox360":
 			n_cn_icon_type.selected = 1
@@ -95,10 +95,10 @@ func _on_config_ready(config_data: ConfigData):
 func _on_config_updated(key: String, _old_value, new_value):
 	match key:
 		ConfigData.KEY_CUSTOM_INPUT_REMAP:
-			n_cn_clear_layout.disabled = new_value.empty()
+			n_cn_clear_layout.disabled = new_value.is_empty()
 
 func _on_input_type_changed(input_type: int):
-	n_cn_start_layout.disabled = Input.get_connected_joypads().empty()
+	n_cn_start_layout.disabled = Input.get_connected_joypads().is_empty()
 	if not is_visible_in_tree():
 		n_input_tab.current_tab = input_type
 
@@ -144,9 +144,9 @@ func _on_KeyboardRemap_key_remapped(key, old_code, new_code):
 	RetroHubConfig.save_config()
 
 func _on_CN_pressed(input_key):
-	var button := get_focus_owner()
-	var pos := button.rect_global_position - Vector2(n_ctrl_button_remap_popup.rect_size.x + 10, 0)
-	n_ctrl_button_remap_popup.start(input_key, pos)
+	var button := get_viewport().gui_get_focus_owner()
+	var pos := button.global_position - Vector2(n_ctrl_button_remap_popup.size.x + 10, 0)
+	n_ctrl_button_remap_popup.start(Callable(input_key, pos))
 
 func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 	# First, find the old button and switch it
@@ -168,9 +168,9 @@ func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 	RetroHubConfig.save_config()
 
 func _on_CNAxis_pressed(axis):
-	var button := get_focus_owner()
-	var pos := button.rect_global_position - Vector2(n_ctrl_button_remap_popup.rect_size.x + 10, 0)
-	n_ctrl_axis_remap_popup.start(axis, pos)
+	var button := get_viewport().gui_get_focus_owner()
+	var pos := button.global_position - Vector2(n_ctrl_button_remap_popup.size.x + 10, 0)
+	n_ctrl_axis_remap_popup.start(Callable(axis, pos))
 
 func _on_ControllerAxisRemap_remap_done(action, old_axis, new_axis):
 	# There's only two movement sticks, they will always switch places
@@ -262,7 +262,7 @@ func _on_VirtualKeyboardType_item_selected(index):
 
 func tts_text(focused: Control):
 	if focused is ControllerButton:
-		return focused.hint_tooltip + ". Current " + ("key" if focused.force_type == 1 else "button") \
+		return focused.tooltip_text + ". Current " + ("key" if focused.force_type == 1 else "button") \
 			+ ": " + focused.get_tts_string()
 	elif focused == n_cn_icon_type and n_cn_icon_type.selected == 0:
 		var text := "detect automatically. detected as "

@@ -2,7 +2,7 @@ extends PopupPanel
 
 signal remap_done(action, old_button, new_button)
 
-onready var n_icons := [
+@onready var n_icons := [
 	$"%A", $"%B", $"%Y", $"%X",
 	$"%LB", $"%RB", $"%LT", $"%RT",
 	$"%Select", $"%Start",
@@ -35,16 +35,16 @@ func start(curr_action: String, pos: Vector2):
 		focus_holder = n_icons[0]
 
 	# Set intended position and popup
-	rect_global_position = pos
+	global_position = pos
 	popup()
 
 	# Popup internally tries to focus, so wait until it's shown to grab focus
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	focus_holder.grab_focus()
 	TTS.speak("Choose the new button for this action")
 
 func _find_button_from_action(raw_action: String):
-	for event in InputMap.get_action_list(raw_action):
+	for event in InputMap.action_get_events(raw_action):
 		if event is InputEventJoypadButton:
 			return event.button_index
 	return -1

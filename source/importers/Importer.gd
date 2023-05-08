@@ -25,7 +25,7 @@ func get_name() -> String:
 	return "null"
 
 # Return this importer icon
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return null
 
 # Returns the compatibility level regarding existing game metadata.

@@ -11,7 +11,7 @@ var name : String
 var description : String
 
 ## Icon for the theme
-var icon : Texture
+var icon : Texture2D
 
 ## Version of the theme
 var version : String

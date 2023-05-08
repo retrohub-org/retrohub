@@ -12,20 +12,20 @@ var _event_handled := false
 
 func _init():
 	#warning-ignore:return_value_discarded
-	ControllerIcons.connect("input_type_changed", self, "_on_input_type_changed")
+	ControllerIcons.connect("input_type_changed", Callable(self, "_on_input_type_changed"))
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
-	yield(get_tree(), "idle_frame")
+	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	await get_tree().idle_frame
 	raise()
 	_joypad_echo_pre_delay.wait_time = RetroHubConfig.config.input_controller_echo_pre_delay
 	_joypad_echo_delay.wait_time = RetroHubConfig.config.input_controller_echo_delay
 	_joypad_echo_pre_delay.one_shot = true
 	#warning-ignore:return_value_discarded
-	_joypad_echo_pre_delay.connect("timeout", self, "_on_joypad_echo_pre_delay_timeout")
+	_joypad_echo_pre_delay.connect("timeout", Callable(self, "_on_joypad_echo_pre_delay_timeout"))
 	#warning-ignore:return_value_discarded
-	_joypad_echo_delay.connect("timeout", self, "_on_joypad_echo_delay_timeout")
+	_joypad_echo_delay.connect("timeout", Callable(self, "_on_joypad_echo_delay_timeout"))
 	add_child(_joypad_echo_pre_delay)
 	add_child(_joypad_echo_delay)
 
@@ -50,7 +50,7 @@ func _input(event):
 	_event_handled = false
 	RetroHub._is_echo = false
 	if hyper_focused_control:
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 	if event is InputEventKey:
 		RetroHub._is_echo = event.is_echo()
 	if event is InputEventJoypadButton:
@@ -62,7 +62,7 @@ func _input(event):
 
 func _input_button(event: InputEventJoypadButton):
 	_input_ui_movement_button(event)
-	var control := get_focus_owner()
+	var control := get_viewport().gui_get_focus_owner()
 	if hyper_focused_control:
 		_input_hyper_focused(event)
 	if RetroHubUI.is_virtual_keyboard_visible():
@@ -72,16 +72,16 @@ func _input_button(event: InputEventJoypadButton):
 			if control.get_parent() and control.get_parent() is SpinBox:
 				hyper_focused_control = control.get_parent()
 				control.theme_type_variation = "HyperFocused"
-				control.caret_position = control.text.length()
+				control.caret_column = control.text.length()
 				return
 			if not RetroHubConfig.config.virtual_keyboard_show_on_controller:
 				return
 			if prev_focus != control:
 				if control is LineEdit:
-					control.caret_position = control.text.length()
+					control.caret_column = control.text.length()
 				else:
-					control.cursor_set_line(control.text.length())
-					control.cursor_set_column(control.text.length())
+					control.set_caret_line(control.text.length())
+					control.set_caret_column(control.text.length())
 			prev_focus = control
 			RetroHubUI.show_virtual_keyboard()
 	if event.is_action_pressed("rh_back"):
@@ -169,7 +169,7 @@ func _input_ui_movement_motion(event: InputEventJoypadMotion):
 		# Else record this event strength
 		_joypad_motion_last_value = abs(event.axis_value)
 	# Event is different
-	elif not _joypad_motion_last_action.empty():
+	elif not _joypad_motion_last_action.is_empty():
 		# Is it stronger than current event?
 		_mark_event_as_handled()
 		if abs(event.axis_value) > _joypad_motion_last_value and abs(event.axis_value) > deadzone:
@@ -187,7 +187,7 @@ func _input_ui_movement_motion(event: InputEventJoypadMotion):
 			_joypad_motion_last_action = ""
 			_joypad_motion_last_value = 0.0
 	# No current event, set this one if surpasses deadzone
-	elif _joypad_motion_last_action.empty() and abs(event.axis_value) > deadzone:
+	elif _joypad_motion_last_action.is_empty() and abs(event.axis_value) > deadzone:
 		_joypad_last_event = _generate_motion_event(action)
 		_joypad_echo_pre_delay.start()
 		_joypad_echo_delay.stop()
@@ -196,7 +196,7 @@ func _input_ui_movement_motion(event: InputEventJoypadMotion):
 
 func _generate_motion_event(action: String):
 	var event := InputEventAction.new()
-	event.pressed = true
+	event.button_pressed = true
 	event.action = action
 	return event
 
@@ -217,5 +217,5 @@ func _is_action_opposite(action1: String, action2: String):
 	return false
 
 func _mark_event_as_handled():
-	get_tree().set_input_as_handled()
+	get_viewport().set_input_as_handled()
 	_event_handled = true

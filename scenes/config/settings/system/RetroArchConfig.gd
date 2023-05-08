@@ -1,13 +1,13 @@
-extends WindowDialog
+extends Window
 
 signal cores_picked(cores)
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_core_options := $"%CoreOptions"
-onready var n_add_core := $"%AddCore"
-onready var n_cores := $"%Cores"
+@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_core_options := $"%CoreOptions"
+@onready var n_add_core := $"%AddCore"
+@onready var n_cores := $"%Cores"
 
-onready var n_ok := $"%OK"
+@onready var n_ok := $"%OK"
 
 var root : TreeItem
 
@@ -15,7 +15,7 @@ func _ready():
 	n_core_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
 	n_cores.set_column_expand(0, true)
 	n_cores.set_column_expand(1, false)
-	n_cores.set_column_min_width(1, 48)
+	n_cores.set_column_custom_minimum_width(1, 48)
 
 func start(cores: Array, existing: Array):
 	reset()
@@ -32,7 +32,7 @@ func start(cores: Array, existing: Array):
 
 	# Popup
 	popup_centered()
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:
@@ -45,14 +45,14 @@ func reset():
 	root = null
 
 func add_core_option(core: Dictionary):
-	var text : String = "<%s>" % core["name"] if core["fullname"].empty() else core["fullname"]
+	var text : String = "<%s>" % core["name"] if core["fullname"].is_empty() else core["fullname"]
 	n_core_options.add_item(text)
 	n_core_options.set_item_metadata(n_core_options.get_item_count()-1, core)
 
 func add_core(core: Dictionary):
 	var child : TreeItem = n_cores.create_item(root)
 	child.set_metadata(0, core)
-	var text : String = "<%s>" % core["name"] if core["fullname"].empty() else core["fullname"]
+	var text : String = "<%s>" % core["name"] if core["fullname"].is_empty() else core["fullname"]
 	child.set_text(0, text)
 	child.set_icon(1, preload("res://assets/icons/failure.svg"))
 

@@ -5,28 +5,28 @@ signal request_extensions(system_name, curr_extensions)
 signal request_add_emulator
 signal request_retroarch_config(existing_cores)
 
-var curr_system : Dictionary setget set_curr_system
+var curr_system : Dictionary: set = set_curr_system
 var emulators : Array
 var extensions := []
 var emulator_tree_root : TreeItem
 
-onready var n_photo := $"%Photo"
-onready var n_logo := $"%Logo"
-onready var n_name := $"%Identifier"
-onready var n_fullname := $"%Name"
-onready var n_category := $"%Category"
-onready var n_emulators := $"%Emulators"
-onready var n_extensions := $"%Extensions"
+@onready var n_photo := $"%Photo"
+@onready var n_logo := $"%Logo"
+@onready var n_name := $"%Identifier"
+@onready var n_fullname := $"%Name"
+@onready var n_category := $"%Category"
+@onready var n_emulators := $"%Emulators"
+@onready var n_extensions := $"%Extensions"
 
-onready var n_change_extensions := $"%ChangeExtensions"
-onready var n_add_emulator := $"%AddEmulator"
+@onready var n_change_extensions := $"%ChangeExtensions"
+@onready var n_add_emulator := $"%AddEmulator"
 
 func _ready():
 	n_emulators.set_column_expand(0, true)
 	n_emulators.set_column_expand(1, false)
 	n_emulators.set_column_expand(2, false)
-	n_emulators.set_column_min_width(1, 48)
-	n_emulators.set_column_min_width(2, 48)
+	n_emulators.set_column_custom_minimum_width(1, 48)
+	n_emulators.set_column_custom_minimum_width(2, 48)
 
 func set_curr_system(_curr_system: Dictionary):
 	curr_system = _curr_system

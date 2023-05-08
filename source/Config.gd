@@ -22,7 +22,7 @@ var _systems_raw : Dictionary
 var _system_renames : Dictionary
 var emulators_map : Dictionary
 
-var _dir := Directory.new()
+var _dir := DirAccess.new()
 var _file := File.new()
 
 var _implicit_mappings := {
@@ -35,7 +35,7 @@ var _implicit_mappings := {
 }
 
 func _ready():
-	OS.min_window_size = Vector2(1024, 576)
+	get_window().min_size = Vector2(1024, 576)
 	if FileUtils.get_os_id() == FileUtils.OS_ID.UNSUPPORTED:
 		OS.alert("Current OS is unsupported! You're on your own!")
 
@@ -50,10 +50,10 @@ func _ready():
 		handle_controller_button_remaps()
 
 		# Wait until all other nodes have processed _ready
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 		emit_signal("config_ready", config)
 	#warning-ignore:return_value_discarded
-	config.connect("config_updated", self, "_on_config_updated")
+	config.connect("config_updated", Callable(self, "_on_config_updated"))
 
 func load_user_data():
 	load_systems()
@@ -103,13 +103,13 @@ func set_system_renaming():
 				_systems_raw.erase(rename)
 
 func _get_scancode(e: InputEventKey):
-	return e.physical_scancode if e.scancode == 0 else e.scancode
+	return e.physical_keycode if e.keycode == 0 else e.keycode
 
 func handle_key_remaps():
 	var keys := config.input_key_map
 	# Add implicit mappings as well (aka existing Godot actions that manage UI events)
 	for key in keys:
-		for ev in InputMap.get_action_list(key):
+		for ev in InputMap.action_get_events(key):
 			if ev is InputEventKey:
 				InputMap.action_erase_event(key, ev)
 				if key in _implicit_mappings:
@@ -123,7 +123,7 @@ func handle_key_remaps():
 
 func handle_key_remap(key: String, old: int, new: int):
 	# Find existing actions to remove them first
-	var events := InputMap.get_action_list(key)
+	var events := InputMap.action_get_events(key)
 	for e in events:
 		if e is InputEventKey and _get_scancode(e) == old:
 			InputMap.action_erase_event(key, e)
@@ -137,14 +137,14 @@ func handle_key_remap(key: String, old: int, new: int):
 				key = "ui_focus_next"
 	# Now add the new one
 	var key_event := InputEventKey.new()
-	key_event.physical_scancode = new
+	key_event.physical_keycode = new
 	InputMap.action_add_event(key, key_event)
 
 func handle_controller_button_remaps():
 	var keys := config.input_controller_map
 	# Add implicit mappings as well (aka existing Godot actions that manage UI events)
 	for key in keys:
-		for ev in InputMap.get_action_list(key):
+		for ev in InputMap.action_get_events(key):
 			if ev is InputEventJoypadButton:
 				InputMap.action_erase_event(key, ev)
 				if key in _implicit_mappings:
@@ -183,7 +183,7 @@ func handle_controller_axis_remaps():
 		"rh_rstick_down": [sec_axis+1, 1]
 	}
 	for key in data:
-		for ev in InputMap.get_action_list(key):
+		for ev in InputMap.action_get_events(key):
 			if ev is InputEventJoypadMotion:
 				InputMap.action_erase_event(key, ev)
 				if key in _implicit_mappings:
@@ -212,11 +212,11 @@ func handle_controller_axis_remaps():
 
 func handle_controller_button_remap(key: String, old: int, new: int):
 	# Find existing actions to remove them first
-	var events := InputMap.get_action_list(key)
+	var events := InputMap.action_get_events(key)
 	if key == "ui_up":
-		events.append_array(InputMap.get_action_list("ui_focus_prev"))
+		events.append_array(InputMap.action_get_events("ui_focus_prev"))
 	elif key == "ui_down":
-		events.append_array(InputMap.get_action_list("ui_focus_next"))
+		events.append_array(InputMap.action_get_events("ui_focus_next"))
 	for e in events:
 		if e is InputEventJoypadButton and e.button_index == old:
 			InputMap.action_erase_event(key, e)
@@ -246,7 +246,7 @@ func load_config_file():
 
 func _get_credential(key: String) -> String:
 	var json : Dictionary = JSONUtils.load_json_file(get_config_dir() + "/rh_credentials.json")
-	if not json.empty() and json.has(key):
+	if not json.is_empty() and json.has(key):
 		return json[key]
 	return ""
 
@@ -275,7 +275,7 @@ func _on_config_updated(key, old_value, new_value):
 func load_game_data_files():
 	games.clear()
 	systems.clear()
-	if _dir.open(config.games_dir) or _dir.list_dir_begin(true):
+	if _dir.open(config.games_dir) or _dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		push_error("Error when opening game directory " + config.games_dir)
 		return
 	var file_name := _dir.get_next()
@@ -288,13 +288,13 @@ func load_game_data_files():
 		file_name = _dir.get_next()
 	_dir.list_dir_end()
 	# Finally order the games array
-	games.sort_custom(RetroHubGameData, "sort")
+	games.sort_custom(Callable(RetroHubGameData, "sort"))
 
 func load_system_gamelists_files(folder_path: String, system_name: String):
 	var renamed_system : String = _system_renames[system_name] if _system_renames.has(system_name) else system_name
 	print("Loading games from directory " + folder_path)
-	var dir := Directory.new()
-	if dir.open(folder_path) or dir.list_dir_begin(true):
+	var dir := DirAccess.new()
+	if dir.open(folder_path) or dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		push_error("Error when opening game directory " + folder_path)
 		return
 	var file_name := dir.get_next()
@@ -346,7 +346,7 @@ func make_system_folder(system_raw: Dictionary):
 
 func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 	var data : Dictionary = JSONUtils.load_json_file(path)
-	if data.empty():
+	if data.is_empty():
 		return false
 
 	game.name = data["name"]
@@ -392,7 +392,7 @@ func save_game_data(game_data: RetroHubGameData) -> bool:
 		_file.close()
 		return false
 
-	_file.store_string(JSON.print(game_data_raw, "\t"))
+	_file.store_string(JSON.stringify(game_data_raw, "\t"))
 	_file.close()
 
 	emit_signal("game_data_updated", game_data)
@@ -427,7 +427,7 @@ func load_theme() -> bool:
 
 func load_theme_data():
 	var theme_raw : Dictionary = JSONUtils.load_json_file("res://theme.json")
-	if theme_raw.empty() or not theme_raw.has("id"):
+	if theme_raw.is_empty() or not theme_raw.has("id"):
 		push_error("Error when loading theme data!")
 		return
 
@@ -447,9 +447,9 @@ func load_theme_data():
 		for screenshot in theme_raw["screenshots"]:
 			theme_data.screenshots.push_back(load(screenshot))
 	if theme_raw.has("entry_scene"):
-		theme_data.entry_scene = load(theme_raw["entry_scene"]).instance()
+		theme_data.entry_scene = load(theme_raw["entry_scene"]).instantiate()
 	if theme_raw.has("config_scene"):
-		theme_data.config_scene = load(theme_raw["config_scene"]).instance()
+		theme_data.config_scene = load(theme_raw["config_scene"]).instantiate()
 	if theme_raw.has("app_theme"):
 		theme_data.app_theme = load(theme_raw["app_theme"])
 
@@ -458,11 +458,11 @@ func unload_theme():
 		save_theme_config()
 
 		theme_data.entry_scene.queue_free()
-		VisualServer.render_loop_enabled = false
+		RenderingServer.render_loop_enabled = false
 		while is_instance_valid(theme_data.entry_scene):
-			yield(get_tree(), "idle_frame")
+			await get_tree().idle_frame
 
-		VisualServer.render_loop_enabled = true
+		RenderingServer.render_loop_enabled = true
 		theme_data = null
 		if !ProjectSettings.unload_resource_pack(theme_path):
 			push_error("Error when unloading theme " + theme_path)
@@ -485,7 +485,9 @@ func load_theme_config():
 	if not _dir.file_exists(theme_config_path):
 		return
 	if not _file.open(theme_config_path, File.READ):
-		var result := JSON.parse(_file.get_as_text())
+		var test_json_conv = JSON.new()
+		test_json_conv.parse(_file.get_as_text())
+		var result := test_json_conv.get_data()
 		_file.close()
 		if not result.error:
 			_theme_config = result.result
@@ -503,7 +505,7 @@ func save_theme_config():
 		if _file.open(theme_config_path, File.WRITE):
 			push_error("Error when saving theme config at %s" % theme_config_path)
 			return
-		_file.store_string(JSON.print(_theme_config, "\t"))
+		_file.store_string(JSON.stringify(_theme_config, "\t"))
 		_file.close()
 
 		for key in _theme_config:
@@ -522,7 +524,7 @@ func bootstrap_config_dir():
 	if not _dir.dir_exists(get_config_dir()):
 		print("First time!")
 		# Create base directories
-		var dir := Directory.new()
+		var dir := DirAccess.new()
 		var paths := [get_config_dir(), get_themes_dir(), get_gamelists_dir(), get_gamemedia_dir()]
 		for path in paths:
 			if dir.make_dir_recursive(path):
@@ -534,7 +536,7 @@ func bootstrap_config_dir():
 			if(_file.open(filepath_out, File.WRITE)):
 				push_error("Error when opening file " + filepath_out + " for saving")
 				return
-			_file.store_string(JSON.print([], "\t"))
+			_file.store_string(JSON.stringify([], "\t"))
 			_file.close()
 
 		# Bootstrap credentials file

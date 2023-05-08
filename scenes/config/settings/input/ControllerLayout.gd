@@ -1,8 +1,8 @@
-extends WindowDialog
+extends Window
 
-export(Color) var unknown_mapping : Color
-export(Color) var current_mapping : Color
-export(Color) var known_mapping : Color
+@export var unknown_mapping: Color : Color
+@export var current_mapping: Color : Color
+@export var known_mapping: Color : Color
 
 # Code adapted from Godot "Joypads Demo / Tool"
 # https://godotengine.org/asset-library/asset/140
@@ -80,7 +80,7 @@ var last_axis := -1
 var done := false
 var tts_joy_axis_utterance = null
 
-onready var joy_inputs := [
+@onready var joy_inputs := [
 	$"%A", $"%B", $"%Y", $"%X",
 	$"%Start", $"%Select",
 	$"%L1", $"%R1",
@@ -104,31 +104,31 @@ var joy_descriptions := [
 	"Up/Down on Right Stick", "Left/Right on Right Stick"
 ]
 
-onready var joy_half_axis := [
+@onready var joy_half_axis := [
 	$"%UpLStick", $"%DownLStick",
 	$"%LeftLStick", $"%RightLStick",
 	$"%UpRStick", $"%DownRStick",
 	$"%LeftRStick", $"%RightRStick"
 ]
 
-onready var n_lbl_press := $"%Press"
-onready var n_lbl_move := $"%Move"
-onready var n_lbl_done := $"%Done"
-onready var n_btn_skip := $"%SkipButton"
-onready var n_btn_done := $"%DoneButton"
-onready var n_btn_prev := $"%PreviousButton"
-onready var n_btn_reset := $"%ResetButton"
-onready var n_press_progress := $"%PressProgress"
-onready var n_timer := $"%Timer"
-onready var n_action_desc := $"%ActionDescription"
+@onready var n_lbl_press := $"%Press"
+@onready var n_lbl_move := $"%Move"
+@onready var n_lbl_done := $"%Done"
+@onready var n_btn_skip := $"%SkipButton"
+@onready var n_btn_done := $"%DoneButton"
+@onready var n_btn_prev := $"%PreviousButton"
+@onready var n_btn_reset := $"%ResetButton"
+@onready var n_press_progress := $"%PressProgress"
+@onready var n_timer := $"%Timer"
+@onready var n_action_desc := $"%ActionDescription"
 
-onready var lbl_press_orig_text : String = n_lbl_press.text
-onready var lbl_move_orig_text : String = n_lbl_move.text
+@onready var lbl_press_orig_text : String = n_lbl_press.text
+@onready var lbl_move_orig_text : String = n_lbl_move.text
 
 func _ready():
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
-	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
-	TTS.connect("utterance_end", self, "_on_tts_utterance_end")
+	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
+	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	TTS.connect("utterance_end", Callable(self, "_on_tts_utterance_end"))
 
 func _on_config_ready(config: ConfigData):
 	handle_text_remap(config.accessibility_screen_reader_enabled)
@@ -151,7 +151,7 @@ func _input(event):
 	if done:
 		_input_done(event)
 	elif event is InputEventJoypadMotion:
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		var motion := event as InputEventJoypadMotion
 		if abs(motion.axis_value) > DEADZONE:
 			var idx := motion.axis
@@ -165,7 +165,7 @@ func _input(event):
 			n_timer.stop()
 			last_axis = -1
 	elif event is InputEventJoypadButton:
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		if event.pressed:
 			var btn := event as InputEventJoypadButton
 			var map := JoyMapping.new(JoyMapping.TYPE.BTN, btn.button_index)
@@ -176,7 +176,7 @@ func _input(event):
 
 func _input_done(event):
 	if event is InputEventJoypadButton:
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		if event.pressed:
 			var controller_tts := ControllerIcons.parse_path_to_tts(
 				ControllerIcons._convert_joypad_button_to_path(event.button_index)
@@ -216,32 +216,32 @@ func _input_done(event):
 			JOY_DPAD_RIGHT:
 				$"%RightDPAD".modulate = current_mapping if event.pressed else known_mapping
 	elif event is InputEventJoypadMotion:
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		match event.axis:
 			JOY_ANALOG_LY:
-				$"%UpLStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, -event.axis_value))
-				$"%DownLStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, event.axis_value))
+				$"%UpLStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
+				$"%DownLStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Up on Left Stick", false)
 				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Down on Left Stick", false)
 			JOY_ANALOG_LX:
-				$"%LeftLStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, -event.axis_value))
-				$"%RightLStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, event.axis_value))
+				$"%LeftLStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
+				$"%RightLStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Left on Left Stick", false)
 				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Right on Left Stick", false)
 			JOY_ANALOG_RY:
-				$"%UpRStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, -event.axis_value))
-				$"%DownRStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, event.axis_value))
+				$"%UpRStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
+				$"%DownRStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Up on Right Stick", false)
 				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Down on Right Stick", false)
 			JOY_ANALOG_RX:
-				$"%LeftRStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, -event.axis_value))
-				$"%RightRStick".modulate = known_mapping.linear_interpolate(current_mapping, max(0, event.axis_value))
+				$"%LeftRStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
+				$"%RightRStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Left on Right Stick", false)
 				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
@@ -283,7 +283,7 @@ func reset():
 	for child in joy_inputs:
 		child.modulate = unknown_mapping
 	for child in joy_half_axis:
-		child.modulate = Color.white
+		child.modulate = Color.WHITE
 	n_lbl_press.visible = true
 	n_lbl_move.visible = false
 	n_lbl_done.visible = false
@@ -301,11 +301,11 @@ func start():
 	Input.remove_joy_mapping(joy_guid)
 	curr_step = 0
 	step()
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_action_desc.grab_focus()
 		# We control how TTS works for the first frame ever
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 		TTS.speak(n_lbl_press.text)
 		TTS.speak(n_action_desc.text, false)
 	else:
@@ -315,10 +315,10 @@ func mark_done():
 	done = true
 	for child in joy_inputs:
 		child.modulate = known_mapping
-	$"%YAxisLStick".modulate = Color.white
-	$"%XAxisLStick".modulate = Color.white
-	$"%YAxisRStick".modulate = Color.white
-	$"%XAxisRStick".modulate = Color.white
+	$"%YAxisLStick".modulate = Color.WHITE
+	$"%XAxisLStick".modulate = Color.WHITE
+	$"%YAxisRStick".modulate = Color.WHITE
+	$"%XAxisRStick".modulate = Color.WHITE
 	for child in joy_half_axis:
 		child.modulate = known_mapping
 	n_lbl_press.visible = false

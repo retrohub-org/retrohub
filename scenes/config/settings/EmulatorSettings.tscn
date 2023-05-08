@@ -21,15 +21,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 20.0
+offset_right = 1024.0
+offset_bottom = 20.0
 
 [node name="EmulatorSelection" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 803.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../EmulatorEditorsTab")
-focus_neighbour_bottom = NodePath("../../HBoxContainer2/AddEmulator")
+offset_right = 803.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../EmulatorEditorsTab")
+focus_neighbor_bottom = NodePath("../../HBoxContainer2/AddEmulator")
 size_flags_horizontal = 3
 expand_icon = true
 
@@ -39,78 +39,78 @@ previous = NodePath("../../../EmulatorEditorsTab")
 
 [node name="Save" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 807.0
-margin_right = 904.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../EmulatorEditorsTab")
+offset_left = 807.0
+offset_right = 904.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../EmulatorEditorsTab")
 text = "Save changes"
 
 [node name="Discard" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 908.0
-margin_right = 1024.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../EmulatorEditorsTab")
+offset_left = 908.0
+offset_right = 1024.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../EmulatorEditorsTab")
 text = "Discard changes"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 1024.0
-margin_bottom = 44.0
+offset_top = 24.0
+offset_right = 1024.0
+offset_bottom = 44.0
 
 [node name="AddEmulator" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 508.0
-margin_right = 659.0
-margin_bottom = 20.0
-focus_neighbour_bottom = NodePath("../../HSeparatorTop")
+offset_left = 508.0
+offset_right = 659.0
+offset_bottom = 20.0
+focus_neighbor_bottom = NodePath("../../HSeparatorTop")
 size_flags_horizontal = 10
 text = "Add custom emulator"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 663.0
-margin_right = 667.0
-margin_bottom = 20.0
+offset_left = 663.0
+offset_right = 667.0
+offset_bottom = 20.0
 
 [node name="DefaultOptions" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 671.0
-margin_right = 842.0
-margin_bottom = 20.0
+offset_left = 671.0
+offset_right = 842.0
+offset_bottom = 20.0
 
 [node name="RestoreEmulator" type="Button" parent="VBoxContainer/HBoxContainer2/DefaultOptions"]
 unique_name_in_owner = true
-margin_right = 171.0
-margin_bottom = 20.0
-focus_neighbour_bottom = NodePath("../../../HSeparatorTop")
+offset_right = 171.0
+offset_bottom = 20.0
+focus_neighbor_bottom = NodePath("../../../HSeparatorTop")
 text = "Restore default emulator"
 
 [node name="CustomOptions" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 846.0
-margin_right = 1024.0
-margin_bottom = 20.0
+offset_left = 846.0
+offset_right = 1024.0
+offset_bottom = 20.0
 
 [node name="RemoveEmulator" type="Button" parent="VBoxContainer/HBoxContainer2/CustomOptions"]
-margin_right = 178.0
-margin_bottom = 20.0
-focus_neighbour_bottom = NodePath("../../../HSeparatorTop")
+offset_right = 178.0
+offset_bottom = 20.0
+focus_neighbor_bottom = NodePath("../../../HSeparatorTop")
 text = "Remove custom emulator"
 
 [node name="HSeparatorTop" type="HSeparator" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 1024.0
-margin_bottom = 52.0
+offset_top = 48.0
+offset_right = 1024.0
+offset_bottom = 52.0
 focus_mode = 2
 
 [node name="EmulatorEditorsTab" type="TabContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 56.0
-margin_right = 1024.0
-margin_bottom = 576.0
+offset_top = 56.0
+offset_right = 1024.0
+offset_bottom = 576.0
 focus_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource( 1 )
 tabs_visible = false
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/EmulatorEditorsTab"]
@@ -125,20 +125,20 @@ scroll_horizontal_enabled = false
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 1024.0
-margin_bottom = 520.0
+offset_right = 1024.0
+offset_bottom = 520.0
 
 [node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/IntroLabel" index="0"]
 previous = NodePath("")
 
 [node name="Logo" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="1"]
-focus_neighbour_top = NodePath("../../../../HBoxContainer2/AddEmulator")
+focus_neighbor_top = NodePath("../../../../HBoxContainer2/AddEmulator")
 
 [node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer" index="0"]
-focus_neighbour_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
+focus_neighbor_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2" index="0"]
-focus_neighbour_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
+focus_neighbor_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2/VarButton" index="0"]
 next = NodePath("../../../../../../../HBoxContainer/EmulatorSelection")
@@ -148,28 +148,28 @@ script = ExtResource( 5 )
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/EmulatorEditorsTab"]
 visible = false
-margin_right = 12.0
-margin_bottom = 12.0
+offset_right = 12.0
+offset_bottom = 12.0
 follow_focus = true
 
 [node name="RetroArchEmulatorEditor" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2" instance=ExtResource( 4 )]
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 258.0
-margin_bottom = 372.0
+offset_right = 258.0
+offset_bottom = 372.0
 
 [node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/Label" index="0"]
 previous = NodePath("../../../../../HBoxContainer2/CustomOptions/RemoveEmulator")
 
 [node name="Logo" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="1"]
-focus_neighbour_top = NodePath("../../../../HBoxContainer2/AddEmulator")
+focus_neighbor_top = NodePath("../../../../HBoxContainer2/AddEmulator")
 
 [node name="CoreFileName" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8" index="1"]
-focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
+focus_neighbor_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="LoadCoreFileName" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8" index="2"]
-focus_neighbour_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
+focus_neighbor_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8/LoadCoreFileName" index="0"]
 next = NodePath("../../../../../../HBoxContainer/EmulatorSelection")

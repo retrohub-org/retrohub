@@ -2,7 +2,7 @@ extends ConfirmationDialog
 
 signal games_selected(game_data_array)
 
-onready var n_game_tree := $"%GameTree"
+@onready var n_game_tree := $"%GameTree"
 
 var root : TreeItem
 var systems_items : Dictionary
@@ -12,21 +12,21 @@ func _ready():
 	n_game_tree.set_column_title(1, "Selected?")
 	n_game_tree.set_column_expand(0, true)
 	n_game_tree.set_column_expand(1, false)
-	n_game_tree.set_column_min_width(1, 100)
+	n_game_tree.set_column_custom_minimum_width(1, 100)
 
 	# Set focus neighbors
-	var ok := get_ok()
-	var cancel := get_cancel()
+	var ok := get_ok_button()
+	var cancel := get_cancel_button()
 
 	var path := "../../%s/%s" % [cancel.get_parent().name, cancel.name]
-	n_game_tree.focus_neighbour_bottom = path
-	n_game_tree.focus_neighbour_top = path
+	n_game_tree.focus_neighbor_bottom = path
+	n_game_tree.focus_neighbor_top = path
 
 	path = "../../%s/%s" % [n_game_tree.get_parent().name, n_game_tree.name]
-	ok.focus_neighbour_top = path
-	ok.focus_neighbour_bottom = path
-	cancel.focus_neighbour_top = path
-	cancel.focus_neighbour_bottom = path
+	ok.focus_neighbor_top = path
+	ok.focus_neighbor_bottom = path
+	cancel.focus_neighbor_top = path
+	cancel.focus_neighbor_bottom = path
 
 func _on_ScrapingGamePickerPopup_about_to_show():
 	n_game_tree.clear()
@@ -45,7 +45,7 @@ func _on_ScrapingGamePickerPopup_about_to_show():
 		set_item_settings(item, game.path.get_file())
 		item.set_metadata(0, game)
 	# Focus tree
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	n_game_tree.grab_focus()
 	n_game_tree.scroll_to_item(root)
 	root.select(0)

@@ -1,7 +1,7 @@
 extends VBoxContainer
 
-onready var n_options := $"%DateOptions"
-onready var n_example := $"%ExampleDate"
+@onready var n_options := $"%DateOptions"
+@onready var n_example := $"%ExampleDate"
 
 func select(idx: int):
 	n_options.select(idx)

@@ -6,28 +6,28 @@
 [ext_resource path="res://scenes/popups/first_time/RegionSection.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/popups/first_time/DoneSection.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/popups/first_time/FirstTimePopups.gd" type="Script" id=6]
-[ext_resource path="res://assets/icons/first_time/emulators.svg" type="Texture" id=7]
-[ext_resource path="res://assets/icons/first_time/introduction.svg" type="Texture" id=8]
-[ext_resource path="res://assets/icons/first_time/systems.svg" type="Texture" id=9]
-[ext_resource path="res://assets/icons/first_time/all_done.svg" type="Texture" id=10]
-[ext_resource path="res://assets/icons/first_time/import.svg" type="Texture" id=11]
-[ext_resource path="res://assets/icons/first_time/games.svg" type="Texture" id=12]
-[ext_resource path="res://assets/icons/first_time/region.svg" type="Texture" id=13]
+[ext_resource path="res://assets/icons/first_time/emulators.svg" type="Texture2D" id=7]
+[ext_resource path="res://assets/icons/first_time/introduction.svg" type="Texture2D" id=8]
+[ext_resource path="res://assets/icons/first_time/systems.svg" type="Texture2D" id=9]
+[ext_resource path="res://assets/icons/first_time/all_done.svg" type="Texture2D" id=10]
+[ext_resource path="res://assets/icons/first_time/import.svg" type="Texture2D" id=11]
+[ext_resource path="res://assets/icons/first_time/games.svg" type="Texture2D" id=12]
+[ext_resource path="res://assets/icons/first_time/region.svg" type="Texture2D" id=13]
 [ext_resource path="res://scenes/popups/first_time/GamesSection.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/popups/first_time/ImportSettingsSection.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/popups/first_time/SystemsSection.tscn" type="PackedScene" id=16]
 [ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=17]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=18]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture2D" id=18]
 
 [node name="FirstTimePopup" type="Popup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 28.0
-margin_top = 20.0
-margin_right = -40.0
-margin_bottom = -39.0
+offset_left = 28.0
+offset_top = 20.0
+offset_right = -40.0
+offset_bottom = -39.0
 theme = ExtResource( 1 )
-popup_exclusive = true
+exclusive = true
 script = ExtResource( 6 )
 color_prev = Color( 0.572549, 1, 0.572549, 1 )
 
@@ -38,213 +38,213 @@ anchor_bottom = 1.0
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
 
 [node name="Sidebar" type="VBoxContainer" parent="Panel/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 157.0
-margin_bottom = 497.0
+offset_right = 157.0
+offset_bottom = 497.0
 size_flags_vertical = 3
 
 [node name="IntroductionSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-margin_top = 13.0
-margin_right = 157.0
-margin_bottom = 53.0
+offset_top = 13.0
+offset_right = 157.0
+offset_bottom = 53.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/IntroductionSection"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 8 )
 expand = true
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/IntroductionSection"]
-margin_left = 44.0
-margin_top = 6.0
-margin_right = 136.0
-margin_bottom = 34.0
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 136.0
+offset_bottom = 34.0
 text = "Introduction"
 
 [node name="RegionSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-margin_top = 85.0
-margin_right = 157.0
-margin_bottom = 125.0
+offset_top = 85.0
+offset_right = 157.0
+offset_bottom = 125.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/RegionSection"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 13 )
 expand = true
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/RegionSection"]
-margin_left = 44.0
-margin_top = 6.0
-margin_right = 99.0
-margin_bottom = 34.0
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 99.0
+offset_bottom = 34.0
 text = "Region"
 
 [node name="ImportSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-margin_top = 156.0
-margin_right = 157.0
-margin_bottom = 196.0
+offset_top = 156.0
+offset_right = 157.0
+offset_bottom = 196.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/ImportSection"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 11 )
 expand = true
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/ImportSection"]
-margin_left = 44.0
-margin_top = 6.0
-margin_right = 157.0
-margin_bottom = 34.0
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 157.0
+offset_bottom = 34.0
 text = "Import Settings"
 
 [node name="GamesSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-margin_top = 228.0
-margin_right = 157.0
-margin_bottom = 268.0
+offset_top = 228.0
+offset_right = 157.0
+offset_bottom = 268.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/GamesSection"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 12 )
 expand = true
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/GamesSection"]
-margin_left = 44.0
-margin_top = 6.0
-margin_right = 98.0
-margin_bottom = 34.0
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 34.0
 text = "Games"
 
 [node name="SystemsSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-margin_top = 299.0
-margin_right = 157.0
-margin_bottom = 339.0
+offset_top = 299.0
+offset_right = 157.0
+offset_bottom = 339.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/SystemsSection"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 9 )
 expand = true
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/SystemsSection"]
-margin_left = 44.0
-margin_top = 6.0
-margin_right = 107.0
-margin_bottom = 34.0
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 107.0
+offset_bottom = 34.0
 text = "Systems"
 
 [node name="EmulatorsSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-margin_top = 371.0
-margin_right = 157.0
-margin_bottom = 411.0
+offset_top = 371.0
+offset_right = 157.0
+offset_bottom = 411.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/EmulatorsSection"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 7 )
 expand = true
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/EmulatorsSection"]
-margin_left = 44.0
-margin_top = 6.0
-margin_right = 120.0
-margin_bottom = 34.0
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 120.0
+offset_bottom = 34.0
 text = "Emulators"
 
 [node name="DoneSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-margin_top = 443.0
-margin_right = 157.0
-margin_bottom = 483.0
+offset_top = 443.0
+offset_right = 157.0
+offset_bottom = 483.0
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/DoneSection"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 10 )
 expand = true
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/DoneSection"]
-margin_left = 44.0
-margin_top = 6.0
-margin_right = 107.0
-margin_bottom = 34.0
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 107.0
+offset_bottom = 34.0
 text = "All done"
 
 [node name="MainContent" type="TabContainer" parent="Panel/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 161.0
-margin_right = 936.0
-margin_bottom = 497.0
+offset_left = 161.0
+offset_right = 936.0
+offset_bottom = 497.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tabs_visible = false
 
 [node name="IntroductionSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 3 )]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="RegionSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 4 )]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="ImportSettingsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 15 )]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="GamesSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 14 )]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="SystemsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 16 )]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="EmulatorsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 2 )]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="DoneSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 5 )]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="RStickTip" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -252,15 +252,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -104.0
-margin_right = 104.0
-margin_bottom = 33.0
+offset_left = -104.0
+offset_right = 104.0
+offset_bottom = 33.0
 size_flags_horizontal = 7
 
 [node name="ControllerTextureRect" type="TextureRect" parent="RStickTip"]
-margin_right = 32.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 32, 32 )
+offset_right = 32.0
+offset_bottom = 33.0
+custom_minimum_size = Vector2( 32, 32 )
 size_flags_horizontal = 10
 texture = ExtResource( 18 )
 expand = true
@@ -270,14 +270,14 @@ force_type = 2
 max_width = 32
 
 [node name="Label" type="Label" parent="RStickTip"]
-margin_left = 36.0
-margin_top = 2.0
-margin_right = 208.0
-margin_bottom = 30.0
+offset_left = 36.0
+offset_top = 2.0
+offset_right = 208.0
+offset_bottom = 30.0
 size_flags_horizontal = 2
 text = "for scrolling information"
 
-[connection signal="about_to_show" from="." to="." method="_on_FirstTimePopup_about_to_show"]
+[connection signal="about_to_popup" from="." to="." method="_on_FirstTimePopup_about_to_show"]
 [connection signal="popup_hide" from="." to="." method="_on_FirstTimePopup_popup_hide"]
 [connection signal="tab_changed" from="Panel/HBoxContainer/MainContent" to="." method="_on_MainContent_tab_changed"]
 [connection signal="advance_section" from="Panel/HBoxContainer/MainContent/IntroductionSection" to="." method="advance_section"]

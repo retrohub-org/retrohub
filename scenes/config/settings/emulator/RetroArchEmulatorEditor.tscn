@@ -1,20 +1,20 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/config/settings/emulator/RetroArchEmulatorEditor.gd" type="Script" id=1]
-[ext_resource path="res://assets/icons/load.svg" type="Texture" id=2]
+[ext_resource path="res://assets/icons/load.svg" type="Texture2D" id=2]
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=3]
 
 [node name="RetroArchEmulatorEditor" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 177, 407 )
+pivot_offset = Vector2( 177, 407 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
 [node name="Label" type="Label" parent="."]
-margin_right = 1024.0
-margin_bottom = 14.0
+offset_right = 1024.0
+offset_bottom = 14.0
 text = "Logo:"
 
 [node name="AccessibilityFocus" type="Node" parent="Label"]
@@ -23,36 +23,36 @@ previous = NodePath("../../HBoxContainer8/LoadCoreFileName")
 
 [node name="Logo" type="Button" parent="."]
 unique_name_in_owner = true
-margin_top = 18.0
-margin_right = 80.0
-margin_bottom = 98.0
-rect_min_size = Vector2( 80, 80 )
-focus_neighbour_bottom = NodePath("../HBoxContainer3/Name")
+offset_top = 18.0
+offset_right = 80.0
+offset_bottom = 98.0
+custom_minimum_size = Vector2( 80, 80 )
+focus_neighbor_bottom = NodePath("../HBoxContainer3/Name")
 size_flags_horizontal = 0
 disabled = true
 clip_text = true
 expand_icon = true
 
 [node name="HSeparator" type="HSeparator" parent="."]
-margin_top = 102.0
-margin_right = 1024.0
-margin_bottom = 106.0
+offset_top = 102.0
+offset_right = 1024.0
+offset_bottom = 106.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
-margin_top = 110.0
-margin_right = 1024.0
-margin_bottom = 124.0
+offset_top = 110.0
+offset_right = 1024.0
+offset_bottom = 124.0
 
 [node name="Label" type="Label" parent="HBoxContainer2"]
-margin_right = 67.0
-margin_bottom = 14.0
+offset_right = 67.0
+offset_bottom = 14.0
 text = "Identifier: "
 
 [node name="Identifier" type="Label" parent="HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 71.0
-margin_right = 1024.0
-margin_bottom = 14.0
+offset_left = 71.0
+offset_right = 1024.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 autowrap = true
 
@@ -60,14 +60,14 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="."]
-margin_top = 128.0
-margin_right = 1024.0
-margin_bottom = 152.0
+offset_top = 128.0
+offset_right = 1024.0
+offset_bottom = 152.0
 
 [node name="Label" type="Label" parent="HBoxContainer3"]
-margin_top = 5.0
-margin_right = 46.0
-margin_bottom = 19.0
+offset_top = 5.0
+offset_right = 46.0
+offset_bottom = 19.0
 text = "Name: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer3/Label"]
@@ -75,55 +75,55 @@ script = ExtResource( 3 )
 
 [node name="Name" type="LineEdit" parent="HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 50.0
-margin_right = 1024.0
-margin_bottom = 24.0
-focus_neighbour_top = NodePath("../../Logo")
+offset_left = 50.0
+offset_right = 1024.0
+offset_bottom = 24.0
+focus_neighbor_top = NodePath("../../Logo")
 size_flags_horizontal = 3
 placeholder_text = "Emulator name"
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="."]
-margin_top = 156.0
-margin_right = 1024.0
-margin_bottom = 180.0
+offset_top = 156.0
+offset_right = 1024.0
+offset_bottom = 180.0
 
 [node name="Label" type="Label" parent="HBoxContainer4"]
-margin_top = 5.0
-margin_right = 36.0
-margin_bottom = 19.0
-text = "Path: "
+offset_top = 5.0
+offset_right = 36.0
+offset_bottom = 19.0
+text = "Path3D: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer4/Label"]
 script = ExtResource( 3 )
 
-[node name="Path" type="LineEdit" parent="HBoxContainer4"]
+[node name="Path3D" type="LineEdit" parent="HBoxContainer4"]
 unique_name_in_owner = true
-margin_left = 40.0
-margin_right = 960.0
-margin_bottom = 24.0
+offset_left = 40.0
+offset_right = 960.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 placeholder_text = "Emulator executable path"
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="LoadPath" type="Button" parent="HBoxContainer4"]
-margin_left = 964.0
-margin_right = 1024.0
-margin_bottom = 24.0
+offset_left = 964.0
+offset_right = 1024.0
+offset_bottom = 24.0
 text = "Load"
 icon = ExtResource( 2 )
 
 [node name="HBoxContainer9" type="HBoxContainer" parent="."]
-margin_top = 184.0
-margin_right = 1024.0
-margin_bottom = 208.0
+offset_top = 184.0
+offset_right = 1024.0
+offset_bottom = 208.0
 
 [node name="Label" type="Label" parent="HBoxContainer9"]
-margin_top = 5.0
-margin_right = 76.0
-margin_bottom = 19.0
+offset_top = 5.0
+offset_right = 76.0
+offset_bottom = 19.0
 text = "Cores path: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer9/Label"]
@@ -131,32 +131,32 @@ script = ExtResource( 3 )
 
 [node name="CorePath" type="LineEdit" parent="HBoxContainer9"]
 unique_name_in_owner = true
-margin_left = 80.0
-margin_right = 960.0
-margin_bottom = 24.0
-focus_neighbour_top = NodePath("../../HBoxContainer4/Path")
-focus_neighbour_bottom = NodePath("../../HBoxContainer5/Command")
+offset_left = 80.0
+offset_right = 960.0
+offset_bottom = 24.0
+focus_neighbor_top = NodePath("../../HBoxContainer4/Path3D")
+focus_neighbor_bottom = NodePath("../../HBoxContainer5/Command")
 size_flags_horizontal = 3
 placeholder_text = "Emulator cores path"
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="LoadCorePath" type="Button" parent="HBoxContainer9"]
-margin_left = 964.0
-margin_right = 1024.0
-margin_bottom = 24.0
+offset_left = 964.0
+offset_right = 1024.0
+offset_bottom = 24.0
 text = "Load"
 icon = ExtResource( 2 )
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="."]
-margin_top = 212.0
-margin_right = 1024.0
-margin_bottom = 236.0
+offset_top = 212.0
+offset_right = 1024.0
+offset_bottom = 236.0
 
 [node name="Label" type="Label" parent="HBoxContainer5"]
-margin_top = 5.0
-margin_right = 73.0
-margin_bottom = 19.0
+offset_top = 5.0
+offset_right = 73.0
+offset_bottom = 19.0
 text = "Command: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer5/Label"]
@@ -164,129 +164,129 @@ script = ExtResource( 3 )
 
 [node name="Command" type="LineEdit" parent="HBoxContainer5"]
 unique_name_in_owner = true
-margin_left = 77.0
-margin_right = 1024.0
-margin_bottom = 24.0
-focus_neighbour_top = NodePath("../../HBoxContainer9/CorePath")
-focus_neighbour_bottom = NodePath("../../HFlowContainer/HBoxContainer/VarButton")
+offset_left = 77.0
+offset_right = 1024.0
+offset_bottom = 24.0
+focus_neighbor_top = NodePath("../../HBoxContainer9/CorePath")
+focus_neighbor_bottom = NodePath("../../HFlowContainer/HBoxContainer/VarButton")
 size_flags_horizontal = 3
 placeholder_text = "Emulator command"
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="HSeparator2" type="HSeparator" parent="."]
-margin_top = 240.0
-margin_right = 1024.0
-margin_bottom = 244.0
+offset_top = 240.0
+offset_right = 1024.0
+offset_bottom = 244.0
 
 [node name="Label2" type="Label" parent="."]
-margin_top = 248.0
-margin_right = 1024.0
-margin_bottom = 262.0
+offset_top = 248.0
+offset_right = 1024.0
+offset_bottom = 262.0
 text = "Available variables in command:"
 
 [node name="AccessibilityFocus" type="Node" parent="Label2"]
 script = ExtResource( 3 )
 
 [node name="HFlowContainer" type="HFlowContainer" parent="."]
-margin_top = 266.0
-margin_right = 1024.0
-margin_bottom = 286.0
-custom_constants/hseparation = 15
+offset_top = 266.0
+offset_right = 1024.0
+offset_bottom = 286.0
+theme_override_constants/h_separation = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HFlowContainer"]
-margin_right = 236.0
-margin_bottom = 20.0
+offset_right = 236.0
+offset_bottom = 20.0
 
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer"]
-margin_right = 60.0
-margin_bottom = 20.0
-hint_tooltip = "Emulator executable path"
-focus_neighbour_top = NodePath("../../../HBoxContainer5/Command")
-focus_neighbour_right = NodePath("../../HBoxContainer2/VarButton")
+offset_right = 60.0
+offset_bottom = 20.0
+tooltip_text = "Emulator executable path"
+focus_neighbor_top = NodePath("../../../HBoxContainer5/Command")
+focus_neighbor_right = NodePath("../../HBoxContainer2/VarButton")
 text = "binpath"
 
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer"]
-margin_left = 64.0
-margin_top = 3.0
-margin_right = 236.0
-margin_bottom = 17.0
+offset_left = 64.0
+offset_top = 3.0
+offset_right = 236.0
+offset_bottom = 17.0
 text = "- Emulator executable path"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HFlowContainer"]
-margin_left = 251.0
-margin_right = 448.0
-margin_bottom = 20.0
+offset_left = 251.0
+offset_right = 448.0
+offset_bottom = 20.0
 
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer2"]
-margin_right = 66.0
-margin_bottom = 20.0
-hint_tooltip = "Game file full path"
-focus_neighbour_left = NodePath("../../HBoxContainer/VarButton")
-focus_neighbour_top = NodePath("../../../HBoxContainer5/Command")
+offset_right = 66.0
+offset_bottom = 20.0
+tooltip_text = "Game file full path"
+focus_neighbor_left = NodePath("../../HBoxContainer/VarButton")
+focus_neighbor_top = NodePath("../../../HBoxContainer5/Command")
 text = "rompath"
 
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer2"]
-margin_left = 70.0
-margin_top = 3.0
-margin_right = 197.0
-margin_bottom = 17.0
+offset_left = 70.0
+offset_top = 3.0
+offset_right = 197.0
+offset_bottom = 17.0
 text = "- Game file full path"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HFlowContainer"]
-margin_left = 463.0
-margin_right = 689.0
-margin_bottom = 20.0
+offset_left = 463.0
+offset_right = 689.0
+offset_bottom = 20.0
 
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer3"]
-margin_right = 68.0
-margin_bottom = 20.0
-hint_tooltip = "Libretro cores full path"
-focus_neighbour_right = NodePath("../../HBoxContainer4/VarButton")
-focus_neighbour_bottom = NodePath("../../../HBoxContainer/CoreOption")
+offset_right = 68.0
+offset_bottom = 20.0
+tooltip_text = "Libretro cores full path"
+focus_neighbor_right = NodePath("../../HBoxContainer4/VarButton")
+focus_neighbor_bottom = NodePath("../../../HBoxContainer/CoreOption")
 text = "corepath"
 
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer3"]
-margin_left = 72.0
-margin_top = 3.0
-margin_right = 226.0
-margin_bottom = 17.0
+offset_left = 72.0
+offset_top = 3.0
+offset_right = 226.0
+offset_bottom = 17.0
 text = "- Libretro cores full path"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HFlowContainer"]
-margin_left = 704.0
-margin_right = 923.0
-margin_bottom = 20.0
+offset_left = 704.0
+offset_right = 923.0
+offset_bottom = 20.0
 
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer4"]
-margin_right = 60.0
-margin_bottom = 20.0
-hint_tooltip = "Libretro core file name"
-focus_neighbour_left = NodePath("../../HBoxContainer3/VarButton")
-focus_neighbour_bottom = NodePath("../../../HBoxContainer/CoreOption")
+offset_right = 60.0
+offset_bottom = 20.0
+tooltip_text = "Libretro core file name"
+focus_neighbor_left = NodePath("../../HBoxContainer3/VarButton")
+focus_neighbor_bottom = NodePath("../../../HBoxContainer/CoreOption")
 text = "corefile"
 
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer4"]
-margin_left = 64.0
-margin_top = 3.0
-margin_right = 219.0
-margin_bottom = 17.0
+offset_left = 64.0
+offset_top = 3.0
+offset_right = 219.0
+offset_bottom = 17.0
 text = "- Libretro core file name"
 
 [node name="HSeparator3" type="HSeparator" parent="."]
-margin_top = 290.0
-margin_right = 1024.0
-margin_bottom = 294.0
+offset_top = 290.0
+offset_right = 1024.0
+offset_bottom = 294.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_top = 298.0
-margin_right = 1024.0
-margin_bottom = 318.0
+offset_top = 298.0
+offset_right = 1024.0
+offset_bottom = 318.0
 
 [node name="Label" type="Label" parent="HBoxContainer"]
-margin_top = 3.0
-margin_right = 44.0
-margin_bottom = 17.0
+offset_top = 3.0
+offset_right = 44.0
+offset_bottom = 17.0
 text = "Cores: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer/Label"]
@@ -294,51 +294,51 @@ script = ExtResource( 3 )
 
 [node name="CoreOption" type="OptionButton" parent="HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 48.0
-margin_right = 843.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../HFlowContainer/HBoxContainer4/VarButton")
-focus_neighbour_bottom = NodePath("../../HBoxContainer7/CoreName")
+offset_left = 48.0
+offset_right = 843.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../HFlowContainer/HBoxContainer4/VarButton")
+focus_neighbor_bottom = NodePath("../../HBoxContainer7/CoreName")
 size_flags_horizontal = 3
 
 [node name="RemoveCore" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 847.0
-margin_right = 943.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../HFlowContainer/HBoxContainer4/VarButton")
-focus_neighbour_bottom = NodePath("../../HBoxContainer7/CoreName")
+offset_left = 847.0
+offset_right = 943.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../HFlowContainer/HBoxContainer4/VarButton")
+focus_neighbor_bottom = NodePath("../../HBoxContainer7/CoreName")
 text = "Remove core"
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
-margin_left = 947.0
-margin_right = 951.0
-margin_bottom = 20.0
+offset_left = 947.0
+offset_right = 951.0
+offset_bottom = 20.0
 
 [node name="AddCore" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 955.0
-margin_right = 1024.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../HFlowContainer/HBoxContainer4/VarButton")
-focus_neighbour_bottom = NodePath("../../HBoxContainer7/CoreName")
+offset_left = 955.0
+offset_right = 1024.0
+offset_bottom = 20.0
+focus_neighbor_top = NodePath("../../HFlowContainer/HBoxContainer4/VarButton")
+focus_neighbor_bottom = NodePath("../../HBoxContainer7/CoreName")
 text = "Add core"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="."]
-margin_top = 322.0
-margin_right = 1024.0
-margin_bottom = 336.0
+offset_top = 322.0
+offset_right = 1024.0
+offset_bottom = 336.0
 
 [node name="Label" type="Label" parent="HBoxContainer6"]
-margin_right = 67.0
-margin_bottom = 14.0
+offset_right = 67.0
+offset_bottom = 14.0
 text = "Identifier: "
 
 [node name="CoreIdentifier" type="Label" parent="HBoxContainer6"]
 unique_name_in_owner = true
-margin_left = 71.0
-margin_right = 1024.0
-margin_bottom = 14.0
+offset_left = 71.0
+offset_right = 1024.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 autowrap = true
 
@@ -346,14 +346,14 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="."]
-margin_top = 340.0
-margin_right = 1024.0
-margin_bottom = 364.0
+offset_top = 340.0
+offset_right = 1024.0
+offset_bottom = 364.0
 
 [node name="Label" type="Label" parent="HBoxContainer7"]
-margin_top = 5.0
-margin_right = 46.0
-margin_bottom = 19.0
+offset_top = 5.0
+offset_right = 46.0
+offset_bottom = 19.0
 text = "Name: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer7/Label"]
@@ -361,24 +361,24 @@ script = ExtResource( 3 )
 
 [node name="CoreName" type="LineEdit" parent="HBoxContainer7"]
 unique_name_in_owner = true
-margin_left = 50.0
-margin_right = 1024.0
-margin_bottom = 24.0
-focus_neighbour_top = NodePath("../../HBoxContainer/CoreOption")
+offset_left = 50.0
+offset_right = 1024.0
+offset_bottom = 24.0
+focus_neighbor_top = NodePath("../../HBoxContainer/CoreOption")
 size_flags_horizontal = 3
 placeholder_text = "Core name"
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="."]
-margin_top = 368.0
-margin_right = 1024.0
-margin_bottom = 392.0
+offset_top = 368.0
+offset_right = 1024.0
+offset_bottom = 392.0
 
 [node name="Label" type="Label" parent="HBoxContainer8"]
-margin_top = 5.0
-margin_right = 67.0
-margin_bottom = 19.0
+offset_top = 5.0
+offset_right = 67.0
+offset_bottom = 19.0
 text = "File name:"
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer8/Label"]
@@ -386,18 +386,18 @@ script = ExtResource( 3 )
 
 [node name="CoreFileName" type="LineEdit" parent="HBoxContainer8"]
 unique_name_in_owner = true
-margin_left = 71.0
-margin_right = 960.0
-margin_bottom = 24.0
+offset_left = 71.0
+offset_right = 960.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 placeholder_text = "Core file name"
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="LoadCoreFileName" type="Button" parent="HBoxContainer8"]
-margin_left = 964.0
-margin_right = 1024.0
-margin_bottom = 24.0
+offset_left = 964.0
+offset_right = 1024.0
+offset_bottom = 24.0
 text = "Load"
 icon = ExtResource( 2 )
 
@@ -406,7 +406,7 @@ script = ExtResource( 3 )
 next = NodePath("../../../Label")
 
 [connection signal="text_changed" from="HBoxContainer3/Name" to="." method="_on_item_change"]
-[connection signal="text_changed" from="HBoxContainer4/Path" to="." method="_on_item_change"]
+[connection signal="text_changed" from="HBoxContainer4/Path3D" to="." method="_on_item_change"]
 [connection signal="pressed" from="HBoxContainer4/LoadPath" to="." method="_on_LoadPath_pressed"]
 [connection signal="text_changed" from="HBoxContainer9/CorePath" to="." method="_on_item_change"]
 [connection signal="pressed" from="HBoxContainer9/LoadCorePath" to="." method="_on_LoadCorePath_pressed"]

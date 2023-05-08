@@ -3,6 +3,6 @@
 [ext_resource path="res://scenes/ui_nodes/LazyTextureRect.gd" type="Script" id=1]
 
 [node name="LazyTextureRect" type="TextureRect"]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource( 1 )

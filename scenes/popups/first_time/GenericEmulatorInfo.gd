@@ -1,9 +1,9 @@
 extends HBoxContainer
 
-onready var n_logo := $"%Logo"
-onready var n_name := $"%Name"
-onready var n_path_section := $"%PathSection"
-onready var n_accessibility_focus := $"%AccessibilityFocus"
+@onready var n_logo := $"%Logo"
+@onready var n_name := $"%Name"
+@onready var n_path_section := $"%PathSection"
+@onready var n_accessibility_focus := $"%AccessibilityFocus"
 
 var found := false
 
@@ -13,7 +13,7 @@ func _ready():
 func set_name(name: String):
 	n_name.text = name
 
-func set_logo(texture: Texture):
+func set_logo(texture: Texture2D):
 	n_logo.texture = texture
 
 func set_found(_found: bool, details: String):

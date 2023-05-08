@@ -1,21 +1,21 @@
-extends PopupDialog
+extends Popup
 
 signal import_begin(importer, copy_mode)
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_move_section := $"%MoveSection"
-onready var n_copy_section := $"%CopySection"
-onready var n_section_labels := [
+@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_move_section := $"%MoveSection"
+@onready var n_copy_section := $"%CopySection"
+@onready var n_section_labels := [
 	$"%MoveFiles",
 	$"%CopyFiles",
 	$"%MoveDisadvantage",
 	$"%CopyAdvantage"
 ]
-onready var n_size := $"%Size"
-onready var n_space_left := $"%SpaceLeft"
-onready var n_move_copy_button := $"%MoveCopyButton"
-onready var n_cancel := $"%Cancel"
-onready var n_import := $"%Import"
+@onready var n_size := $"%Size"
+@onready var n_space_left := $"%SpaceLeft"
+@onready var n_move_copy_button := $"%MoveCopyButton"
+@onready var n_cancel := $"%Cancel"
+@onready var n_import := $"%Import"
 
 var base_texts := []
 var size : int
@@ -35,7 +35,7 @@ func set_importer(_importer):
 
 	n_size.text = "Calculating..."
 	n_space_left.text = "Calculating..."
-	if thread.start(self, "t_get_size"):
+	if thread.start(Callable(self, "t_get_size")):
 		push_error("Thread start failed [t_get_size]")
 
 func t_get_size():
@@ -54,7 +54,7 @@ func get_human_readable_size(size_raw: int):
 	while value > 1024:
 		value /= 1024
 		multiplier += 1
-	value = stepify(value, 0.01)
+	value = snapped(value, 0.01)
 	match multiplier:
 		0:
 			return str(value) + " bytes"

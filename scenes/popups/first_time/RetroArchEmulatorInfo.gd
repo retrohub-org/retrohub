@@ -1,10 +1,10 @@
 extends HBoxContainer
 
-onready var n_logo := $"%Logo"
-onready var n_name := $"%Name"
-onready var n_path_section := $"%PathSection"
-onready var n_core_section := $"%CoreSection"
-onready var n_accessibility_focus := $"%AccessibilityFocus"
+@onready var n_logo := $"%Logo"
+@onready var n_name := $"%Name"
+@onready var n_path_section := $"%PathSection"
+@onready var n_core_section := $"%CoreSection"
+@onready var n_accessibility_focus := $"%AccessibilityFocus"
 
 var found := false
 

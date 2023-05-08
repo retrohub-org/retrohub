@@ -3,29 +3,29 @@
 [ext_resource path="res://scenes/config/settings/AddExistingInfo.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
 
-[node name="AddExistingInfoPopup" type="WindowDialog"]
+[node name="AddExistingInfoPopup" type="Window"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -264.0
-margin_top = -171.5
-margin_right = 264.0
-margin_bottom = 171.5
+offset_left = -264.0
+offset_top = -171.5
+offset_right = 264.0
+offset_bottom = 171.5
 script = ExtResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
 
 [node name="IntroLabel" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 508.0
-margin_bottom = 31.0
+offset_right = 508.0
+offset_bottom = 31.0
 text = "Choose the %s to add:
 "
 align = 1
@@ -37,19 +37,19 @@ script = ExtResource( 2 )
 
 [node name="Options" type="OptionButton" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 35.0
-margin_right = 508.0
-margin_bottom = 99.0
-rect_min_size = Vector2( 0, 64 )
+offset_top = 35.0
+offset_right = 508.0
+offset_bottom = 99.0
+custom_minimum_size = Vector2( 0, 64 )
 size_flags_vertical = 2
 expand_icon = true
 
 [node name="OK" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 239.0
-margin_top = 303.0
-margin_right = 269.0
-margin_bottom = 323.0
+offset_left = 239.0
+offset_top = 303.0
+offset_right = 269.0
+offset_bottom = 323.0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Ok"

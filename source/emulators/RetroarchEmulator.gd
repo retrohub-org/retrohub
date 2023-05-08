@@ -6,7 +6,7 @@ static func get_custom_core_path() -> String:
 	if config_file:
 		var file := File.new()
 		if not file.open(config_file + "/retroarch.cfg", File.READ):
-			while file.get_position() < file.get_len():
+			while file.get_position() < file.get_length():
 				var line := file.get_line()
 				if "libretro_directory" in line:
 					var path := line.get_slice("=", 1).replace("\"", "").replace("'", "").strip_edges()
@@ -15,7 +15,7 @@ static func get_custom_core_path() -> String:
 	return ""
 
 static func get_config_path() -> String:
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	match FileUtils.get_os_id():
 		FileUtils.OS_ID.WINDOWS:
 			# RetroArch on Windows works as a "portable" installation. Config is located beside main files.
@@ -29,7 +29,7 @@ static func get_config_path() -> String:
 		FileUtils.OS_ID.LINUX:
 			# RetroArch uses either XDG_CONFIG_HOME or HOME.
 			var xdg := OS.get_environment("XDG_CONFIG_HOME")
-			if not xdg.empty():
+			if not xdg.is_empty():
 				var path := xdg + "/retroarch"
 				if dir.dir_exists(path):
 					return path
@@ -42,13 +42,14 @@ static func get_config_path() -> String:
 		_:
 			return ""
 
-func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores : Array).(emulator_raw, game_data):
+func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores : Array):
+	super(emulator_raw, game_data)
 	var corepath := get_custom_core_path()
-	if corepath.empty():
+	if corepath.is_empty():
 		corepath = find_and_substitute_str(emulator_raw["corepath"], _substitutes)
 	var corefile : String
 	_substitutes["corepath"] = corepath
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	for core_name in system_cores:
 		for core_info in emulator_raw["cores"]:
 			if core_info["name"] == core_name:
@@ -57,10 +58,10 @@ func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores
 					corefile = core_info["file"]
 					_substitutes["corefile"] = corefile
 					break
-		if not corefile.empty():
+		if not corefile.is_empty():
 			break
 
-	if not corefile.empty():
+	if not corefile.is_empty():
 		command = substitute_str(command, _substitutes)
 	else:
 		print("Could not find valid core file for emulator \"%s\"" % game_data.system.name)

@@ -1,11 +1,11 @@
-extends Spatial
+extends Node3D
 class_name RetroHubSupportModel
 
-export(Texture) var texture : Texture setget set_texture
+@export var texture: Texture2D : Texture2D: set = set_texture
 
-var mesh_path : MeshInstance
+var mesh_path : MeshInstance3D
 var surface_idx : int
-var material : SpatialMaterial
+var material : StandardMaterial3D
 
 func extract_material():
 	var mesh : Mesh = mesh_path.mesh
@@ -13,7 +13,7 @@ func extract_material():
 	mesh.surface_set_material(surface_idx, material)
 	set_texture(texture)
 
-func set_texture(_texture: Texture):
+func set_texture(_texture: Texture2D):
 	texture = _texture
 	if material:
 		material.albedo_texture = texture

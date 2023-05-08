@@ -1,25 +1,25 @@
 extends Control
 
-onready var n_save := $"%Save"
-onready var n_discard := $"%Discard"
-onready var n_emulator_selection := $"%EmulatorSelection"
-onready var n_default_opt := $"%DefaultOptions"
-onready var n_custom_opt := $"%CustomOptions"
-onready var n_restore_emulator := $"%RestoreEmulator"
+@onready var n_save := $"%Save"
+@onready var n_discard := $"%Discard"
+@onready var n_emulator_selection := $"%EmulatorSelection"
+@onready var n_default_opt := $"%DefaultOptions"
+@onready var n_custom_opt := $"%CustomOptions"
+@onready var n_restore_emulator := $"%RestoreEmulator"
 
-onready var n_emulator_editors_tab := $"%EmulatorEditorsTab"
-onready var n_emulator_editor := $"%EmulatorEditor"
-onready var n_retro_arch_emulator_editor := $"%RetroArchEmulatorEditor"
+@onready var n_emulator_editors_tab := $"%EmulatorEditorsTab"
+@onready var n_emulator_editor := $"%EmulatorEditor"
+@onready var n_retro_arch_emulator_editor := $"%RetroArchEmulatorEditor"
 
-onready var n_add_custom_info_popup := $"%AddCustomInfoPopup"
-onready var n_add_custom_core_info_popup := $"%AddCustomCoreInfoPopup"
+@onready var n_add_custom_info_popup := $"%AddCustomInfoPopup"
+@onready var n_add_custom_core_info_popup := $"%AddCustomCoreInfoPopup"
 
 var sep_idx := -1
 
 func _ready():
 	n_emulator_selection.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 	n_save.disabled = true
 	n_discard.disabled = true
 	n_default_opt.visible = false
@@ -144,14 +144,14 @@ func _on_AddCustomCoreInfoPopup_identifier_picked(id):
 
 
 func _on_AddEmulator_pressed():
-	n_add_custom_info_popup.start(RetroHubConfig.emulators_map.keys(), "emulator")
+	n_add_custom_info_popup.start(Callable(RetroHubConfig.emulators_map.keys(), "emulator"))
 
 
 func _on_RetroArchEmulatorEditor_request_add_core():
 	var keys := []
 	for data in n_retro_arch_emulator_editor.cores:
 		keys.push_back(data["name"])
-	n_add_custom_core_info_popup.start(keys, "core")
+	n_add_custom_core_info_popup.start(Callable(keys, "core"))
 
 
 func _on_RemoveEmulator_pressed():

@@ -8,67 +8,67 @@ anchor_bottom = 1.0
 script = ExtResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 79.0
-margin_top = 87.0
-margin_right = 520.0
-margin_bottom = 189.0
+offset_left = 79.0
+offset_top = 87.0
+offset_right = 520.0
+offset_bottom = 189.0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 441.0
-margin_bottom = 14.0
+offset_right = 441.0
+offset_bottom = 14.0
 text = "Set executable command:"
 
 [node name="Command" type="TextEdit" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 441.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 0, 30 )
+offset_top = 18.0
+offset_right = 441.0
+offset_bottom = 48.0
+custom_minimum_size = Vector2( 0, 30 )
 text = "retroarch -L /usr/lib/libretro/nestopia_libretro.so"
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
-margin_top = 52.0
-margin_right = 441.0
-margin_bottom = 66.0
+offset_top = 52.0
+offset_right = 441.0
+offset_bottom = 66.0
 text = "Set file path:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 70.0
-margin_right = 441.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 0, 30 )
+offset_top = 70.0
+offset_right = 441.0
+offset_bottom = 100.0
+custom_minimum_size = Vector2( 0, 30 )
 
 [node name="FileSelectField" type="TextEdit" parent="VBoxContainer/HBoxContainer"]
-margin_right = 280.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 280, 30 )
+offset_right = 280.0
+offset_bottom = 30.0
+custom_minimum_size = Vector2( 280, 30 )
 readonly = true
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 284.0
-margin_right = 350.0
-margin_bottom = 30.0
+offset_left = 284.0
+offset_right = 350.0
+offset_bottom = 30.0
 text = "Load file"
 
 [node name="LaunchButton" type="Button" parent="VBoxContainer"]
-margin_top = 104.0
-margin_right = 441.0
-margin_bottom = 124.0
+offset_top = 104.0
+offset_right = 441.0
+offset_bottom = 124.0
 text = "Launch"
 
 [node name="Label3" type="Label" parent="VBoxContainer"]
-margin_top = 128.0
-margin_right = 441.0
-margin_bottom = 142.0
+offset_top = 128.0
+offset_right = 441.0
+offset_bottom = 142.0
 text = "Output:"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
-margin_top = 146.0
-margin_right = 441.0
-margin_bottom = 266.0
-rect_min_size = Vector2( 0, 120 )
+offset_top = 146.0
+offset_right = 441.0
+offset_bottom = 266.0
+custom_minimum_size = Vector2( 0, 120 )
 text = "d
 f
 f
@@ -90,10 +90,10 @@ autostart = true
 
 [node name="FileDialog" type="FileDialog" parent="."]
 visible = true
-margin_left = 79.0
-margin_top = 157.0
-margin_right = 769.0
-margin_bottom = 515.0
+offset_left = 79.0
+offset_top = 157.0
+offset_right = 769.0
+offset_bottom = 515.0
 window_title = "Open a File"
 resizable = true
 mode = 0

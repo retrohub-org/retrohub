@@ -80,7 +80,7 @@ var keyListUnicode = {
 	"Pageup":KEY_PAGEUP,
 	"Pagedown":KEY_PAGEDOWN,
 	"Shift":KEY_SHIFT,
-	"Control":KEY_CONTROL,
+	"Control":KEY_CTRL,
 	"Meta":KEY_META,
 	"Alt":KEY_ALT,
 	"Capslock":KEY_CAPSLOCK,

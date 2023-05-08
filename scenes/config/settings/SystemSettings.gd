@@ -2,25 +2,25 @@ extends Control
 
 signal theme_reload
 
-onready var n_save := $"%Save"
-onready var n_discard := $"%Discard"
-onready var n_system_selection := $"%SystemSelection"
-onready var n_system_editor := $"%SystemEditor"
-onready var n_default_opt := $"%DefaultOptions"
-onready var n_custom_opt := $"%CustomOptions"
-onready var n_restore_system := $"%RestoreSystem"
+@onready var n_save := $"%Save"
+@onready var n_discard := $"%Discard"
+@onready var n_system_selection := $"%SystemSelection"
+@onready var n_system_editor := $"%SystemEditor"
+@onready var n_default_opt := $"%DefaultOptions"
+@onready var n_custom_opt := $"%CustomOptions"
+@onready var n_restore_system := $"%RestoreSystem"
 
-onready var n_select_extensions_popup := $"%SelectExtensionsPopup"
-onready var n_add_custom_info_popup := $"%AddCustomInfoPopup"
-onready var n_add_existing_info_popup := $"%AddExistingInfoPopup"
-onready var n_retro_arch_config := $"%RetroArchConfig"
+@onready var n_select_extensions_popup := $"%SelectExtensionsPopup"
+@onready var n_add_custom_info_popup := $"%AddCustomInfoPopup"
+@onready var n_add_existing_info_popup := $"%AddExistingInfoPopup"
+@onready var n_retro_arch_config := $"%RetroArchConfig"
 
 var sep_idx := -1
 
 func _ready():
 	n_system_selection.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 	n_save.disabled = true
 	n_discard.disabled = true
 	n_default_opt.visible = false
@@ -91,7 +91,7 @@ func _on_SelectExtensionsPopup_extensions_picked(extensions):
 
 
 func _on_SystemEditor_request_extensions(system_name, curr_extensions):
-	n_select_extensions_popup.start(system_name, curr_extensions)
+	n_select_extensions_popup.start(Callable(system_name, curr_extensions))
 
 
 func _on_RestoreSystem_pressed():
@@ -135,7 +135,7 @@ func _on_AddCustomInfoPopup_identifier_picked(id):
 
 
 func _on_AddSystem_pressed():
-	n_add_custom_info_popup.start(RetroHubConfig._systems_raw.keys(), "system")
+	n_add_custom_info_popup.start(Callable(RetroHubConfig._systems_raw.keys(), "system"))
 
 
 func _on_RemoveSystem_pressed():
@@ -157,7 +157,7 @@ func _on_RemoveSystem_pressed():
 
 
 func _on_SystemEditor_request_add_emulator():
-	n_add_existing_info_popup.start(RetroHubConfig.emulators_map, n_system_editor.curr_system["emulator"], "res://assets/emulators/%s.png","emulator")
+	n_add_existing_info_popup.start(Callable(RetroHubConfig.emulators_map, n_system_editor.curr_system["emulator"]).bind("res://assets/emulators/%s.png"), "emulator")
 
 
 func _on_AddExistingInfoPopup_identifier_picked(emulator_name: String):
@@ -179,7 +179,7 @@ func _on_SystemEditor_request_retroarch_config(existing_cores: Array):
 			if core["name"] == name:
 				cores.push_back(core)
 				break
-	n_retro_arch_config.start(retroarch_config["cores"], cores)
+	n_retro_arch_config.start(Callable(retroarch_config["cores"], cores))
 
 
 func _on_RetroArchConfig_cores_picked(cores):
