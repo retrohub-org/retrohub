@@ -100,8 +100,9 @@ func _on_vp_gui_focus_changed(control: Control) -> void:
 		n_last_focused = control
 
 func _on_theme_loaded(theme_data: RetroHubTheme):
-	n_viewport.set_theme(theme_data.entry_scene)
-	print("Loaded theme")
+	pass
+	#n_viewport.set_theme(theme_data.entry_scene)
+	#print("Loaded theme")
 
 func _on_game_loaded(game_data: RetroHubGameData):
 	var game_launched_child : Node = load("res://scenes/game_launched/GameLaunched.tscn").instance()
