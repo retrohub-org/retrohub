@@ -14,6 +14,7 @@ debug.keystore
 structureDoc
 godot
 godotOld
+godot4
 
 # Ignore pre-built FFMPEG binaries
 addons/godot-videodecoder/**
