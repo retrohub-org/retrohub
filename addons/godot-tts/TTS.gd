@@ -14,12 +14,16 @@ var tts
 var editor_accessibility_enabled : bool = false
 
 func _init():
+	#FIXME: Left to implement for later
+	return
 	if OS.get_name() == "Server" or OS.has_feature("JavaScript"):
 		return
 	elif Engine.has_singleton("TTS"):
 		tts = Engine.get_singleton("TTS")
 	else:
-		TTS = preload("godot-tts.gdns")
+		# FIXME: fix
+		#TTS = preload("godot-tts.gdns")
+		pass
 	if TTS and (TTS.can_instantiate() or Engine.is_editor_hint()) and RetroHubConfig.config.accessibility_screen_reader_enabled:
 		tts = TTS.new()
 	if tts:
@@ -145,7 +149,7 @@ func speak(text, interrupt := true):
 				window.speechSynthesis.cancel()
 			"""
 		code += "window.speechSynthesis.speak(utterance)"
-		JavaScript.eval(code)
+		JavaScriptBridge.eval(code)
 	else:
 		print_debug("%s: %s" % [text, interrupt])
 	return utterance
@@ -154,7 +158,7 @@ func stop():
 	if tts != null:
 		tts.stop()
 	elif OS.has_feature('JavaScript'):
-		JavaScript.eval("window.speechSynthesis.cancel()")
+		JavaScriptBridge.eval("window.speechSynthesis.cancel()")
 
 
 func _get_is_rate_supported():
@@ -202,7 +206,7 @@ func _get_is_speaking():
 	if Engine.has_singleton("TTS") and tts:
 		return tts.is_speaking()
 	elif OS.has_feature('JavaScript'):
-		return JavaScript.eval("window.speechSynthesis.speaking")
+		return JavaScriptBridge.eval("window.speechSynthesis.speaking")
 	elif tts != null:
 		return tts.is_speaking
 	return false

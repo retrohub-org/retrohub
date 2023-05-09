@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scenes/config/ThemeSettings.gd" id="5"]
 [ext_resource type="Script" path="res://scenes/config/ConfigPopup.gd" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/config/NoThemeSettings.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://scenes/config/ScraperSettings.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://bt85gge8nxhap" path="res://scenes/config/ScraperSettings.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/SystemSettings.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/EmulatorSettings.tscn" id="10"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/InputSettings.tscn" id="11"]
