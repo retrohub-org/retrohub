@@ -1,31 +1,24 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://5gl1k27tdlpq"]
 
-[ext_resource path="res://scenes/config/settings/input/ControllerLayout.gd" type="Script" id=1]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/diagram_simple.png" type="Texture2D" id=2]
-[ext_resource path="res://scenes/ui_nodes/LazyTextureRect.gd" type="Script" id=3]
-[ext_resource path="res://assets/icons/controller_mapper/circle.png" type="Texture2D" id=4]
-[ext_resource path="res://assets/icons/controller_mapper/arrow.png" type="Texture2D" id=5]
-[ext_resource path="res://assets/icons/controller_mapper/circle_progress.png" type="Texture2D" id=6]
-[ext_resource path="res://assets/icons/controller_mapper/circle_progress_under.png" type="Texture2D" id=7]
-[ext_resource path="res://resources/fonts/default_italic.tres" type="FontFile" id=8]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=9]
+[ext_resource type="Script" path="res://scenes/config/settings/input/ControllerLayout.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bm6wuorkfix2g" path="res://addons/controller_icons/assets/xboxone/diagram_simple.png" id="2"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/LazyTextureRect.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://bemocysxyjpj2" path="res://assets/icons/controller_mapper/circle.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://ce0tjo40lwg74" path="res://assets/icons/controller_mapper/arrow.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://ddp1gtij42kct" path="res://assets/icons/controller_mapper/circle_progress.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://d4k0hapsfrjfq" path="res://assets/icons/controller_mapper/circle_progress_under.png" id="7"]
+[ext_resource type="FontFile" path="res://resources/fonts/default_italic.tres" id="8"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="9"]
 
 [node name="ControllerLayout" type="Window"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -371.5
-offset_top = -248.0
-offset_right = 371.5
-offset_bottom = 248.0
 exclusive = true
-script = ExtResource( 1 )
-unknown_mapping = Color( 0.0901961, 0.0901961, 0.0901961, 0.737255 )
-current_mapping = Color( 0.360784, 0.839216, 0, 0.717647 )
-known_mapping = Color( 0.133333, 0.313726, 0, 0.737255 )
+script = ExtResource("1")
+unknown_mapping = Color(0.0901961, 0.0901961, 0.0901961, 0.737255)
+current_mapping = Color(0.360784, 0.839216, 0, 0.717647)
+known_mapping = Color(0.133333, 0.313726, 0, 0.737255)
 
 [node name="TopLabelRoot" type="Control" parent="."]
+layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 0.08
 offset_top = 2.0
@@ -33,58 +26,55 @@ offset_bottom = 29.32
 
 [node name="Press" type="Label" parent="TopLabelRoot"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Press and hold the %s button on your controller"
-align = 1
-valign = 1
 
 [node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Press"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Move" type="Label" parent="TopLabelRoot"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Move and hold the %s stick on your controller to one of the two directions given."
-align = 1
-valign = 1
 
 [node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Move"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Done" type="Label" parent="TopLabelRoot"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Layout complete! Test if the buttons are working as intended."
-align = 1
-valign = 1
 
 [node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Done"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="ActionDescription" type="Label" parent="."]
 unique_name_in_owner = true
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -98.5
 offset_top = 57.0
 offset_right = 100.5
 offset_bottom = 93.0
-theme_override_fonts/font = ExtResource( 8 )
+theme_override_fonts/font = ExtResource("8")
 text = "Button Prompt"
-align = 1
-valign = 1
-autowrap = true
 
 [node name="AccessibilityFocus" type="Node" parent="ActionDescription"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Diagram" type="TextureRect" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 25)
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -93,16 +83,16 @@ offset_left = -252.0
 offset_top = -172.5
 offset_right = 252.0
 offset_bottom = 146.5
-custom_minimum_size = Vector2( 40, 25 )
-texture = ExtResource( 2 )
-expand = true
-script = ExtResource( 3 )
+texture = ExtResource("2")
+expand_mode = 1
+script = ExtResource("3")
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="A" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -111,11 +101,12 @@ offset_left = -18.0
 offset_top = -17.475
 offset_right = 18.0
 offset_bottom = 18.525
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="B" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -124,11 +115,12 @@ offset_left = 16.0
 offset_top = -48.975
 offset_right = 52.0
 offset_bottom = -12.975
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="Y" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -137,11 +129,12 @@ offset_left = -16.0
 offset_top = -76.475
 offset_right = 19.0
 offset_bottom = -41.475
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="X" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -150,11 +143,12 @@ offset_left = -50.0
 offset_top = -45.975
 offset_right = -15.0
 offset_bottom = -10.975
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="Start" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -163,11 +157,12 @@ offset_left = -102.0
 offset_top = -40.475
 offset_right = -77.0
 offset_bottom = -15.475
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="Select" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -176,11 +171,12 @@ offset_left = -172.0
 offset_top = -40.975
 offset_right = -147.0
 offset_bottom = -15.975
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="L1" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -189,11 +185,12 @@ offset_left = -241.0
 offset_top = -134.975
 offset_right = -208.0
 offset_bottom = -101.975
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="R1" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -202,11 +199,12 @@ offset_left = -41.0
 offset_top = -135.975
 offset_right = -8.00003
 offset_bottom = -102.975
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="L2" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -215,11 +213,12 @@ offset_left = -272.0
 offset_top = -172.975
 offset_right = -239.0
 offset_bottom = -139.975
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="R2" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -228,11 +227,12 @@ offset_left = -11.0
 offset_top = -172.975
 offset_right = 22.0
 offset_bottom = -139.975
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="L3" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -241,11 +241,12 @@ offset_left = -259.0
 offset_top = -28.975
 offset_right = -237.0
 offset_bottom = -6.97501
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="R3" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -254,11 +255,12 @@ offset_left = -70.0
 offset_top = 39.025
 offset_right = -48.0
 offset_bottom = 61.025
-texture = ExtResource( 4 )
-expand = true
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="UpDPAD" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -267,11 +269,12 @@ offset_left = -198.0
 offset_top = 10.025
 offset_right = -176.0
 offset_bottom = 32.025
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 
 [node name="DownDPAD" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -280,12 +283,13 @@ offset_left = -198.0
 offset_top = 50.025
 offset_right = -176.0
 offset_bottom = 72.025
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 flip_v = true
 
 [node name="LeftDPAD" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -295,11 +299,12 @@ offset_top = 52.025
 offset_right = -197.0
 offset_bottom = 74.025
 rotation = -90.0
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 
 [node name="RightDPAD" type="TextureRect" parent="Diagram"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -309,17 +314,19 @@ offset_top = 52.025
 offset_right = -155.0
 offset_bottom = 74.025
 rotation = -90.0
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 flip_v = true
 
 [node name="YAxisLStick" type="Control" parent="Diagram"]
 unique_name_in_owner = true
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="UpLStick" type="TextureRect" parent="Diagram/YAxisLStick"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -328,11 +335,12 @@ offset_left = 89.0
 offset_top = 97.5
 offset_right = 111.0
 offset_bottom = 119.5
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 
 [node name="DownLStick" type="TextureRect" parent="Diagram/YAxisLStick"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -341,17 +349,19 @@ offset_left = 89.0
 offset_top = 137.5
 offset_right = 111.0
 offset_bottom = 159.5
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 flip_v = true
 
 [node name="XAxisLStick" type="Control" parent="Diagram"]
 unique_name_in_owner = true
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="LeftLStick" type="TextureRect" parent="Diagram/XAxisLStick"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -361,11 +371,12 @@ offset_top = 139.5
 offset_right = 90.0
 offset_bottom = 161.5
 rotation = -90.0
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 
 [node name="RightLStick" type="TextureRect" parent="Diagram/XAxisLStick"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -375,17 +386,19 @@ offset_top = 139.5
 offset_right = 132.0
 offset_bottom = 161.5
 rotation = -90.0
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 flip_v = true
 
 [node name="YAxisRStick" type="Control" parent="Diagram"]
 unique_name_in_owner = true
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="UpRStick" type="TextureRect" parent="Diagram/YAxisRStick"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -394,11 +407,12 @@ offset_left = 278.0
 offset_top = 165.5
 offset_right = 300.0
 offset_bottom = 187.5
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 
 [node name="DownRStick" type="TextureRect" parent="Diagram/YAxisRStick"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -407,17 +421,19 @@ offset_left = 278.0
 offset_top = 205.5
 offset_right = 300.0
 offset_bottom = 227.5
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 flip_v = true
 
 [node name="XAxisRStick" type="Control" parent="Diagram"]
 unique_name_in_owner = true
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="LeftRStick" type="TextureRect" parent="Diagram/XAxisRStick"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -427,11 +443,12 @@ offset_top = 207.5
 offset_right = 279.0
 offset_bottom = 229.5
 rotation = -90.0
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 
 [node name="RightRStick" type="TextureRect" parent="Diagram/XAxisRStick"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.75
 anchor_top = 0.525
 anchor_right = 0.75
@@ -441,12 +458,13 @@ offset_top = 207.5
 offset_right = 321.0
 offset_bottom = 229.5
 rotation = -90.0
-texture = ExtResource( 5 )
-expand = true
+texture = ExtResource("5")
+expand_mode = 1
 flip_v = true
 
 [node name="PressProgress" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.986
 anchor_right = 0.5
@@ -457,12 +475,14 @@ offset_right = 30.5
 offset_bottom = -77.556
 max_value = 0.9
 step = 0.01
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 6 )
 fill_mode = 4
 nine_patch_stretch = true
+texture_under = ExtResource("7")
+texture_progress = ExtResource("6")
 
 [node name="MainButtonRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -474,6 +494,7 @@ offset_bottom = -21.0
 
 [node name="SkipButton" type="Button" parent="MainButtonRoot"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Skip"
@@ -481,11 +502,14 @@ text = "Skip"
 [node name="DoneButton" type="Button" parent="MainButtonRoot"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Done"
 
 [node name="SecButtonRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -494,35 +518,33 @@ offset_left = -323.0
 offset_top = -61.0
 offset_right = -158.0
 offset_bottom = -21.0
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="PreviousButton" type="Button" parent="SecButtonRoot"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Previous"
 
 [node name="AccessibilityFocus" type="Node" parent="SecButtonRoot/PreviousButton"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="ResetButton" type="Button" parent="SecButtonRoot"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Reset"
 
 [node name="AccessibilityFocus" type="Node" parent="SecButtonRoot/ResetButton"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
 
 [connection signal="about_to_popup" from="." to="." method="_on_ControllerLayout_about_to_show"]
-[connection signal="popup_hide" from="." to="." method="_on_ControllerLayout_popup_hide"]
 [connection signal="pressed" from="MainButtonRoot/SkipButton" to="." method="_on_SkipButton_pressed"]
 [connection signal="pressed" from="MainButtonRoot/DoneButton" to="." method="_on_DoneButton_pressed"]
 [connection signal="pressed" from="SecButtonRoot/PreviousButton" to="." method="_on_PreviousButton_pressed"]

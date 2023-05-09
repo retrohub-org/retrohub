@@ -135,7 +135,7 @@ func _on_AddCustomInfoPopup_identifier_picked(id):
 
 
 func _on_AddSystem_pressed():
-	n_add_custom_info_popup.start(Callable(RetroHubConfig._systems_raw.keys(), "system"))
+	n_add_custom_info_popup.start(RetroHubConfig._systems_raw.keys(), "system")
 
 
 func _on_RemoveSystem_pressed():
@@ -157,7 +157,7 @@ func _on_RemoveSystem_pressed():
 
 
 func _on_SystemEditor_request_add_emulator():
-	n_add_existing_info_popup.start(Callable(RetroHubConfig.emulators_map, n_system_editor.curr_system["emulator"]).bind("res://assets/emulators/%s.png"), "emulator")
+	n_add_existing_info_popup.start(RetroHubConfig.emulators_map, n_system_editor.curr_system["emulator"], "res://assets/emulators/%s.png","emulator")
 
 
 func _on_AddExistingInfoPopup_identifier_picked(emulator_name: String):
@@ -179,7 +179,7 @@ func _on_SystemEditor_request_retroarch_config(existing_cores: Array):
 			if core["name"] == name:
 				cores.push_back(core)
 				break
-	n_retro_arch_config.start(Callable(retroarch_config["cores"], cores))
+	n_retro_arch_config.start(retroarch_config["cores"], cores)
 
 
 func _on_RetroArchConfig_cores_picked(cores):

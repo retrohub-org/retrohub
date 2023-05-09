@@ -3,8 +3,8 @@ extends Control
 @onready var n_viewport_container : SubViewportContainer = $SubViewportContainer
 @onready var n_viewport : SubViewport = $SubViewportContainer/SubViewport
 
-@onready var n_config_popup : Popup = $ConfigPopup
-@onready var n_filesystem_popup : Popup = $FileSystemPopup
+@onready var n_config_popup : Window = $ConfigPopup
+@onready var n_filesystem_popup : Window = $FileSystemPopup
 @onready var n_keyboard_popup := $"%Keyboard"
 @onready var n_warning_popup := $"%WarningPopup"
 
@@ -21,9 +21,9 @@ var is_popup_open : bool = false
 var resources_remap := []
 
 func _enter_tree():
-	resources_remap.append_array([
-		load("res://scenes/ui_nodes/AccessibilityFocus.gd").take_over_path("res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd")
-	])
+	load("res://scenes/ui_nodes/AccessibilityFocus.gd").take_over_path("res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd")
+	#resources_remap.append_array([
+	#])
 
 func _ready():
 	closed_popup()
@@ -93,7 +93,7 @@ func _on_vp_size_changed() -> void:
 	)
 	var mult := RetroHubConfig.config.render_resolution / 100.0
 	n_viewport.size = get_viewport().size * mult
-	n_viewport.set_size_2d_override(true, viewport_size)
+	n_viewport.set_size_2d_override(viewport_size)
 
 func _on_vp_gui_focus_changed(control: Control) -> void:
 	if not is_popup_open:
@@ -134,4 +134,4 @@ func closed_popup():
 		n_last_focused.grab_focus()
 
 func _on_first_time_popup_closed(popup):
-	popup_nodes.remove(popup_nodes.rfind(popup))
+	popup_nodes.remove_at(popup_nodes.rfind(popup))

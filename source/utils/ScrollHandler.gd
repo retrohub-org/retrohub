@@ -13,7 +13,7 @@ var scroll_v : VScrollBar = null
 var scroll_h_speed := 0.0
 var scroll_v_speed := 0.0
 
-@export var scroll_multiplier: float := 500.0
+@export var scroll_multiplier := 500.0
 
 func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize

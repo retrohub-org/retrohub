@@ -1,7 +1,11 @@
 @tool
 extends VBoxContainer
 
-@export var label: String : String: set = set_label
+@export var label : String:
+	set(value):
+		label = value
+		if n_label:
+			n_label.text = label
 
 @onready var n_label := $"%Label"
 @onready var n_found_icon := $"%FoundIcon"
@@ -12,12 +16,7 @@ extends VBoxContainer
 @onready var icon_not_found := preload("res://assets/icons/failure.svg")
 
 func _ready():
-	set_label(label)
-
-func set_label(_label: String):
-	label = _label
-	if n_label:
-		n_label.text = label
+	label = label
 
 func set_found(found: bool, details: String):
 	n_found_icon.texture = icon_found if found else icon_not_found

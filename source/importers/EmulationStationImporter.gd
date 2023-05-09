@@ -25,7 +25,7 @@ const RH_MEDIA_NAMES := [
 ]
 
 # Returns this importer name
-func get_name() -> String:
+func get_importer_name() -> String:
 	return "EmulationStation / EmulationStation-DE"
 
 # Return this importer icon
@@ -72,9 +72,9 @@ func get_theme_compatibility_level_description() -> String:
 # This will run in a thread, so avoid any unsafe-thread API
 func get_estimated_size() -> int:
 	if folder_size == -1:
-		var dir := DirAccess.new()
+		var dir := DirAccess.open(media_path)
 		folder_size = 0
-		if not dir.open(media_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+		if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 			var next := dir.get_next()
 			while not next.is_empty():
 				if dir.current_is_dir():
@@ -88,20 +88,19 @@ func get_estimated_size() -> int:
 # to finding local files, reading content, and determining compatibility levels
 func is_available() -> bool:
 	# Does ~/.emulationstation exist?
-	var dir := DirAccess.new()
-	if not dir.dir_exists(config_path):
+	if not DirAccess.dir_exists_absolute(config_path):
 		return false
 
 	# Are the theme's config version too recent?
 	var theme_path := config_path + "/themes"
 	var config_level : int = -1
-	if not dir.open(theme_path):
-		if not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-			var next := dir.get_next()
-			while not next.is_empty():
-				if dir.current_is_dir():
-					config_level = int(max(config_level, check_theme_config_level(theme_path + "/" + next)))
-				next = dir.get_next()
+	var dir := DirAccess.open(theme_path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+		var next := dir.get_next()
+		while not next.is_empty():
+			if dir.current_is_dir():
+				config_level = int(max(config_level, check_theme_config_level(theme_path + "/" + next)))
+			next = dir.get_next()
 
 	if config_level <= MAXIMUM_SUPPORTED_CONFIG_LEVEL:
 		theme_support = CompatibilityLevel.SUPPORTED
@@ -110,19 +109,20 @@ func is_available() -> bool:
 	return true
 
 func check_theme_config_level(base_path: String) -> int:
-	var dir := DirAccess.new()
 
 	# Query first at root, and only move to folders if it doesn't exist
 	var root_file := base_path + "/theme.xml"
-	if dir.file_exists(root_file):
+	if FileAccess.file_exists(root_file):
 		var config_level := inspect_theme_xml(root_file)
 		if config_level != -1:
 			return config_level
 
 	# Query system folders
-	if dir.open(base_path) or dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(base_path)
+	if not dir or dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		push_error("Failed to open ES theme " + base_path)
 		return -1
+
 	var path := dir.get_next()
 	while not path.is_empty():
 		var file := base_path + "/" + path + "/theme.xml"
@@ -135,8 +135,8 @@ func check_theme_config_level(base_path: String) -> int:
 	return -1
 
 func inspect_theme_xml(path: String) -> int:
-	var file := File.new()
-	if file.open(path, File.READ):
+	var file := FileAccess.open(path, FileAccess.READ)
+	if not file:
 		push_error("Failed to open ES theme XML " + path)
 		return -1
 
@@ -181,7 +181,7 @@ func import_config():
 	progress_minor("Reading game directory...")
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(config_path + "/es_settings.xml")
-	var config := XML2test_json_conv.get_data()
+	var config := XML2JSON.parse(config_path + "/es_settings.xml")
 	if config.has("string"):
 		for child in config["string"]:
 			if child.has("#attributes") and child["#attributes"]["name"] == "ROMDirectory":
@@ -190,18 +190,16 @@ func import_config():
 
 func import_metadata():
 	reset_minor(0)
-	var dir := DirAccess.new()
 	var gamelists := {}
 	var total_games := 0
-	if not dir.open(gamelists_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(gamelists_path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next_folder := dir.get_next()
 		while not next_folder.is_empty():
 			if dir.current_is_dir():
 				var gamelist_path := gamelists_path + "/" + next_folder + "/gamelist.xml"
 				progress_minor("Reading gamedata from \"%s\"..." % next_folder)
-				var test_json_conv = JSON.new()
-				test_json_conv.parse(gamelist_path)
-				var gamelist_dict := XML2test_json_conv.get_data()
+				var gamelist_dict := XML2JSON.parse(gamelist_path)
 				if not gamelist_dict.is_empty() and gamelist_dict.has("gameList"):
 					gamelist_dict = gamelist_dict["gameList"]
 					if gamelist_dict.has("game"):
@@ -261,9 +259,9 @@ func process_metadata(system: String, dict: Dictionary):
 
 
 func import_media(copy: bool):
-	var dir := DirAccess.new()
 	var count := 0
-	if not dir.open(media_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(media_path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir():
@@ -280,8 +278,8 @@ func import_media(copy: bool):
 			next = dir.get_next()
 
 func process_media_subfolder(path: String, system: String, copy: bool):
-	var dir := DirAccess.new()
-	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir() and next in ES_MEDIA_NAMES:
@@ -289,8 +287,8 @@ func process_media_subfolder(path: String, system: String, copy: bool):
 			next = dir.get_next()
 
 func process_media(path: String, system: String, media_name: String, copy: bool):
-	var dir := DirAccess.new()
-	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if not dir.current_is_dir():

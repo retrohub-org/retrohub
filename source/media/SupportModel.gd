@@ -1,7 +1,11 @@
 extends Node3D
 class_name RetroHubSupportModel
 
-@export var texture: Texture2D : Texture2D: set = set_texture
+@export var texture : Texture2D:
+	set(value):
+		texture = value
+		if material:
+			material.albedo_texture = texture
 
 var mesh_path : MeshInstance3D
 var surface_idx : int
@@ -11,12 +15,7 @@ func extract_material():
 	var mesh : Mesh = mesh_path.mesh
 	material = mesh.surface_get_material(surface_idx).duplicate()
 	mesh.surface_set_material(surface_idx, material)
-	set_texture(texture)
-
-func set_texture(_texture: Texture2D):
-	texture = _texture
-	if material:
-		material.albedo_texture = texture
+	texture = texture
 
 func scale_to_wu():
 	var aabb := mesh_path.mesh.get_aabb()

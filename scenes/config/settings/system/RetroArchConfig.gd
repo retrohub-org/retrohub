@@ -59,10 +59,9 @@ func add_core(core: Dictionary):
 func _on_OK_pressed():
 	hide()
 	var cores := []
-	var item : TreeItem = root.get_children()
-	while item != null:
+	var items : = root.get_children()
+	for item in items:
 		cores.push_back(item.get_metadata(0))
-		item = item.get_next()
 
 	emit_signal("cores_picked", cores)
 

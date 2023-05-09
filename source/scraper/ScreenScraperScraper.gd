@@ -298,7 +298,7 @@ func _process_req_meta(req: RequestDetails):
 	# Handle growth/shrink in threads
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(req._req_body.get_string_from_utf8())
-	var json := test_json_conv.get_data()
+	var json : Dictionary = test_json_conv.get_data()
 	if not json.error:
 		var json_raw = json.result
 		# Preprocess json a bit due to ScreenScraper structure
@@ -330,7 +330,7 @@ func _process_req_meta(req: RequestDetails):
 func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(req._req_body.get_string_from_utf8())
-	var json := test_json_conv.get_data()
+	var json : Dictionary = test_json_conv.get_data()
 	if json.error:
 		var details := req._req_body.get_string_from_utf8()
 		emit_signal("game_scrape_error", game_data, details)
@@ -387,8 +387,8 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 		emit_signal("scraper_details", "Querying threads...")
 
 	# If file is too big, we must fail
-	var file := File.new()
-	if file.open(game_data.path, File.READ):
+	var file := FileAccess.open(game_data.path, FileAccess.READ)
+	if not file:
 		push_error("Couldn't open file " + game_data.path)
 		emit_signal("game_scrape_not_found", game_data)
 		return ERR_CANT_OPEN

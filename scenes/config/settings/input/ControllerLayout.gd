@@ -1,8 +1,8 @@
 extends Window
 
-@export var unknown_mapping: Color : Color
-@export var current_mapping: Color : Color
-@export var known_mapping: Color : Color
+@export var unknown_mapping : Color
+@export var current_mapping : Color
+@export var known_mapping : Color
 
 # Code adapted from Godot "Joypads Demo / Tool"
 # https://godotengine.org/asset-library/asset/140
@@ -29,28 +29,28 @@ class JoyMapping:
 
 	const BASE = {
 		# Buttons
-		"a": JOY_XBOX_A,
-		"b": JOY_XBOX_B,
-		"y": JOY_XBOX_Y,
-		"x": JOY_XBOX_X,
-		"start": JOY_START,
-		"back": JOY_SELECT,
-		"leftshoulder": JOY_L,
-		"rightshoulder": JOY_R,
-		"lefttrigger": JOY_ANALOG_L2,
-		"righttrigger": JOY_ANALOG_R2,
-		"leftstick": JOY_BUTTON_8,
-		"rightstick": JOY_BUTTON_9,
-		"dpup": JOY_DPAD_UP,
-		"dpdown": JOY_DPAD_DOWN,
-		"dpleft": JOY_DPAD_LEFT,
-		"dpright": JOY_DPAD_RIGHT,
+		"a": JOY_BUTTON_A,
+		"b": JOY_BUTTON_B,
+		"y": JOY_BUTTON_Y,
+		"x": JOY_BUTTON_X,
+		"start": JOY_BUTTON_START,
+		"back": JOY_BUTTON_BACK,
+		"leftshoulder": JOY_BUTTON_LEFT_SHOULDER,
+		"rightshoulder": JOY_BUTTON_RIGHT_SHOULDER,
+		"leftstick": JOY_BUTTON_LEFT_STICK,
+		"rightstick": JOY_BUTTON_RIGHT_STICK,
+		"dpup": JOY_BUTTON_DPAD_UP,
+		"dpdown": JOY_BUTTON_DPAD_DOWN,
+		"dpleft": JOY_BUTTON_DPAD_LEFT,
+		"dpright": JOY_BUTTON_DPAD_RIGHT,
 
 		# Axis
-		"lefty": JOY_AXIS_1,
-		"leftx": JOY_AXIS_0,
-		"righty": JOY_AXIS_3,
-		"rightx": JOY_AXIS_2,
+		"lefty": JOY_AXIS_LEFT_Y,
+		"leftx": JOY_AXIS_LEFT_X,
+		"righty": JOY_AXIS_RIGHT_Y,
+		"rightx": JOY_AXIS_RIGHT_X,
+		"lefttrigger": JOY_AXIS_TRIGGER_LEFT,
+		"righttrigger": JOY_AXIS_TRIGGER_RIGHT,
 	}
 
 	var type : int = TYPE.NONE
@@ -183,63 +183,63 @@ func _input_done(event):
 			)
 			TTS.speak(controller_tts)
 		match event.button_index:
-			JOY_XBOX_A:
+			JOY_BUTTON_A:
 				$"%A".modulate = current_mapping if event.pressed else known_mapping
-			JOY_XBOX_B:
+			JOY_BUTTON_B:
 				$"%B".modulate = current_mapping if event.pressed else known_mapping
-			JOY_XBOX_Y:
+			JOY_BUTTON_Y:
 				$"%Y".modulate = current_mapping if event.pressed else known_mapping
-			JOY_XBOX_X:
+			JOY_BUTTON_X:
 				$"%X".modulate = current_mapping if event.pressed else known_mapping
-			JOY_L:
+			JOY_BUTTON_LEFT_SHOULDER:
 				$"%L1".modulate = current_mapping if event.pressed else known_mapping
-			JOY_R:
+			JOY_BUTTON_RIGHT_SHOULDER:
 				$"%R1".modulate = current_mapping if event.pressed else known_mapping
-			JOY_L2:
+			JOY_AXIS_TRIGGER_LEFT:
 				$"%L2".modulate = current_mapping if event.pressed else known_mapping
-			JOY_R2:
+			JOY_AXIS_TRIGGER_RIGHT:
 				$"%R2".modulate = current_mapping if event.pressed else known_mapping
-			JOY_L3:
+			JOY_BUTTON_LEFT_STICK:
 				$"%L3".modulate = current_mapping if event.pressed else known_mapping
-			JOY_R3:
+			JOY_BUTTON_RIGHT_STICK:
 				$"%R3".modulate = current_mapping if event.pressed else known_mapping
-			JOY_SELECT:
+			JOY_BUTTON_BACK:
 				$"%Select".modulate = current_mapping if event.pressed else known_mapping
-			JOY_START:
+			JOY_BUTTON_START:
 				$"%Start".modulate = current_mapping if event.pressed else known_mapping
-			JOY_DPAD_UP:
+			JOY_BUTTON_DPAD_UP:
 				$"%UpDPAD".modulate = current_mapping if event.pressed else known_mapping
-			JOY_DPAD_DOWN:
+			JOY_BUTTON_DPAD_DOWN:
 				$"%DownDPAD".modulate = current_mapping if event.pressed else known_mapping
-			JOY_DPAD_LEFT:
+			JOY_BUTTON_DPAD_LEFT:
 				$"%LeftDPAD".modulate = current_mapping if event.pressed else known_mapping
-			JOY_DPAD_RIGHT:
+			JOY_BUTTON_DPAD_RIGHT:
 				$"%RightDPAD".modulate = current_mapping if event.pressed else known_mapping
 	elif event is InputEventJoypadMotion:
 		get_viewport().set_input_as_handled()
 		match event.axis:
-			JOY_ANALOG_LY:
+			JOY_AXIS_LEFT_Y:
 				$"%UpLStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
 				$"%DownLStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Up on Left Stick", false)
 				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Down on Left Stick", false)
-			JOY_ANALOG_LX:
+			JOY_AXIS_LEFT_X:
 				$"%LeftLStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
 				$"%RightLStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Left on Left Stick", false)
 				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Right on Left Stick", false)
-			JOY_ANALOG_RY:
+			JOY_AXIS_RIGHT_Y:
 				$"%UpRStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
 				$"%DownRStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Up on Right Stick", false)
 				elif event.axis_value > 0.5 and not tts_joy_axis_utterance:
 					tts_joy_axis_utterance = TTS.speak("Down on Right Stick", false)
-			JOY_ANALOG_RX:
+			JOY_AXIS_RIGHT_X:
 				$"%LeftRStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
 				$"%RightRStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 				if event.axis_value < -0.5 and not tts_joy_axis_utterance:
@@ -268,7 +268,7 @@ func create_mapping_string(mapping) -> String:
 		platform = JoyMapping.PLATFORMS[OS.get_name()]
 	return string + "platform:" + platform
 
-func remap(mapping):
+func _remap(mapping):
 	var mapping_str := create_mapping_string(mapping)
 	RetroHubConfig.config.custom_input_remap = mapping_str
 	RetroHubConfig.save_config()
@@ -329,13 +329,13 @@ func mark_done():
 	n_btn_prev.visible = false
 	n_btn_reset.visible = true
 	n_action_desc.visible = false
-	if n_lbl_done.focus_mode == FOCUS_ALL:
+	if n_lbl_done.focus_mode == Control.FOCUS_ALL:
 		n_lbl_done.grab_focus()
 
 func step():
 	n_btn_prev.disabled = curr_step == 0
 	if curr_step >= steps.size():
-		remap(cur_mapping)
+		_remap(cur_mapping)
 	else:
 		n_action_desc.text = joy_descriptions[curr_step]
 		# Set the last button to known mapping

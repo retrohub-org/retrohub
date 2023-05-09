@@ -23,7 +23,7 @@ signal reset_state
 
 var game_data : RetroHubGameData: set = set_game_data
 
-@export var disable_edits: bool := false
+@export var disable_edits := false
 
 func _ready():
 	#warning-ignore:return_value_discarded

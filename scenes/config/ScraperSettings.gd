@@ -169,6 +169,7 @@ func convert_hash_size_to_range(value: int):
 		return 129
 	if value >= 2048:
 		# 2GB to 10GB
+		@warning_ignore("integer_division")
 		return 96 + (value - 2048) / 256
 	elif value >= 512:
 		# 512MB to 2GB

@@ -144,7 +144,7 @@ func _on_entry_toggled(button_pressed: bool, game_data: RetroHubGameData):
 
 func create_entry(game_data: RetroHubGameData) -> Button:
 	var button := Button.new()
-	button.align = Button.ALIGN_LEFT
+	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	button.clip_text = true
 	button.size_flags_horizontal = SIZE_EXPAND_FILL
 	button.custom_minimum_size.y = 28

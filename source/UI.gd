@@ -79,12 +79,12 @@ func filesystem_filters(filters: Array = []):
 	_n_filesystem_popup.filters = filters
 
 func request_file_load(base_path: String) -> void:
-	_n_filesystem_popup.mode = FileDialog.FILE_MODE_OPEN_FILE
+	_n_filesystem_popup.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	_n_filesystem_popup.current_dir = base_path
 	_n_filesystem_popup.popup()
 
 func request_folder_load(base_path: String) -> void:
-	_n_filesystem_popup.mode = FileDialog.FILE_MODE_OPEN_DIR
+	_n_filesystem_popup.file_mode = FileDialog.FILE_MODE_OPEN_DIR
 	_n_filesystem_popup.current_dir = base_path
 	_n_filesystem_popup.popup()
 

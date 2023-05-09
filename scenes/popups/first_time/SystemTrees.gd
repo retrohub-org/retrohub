@@ -77,29 +77,23 @@ func set_item_checked_down(item: TreeItem, checked: bool):
 	if item:
 		if is_edit_valid(item):
 			item.set_checked(0, checked)
-		set_item_checked_down(item.get_children(), checked)
-		var next := item.get_next()
-		while next:
-			set_item_checked_down(next.get_children(), checked)
-			if is_edit_valid(next):
-				next.set_checked(0, checked)
-			next = next.get_next()
+		for child in item.get_children():
+			set_item_checked_down(child, checked)
 
 func set_item_checked_up(item: TreeItem):
 	if item:
 		var all_checked := true
-		var next := item.get_children()
-		while next:
-			if not next.is_checked(0):
+		for child in item.get_children():
+			if not child.is_checked(0):
 				all_checked = false
 				break
-			next = next.get_next()
 		item.set_checked(0, all_checked)
 		set_item_checked_up(item.get_parent())
 
 func _on_item_edited(edited: TreeItem):
 	if is_edit_valid(edited):
-		set_item_checked_down(edited.get_children(), edited.is_checked(0))
+		if edited.get_child_count() > 0:
+			set_item_checked_down(edited, edited.is_checked(0))
 		set_item_checked_up(edited.get_parent())
 	else:
 		n_system_warning.popup()

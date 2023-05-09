@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-@export var game_entry_instance: PackedScene : PackedScene
+@export var game_entry_instance : PackedScene
 
 @onready var n_label := $"%Label"
 @onready var n_children := $"%Children"

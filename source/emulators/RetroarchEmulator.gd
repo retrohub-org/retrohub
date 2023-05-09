@@ -4,8 +4,8 @@ class_name RetroHubRetroArchEmulator
 static func get_custom_core_path() -> String:
 	var config_file := get_config_path()
 	if config_file:
-		var file := File.new()
-		if not file.open(config_file + "/retroarch.cfg", File.READ):
+		var file := FileAccess.open(config_file + "/retroarch.cfg", FileAccess.READ)
+		if file:
 			while file.get_position() < file.get_length():
 				var line := file.get_line()
 				if "libretro_directory" in line:
@@ -15,7 +15,6 @@ static func get_custom_core_path() -> String:
 	return ""
 
 static func get_config_path() -> String:
-	var dir := DirAccess.new()
 	match FileUtils.get_os_id():
 		FileUtils.OS_ID.WINDOWS:
 			# RetroArch on Windows works as a "portable" installation. Config is located beside main files.
@@ -23,7 +22,7 @@ static func get_config_path() -> String:
 			var emulator : Dictionary = RetroHubConfig.emulators_map["retroarch"]
 			var binpaths : Array = emulator["binpath"]
 			for binpath in binpaths:
-				if dir.file_exists(binpath):
+				if FileAccess.file_exists(binpath):
 					return binpath
 			return ""
 		FileUtils.OS_ID.LINUX:
@@ -31,12 +30,12 @@ static func get_config_path() -> String:
 			var xdg := OS.get_environment("XDG_CONFIG_HOME")
 			if not xdg.is_empty():
 				var path := xdg + "/retroarch"
-				if dir.dir_exists(path):
+				if DirAccess.dir_exists_absolute(path):
 					return path
 			else:
 				# Default to HOME
 				var path := FileUtils.get_home_dir() + "/.config/retroarch"
-				if dir.dir_exists(path):
+				if DirAccess.dir_exists_absolute(path):
 					return path
 			return ""
 		_:
@@ -49,12 +48,11 @@ func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores
 		corepath = find_and_substitute_str(emulator_raw["corepath"], _substitutes)
 	var corefile : String
 	_substitutes["corepath"] = corepath
-	var dir := DirAccess.new()
 	for core_name in system_cores:
 		for core_info in emulator_raw["cores"]:
 			if core_info["name"] == core_name:
 				var core_file_path : String = corepath + "/" + core_info["file"]
-				if dir.file_exists(core_file_path):
+				if FileAccess.file_exists(core_file_path):
 					corefile = core_info["file"]
 					_substitutes["corefile"] = corefile
 					break

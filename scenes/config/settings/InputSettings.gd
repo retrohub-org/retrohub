@@ -146,7 +146,7 @@ func _on_KeyboardRemap_key_remapped(key, old_code, new_code):
 func _on_CN_pressed(input_key):
 	var button := get_viewport().gui_get_focus_owner()
 	var pos := button.global_position - Vector2(n_ctrl_button_remap_popup.size.x + 10, 0)
-	n_ctrl_button_remap_popup.start(Callable(input_key, pos))
+	n_ctrl_button_remap_popup.start(input_key, pos)
 
 func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 	# First, find the old button and switch it
@@ -170,7 +170,7 @@ func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 func _on_CNAxis_pressed(axis):
 	var button := get_viewport().gui_get_focus_owner()
 	var pos := button.global_position - Vector2(n_ctrl_button_remap_popup.size.x + 10, 0)
-	n_ctrl_axis_remap_popup.start(Callable(axis, pos))
+	n_ctrl_axis_remap_popup.start(axis, pos)
 
 func _on_ControllerAxisRemap_remap_done(action, old_axis, new_axis):
 	# There's only two movement sticks, they will always switch places

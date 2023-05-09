@@ -142,20 +142,20 @@ static func default_input_key_map() -> Dictionary:
 
 static func default_input_controller_map() -> Dictionary:
 	return {
-		"rh_accept": [JOY_XBOX_A],
-		"rh_back": [JOY_XBOX_B],
-		"rh_major_option": [JOY_XBOX_X],
-		"rh_minor_option": [JOY_XBOX_Y],
-		"rh_menu": [JOY_START],
-		"rh_theme_menu": [JOY_SELECT],
-		"rh_up": [JOY_DPAD_UP],
-		"rh_down": [JOY_DPAD_DOWN],
-		"rh_left": [JOY_DPAD_LEFT],
-		"rh_right": [JOY_DPAD_RIGHT],
-		"rh_left_shoulder": [JOY_L],
-		"rh_right_shoulder": [JOY_R],
-		"rh_left_trigger": [JOY_L2],
-		"rh_right_trigger": [JOY_R2]
+		"rh_accept": [JOY_BUTTON_A],
+		"rh_back": [JOY_BUTTON_B],
+		"rh_major_option": [JOY_BUTTON_X],
+		"rh_minor_option": [JOY_BUTTON_Y],
+		"rh_menu": [JOY_BUTTON_START],
+		"rh_theme_menu": [JOY_BUTTON_BACK],
+		"rh_up": [JOY_BUTTON_DPAD_UP],
+		"rh_down": [JOY_BUTTON_DPAD_DOWN],
+		"rh_left": [JOY_BUTTON_DPAD_LEFT],
+		"rh_right": [JOY_BUTTON_DPAD_RIGHT],
+		"rh_left_shoulder": [JOY_BUTTON_LEFT_SHOULDER],
+		"rh_right_shoulder": [JOY_BUTTON_RIGHT_SHOULDER],
+		"rh_left_trigger": [JOY_AXIS_TRIGGER_LEFT],
+		"rh_right_trigger": [JOY_AXIS_TRIGGER_RIGHT]
 	}
 
 static func default_virtual_keyboard_type() -> String:
@@ -295,16 +295,15 @@ func mark_for_saving():
 
 func load_config_from_path(path: String) -> int:
 	# Open file
-	var file := File.new()
-	var err := file.open(path, File.READ)
-	if err:
+	var file := FileAccess.open(path, FileAccess.READ)
+	if not file:
 		push_error("Error opening config file " + path + " for reading!")
-		return err
+		return FileAccess.get_open_error()
 
 	# Parse file
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(file.get_as_text())
-	var json_result := test_json_conv.get_data()
+	var json_result : Dictionary = test_json_conv.get_data()
 	if(json_result.error):
 		push_error("Error parsing config file!")
 		return ERR_FILE_CORRUPT
@@ -331,10 +330,10 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 		return OK
 
 	# Open file
-	var file := File.new()
-	if(file.open(path, File.WRITE)):
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if not file:
 		push_error("Error opening config file " + path + "for saving!")
-		return ERR_CANT_OPEN
+		return FileAccess.get_open_error()
 
 	# Construct dict and save config
 	var dict := {}
@@ -384,17 +383,17 @@ func process_raw_config_changes(config: Dictionary):
 	if config.has(KEY_INPUT_CONTROLLER_MAIN_AXIS) and config[KEY_INPUT_CONTROLLER_MAIN_AXIS] is float:
 		_should_save = true
 		match int(config[KEY_INPUT_CONTROLLER_MAIN_AXIS]):
-			JOY_ANALOG_RX:
+			JOY_AXIS_RIGHT_X:
 				config[KEY_INPUT_CONTROLLER_MAIN_AXIS] = "right"
-			JOY_ANALOG_LX, _:
+			JOY_AXIS_LEFT_X, _:
 				config[KEY_INPUT_CONTROLLER_MAIN_AXIS] = "left"
 
 	if config.has(KEY_INPUT_CONTROLLER_SECONDARY_AXIS) and config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] is float:
 		_should_save = true
 		match int(config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS]):
-			JOY_ANALOG_RX:
+			JOY_AXIS_RIGHT_X:
 				config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] = "right"
-			JOY_ANALOG_LX, _:
+			JOY_AXIS_LEFT_X, _:
 				config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] = "left"
 
 	if config.has(KEY_INPUT_CONTROLLER_ICON_TYPE) and config[KEY_INPUT_CONTROLLER_ICON_TYPE] is float:

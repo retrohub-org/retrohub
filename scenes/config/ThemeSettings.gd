@@ -1,6 +1,6 @@
 extends ScrollContainer
 
-@export var no_theme_settings_scene: PackedScene : PackedScene
+@export var no_theme_settings_scene : PackedScene
 
 func _ready():
 	#warning-ignore:return_value_discarded

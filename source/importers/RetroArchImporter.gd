@@ -18,7 +18,7 @@ const RH_MEDIA_NAMES := [
 ]
 
 # Returns this importer name
-func get_name() -> String:
+func get_importer_name() -> String:
 	return "RetroArch"
 
 # Return this importer icon
@@ -59,9 +59,9 @@ func get_theme_compatibility_level_description() -> String:
 # This will run in a thread, so avoid any unsafe-thread API
 func get_estimated_size() -> int:
 	if folder_size == -1:
-		var dir := DirAccess.new()
 		folder_size = 0
-		if not dir.open(thumbnails_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+		var dir := DirAccess.open(thumbnails_path)
+		if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 			var next := dir.get_next()
 			while not next.is_empty():
 				if dir.current_is_dir() and next != "cheevos":
@@ -101,10 +101,10 @@ func begin_import(copy: bool):
 
 func import_metadata():
 	reset_minor(0)
-	var dir := DirAccess.new()
 	var gamelists := {}
 	var total_games := 0
-	if not dir.open(playlists_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(playlists_path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if not dir.current_is_dir() and next.to_lower().ends_with(".lpl"):
@@ -145,8 +145,8 @@ func process_lpl_file(path: String) -> Array:
 				names.append({"name": child["label"], "path": child["path"]})
 	else:
 		# Deprecated format. File consists of 6-line chunks of information
-		var file := File.new()
-		if not file.open(path, File.READ):
+		var file := FileAccess.open(path, FileAccess.READ)
+		if file:
 			while not file.eof_reached():
 				var file_path := file.get_line()
 				var name := file.get_line()
@@ -169,9 +169,9 @@ func process_metadata(system: String, dict: Dictionary):
 
 
 func import_media(copy: bool):
-	var dir := DirAccess.new()
 	var count := 0
-	if not dir.open(thumbnails_path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(thumbnails_path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir() and next != "cheevos":
@@ -190,8 +190,8 @@ func import_media(copy: bool):
 			next = dir.get_next()
 
 func process_media_subfolder(path: String, system: String, copy: bool):
-	var dir := DirAccess.new()
-	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir() and next in RA_MEDIA_NAMES:
@@ -199,8 +199,8 @@ func process_media_subfolder(path: String, system: String, copy: bool):
 			next = dir.get_next()
 
 func process_media(path: String, system: String, media_name: String, copy: bool):
-	var dir := DirAccess.new()
-	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name
 		while not next.is_empty():

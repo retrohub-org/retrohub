@@ -9,45 +9,42 @@ enum OS_ID {
 
 # Finds the first file/folder that exists from the array of paths.
 func test_for_valid_path(paths) -> String:
-	var dir := DirAccess.new()
 	if paths is String:
 		var expanded_path := expand_path(paths)
-		if dir.dir_exists(expanded_path) or dir.file_exists(expanded_path):
+		if DirAccess.dir_exists_absolute(expanded_path) or FileAccess.file_exists(expanded_path):
 			return expanded_path
 	if paths is Array:
 		for path in paths:
 			var expanded_path := expand_path(path)
-			if dir.dir_exists(expanded_path) or dir.file_exists(expanded_path):
+			if DirAccess.dir_exists_absolute(expanded_path) or FileAccess.file_exists(expanded_path):
 				return expanded_path
 	return ""
 
 func ensure_path(path: String):
-	var dir := DirAccess.new()
-	if dir.make_dir_recursive(path.get_base_dir()):
+	if DirAccess.make_dir_recursive_absolute(path.get_base_dir()):
 		push_error("Failed to create directory %s" % path.get_base_dir())
 
 func expand_path(path: String) -> String:
 	# Replace ~ by home
 	path = path.replace("~", get_home_dir())
 	# If path is relative, add executable path
-	if path.is_rel_path():
-		path = OS.get_executable_path().get_base_dir().plus_file(path)
+	if path.is_relative_path():
+		path = OS.get_executable_path().get_base_dir().path_join(path)
 	return path
 
 func get_space_left() -> int:
-	var dir := DirAccess.new()
-	if dir.open(get_home_dir()):
+	var dir := DirAccess.open(get_home_dir())
+	if not dir:
 		push_error("Failed to open home directory")
 		return 0
 	return dir.get_space_left()
 
 func get_folder_size(path: String, filter_folders: Array = []) -> int:
-	var dir := DirAccess.new()
-	if not dir.dir_exists(path):
+	if not DirAccess.dir_exists_absolute(path):
 		return -1
 	var size := 0
-	var file := File.new()
-	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			var fullpath := path + "/" + next
@@ -55,7 +52,8 @@ func get_folder_size(path: String, filter_folders: Array = []) -> int:
 				if filter_folders.is_empty() or next in filter_folders:
 					size += get_folder_size(fullpath)
 			else:
-				if not file.open(fullpath, File.READ):
+				var file := FileAccess.open(fullpath, FileAccess.READ)
+				if file:
 					size += file.get_length()
 					file.close()
 				else:
@@ -64,11 +62,11 @@ func get_folder_size(path: String, filter_folders: Array = []) -> int:
 	return size
 
 func get_file_count(path: String, filter_folders: Array = []):
-	var dir := DirAccess.new()
-	if not dir.dir_exists(path):
+	if not DirAccess.dir_exists_absolute(path):
 		return -1
 	var count := 0
-	if not dir.open(path) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(path)
+	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir():

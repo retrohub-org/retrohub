@@ -2,7 +2,7 @@ extends Popup
 
 signal scrape_step(game_entry)
 
-@export var system_entry_scene: PackedScene : PackedScene
+@export var system_entry_scene : PackedScene
 
 @onready var n_scraper_done := $"%ScraperDone"
 @onready var n_scraper_warning := $"%ScraperWarning"
@@ -109,7 +109,7 @@ func add_data_request(game_entry: RetroHubScraperGameEntry, type: int, priority:
 func add_media_request(game_entry: RetroHubScraperGameEntry, priority: bool = false, is_search: bool = false) -> int:
 	var medias := RetroHubMedia.convert_type_bitmask_to_list(media_bitmask)
 	# Invert medias due to the way requests are placed in queue
-	medias.invert()
+	medias.reverse()
 	var idx := 0
 	if not priority:
 		for i in range(requests_queue.size()):
@@ -316,14 +316,14 @@ func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: Pa
 					game_data.path.get_file().get_basename() + \
 					"." + extension
 		FileUtils.ensure_path(path)
-		var file := File.new()
-		if file.open(path, File.WRITE):
-			push_error("\tError when saving file " + path)
-			return
-		else:
+		var file := FileAccess.open(path, FileAccess.WRITE)
+		if file:
 			game_data.has_media = true
 			file.store_buffer(data)
 			file.close()
+		else:
+			push_error("\tError when saving file " + path)
+			return
 
 		var game_entry : RetroHubScraperGameEntry = pending_medias[game_data]
 		for req in requests_curr:

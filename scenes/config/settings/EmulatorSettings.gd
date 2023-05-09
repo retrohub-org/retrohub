@@ -144,14 +144,14 @@ func _on_AddCustomCoreInfoPopup_identifier_picked(id):
 
 
 func _on_AddEmulator_pressed():
-	n_add_custom_info_popup.start(Callable(RetroHubConfig.emulators_map.keys(), "emulator"))
+	n_add_custom_info_popup.start(RetroHubConfig.emulators_map.keys(), "emulator")
 
 
 func _on_RetroArchEmulatorEditor_request_add_core():
 	var keys := []
 	for data in n_retro_arch_emulator_editor.cores:
 		keys.push_back(data["name"])
-	n_add_custom_core_info_popup.start(Callable(keys, "core"))
+	n_add_custom_core_info_popup.start(keys, "core")
 
 
 func _on_RemoveEmulator_pressed():

@@ -1,23 +1,20 @@
 extends Node
 
 func load_json_file(filepath: String):
-	var file := File.new()
-	if file.open(filepath, File.READ):
+	var file := FileAccess.open(filepath, FileAccess.READ)
+	if not file:
 		push_error("Error when opening " + filepath)
 		return {}
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(file.get_as_text())
-	var json := test_json_conv.get_data()
-	if json.error:
+	var json = JSON.new()
+	if json.parse(file.get_as_text()):
 		push_error("Error when parsing JSON for " + filepath)
 		return {}
-	return json.result
+	return json.get_data()
 
 func save_json_file(json, file_path: String):
-	var file := File.new()
-	var err : int = file.open(file_path, File.WRITE)
-	if err:
-		return err
+	var file := FileAccess.open(file_path, FileAccess.WRITE)
+	if not file:
+		return FileAccess.get_open_error()
 	file.store_string(JSON.stringify(json, "\t"))
 	file.close()
 

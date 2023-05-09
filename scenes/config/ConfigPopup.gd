@@ -23,24 +23,25 @@ func _ready():
 
 func _input(event: InputEvent):
 	if not RetroHub._running_game:
-		var modal_top := get_viewport().get_modal_stack_top()
-		if modal_top == null or modal_top == self:
-			if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
-				get_viewport().set_input_as_handled()
-				if not visible:
-					popup()
-				else:
-					hide()
-			if visible and event.is_action_pressed("rh_back"):
-				# If using the default Backspace key, don't consume event if inside a
-				# text field, otherwise deleting text becomes impossible
-				if event is InputEventKey and event.keycode == KEY_BACKSPACE and (get_viewport().gui_get_focus_owner() is TextEdit \
-					or get_viewport().gui_get_focus_owner() is LineEdit):
-					return
-				get_viewport().set_input_as_handled()
-				if not last_tab:
-					last_tab = n_game_tab
-				last_tab.grab_focus()
+		# FIXME: No longer modal stack since popup being a window, figure out how to do
+		#var modal_top := get_viewport().get_modal_stack_top()
+		#if modal_top == null or modal_top == self:
+		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
+			get_viewport().set_input_as_handled()
+			if not visible:
+				popup()
+			else:
+				hide()
+		if visible and event.is_action_pressed("rh_back"):
+			# If using the default Backspace key, don't consume event if inside a
+			# text field, otherwise deleting text becomes impossible
+			if event is InputEventKey and event.keycode == KEY_BACKSPACE and (get_viewport().gui_get_focus_owner() is TextEdit \
+				or get_viewport().gui_get_focus_owner() is LineEdit):
+				return
+			get_viewport().set_input_as_handled()
+			if not last_tab:
+				last_tab = n_game_tab
+			last_tab.grab_focus()
 
 func _on_Tab_pressed(idx: int):
 	n_main.current_tab = idx

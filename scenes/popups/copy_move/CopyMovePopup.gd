@@ -18,7 +18,7 @@ signal import_begin(importer, copy_mode)
 @onready var n_import := $"%Import"
 
 var base_texts := []
-var size : int
+var file_size : int
 var space_left : int
 
 var importer : RetroHubImporter
@@ -31,7 +31,7 @@ func _ready():
 func set_importer(_importer):
 	importer = _importer
 	for idx in range(n_section_labels.size()):
-		n_section_labels[idx].text = base_texts[idx] % importer.get_name()
+		n_section_labels[idx].text = base_texts[idx] % importer.get_importer_name()
 
 	n_size.text = "Calculating..."
 	n_space_left.text = "Calculating..."
@@ -39,13 +39,13 @@ func set_importer(_importer):
 		push_error("Thread start failed [t_get_size]")
 
 func t_get_size():
-	size = importer.get_estimated_size()
+	file_size = importer.get_estimated_size()
 	space_left = FileUtils.get_space_left()
 	call_deferred("thread_finished")
 
 func thread_finished():
 	thread.wait_to_finish()
-	n_size.text = get_human_readable_size(size)
+	n_size.text = get_human_readable_size(file_size)
 	n_space_left.text = get_human_readable_size(space_left) if space_left > 0 else "Could not measure"
 
 func get_human_readable_size(size_raw: int):

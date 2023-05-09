@@ -32,7 +32,8 @@ const version_major := 0
 const version_minor := 1
 const version_patch := 3
 const version_extra := "-beta"
-const version_str := "%d.%d.%d%s" % [version_major, version_minor, version_patch, version_extra]
+# FIXME: This worked before as "const version_str". Report regression?
+var version_str := "%d.%d.%d%s" % [version_major, version_minor, version_patch, version_extra]
 
 const NO_EMULATOR_WARNING_TEXT := """No valid emulators were found for game \"%s\"!
 Please check your settings:
@@ -53,7 +54,7 @@ func _notification(what):
 			emit_signal("app_received_focus")
 		NOTIFICATION_APPLICATION_FOCUS_OUT:
 			emit_signal("app_lost_focus")
-		NOTIFICATION_WM_QUIT_REQUEST:
+		NOTIFICATION_WM_CLOSE_REQUEST:
 			quit()
 
 func _on_config_ready(config_data: ConfigData):
@@ -83,9 +84,7 @@ func load_theme():
 	print("Config is ready, parsing metadata...")
 	var systems : Dictionary = RetroHubConfig.systems
 	var games : Array = RetroHubConfig.games
-	var result = RetroHubConfig.unload_theme()
-	if(result is GDScriptFunctionState and result.is_valid()):
-		await result.completed
+	await RetroHubConfig.unload_theme()
 	if not RetroHubConfig.load_theme():
 		return
 	RetroHubMedia._start_thread()

@@ -1,8 +1,8 @@
 extends Popup
 
-@export var color_current: Color := Color(1, 1, 1, 1)
-@export var color_next: Color := Color(0.5, 0.5, 0.5, 1)
-@export var color_prev: Color := Color(0.4, 0.8, 0.4, 1)
+@export var color_current := Color(1, 1, 1, 1)
+@export var color_next := Color(0.5, 0.5, 0.5, 1)
+@export var color_prev := Color(0.4, 0.8, 0.4, 1)
 
 @onready var n_sidebar := $"%Sidebar"
 @onready var n_main_content := $"%MainContent"

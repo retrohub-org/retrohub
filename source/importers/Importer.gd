@@ -21,7 +21,7 @@ enum CompatibilityLevel {
 }
 
 # Returns this importer name
-func get_name() -> String:
+func get_importer_name() -> String:
 	return "null"
 
 # Return this importer icon

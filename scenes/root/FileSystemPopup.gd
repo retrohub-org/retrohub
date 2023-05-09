@@ -20,18 +20,18 @@ func _ready():
 	# Attach ControllerIcons to buttons
 	var box : HBoxContainer = ok_button.get_parent()
 	var back_icon := create_icon(controller_icon_rect, "rh_back")
-	box.add_sibling(box.get_child(0), back_icon)
+	box.get_child(0).add_sibling(back_icon)
 	var select_icon := create_icon(controller_icon_rect, "rh_major_option")
-	box.add_sibling(box.get_child(3), select_icon)
+	box.get_child(3).add_sibling(select_icon)
 
 	box = upwards_button.get_parent()
 	var upwards_icon := create_icon(controller_icon_rect, "rh_minor_option")
 	box.add_child(upwards_icon)
 	box.move_child(upwards_icon, 0)
 	var refresh_icon := create_icon(controller_icon_rect, "rh_theme_menu")
-	box.add_sibling(box.get_child(4), refresh_icon)
+	box.get_child(4).add_sibling(refresh_icon)
 	var hide_icon := create_icon(controller_icon_rect, "rh_menu")
-	box.add_sibling(box.get_child(6), hide_icon)
+	box.get_child(6).add_sibling(hide_icon)
 
 	# Tree should focus cancel button on down
 	path = "../../../%s/%s" % [
@@ -89,7 +89,7 @@ func _unhandled_input(event):
 			refresh_button.emit_signal("pressed")
 		elif event.is_action_released("rh_menu"):
 			get_viewport().set_input_as_handled()
-			hide_button.button_pressed = not hide_button.pressed
+			hide_button.button_pressed = not hide_button.button_pressed
 
 func create_icon(base: GDScript, path: String) -> Control:
 	var icon : Control = base.new()

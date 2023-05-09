@@ -39,4 +39,4 @@ func launch_game() -> int:
 		else:
 			command_args.append(regex_results[idx].strings[0])
 
-	return OS.execute(command_base, command_args, false)
+	return OS.create_process(command_base, command_args)

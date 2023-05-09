@@ -30,7 +30,7 @@ func _ready():
 		"previous"
 	]:
 		var neighbour : NodePath = get(neighbour_str)
-		if not neighbour or neighbour.get_name_count() < 1:
+		if neighbour.get_name_count() < 1:
 			continue
 		var node_path_str = ""
 		for i in range(1, neighbour.get_name_count()-1):

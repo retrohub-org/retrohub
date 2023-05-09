@@ -51,10 +51,10 @@ func handle_neighbors(dir: int):
 		Dir.PREVIOUS:
 			neighbor = get_parent().focus_previous
 
-	if not neighbor:
+	if neighbor == null:
 		return
 
-	var neighbor_obj := get_node("../" + neighbor)
+	var neighbor_obj := get_node(NodePath("../" + neighbor.get_concatenated_names()))
 
 	var raw_path := ".."
 	for i in range(neighbor.get_name_count()):

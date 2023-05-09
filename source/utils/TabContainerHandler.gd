@@ -6,7 +6,7 @@ class_name TabContainerHandler
 
 signal tab_changed(tab_container, enter_tab)
 
-@export var signal_tab_change: bool := false
+@export var signal_tab_change := false
 
 var tab : TabContainer
 

@@ -22,8 +22,8 @@ func start(system_name: String, _extensions: Array):
 
 	# Add new extensions
 	var game_path : String = RetroHubConfig.config.games_dir + "/" + system_name
-	var dir := DirAccess.new()
-	if dir.open(game_path) == OK:
+	var dir := DirAccess.open(game_path)
+	if dir:
 		#warning-ignore:return_value_discarded
 		dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var curr_extensions := []

@@ -10,10 +10,12 @@ signal remap_done(action, old_button, new_button)
 ]
 
 var mappings := [
-	JOY_XBOX_A, JOY_XBOX_B, JOY_XBOX_Y, JOY_XBOX_X,
-	JOY_L, JOY_R, JOY_L2, JOY_R2,
-	JOY_SELECT, JOY_START,
-	JOY_L3, JOY_R3
+	# FIXME: Mappings changed! This might need special config porting to be compatible
+	JOY_BUTTON_A, JOY_BUTTON_B, JOY_BUTTON_Y, JOY_BUTTON_X,
+	JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER,
+	JOY_AXIS_TRIGGER_LEFT, JOY_AXIS_TRIGGER_RIGHT,
+	JOY_BUTTON_BACK, JOY_BUTTON_START,
+	JOY_BUTTON_LEFT_STICK, JOY_BUTTON_RIGHT_STICK
 ]
 
 var action : String
@@ -29,13 +31,13 @@ func start(curr_action: String, pos: Vector2):
 	if map_idx != -1:
 		var icon : Button = n_icons[map_idx]
 		icon.disabled = true
-		icon.focus_mode = FOCUS_NONE
+		icon.focus_mode = Control.FOCUS_NONE
 		focus_holder = n_icons[map_idx+1 if map_idx+1 < n_icons.size() else 0]
 	else:
 		focus_holder = n_icons[0]
 
 	# Set intended position and popup
-	global_position = pos
+	position = pos
 	popup()
 
 	# Popup internally tries to focus, so wait until it's shown to grab focus
@@ -54,7 +56,7 @@ func _on_ControllerButtonRemap_popup_hide():
 	# Enable all the button from previous cases
 	for icon in n_icons:
 		icon.disabled = false
-		icon.focus_mode = FOCUS_ALL
+		icon.focus_mode = Control.FOCUS_ALL
 
 
 func _on_Icon_pressed(button_idx):

@@ -31,9 +31,9 @@ func set_themes():
 	n_themes.clear()
 	theme_id_map.clear()
 	var id := 0
-	var file := File.new()
+	var file := FileAccess.open("res://default_themes/themes.txt", FileAccess.READ)
 	# Default themes
-	if not file.open("res://default_themes/themes.txt", File.READ):
+	if file:
 		# Skip first line
 		#warning-ignore:return_value_discarded
 		file.get_line()
@@ -49,8 +49,8 @@ func set_themes():
 	n_themes.add_separator()
 	id += 1
 	# User themes
-	var dir := DirAccess.new()
-	if not dir.open(RetroHubConfig.get_themes_dir()) and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir := DirAccess.open(RetroHubConfig.get_themes_dir())
+	if dir and not dir.list_dir_begin(): # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if not dir.current_is_dir() and next.ends_with(".pck"):

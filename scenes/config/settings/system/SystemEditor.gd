@@ -101,15 +101,14 @@ func set_retroarch_cores(cores: Array):
 	var core_names := []
 	for core in cores:
 		core_names.push_back(core["name"])
-	var item : TreeItem = emulator_tree_root.get_children()
-	while item != null:
+	var items := emulator_tree_root.get_children()
+	for item in items:
 		var core_def = item.get_metadata(0)
 		if core_def is Dictionary and core_def.keys()[0] == "retroarch":
 			emit_signal("change_ocurred")
 			core_def["retroarch"] = core_names
 			item.set_text(0, get_emulator_name("retroarch") + " " + get_retroarch_pretty_name(core_names))
 			return
-		item = item.get_next()
 
 func _on_item_change(__):
 	emit_signal("change_ocurred")
