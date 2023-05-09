@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dblaqb7b1qx02"
+uid="uid://chis8pjw070yd"
 path="res://.godot/imported/left_track_center.png-f881a55ee2c591d91924bfeb7df3151e.ctex"
 metadata={
 "vram_texture": false
@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/left_track_center.png-f881a55ee2c591d91924bfe
 [params]
 
 compress/mode=0
-compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
+compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
