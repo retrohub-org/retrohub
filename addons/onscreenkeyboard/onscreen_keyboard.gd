@@ -42,7 +42,7 @@ func _ready():
 	RetroHubConfig.connect("config_updated", Callable(self, "on_config_updated"))
 
 	# Wait a frame for the config to load
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	if RetroHubConfig.config.is_first_time:
 		_initKeyboard("qwerty")
 
@@ -269,7 +269,7 @@ func _hideLayout(layout):
 
 
 func _switchLayout(keyData,x,y,steal_focus):
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	prevPrevLayout = previousLayout
 	previousLayout = currentLayout
 	emit_signal("layoutChanged", keyData.get("layout-name"))
@@ -342,7 +342,7 @@ func _keyReleased(keyData,x,y,steal_focus):
 		# Manually disable ControllerIcons for this event
 		ControllerIcons.set_process_input(false)
 		Input.parse_input_event(inputEventKey)
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		ControllerIcons.set_process_input(true)
 		sendingEvent = false
 		

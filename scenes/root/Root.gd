@@ -48,7 +48,7 @@ func _ready():
 	_on_vp_size_changed()
 
 	# Wait an idle frame for the config to load
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	if RetroHubConfig.config.is_first_time:
 		show_first_time_popup()
 	get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (RetroHubConfig.config.fullscreen) else Window.MODE_WINDOWED
@@ -83,7 +83,7 @@ func show_first_time_popup():
 	#warning-ignore:return_value_discarded
 	first_time_popup.connect("popup_hide", Callable(self, "_on_first_time_popup_closed").bind(first_time_popup))
 	# Wait a frame for the window to be at the right resolution
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	first_time_popup.popup()
 
 func _on_vp_size_changed() -> void:

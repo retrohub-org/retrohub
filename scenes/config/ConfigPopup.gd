@@ -64,7 +64,7 @@ func _on_QuitTab_pressed():
 
 func _on_ConfigPopup_about_to_show():
 	n_game.set_game_data(RetroHub.curr_game_data)
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	TTS.speak("Configuration opened.")
 	if last_tab:
 		last_tab.grab_focus()

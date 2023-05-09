@@ -16,7 +16,7 @@ func start(data: Dictionary, existing: Array, asset_format: String, data_name: S
 	n_intro_lbl.text = base_text_intro % data_name
 	populate_options(data.values(), existing, asset_format)
 	popup_centered()
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:

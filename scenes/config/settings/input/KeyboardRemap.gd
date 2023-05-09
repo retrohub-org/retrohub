@@ -44,6 +44,6 @@ func find_old_keycode(raw_key: String):
 func _on_Timer_timeout():
 	hide()
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		TTS.speak("Key was remapped to " + n_key_label.text)
 	emit_signal("key_remapped", key, oldcode, keycode)

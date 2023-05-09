@@ -14,7 +14,7 @@ var _focused := false
 
 func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	focus_mode = Control.FOCUS_ALL
 	connect("focus_entered", Callable(self, "_on_focus_entered"))
 	connect("focus_exited", Callable(self, "_on_focus_exited"))

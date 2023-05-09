@@ -301,11 +301,11 @@ func start():
 	Input.remove_joy_mapping(joy_guid)
 	curr_step = 0
 	step()
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_action_desc.grab_focus()
 		# We control how TTS works for the first frame ever
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		TTS.speak(n_lbl_press.text)
 		TTS.speak(n_action_desc.text, false)
 	else:

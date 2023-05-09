@@ -45,7 +45,7 @@ func _on_ScrapingGamePickerPopup_about_to_show():
 		set_item_settings(item, game.path.get_file())
 		item.set_metadata(0, game)
 	# Focus tree
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	n_game_tree.grab_focus()
 	n_game_tree.scroll_to_item(root)
 	root.select(0)

@@ -17,7 +17,7 @@ func _init():
 func _ready():
 	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	move_to_front()
 	_joypad_echo_pre_delay.wait_time = RetroHubConfig.config.input_controller_echo_pre_delay
 	_joypad_echo_delay.wait_time = RetroHubConfig.config.input_controller_echo_delay

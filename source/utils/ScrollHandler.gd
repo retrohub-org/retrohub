@@ -18,7 +18,7 @@ var scroll_v_speed := 0.0
 func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize
 	mouse_filter = MOUSE_FILTER_IGNORE
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	var parent := get_parent()
 	if parent is ScrollContainer:
 		_handle_scroll_container(parent)

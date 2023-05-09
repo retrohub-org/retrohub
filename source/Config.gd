@@ -47,7 +47,7 @@ func _ready():
 		handle_controller_button_remaps()
 
 		# Wait until all other nodes have processed _ready
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		emit_signal("config_ready", config)
 	#warning-ignore:return_value_discarded
 	config.connect("config_updated", Callable(self, "_on_config_updated"))
@@ -459,7 +459,7 @@ func unload_theme():
 		theme_data.entry_scene.queue_free()
 		RenderingServer.render_loop_enabled = false
 		while is_instance_valid(theme_data.entry_scene):
-			await get_tree().idle_frame
+			await get_tree().process_frame
 
 		RenderingServer.render_loop_enabled = true
 		theme_data = null

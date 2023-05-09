@@ -178,13 +178,13 @@ func stop_game() -> void:
 	_running_game_pid = -1
 	launched_emulator = {}
 	load_theme()
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	emit_signal("app_returning", launched_system_data, launched_game_data)
 	launched_system_data = null
 	launched_game_data = null
 
 func request_theme_reload():
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	load_theme()
 
 func kill_game_process():

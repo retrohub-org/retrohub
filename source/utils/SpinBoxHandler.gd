@@ -17,7 +17,7 @@ enum Dir {
 func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize
 	mouse_filter = MOUSE_FILTER_IGNORE
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	var spin_box : SpinBox = get_parent()
 	if not spin_box:
 		return

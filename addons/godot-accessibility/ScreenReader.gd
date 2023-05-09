@@ -270,7 +270,7 @@ func popup_menu_item_id_focused(index, node):
 	var spoken_custom := false
 	while n and not spoken_custom:
 		if n.has_method("tts_popup_menu_item_text"):
-			await get_tree().idle_frame
+			await get_tree().process_frame
 			var text : String = n.tts_popup_menu_item_text(index, node)
 			if not text.is_empty():
 				TTS.speak(text)
@@ -408,7 +408,7 @@ func _tree_item_render(node):
 	var cell = node.get_selected()
 	while n:
 		if n.has_method("tts_tree_item_text"):
-			await get_tree().idle_frame
+			await get_tree().process_frame
 			var text : String = n.tts_tree_item_text(cell, node)
 			if not text.is_empty():
 				TTS.speak(text)
@@ -675,7 +675,7 @@ func _input(event):
 			if (RetroHubUI.is_event_from_virtual_keyboard() and \
 				(event.keycode == KEY_LEFT or event.keycode == KEY_RIGHT)) or \
 			(event.is_action("ui_left") or event.is_action("ui_right")):
-				await get_tree().idle_frame
+				await get_tree().process_frame
 				if node.caret_column < node.text.length():
 					TTS.speak(node.text.substr(node.caret_column))
 		else:

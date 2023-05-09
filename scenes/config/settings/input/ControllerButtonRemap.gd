@@ -41,7 +41,7 @@ func start(curr_action: String, pos: Vector2):
 	popup()
 
 	# Popup internally tries to focus, so wait until it's shown to grab focus
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	focus_holder.grab_focus()
 	TTS.speak("Choose the new button for this action")
 

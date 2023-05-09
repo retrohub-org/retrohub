@@ -145,5 +145,5 @@ func show_warning(text: String):
 	if _n_warning_popup:
 		_n_warning_popup.get_node("%WarningLabel").text = text
 		_n_warning_popup.popup_centered()
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		_n_warning_popup.get_ok_button().grab_focus()

@@ -38,7 +38,7 @@ func start(system_name: String, _extensions: Array):
 			file_name = dir.get_next()
 
 	popup_centered()
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:

@@ -301,18 +301,17 @@ func load_config_from_path(path: String) -> int:
 		return FileAccess.get_open_error()
 
 	# Parse file
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(file.get_as_text())
-	var json_result : Dictionary = test_json_conv.get_data()
-	if(json_result.error):
+	var json = JSON.new()
+	if json.parse(file.get_as_text()):
 		push_error("Error parsing config file!")
 		return ERR_FILE_CORRUPT
 
+	var json_result : Dictionary = json.get_data()
 	# Pre-process configuration due to app updates
-	process_raw_config_changes(json_result.result)
+	process_raw_config_changes(json_result)
 
 	# Dictionary ready for retrieval
-	_old_config = json_result.result
+	_old_config = json_result
 
 	_should_save = false
 	for key in _keys:
