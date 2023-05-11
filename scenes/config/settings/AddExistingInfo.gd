@@ -10,7 +10,7 @@ signal identifier_picked(id)
 @onready var base_text_intro : String = n_intro_lbl.text
 
 func _ready():
-	n_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
+	n_options.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 
 func start(data: Dictionary, existing: Array, asset_format: String, data_name: String):
 	n_intro_lbl.text = base_text_intro % data_name

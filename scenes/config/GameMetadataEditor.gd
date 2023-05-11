@@ -31,7 +31,7 @@ func _ready():
 	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
 
-	n_age_rating.get_popup().max_height = RetroHubUI.max_popupmenu_height
+	n_age_rating.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 
 func _on_config_ready(config: ConfigData):
 	update_age_rating_options(config.rating_system)
@@ -139,7 +139,7 @@ func set_edit_nodes_enabled(enabled: bool):
 	if disable_edits:
 		enabled = false
 	n_name.editable = enabled
-	n_description.readonly = !enabled
+	n_description.editable = enabled
 	n_rating.editable = enabled
 	n_release_date.editable = enabled
 	n_developer.editable = enabled

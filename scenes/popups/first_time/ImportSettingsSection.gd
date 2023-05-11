@@ -19,7 +19,7 @@ var thread := Thread.new()
 var importer_support := []
 
 func _ready():
-	n_import_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
+	n_import_options.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 
 func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:

@@ -17,7 +17,7 @@ extends Control
 var sep_idx := -1
 
 func _ready():
-	n_emulator_selection.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
+	n_emulator_selection.get_popup().max_size.y = RetroHubUI.max_popupmenu_height + 50
 	#warning-ignore:return_value_discarded
 	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
 	n_save.disabled = true

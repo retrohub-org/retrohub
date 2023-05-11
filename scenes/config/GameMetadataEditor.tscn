@@ -1,312 +1,246 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bma07qur4debs"]
 
-[ext_resource path="res://assets/ratings/esrb/unknown.png" type="Texture2D" id=1]
-[ext_resource path="res://scenes/config/GameMetadataEditor.gd" type="Script" id=2]
-[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=7]
-[ext_resource path="res://source/utils/SpinBoxHandler.gd" type="Script" id=8]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=9]
-
-[sub_resource type="ButtonGroup" id=1]
+[ext_resource type="Script" path="res://scenes/config/GameMetadataEditor.gd" id="2"]
+[ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="7"]
+[ext_resource type="Script" path="res://source/utils/SpinBoxHandler.gd" id="8"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="9"]
 
 [node name="GameMetadataEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-offset_right = 1024.0
-offset_bottom = 576.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_right = 1024.0
-offset_bottom = 30.0
+layout_mode = 2
 
 [node name="IntroLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-offset_right = 720.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Name:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer/IntroLabel"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 previous = NodePath("../../../HBoxContainer10/NumTimesPlayed")
 
 [node name="Name" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-offset_left = 724.0
-offset_right = 1024.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 300, 30 )
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
 caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 34.0
-offset_right = 1024.0
-offset_bottom = 184.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-offset_right = 720.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Description:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer2/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Description" type="TextEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-offset_left = 724.0
-offset_right = 1024.0
-offset_bottom = 150.0
-custom_minimum_size = Vector2( 300, 150 )
-wrap_enabled = true
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 188.0
-offset_right = 1024.0
-offset_bottom = 204.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-offset_right = 696.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Rating:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer3/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-offset_left = 700.0
-offset_right = 1024.0
-offset_bottom = 16.0
-custom_minimum_size = Vector2( 300, 0 )
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
 size_flags_horizontal = 9
 
 [node name="RatingLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
 unique_name_in_owner = true
-offset_top = 1.0
-offset_right = 20.0
-offset_bottom = 15.0
+layout_mode = 2
 text = "0%"
 
 [node name="Rating" type="HSlider" parent="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
 unique_name_in_owner = true
-offset_left = 24.0
-offset_right = 324.0
-offset_bottom = 16.0
-custom_minimum_size = Vector2( 300, 0 )
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
 size_flags_horizontal = 3
 tick_count = 10
 ticks_on_borders = true
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 208.0
-offset_right = 1024.0
-offset_bottom = 238.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
-offset_right = 720.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Release date:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer4/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="ReleaseDate" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
-offset_left = 724.0
-offset_right = 1024.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 300, 30 )
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
 caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 242.0
-offset_right = 1024.0
-offset_bottom = 272.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
-offset_right = 720.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Developer:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer5/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Developer" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
 unique_name_in_owner = true
-offset_left = 724.0
-offset_right = 1024.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 300, 30 )
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
 caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 276.0
-offset_right = 1024.0
-offset_bottom = 306.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
-offset_right = 720.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Publisher:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer6/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Publisher" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
 unique_name_in_owner = true
-offset_left = 724.0
-offset_right = 1024.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 300, 30 )
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
 caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="HBoxContainer12" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 310.0
-offset_right = 1024.0
-offset_bottom = 390.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer12"]
-offset_right = 860.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Age rating:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer12/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="AgeRating" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer12"]
 unique_name_in_owner = true
-offset_left = 864.0
-offset_right = 1024.0
-offset_bottom = 80.0
-custom_minimum_size = Vector2( 160, 80 )
-text = "Unknown"
-icon = ExtResource( 1 )
-align = 1
+custom_minimum_size = Vector2(160, 80)
+layout_mode = 2
 expand_icon = true
-items = [ "Unknown", ExtResource( 1 ), false, 0, null ]
-selected = 0
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 394.0
-offset_right = 1024.0
-offset_bottom = 424.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
-offset_right = 720.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Genres:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer7/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Genres" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
 unique_name_in_owner = true
-offset_left = 724.0
-offset_right = 1024.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 300, 30 )
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
 caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 428.0
-offset_right = 1024.0
-offset_bottom = 480.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
-offset_right = 720.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Number of players:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer8/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer8"]
-offset_left = 724.0
-offset_right = 1024.0
-offset_bottom = 52.0
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer"]
-offset_right = 300.0
-offset_bottom = 24.0
+layout_mode = 2
 
 [node name="FixedPlayers" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-offset_right = 100.0
-offset_bottom = 24.0
-custom_minimum_size = Vector2( 100, 0 )
-pressed = true
-group = SubResource( 1 )
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 text = "Fixed"
 
 [node name="FixedPlayersNum" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-offset_left = 104.0
-offset_right = 300.0
-offset_bottom = 24.0
-custom_minimum_size = Vector2( 100, 0 )
-focus_neighbor_bottom = NodePath("../../HBoxContainer2/VariablePlayersMin")
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../../HBoxContainer2/VariablePlayersMin")
 min_value = 1.0
 max_value = 1000.0
 value = 1.0
 suffix = "player"
 
 [node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer"]
-offset_top = 28.0
-offset_right = 300.0
-offset_bottom = 52.0
+layout_mode = 2
 
 [node name="VariablePlayers" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-offset_right = 100.0
-offset_bottom = 24.0
-custom_minimum_size = Vector2( 100, 0 )
-group = SubResource( 1 )
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 text = "Variable"
 
 [node name="VariablePlayersMin" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-offset_left = 104.0
-offset_right = 179.0
-offset_bottom = 24.0
-custom_minimum_size = Vector2( 75, 0 )
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../../HBoxContainer9/Favorite")
 min_value = 1.0
 max_value = 1000.0
@@ -314,25 +248,21 @@ value = 1.0
 editable = false
 
 [node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2"]
-offset_left = 183.0
-offset_top = 5.0
-offset_right = 196.0
-offset_bottom = 19.0
+layout_mode = 2
 text = "to"
 
 [node name="VariablePlayersMax" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-offset_left = 200.0
-offset_right = 300.0
-offset_bottom = 24.0
-custom_minimum_size = Vector2( 100, 0 )
-focus_neighbor_bottom = NodePath("../../../../HBoxContainer9/Favorite")
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../../../../HBoxContainer9/Favorite")
 min_value = 2.0
 max_value = 1000.0
 value = 2.0
@@ -340,82 +270,75 @@ editable = false
 suffix = "players"
 
 [node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMax"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="HBoxContainer9" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 484.0
-offset_right = 1024.0
-offset_bottom = 524.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
-offset_right = 944.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Favorite?"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer9/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Favorite" type="CheckButton" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
 unique_name_in_owner = true
-offset_left = 948.0
-offset_right = 1024.0
-offset_bottom = 40.0
+layout_mode = 2
 
 [node name="HBoxContainer10" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-offset_top = 528.0
-offset_right = 1024.0
-offset_bottom = 552.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer10"]
-offset_right = 946.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Number of times played:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer10/Label"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="NumTimesPlayed" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer10"]
 unique_name_in_owner = true
-offset_left = 950.0
-offset_right = 1024.0
-offset_bottom = 24.0
+layout_mode = 2
 allow_greater = true
 
 [node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 next = NodePath("../../../HBoxContainer/IntroLabel")
 
 [node name="ScrollHandler" type="Control" parent="ScrollContainer"]
-script = ExtResource( 7 )
+layout_mode = 2
+script = ExtResource("7")
 
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer/Name" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer2/Description" to="." method="_on_change_ocurred"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer/Rating" to="." method="_on_Rating_value_changed"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer/Rating" to="." method="_on_change_ocurred"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer/Rating" to="." method="_on_Rating_value_changed"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer4/ReleaseDate" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer5/Developer" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer6/Publisher" to="." method="_on_change_ocurred"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer12/AgeRating" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Genres" to="." method="_on_change_ocurred"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_FixedPlayers_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_change_ocurred"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_FixedPlayers_toggled"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_FixedPlayersNum_value_changed"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_change_ocurred"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_VariablePlayers_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_change_ocurred"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin" to="." method="_on_VariablePlayersMin_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_VariablePlayers_toggled"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin" to="." method="_on_change_ocurred"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin" to="." method="_on_VariablePlayersMin_value_changed"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMax" to="." method="_on_change_ocurred"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer9/Favorite" to="." method="_on_change_ocurred"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed" to="." method="_on_change_ocurred"]

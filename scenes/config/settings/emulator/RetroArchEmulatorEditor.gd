@@ -27,7 +27,7 @@ func focus_node_from_bottom():
 	n_core_file_name.grab_focus()
 
 func _ready():
-	n_core_option.get_popup().max_height = RetroHubUI.max_popupmenu_height
+	n_core_option.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 
 func set_curr_emulator(_curr_emulator: Dictionary):
 	curr_emulator = _curr_emulator

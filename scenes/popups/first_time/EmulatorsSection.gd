@@ -10,7 +10,7 @@ var icon_cache := {}
 var emulator_cache := {}
 
 func _ready():
-	n_systems.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
+	n_systems.get_popup().max_size.y = RetroHubUI.max_popupmenu_height + 50
 
 func grab_focus():
 	RetroHubConfig.load_emulators()

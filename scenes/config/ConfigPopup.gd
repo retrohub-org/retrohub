@@ -19,7 +19,7 @@ var should_reload_theme := false
 func _ready():
 	last_tab = n_game_tab
 	n_panel_container.get_parent().custom_minimum_size.y = n_panel_container.size.y
-	n_panel_container.get_parent().minimum_size_changed()
+	n_panel_container.get_parent().update_minimum_size()
 
 func _input(event: InputEvent):
 	if not RetroHub._running_game:

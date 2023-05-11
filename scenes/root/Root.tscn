@@ -58,6 +58,7 @@ anchor_bottom = 1.0
 focus_mode = 2
 
 [node name="ConfigPopup" parent="." instance=ExtResource("3")]
+position = Vector2i(0, 50)
 exclusive = true
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]

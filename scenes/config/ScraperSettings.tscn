@@ -303,7 +303,6 @@ dialog_hide_on_ok = false
 [node name="ScraperPopup" parent="." instance=ExtResource("6")]
 unique_name_in_owner = true
 
-[connection signal="visibility_changed" from="." to="." method="_on_ScraperSettings_visibility_changed"]
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer/Hash" to="." method="_on_Hash_toggled"]
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer/Filename" to="." method="_on_Filename_toggled"]
 [connection signal="value_changed" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/HashMaxSize" to="." method="_on_HashMaxSize_value_changed"]

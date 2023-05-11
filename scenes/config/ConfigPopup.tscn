@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" path="res://scenes/config/GameSettings.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/RegionSettings.tscn" id="14"]
 [ext_resource type="PackedScene" path="res://scenes/config/QuitSettings.tscn" id="15"]
-[ext_resource type="PackedScene" path="res://scenes/config/AboutSettings.tscn" id="16"]
+[ext_resource type="PackedScene" uid="uid://bk84lkodndnjq" path="res://scenes/config/AboutSettings.tscn" id="16"]
 [ext_resource type="Texture2D" uid="uid://d2oqjwfnma664" path="res://assets/icons/config/quit.png" id="17"]
 [ext_resource type="Texture2D" uid="uid://cqqde6lqlyqtm" path="res://assets/icons/config/game.png" id="18"]
 [ext_resource type="Texture2D" uid="uid://cjow8bs0h4sh1" path="res://assets/icons/config/scraper.png" id="19"]
@@ -27,6 +27,8 @@
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="25"]
 
 [node name="ConfigPopup" type="Popup"]
+position = Vector2i(100, 100)
+size = Vector2i(1000, 400)
 visible = true
 theme = ExtResource("1")
 script = ExtResource("6")

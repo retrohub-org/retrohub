@@ -12,7 +12,7 @@ signal cores_picked(cores)
 var root : TreeItem
 
 func _ready():
-	n_core_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
+	n_core_options.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 	n_cores.set_column_expand(0, true)
 	n_cores.set_column_expand(1, false)
 	n_cores.set_column_custom_minimum_width(1, 48)

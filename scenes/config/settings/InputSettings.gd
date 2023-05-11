@@ -30,7 +30,7 @@ func _ready():
 	#warning-ignore:return_value_discarded
 	ControllerIcons.connect("input_type_changed", Callable(self, "_on_input_type_changed"))
 
-	n_cn_icon_type.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
+	n_cn_icon_type.get_popup().max_size.y = RetroHubUI.max_popupmenu_height + 50
 
 func grab_focus():
 	# Keyboard

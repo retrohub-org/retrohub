@@ -25,6 +25,16 @@ func _enter_tree():
 	#resources_remap.append_array([
 	#])
 
+func _input(event: InputEvent):
+	if not RetroHub._running_game:
+		# FIXME: No longer modal stack since popup being a window, figure out how to do
+		#var modal_top := get_viewport().get_modal_stack_top()
+		#if modal_top == null or modal_top == self:
+		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
+			get_viewport().set_input_as_handled()
+			if not $ConfigPopup.visible:
+				$ConfigPopup.popup()
+
 func _ready():
 	closed_popup()
 	#warning-ignore:return_value_discarded

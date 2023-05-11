@@ -8,12 +8,12 @@ var hide_button : Button
 
 func _ready():
 	## Normal nodes
-	var tree : Tree = get_vbox().get_child(2).get_child(0)
+	var tree : Tree = get_vbox().get_child(2, true).get_child(0, true)
 	ok_button = get_ok_button()
 	cancel_button = get_cancel_button()
-	upwards_button = get_vbox().get_child(0).get_child(0)
-	refresh_button = get_vbox().get_child(0).get_child(4)
-	hide_button = get_vbox().get_child(0).get_child(5)
+	upwards_button = get_vbox().get_child(0, true).get_child(2, true)
+	refresh_button = get_vbox().get_child(0, true).get_child(6, true)
+	hide_button = get_vbox().get_child(0, true).get_child(7, true)
 	var path : String
 	var controller_icon_rect := preload("res://addons/controller_icons/objects/TextureRect.gd")
 
@@ -52,8 +52,8 @@ func _ready():
 	cancel_button.focus_previous = path
 
 	## Create Folder nodes
-	var create_folder_popup : ConfirmationDialog = get_child(5)
-	var create_folder_line_edit : LineEdit = create_folder_popup.get_child(3).get_child(1).get_child(0)
+	var create_folder_popup : ConfirmationDialog = get_child(5, true)
+	var create_folder_line_edit : LineEdit = create_folder_popup.get_child(3, true).get_child(1, true).get_child(0, true)
 	var create_folder_ok_button := create_folder_popup.get_ok_button()
 	var create_folder_cancel_button := create_folder_popup.get_cancel_button()
 

@@ -44,6 +44,7 @@ var selected_game_datas : Array
 
 func _ready():
 	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
+	visibility_changed.connect(_on_ScraperSettings_visibility_changed)
 
 func _on_config_ready(config_data: ConfigData):
 	set_hash_max_size_text(config_data.scraper_hash_file_size)

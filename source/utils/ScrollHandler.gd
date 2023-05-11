@@ -34,9 +34,9 @@ func _ready():
 		queue_free()
 
 func _handle_scroll_container(node: ScrollContainer):
-	if node.scroll_horizontal_enabled:
+	if node.horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
 		scroll_h = node.get_h_scroll_bar()
-	if node.scroll_vertical_enabled:
+	if node.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
 		scroll_v = node.get_v_scroll_bar()
 
 func _handle_internal_children(node):

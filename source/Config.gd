@@ -42,9 +42,10 @@ func _ready():
 
 	if not config.is_first_time:
 		load_user_data()
-		handle_key_remaps()
-		handle_controller_axis_remaps()
-		handle_controller_button_remaps()
+		# FIXME: Disabled, it's messing up keymaps. Investigate
+		#handle_key_remaps()
+		#handle_controller_axis_remaps()
+		#handle_controller_button_remaps()
 
 		# Wait until all other nodes have processed _ready
 		await get_tree().process_frame
@@ -409,6 +410,7 @@ func is_file_from_system(file_name: String, system_name: String) -> bool:
 
 
 func load_theme() -> bool:
+	return false
 	var current_theme := config.current_theme
 	if current_theme.ends_with(".pck"):
 		theme_path = get_themes_dir() + "/" + current_theme
