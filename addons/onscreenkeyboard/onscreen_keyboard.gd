@@ -9,17 +9,17 @@ enum Direction {
 ## SETTINGS
 ###########################
 
-@export (bool) var autoShow = true
-@export (String, FILE, "*.json") var customLayoutFile = null
-@export (StyleBoxFlat) var styleBackground = null
-@export (StyleBoxFlat) var styleHover = null
-@export (StyleBoxFlat) var stylePressed = null
-@export (StyleBoxFlat) var styleNormal = null
-@export (StyleBoxFlat) var styleSpecialKeys = null
-@export (FontFile) var font = null
-@export (Color) var fontColor = Color(1,1,1)
-@export (Color) var fontColorHover = Color(1,1,1)
-@export (Color) var fontColorPressed = Color(1,1,1)
+@export var autoShow := true
+@export_file("*.json") var customLayoutFile : String = ""
+@export var styleBackground : StyleBoxFlat = null
+@export var styleHover : StyleBoxFlat = null
+@export var stylePressed : StyleBoxFlat = null
+@export var styleNormal : StyleBoxFlat = null
+@export var styleSpecialKeys : StyleBoxFlat = null
+@export var font : FontFile = null
+@export var fontColor := Color(1,1,1)
+@export var fontColorHover := Color(1,1,1)
+@export var fontColorPressed := Color(1,1,1)
 
 ###########################
 ## SIGNALS
@@ -132,8 +132,9 @@ func _initKeyboard(config_value: String):
 	else:
 		_createKeyboard(_loadJSON(customLayoutFile))
 	
-	tweenPosition = Tween.new()
-	add_child(tweenPosition)
+	# FIXME: Tween changed for Godot 4
+	#tweenPosition = Tween.new()
+	#add_child(tweenPosition)
 	
 	if autoShow:
 		_hideKeyboard()
@@ -160,7 +161,8 @@ func _updateAutoDisplayOnInput(event):
 	if event is InputEventMouseButton and not event.pressed:
 		var focusObject = get_viewport().gui_get_focus_owner()
 		if focusObject != null:
-			var clickOnInput = Rect2(focusObject.global_position,focusObject.size).has_point(get_global_mouse_position())
+			pass
+			"""var clickOnInput = Rect2(focusObject.global_position,focusObject.size).has_point(get_global_mouse_position())
 			var clickOnKeyboard = Rect2(global_position,size).has_point(get_global_mouse_position())
 			
 			if clickOnInput:
@@ -168,6 +170,7 @@ func _updateAutoDisplayOnInput(event):
 					RetroHubUI.show_virtual_keyboard()
 			elif not clickOnKeyboard:
 				RetroHubUI.hide_virtual_keyboard()
+			"""
 
 func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
 	if tweenOnTop:
@@ -399,8 +402,8 @@ func _createKeyboard(layoutData):
 		add_child(layoutContainer)
 		
 		var baseVbox = VBoxContainer.new()
-		baseVbox.size_flags_horizontal = SIZE_EXPAND_FILL
-		baseVbox.size_flags_vertical = SIZE_EXPAND_FILL
+		baseVbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		baseVbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		
 		var loopLayoutKeys = []
 		layoutKeys[layoutContainer] = loopLayoutKeys
@@ -413,8 +416,8 @@ func _createKeyboard(layoutData):
 			loopLayoutKeys.push_back(focusRowKeys)
 
 			var keyRow = HBoxContainer.new()
-			keyRow.size_flags_horizontal = SIZE_EXPAND_FILL
-			keyRow.size_flags_vertical = SIZE_EXPAND_FILL
+			keyRow.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			keyRow.size_flags_vertical = Control.SIZE_EXPAND_FILL
 			
 			for key in row.get("keys"):
 				var newKey = KeyboardButton.new(key)
@@ -451,10 +454,10 @@ func _createKeyboard(layoutData):
 						match key.get("output"):
 							"Backspace":
 								newKey.path = "rh_back"
-								newKey.icon_alignment = Button.ALIGN_RIGHT
+								newKey.icon_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 							"Return":
 								newKey.path = "rh_right_trigger"
-								newKey.icon_alignment = Button.ALIGN_RIGHT
+								newKey.icon_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 							"LeftArrow":
 								newKey.path = "rh_left_shoulder"
 							"RightArrow":
@@ -462,7 +465,7 @@ func _createKeyboard(layoutData):
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 					elif key.get("type") == "special-shift":
 						newKey.path = "rh_left_trigger"
-						newKey.icon_alignment = Button.ALIGN_LEFT if firstShift else Button.ALIGN_RIGHT
+						newKey.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT if firstShift else HORIZONTAL_ALIGNMENT_RIGHT
 						firstShift = false
 						newKey.connect("released", Callable(self, "_triggerUppercase"))
 						newKey.toggle_mode = true
@@ -470,7 +473,7 @@ func _createKeyboard(layoutData):
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 					elif key.get("type") == "special-hide-keyboard":
 						newKey.path = "rh_menu"
-						newKey.icon_alignment = Button.ALIGN_RIGHT
+						newKey.icon_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 						newKey.connect("released", Callable(self, "_hideKeyboard"))
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 				
@@ -511,23 +514,20 @@ func _createKeyboard(layoutData):
 ###########################
 
 func _loadJSON(filePath):
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(_loadFile(filePath))
-	var content = test_json_conv.get_data()
-	
-	if content.error == OK:
-		return content.result
-	else:
+	var json = JSON.new()
+
+	if json.parse(_loadFile(filePath)):
 		print("!JSON PARSE ERROR!")
 		return null
+	else:
+		return json.get_data()
 
 
 func _loadFile(filePath):
-	var file = File.new()
-	var error = file.open(filePath, file.READ)
+	var file = FileAccess.open(filePath, FileAccess.READ)
 	
-	if error != 0:
-		print("Error loading File. Error: "+str(error))
+	if !file:
+		print("Error loading File. Error: "+str(FileAccess.get_open_error()))
 	
 	var content = file.get_as_text()
 	file.close()

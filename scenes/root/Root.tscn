@@ -15,6 +15,7 @@ code = "// Source: https://kidscancode.org/godot_recipes/shaders/blur/
 shader_type canvas_item;
 
 uniform float blur_amount : hint_range(0, 5);
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 void fragment() {
 	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount);
@@ -22,6 +23,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="2"]
 shader = SubResource("1")
+shader_parameter/blur_amount = null
 
 [node name="Root" type="Control"]
 layout_mode = 3

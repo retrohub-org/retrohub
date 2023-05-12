@@ -40,7 +40,7 @@ func _handle_scroll_container(node: ScrollContainer):
 		scroll_v = node.get_v_scroll_bar()
 
 func _handle_internal_children(node):
-	for child in node.get_children():
+	for child in node.get_children(true):
 		if child == self:
 			continue
 		if child is HScrollBar:

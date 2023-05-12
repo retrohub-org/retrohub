@@ -8,9 +8,9 @@
 [ext_resource type="Script" path="res://scenes/config/ConfigPopup.gd" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/config/NoThemeSettings.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://bt85gge8nxhap" path="res://scenes/config/ScraperSettings.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/SystemSettings.tscn" id="9"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/EmulatorSettings.tscn" id="10"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/InputSettings.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://brn0n4a662fgs" path="res://scenes/config/settings/SystemSettings.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://carj0e8mnxjvn" path="res://scenes/config/settings/EmulatorSettings.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://deiyd6u1iogmn" path="res://scenes/config/settings/InputSettings.tscn" id="11"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/GeneralSettings.tscn" id="12"]
 [ext_resource type="PackedScene" path="res://scenes/config/GameSettings.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/RegionSettings.tscn" id="14"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="25"]
 
 [node name="ConfigPopup" type="Popup"]
+gui_embed_subwindows = true
 position = Vector2i(100, 100)
 size = Vector2i(1000, 400)
 visible = true
