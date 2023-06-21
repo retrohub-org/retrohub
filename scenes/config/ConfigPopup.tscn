@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cjx4cfx0f2k2"]
+[gd_scene load_steps=27 format=3 uid="uid://cjx4cfx0f2k2"]
 
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://du66o2pueo6qh" path="res://assets/icons/config/emulators.png" id="2"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" path="res://scenes/config/settings/GeneralSettings.tscn" id="12"]
 [ext_resource type="PackedScene" path="res://scenes/config/GameSettings.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/RegionSettings.tscn" id="14"]
-[ext_resource type="PackedScene" path="res://scenes/config/QuitSettings.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://0lj6ugro23bj" path="res://scenes/config/QuitSettings.tscn" id="15"]
 [ext_resource type="PackedScene" uid="uid://bk84lkodndnjq" path="res://scenes/config/AboutSettings.tscn" id="16"]
 [ext_resource type="Texture2D" uid="uid://d2oqjwfnma664" path="res://assets/icons/config/quit.png" id="17"]
 [ext_resource type="Texture2D" uid="uid://cqqde6lqlyqtm" path="res://assets/icons/config/game.png" id="18"]
@@ -26,11 +26,19 @@
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="24"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="25"]
 
-[node name="ConfigPopup" type="Popup"]
-gui_embed_subwindows = true
-position = Vector2i(100, 100)
-size = Vector2i(1000, 400)
-visible = true
+[sub_resource type="ButtonGroup" id="ButtonGroup_l35le"]
+
+[node name="ConfigPopup" type="Window"]
+disable_3d = true
+initial_position = 1
+size = Vector2i(1000, 480)
+transient = true
+exclusive = true
+unresizable = true
+borderless = true
+popup_window = true
+content_scale_mode = 1
+content_scale_aspect = 3
 theme = ExtResource("1")
 script = ExtResource("6")
 
@@ -74,6 +82,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideTopButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -93,7 +102,7 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = ExtResource("17")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="GameTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -102,6 +111,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -122,7 +132,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 texture = ExtResource("18")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="ScraperTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -131,6 +141,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -151,7 +162,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 texture = ExtResource("19")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="ThemeTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -160,6 +171,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -180,7 +192,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 texture = ExtResource("20")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 layout_mode = 2
@@ -196,6 +208,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -216,7 +229,7 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = ExtResource("21")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="InputTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -225,6 +238,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -245,7 +259,7 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = ExtResource("22")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="RegionTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -254,6 +268,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -274,7 +289,7 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = ExtResource("4")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="SystemsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -283,6 +298,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -303,7 +319,7 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = ExtResource("3")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="EmulatorsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -312,6 +328,7 @@ layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -332,7 +349,7 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = ExtResource("2")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="AboutTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -342,6 +359,7 @@ focus_neighbor_bottom = NodePath("../QuitTab")
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideBottomButton"
 toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
 icon_alignment = 2
 expand_icon = true
 
@@ -362,7 +380,7 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = ExtResource("23")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="AccessibilityFocus" type="Node" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab"]
 script = ExtResource("25")
@@ -436,8 +454,6 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[connection signal="about_to_popup" from="." to="." method="_on_ConfigPopup_about_to_show"]
-[connection signal="popup_hide" from="." to="." method="_on_ConfigPopup_popup_hide"]
 [connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer" to="." method="_on_ScrollContainer_focus_entered"]
 [connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab" to="." method="_on_Tab_pressed" binds= [0]]
 [connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab" to="." method="_on_Tab_focus_entered" binds= [0]]

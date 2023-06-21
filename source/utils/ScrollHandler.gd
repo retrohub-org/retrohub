@@ -28,6 +28,10 @@ func _ready():
 		_handle_popup_menu(parent.get_popup())
 	elif parent is PopupMenu:
 		_handle_popup_menu(parent)
+	
+	# Re-add this node as internal
+	parent.remove_child(self)
+	parent.add_child(self, false, INTERNAL_MODE_BACK)
 
 	if not scroll_h and not scroll_v:
 		push_error("ScrollHandler added to a non-scrollable node! Queueing free...")

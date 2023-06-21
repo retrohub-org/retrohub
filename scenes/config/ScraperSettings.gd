@@ -58,8 +58,8 @@ func grab_focus():
 
 func toggle_scrape_button():
 	n_scrape.disabled = selected_game_datas.is_empty() or \
-		!(n_metadata.pressed or n_media.pressed) or \
-		!(n_search_by_hash.pressed or n_search_by_name.pressed)
+		!(n_metadata.button_pressed or n_media.button_pressed) or \
+		!(n_search_by_hash.button_pressed or n_search_by_name.button_pressed)
 
 func _on_Metadata_toggled(_button_pressed):
 	toggle_scrape_button()
@@ -119,7 +119,7 @@ func get_media_bitmask() -> int:
 	var bitmask := 0
 	var idx := 0
 	for media in n_media_nodes:
-		bitmask |= int(media.pressed) << (idx)
+		bitmask |= int(media.button_pressed) << (idx)
 		idx += 1
 	return bitmask
 
@@ -129,8 +129,8 @@ func _on_Scrape_pressed():
 	var media_bitmask := get_media_bitmask()
 	# TODO: Make Scraper generation dynamic according to selection
 	var scraper := RetroHubScreenScraperScraper.new()
-	n_scrape_popup.begin_scraping(selected_game_datas, scraper, n_metadata.pressed, n_media.pressed,
-		n_search_by_hash.pressed, n_search_by_name.pressed, media_bitmask)
+	n_scrape_popup.begin_scraping(selected_game_datas, scraper, n_metadata.button_pressed, n_media.button_pressed,
+		n_search_by_hash.button_pressed, n_search_by_name.button_pressed, media_bitmask)
 
 
 func _on_ScraperSettings_visibility_changed():

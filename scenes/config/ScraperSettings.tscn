@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bt85gge8nxhap"]
+[gd_scene load_steps=10 format=3 uid="uid://bt85gge8nxhap"]
 
 [ext_resource type="Script" path="res://scenes/config/ScraperSettings.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://fh5ipn8bvsfy" path="res://assets/fonts/NotoSans-Italic.ttf" id="2"]
 [ext_resource type="PackedScene" uid="uid://djdvgws46x6g5" path="res://scenes/config/ScreenScrapperSettings.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://bu0ju7swsiiy7" path="res://assets/icons/scrapers/screenscraper.png" id="3_rdhu0"]
 [ext_resource type="PackedScene" path="res://scenes/popups/scraping_game_picker/ScrapingGamePickerPopup.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://dttv4ou2ow347" path="res://scenes/popups/scraper/ScraperPopup.tscn" id="6"]
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="7"]
@@ -65,6 +66,11 @@ custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../../Scrape")
 expand_icon = true
+item_count = 1
+selected = 0
+popup/item_0/text = "ScreenScraper"
+popup/item_0/icon = ExtResource("3_rdhu0")
+popup/item_0/id = 0
 
 [node name="Label2" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -105,11 +111,13 @@ layout_mode = 2
 [node name="Hash" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+button_pressed = true
 text = "By file hash"
 
 [node name="Filename" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+button_pressed = true
 text = "By file name"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
@@ -158,11 +166,13 @@ layout_mode = 2
 [node name="Metadata" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+button_pressed = true
 text = "Metadata"
 
 [node name="Media" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+button_pressed = true
 text = "Media"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
@@ -200,48 +210,56 @@ text = "Deselect all"
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "The game's logo, usually the title graphic."
+button_pressed = true
 text = "Logo"
 
 [node name="MediaTitleScreen" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Screenshot of the game's title screen"
+button_pressed = true
 text = "Title Screen"
 
 [node name="MediaScreenshot" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Screenshot of the game during normal gameplay"
+button_pressed = true
 text = "Screenshot"
 
 [node name="MediaVideo" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Short video showing the game in action."
+button_pressed = true
 text = "Gameplay video"
 
 [node name="MediaBoxRender" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Game box, as a pre-rendered image"
+button_pressed = true
 text = "Game box (2D render)"
 
 [node name="MediaBoxTex" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Game box as a texture for 3D models, which RetroHub can then render."
+button_pressed = true
 text = "Game box (3D texture)"
 
 [node name="MediaSupportRender" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Game's physical support, as a pre-rendered image"
+button_pressed = true
 text = "Game physical support (2D render)"
 
 [node name="MediaSupportTex" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Game's physical support as a texture for 3D models, which RetroHub can then render."
+button_pressed = true
 text = "Game physical support (3D texture)"
 
 [node name="MediaManual" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
@@ -284,6 +302,18 @@ script = ExtResource("8")
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../../ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/MediaSupportTex")
+item_count = 5
+selected = 0
+popup/item_0/text = "Selected only"
+popup/item_0/id = 0
+popup/item_1/text = "Without metadata"
+popup/item_1/id = 1
+popup/item_2/text = "Without media"
+popup/item_2/id = 2
+popup/item_3/text = "All"
+popup/item_3/id = 3
+popup/item_4/text = "Custom..."
+popup/item_4/id = 4
 
 [node name="Scrape" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -302,6 +332,7 @@ dialog_hide_on_ok = false
 
 [node name="ScraperPopup" parent="." instance=ExtResource("6")]
 unique_name_in_owner = true
+visible = false
 
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer/Hash" to="." method="_on_Hash_toggled"]
 [connection signal="toggled" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/VBoxContainer/Filename" to="." method="_on_Filename_toggled"]

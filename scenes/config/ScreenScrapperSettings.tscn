@@ -151,7 +151,8 @@ theme_override_fonts/bold_font = SubResource("3")
 theme_override_fonts/italics_font = SubResource("1")
 theme_override_fonts/bold_italics_font = SubResource("2")
 bbcode_enabled = true
-text = " Warning: Due to the way ScreenScraper works, the password will be stored in plaintext."
+text = "[img=20]assets/icons/warning.svg[/img][i][b] Warning: [/b]Due to the way ScreenScraper works, the password will be stored in plaintext.[/i]"
+fit_content = true
 scroll_active = false
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer4/Label"]

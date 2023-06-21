@@ -83,7 +83,7 @@ func _on_MoveCopyButton_toggled(button_pressed):
 
 
 func _on_Import_pressed():
-	emit_signal("import_begin", importer, n_move_copy_button.pressed)
+	emit_signal("import_begin", importer, n_move_copy_button.button_pressed)
 	hide()
 
 func tts_text(focused: Control) -> String:
@@ -109,7 +109,7 @@ func tts_copy_section() -> String:
 		+ $"%SpaceLeft".text
 
 func tts_move_copy_button() -> String:
-	return "CheckButton. Currently selected mode: " + ("copy" if n_move_copy_button.pressed else "move") \
+	return "CheckButton. Currently selected mode: " + ("copy" if n_move_copy_button.button_pressed else "move") \
 	+ ". Press to toggle mode."
 
 func _on_CopyMovePopup_about_to_show():

@@ -42,7 +42,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1152, 576)
+size = Vector2i(1152, 648)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 script = ExtResource("4")
@@ -60,8 +60,7 @@ anchor_bottom = 1.0
 focus_mode = 2
 
 [node name="ConfigPopup" parent="." instance=ExtResource("3")]
-position = Vector2i(0, 50)
-exclusive = true
+visible = false
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
 size = Vector2i(1066, 176)
@@ -97,5 +96,4 @@ script = ExtResource("7")
 theme_viewport = NodePath("../SubViewportContainer/SubViewport")
 
 [connection signal="about_to_popup" from="ConfigPopup" to="." method="opened_popup"]
-[connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]
 [connection signal="about_to_popup" from="FileSystemPopup" to="." method="opened_popup"]

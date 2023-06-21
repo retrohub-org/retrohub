@@ -1,16 +1,16 @@
-extends Popup
+extends Window
 
-@onready var n_main := $"%SettingsTab"
-@onready var n_game_tab := $"%GameTab"
-@onready var n_panel_container := $"%PanelContainer"
+@onready var n_main := %SettingsTab
+@onready var n_game_tab := %GameTab
+@onready var n_panel_container := %PanelContainer
 
-@onready var n_game := $"%GameSettings"
+@onready var n_game := %GameSettings
 
 @onready var n_tab_buttons := [
-	$"%QuitTab", $"%GameTab", $"%ScraperTab",
-	$"%ThemeTab", $"%GeneralTab", $"%InputTab",
-	$"%RegionTab", $"%SystemsTab", $"%EmulatorsTab",
-	$"%AboutTab"
+	%QuitTab, %GameTab, %ScraperTab,
+	%ThemeTab, %GeneralTab, %InputTab,
+	%RegionTab, %SystemsTab, %EmulatorsTab,
+	%AboutTab
 ]
 
 var last_tab : Control = null
@@ -23,16 +23,10 @@ func _ready():
 
 func _input(event: InputEvent):
 	if not RetroHub._running_game:
-		# FIXME: No longer modal stack since popup being a window, figure out how to do
-		#var modal_top := get_viewport().get_modal_stack_top()
-		#if modal_top == null or modal_top == self:
 		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
 			get_viewport().set_input_as_handled()
-			if not visible:
-				popup()
-			else:
-				hide()
-		if visible and event.is_action_pressed("rh_back"):
+			hide()
+		elif event.is_action_pressed("rh_back"):
 			# If using the default Backspace key, don't consume event if inside a
 			# text field, otherwise deleting text becomes impossible
 			if event is InputEventKey and event.keycode == KEY_BACKSPACE and (get_viewport().gui_get_focus_owner() is TextEdit \
@@ -42,6 +36,14 @@ func _input(event: InputEvent):
 			if not last_tab:
 				last_tab = n_game_tab
 			last_tab.grab_focus()
+
+func popup(rect: Rect2i = Rect2i(0, 0, 0, 0)):
+	super.popup_centered_ratio(0.8)
+	_on_ConfigPopup_about_to_show()
+
+func hide():
+	super.hide()
+	_on_ConfigPopup_popup_hide()
 
 func _on_Tab_pressed(idx: int):
 	n_main.current_tab = idx
@@ -57,7 +59,7 @@ func _handle_buttons():
 	for button in n_tab_buttons:
 		if button.get_child_count() == 0:
 			continue
-		button.get_child(0).modulate = RetroHubUI.color_theme_accent if button.pressed else Color.WHITE
+		button.get_child(0).modulate = RetroHubUI.color_theme_accent if button.button_pressed else Color.WHITE
 
 func _on_QuitTab_pressed():
 	n_main.current_tab = 0

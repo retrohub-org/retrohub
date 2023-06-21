@@ -173,6 +173,9 @@ func _updateAutoDisplayOnInput(event):
 			"""
 
 func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
+	# TODO: Implement
+	return
+
 	if tweenOnTop:
 		tweenPosition.interpolate_property(self,"position",position, Vector2(0,-size.y), tweenSpeed, Tween.TRANS_SINE, Tween.EASE_OUT)
 	else:

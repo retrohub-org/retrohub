@@ -173,11 +173,11 @@ func save_changes():
 			game_data.genres[0] = n_genres.text
 		else:
 			game_data.genres.push_back(n_genres.text)
-		if n_fixed_players.pressed:
+		if n_fixed_players.button_pressed:
 			game_data.num_players = "%d-%d" % [n_fixed_players_num.value, n_fixed_players_num.value]
 		else:
 			game_data.num_players = "%d-%d" % [n_variable_players_min.value, n_variable_players_max.value]
-		game_data.favorite = n_favorite.pressed
+		game_data.favorite = n_favorite.button_pressed
 		game_data.play_count = n_num_times_played.value
 		if RetroHubConfig.save_game_data(game_data):
 			emit_signal("reset_state")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/popups/scraper/ScraperPopup.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/popups/scraper/Waiting.gd" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/config/GameMetadataEditor.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bma07qur4debs" path="res://scenes/config/GameMetadataEditor.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/popups/scraper/SystemEntry.tscn" id="4"]
 [ext_resource type="Script" path="res://scenes/popups/scraper/Success.gd" id="5"]
 [ext_resource type="FontFile" path="res://resources/fonts/default_italic.tres" id="6"]
@@ -19,7 +19,8 @@
 [ext_resource type="Script" path="res://scenes/popups/scraper/GameEntries.gd" id="17"]
 
 [node name="ScraperPopup" type="PopupPanel"]
-size = Vector2i(420, 100)
+initial_position = 1
+size = Vector2i(922, 518)
 visible = true
 exclusive = true
 script = ExtResource("1")
@@ -31,8 +32,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 918.0
+offset_bottom = 514.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -162,6 +163,8 @@ size_flags_vertical = 3
 [node name="GameMetadataEditor" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root" instance=ExtResource("3")]
 unique_name_in_owner = true
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 disable_edits = true
 
 [node name="NoData" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root"]

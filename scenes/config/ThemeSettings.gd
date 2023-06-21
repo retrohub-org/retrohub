@@ -7,7 +7,8 @@ func _ready():
 	RetroHub.connect("_theme_loaded", Callable(self, "_on_theme_loaded"))
 
 func grab_focus():
-	get_child(1).grab_focus()
+	if(get_child_count() > 0):
+		get_child(0).grab_focus()
 
 func _on_theme_loaded(theme_data: RetroHubTheme):
 	for child in get_children():

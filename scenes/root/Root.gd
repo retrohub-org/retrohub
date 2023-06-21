@@ -1,10 +1,10 @@
 extends Control
 
-@onready var n_viewport_container : SubViewportContainer = $SubViewportContainer
-@onready var n_viewport : SubViewport = $SubViewportContainer/SubViewport
+@onready var n_viewport_container := $SubViewportContainer
+@onready var n_viewport := $SubViewportContainer/SubViewport
 
-@onready var n_config_popup : Window = $ConfigPopup
-@onready var n_filesystem_popup : Window = $FileSystemPopup
+@onready var n_config_popup := $ConfigPopup
+@onready var n_filesystem_popup := $FileSystemPopup
 @onready var n_keyboard_popup := $"%Keyboard"
 @onready var n_warning_popup := $"%WarningPopup"
 
