@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://deiyd6u1iogmn"]
+[gd_scene load_steps=45 format=3 uid="uid://deiyd6u1iogmn"]
 
 [ext_resource type="Script" path="res://scenes/config/settings/InputSettings.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://bp58drjdgvxsi" path="res://addons/controller_icons/assets/key/enter_alt.png" id="2"]
@@ -19,15 +19,26 @@
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="17"]
 [ext_resource type="Texture2D" uid="uid://bva4iswwvta5d" path="res://addons/controller_icons/assets/xbox360/y.png" id="18"]
 [ext_resource type="Texture2D" uid="uid://bufx8lu1tny4o" path="res://addons/controller_icons/assets/xbox360/b.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://dwwgf5g11galy" path="res://addons/controller_icons/assets/xboxone/a.png" id="19_a17ap"]
 [ext_resource type="Texture2D" uid="uid://jcc3t88rfxh0" path="res://addons/controller_icons/assets/xbox360/x.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://cn8ot71as8p80" path="res://addons/controller_icons/assets/xboxseries/a.png" id="20_vpv6b"]
 [ext_resource type="Texture2D" uid="uid://fxgoiilpipsd" path="res://addons/controller_icons/assets/xbox360/l_stick.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://d2ucqffimqhnr" path="res://addons/controller_icons/assets/ps3/cross.png" id="21_gpxdl"]
+[ext_resource type="Texture2D" uid="uid://bnvbg64nsbaf4" path="res://addons/controller_icons/assets/ps4/cross.png" id="22_ghdw6"]
+[ext_resource type="Texture2D" uid="uid://belyhno2tge45" path="res://addons/controller_icons/assets/ps5/cross.png" id="23_xcyat"]
 [ext_resource type="Texture2D" uid="uid://d6jwqg6mq8dk" path="res://addons/controller_icons/assets/xbox360/r_stick.png" id="24"]
+[ext_resource type="Texture2D" uid="uid://bt7tcdk3d020l" path="res://addons/controller_icons/assets/switch/b.png" id="24_5x1ii"]
 [ext_resource type="Texture2D" uid="uid://cw2jo5xbteqdu" path="res://addons/controller_icons/assets/xbox360/rb.png" id="25"]
+[ext_resource type="Texture2D" uid="uid://cajx1v8mvjdv7" path="res://addons/controller_icons/assets/steam/a.png" id="25_yi2aa"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/Button.gd" id="26"]
+[ext_resource type="Texture2D" uid="uid://poaovfu3n5rj" path="res://addons/controller_icons/assets/steamdeck/a.png" id="26_a3707"]
 [ext_resource type="Texture2D" uid="uid://dhhjoq01cc2oh" path="res://addons/controller_icons/assets/xbox360/lt.png" id="26_vmwgh"]
-[ext_resource type="Texture2D" uid="uid://d2qha4gd4x604" path="res://addons/controller_icons/assets/xbox360/rt.png" id="27_bc0u8"]
+[ext_resource type="Texture2D" uid="uid://rn6k4m7fogon" path="res://addons/controller_icons/assets/luna/a.png" id="27_was5b"]
 [ext_resource type="Texture2D" uid="uid://d284wkmo0vqfk" path="res://addons/controller_icons/assets/xbox360/a.png" id="28"]
+[ext_resource type="Texture2D" uid="uid://bv4qgyj7ctpdi" path="res://addons/controller_icons/assets/stadia/a.png" id="28_6rdln"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/input/ControllerButtonRemap.tscn" id="29"]
+[ext_resource type="Texture2D" uid="uid://coxp4sapp4g8n" path="res://addons/controller_icons/assets/xbox360/start.png" id="33_jbqxx"]
+[ext_resource type="Texture2D" uid="uid://bamrmda3in3qq" path="res://addons/controller_icons/assets/xbox360/lb.png" id="37_nrf61"]
 [ext_resource type="Script" path="res://source/utils/SpinBoxHandler.gd" id="39"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="41"]
 [ext_resource type="Script" path="res://source/utils/TabContainerHandler.gd" id="42"]
@@ -39,6 +50,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("17")
 script = ExtResource("1")
 
@@ -69,6 +82,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -406,6 +420,46 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../../HBoxContainer4/CNReset")
 focus_neighbor_bottom = NodePath("../../HBoxContainer2/CNPreDelay")
 expand_icon = true
+item_count = 13
+selected = 0
+popup/item_0/text = "<detect automatically>"
+popup/item_0/id = 0
+popup/item_1/text = "Xbox 360"
+popup/item_1/icon = ExtResource("28")
+popup/item_1/id = 1
+popup/item_2/text = "Xbox One"
+popup/item_2/icon = ExtResource("19_a17ap")
+popup/item_2/id = 2
+popup/item_3/text = "Xbox Series S/X"
+popup/item_3/icon = ExtResource("20_vpv6b")
+popup/item_3/id = 3
+popup/item_4/text = "PlayStation 3"
+popup/item_4/icon = ExtResource("21_gpxdl")
+popup/item_4/id = 4
+popup/item_5/text = "PlayStation 4"
+popup/item_5/icon = ExtResource("22_ghdw6")
+popup/item_5/id = 5
+popup/item_6/text = "PlayStation 5"
+popup/item_6/icon = ExtResource("23_xcyat")
+popup/item_6/id = 6
+popup/item_7/text = "Nintendo Switch (Controller)"
+popup/item_7/icon = ExtResource("24_5x1ii")
+popup/item_7/id = 7
+popup/item_8/text = "Nintendo Switch (Joy-Con)"
+popup/item_8/icon = ExtResource("24_5x1ii")
+popup/item_8/id = 8
+popup/item_9/text = "Steam Controller"
+popup/item_9/icon = ExtResource("25_yi2aa")
+popup/item_9/id = 9
+popup/item_10/text = "Steam Deck"
+popup/item_10/icon = ExtResource("26_a3707")
+popup/item_10/id = 10
+popup/item_11/text = "Amazon Luna"
+popup/item_11/icon = ExtResource("27_was5b")
+popup/item_11/id = 11
+popup/item_12/text = "Google Stadia"
+popup/item_12/icon = ExtResource("28_6rdln")
+popup/item_12/id = 12
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer"]
 layout_mode = 2
@@ -571,6 +625,7 @@ layout_mode = 2
 tooltip_text = "RetroHub menu"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer4/CNSlideRight")
 focus_neighbor_bottom = NodePath("../../../../../..")
+icon = ExtResource("33_jbqxx")
 expand_icon = true
 script = ExtResource("26")
 path = "rh_menu"
@@ -595,7 +650,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 tooltip_text = "Theme menu"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer/CNAccept")
-icon = ExtResource("25")
+icon = ExtResource("26_vmwgh")
 expand_icon = true
 script = ExtResource("26")
 path = "rh_theme_menu"
@@ -658,7 +713,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 tooltip_text = "Slide left"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer4/CNMinorOpt")
-icon = ExtResource("26_vmwgh")
+icon = ExtResource("37_nrf61")
 expand_icon = true
 script = ExtResource("26")
 path = "rh_left_shoulder"
@@ -679,7 +734,7 @@ layout_mode = 2
 tooltip_text = "Slide right"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer5/CNRetroHubMenu")
 focus_neighbor_bottom = NodePath("../../../../../..")
-icon = ExtResource("27_bc0u8")
+icon = ExtResource("25")
 expand_icon = true
 script = ExtResource("26")
 path = "rh_right_shoulder"
@@ -690,7 +745,6 @@ script = ExtResource("44")
 next = NodePath("../../../../../../..")
 
 [node name="Virtual Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -711,6 +765,14 @@ script = ExtResource("44")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "QWERTY"
+popup/item_0/id = 0
+popup/item_1/text = "QWERTZ"
+popup/item_1/id = 1
+popup/item_2/text = "AZERTY"
+popup/item_2/id = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard"]
 layout_mode = 2
@@ -727,6 +789,12 @@ script = ExtResource("44")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Built-in"
+popup/item_0/id = 0
+popup/item_1/text = "Steam"
+popup/item_1/id = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard"]
 layout_mode = 2

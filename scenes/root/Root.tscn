@@ -42,6 +42,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+gui_snap_controls_to_pixels = false
 size = Vector2i(1152, 648)
 size_2d_override_stretch = true
 render_target_update_mode = 4
@@ -61,6 +62,8 @@ focus_mode = 2
 
 [node name="ConfigPopup" parent="." instance=ExtResource("3")]
 visible = false
+content_scale_size = Vector2i(1000, 480)
+content_scale_aspect = 4
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
 size = Vector2i(1066, 176)

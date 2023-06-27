@@ -13,7 +13,7 @@ extends Control
 	n_filesystem_popup
 ]
 
-@onready var viewport_orig_size := Vector2(1024, 576)
+@onready var viewport_orig_size := Vector2(1162, 648)
 
 var n_last_focused : Control
 var is_popup_open : bool = false

@@ -35,11 +35,6 @@ TTS="*res://addons/godot-tts/TTS.gd"
 
 gdscript/warnings/native_method_override=1
 
-[display]
-
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg")
@@ -47,10 +42,6 @@ enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg")
 [gdnative]
 
 singletons=["res://addons/godot-videodecoder/godot-videodecoder.gdnlib"]
-
-[gui]
-
-theme/default_font_antialiasing=2
 
 [input]
 
