@@ -27,9 +27,6 @@ func _enter_tree():
 
 func _input(event: InputEvent):
 	if not RetroHub._running_game:
-		# FIXME: No longer modal stack since popup being a window, figure out how to do
-		#var modal_top := get_viewport().get_modal_stack_top()
-		#if modal_top == null or modal_top == self:
 		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
 			get_viewport().set_input_as_handled()
 			if not $ConfigPopup.visible:
@@ -94,7 +91,7 @@ func show_first_time_popup():
 	first_time_popup.connect("popup_hide", Callable(self, "_on_first_time_popup_closed").bind(first_time_popup))
 	# Wait a frame for the window to be at the right resolution
 	await get_tree().process_frame
-	first_time_popup.popup()
+	first_time_popup.popup_centered()
 
 func _on_vp_size_changed() -> void:
 	var viewport_size := Vector2(

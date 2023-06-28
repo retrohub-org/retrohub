@@ -344,4 +344,4 @@ visible = false
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/VBoxContainer/HBoxContainer/MediaDeselectAll" to="." method="_on_MediaDeselectAll_pressed"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer2/GamesType" to="." method="_on_GamesType_item_selected"]
 [connection signal="pressed" from="VBoxContainer/Scrape" to="." method="_on_Scrape_pressed"]
-[connection signal="popup_hide" from="ScraperPopup" to="." method="_on_ScraperPopup_popup_hide"]
+[connection signal="visibility_changed" from="ScraperPopup" to="." method="_on_ScraperPopup_visibility_changed"]

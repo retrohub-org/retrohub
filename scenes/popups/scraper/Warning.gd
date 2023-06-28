@@ -41,7 +41,7 @@ func set_scraper(_scraper: RetroHubScraper) -> void:
 
 func t_request_screenshots():
 	#warning-ignore:return_value_discarded
-	scraper.connect("media_scrape_finished", Callable(self, "_on_media_scrape_finished"))
+	scraper.call_thread_safe("connect", "media_scrape_finished", Callable(self, "_on_media_scrape_finished"))
 	while true:
 		#warning-ignore:return_value_discarded
 		req_semaphore.wait()
@@ -51,7 +51,7 @@ func t_request_screenshots():
 		var game_data : RetroHubGameData = req_datas.pop_front()
 		#warning-ignore:return_value_discarded
 		scraper.scrape_media(game_data, RetroHubMedia.Type.SCREENSHOT)
-	scraper.disconnect("media_scrape_finished", Callable(self, "_on_media_scrape_finished"))
+	scraper.call_thread_safe("disconnect", "media_scrape_finished", Callable(self, "_on_media_scrape_finished"))
 
 func start_thread():
 	if thread:
@@ -65,6 +65,7 @@ func stop_thread():
 	#warning-ignore:return_value_discarded
 	req_semaphore.post()
 	thread.wait_to_finish()
+	thread = null
 
 func set_entry(game_entry: RetroHubScraperGameEntry):
 	clear_entries()
@@ -148,7 +149,7 @@ func create_entry(game_data: RetroHubGameData) -> Button:
 	button.clip_text = true
 	button.size_flags_horizontal = SIZE_EXPAND_FILL
 	button.custom_minimum_size.y = 28
-	button.group = button_group
+	button.button_group = button_group
 	button.toggle_mode = true
 	#warning-ignore:return_value_discarded
 	button.connect("toggled", Callable(self, "_on_entry_toggled").bind(game_data))

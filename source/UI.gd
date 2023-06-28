@@ -81,12 +81,12 @@ func filesystem_filters(filters: Array = []):
 func request_file_load(base_path: String) -> void:
 	_n_filesystem_popup.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	_n_filesystem_popup.current_dir = base_path
-	_n_filesystem_popup.popup()
+	_n_filesystem_popup.popup_centered()
 
 func request_folder_load(base_path: String) -> void:
 	_n_filesystem_popup.file_mode = FileDialog.FILE_MODE_OPEN_DIR
 	_n_filesystem_popup.current_dir = base_path
-	_n_filesystem_popup.popup()
+	_n_filesystem_popup.popup_centered()
 
 func load_app_icon(icon: int) -> Texture2D:
 	var path : String = "res://assets/icons/%s.svg" % Icons.keys()[icon].to_lower()
@@ -141,7 +141,7 @@ func open_app_config(tab: int = -1):
 			_n_config_popup.n_tab_buttons[tab].grab_focus()
 			_n_config_popup.n_tab_buttons[tab].button_pressed = true
 			_n_config_popup._on_Tab_pressed(tab)
-		_n_config_popup.popup()
+		_n_config_popup.popup_centered()
 
 func show_warning(text: String):
 	if _n_warning_popup:

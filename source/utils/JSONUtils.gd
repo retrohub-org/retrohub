@@ -5,9 +5,15 @@ func load_json_file(filepath: String):
 	if not file:
 		push_error("Error when opening " + filepath)
 		return {}
-	var json = JSON.new()
-	if json.parse(file.get_as_text()):
+	var json = load_json_buffer(file.get_as_text())
+	if not json:
 		push_error("Error when parsing JSON for " + filepath)
+	return json
+
+func load_json_buffer(data: String):
+	var json = JSON.new()
+	if json.parse(data):
+		push_error("Error when parsing JSON buffer")
 		return {}
 	return json.get_data()
 

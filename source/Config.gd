@@ -485,19 +485,12 @@ func load_theme_config():
 	# If the config file doesn't exist, don't try reading it
 	if not FileAccess.file_exists(theme_config_path):
 		return
-	var file := FileAccess.open(theme_config_path, FileAccess.READ)
-	if file:
-		var test_json_conv = JSON.new()
-		test_json_conv.parse(file.get_as_text())
-		var result = test_json_conv.get_data()
-		file.close()
-		if not result.error:
-			_theme_config = result.result
-			_theme_config_old = _theme_config.duplicate()
-		else:
-			push_error("Error when parsing theme config at %s" % theme_config_path)
+	var json = JSONUtils.load_json_file(theme_config_path)
+	if json:
+		_theme_config = json
+		_theme_config_old = _theme_config.duplicate()
 	else:
-		push_error("Error when reading theme config at %s" % theme_config_path)
+		push_error("Error when parsing theme config at %s" % theme_config_path)
 	emit_signal("theme_config_ready")
 
 func save_theme_config():

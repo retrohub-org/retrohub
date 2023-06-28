@@ -257,9 +257,9 @@ func _process(_delta):
 				if req._req_response_code == HTTPClient.RESPONSE_NOT_FOUND:
 					match req.type:
 						RequestDetails.Type.DATA:
-							emit_signal("game_scrape_not_found", game_data)
+							call_thread_safe("emit_signal", "game_scrape_not_found", game_data)
 						RequestDetails.Type.MEDIA:
-							emit_signal("media_scrape_not_found", game_data, req.data["type"])
+							call_thread_safe("emit_signal", "media_scrape_not_found", game_data, req.data["type"])
 					return
 				# API limit reached
 				elif req._req_response_code == 430 and req.is_content_on_body("Votre quota de scrape est dépassé"):
@@ -280,9 +280,9 @@ func _process(_delta):
 						details = "Canceled by user"
 			match req.type:
 				RequestDetails.Type.DATA:
-					emit_signal("game_scrape_error", game_data, details)
+					call_thread_safe("emit_signal", "game_scrape_error", game_data, details)
 				RequestDetails.Type.MEDIA:
-					emit_signal("media_scrape_error", game_data, req.data["type"], details)
+					call_thread_safe("emit_signal", "media_scrape_error", game_data, req.data["type"], details)
 
 func _process_req_meta(req: RequestDetails):
 	# Num of threads will not change during scraping, we only have to check this once
@@ -292,15 +292,12 @@ func _process_req_meta(req: RequestDetails):
 	# If custom accounts are disabled, return
 	if not RetroHubConfig.config.scraper_ss_use_custom_account:
 		_checked_user_threads = true
-		emit_signal("scraper_details", _send_user_threads("RetroHub"))
+		call_thread_safe("emit_signal", "scraper_details", _send_user_threads("RetroHub"))
 		return
 
 	# Handle growth/shrink in threads
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(req._req_body.get_string_from_utf8())
-	var json : Dictionary = test_json_conv.get_data()
-	if not json.error:
-		var json_raw = json.result
+	var json_raw = JSONUtils.load_json_buffer(req._req_body.get_string_from_utf8())
+	if json_raw:
 		# Preprocess json a bit due to ScreenScraper structure
 		json_raw = json_raw["response"]
 		if json_raw.has("ssuser") and json_raw["ssuser"].has("maxthreads"):
@@ -308,7 +305,7 @@ func _process_req_meta(req: RequestDetails):
 			# Ensure user is really logged in
 			if json_raw["ssuser"].has("numid") and json_raw["ssuser"]["numid"] == "0":
 				_checked_user_threads = true
-				emit_signal("scraper_details", _send_user_threads("Credentials failed; using RetroHub"))
+				call_thread_safe("emit_signal", "scraper_details", _send_user_threads("Credentials failed; using RetroHub"))
 				return
 			var max_threads := int(json_raw["ssuser"]["maxthreads"])
 			if RetroHubConfig.config.scraper_ss_max_threads > 0:
@@ -325,17 +322,14 @@ func _process_req_meta(req: RequestDetails):
 					#warning-ignore:return_value_discarded
 					_req_semaphore.wait()
 				MAX_REQUESTS = max_threads
-			emit_signal("scraper_details", _send_user_threads("user"))
+			call_thread_safe("emit_signal", "scraper_details", _send_user_threads("user"))
 
 func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(req._req_body.get_string_from_utf8())
-	var json : Dictionary = test_json_conv.get_data()
-	if json.error:
+	var json_raw = JSONUtils.load_json_buffer(req._req_body.get_string_from_utf8())
+	if json_raw.is_empty():
 		var details := req._req_body.get_string_from_utf8()
-		emit_signal("game_scrape_error", game_data, details)
+		call_thread_safe("emit_signal", "game_scrape_error", game_data, details)
 	else:
-		var json_raw = json.result
 		# Preprocess json a bit due to ScreenScraper structure
 		json_raw = json_raw["response"]
 		# If game has only one game, it has key "jeu", otherwise has key "jeux"
@@ -346,30 +340,33 @@ func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 			if _is_hash_in_response(json_raw, req.data):
 				_process_raw_game_data(json_raw, game_data)
 				_cached_requests_data[game_data] = json_raw
-				emit_signal("game_scrape_finished", game_data)
+				call_thread_safe("emit_signal", "game_scrape_finished", game_data)
 			else:
-				emit_signal("game_scrape_not_found", game_data)
+				call_thread_safe("emit_signal", "game_scrape_not_found", game_data)
 		else:
 			json_raw = json_raw["jeux"]
 			var details := []
 			_cached_search_data[game_data] = {}
 			for child in json_raw:
 				if not child.is_empty():
-					var game_data_tmp := game_data.duplicate()
+					var game_data_tmp := RetroHubGameData.new()
+					game_data_tmp.system = game_data.system
+					game_data_tmp.path = game_data.path
+					game_data_tmp.system_path = game_data.system_path
 					_process_raw_game_data(child, game_data_tmp)
 					_cached_search_data[game_data][game_data_tmp] = child
 					details.push_back(game_data_tmp)
 
-			emit_signal("game_scrape_multiple_available", game_data, details)
+			call_thread_safe("emit_signal", "game_scrape_multiple_available", game_data, details)
 
 func _process_req_media(req: RequestDetails, game_data):
 	var extension : String = req.data["format"]
 	var type : int = req.data["type"]
-	emit_signal("media_scrape_finished", game_data, type, req._req_body, extension)
+	call_thread_safe("emit_signal", "media_scrape_finished", game_data, type, req._req_body, extension)
 
 func _new_request_details(game_data: RetroHubGameData) -> RequestDetails:
 	var req := RequestDetails.new()
-	add_child(req._http)
+	call_thread_safe("add_child", req._http)
 	if _pending_requests.has(game_data):
 		_pending_requests[game_data].push_back(req)
 	else:
@@ -380,22 +377,22 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 	if _cached_requests_data.has(game_data):
 		var json : Dictionary = _cached_requests_data[game_data]
 		_process_raw_game_data(json, game_data)
-		emit_signal("game_scrape_finished", game_data)
+		call_thread_safe("emit_signal", "game_scrape_finished", game_data)
 		return OK
 	
 	if not _checked_user_threads:
-		emit_signal("scraper_details", "Querying threads...")
+		call_thread_safe("emit_signal", "scraper_details", "Querying threads...")
 
 	# If file is too big, we must fail
 	var file := FileAccess.open(game_data.path, FileAccess.READ)
 	if not file:
 		push_error("Couldn't open file " + game_data.path)
-		emit_signal("game_scrape_not_found", game_data)
+		call_thread_safe("emit_signal", "game_scrape_not_found", game_data)
 		return ERR_CANT_OPEN
 	
 	var max_size := RetroHubConfig.config.scraper_hash_file_size
 	if max_size > 0 and file.get_length() > max_size * 1024 * 1024:
-		emit_signal("game_scrape_not_found", game_data)
+		call_thread_safe("emit_signal", "game_scrape_not_found", game_data)
 		return FAILED
 
 	#warning-ignore:return_value_discarded
@@ -432,7 +429,7 @@ func scrape_game_by_search(game_data: RetroHubGameData, search_term: String, typ
 	if _cached_requests_data.has(game_data):
 		var json : Dictionary = _cached_requests_data[game_data]
 		_process_raw_game_data(json, game_data)
-		emit_signal("game_scrape_finished", game_data)
+		call_thread_safe("emit_signal", "game_scrape_finished", game_data)
 		return OK
 
 	#warning-ignore:return_value_discarded

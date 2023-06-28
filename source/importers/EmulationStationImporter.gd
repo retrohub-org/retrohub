@@ -179,8 +179,6 @@ func begin_import(copy: bool):
 func import_config():
 	reset_minor(1)
 	progress_minor("Reading game directory...")
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(config_path + "/es_settings.xml")
 	var config := XML2JSON.parse(config_path + "/es_settings.xml")
 	if config.has("string"):
 		for child in config["string"]:

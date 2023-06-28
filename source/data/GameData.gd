@@ -6,6 +6,7 @@ static func sort(a: RetroHubGameData, b: RetroHubGameData):
 	return a.name.naturalnocasecmp_to(b.name) == -1
 
 func duplicate(_subresources: bool = false) -> Resource:
+	print("Duplicate called")
 	var other := super.duplicate(_subresources)
 	other.copy_from(self)
 

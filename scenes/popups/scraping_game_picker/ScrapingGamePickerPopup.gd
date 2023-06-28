@@ -10,6 +10,7 @@ var systems_items : Dictionary
 func _ready():
 	n_game_tree.set_column_title(0, "Games")
 	n_game_tree.set_column_title(1, "Selected?")
+	# FIXME: Why autowrap not working?!?
 	n_game_tree.set_column_expand(0, true)
 	n_game_tree.set_column_expand(1, false)
 	n_game_tree.set_column_custom_minimum_width(1, 100)
@@ -52,6 +53,7 @@ func _on_ScrapingGamePickerPopup_about_to_show():
 
 func set_item_settings(item: TreeItem, name: String):
 	item.set_text(0, name)
+	item.set_autowrap_mode(0, TextServer.AUTOWRAP_WORD_SMART)
 	item.set_cell_mode(1, TreeItem.CELL_MODE_CHECK)
 	item.set_editable(1, true)
 	item.set_checked(1, true)

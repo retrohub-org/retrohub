@@ -51,7 +51,7 @@ func set_state(_state: int):
 		_:
 			set_font_color(Color("ffffff"))
 			icon = null
-	if pressed:
+	if button_pressed:
 		emit_signal("game_selected", self, true)
 
 func set_font_color(color: Color):

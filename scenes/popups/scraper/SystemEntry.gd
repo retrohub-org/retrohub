@@ -20,5 +20,5 @@ func add_game_entry(game_data: RetroHubGameData, group: ButtonGroup):
 	n_children.add_child(game_entry)
 	game_entry.game_data = game_data
 	game_entry.state = RetroHubScraperGameEntry.State.WAITING
-	game_entry.group = group
+	game_entry.button_group = group
 	return game_entry

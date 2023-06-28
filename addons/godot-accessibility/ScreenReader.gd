@@ -96,7 +96,7 @@ func _checkbutton_focused():
 	var tokens = PackedStringArray([])
 	if node.text:
 		tokens.append(node.text)
-	if node.pressed:
+	if node.button_pressed:
 		tokens.append("checked")
 	else:
 		tokens.append("unchecked")

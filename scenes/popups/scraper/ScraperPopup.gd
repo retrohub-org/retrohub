@@ -1,4 +1,4 @@
-extends Popup
+extends Window
 
 signal scrape_step(game_entry)
 
@@ -130,21 +130,14 @@ func add_media_request(game_entry: RetroHubScraperGameEntry, priority: bool = fa
 
 
 func thread_fetch_game_entries():
-	scraper.connect("scraper_details", Callable(self, "t_on_scraper_details"))
-	#warning-ignore:return_value_discarded
-	scraper.connect("game_scrape_finished", Callable(self, "t_on_game_scrape_finished"))
-	#warning-ignore:return_value_discarded
-	scraper.connect("game_scrape_multiple_available", Callable(self, "t_on_game_scrape_multiple_available"))
-	#warning-ignore:return_value_discarded
-	scraper.connect("game_scrape_not_found", Callable(self, "t_on_game_scrape_not_found"))
-	#warning-ignore:return_value_discarded
-	scraper.connect("game_scrape_error", Callable(self, "t_on_game_scrape_error"))
-	#warning-ignore:return_value_discarded
-	scraper.connect("media_scrape_finished", Callable(self, "t_on_media_scrape_finished"))
-	#warning-ignore:return_value_discarded
-	scraper.connect("media_scrape_not_found", Callable(self, "t_on_media_scrape_not_found"))
-	#warning-ignore:return_value_discarded
-	scraper.connect("media_scrape_error", Callable(self, "t_on_media_scrape_error"))
+	scraper.call_thread_safe("connect", "scraper_details", Callable(self, "t_on_scraper_details"))
+	scraper.call_thread_safe("connect", "game_scrape_finished", Callable(self, "t_on_game_scrape_finished"))
+	scraper.call_thread_safe("connect", "game_scrape_multiple_available", Callable(self, "t_on_game_scrape_multiple_available"))
+	scraper.call_thread_safe("connect", "game_scrape_not_found", Callable(self, "t_on_game_scrape_not_found"))
+	scraper.call_thread_safe("connect", "game_scrape_error", Callable(self, "t_on_game_scrape_error"))
+	scraper.call_thread_safe("connect", "media_scrape_finished", Callable(self, "t_on_media_scrape_finished"))
+	scraper.call_thread_safe("connect", "media_scrape_not_found", Callable(self, "t_on_media_scrape_not_found"))
+	scraper.call_thread_safe("connect", "media_scrape_error", Callable(self, "t_on_media_scrape_error"))
 
 	while true:
 		processing_request_mutex.lock()
@@ -175,7 +168,7 @@ func thread_fetch_game_entries():
 					game_entry.description = "Downloading metadata (by hash)..."
 				else:
 					game_entry.description = "Fetching media (by hash)..."
-				emit_signal("scrape_step", game_entry)
+				call_thread_safe("emit_signal", "scrape_step", game_entry)
 				if not scraper.scrape_game_by_hash(game_data):
 					pending_datas[game_data] = req
 			Request.Type.DATA_SEARCH:
@@ -185,7 +178,7 @@ func thread_fetch_game_entries():
 					game_entry.description = "Downloading metadata (by search)"
 				else:
 					game_entry.description = "Fetching media (by search)..."
-				emit_signal("scrape_step", game_entry)
+				call_thread_safe("emit_signal", "scrape_step", game_entry)
 				if not scraper.scrape_game_by_search(game_data, game_entry.data):
 					pending_datas[game_data] = req
 			Request.Type.MEDIA:
@@ -199,14 +192,14 @@ func thread_fetch_game_entries():
 					requests_curr.erase(req)
 					game_entry.curr += 1
 
-	scraper.disconnect("scraper_details", Callable(self, "t_on_scraper_details"))
-	scraper.disconnect("game_scrape_finished", Callable(self, "t_on_game_scrape_finished"))
-	scraper.disconnect("game_scrape_multiple_available", Callable(self, "t_on_game_scrape_multiple_available"))
-	scraper.disconnect("game_scrape_not_found", Callable(self, "t_on_game_scrape_not_found"))
-	scraper.disconnect("game_scrape_error", Callable(self, "t_on_game_scrape_error"))
-	scraper.disconnect("media_scrape_finished", Callable(self, "t_on_media_scrape_finished"))
-	scraper.disconnect("media_scrape_not_found", Callable(self, "t_on_media_scrape_not_found"))
-	scraper.disconnect("media_scrape_error", Callable(self, "t_on_media_scrape_error"))
+	scraper.call_thread_safe("disconnect", "scraper_details", Callable(self, "t_on_scraper_details"))
+	scraper.call_thread_safe("disconnect", "game_scrape_finished", Callable(self, "t_on_game_scrape_finished"))
+	scraper.call_thread_safe("disconnect", "game_scrape_multiple_available", Callable(self, "t_on_game_scrape_multiple_available"))
+	scraper.call_thread_safe("disconnect", "game_scrape_not_found", Callable(self, "t_on_game_scrape_not_found"))
+	scraper.call_thread_safe("disconnect", "game_scrape_error", Callable(self, "t_on_game_scrape_error"))
+	scraper.call_thread_safe("disconnect", "media_scrape_finished", Callable(self, "t_on_media_scrape_finished"))
+	scraper.call_thread_safe("disconnect", "media_scrape_not_found", Callable(self, "t_on_media_scrape_not_found"))
+	scraper.call_thread_safe("disconnect", "media_scrape_error", Callable(self, "t_on_media_scrape_error"))
 
 func _ensure_valid_req(game_data: RetroHubGameData):
 	if not pending_datas.has(game_data):
@@ -606,3 +599,7 @@ func decr_num_games_warning():
 func decr_num_games_success():
 	num_games_success -= 1
 	update_games_stats()
+
+
+func _on_close_requested():
+	_on_Finish_pressed()

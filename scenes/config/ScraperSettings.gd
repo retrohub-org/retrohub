@@ -104,7 +104,7 @@ func update_scrape_stats(passive: bool):
 				selected_game_datas.push_back(game)
 		4:	# Custom
 			if not passive:
-				n_scraping_game_picker_popup.popup()
+				n_scraping_game_picker_popup.popup_centered()
 				selected_game_datas = await n_scraping_game_picker_popup.games_selected
 	match selected_game_datas.size():
 		0:
@@ -125,7 +125,7 @@ func get_media_bitmask() -> int:
 
 func _on_Scrape_pressed():
 	n_ss_settings.save_credentials()
-	n_scrape_popup.popup()
+	n_scrape_popup.popup_centered()
 	var media_bitmask := get_media_bitmask()
 	# TODO: Make Scraper generation dynamic according to selection
 	var scraper := RetroHubScreenScraperScraper.new()
@@ -139,9 +139,6 @@ func _on_ScraperSettings_visibility_changed():
 	else:
 		n_ss_settings.save_credentials()
 		RetroHubConfig.save_config()
-
-func _on_ScraperPopup_popup_hide():
-	update_scrape_stats(true)
 
 func convert_hash_size_from_range(value: float) -> int:
 	# Value is actually an int
@@ -214,3 +211,8 @@ func tts_range_value_text(value: float, node: Node) -> String:
 		else:
 			return "%d MB" % value
 	return ""
+
+
+func _on_ScraperPopup_visibility_changed():
+	if not n_scrape_popup.visible:
+		update_scrape_stats(true)
