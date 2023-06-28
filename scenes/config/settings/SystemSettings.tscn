@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://brn0n4a662fgs"]
 
 [ext_resource type="Script" path="res://scenes/config/settings/SystemSettings.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/system/SystemEditor.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://8yoim2sbrlwv" path="res://scenes/config/settings/system/SystemEditor.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://dxv4bdgufow5k" path="res://scenes/config/settings/system/SelectExtensionsPopup.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/AddCustomInfo.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/config/settings/AddExistingInfo.tscn" id="5"]
@@ -14,6 +14,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -95,89 +97,19 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../../HBoxContainer/SystemSelection")
 
-[node name="HBoxContainer" parent="VBoxContainer/ScrollContainer/SystemEditor" index="0"]
-layout_mode = 2
-
-[node name="VBoxContainer" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer" index="0"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer/VBoxContainer" index="0"]
-layout_mode = 2
-
 [node name="AccessibilityFocus" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer/VBoxContainer/Label" index="0"]
 previous = NodePath("")
 
 [node name="Photo" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer/VBoxContainer" index="1"]
-layout_mode = 2
 focus_neighbor_top = NodePath("../../../../../HBoxContainer/SystemSelection")
-
-[node name="VBoxContainer2" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer" index="1"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer/VBoxContainer2" index="0"]
-layout_mode = 2
 
 [node name="Logo" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer/VBoxContainer2" index="1"]
-layout_mode = 2
 focus_neighbor_top = NodePath("../../../../../HBoxContainer/SystemSelection")
 
-[node name="HSeparator" parent="VBoxContainer/ScrollContainer/SystemEditor" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer2" parent="VBoxContainer/ScrollContainer/SystemEditor" index="2"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer2" index="0"]
-layout_mode = 2
-
-[node name="Identifier" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer2" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer3" parent="VBoxContainer/ScrollContainer/SystemEditor" index="3"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer3" index="0"]
-layout_mode = 2
-
-[node name="Name" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer3" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer4" parent="VBoxContainer/ScrollContainer/SystemEditor" index="4"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer4" index="0"]
-layout_mode = 2
-
 [node name="Category" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer4" index="1"]
-layout_mode = 2
 selected = -1
 
-[node name="HBoxContainer6" parent="VBoxContainer/ScrollContainer/SystemEditor" index="5"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer6" index="0"]
-layout_mode = 2
-
-[node name="Extensions" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer6" index="1"]
-layout_mode = 2
-
-[node name="ChangeExtensions" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer6" index="2"]
-layout_mode = 2
-
-[node name="HBoxContainer5" parent="VBoxContainer/ScrollContainer/SystemEditor" index="6"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer5" index="0"]
-layout_mode = 2
-
-[node name="HBoxContainer" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer5" index="1"]
-layout_mode = 2
-
-[node name="AddEmulator" parent="VBoxContainer/ScrollContainer/SystemEditor/HBoxContainer5/HBoxContainer" index="0"]
-layout_mode = 2
-
 [node name="Emulators" parent="VBoxContainer/ScrollContainer/SystemEditor" index="7"]
-layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../HBoxContainer/SystemSelection")
 
 [node name="AccessibilityFocus" parent="VBoxContainer/ScrollContainer/SystemEditor/Emulators" index="5"]

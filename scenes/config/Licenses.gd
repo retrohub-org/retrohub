@@ -42,6 +42,8 @@ func _ready():
 		_on_Names_item_selected()
 
 func _on_Names_item_selected():
+	# FIXME: Text will be very slow until
+	# https://github.com/godotengine/godot/pull/77280/ is merged
 	var item : TreeItem = n_names.get_selected()
 	n_content.text = licenses[item.get_text(0)]
 	(n_content.get_parent() as ScrollContainer).scroll_vertical = 0

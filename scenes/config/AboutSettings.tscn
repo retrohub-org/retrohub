@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bk84lkodndnjq"]
+[gd_scene load_steps=22 format=3 uid="uid://bk84lkodndnjq"]
 
 [ext_resource type="Texture2D" uid="uid://bstmt1kr6ub1d" path="res://assets/icons/app/retrohub_logo_1024px_draft.png" id="1"]
 [ext_resource type="FontFile" path="res://resources/fonts/default_big.tres" id="2"]
@@ -15,13 +15,26 @@
 [ext_resource type="Script" path="res://source/utils/TabContainerHandler.gd" id="13"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="14"]
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="15"]
+[ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="16_d1rm0"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="18"]
+[ext_resource type="Texture2D" uid="uid://xe4n818le3p8" path="res://addons/controller_icons/assets/key/e.png" id="18_c0cgg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2bj1i"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_r5ag3"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_f1p4x"]
+font_size = 30
 
 [node name="AboutSettings" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("3")
 
 [node name="TabContainerHandler" type="Control" parent="."]
@@ -70,6 +83,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2")
 text = "RetroHub"
+label_settings = SubResource("LabelSettings_2bj1i")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer/Name"]
 script = ExtResource("18")
@@ -111,8 +125,9 @@ layout_mode = 2
 [node name="Text" type="RichTextLabel" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Copyright (C) 2021-present Ricardo Subtil (@rsubtil)
-Icon designed by @lynnpepin, distributed under CC-BY-4.0"
+text = "Copyright (C) 2021-present Ricardo Subtil ([url=https://github.com/rsubtil/]@rsubtil[/url])
+Icon designed by [url=https://github.com/lynnpepin]@lynnpepin[/url], distributed under [url=ccby40]CC-BY-4.0[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/Text"]
 script = ExtResource("18")
@@ -121,7 +136,8 @@ script = ExtResource("18")
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
-text = "RetroHub's source code is distributed under the MIT license."
+text = "RetroHub's source code is distributed under the [url=mit_retrohub]MIT[/url] license."
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/LicenseText"]
 script = ExtResource("18")
@@ -130,7 +146,8 @@ script = ExtResource("18")
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
-text = "This build is distributed under the GPL3 license."
+text = "This build is distributed under the [url=gpl3]GPL3[/url] license."
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/GPLText"]
 script = ExtResource("18")
@@ -172,7 +189,7 @@ layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("4")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 4
 script = ExtResource("10")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer"]
@@ -183,6 +200,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "Godot Engine"
+label_settings = SubResource("LabelSettings_r5ag3")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -190,8 +208,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://godotengine.org/
-License: MIT"
+text = "Website: [url=https://godotengine.org/]https://godotengine.org/[/url]
+License: [url=mit_godot]MIT[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -218,7 +237,7 @@ layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("6")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 4
 script = ExtResource("10")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer"]
@@ -229,6 +248,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "FFmpeg"
+label_settings = SubResource("LabelSettings_r5ag3")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -236,8 +256,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://ffmpeg.org/
-License: GPL3"
+text = "Website: [url=https://ffmpeg.org/]https://ffmpeg.org/[/url]
+License: [url=gpl3]GPL3[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -266,6 +287,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "godot-videodecoder"
+label_settings = SubResource("LabelSettings_r5ag3")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -273,8 +295,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://github.com/kidrigger/godot-videodecoder
-License: MIT"
+text = "Website: [url=https://github.com/kidrigger/godot-videodecoder]https://github.com/kidrigger/godot-videodecoder[/url]
+License: [url=mit_videodecoder]MIT[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -282,7 +305,8 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Addon for integrating FFMPEG with Godot. Custom fork is used at https://github.com/retrohub-org/godot-videodecoder"
+text = "Addon for integrating FFMPEG with Godot. Custom fork is used at [url=https://github.com/retrohub-org/godot-videodecoder]https://github.com/retrohub-org/godot-videodecoder[url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/RichTextLabel"]
 script = ExtResource("18")
@@ -302,7 +326,7 @@ layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("7")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 4
 script = ExtResource("10")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer"]
@@ -313,6 +337,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "Controller Icons"
+label_settings = SubResource("LabelSettings_r5ag3")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -320,8 +345,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://github.com/rsubtil/controller_icons
-License: MIT (Icons: CC0)"
+text = "Website: [url=https://github.com/rsubtil/controller_icons]https://github.com/rsubtil/controller_icons[/url]
+License: [url=mit_controllericons]MIT[/url] (Icons: [url=cc0]CC0[/url])"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -330,6 +356,7 @@ script = ExtResource("18")
 layout_mode = 2
 bbcode_enabled = true
 text = "Addon for automatic keyboard/controller icons."
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/RichTextLabel"]
 script = ExtResource("18")
@@ -349,7 +376,7 @@ layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("11")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 4
 script = ExtResource("10")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer"]
@@ -360,6 +387,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "Onscreen Keyboard"
+label_settings = SubResource("LabelSettings_r5ag3")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -367,8 +395,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://github.com/martinfuchs/Godot-Onscreen-Keyboard
-License: MIT"
+text = "Website: [url=https://github.com/martinfuchs/Godot-Onscreen-Keyboard]https://github.com/martinfuchs/Godot-Onscreen-Keyboard[/url]
+License: [url=mit_onscreenkeyboard]MIT[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -377,6 +406,7 @@ script = ExtResource("18")
 layout_mode = 2
 bbcode_enabled = true
 text = "Addon implementing a virtual screen keyboard."
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/RichTextLabel"]
 script = ExtResource("18")
@@ -398,6 +428,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "Godot Accessibility Plugin"
+label_settings = SubResource("LabelSettings_r5ag3")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -405,8 +436,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://github.com/lightsoutgames/godot-accessibility
-License: MIT"
+text = "Website: [url=https://github.com/lightsoutgames/godot-accessibility]https://github.com/lightsoutgames/godot-accessibility[/url]
+License: [url=mit_godot-accessibility]MIT[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -415,6 +447,7 @@ script = ExtResource("18")
 layout_mode = 2
 bbcode_enabled = true
 text = "Addon to make default Godot UI nodes accessible to screen readers."
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/RichTextLabel"]
 script = ExtResource("18")
@@ -436,6 +469,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "Godot TTS"
+label_settings = SubResource("LabelSettings_r5ag3")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -443,8 +477,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://github.com/lightsoutgames/godot-tts
-License: MIT"
+text = "Website: [url=https://github.com/lightsoutgames/godot-tts]https://github.com/lightsoutgames/godot-tts[/url]
+License: [url=mit_godot-tts]MIT[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -453,6 +488,7 @@ script = ExtResource("18")
 layout_mode = 2
 bbcode_enabled = true
 text = "Addon to interface with screen reader/text-to-speech software across many platforms."
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-tts/RichTextLabel"]
 script = ExtResource("18")
@@ -497,7 +533,7 @@ layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("4")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 4
 script = ExtResource("10")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer"]
@@ -508,6 +544,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "Godot Engine"
+label_settings = SubResource("LabelSettings_f1p4x")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -515,8 +552,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://godotengine.org/
-License: MIT"
+text = "Website: [url=https://godotengine.org/]https://godotengine.org/[/url]
+License: [url=mit_godot]MIT[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -543,7 +581,7 @@ layout_mode = 2
 size_flags_vertical = 2
 texture = ExtResource("12")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 script = ExtResource("10")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer"]
@@ -554,6 +592,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
 text = "ScreenScraper"
+label_settings = SubResource("LabelSettings_f1p4x")
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
@@ -561,8 +600,9 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: https://godotengine.org/
-License: CC BY-NC-SA 4.0"
+text = "Website: [url=https://www.screenscraper.fr/]https://www.screenscraper.fr/[/url]
+License: [url=ccbyncsa40]CC BY-NC-SA 4.0[/url]"
+fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
@@ -614,6 +654,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
+autowrap_mode = 3
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Licenses/HBoxContainer/ScrollContainer/Content"]
 script = ExtResource("18")
@@ -627,8 +668,10 @@ scroll_multiplier = 1500.0
 [node name="ControllerSlideLeft" type="TextureRect" parent="TabContainerHandler"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 0
+offset_top = 1.0
 offset_right = 30.0
-offset_bottom = 30.0
+offset_bottom = 31.0
+texture = ExtResource("16_d1rm0")
 expand_mode = 1
 script = ExtResource("14")
 path = "rh_left_shoulder"
@@ -637,9 +680,11 @@ max_width = 30
 [node name="ControllerSlideRight" type="TextureRect" parent="TabContainerHandler"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 0
-offset_left = 309.0
-offset_right = 339.0
-offset_bottom = 30.0
+offset_left = 335.0
+offset_top = 1.0
+offset_right = 365.0
+offset_bottom = 31.0
+texture = ExtResource("18_c0cgg")
 expand_mode = 1
 script = ExtResource("14")
 path = "rh_right_shoulder"
