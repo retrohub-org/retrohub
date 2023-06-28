@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://5gl1k27tdlpq"]
+[gd_scene load_steps=11 format=3 uid="uid://5gl1k27tdlpq"]
 
 [ext_resource type="Script" path="res://scenes/config/settings/input/ControllerLayout.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bm6wuorkfix2g" path="res://addons/controller_icons/assets/xboxone/diagram_simple.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dtttbuwyio14v" path="res://addons/controller_icons/assets/xboxone/diagram_simple.png" id="2"]
+[ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="2_vgkbu"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/LazyTextureRect.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://bemocysxyjpj2" path="res://assets/icons/controller_mapper/circle.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://ce0tjo40lwg74" path="res://assets/icons/controller_mapper/arrow.png" id="5"]
@@ -11,53 +12,71 @@
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="9"]
 
 [node name="ControllerLayout" type="Window"]
+initial_position = 1
+size = Vector2i(743, 496)
 exclusive = true
+theme = ExtResource("2_vgkbu")
 script = ExtResource("1")
 unknown_mapping = Color(0.0901961, 0.0901961, 0.0901961, 0.737255)
 current_mapping = Color(0.360784, 0.839216, 0, 0.717647)
 known_mapping = Color(0.133333, 0.313726, 0, 0.737255)
 
-[node name="TopLabelRoot" type="Control" parent="."]
-layout_mode = 3
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"WindowPanel"
+
+[node name="TopLabelRoot" type="Control" parent="Panel"]
+layout_mode = 1
 anchor_right = 1.0
 anchor_bottom = 0.08
 offset_top = 2.0
 offset_bottom = 29.32
 
-[node name="Press" type="Label" parent="TopLabelRoot"]
+[node name="Press" type="Label" parent="Panel/TopLabelRoot"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Press and hold the %s button on your controller"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Press"]
+[node name="AccessibilityFocus" type="Node" parent="Panel/TopLabelRoot/Press"]
 script = ExtResource("9")
 
-[node name="Move" type="Label" parent="TopLabelRoot"]
+[node name="Move" type="Label" parent="Panel/TopLabelRoot"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Move and hold the %s stick on your controller to one of the two directions given."
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Move"]
+[node name="AccessibilityFocus" type="Node" parent="Panel/TopLabelRoot/Move"]
 script = ExtResource("9")
 
-[node name="Done" type="Label" parent="TopLabelRoot"]
+[node name="Done" type="Label" parent="Panel/TopLabelRoot"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Layout complete! Test if the buttons are working as intended."
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="AccessibilityFocus" type="Node" parent="TopLabelRoot/Done"]
+[node name="AccessibilityFocus" type="Node" parent="Panel/TopLabelRoot/Done"]
 script = ExtResource("9")
 
-[node name="ActionDescription" type="Label" parent="."]
+[node name="ActionDescription" type="Label" parent="Panel"]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -67,13 +86,16 @@ offset_right = 100.5
 offset_bottom = 93.0
 theme_override_fonts/font = ExtResource("8")
 text = "Button Prompt"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="AccessibilityFocus" type="Node" parent="ActionDescription"]
+[node name="AccessibilityFocus" type="Node" parent="Panel/ActionDescription"]
 script = ExtResource("9")
 
-[node name="Diagram" type="TextureRect" parent="."]
+[node name="Diagram" type="TextureRect" parent="Panel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 25)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -86,11 +108,8 @@ offset_bottom = 146.5
 texture = ExtResource("2")
 expand_mode = 1
 script = ExtResource("3")
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="A" type="TextureRect" parent="Diagram"]
+[node name="A" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -104,7 +123,7 @@ offset_bottom = 18.525
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="B" type="TextureRect" parent="Diagram"]
+[node name="B" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -118,7 +137,7 @@ offset_bottom = -12.975
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="Y" type="TextureRect" parent="Diagram"]
+[node name="Y" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -132,7 +151,7 @@ offset_bottom = -41.475
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="X" type="TextureRect" parent="Diagram"]
+[node name="X" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -146,7 +165,7 @@ offset_bottom = -10.975
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="Start" type="TextureRect" parent="Diagram"]
+[node name="Start" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -160,7 +179,7 @@ offset_bottom = -15.475
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="Select" type="TextureRect" parent="Diagram"]
+[node name="Select" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -174,7 +193,7 @@ offset_bottom = -15.975
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="L1" type="TextureRect" parent="Diagram"]
+[node name="L1" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -188,7 +207,7 @@ offset_bottom = -101.975
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="R1" type="TextureRect" parent="Diagram"]
+[node name="R1" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -202,7 +221,7 @@ offset_bottom = -102.975
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="L2" type="TextureRect" parent="Diagram"]
+[node name="L2" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -216,7 +235,7 @@ offset_bottom = -139.975
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="R2" type="TextureRect" parent="Diagram"]
+[node name="R2" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -230,7 +249,7 @@ offset_bottom = -139.975
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="L3" type="TextureRect" parent="Diagram"]
+[node name="L3" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -244,7 +263,7 @@ offset_bottom = -6.97501
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="R3" type="TextureRect" parent="Diagram"]
+[node name="R3" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -258,7 +277,7 @@ offset_bottom = 61.025
 texture = ExtResource("4")
 expand_mode = 1
 
-[node name="UpDPAD" type="TextureRect" parent="Diagram"]
+[node name="UpDPAD" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -272,7 +291,7 @@ offset_bottom = 32.025
 texture = ExtResource("5")
 expand_mode = 1
 
-[node name="DownDPAD" type="TextureRect" parent="Diagram"]
+[node name="DownDPAD" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -287,7 +306,7 @@ texture = ExtResource("5")
 expand_mode = 1
 flip_v = true
 
-[node name="LeftDPAD" type="TextureRect" parent="Diagram"]
+[node name="LeftDPAD" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -298,11 +317,11 @@ offset_left = -219.0
 offset_top = 52.025
 offset_right = -197.0
 offset_bottom = 74.025
-rotation = -90.0
+rotation = -1.5708
 texture = ExtResource("5")
 expand_mode = 1
 
-[node name="RightDPAD" type="TextureRect" parent="Diagram"]
+[node name="RightDPAD" type="TextureRect" parent="Panel/Diagram"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -313,18 +332,18 @@ offset_left = -177.0
 offset_top = 52.025
 offset_right = -155.0
 offset_bottom = 74.025
-rotation = -90.0
+rotation = -1.5708
 texture = ExtResource("5")
 expand_mode = 1
 flip_v = true
 
-[node name="YAxisLStick" type="Control" parent="Diagram"]
+[node name="YAxisLStick" type="Control" parent="Panel/Diagram"]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="UpLStick" type="TextureRect" parent="Diagram/YAxisLStick"]
+[node name="UpLStick" type="TextureRect" parent="Panel/Diagram/YAxisLStick"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -338,7 +357,7 @@ offset_bottom = 119.5
 texture = ExtResource("5")
 expand_mode = 1
 
-[node name="DownLStick" type="TextureRect" parent="Diagram/YAxisLStick"]
+[node name="DownLStick" type="TextureRect" parent="Panel/Diagram/YAxisLStick"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -353,13 +372,13 @@ texture = ExtResource("5")
 expand_mode = 1
 flip_v = true
 
-[node name="XAxisLStick" type="Control" parent="Diagram"]
+[node name="XAxisLStick" type="Control" parent="Panel/Diagram"]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="LeftLStick" type="TextureRect" parent="Diagram/XAxisLStick"]
+[node name="LeftLStick" type="TextureRect" parent="Panel/Diagram/XAxisLStick"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -370,11 +389,11 @@ offset_left = 68.0
 offset_top = 139.5
 offset_right = 90.0
 offset_bottom = 161.5
-rotation = -90.0
+rotation = -1.5708
 texture = ExtResource("5")
 expand_mode = 1
 
-[node name="RightLStick" type="TextureRect" parent="Diagram/XAxisLStick"]
+[node name="RightLStick" type="TextureRect" parent="Panel/Diagram/XAxisLStick"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -385,18 +404,18 @@ offset_left = 110.0
 offset_top = 139.5
 offset_right = 132.0
 offset_bottom = 161.5
-rotation = -90.0
+rotation = -1.5708
 texture = ExtResource("5")
 expand_mode = 1
 flip_v = true
 
-[node name="YAxisRStick" type="Control" parent="Diagram"]
+[node name="YAxisRStick" type="Control" parent="Panel/Diagram"]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="UpRStick" type="TextureRect" parent="Diagram/YAxisRStick"]
+[node name="UpRStick" type="TextureRect" parent="Panel/Diagram/YAxisRStick"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -410,7 +429,7 @@ offset_bottom = 187.5
 texture = ExtResource("5")
 expand_mode = 1
 
-[node name="DownRStick" type="TextureRect" parent="Diagram/YAxisRStick"]
+[node name="DownRStick" type="TextureRect" parent="Panel/Diagram/YAxisRStick"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -425,13 +444,13 @@ texture = ExtResource("5")
 expand_mode = 1
 flip_v = true
 
-[node name="XAxisRStick" type="Control" parent="Diagram"]
+[node name="XAxisRStick" type="Control" parent="Panel/Diagram"]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="LeftRStick" type="TextureRect" parent="Diagram/XAxisRStick"]
+[node name="LeftRStick" type="TextureRect" parent="Panel/Diagram/XAxisRStick"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -442,11 +461,11 @@ offset_left = 257.0
 offset_top = 207.5
 offset_right = 279.0
 offset_bottom = 229.5
-rotation = -90.0
+rotation = -1.5708
 texture = ExtResource("5")
 expand_mode = 1
 
-[node name="RightRStick" type="TextureRect" parent="Diagram/XAxisRStick"]
+[node name="RightRStick" type="TextureRect" parent="Panel/Diagram/XAxisRStick"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_left = 0.75
@@ -457,13 +476,14 @@ offset_left = 299.0
 offset_top = 207.5
 offset_right = 321.0
 offset_bottom = 229.5
-rotation = -90.0
+rotation = -1.5708
 texture = ExtResource("5")
 expand_mode = 1
 flip_v = true
 
-[node name="PressProgress" type="TextureProgressBar" parent="."]
+[node name="PressProgress" type="TextureProgressBar" parent="Panel"]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.986
@@ -480,8 +500,8 @@ nine_patch_stretch = true
 texture_under = ExtResource("7")
 texture_progress = ExtResource("6")
 
-[node name="MainButtonRoot" type="Control" parent="."]
-layout_mode = 3
+[node name="MainButtonRoot" type="Control" parent="Panel"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -491,15 +511,17 @@ offset_left = -82.5
 offset_top = -61.0
 offset_right = 82.5
 offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="SkipButton" type="Button" parent="MainButtonRoot"]
+[node name="SkipButton" type="Button" parent="Panel/MainButtonRoot"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Skip"
 
-[node name="DoneButton" type="Button" parent="MainButtonRoot"]
+[node name="DoneButton" type="Button" parent="Panel/MainButtonRoot"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
@@ -507,8 +529,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Done"
 
-[node name="SecButtonRoot" type="Control" parent="."]
-layout_mode = 3
+[node name="SecButtonRoot" type="Control" parent="Panel"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -518,18 +540,20 @@ offset_left = -323.0
 offset_top = -61.0
 offset_right = -158.0
 offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="PreviousButton" type="Button" parent="SecButtonRoot"]
+[node name="PreviousButton" type="Button" parent="Panel/SecButtonRoot"]
 unique_name_in_owner = true
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Previous"
 
-[node name="AccessibilityFocus" type="Node" parent="SecButtonRoot/PreviousButton"]
+[node name="AccessibilityFocus" type="Node" parent="Panel/SecButtonRoot/PreviousButton"]
 script = ExtResource("9")
 
-[node name="ResetButton" type="Button" parent="SecButtonRoot"]
+[node name="ResetButton" type="Button" parent="Panel/SecButtonRoot"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
@@ -537,16 +561,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Reset"
 
-[node name="AccessibilityFocus" type="Node" parent="SecButtonRoot/ResetButton"]
+[node name="AccessibilityFocus" type="Node" parent="Panel/SecButtonRoot/ResetButton"]
 script = ExtResource("9")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="Panel"]
 unique_name_in_owner = true
 one_shot = true
 
 [connection signal="about_to_popup" from="." to="." method="_on_ControllerLayout_about_to_show"]
-[connection signal="pressed" from="MainButtonRoot/SkipButton" to="." method="_on_SkipButton_pressed"]
-[connection signal="pressed" from="MainButtonRoot/DoneButton" to="." method="_on_DoneButton_pressed"]
-[connection signal="pressed" from="SecButtonRoot/PreviousButton" to="." method="_on_PreviousButton_pressed"]
-[connection signal="pressed" from="SecButtonRoot/ResetButton" to="." method="_on_ResetButton_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="Panel/MainButtonRoot/SkipButton" to="." method="_on_SkipButton_pressed"]
+[connection signal="pressed" from="Panel/MainButtonRoot/DoneButton" to="." method="_on_DoneButton_pressed"]
+[connection signal="pressed" from="Panel/SecButtonRoot/PreviousButton" to="." method="_on_PreviousButton_pressed"]
+[connection signal="pressed" from="Panel/SecButtonRoot/ResetButton" to="." method="_on_ResetButton_pressed"]
+[connection signal="timeout" from="Panel/Timer" to="." method="_on_Timer_timeout"]

@@ -145,7 +145,7 @@ func _on_KeyboardRemap_key_remapped(key, old_code, new_code):
 
 func _on_CN_pressed(input_key):
 	var button := get_viewport().gui_get_focus_owner()
-	var pos := button.global_position - Vector2(n_ctrl_button_remap_popup.size.x + 10, 0)
+	var pos := button.get_global_transform_with_canvas().get_origin() - Vector2(n_ctrl_button_remap_popup.size.x + 10, 0)
 	n_ctrl_button_remap_popup.start(input_key, pos)
 
 func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):

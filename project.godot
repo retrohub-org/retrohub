@@ -43,6 +43,11 @@ enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg")
 
 singletons=["res://addons/godot-videodecoder/godot-videodecoder.gdnlib"]
 
+[gui]
+
+theme/custom="res://resources/default_theme.tres"
+theme/custom_font="res://resources/fonts/default_font.tres"
+
 [input]
 
 ui_select={

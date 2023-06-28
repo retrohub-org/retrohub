@@ -21,7 +21,7 @@ var mappings := [
 var action : String
 var old_button : int
 
-func start(curr_action: String, pos: Vector2):
+func start(curr_action: String, pos: Vector2i):
 	action = curr_action
 	old_button = _find_button_from_action(curr_action)
 

@@ -56,7 +56,7 @@ func _handle_popup_menu(node: PopupMenu):
 	if node.get_child_count() < 0:
 		return
 
-	for child in node.get_child(0).get_children():
+	for child in node.get_child(0, true).get_children():
 		if child is ScrollContainer:
 			_handle_scroll_container(child)
 			return

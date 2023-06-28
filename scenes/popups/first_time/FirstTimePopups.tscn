@@ -1,284 +1,225 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=19 format=3 uid="uid://ce2vrdoburtky"]
 
-[ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://scenes/popups/first_time/EmulatorsSection.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/popups/first_time/IntroductionSection.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/popups/first_time/RegionSection.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/popups/first_time/DoneSection.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/popups/first_time/FirstTimePopups.gd" type="Script" id=6]
-[ext_resource path="res://assets/icons/first_time/emulators.svg" type="Texture2D" id=7]
-[ext_resource path="res://assets/icons/first_time/introduction.svg" type="Texture2D" id=8]
-[ext_resource path="res://assets/icons/first_time/systems.svg" type="Texture2D" id=9]
-[ext_resource path="res://assets/icons/first_time/all_done.svg" type="Texture2D" id=10]
-[ext_resource path="res://assets/icons/first_time/import.svg" type="Texture2D" id=11]
-[ext_resource path="res://assets/icons/first_time/games.svg" type="Texture2D" id=12]
-[ext_resource path="res://assets/icons/first_time/region.svg" type="Texture2D" id=13]
-[ext_resource path="res://scenes/popups/first_time/GamesSection.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/popups/first_time/ImportSettingsSection.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/popups/first_time/SystemsSection.tscn" type="PackedScene" id=16]
-[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=17]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture2D" id=18]
+[ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="1"]
+[ext_resource type="PackedScene" uid="uid://dxgw7d08xae35" path="res://scenes/popups/first_time/EmulatorsSection.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://r43pbae1np4f" path="res://scenes/popups/first_time/IntroductionSection.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://be11gat16xuto" path="res://scenes/popups/first_time/RegionSection.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://oarl7t3ksvdk" path="res://scenes/popups/first_time/DoneSection.tscn" id="5"]
+[ext_resource type="Script" path="res://scenes/popups/first_time/FirstTimePopups.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://dw56x26y3s83n" path="res://assets/icons/first_time/emulators.svg" id="7"]
+[ext_resource type="Texture2D" uid="uid://1pfhqj221sis" path="res://assets/icons/first_time/introduction.svg" id="8"]
+[ext_resource type="Texture2D" uid="uid://bg3b6uq2axslp" path="res://assets/icons/first_time/systems.svg" id="9"]
+[ext_resource type="Texture2D" uid="uid://b657pj3bdxear" path="res://assets/icons/first_time/all_done.svg" id="10"]
+[ext_resource type="Texture2D" uid="uid://cf7kvcv076daj" path="res://assets/icons/first_time/import.svg" id="11"]
+[ext_resource type="Texture2D" uid="uid://35k2s85vr6kp" path="res://assets/icons/first_time/games.svg" id="12"]
+[ext_resource type="Texture2D" uid="uid://flemeaslsp75" path="res://assets/icons/first_time/region.svg" id="13"]
+[ext_resource type="PackedScene" uid="uid://bfrx4qb0tmy4t" path="res://scenes/popups/first_time/GamesSection.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://ciglqbso03lml" path="res://scenes/popups/first_time/ImportSettingsSection.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://cqajjwhg1bdx1" path="res://scenes/popups/first_time/SystemsSection.tscn" id="16"]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="17"]
+[ext_resource type="Texture2D" uid="uid://d6jwqg6mq8dk" path="res://addons/controller_icons/assets/xbox360/r_stick.png" id="18"]
 
-[node name="FirstTimePopup" type="Popup"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 28.0
-offset_top = 20.0
-offset_right = -40.0
-offset_bottom = -39.0
-theme = ExtResource( 1 )
+[node name="FirstTimePopup" type="Window"]
+initial_position = 1
+size = Vector2i(1152, 648)
 exclusive = true
-script = ExtResource( 6 )
-color_prev = Color( 0.572549, 1, 0.572549, 1 )
+borderless = true
+theme = ExtResource("1")
+script = ExtResource("6")
+color_prev = Color(0.572549, 1, 0.572549, 1)
 
 [node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = 25.0
+offset_right = -35.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Sidebar" type="VBoxContainer" parent="Panel/HBoxContainer"]
 unique_name_in_owner = true
-offset_right = 157.0
-offset_bottom = 497.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="IntroductionSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-offset_top = 13.0
-offset_right = 157.0
-offset_bottom = 53.0
+layout_mode = 2
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/IntroductionSection"]
-offset_right = 40.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 8 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("8")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/IntroductionSection"]
-offset_left = 44.0
-offset_top = 6.0
-offset_right = 136.0
-offset_bottom = 34.0
+layout_mode = 2
 text = "Introduction"
 
 [node name="RegionSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-offset_top = 85.0
-offset_right = 157.0
-offset_bottom = 125.0
+layout_mode = 2
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/RegionSection"]
-offset_right = 40.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 13 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("13")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/RegionSection"]
-offset_left = 44.0
-offset_top = 6.0
-offset_right = 99.0
-offset_bottom = 34.0
+layout_mode = 2
 text = "Region"
 
 [node name="ImportSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-offset_top = 156.0
-offset_right = 157.0
-offset_bottom = 196.0
+layout_mode = 2
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/ImportSection"]
-offset_right = 40.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 11 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("11")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/ImportSection"]
-offset_left = 44.0
-offset_top = 6.0
-offset_right = 157.0
-offset_bottom = 34.0
+layout_mode = 2
 text = "Import Settings"
 
 [node name="GamesSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-offset_top = 228.0
-offset_right = 157.0
-offset_bottom = 268.0
+layout_mode = 2
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/GamesSection"]
-offset_right = 40.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 12 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("12")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/GamesSection"]
-offset_left = 44.0
-offset_top = 6.0
-offset_right = 98.0
-offset_bottom = 34.0
+layout_mode = 2
 text = "Games"
 
 [node name="SystemsSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-offset_top = 299.0
-offset_right = 157.0
-offset_bottom = 339.0
+layout_mode = 2
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/SystemsSection"]
-offset_right = 40.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 9 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("9")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/SystemsSection"]
-offset_left = 44.0
-offset_top = 6.0
-offset_right = 107.0
-offset_bottom = 34.0
+layout_mode = 2
 text = "Systems"
 
 [node name="EmulatorsSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-offset_top = 371.0
-offset_right = 157.0
-offset_bottom = 411.0
+layout_mode = 2
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/EmulatorsSection"]
-offset_right = 40.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 7 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/EmulatorsSection"]
-offset_left = 44.0
-offset_top = 6.0
-offset_right = 120.0
-offset_bottom = 34.0
+layout_mode = 2
 text = "Emulators"
 
 [node name="DoneSection" type="HBoxContainer" parent="Panel/HBoxContainer/Sidebar"]
-offset_top = 443.0
-offset_right = 157.0
-offset_bottom = 483.0
+layout_mode = 2
 size_flags_vertical = 6
 
 [node name="Icon" type="TextureRect" parent="Panel/HBoxContainer/Sidebar/DoneSection"]
-offset_right = 40.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 10 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("10")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/Sidebar/DoneSection"]
-offset_left = 44.0
-offset_top = 6.0
-offset_right = 107.0
-offset_bottom = 34.0
+layout_mode = 2
 text = "All done"
 
 [node name="MainContent" type="TabContainer" parent="Panel/HBoxContainer"]
 unique_name_in_owner = true
-offset_left = 161.0
-offset_right = 936.0
-offset_bottom = 497.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tabs_visible = false
 
-[node name="IntroductionSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 3 )]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+[node name="IntroductionSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource("3")]
+layout_mode = 2
 
-[node name="RegionSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 4 )]
+[node name="RegionSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource("4")]
 visible = false
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+layout_mode = 2
 
-[node name="ImportSettingsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 15 )]
+[node name="ImportSettingsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource("15")]
 visible = false
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+layout_mode = 2
 
-[node name="GamesSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 14 )]
+[node name="GamesSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource("14")]
 visible = false
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+layout_mode = 2
 
-[node name="SystemsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 16 )]
+[node name="SystemsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource("16")]
 visible = false
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+layout_mode = 2
 
-[node name="EmulatorsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 2 )]
+[node name="EmulatorsSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource("2")]
 visible = false
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+layout_mode = 2
 
-[node name="DoneSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource( 5 )]
+[node name="DoneSection" parent="Panel/HBoxContainer/MainContent" instance=ExtResource("5")]
 visible = false
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
+layout_mode = 2
 
 [node name="RStickTip" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -104.0
-offset_right = 104.0
-offset_bottom = 33.0
+offset_left = -113.5
+offset_top = -33.0
+offset_right = 113.5
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_horizontal = 7
 
 [node name="ControllerTextureRect" type="TextureRect" parent="RStickTip"]
-offset_right = 32.0
-offset_bottom = 33.0
-custom_minimum_size = Vector2( 32, 32 )
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
 size_flags_horizontal = 10
-texture = ExtResource( 18 )
-expand = true
-script = ExtResource( 17 )
+texture = ExtResource("18")
+expand_mode = 1
+script = ExtResource("17")
 path = "rh_rstick_left"
 force_type = 2
 max_width = 32
 
 [node name="Label" type="Label" parent="RStickTip"]
-offset_left = 36.0
-offset_top = 2.0
-offset_right = 208.0
-offset_bottom = 30.0
+layout_mode = 2
 size_flags_horizontal = 2
 text = "for scrolling information"
 
 [connection signal="about_to_popup" from="." to="." method="_on_FirstTimePopup_about_to_show"]
-[connection signal="popup_hide" from="." to="." method="_on_FirstTimePopup_popup_hide"]
 [connection signal="tab_changed" from="Panel/HBoxContainer/MainContent" to="." method="_on_MainContent_tab_changed"]
 [connection signal="advance_section" from="Panel/HBoxContainer/MainContent/IntroductionSection" to="." method="advance_section"]
 [connection signal="advance_section" from="Panel/HBoxContainer/MainContent/RegionSection" to="." method="advance_section"]

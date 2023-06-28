@@ -83,7 +83,7 @@ func setup_controller_remap(remap: String):
 		Input.add_joy_mapping(remap, true)
 
 func show_first_time_popup():
-	var first_time_popup : Control = load("res://scenes/popups/first_time/FirstTimePopups.tscn").instantiate()
+	var first_time_popup : Window = load("res://scenes/popups/first_time/FirstTimePopups.tscn").instantiate()
 	add_child(first_time_popup)
 	popup_nodes.push_back(first_time_popup)
 	#warning-ignore:return_value_discarded

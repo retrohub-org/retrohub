@@ -5,9 +5,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "No theme found!
-
+ 
 Please set your theme by going in the Settings menu.
-
+ 
 To get more themes, visit https://..."
 horizontal_alignment = 1
 vertical_alignment = 1

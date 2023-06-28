@@ -1,56 +1,56 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://p271w3u16evg"]
 
-[ext_resource path="res://resources/fonts/default_italic.tres" type="FontFile" id=1]
-[ext_resource path="res://scenes/config/settings/input/KeyboardRemap.gd" type="Script" id=2]
+[ext_resource type="FontFile" path="res://resources/fonts/default_italic.tres" id="1"]
+[ext_resource type="Script" path="res://scenes/config/settings/input/KeyboardRemap.gd" id="2"]
 
 [node name="KeyboardRemap" type="Window"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -141.5
-offset_top = -89.5
-offset_right = 141.5
-offset_bottom = 89.5
-resizable = true
-script = ExtResource( 2 )
+initial_position = 1
+size = Vector2i(283, 179)
+script = ExtResource("2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"WindowPanel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
 offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
-offset_right = 267.0
-offset_bottom = 14.0
+layout_mode = 2
 text = "Press and hold a key to set it..."
-align = 1
+horizontal_alignment = 1
 
-[node name="KeyIcon" type="TextureRect" parent="VBoxContainer"]
+[node name="KeyIcon" type="TextureRect" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
-offset_top = 18.0
-offset_right = 267.0
-offset_bottom = 111.0
+layout_mode = 2
 size_flags_vertical = 3
-expand = true
-stretch_mode = 6
+expand_mode = 1
+stretch_mode = 5
 
-[node name="KeyLabel" type="Label" parent="VBoxContainer"]
+[node name="KeyLabel" type="Label" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
-offset_top = 115.0
-offset_right = 267.0
-offset_bottom = 135.0
-theme_override_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
 text = "waiting for input"
-align = 1
+horizontal_alignment = 1
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="Panel"]
 unique_name_in_owner = true
 wait_time = 1.2
 one_shot = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Panel/Timer" to="." method="_on_Timer_timeout"]

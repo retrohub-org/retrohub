@@ -20,7 +20,7 @@
 
 [node name="ScraperPopup" type="PopupPanel"]
 initial_position = 1
-size = Vector2i(922, 518)
+size = Vector2i(953, 542)
 visible = true
 exclusive = true
 script = ExtResource("1")
@@ -30,10 +30,10 @@ system_entry_scene = ExtResource("4")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 918.0
-offset_bottom = 514.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -448,6 +448,8 @@ text = "Finish"
 
 [node name="StopScraperDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(635, 224)
 script = ExtResource("10")
 
 [node name="StopDescription" type="Label" parent="StopScraperDialog"]
@@ -458,13 +460,15 @@ anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
-offset_bottom = -36.0
+offset_bottom = -48.0
 text = "There are still %d games waiting to be scraped.
-
+ 
 If you cancel now, the existing metadata/media will still be saved, so some games
 might show incomplete information.
-
+ 
 Are you sure you wish to stop the scraping process?"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="focus_entered" from="VBoxContainer/HBoxContainer2/ScrollContainer/GameEntries" to="VBoxContainer/HBoxContainer2/ScrollContainer/GameEntries" method="_on_GameEntries_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer/WorkingCancelButton" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Working" method="_on_WorkingCancelButton_pressed"]

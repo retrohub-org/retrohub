@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/config/settings/InputSettings.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://bp58drjdgvxsi" path="res://addons/controller_icons/assets/key/enter_alt.png" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/input/ControllerAxisRemap.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://53w3i3uihh7i" path="res://scenes/config/settings/input/ControllerAxisRemap.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://rhv2hov7acmp" path="res://addons/controller_icons/assets/key/backspace_alt.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://cpld7e28w4q1e" path="res://addons/controller_icons/assets/key/alt.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://dxcfr4bhfw4lq" path="res://addons/controller_icons/assets/key/ctrl.png" id="6"]
@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="13"]
 [ext_resource type="Texture2D" uid="uid://xe4n818le3p8" path="res://addons/controller_icons/assets/key/e.png" id="14"]
 [ext_resource type="PackedScene" uid="uid://5gl1k27tdlpq" path="res://scenes/config/settings/input/ControllerLayout.tscn" id="15"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/input/KeyboardRemap.tscn" id="16"]
+[ext_resource type="PackedScene" uid="uid://p271w3u16evg" path="res://scenes/config/settings/input/KeyboardRemap.tscn" id="16"]
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="17"]
 [ext_resource type="Texture2D" uid="uid://bva4iswwvta5d" path="res://addons/controller_icons/assets/xbox360/y.png" id="18"]
 [ext_resource type="Texture2D" uid="uid://bufx8lu1tny4o" path="res://addons/controller_icons/assets/xbox360/b.png" id="19"]
@@ -36,7 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://rn6k4m7fogon" path="res://addons/controller_icons/assets/luna/a.png" id="27_was5b"]
 [ext_resource type="Texture2D" uid="uid://d284wkmo0vqfk" path="res://addons/controller_icons/assets/xbox360/a.png" id="28"]
 [ext_resource type="Texture2D" uid="uid://bv4qgyj7ctpdi" path="res://addons/controller_icons/assets/stadia/a.png" id="28_6rdln"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/input/ControllerButtonRemap.tscn" id="29"]
+[ext_resource type="PackedScene" uid="uid://cutbpb88koytn" path="res://scenes/config/settings/input/ControllerButtonRemap.tscn" id="29"]
 [ext_resource type="Texture2D" uid="uid://coxp4sapp4g8n" path="res://addons/controller_icons/assets/xbox360/start.png" id="33_jbqxx"]
 [ext_resource type="Texture2D" uid="uid://bamrmda3in3qq" path="res://addons/controller_icons/assets/xbox360/lb.png" id="37_nrf61"]
 [ext_resource type="Script" path="res://source/utils/SpinBoxHandler.gd" id="39"]
@@ -860,9 +860,11 @@ visible = false
 
 [node name="ControllerButtonRemap" parent="." instance=ExtResource("29")]
 unique_name_in_owner = true
+visible = false
 
 [node name="ControllerAxisRemap" parent="." instance=ExtResource("3")]
 unique_name_in_owner = true
+visible = false
 
 [connection signal="tab_changed" from="ScrollContainer/VBoxContainer/TabContainerHandler" to="." method="_on_TabContainerHandler_tab_changed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/KBReset" to="." method="_on_KBReset_pressed"]

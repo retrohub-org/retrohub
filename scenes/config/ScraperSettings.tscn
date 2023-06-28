@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://fh5ipn8bvsfy" path="res://assets/fonts/NotoSans-Italic.ttf" id="2"]
 [ext_resource type="PackedScene" uid="uid://djdvgws46x6g5" path="res://scenes/config/ScreenScrapperSettings.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://bu0ju7swsiiy7" path="res://assets/icons/scrapers/screenscraper.png" id="3_rdhu0"]
-[ext_resource type="PackedScene" path="res://scenes/popups/scraping_game_picker/ScrapingGamePickerPopup.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://baxxpbcvp0jn1" path="res://scenes/popups/scraping_game_picker/ScrapingGamePickerPopup.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://dttv4ou2ow347" path="res://scenes/popups/scraper/ScraperPopup.tscn" id="6"]
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="7"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="8"]
@@ -328,6 +328,7 @@ next = NodePath("../../ScrollContainer/VBoxContainer/HBoxContainer/IntroLabel")
 
 [node name="ScrapingGamePickerPopup" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
+visible = false
 dialog_hide_on_ok = false
 
 [node name="ScraperPopup" parent="." instance=ExtResource("6")]

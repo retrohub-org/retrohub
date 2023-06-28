@@ -1,4 +1,4 @@
-extends Popup
+extends Window
 
 signal extensions_picked(extensions)
 

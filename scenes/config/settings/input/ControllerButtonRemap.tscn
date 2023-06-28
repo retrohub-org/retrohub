@@ -1,193 +1,165 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=15 format=3 uid="uid://cutbpb88koytn"]
 
-[ext_resource path="res://addons/controller_icons/assets/xbox360/a.png" type="Texture2D" id=1]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/y.png" type="Texture2D" id=2]
-[ext_resource path="res://addons/controller_icons/objects/Button.gd" type="Script" id=3]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/b.png" type="Texture2D" id=4]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/x.png" type="Texture2D" id=5]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/lb.png" type="Texture2D" id=6]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/rb.png" type="Texture2D" id=7]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/lt.png" type="Texture2D" id=8]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/rt.png" type="Texture2D" id=9]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/l_stick_click.png" type="Texture2D" id=10]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick_click.png" type="Texture2D" id=11]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/start.png" type="Texture2D" id=12]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/back.png" type="Texture2D" id=13]
-[ext_resource path="res://scenes/config/settings/input/ControllerButtonRemap.gd" type="Script" id=14]
+[ext_resource type="Texture2D" uid="uid://d284wkmo0vqfk" path="res://addons/controller_icons/assets/xbox360/a.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bva4iswwvta5d" path="res://addons/controller_icons/assets/xbox360/y.png" id="2"]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/Button.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://bufx8lu1tny4o" path="res://addons/controller_icons/assets/xbox360/b.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://jcc3t88rfxh0" path="res://addons/controller_icons/assets/xbox360/x.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://bamrmda3in3qq" path="res://addons/controller_icons/assets/xbox360/lb.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://cw2jo5xbteqdu" path="res://addons/controller_icons/assets/xbox360/rb.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://dhhjoq01cc2oh" path="res://addons/controller_icons/assets/xbox360/lt.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://d2qha4gd4x604" path="res://addons/controller_icons/assets/xbox360/rt.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://mh6if65g6eob" path="res://addons/controller_icons/assets/xbox360/l_stick_click.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://db7d0vqnfyuin" path="res://addons/controller_icons/assets/xbox360/r_stick_click.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://coxp4sapp4g8n" path="res://addons/controller_icons/assets/xbox360/start.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://cdjnpcxgnxrxb" path="res://addons/controller_icons/assets/xbox360/back.png" id="13"]
+[ext_resource type="Script" path="res://scenes/config/settings/input/ControllerButtonRemap.gd" id="14"]
 
 [node name="ControllerButtonRemap" type="PopupPanel"]
-offset_right = 212.0
-offset_bottom = 160.0
-script = ExtResource( 14 )
+size = Vector2i(220, 168)
+visible = true
+script = ExtResource("14")
 
 [node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 212.0
+offset_bottom = 160.0
 columns = 4
 
 [node name="A" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_right = 48.0
-offset_bottom = 48.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 1 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("1")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/a"
 force_type = 2
 
 [node name="B" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 52.0
-offset_right = 100.0
-offset_bottom = 48.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 4 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("4")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/b"
 force_type = 2
 
 [node name="X" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 104.0
-offset_right = 152.0
-offset_bottom = 48.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 5 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("5")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/x"
 force_type = 2
 
 [node name="Y" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 156.0
-offset_right = 204.0
-offset_bottom = 48.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 2 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("2")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/y"
 force_type = 2
 
 [node name="LB" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_top = 52.0
-offset_right = 48.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 6 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("6")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/lb"
 force_type = 2
 
 [node name="RB" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 52.0
-offset_top = 52.0
-offset_right = 100.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 7 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("7")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/rb"
 force_type = 2
 
 [node name="LT" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 104.0
-offset_top = 52.0
-offset_right = 152.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 8 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("8")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/lt"
 force_type = 2
 
 [node name="RT" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 156.0
-offset_top = 52.0
-offset_right = 204.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 9 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("9")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/rt"
 force_type = 2
 
 [node name="Select" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_top = 104.0
-offset_right = 48.0
-offset_bottom = 152.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 13 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("13")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/select"
 force_type = 2
 
 [node name="Start" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 52.0
-offset_top = 104.0
-offset_right = 100.0
-offset_bottom = 152.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 12 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("12")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/start"
 force_type = 2
 
 [node name="LStick" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 104.0
-offset_top = 104.0
-offset_right = 152.0
-offset_bottom = 152.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 10 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("10")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/l_stick_click"
 force_type = 2
 
 [node name="RStick" type="Button" parent="GridContainer"]
 unique_name_in_owner = true
-offset_left = 156.0
-offset_top = 104.0
-offset_right = 204.0
-offset_bottom = 152.0
-custom_minimum_size = Vector2( 48, 48 )
-icon = ExtResource( 11 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+icon = ExtResource("11")
 expand_icon = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 path = "joypad/r_stick_click"
 force_type = 2
 
 [connection signal="popup_hide" from="." to="." method="_on_ControllerButtonRemap_popup_hide"]
-[connection signal="pressed" from="GridContainer/A" to="." method="_on_Icon_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="GridContainer/B" to="." method="_on_Icon_pressed" binds= [ 1 ]]
-[connection signal="pressed" from="GridContainer/X" to="." method="_on_Icon_pressed" binds= [ 2 ]]
-[connection signal="pressed" from="GridContainer/Y" to="." method="_on_Icon_pressed" binds= [ 3 ]]
-[connection signal="pressed" from="GridContainer/LB" to="." method="_on_Icon_pressed" binds= [ 4 ]]
-[connection signal="pressed" from="GridContainer/RB" to="." method="_on_Icon_pressed" binds= [ 5 ]]
-[connection signal="pressed" from="GridContainer/LT" to="." method="_on_Icon_pressed" binds= [ 6 ]]
-[connection signal="pressed" from="GridContainer/RT" to="." method="_on_Icon_pressed" binds= [ 7 ]]
-[connection signal="pressed" from="GridContainer/Select" to="." method="_on_Icon_pressed" binds= [ 10 ]]
-[connection signal="pressed" from="GridContainer/Start" to="." method="_on_Icon_pressed" binds= [ 11 ]]
-[connection signal="pressed" from="GridContainer/LStick" to="." method="_on_Icon_pressed" binds= [ 8 ]]
-[connection signal="pressed" from="GridContainer/RStick" to="." method="_on_Icon_pressed" binds= [ 9 ]]
+[connection signal="pressed" from="GridContainer/A" to="." method="_on_Icon_pressed" binds= [0]]
+[connection signal="pressed" from="GridContainer/B" to="." method="_on_Icon_pressed" binds= [1]]
+[connection signal="pressed" from="GridContainer/X" to="." method="_on_Icon_pressed" binds= [2]]
+[connection signal="pressed" from="GridContainer/Y" to="." method="_on_Icon_pressed" binds= [3]]
+[connection signal="pressed" from="GridContainer/LB" to="." method="_on_Icon_pressed" binds= [4]]
+[connection signal="pressed" from="GridContainer/RB" to="." method="_on_Icon_pressed" binds= [5]]
+[connection signal="pressed" from="GridContainer/LT" to="." method="_on_Icon_pressed" binds= [6]]
+[connection signal="pressed" from="GridContainer/RT" to="." method="_on_Icon_pressed" binds= [7]]
+[connection signal="pressed" from="GridContainer/Select" to="." method="_on_Icon_pressed" binds= [10]]
+[connection signal="pressed" from="GridContainer/Start" to="." method="_on_Icon_pressed" binds= [11]]
+[connection signal="pressed" from="GridContainer/LStick" to="." method="_on_Icon_pressed" binds= [8]]
+[connection signal="pressed" from="GridContainer/RStick" to="." method="_on_Icon_pressed" binds= [9]]

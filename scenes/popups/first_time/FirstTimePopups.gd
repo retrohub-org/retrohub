@@ -1,4 +1,4 @@
-extends Popup
+extends Window
 
 @export var color_current := Color(1, 1, 1, 1)
 @export var color_next := Color(0.5, 0.5, 0.5, 1)

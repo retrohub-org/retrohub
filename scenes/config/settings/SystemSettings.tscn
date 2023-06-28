@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://scenes/config/settings/SystemSettings.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://8yoim2sbrlwv" path="res://scenes/config/settings/system/SystemEditor.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://dxv4bdgufow5k" path="res://scenes/config/settings/system/SelectExtensionsPopup.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/AddCustomInfo.tscn" id="4"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/AddExistingInfo.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/system/RetroArchConfig.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://dnlu06cgbfnex" path="res://scenes/config/settings/AddCustomInfo.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://sdst6xcy2af1" path="res://scenes/config/settings/AddExistingInfo.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://r6lg3typ5vb5" path="res://scenes/config/settings/system/RetroArchConfig.tscn" id="6"]
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="7"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="8"]
 
@@ -121,6 +121,7 @@ script = ExtResource("7")
 
 [node name="SelectExtensionsPopup" parent="." instance=ExtResource("3")]
 unique_name_in_owner = true
+visible = false
 
 [node name="AddCustomInfoPopup" parent="." instance=ExtResource("4")]
 unique_name_in_owner = true

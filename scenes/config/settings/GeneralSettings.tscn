@@ -11,6 +11,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -247,6 +249,8 @@ script = ExtResource("4")
 
 [node name="FirstTimeWizardWarning" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(536, 332)
 
 [node name="Label2" type="Label" parent="FirstTimeWizardWarning"]
 anchors_preset = 8
@@ -254,15 +258,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -240.5
+offset_left = -260.0
 offset_top = -158.0
-offset_right = 240.5
-offset_bottom = 130.0
+offset_right = 260.0
+offset_bottom = 118.0
 text = "Re-running the first time wizard will override most of your settings.
-
+ 
 If you proceed, RetroHub will be closed, and you must open it again.
-
+ 
 Are you sure you want to proceed?"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="visibility_changed" from="." to="." method="_on_AppSettings_visibility_changed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/User/HBoxContainer/SetGamePath" to="." method="_on_SetGamePath_pressed"]

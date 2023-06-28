@@ -96,7 +96,7 @@ func _on_item_edited(edited: TreeItem):
 			set_item_checked_down(edited, edited.is_checked(0))
 		set_item_checked_up(edited.get_parent())
 	else:
-		n_system_warning.popup()
+		n_system_warning.popup_centered()
 		edited.set_checked(0, true)
 
 func is_edit_valid(item: TreeItem):
@@ -109,12 +109,10 @@ func is_edit_valid(item: TreeItem):
 
 func save():
 	for tree in n_systems:
-		var next : TreeItem = tree.get_root().get_children()
-		while next:
+		for next in tree.get_root().get_children():
 			if next.is_checked(0):
 				var system : Dictionary = next.get_metadata(0)
 				RetroHubConfig.make_system_folder(system)
-			next = next.get_next()
 
 func _on_item_selected(tree: Tree):
 	if tree.get_selected().get_metadata(0):

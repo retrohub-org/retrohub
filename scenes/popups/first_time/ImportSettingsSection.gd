@@ -54,7 +54,7 @@ func set_importer_buttons():
 		if support:
 			not_found = false
 			var importer : RetroHubImporter = importers[idx]
-			n_import_options.add_icon_item(importer.get_icon(), importer.get_name(), idx)
+			n_import_options.add_icon_item(importer.get_icon(), importer.get_importer_name(), idx)
 		idx += 1
 
 	n_import_options.disabled = not_found
@@ -82,7 +82,7 @@ func _on_NextButton_pressed():
 	var importer := get_importer_selected()
 	if importer:
 		n_copy_move_popup.set_importer(importer)
-		n_copy_move_popup.popup()
+		n_copy_move_popup.popup_centered()
 	else:
 		emit_signal("advance_section")
 

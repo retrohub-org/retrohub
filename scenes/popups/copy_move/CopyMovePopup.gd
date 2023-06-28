@@ -1,4 +1,4 @@
-extends Popup
+extends Window
 
 signal import_begin(importer, copy_mode)
 
