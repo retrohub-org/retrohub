@@ -10,10 +10,10 @@ signal remap_done(action, old_button, new_button)
 ]
 
 var mappings := [
-	# FIXME: Mappings changed! This might need special config porting to be compatible
 	JOY_BUTTON_A, JOY_BUTTON_B, JOY_BUTTON_Y, JOY_BUTTON_X,
 	JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER,
-	JOY_AXIS_TRIGGER_LEFT, JOY_AXIS_TRIGGER_RIGHT,
+	RetroHubConfig.CONTROLLER_AXIS_FLAG | JOY_AXIS_TRIGGER_LEFT,
+	RetroHubConfig.CONTROLLER_AXIS_FLAG | JOY_AXIS_TRIGGER_RIGHT,
 	JOY_BUTTON_BACK, JOY_BUTTON_START,
 	JOY_BUTTON_LEFT_STICK, JOY_BUTTON_RIGHT_STICK
 ]
@@ -49,6 +49,8 @@ func _find_button_from_action(raw_action: String):
 	for event in InputMap.action_get_events(raw_action):
 		if event is InputEventJoypadButton:
 			return event.button_index
+		elif event is InputEventJoypadMotion:
+			return event.axis | RetroHubConfig.CONTROLLER_AXIS_FLAG
 	return -1
 
 

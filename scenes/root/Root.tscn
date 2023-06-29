@@ -66,13 +66,18 @@ content_scale_size = Vector2i(1000, 480)
 content_scale_aspect = 4
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
-size = Vector2i(1066, 176)
+title = "Open a File"
+position = Vector2i(0, 24)
+size = Vector2i(949, 477)
 theme = ExtResource("5")
+ok_button_text = "Open"
+file_mode = 0
 access = 2
 script = ExtResource("6")
 
 [node name="WarningPopup" type="AcceptDialog" parent="."]
 unique_name_in_owner = true
+size = Vector2i(608, 346)
 theme = ExtResource("5")
 
 [node name="WarningLabel" type="Label" parent="WarningPopup"]
@@ -83,9 +88,14 @@ anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
-offset_bottom = -44.0
+offset_bottom = -48.0
 text = "
 "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="Keyboard" type="PopupPanel" parent="."]
 unique_name_in_owner = true

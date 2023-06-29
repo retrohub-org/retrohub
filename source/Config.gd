@@ -22,6 +22,8 @@ var _systems_raw : Dictionary
 var _system_renames : Dictionary
 var emulators_map : Dictionary
 
+const CONTROLLER_AXIS_FLAG : int = (1 << 8)
+
 var _implicit_mappings := {
 	"rh_accept": "ui_accept",
 	"rh_back": "ui_cancel",
@@ -42,10 +44,9 @@ func _ready():
 
 	if not config.is_first_time:
 		load_user_data()
-		# FIXME: Disabled, it's messing up keymaps. Investigate
-		#handle_key_remaps()
-		#handle_controller_axis_remaps()
-		#handle_controller_button_remaps()
+		handle_key_remaps()
+		handle_controller_axis_remaps()
+		handle_controller_button_remaps()
 
 		# Wait until all other nodes have processed _ready
 		await get_tree().process_frame
@@ -143,7 +144,7 @@ func handle_controller_button_remaps():
 	# Add implicit mappings as well (aka existing Godot actions that manage UI events)
 	for key in keys:
 		for ev in InputMap.action_get_events(key):
-			if ev is InputEventJoypadButton:
+			if ev is InputEventJoypadButton or ev is InputEventJoypadMotion:
 				InputMap.action_erase_event(key, ev)
 				if key in _implicit_mappings:
 					InputMap.action_erase_event(_implicit_mappings[key], ev)
@@ -161,14 +162,14 @@ func handle_controller_axis_remaps():
 	var sec_axis : int
 	match config.input_controller_main_axis:
 		"right":
-			main_axis = 2
+			main_axis = JOY_AXIS_RIGHT_X
 		"left", _:
-			main_axis = 0
+			main_axis = JOY_AXIS_LEFT_X
 	match config.input_controller_secondary_axis:
 		"right":
-			sec_axis = 2
+			sec_axis = JOY_AXIS_RIGHT_X
 		"left", _:
-			sec_axis = 0
+			sec_axis = JOY_AXIS_LEFT_X
 
 	var data := {
 		"rh_left": [main_axis, -1],
@@ -216,7 +217,10 @@ func handle_controller_button_remap(key: String, old: int, new: int):
 	elif key == "ui_down":
 		events.append_array(InputMap.action_get_events("ui_focus_next"))
 	for e in events:
-		if e is InputEventJoypadButton and e.button_index == old:
+		if (old & CONTROLLER_AXIS_FLAG) and e is InputEventJoypadMotion and e.axis == (old & ~CONTROLLER_AXIS_FLAG):
+			InputMap.action_erase_event(key, e)
+			break
+		elif e is InputEventJoypadButton and e.button_index == old:
 			InputMap.action_erase_event(key, e)
 			break
 	# ui_up/ui_down are replaced by ui_focus_next/ui_focus_prev when screen readers are enabled
@@ -227,8 +231,15 @@ func handle_controller_button_remap(key: String, old: int, new: int):
 			"ui_down":
 				key = "ui_focus_next"
 	# Now add the new one
-	var event := InputEventJoypadButton.new()
-	event.button_index = new
+	var event : InputEvent
+	if new & CONTROLLER_AXIS_FLAG:
+		var axis := new & ~CONTROLLER_AXIS_FLAG
+		event = InputEventJoypadMotion.new()
+		event.axis = axis
+		event.axis_value = 1
+	else:
+		event = InputEventJoypadButton.new()
+		event.button_index = new
 	InputMap.action_add_event(key, event)
 
 func load_config_file():

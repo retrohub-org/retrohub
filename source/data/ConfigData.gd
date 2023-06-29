@@ -153,9 +153,7 @@ static func default_input_controller_map() -> Dictionary:
 		"rh_left": [JOY_BUTTON_DPAD_LEFT],
 		"rh_right": [JOY_BUTTON_DPAD_RIGHT],
 		"rh_left_shoulder": [JOY_BUTTON_LEFT_SHOULDER],
-		"rh_right_shoulder": [JOY_BUTTON_RIGHT_SHOULDER],
-		"rh_left_trigger": [JOY_AXIS_TRIGGER_LEFT],
-		"rh_right_trigger": [JOY_AXIS_TRIGGER_RIGHT]
+		"rh_right_shoulder": [JOY_BUTTON_RIGHT_SHOULDER]
 	}
 
 static func default_virtual_keyboard_type() -> String:

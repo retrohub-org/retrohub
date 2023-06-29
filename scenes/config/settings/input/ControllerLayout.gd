@@ -45,12 +45,12 @@ class JoyMapping:
 		"dpright": JOY_BUTTON_DPAD_RIGHT,
 
 		# Axis
+		"lefttrigger": JOY_AXIS_TRIGGER_LEFT,
+		"righttrigger": JOY_AXIS_TRIGGER_RIGHT,
 		"lefty": JOY_AXIS_LEFT_Y,
 		"leftx": JOY_AXIS_LEFT_X,
 		"righty": JOY_AXIS_RIGHT_Y,
 		"rightx": JOY_AXIS_RIGHT_X,
-		"lefttrigger": JOY_AXIS_TRIGGER_LEFT,
-		"righttrigger": JOY_AXIS_TRIGGER_RIGHT,
 	}
 
 	var type : int = TYPE.NONE
@@ -84,10 +84,10 @@ var tts_joy_axis_utterance = null
 	$"%A", $"%B", $"%Y", $"%X",
 	$"%Start", $"%Select",
 	$"%L1", $"%R1",
-	$"%L2", $"%R2",
 	$"%L3", $"%R3",
 	$"%UpDPAD", $"%DownDPAD",
 	$"%LeftDPAD", $"%RightDPAD",
+	$"%L2", $"%R2",
 	$"%YAxisLStick", $"%XAxisLStick",
 	$"%YAxisRStick", $"%XAxisRStick"
 ]
@@ -96,13 +96,17 @@ var joy_descriptions := [
 	"South Button", "East Button", "North Button", "West Button",
 	"Start/Options Button", "Select/View Button",
 	"Left Bumper", "Right Bumper",
-	"Left Trigger", "Right Trigger",
 	"Left Stick Click", "Right Stick Click",
 	"Up DPAD", "Down DPAD",
 	"Left DPAD", "Right DPAD",
+	"Left Trigger", "Right Trigger",
 	"Up/Down on Left Stick", "Left/Right on Left Stick",
 	"Up/Down on Right Stick", "Left/Right on Right Stick"
 ]
+
+const JOY_START_BUTTONS = 0
+const JOY_START_AXIS = 14
+const JOY_END = 20
 
 @onready var joy_half_axis := [
 	$"%UpLStick", $"%DownLStick",
@@ -195,10 +199,6 @@ func _input_done(event):
 				$"%L1".modulate = current_mapping if event.pressed else known_mapping
 			JOY_BUTTON_RIGHT_SHOULDER:
 				$"%R1".modulate = current_mapping if event.pressed else known_mapping
-			JOY_AXIS_TRIGGER_LEFT:
-				$"%L2".modulate = current_mapping if event.pressed else known_mapping
-			JOY_AXIS_TRIGGER_RIGHT:
-				$"%R2".modulate = current_mapping if event.pressed else known_mapping
 			JOY_BUTTON_LEFT_STICK:
 				$"%L3".modulate = current_mapping if event.pressed else known_mapping
 			JOY_BUTTON_RIGHT_STICK:
@@ -218,6 +218,10 @@ func _input_done(event):
 	elif event is InputEventJoypadMotion:
 		get_viewport().set_input_as_handled()
 		match event.axis:
+			JOY_AXIS_TRIGGER_LEFT:
+				$"%L2".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
+			JOY_AXIS_TRIGGER_RIGHT:
+				$"%R2".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
 			JOY_AXIS_LEFT_Y:
 				$"%UpLStick".modulate = known_mapping.lerp(current_mapping, max(0, -event.axis_value))
 				$"%DownLStick".modulate = known_mapping.lerp(current_mapping, max(0, event.axis_value))
@@ -299,7 +303,7 @@ func start():
 	joy_guid = Input.get_joy_guid(0)
 	joy_name = Input.get_joy_name(0)
 	Input.remove_joy_mapping(joy_guid)
-	curr_step = 0
+	curr_step = JOY_START_BUTTONS
 	step()
 	await get_tree().process_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
@@ -333,20 +337,20 @@ func mark_done():
 		n_lbl_done.grab_focus()
 
 func step():
-	n_btn_prev.disabled = curr_step == 0
-	if curr_step >= steps.size():
+	n_btn_prev.disabled = curr_step == JOY_START_BUTTONS
+	if curr_step >= JOY_END:
 		_remap(cur_mapping)
 	else:
 		n_action_desc.text = joy_descriptions[curr_step]
 		# Set the last button to known mapping
-		if curr_step > 0:
+		if curr_step > JOY_START_BUTTONS:
 			joy_inputs[curr_step-1].modulate = known_mapping
 		joy_inputs[curr_step].modulate = current_mapping
-		n_lbl_move.visible = curr_step > 15
-		n_lbl_press.visible = curr_step <= 15
-		if curr_step == 16:
+		n_lbl_move.visible = curr_step >= JOY_START_AXIS
+		n_lbl_press.visible = curr_step < JOY_START_AXIS
+		if curr_step == JOY_START_AXIS:
 			TTS.speak(n_lbl_move.text)
-		TTS.speak(n_action_desc.text, curr_step != 16)
+		TTS.speak(n_action_desc.text, curr_step != JOY_START_AXIS)
 
 func next():
 	curr_step += 1
@@ -356,7 +360,7 @@ func _on_SkipButton_pressed():
 	# Use existing default value
 	var key : String = steps[curr_step]
 	var mapping : JoyMapping
-	if curr_step > 15:
+	if curr_step >= JOY_START_AXIS:
 		# Axis
 		mapping = JoyMapping.new(JoyMapping.TYPE.AXIS, JoyMapping.BASE[key])
 	else:

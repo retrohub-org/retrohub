@@ -492,6 +492,7 @@ func _convert_joypad_button_to_path(button_index: int):
 			path = "joypad/lb"
 		JOY_BUTTON_RIGHT_SHOULDER:
 			path = "joypad/rb"
+		# FIXME: Solved on latest versions, these axis should not be here
 		JOY_AXIS_TRIGGER_LEFT:
 			path = "joypad/lt"
 		JOY_AXIS_TRIGGER_RIGHT:

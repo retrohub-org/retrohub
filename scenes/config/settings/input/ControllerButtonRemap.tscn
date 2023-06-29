@@ -26,8 +26,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 212.0
-offset_bottom = 160.0
+offset_right = -8.0
+offset_bottom = -8.0
 columns = 4
 
 [node name="A" type="Button" parent="GridContainer"]
@@ -157,8 +157,8 @@ force_type = 2
 [connection signal="pressed" from="GridContainer/Y" to="." method="_on_Icon_pressed" binds= [3]]
 [connection signal="pressed" from="GridContainer/LB" to="." method="_on_Icon_pressed" binds= [4]]
 [connection signal="pressed" from="GridContainer/RB" to="." method="_on_Icon_pressed" binds= [5]]
-[connection signal="pressed" from="GridContainer/LT" to="." method="_on_Icon_pressed" binds= [6]]
-[connection signal="pressed" from="GridContainer/RT" to="." method="_on_Icon_pressed" binds= [7]]
+[connection signal="pressed" from="GridContainer/LT" to="." method="_on_Icon_pressed" binds= [260]]
+[connection signal="pressed" from="GridContainer/RT" to="." method="_on_Icon_pressed" binds= [261]]
 [connection signal="pressed" from="GridContainer/Select" to="." method="_on_Icon_pressed" binds= [10]]
 [connection signal="pressed" from="GridContainer/Start" to="." method="_on_Icon_pressed" binds= [11]]
 [connection signal="pressed" from="GridContainer/LStick" to="." method="_on_Icon_pressed" binds= [8]]

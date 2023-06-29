@@ -82,6 +82,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -361,7 +362,6 @@ script = ExtResource("44")
 next = NodePath("../../../../../../..")
 
 [node name="Controller" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

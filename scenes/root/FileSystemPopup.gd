@@ -20,18 +20,17 @@ func _ready():
 	# Attach ControllerIcons to buttons
 	var box : HBoxContainer = ok_button.get_parent()
 	var back_icon := create_icon(controller_icon_rect, "rh_back")
-	box.get_child(0).add_sibling(back_icon)
+	box.get_child(0, true).add_sibling(back_icon)
 	var select_icon := create_icon(controller_icon_rect, "rh_major_option")
-	box.get_child(3).add_sibling(select_icon)
+	box.get_child(3, true).add_sibling(select_icon)
 
 	box = upwards_button.get_parent()
 	var upwards_icon := create_icon(controller_icon_rect, "rh_minor_option")
-	box.add_child(upwards_icon)
-	box.move_child(upwards_icon, 0)
+	box.get_child(1, true).add_sibling(upwards_icon)
 	var refresh_icon := create_icon(controller_icon_rect, "rh_theme_menu")
-	box.get_child(4).add_sibling(refresh_icon)
+	box.get_child(6, true).add_sibling(refresh_icon)
 	var hide_icon := create_icon(controller_icon_rect, "rh_menu")
-	box.get_child(6).add_sibling(hide_icon)
+	box.get_child(8, true).add_sibling(hide_icon)
 
 	# Tree should focus cancel button on down
 	path = "../../../%s/%s" % [

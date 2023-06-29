@@ -153,7 +153,7 @@ func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 	var map := RetroHubConfig.config.input_controller_map
 	if old_button in map[key]:
 		map[key].erase(old_button)
-	if  not new_button in map[key]:
+	if not new_button in map[key]:
 		map[key].push_back(new_button)
 	# Now, find keys with the new code, and replace with old code
 	for _key in map:
