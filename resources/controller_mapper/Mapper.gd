@@ -29,5 +29,7 @@ func _convert_joypad_path(path: String, fallback: int) -> String:
 			return super._convert_joypad_to_luna(path)
 		"stadia":
 			return super._convert_joypad_to_stadia(path)
+		"ouya":
+			return super._convert_joypad_to_ouya(path)
 		"auto", _:
 			return super._convert_joypad_path(path, fallback)

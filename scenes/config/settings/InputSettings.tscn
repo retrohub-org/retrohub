@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://deiyd6u1iogmn"]
+[gd_scene load_steps=46 format=3 uid="uid://deiyd6u1iogmn"]
 
 [ext_resource type="Script" path="res://scenes/config/settings/InputSettings.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://bp58drjdgvxsi" path="res://addons/controller_icons/assets/key/enter_alt.png" id="2"]
@@ -32,12 +32,13 @@
 [ext_resource type="Texture2D" uid="uid://cajx1v8mvjdv7" path="res://addons/controller_icons/assets/steam/a.png" id="25_yi2aa"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/Button.gd" id="26"]
 [ext_resource type="Texture2D" uid="uid://poaovfu3n5rj" path="res://addons/controller_icons/assets/steamdeck/a.png" id="26_a3707"]
-[ext_resource type="Texture2D" uid="uid://dhhjoq01cc2oh" path="res://addons/controller_icons/assets/xbox360/lt.png" id="26_vmwgh"]
 [ext_resource type="Texture2D" uid="uid://rn6k4m7fogon" path="res://addons/controller_icons/assets/luna/a.png" id="27_was5b"]
 [ext_resource type="Texture2D" uid="uid://d284wkmo0vqfk" path="res://addons/controller_icons/assets/xbox360/a.png" id="28"]
 [ext_resource type="Texture2D" uid="uid://bv4qgyj7ctpdi" path="res://addons/controller_icons/assets/stadia/a.png" id="28_6rdln"]
 [ext_resource type="PackedScene" uid="uid://cutbpb88koytn" path="res://scenes/config/settings/input/ControllerButtonRemap.tscn" id="29"]
+[ext_resource type="Texture2D" uid="uid://cvbc2l1ygkits" path="res://addons/controller_icons/assets/ouya/a.png" id="29_i5kv6"]
 [ext_resource type="Texture2D" uid="uid://coxp4sapp4g8n" path="res://addons/controller_icons/assets/xbox360/start.png" id="33_jbqxx"]
+[ext_resource type="Texture2D" uid="uid://cdjnpcxgnxrxb" path="res://addons/controller_icons/assets/xbox360/back.png" id="35_uj2md"]
 [ext_resource type="Texture2D" uid="uid://bamrmda3in3qq" path="res://addons/controller_icons/assets/xbox360/lb.png" id="37_nrf61"]
 [ext_resource type="Script" path="res://source/utils/SpinBoxHandler.gd" id="39"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="41"]
@@ -419,7 +420,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../../HBoxContainer4/CNReset")
 focus_neighbor_bottom = NodePath("../../HBoxContainer2/CNPreDelay")
 expand_icon = true
-item_count = 13
+item_count = 14
 selected = 0
 popup/item_0/text = "<detect automatically>"
 popup/item_0/id = 0
@@ -459,6 +460,9 @@ popup/item_11/id = 11
 popup/item_12/text = "Google Stadia"
 popup/item_12/icon = ExtResource("28_6rdln")
 popup/item_12/id = 12
+popup/item_13/text = "OUYA"
+popup/item_13/icon = ExtResource("29_i5kv6")
+popup/item_13/id = 13
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer"]
 layout_mode = 2
@@ -649,7 +653,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 tooltip_text = "Theme menu"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer/CNAccept")
-icon = ExtResource("26_vmwgh")
+icon = ExtResource("35_uj2md")
 expand_icon = true
 script = ExtResource("26")
 path = "rh_theme_menu"

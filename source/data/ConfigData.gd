@@ -420,5 +420,7 @@ func process_raw_config_changes(config: Dictionary):
 				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "luna"
 			12:
 				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "stadia"
+			13:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "ouya"
 			0, _:
 				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "auto"

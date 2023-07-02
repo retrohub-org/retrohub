@@ -72,6 +72,8 @@ func _on_config_ready(config_data: ConfigData):
 			n_cn_icon_type.selected = 11
 		"stadia":
 			n_cn_icon_type.selected = 12
+		"ouya":
+			n_cn_icon_type.selected = 13
 		"auto", _:
 			n_cn_icon_type.selected = 0
 	n_cn_pre_delay.set_value_no_signal(config_data.input_controller_echo_pre_delay)
@@ -206,6 +208,8 @@ func _on_CNIconType_item_selected(index):
 			RetroHubConfig.config.input_controller_icon_type = "luna"
 		12:
 			RetroHubConfig.config.input_controller_icon_type = "stadia"
+		13:
+			RetroHubConfig.config.input_controller_icon_type = "ouya"
 		0, _:
 			RetroHubConfig.config.input_controller_icon_type = "auto"
 	ControllerIcons.refresh()
@@ -291,5 +295,7 @@ func tts_text(focused: Control):
 				text += "xbox series"
 			ControllerSettings.Devices.STEAM_DECK:
 				text += "steam deck"
+			ControllerSettings.Devices.OUYA:
+				text += "ouya"
 		return text
 	return ""
