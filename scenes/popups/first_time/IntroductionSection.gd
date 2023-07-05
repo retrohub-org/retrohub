@@ -2,9 +2,9 @@ extends Control
 
 signal advance_section
 
-@onready var n_label := $"%Label"
-@onready var n_screen_reader := $"%ScreenReader"
-@onready var n_next_button := $"%NextButton"
+@onready var n_label := %Label
+@onready var n_screen_reader := %ScreenReader
+@onready var n_next_button := %NextButton
 
 func grab_focus():
 	TTS.speak("To enable the screen reader, press the Control key.")

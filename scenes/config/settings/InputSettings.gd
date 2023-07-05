@@ -1,34 +1,34 @@
 extends Control
 
-@onready var n_input_tab := $"%InputTab"
+@onready var n_input_tab := %InputTab
 
-@onready var n_kb_reset := $"%KBReset"
+@onready var n_kb_reset := %KBReset
 
-@onready var n_cn_reset := $"%CNReset"
-@onready var n_cn_start_layout := $"%CNStartLayout"
-@onready var n_cn_clear_layout := $"%CNClearLayout"
-@onready var n_cn_icon_type := $"%CNIconType"
-@onready var n_cn_pre_delay := $"%CNPreDelay"
-@onready var n_cn_delay := $"%CNDelay"
+@onready var n_cn_reset := %CNReset
+@onready var n_cn_start_layout := %CNStartLayout
+@onready var n_cn_clear_layout := %CNClearLayout
+@onready var n_cn_icon_type := %CNIconType
+@onready var n_cn_pre_delay := %CNPreDelay
+@onready var n_cn_delay := %CNDelay
 
-@onready var n_vkb_intro_lbl := $"%IntroLabel"
-@onready var n_vkb_layout := $"%VirtualKeyboardLayout"
-@onready var n_vkb_type := $"%VirtualKeyboardType"
-@onready var n_vkb_show_on_controller := $"%VirtualKeyboardOnController"
-@onready var n_vkb_show_on_mouse := $"%VirtualKeyboardOnMouse"
+@onready var n_vkb_intro_lbl := %IntroLabel
+@onready var n_vkb_layout := %VirtualKeyboardLayout
+@onready var n_vkb_type := %VirtualKeyboardType
+@onready var n_vkb_show_on_controller := %VirtualKeyboardOnController
+@onready var n_vkb_show_on_mouse := %VirtualKeyboardOnMouse
 
-@onready var n_controller_layout_popup := $"%ControllerLayout"
-@onready var n_key_remap_popup := $"%KeyboardRemap"
-@onready var n_ctrl_button_remap_popup := $"%ControllerButtonRemap"
-@onready var n_ctrl_axis_remap_popup := $"%ControllerAxisRemap"
+@onready var n_controller_layout_popup := %ControllerLayout
+@onready var n_key_remap_popup := %KeyboardRemap
+@onready var n_ctrl_button_remap_popup := %ControllerButtonRemap
+@onready var n_ctrl_axis_remap_popup := %ControllerAxisRemap
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
+	RetroHubConfig.config_ready.connect(_on_config_ready)
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 	#warning-ignore:return_value_discarded
-	ControllerIcons.connect("input_type_changed", Callable(self, "_on_input_type_changed"))
+	ControllerIcons.input_type_changed.connect(_on_input_type_changed)
 
 	n_cn_icon_type.get_popup().max_size.y = RetroHubUI.max_popupmenu_height + 50
 

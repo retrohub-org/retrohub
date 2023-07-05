@@ -1,16 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dhpcugwmspe7f"]
 
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="1"]
 
 [node name="NoThemeSettings" type="Label"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "The current theme doesn't have any
 custom configuration screen."
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AccessibilityFocus" type="Node" parent="."]
-script = ExtResource( 1 )
+script = ExtResource("1")
 previous = NodePath("..")
 next = NodePath("..")

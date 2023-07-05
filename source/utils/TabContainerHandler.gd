@@ -16,8 +16,8 @@ func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize
 	await get_tree().process_frame
 	focus_mode = Control.FOCUS_ALL
-	connect("focus_entered", Callable(self, "_on_focus_entered"))
-	connect("focus_exited", Callable(self, "_on_focus_exited"))
+	focus_entered.connect(_on_focus_entered)
+	focus_exited.connect(_on_focus_exited)
 	tab = get_child(0) if get_child_count() > 0 else null
 	if not tab or not tab is TabContainer:
 		push_error("TabContainerHandler has no TabContainer child! Queueing free...")

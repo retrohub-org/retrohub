@@ -2,7 +2,7 @@ extends Control
 
 signal cancel_entry(game_entry)
 
-@onready var n_waiting_cancel_button := $"%WaitingCancelButton"
+@onready var n_waiting_cancel_button := %WaitingCancelButton
 
 var game_entry : RetroHubScraperGameEntry
 

@@ -2,12 +2,12 @@ extends Window
 
 signal cores_picked(cores)
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_core_options := $"%CoreOptions"
-@onready var n_add_core := $"%AddCore"
-@onready var n_cores := $"%Cores"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_core_options := %CoreOptions
+@onready var n_add_core := %AddCore
+@onready var n_cores := %Cores
 
-@onready var n_ok := $"%OK"
+@onready var n_ok := %OK
 
 var root : TreeItem
 

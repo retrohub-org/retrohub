@@ -6,19 +6,19 @@ signal request_add_core
 var curr_emulator : Dictionary: set = set_curr_emulator
 var cores : Array
 
-@onready var n_logo := $"%Logo"
-@onready var n_name := $"%Identifier"
-@onready var n_fullname := $"%Name"
-@onready var n_path := $"%Path3D"
-@onready var n_core_path := $"%CorePath"
-@onready var n_command := $"%Command"
+@onready var n_logo := %Logo
+@onready var n_name := %Identifier
+@onready var n_fullname := %Name
+@onready var n_path := %Path3D
+@onready var n_core_path := %CorePath
+@onready var n_command := %Command
 
-@onready var n_core_option := $"%CoreOption"
-@onready var n_remove_core := $"%RemoveCore"
-@onready var n_add_core := $"%AddCore"
-@onready var n_core_identifier := $"%CoreIdentifier"
-@onready var n_core_name := $"%CoreName"
-@onready var n_core_file_name := $"%CoreFileName"
+@onready var n_core_option := %CoreOption
+@onready var n_remove_core := %RemoveCore
+@onready var n_add_core := %AddCore
+@onready var n_core_identifier := %CoreIdentifier
+@onready var n_core_name := %CoreName
+@onready var n_core_file_name := %CoreFileName
 
 func focus_node_from_top():
 	n_logo.grab_focus()

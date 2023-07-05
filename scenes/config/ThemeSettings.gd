@@ -4,7 +4,7 @@ extends ScrollContainer
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHub.connect("_theme_loaded", Callable(self, "_on_theme_loaded"))
+	RetroHub._theme_loaded.connect(_on_theme_loaded)
 
 func grab_focus():
 	if(get_child_count() > 0):

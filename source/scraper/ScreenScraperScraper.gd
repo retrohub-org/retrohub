@@ -19,7 +19,7 @@ class RequestDetails:
 
 	func _init():
 		#warning-ignore:return_value_discarded
-		_http.connect("request_completed", Callable(self, "_on_request_completed"))
+		_http.request_completed.connect(_on_request_completed)
 		_http.use_threads = true
 		_http.timeout = 10
 

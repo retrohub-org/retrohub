@@ -2,9 +2,9 @@ extends Control
 
 signal advance_section
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_systems := $"%Systems"
-@onready var n_emulator_info_tab := $"%EmulatorInfoTab"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_systems := %Systems
+@onready var n_emulator_info_tab := %EmulatorInfoTab
 
 var icon_cache := {}
 var emulator_cache := {}

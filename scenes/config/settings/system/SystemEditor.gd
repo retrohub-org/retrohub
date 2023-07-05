@@ -10,16 +10,16 @@ var emulators : Array
 var extensions := []
 var emulator_tree_root : TreeItem
 
-@onready var n_photo := $"%Photo"
-@onready var n_logo := $"%Logo"
-@onready var n_name := $"%Identifier"
-@onready var n_fullname := $"%Name"
-@onready var n_category := $"%Category"
-@onready var n_emulators := $"%Emulators"
-@onready var n_extensions := $"%Extensions"
+@onready var n_photo := %Photo
+@onready var n_logo := %Logo
+@onready var n_name := %Identifier
+@onready var n_fullname := %Name
+@onready var n_category := %Category
+@onready var n_emulators := %Emulators
+@onready var n_extensions := %Extensions
 
-@onready var n_change_extensions := $"%ChangeExtensions"
-@onready var n_add_emulator := $"%AddEmulator"
+@onready var n_change_extensions := %ChangeExtensions
+@onready var n_add_emulator := %AddEmulator
 
 func _ready():
 	n_emulators.set_column_expand(0, true)

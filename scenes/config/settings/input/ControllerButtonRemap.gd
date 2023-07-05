@@ -3,10 +3,10 @@ extends PopupPanel
 signal remap_done(action, old_button, new_button)
 
 @onready var n_icons := [
-	$"%A", $"%B", $"%Y", $"%X",
-	$"%LB", $"%RB", $"%LT", $"%RT",
-	$"%Select", $"%Start",
-	$"%LStick", $"%RStick"
+	%A, %B, %Y, %X,
+	%LB, %RB, %LT, %RT,
+	%Select, %Start,
+	%LStick, %RStick
 ]
 
 var mappings := [

@@ -2,10 +2,10 @@ extends Window
 
 signal identifier_picked(id)
 
-@onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_intro_lbl := %IntroLabel
 
-@onready var n_options := $"%Options"
-@onready var n_ok := $"%OK"
+@onready var n_options := %Options
+@onready var n_ok := %OK
 
 @onready var base_text_intro : String = n_intro_lbl.text
 

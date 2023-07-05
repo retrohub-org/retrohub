@@ -2,10 +2,10 @@ extends Control
 
 signal advance_section
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_path := $"%Path3D"
-@onready var n_choose_dir := $"%ChooseDir"
-@onready var n_next_button := $"%NextButton"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_path := %Path3D
+@onready var n_choose_dir := %ChooseDir
+@onready var n_next_button := %NextButton
 
 func _ready():
 	set_path(RetroHubConfig.config.games_dir)

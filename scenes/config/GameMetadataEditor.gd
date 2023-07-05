@@ -3,23 +3,23 @@ extends Control
 signal change_ocurred
 signal reset_state
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_name := $"%Name"
-@onready var n_description := $"%Description"
-@onready var n_rating_lbl := $"%RatingLabel"
-@onready var n_rating := $"%Rating"
-@onready var n_release_date := $"%ReleaseDate"
-@onready var n_developer := $"%Developer"
-@onready var n_publisher := $"%Publisher"
-@onready var n_age_rating := $"%AgeRating"
-@onready var n_genres := $"%Genres"
-@onready var n_fixed_players := $"%FixedPlayers"
-@onready var n_fixed_players_num := $"%FixedPlayersNum"
-@onready var n_variable_players := $"%VariablePlayers"
-@onready var n_variable_players_min := $"%VariablePlayersMin"
-@onready var n_variable_players_max := $"%VariablePlayersMax"
-@onready var n_favorite := $"%Favorite"
-@onready var n_num_times_played := $"%NumTimesPlayed"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_name := %Name
+@onready var n_description := %Description
+@onready var n_rating_lbl := %RatingLabel
+@onready var n_rating := %Rating
+@onready var n_release_date := %ReleaseDate
+@onready var n_developer := %Developer
+@onready var n_publisher := %Publisher
+@onready var n_age_rating := %AgeRating
+@onready var n_genres := %Genres
+@onready var n_fixed_players := %FixedPlayers
+@onready var n_fixed_players_num := %FixedPlayersNum
+@onready var n_variable_players := %VariablePlayers
+@onready var n_variable_players_min := %VariablePlayersMin
+@onready var n_variable_players_max := %VariablePlayersMax
+@onready var n_favorite := %Favorite
+@onready var n_num_times_played := %NumTimesPlayed
 
 var game_data : RetroHubGameData: set = set_game_data
 
@@ -27,9 +27,9 @@ var game_data : RetroHubGameData: set = set_game_data
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("game_data_updated", Callable(self, "_on_game_data_updated"))
-	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHubConfig.game_data_updated.connect(_on_game_data_updated)
+	RetroHubConfig.config_ready.connect(_on_config_ready)
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 	n_age_rating.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 

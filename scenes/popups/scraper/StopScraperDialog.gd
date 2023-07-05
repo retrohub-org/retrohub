@@ -1,6 +1,6 @@
 extends ConfirmationDialog
 
-@onready var n_stop_description := $"%StopDescription"
+@onready var n_stop_description := %StopDescription
 
 @onready var base_text : String = n_stop_description.text
 

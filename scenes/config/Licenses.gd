@@ -2,8 +2,8 @@ extends Control
 
 const LICENSE_PATH := "res://assets/copyright/licenses/"
 
-@onready var n_names := $"%Names"
-@onready var n_content := $"%Content"
+@onready var n_names := %Names
+@onready var n_content := %Content
 
 var licenses := {}
 var root : TreeItem

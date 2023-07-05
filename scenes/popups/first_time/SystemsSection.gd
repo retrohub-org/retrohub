@@ -2,10 +2,10 @@ extends Control
 
 signal advance_section
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_categories := $"%Categories"
-@onready var n_system_trees := $"%SystemTrees"
-@onready var n_system_info := $"%SystemInfo"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_categories := %Categories
+@onready var n_system_trees := %SystemTrees
+@onready var n_system_info := %SystemInfo
 
 var categories := [
 	"Consoles",

@@ -2,13 +2,13 @@ extends Window
 
 signal extensions_picked(extensions)
 
-@onready var n_intro_lbl = $"%IntroLabel"
-@onready var n_new_extensions := $"%NewExtensions"
-@onready var n_ext_line_edit := $"%ExtLineEdit"
-@onready var n_add_extension := $"%AddExtension"
-@onready var n_curr_extensions := $"%CurrExtensions"
+@onready var n_intro_lbl = %IntroLabel
+@onready var n_new_extensions := %NewExtensions
+@onready var n_ext_line_edit := %ExtLineEdit
+@onready var n_add_extension := %AddExtension
+@onready var n_curr_extensions := %CurrExtensions
 
-@onready var n_ok := $"%OK"
+@onready var n_ok := %OK
 
 var extensions := []
 
@@ -63,7 +63,7 @@ func create_curr_extension_button(name: String):
 	var btn := Button.new()
 	btn.text = name
 	#warning-ignore:return_value_discarded
-	btn.connect("pressed", Callable(self, "_on_curr_button_pressed").bind(btn, n_curr_extensions.get_child_count()))
+	btn.pressed.connect(_on_curr_button_pressed.bind(btn, n_curr_extensions.get_child_count()))
 	n_curr_extensions.add_child(btn)
 
 	for child in n_new_extensions.get_children():
@@ -74,7 +74,7 @@ func create_new_extension_button(name: String) -> Button:
 	var btn := Button.new()
 	btn.text = name
 	#warning-ignore:return_value_discarded
-	btn.connect("pressed", Callable(self, "_on_new_button_pressed").bind(btn))
+	btn.pressed.connect(_on_new_button_pressed.bind(btn))
 	n_new_extensions.add_child(btn)
 	return btn
 

@@ -39,8 +39,8 @@ func _ready():
 
 		set(neighbour_str, NodePath(node_path_str))
 
-	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHubConfig.config_ready.connect(_on_config_ready)
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 	if RetroHub.is_main_app():
 		_on_config_ready(RetroHubConfig.config)

@@ -4,14 +4,14 @@ signal identifier_picked(id)
 
 var keys : Array
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_existing_label := $"%ExistingLabel"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_existing_label := %ExistingLabel
 
-@onready var n_line_edit := $"%LineEdit"
-@onready var n_check_lower := $"%CheckLower"
-@onready var n_check_special := $"%CheckSpecial"
-@onready var n_check_existing := $"%CheckExisting"
-@onready var n_ok := $"%OK"
+@onready var n_line_edit := %LineEdit
+@onready var n_check_lower := %CheckLower
+@onready var n_check_special := %CheckSpecial
+@onready var n_check_existing := %CheckExisting
+@onready var n_ok := %OK
 
 @onready var base_text_intro : String = n_intro_lbl.text
 @onready var base_text_existing : String = n_existing_label.text

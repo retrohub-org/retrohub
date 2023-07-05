@@ -2,13 +2,13 @@ extends Control
 
 signal advance_section
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_import_options := $"%ImportOptions"
-@onready var n_compatibility_details := $"%CompatibilityDetails"
-@onready var n_next_btn := $"%NextButton"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_import_options := %ImportOptions
+@onready var n_compatibility_details := %CompatibilityDetails
+@onready var n_next_btn := %NextButton
 
 
-@onready var n_copy_move_popup := $"%CopyMovePopup"
+@onready var n_copy_move_popup := %CopyMovePopup
 
 @onready var importers := [
 	EmulationStationImporter.new(),

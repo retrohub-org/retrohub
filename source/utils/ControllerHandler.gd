@@ -12,20 +12,20 @@ var _event_handled := false
 
 func _init():
 	#warning-ignore:return_value_discarded
-	ControllerIcons.connect("input_type_changed", Callable(self, "_on_input_type_changed"))
+	ControllerIcons.input_type_changed.connect(_on_input_type_changed)
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 	await get_tree().process_frame
 	move_to_front()
 	_joypad_echo_pre_delay.wait_time = RetroHubConfig.config.input_controller_echo_pre_delay
 	_joypad_echo_delay.wait_time = RetroHubConfig.config.input_controller_echo_delay
 	_joypad_echo_pre_delay.one_shot = true
 	#warning-ignore:return_value_discarded
-	_joypad_echo_pre_delay.connect("timeout", Callable(self, "_on_joypad_echo_pre_delay_timeout"))
+	_joypad_echo_pre_delay.timeout.connect(_on_joypad_echo_pre_delay_timeout)
 	#warning-ignore:return_value_discarded
-	_joypad_echo_delay.connect("timeout", Callable(self, "_on_joypad_echo_delay_timeout"))
+	_joypad_echo_delay.timeout.connect(_on_joypad_echo_delay_timeout)
 	add_child(_joypad_echo_pre_delay)
 	add_child(_joypad_echo_delay)
 

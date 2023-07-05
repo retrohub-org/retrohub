@@ -54,11 +54,11 @@ func _input(event):
 func _set_filesystem_popup(popup: FileDialog):
 	_n_filesystem_popup = popup
 	#warning-ignore:return_value_discarded
-	_n_filesystem_popup.connect("file_selected", Callable(self, "_on_popup_selected"))
+	_n_filesystem_popup.file_selected.connect(_on_popup_selected)
 	#warning-ignore:return_value_discarded
-	_n_filesystem_popup.connect("dir_selected", Callable(self, "_on_popup_selected"))
+	_n_filesystem_popup.dir_selected.connect(_on_popup_selected)
 	#warning-ignore:return_value_discarded
-	_n_filesystem_popup.connect("popup_hide", Callable(self, "_on_popup_hide"))
+	_n_filesystem_popup.visibility_changed.connect(_on_visibility_changed)
 
 func _set_virtual_keyboard(keyboard: PopupPanel):
 	_n_virtual_keyboard = keyboard
@@ -72,8 +72,9 @@ func _set_warning_popup(warning_popup: AcceptDialog):
 func _on_popup_selected(file: String):
 	emit_signal("path_selected", file)
 
-func _on_popup_hide():
-	emit_signal("path_selected", "")
+func _on_visibility_changed():
+	if not visible:
+		emit_signal("path_selected", "")
 
 func filesystem_filters(filters: Array = []):
 	_n_filesystem_popup.filters = filters

@@ -11,7 +11,7 @@ func _ready():
 	while node:
 		if node.has_signal("visibility_changed"):
 			#warning-ignore:return_value_discarded
-			node.connect("visibility_changed", Callable(self, "_on_visibility_changed"))
+			node.visibility_changed.connect(_on_visibility_changed)
 		node = node.get_parent()
 
 func _on_visibility_changed():

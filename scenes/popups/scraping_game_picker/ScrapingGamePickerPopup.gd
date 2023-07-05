@@ -2,7 +2,7 @@ extends ConfirmationDialog
 
 signal games_selected(game_data_array)
 
-@onready var n_game_tree := $"%GameTree"
+@onready var n_game_tree := %GameTree
 
 var root : TreeItem
 var systems_items : Dictionary

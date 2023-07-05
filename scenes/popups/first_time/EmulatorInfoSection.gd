@@ -7,10 +7,10 @@ extends VBoxContainer
 		if n_label:
 			n_label.text = label
 
-@onready var n_label := $"%Label"
-@onready var n_found_icon := $"%FoundIcon"
-@onready var n_found_label := $"%FoundLabel"
-@onready var n_found_details := $"%FoundDetails"
+@onready var n_label := %Label
+@onready var n_found_icon := %FoundIcon
+@onready var n_found_label := %FoundLabel
+@onready var n_found_details := %FoundDetails
 
 @onready var icon_found := preload("res://assets/icons/success.svg")
 @onready var icon_not_found := preload("res://assets/icons/failure.svg")

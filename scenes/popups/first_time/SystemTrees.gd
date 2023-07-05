@@ -2,13 +2,13 @@ extends Control
 
 signal system_selected(system)
 
-@onready var n_consoles := $"%Consoles"
-@onready var n_arcades := $"%Arcades"
-@onready var n_computers := $"%Computers"
-@onready var n_engines := $"%Engines"
-@onready var n_modern_consoles := $"%ModernConsoles"
+@onready var n_consoles := %Consoles
+@onready var n_arcades := %Arcades
+@onready var n_computers := %Computers
+@onready var n_engines := %Engines
+@onready var n_modern_consoles := %ModernConsoles
 
-@onready var n_system_warning := $"%SystemWarning"
+@onready var n_system_warning := %SystemWarning
 
 @onready var n_systems := [
 	n_consoles, n_arcades, n_computers,
@@ -19,7 +19,7 @@ var _tts_last_item : TreeItem
 
 func _ready():
 	for system in n_systems:
-		system.connect("focus_entered", Callable(self, "_on_tree_focus_entered").bind(system))
+		system.focus_entered.connect(_on_tree_focus_entered.bind(system))
 
 func _on_tree_focus_entered(tree: Tree):
 	if not tree.get_selected():

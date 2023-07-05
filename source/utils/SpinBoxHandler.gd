@@ -23,7 +23,7 @@ func _ready():
 		return
 	spin_box.focus_mode = FOCUS_ALL
 	#warning-ignore:return_value_discarded
-	spin_box.connect("focus_entered", Callable(self, "_on_focus_entered"))
+	spin_box.focus_entered.connect(_on_focus_entered)
 	for dir in [
 		Dir.TOP,
 		Dir.BOTTOM,

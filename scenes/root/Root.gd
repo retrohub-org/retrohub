@@ -5,8 +5,8 @@ extends Control
 
 @onready var n_config_popup := $ConfigPopup
 @onready var n_filesystem_popup := $FileSystemPopup
-@onready var n_keyboard_popup := $"%Keyboard"
-@onready var n_warning_popup := $"%WarningPopup"
+@onready var n_keyboard_popup := %Keyboard
+@onready var n_warning_popup := %WarningPopup
 
 @onready var popup_nodes := [
 	n_config_popup,
@@ -35,11 +35,11 @@ func _input(event: InputEvent):
 func _ready():
 	closed_popup()
 	#warning-ignore:return_value_discarded
-	RetroHub.connect("_theme_loaded", Callable(self, "_on_theme_loaded"))
+	RetroHub._theme_loaded.connect(_on_theme_loaded)
 	#warning-ignore:return_value_discarded
-	RetroHub.connect("_game_loaded", Callable(self, "_on_game_loaded"))
+	RetroHub._game_loaded.connect(_on_game_loaded)
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 	# Add popups to UI singleton
 	RetroHubUI._n_filesystem_popup = n_filesystem_popup
@@ -49,9 +49,9 @@ func _ready():
 
 	# Handle viewport changes
 	#warning-ignore:return_value_discarded
-	get_viewport().connect("size_changed", Callable(self, "_on_vp_size_changed"))
+	get_viewport().size_changed.connect(_on_vp_size_changed)
 	#warning-ignore:return_value_discarded
-	n_viewport.connect("gui_focus_changed", Callable(self, "_on_vp_gui_focus_changed"))
+	n_viewport.gui_focus_changed.connect(_on_vp_gui_focus_changed)
 	_on_vp_size_changed()
 
 	# Wait an idle frame for the config to load
@@ -84,11 +84,11 @@ func show_first_time_popup():
 	add_child(first_time_popup)
 	popup_nodes.push_back(first_time_popup)
 	#warning-ignore:return_value_discarded
-	first_time_popup.connect("about_to_popup", Callable(self, "opened_popup"))
+	first_time_popup.about_to_popup.connect(opened_popup)
 	#warning-ignore:return_value_discarded
-	first_time_popup.connect("popup_hide", Callable(self, "closed_popup"))
+	first_time_popup.popup_hide.connect(closed_popup)
 	#warning-ignore:return_value_discarded
-	first_time_popup.connect("popup_hide", Callable(self, "_on_first_time_popup_closed").bind(first_time_popup))
+	first_time_popup.popup_hide.connect(_on_first_time_popup_closed.bind(first_time_popup))
 	# Wait a frame for the window to be at the right resolution
 	await get_tree().process_frame
 	first_time_popup.popup_centered()
@@ -107,9 +107,8 @@ func _on_vp_gui_focus_changed(control: Control) -> void:
 		n_last_focused = control
 
 func _on_theme_loaded(theme_data: RetroHubTheme):
-	pass
-	#n_viewport.set_theme(theme_data.entry_scene)
-	#print("Loaded theme")
+	n_viewport.set_theme(theme_data.entry_scene)
+	print("Loaded theme")
 
 func _on_game_loaded(game_data: RetroHubGameData):
 	var game_launched_child : Node = load("res://scenes/game_launched/GameLaunched.tscn").instantiate()

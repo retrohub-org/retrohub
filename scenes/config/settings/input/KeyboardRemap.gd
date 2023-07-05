@@ -2,9 +2,9 @@ extends Window
 
 signal key_remapped(key, old_code, new_code)
 
-@onready var n_key_icon := $"%KeyIcon"
-@onready var n_key_label := $"%KeyLabel"
-@onready var n_timer := $"%Timer"
+@onready var n_key_icon := %KeyIcon
+@onready var n_key_label := %KeyLabel
+@onready var n_timer := %Timer
 
 @onready var base_text : String = n_key_label.text
 
@@ -19,7 +19,7 @@ func start(_key: String):
 	n_key_icon.texture = null
 	n_key_label.text = base_text
 	popup_centered()
-	TTS.speak($"%Label".text)
+	TTS.speak(%Label.text)
 
 func _input(event):
 	if visible and event is InputEventKey:

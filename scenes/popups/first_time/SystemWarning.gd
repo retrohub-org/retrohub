@@ -1,6 +1,6 @@
 extends AcceptDialog
 
-@onready var n_lbl := $"%Label2"
+@onready var n_lbl := %Label2
 
 func _on_SystemWarning_about_to_show():
 	await get_tree().process_frame

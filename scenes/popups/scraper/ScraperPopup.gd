@@ -4,19 +4,19 @@ signal scrape_step(game_entry)
 
 @export var system_entry_scene : PackedScene
 
-@onready var n_scraper_done := $"%ScraperDone"
-@onready var n_scraper_warning := $"%ScraperWarning"
-@onready var n_scraper_error := $"%ScraperError"
-@onready var n_scraper_pending := $"%ScraperPending"
-@onready var n_scraper_details := $"%ScraperDetails"
+@onready var n_scraper_done := %ScraperDone
+@onready var n_scraper_warning := %ScraperWarning
+@onready var n_scraper_error := %ScraperError
+@onready var n_scraper_pending := %ScraperPending
+@onready var n_scraper_details := %ScraperDetails
 
-@onready var n_game_entries := $"%GameEntries"
-@onready var n_game_entry_editor := $"%GameEntryEditor"
-@onready var n_pending_games := $"%PendingGames"
-@onready var n_finish := $"%Finish"
-@onready var n_warning := $"%Warning"
+@onready var n_game_entries := %GameEntries
+@onready var n_game_entry_editor := %GameEntryEditor
+@onready var n_pending_games := %PendingGames
+@onready var n_finish := %Finish
+@onready var n_warning := %Warning
 
-@onready var n_stop_scraper_dialog := $"%StopScraperDialog"
+@onready var n_stop_scraper_dialog := %StopScraperDialog
 
 @onready var button_group := ButtonGroup.new()
 
@@ -390,11 +390,11 @@ func populate_game_entries():
 		var data : RetroHubGameData = game_data.duplicate() if not scrape_data else game_data
 		var game_entry : RetroHubScraperGameEntry = scene_entry_list[game_data.system].add_game_entry(data, button_group)
 		#warning-ignore:return_value_discarded
-		game_entry.connect("game_selected", Callable(self, "_on_game_entry_selected"))
+		game_entry.game_selected.connect(_on_game_entry_selected)
 		#warning-ignore:return_value_discarded
-		game_entry.connect("focus_exited", Callable(n_game_entries, "_on_game_entry_focus_exited"))
+		game_entry.focus_exited.connect(n_game_entries, "_on_game_entry_focus_exited)
 		#warning-ignore:return_value_discarded
-		game_entry.connect("game_selected", Callable(n_game_entries, "_on_game_entry_selected"))
+		game_entry.game_selected.connect(n_game_entries, "_on_game_entry_selected)
 		game_entry_list.push_back(game_entry)
 	num_games_success = 0
 	num_games_warning = 0

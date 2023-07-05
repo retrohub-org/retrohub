@@ -3,7 +3,7 @@ extends PopupPanel
 signal remap_done(action, old_axis, new_axis)
 
 @onready var n_icons := [
-	$"%LStick", $"%RStick"
+	%LStick, %RStick
 ]
 
 var mappings := [

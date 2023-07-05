@@ -52,7 +52,7 @@ func _ready():
 		await get_tree().process_frame
 		emit_signal("config_ready", config)
 	#warning-ignore:return_value_discarded
-	config.connect("config_updated", Callable(self, "_on_config_updated"))
+	config.config_updated.connect(_on_config_updated)
 
 func load_user_data():
 	load_systems()
@@ -421,7 +421,6 @@ func is_file_from_system(file_name: String, system_name: String) -> bool:
 
 
 func load_theme() -> bool:
-	return false
 	var current_theme := config.current_theme
 	if current_theme.ends_with(".pck"):
 		theme_path = get_themes_dir() + "/" + current_theme

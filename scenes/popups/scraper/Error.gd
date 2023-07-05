@@ -2,8 +2,8 @@ extends Control
 
 signal retry_entry(game_entry, req)
 
-@onready var n_label := $"%ErrorLabel"
-@onready var n_retry := $"%ErrorRetryButton"
+@onready var n_label := %ErrorLabel
+@onready var n_retry := %ErrorRetryButton
 
 @onready var base_text : String = n_label.text
 

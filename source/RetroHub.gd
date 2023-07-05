@@ -43,9 +43,9 @@ Emulators: Check if your desired emulator has valid paths and the command is cor
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
+	RetroHubConfig.config_ready.connect(_on_config_ready)
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 	emit_signal("app_initializing", true)
 
 func _notification(what):

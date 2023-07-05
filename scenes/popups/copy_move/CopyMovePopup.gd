@@ -2,20 +2,20 @@ extends Window
 
 signal import_begin(importer, copy_mode)
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_move_section := $"%MoveSection"
-@onready var n_copy_section := $"%CopySection"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_move_section := %MoveSection
+@onready var n_copy_section := %CopySection
 @onready var n_section_labels := [
-	$"%MoveFiles",
-	$"%CopyFiles",
-	$"%MoveDisadvantage",
-	$"%CopyAdvantage"
+	%MoveFiles,
+	%CopyFiles,
+	%MoveDisadvantage,
+	%CopyAdvantage
 ]
-@onready var n_size := $"%Size"
-@onready var n_space_left := $"%SpaceLeft"
-@onready var n_move_copy_button := $"%MoveCopyButton"
-@onready var n_cancel := $"%Cancel"
-@onready var n_import := $"%Import"
+@onready var n_size := %Size
+@onready var n_space_left := %SpaceLeft
+@onready var n_move_copy_button := %MoveCopyButton
+@onready var n_cancel := %Cancel
+@onready var n_import := %Import
 
 var base_texts := []
 var file_size : int
@@ -98,15 +98,15 @@ func tts_text(focused: Control) -> String:
 			return ""
 
 func tts_move_section() -> String:
-	return $"%MoveFiles".text + ". Advantage: " + $VBoxContainer/HBoxContainer/MoveSection/HBoxContainer/Label.text \
-		+ ". Disadvantage: " + $"%MoveDisadvantage".text
+	return %MoveFiles.text + ". Advantage: " + $VBoxContainer/HBoxContainer/MoveSection/HBoxContainer/Label.text \
+		+ ". Disadvantage: " + %MoveDisadvantage.text
 
 func tts_copy_section() -> String:
-	return $"%CopyFiles".text + ". Advantage: " + $"%CopyAdvantage".text \
+	return %CopyFiles.text + ". Advantage: " + %CopyAdvantage.text \
 		+ ". Disadvantage: " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer2/Label.text \
 		+ ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer3/Label.text \
-		+ $"%Size".text + ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer4/Label.text \
-		+ $"%SpaceLeft".text
+		+ %Size.text + ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer4/Label.text \
+		+ %SpaceLeft.text
 
 func tts_move_copy_button() -> String:
 	return "CheckButton. Currently selected mode: " + ("copy" if n_move_copy_button.button_pressed else "move") \

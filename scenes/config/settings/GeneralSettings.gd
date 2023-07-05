@@ -1,25 +1,25 @@
 extends Control
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_game_lib_dir := $"%GameLibDir"
-@onready var n_set_game_path := $"%SetGamePath"
-@onready var n_themes := $"%Themes"
-@onready var n_language := $"%Language"
-@onready var n_first_time_wizard_warning := $"%FirstTimeWizardWarning"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_game_lib_dir := %GameLibDir
+@onready var n_set_game_path := %SetGamePath
+@onready var n_themes := %Themes
+@onready var n_language := %Language
+@onready var n_first_time_wizard_warning := %FirstTimeWizardWarning
 
-@onready var n_graphics_mode := $"%GraphicsMode"
-@onready var n_vsync := $"%VSync"
-@onready var n_render_res_label := $"%RenderResLabel"
-@onready var n_render_res := $"%RenderRes"
-@onready var n_screen_reader := $"%ScreenReader"
+@onready var n_graphics_mode := %GraphicsMode
+@onready var n_vsync := %VSync
+@onready var n_render_res_label := %RenderResLabel
+@onready var n_render_res := %RenderRes
+@onready var n_screen_reader := %ScreenReader
 
 var theme_id_map := {}
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
+	RetroHubConfig.config_ready.connect(_on_config_ready)
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:

@@ -1,19 +1,22 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://b8xlmr85tnaaf"]
 
-[ext_resource path="res://scenes/game_launched/GameLaunched.gd" type="Script" id=1]
-[ext_resource path="res://assets/emulators/cemu.png" type="Texture2D" id=2]
-[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=3]
-[ext_resource path="res://resources/fonts/default_bold.tres" type="FontFile" id=4]
-[ext_resource path="res://resources/fonts/default_italic.tres" type="FontFile" id=5]
-[ext_resource path="res://addons/controller_icons/assets/key/esc.png" type="Texture2D" id=7]
-[ext_resource path="res://assets/icons/controller_mapper/circle_progress.png" type="Texture2D" id=8]
+[ext_resource type="Script" path="res://scenes/game_launched/GameLaunched.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dcgmuvndftj33" path="res://assets/emulators/cemu.png" id="2"]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="3"]
+[ext_resource type="FontFile" path="res://resources/fonts/default_bold.tres" id="4"]
+[ext_resource type="FontFile" path="res://resources/fonts/default_italic.tres" id="5"]
+[ext_resource type="Texture2D" uid="uid://cnghdqiitl0fu" path="res://addons/controller_icons/assets/key/esc.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://ddp1gtij42kct" path="res://assets/icons/controller_mapper/circle_progress.png" id="8"]
 
 [node name="CenterContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -24,76 +27,61 @@ offset_right = 298.0
 offset_bottom = 133.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-offset_right = 596.0
-offset_bottom = 96.0
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
 [node name="EmuLogo" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-offset_right = 96.0
-offset_bottom = 96.0
-custom_minimum_size = Vector2( 96, 96 )
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
-offset_left = 106.0
-offset_right = 596.0
-offset_bottom = 96.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="GameName" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-offset_right = 490.0
-offset_bottom = 46.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 7
-theme_override_fonts/font = ExtResource( 4 )
+theme_override_fonts/font = ExtResource("4")
 text = "%s"
-autowrap = true
 clip_text = true
 
 [node name="EmuName" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-offset_top = 50.0
-offset_right = 490.0
-offset_bottom = 96.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "Running on %s"
-autowrap = true
 clip_text = true
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-offset_top = 202.0
-offset_right = 596.0
-offset_bottom = 222.0
+layout_mode = 2
 size_flags_vertical = 14
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "(remember to save your game progress before closing the emulator manually!)"
-align = 1
-valign = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-offset_top = 226.0
-offset_right = 596.0
-offset_bottom = 266.0
+layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="ControllerTextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
-offset_right = 40.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 7 )
-expand = true
-script = ExtResource( 3 )
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7")
+expand_mode = 1
+script = ExtResource("3")
 path = "rh_menu"
 
 [node name="KillPressProgress" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer2/ControllerTextureRect"]
 unique_name_in_owner = true
 show_behind_parent = true
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -104,15 +92,12 @@ offset_right = 23.0
 offset_bottom = 24.0
 max_value = 1.9
 step = 0.01
-texture_progress = ExtResource( 8 )
 fill_mode = 4
 nine_patch_stretch = true
+texture_progress = ExtResource("8")
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-offset_left = 50.0
-offset_top = 13.0
-offset_right = 186.0
-offset_bottom = 27.0
+layout_mode = 2
 text = "Kill emulator process"
 
 [node name="Timer" type="Timer" parent="."]

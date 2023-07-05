@@ -2,31 +2,31 @@ extends Control
 
 signal theme_reload
 
-@onready var n_intro_lbl = $"%IntroLabel"
-@onready var n_region := $"%Region"
-@onready var n_rating_system := $"%RatingSystem"
-@onready var n_date_format := $"%DateFormat"
+@onready var n_intro_lbl = %IntroLabel
+@onready var n_region := %Region
+@onready var n_rating_system := %RatingSystem
+@onready var n_date_format := %DateFormat
 
-@onready var n_genesis := $"%Genesis"
-@onready var n_nes := $"%NES"
-@onready var n_snes := $"%SNES"
-@onready var n_tg_16 := $"%TG16"
-@onready var n_tg_cd := $"%TGCD"
-@onready var n_odyssey2 := $"%Odyssey2"
+@onready var n_genesis := %Genesis
+@onready var n_nes := %NES
+@onready var n_snes := %SNES
+@onready var n_tg_16 := %TG16
+@onready var n_tg_cd := %TGCD
+@onready var n_odyssey2 := %Odyssey2
 
-@onready var n_genesis_icon := $"%GenesisIcon"
-@onready var n_nes_icon := $"%NESIcon"
-@onready var n_snes_icon := $"%SNESIcon"
-@onready var n_tg_16_icon := $"%TG16Icon"
-@onready var n_tgcd_icon := $"%TGCDIcon"
-@onready var n_odyssey2_icon := $"%Odyssey2Icon"
+@onready var n_genesis_icon := %GenesisIcon
+@onready var n_nes_icon := %NESIcon
+@onready var n_snes_icon := %SNESIcon
+@onready var n_tg_16_icon := %TG16Icon
+@onready var n_tgcd_icon := %TGCDIcon
+@onready var n_odyssey2_icon := %Odyssey2Icon
 
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
+	RetroHubConfig.config_ready.connect(_on_config_ready)
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:

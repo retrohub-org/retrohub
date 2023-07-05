@@ -1,32 +1,32 @@
 extends Control
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_service := $"%Service"
-@onready var n_games_selected := $"%GamesSelected"
-@onready var n_games_type := $"%GamesType"
-@onready var n_metadata := $"%Metadata"
-@onready var n_search_by_hash := $"%Hash"
-@onready var n_search_by_name := $"%Filename"
-@onready var n_hash_max_size_lbl := $"%HashMaxSizeLabel"
-@onready var n_hash_max_size := $"%HashMaxSize"
-@onready var n_media := $"%Media"
-@onready var n_media_select_all := $"%MediaSelectAll"
-@onready var n_media_deselect_all := $"%MediaDeselectAll"
-@onready var n_media_logo := $"%MediaLogo"
-@onready var n_media_title_screen := $"%MediaTitleScreen"
-@onready var n_media_screenshot := $"%MediaScreenshot"
-@onready var n_media_video := $"%MediaVideo"
-@onready var n_media_box_render := $"%MediaBoxRender"
-@onready var n_media_box_tex := $"%MediaBoxTex"
-@onready var n_media_support_render := $"%MediaSupportRender"
-@onready var n_media_support_tex := $"%MediaSupportTex"
-@onready var n_media_manual := $"%MediaManual"
-@onready var n_scrape := $"%Scrape"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_service := %Service
+@onready var n_games_selected := %GamesSelected
+@onready var n_games_type := %GamesType
+@onready var n_metadata := %Metadata
+@onready var n_search_by_hash := %Hash
+@onready var n_search_by_name := %Filename
+@onready var n_hash_max_size_lbl := %HashMaxSizeLabel
+@onready var n_hash_max_size := %HashMaxSize
+@onready var n_media := %Media
+@onready var n_media_select_all := %MediaSelectAll
+@onready var n_media_deselect_all := %MediaDeselectAll
+@onready var n_media_logo := %MediaLogo
+@onready var n_media_title_screen := %MediaTitleScreen
+@onready var n_media_screenshot := %MediaScreenshot
+@onready var n_media_video := %MediaVideo
+@onready var n_media_box_render := %MediaBoxRender
+@onready var n_media_box_tex := %MediaBoxTex
+@onready var n_media_support_render := %MediaSupportRender
+@onready var n_media_support_tex := %MediaSupportTex
+@onready var n_media_manual := %MediaManual
+@onready var n_scrape := %Scrape
 
-@onready var n_scraping_game_picker_popup := $"%ScrapingGamePickerPopup"
-@onready var n_scrape_popup := $"%ScraperPopup"
+@onready var n_scraping_game_picker_popup := %ScrapingGamePickerPopup
+@onready var n_scrape_popup := %ScraperPopup
 
-@onready var n_ss_settings := $"%ScreenScrapperSettings"
+@onready var n_ss_settings := %ScreenScrapperSettings
 
 @onready var n_media_nodes := [
 	n_media_logo,
@@ -43,7 +43,7 @@ extends Control
 var selected_game_datas : Array
 
 func _ready():
-	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
+	RetroHubConfig.config_ready.connect(_on_config_ready)
 	visibility_changed.connect(_on_ScraperSettings_visibility_changed)
 
 func _on_config_ready(config_data: ConfigData):

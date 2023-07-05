@@ -4,12 +4,12 @@ signal change_ocurred
 
 var curr_emulator : Dictionary: set = set_curr_emulator
 
-@onready var n_intro_lbl := $"%IntroLabel"
-@onready var n_logo := $"%Logo"
-@onready var n_name := $"%Identifier"
-@onready var n_fullname := $"%Name"
-@onready var n_path := $"%Path3D"
-@onready var n_command := $"%Command"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_logo := %Logo
+@onready var n_name := %Identifier
+@onready var n_fullname := %Name
+@onready var n_path := %Path3D
+@onready var n_command := %Command
 
 func focus_node_from_top():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:

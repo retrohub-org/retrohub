@@ -3,12 +3,12 @@ extends Control
 var low_cpu_mode_orig : bool
 var low_cpu_mode_sleep_orig : int
 
-@onready var n_emu_logo := $"%EmuLogo"
-@onready var n_game_name := $"%GameName"
-@onready var n_emu_name := $"%EmuName"
+@onready var n_emu_logo := %EmuLogo
+@onready var n_game_name := %GameName
+@onready var n_emu_name := %EmuName
 
-@onready var n_kill_press_progress := $"%KillPressProgress"
-@onready var n_timer := $"%Timer"
+@onready var n_kill_press_progress := %KillPressProgress
+@onready var n_timer := %Timer
 
 @onready var game_name_orig_text : String = n_game_name.text
 @onready var emu_name_orig_text : String = n_emu_name.text

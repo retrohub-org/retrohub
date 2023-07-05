@@ -3,19 +3,19 @@ extends Control
 signal request_search(search, game_data)
 signal search_completed(orig_game_data, new_game_data)
 
-@onready var n_no_games_lbl := $"%NoGamesLabel"
-@onready var n_multiple_games_lbl := $"%MultipleGamesLabel"
+@onready var n_no_games_lbl := %NoGamesLabel
+@onready var n_multiple_games_lbl := %MultipleGamesLabel
 
-@onready var n_search_field := $"%SearchField"
-@onready var n_search := $"%Search"
-@onready var n_screenshot := $"%Screenshot"
-@onready var n_developer := $"%Developer"
-@onready var n_publisher := $"%Publisher"
-@onready var n_num_players := $"%NumPlayers"
-@onready var n_name := $"%Name"
-@onready var n_description := $"%Description"
-@onready var n_game_search_entries := $"%GameSearchEntries"
-@onready var n_confirm := $"%Confirm"
+@onready var n_search_field := %SearchField
+@onready var n_search := %Search
+@onready var n_screenshot := %Screenshot
+@onready var n_developer := %Developer
+@onready var n_publisher := %Publisher
+@onready var n_num_players := %NumPlayers
+@onready var n_name := %Name
+@onready var n_description := %Description
+@onready var n_game_search_entries := %GameSearchEntries
+@onready var n_confirm := %Confirm
 
 @onready var button_group := ButtonGroup.new()
 
@@ -152,7 +152,7 @@ func create_entry(game_data: RetroHubGameData) -> Button:
 	button.button_group = button_group
 	button.toggle_mode = true
 	#warning-ignore:return_value_discarded
-	button.connect("toggled", Callable(self, "_on_entry_toggled").bind(game_data))
+	button.toggled.connect(_on_entry_toggled.bind(game_data))
 	n_game_search_entries.add_child(button)
 	return button
 

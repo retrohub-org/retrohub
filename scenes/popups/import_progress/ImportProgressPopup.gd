@@ -19,9 +19,9 @@ func _on_CopyMovePopup_import_begin(_importer: RetroHubImporter, copy_mode: bool
 	importer = _importer
 	n_import.text = base_text % importer.get_name()
 	#warning-ignore:return_value_discarded
-	importer.connect("import_major_step", Callable(self, "_on_import_major_step"))
+	importer.import_major_step.connect(_on_import_major_step)
 	#warning-ignore:return_value_discarded
-	importer.connect("import_minor_step", Callable(self, "_on_import_minor_step"))
+	importer.import_minor_step.connect(_on_import_minor_step)
 	TTS.speak(n_import.text + ". " + $Panel/VBoxContainer/Label2.text + ". Press the Control key to check the current progress.")
 
 	if thread.start(Callable(self, "t_import_begin").bind(copy_mode)):
