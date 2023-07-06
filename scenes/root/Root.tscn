@@ -16,14 +16,16 @@ shader_type canvas_item;
 
 uniform float blur_amount : hint_range(0, 5);
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform vec4 modulate : source_color;
 
 void fragment() {
-	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount);
+	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount) * modulate;
 }"
 
 [sub_resource type="ShaderMaterial" id="2"]
 shader = SubResource("1")
-shader_parameter/blur_amount = null
+shader_parameter/blur_amount = 1.0
+shader_parameter/modulate = Color(0.74902, 0.74902, 0.74902, 1)
 
 [node name="Root" type="Control"]
 layout_mode = 3
@@ -52,7 +54,6 @@ focus_mode = 2
 
 [node name="DarkenOverlay" type="ColorRect" parent="."]
 visible = false
-modulate = Color(0.74902, 0.74902, 0.74902, 1)
 material = SubResource("2")
 layout_mode = 0
 anchor_right = 1.0
