@@ -392,9 +392,9 @@ func populate_game_entries():
 		#warning-ignore:return_value_discarded
 		game_entry.game_selected.connect(_on_game_entry_selected)
 		#warning-ignore:return_value_discarded
-		game_entry.focus_exited.connect(n_game_entries, "_on_game_entry_focus_exited)
+		game_entry.focus_exited.connect(n_game_entries._on_game_entry_focus_exited)
 		#warning-ignore:return_value_discarded
-		game_entry.game_selected.connect(n_game_entries, "_on_game_entry_selected)
+		game_entry.game_selected.connect(n_game_entries._on_game_entry_selected)
 		game_entry_list.push_back(game_entry)
 	num_games_success = 0
 	num_games_warning = 0

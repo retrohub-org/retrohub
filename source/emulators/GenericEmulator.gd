@@ -7,10 +7,10 @@ var _substitutes := {}
 
 func _init(emulator_raw : Dictionary, game_data : RetroHubGameData):
 	_substitutes["rompath"] = game_data.path
-	var binpath := find_and_substitute_str(emulator_raw["binpath"], _substitutes)
+	var binpath := RetroHubGenericEmulator.find_and_substitute_str(emulator_raw["binpath"], _substitutes)
 	if not binpath.is_empty():
 		_substitutes["binpath"] = binpath
-		command = substitute_str(emulator_raw["command"], _substitutes)
+		command = RetroHubGenericEmulator.substitute_str(emulator_raw["command"], _substitutes)
 	else:
 		print("Could not find binpath for emulator \"%s\"" % emulator_raw["name"])
 

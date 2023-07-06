@@ -33,16 +33,16 @@ func _start_thread():
 			push_error("Thread start failed [t_process_media_requests]")
 
 func _stop_thread():
-	# FIXME: Re-enable when implemented
-	return
 	_queue_mutex.lock()
 	_queue.clear()
 	#warning-ignore:return_value_discarded
-	_semaphore.post()
+	if _semaphore:
+		_semaphore.post()
 	_queue_mutex.unlock()
 
-	_thread.wait_to_finish()
-	_thread = null
+	if _thread:
+		_thread.wait_to_finish()
+		_thread = null
 
 func t_process_media_requests():
 	while true:

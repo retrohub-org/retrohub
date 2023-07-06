@@ -43,9 +43,9 @@ static func get_config_path() -> String:
 
 func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores : Array):
 	super(emulator_raw, game_data)
-	var corepath := get_custom_core_path()
+	var corepath := RetroHubRetroArchEmulator.get_custom_core_path()
 	if corepath.is_empty():
-		corepath = find_and_substitute_str(emulator_raw["corepath"], _substitutes)
+		corepath = RetroHubRetroArchEmulator.find_and_substitute_str(emulator_raw["corepath"], _substitutes)
 	var corefile : String
 	_substitutes["corepath"] = corepath
 	for core_name in system_cores:
@@ -60,7 +60,7 @@ func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores
 			break
 
 	if not corefile.is_empty():
-		command = substitute_str(command, _substitutes)
+		command = RetroHubRetroArchEmulator.substitute_str(command, _substitutes)
 	else:
 		print("Could not find valid core file for emulator \"%s\"" % game_data.system.name)
 		command = ""

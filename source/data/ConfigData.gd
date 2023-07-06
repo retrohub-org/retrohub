@@ -17,20 +17,20 @@ var render_resolution : int = 100: set = _set_render_resolution
 var region : String = "usa": set = _set_region
 var rating_system : String = "esrb": set = _set_rating_system
 var date_format : String = "mm/dd/yyyy": set = _set_date_format
-var system_names : Dictionary = default_system_names(): set = _set_system_names
+var system_names : Dictionary = ConfigData.default_system_names(): set = _set_system_names
 var scraper_hash_file_size : int = 64: set = _set_scraper_hash_file_size
 var scraper_ss_use_custom_account : bool = false: set = _set_scraper_ss_use_custom_account
 var scraper_ss_max_threads : int = 6: set = _set_scraper_ss_max_threads
 var custom_input_remap : String = "": set = _set_custom_input_remap
-var input_key_map : Dictionary = default_input_key_map(): set = _set_input_key_map
-var input_controller_map : Dictionary = default_input_controller_map(): set = _set_input_controller_map
+var input_key_map : Dictionary = ConfigData.default_input_key_map(): set = _set_input_key_map
+var input_controller_map : Dictionary = ConfigData.default_input_controller_map(): set = _set_input_controller_map
 var input_controller_main_axis : String = "left": set = _set_input_controller_main_axis
 var input_controller_secondary_axis : String = "right": set = _set_input_controller_secondary_axis
 var input_controller_icon_type : String = "auto": set = _set_input_controller_icon_type
 var input_controller_echo_pre_delay: float = 0.75: set = _set_input_controller_echo_pre_delay
 var input_controller_echo_delay: float = 0.15: set = _set_input_controller_echo_delay
 var virtual_keyboard_layout : String = "qwerty": set = _set_virtual_keyboard_layout
-var virtual_keyboard_type : String = default_virtual_keyboard_type(): set = _set_virtual_keyboard_type
+var virtual_keyboard_type : String = ConfigData.default_virtual_keyboard_type(): set = _set_virtual_keyboard_type
 var virtual_keyboard_show_on_controller : bool = true: set = _set_virtual_keyboard_show_on_controller
 var virtual_keyboard_show_on_mouse : bool = false: set = _set_virtual_keyboard_show_on_mouse
 var accessibility_screen_reader_enabled : bool = true: set = _set_accessibility_screen_reader_enabled

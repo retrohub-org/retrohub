@@ -137,11 +137,11 @@ func _ready():
 func _on_config_ready(config: ConfigData):
 	handle_text_remap(config.accessibility_screen_reader_enabled)
 
-func _on_config_updated(key: String, old, new):
+func _on_config_updated(key: String, _old, new):
 	if key == ConfigData.KEY_ACCESSIBILITY_SCREEN_READER_ENABLED:
 		handle_text_remap(new)
 
-func _on_tts_utterance_end(utterance):
+func _on_tts_utterance_end(_utterance):
 	tts_joy_axis_utterance = null
 
 func handle_text_remap(is_screen_reader: bool):
@@ -388,3 +388,7 @@ func _on_PreviousButton_pressed():
 	joy_inputs[curr_step].modulate = unknown_mapping
 	curr_step -= 1
 	step()
+
+
+func _on_close_requested():
+	hide()

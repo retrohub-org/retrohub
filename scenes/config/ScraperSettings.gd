@@ -111,8 +111,8 @@ func update_scrape_stats(passive: bool):
 			n_games_selected.text = "No games selected"
 		1:
 			n_games_selected.text = "1 game selected"
-		var size:
-			n_games_selected.text = "%d games selected" % size
+		var selected_size:
+			n_games_selected.text = "%d games selected" % selected_size
 	toggle_scrape_button()
 
 func get_media_bitmask() -> int:
@@ -171,9 +171,11 @@ func convert_hash_size_to_range(value: int):
 		return 96 + (value - 2048) / 256
 	elif value >= 512:
 		# 512MB to 2GB
+		@warning_ignore("integer_division")
 		return 64 + (value - 512) / 48
 	elif value >= 64:
 		# 64MB to 512MB
+		@warning_ignore("integer_division")
 		return 32 + (value - 64) / 14
 	elif value > 0:
 		# 1MB to 64MB
@@ -198,15 +200,15 @@ func _on_Hash_toggled(button_pressed):
 	n_hash_max_size.editable = button_pressed
 
 
-func _on_Filename_toggled(button_pressed):
+func _on_Filename_toggled(_button_pressed):
 	toggle_scrape_button()
 
 func tts_range_value_text(value: float, node: Node) -> String:
 	if node == n_hash_max_size:
-		var size := convert_hash_size_from_range(value)
-		if size == 0:
+		var hash_size := convert_hash_size_from_range(value)
+		if hash_size == 0:
 			return "Unlimited"
-		elif size >= 1024:
+		elif hash_size >= 1024:
 			return "%.2f GB" % (value / 1024.0)
 		else:
 			return "%d MB" % value

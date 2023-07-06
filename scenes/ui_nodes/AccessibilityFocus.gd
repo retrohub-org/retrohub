@@ -3,11 +3,11 @@ class_name AccessibilityFocus
 
 @export var previous : NodePath
 @export var next : NodePath
-@export var mode : int = 2 # (int, "None", "Click", "All")
+@export var mode : Control.FocusMode
 
 var _old_next : NodePath
 var _old_previous : NodePath
-var _old_mode : int
+var _old_mode : Control.FocusMode
 
 var parent : Control
 
@@ -48,7 +48,7 @@ func _ready():
 func _on_config_ready(config: ConfigData):
 	toggle_info(config.accessibility_screen_reader_enabled)
 
-func _on_config_updated(key: String, old, new):
+func _on_config_updated(key: String, _old, new):
 	if key == ConfigData.KEY_ACCESSIBILITY_SCREEN_READER_ENABLED:
 		toggle_info(new)
 

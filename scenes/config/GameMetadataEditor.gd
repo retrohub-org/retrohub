@@ -36,7 +36,7 @@ func _ready():
 func _on_config_ready(config: ConfigData):
 	update_age_rating_options(config.rating_system)
 
-func _on_config_updated(key: String, old, new):
+func _on_config_updated(key: String, _old, new):
 	if key == ConfigData.KEY_RATING_SYSTEM:
 		update_age_rating_options(new)
 		if game_data:

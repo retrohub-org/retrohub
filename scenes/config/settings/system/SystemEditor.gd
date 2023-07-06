@@ -71,10 +71,10 @@ func get_retroarch_pretty_name(cores: Array):
 		text += "]"
 	return text
 
-func get_emulator_name(name: String):
-	if RetroHubConfig.emulators_map.has(name):
-		return RetroHubConfig.emulators_map[name]["fullname"]
-	return name
+func get_emulator_name(emulator_name: String):
+	if RetroHubConfig.emulators_map.has(emulator_name):
+		return RetroHubConfig.emulators_map[emulator_name]["fullname"]
+	return emulator_name
 
 func save() -> Dictionary:
 	curr_system["fullname"] = n_fullname.text

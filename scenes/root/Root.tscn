@@ -38,7 +38,6 @@ script = ExtResource("1")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -69,6 +68,9 @@ content_scale_aspect = 4
 title = "Open a File"
 position = Vector2i(0, 24)
 size = Vector2i(949, 477)
+content_scale_size = Vector2i(949, 477)
+content_scale_mode = 1
+content_scale_aspect = 4
 theme = ExtResource("5")
 ok_button_text = "Open"
 file_mode = 0
@@ -78,6 +80,9 @@ script = ExtResource("6")
 [node name="WarningPopup" type="AcceptDialog" parent="."]
 unique_name_in_owner = true
 size = Vector2i(608, 346)
+content_scale_size = Vector2i(608, 346)
+content_scale_mode = 1
+content_scale_aspect = 4
 theme = ExtResource("5")
 
 [node name="WarningLabel" type="Label" parent="WarningPopup"]
@@ -109,4 +114,5 @@ script = ExtResource("7")
 theme_viewport = NodePath("../SubViewportContainer/SubViewport")
 
 [connection signal="about_to_popup" from="ConfigPopup" to="." method="opened_popup"]
+[connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]
 [connection signal="about_to_popup" from="FileSystemPopup" to="." method="opened_popup"]

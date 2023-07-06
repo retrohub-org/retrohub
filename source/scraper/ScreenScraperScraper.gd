@@ -206,11 +206,11 @@ func get_ss_system_mapping(system_name) -> int:
 		return ss_system_map[system_name]
 	return -1
 
-func _send_user_threads(owner: String):
+func _send_user_threads(threads_owner: String):
 	return "Using %d thread%s (%s quota)" % [
 		MAX_REQUESTS,
 		"s" if MAX_REQUESTS > 1 else "",
-		owner
+		threads_owner
 	]
 
 func _init():
@@ -399,7 +399,7 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 	_req_semaphore.wait()
 
 	# Compute game's hash
-	var md5 := file.get_md5(game_data.path)
+	var md5 := FileAccess.get_md5(game_data.path)
 
 	var header_data := {
 		"devid": ss_get_api_keys(ss_api_user, false),

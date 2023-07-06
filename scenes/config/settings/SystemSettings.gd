@@ -174,9 +174,9 @@ func _on_AddExistingInfoPopup_identifier_picked(emulator_name: String):
 func _on_SystemEditor_request_retroarch_config(existing_cores: Array):
 	var retroarch_config : Dictionary = RetroHubConfig.emulators_map["retroarch"]
 	var cores := []
-	for name in existing_cores:
+	for core_name in existing_cores:
 		for core in retroarch_config["cores"]:
-			if core["name"] == name:
+			if core["name"] == core_name:
 				cores.push_back(core)
 				break
 	n_retro_arch_config.start(retroarch_config["cores"], cores)

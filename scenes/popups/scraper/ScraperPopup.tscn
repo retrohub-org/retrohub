@@ -22,6 +22,11 @@
 initial_position = 1
 size = Vector2i(953, 542)
 exclusive = true
+always_on_top = true
+popup_window = true
+content_scale_size = Vector2i(953, 542)
+content_scale_mode = 1
+content_scale_aspect = 4
 script = ExtResource("1")
 system_entry_scene = ExtResource("4")
 
@@ -178,8 +183,6 @@ size_flags_vertical = 3
 [node name="GameMetadataEditor" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root" instance=ExtResource("3")]
 unique_name_in_owner = true
 layout_mode = 1
-grow_horizontal = 2
-grow_vertical = 2
 disable_edits = true
 
 [node name="NoData" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root"]
@@ -486,6 +489,7 @@ text = "Finish"
 unique_name_in_owner = true
 initial_position = 1
 size = Vector2i(635, 224)
+always_on_top = true
 script = ExtResource("10")
 
 [node name="StopDescription" type="Label" parent="StopScraperDialog"]

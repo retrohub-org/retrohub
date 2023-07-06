@@ -21,7 +21,7 @@ func _on_visibility_changed():
 	elif texture:
 		texture = null
 
-func set_texture(texture: Texture2D):
-	resource_path = texture.resource_path
+func set_texture(_texture: Texture2D):
+	resource_path = _texture.resource_path
 	if is_visible_in_tree():
-		super.set_texture(texture)
+		super.set_texture(_texture)

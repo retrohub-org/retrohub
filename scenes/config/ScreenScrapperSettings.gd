@@ -43,7 +43,7 @@ func save_credentials():
 		RetroHubConfig._set_credential("scraper_ss_password", n_password.text)
 		changed = false
 
-func _on_ThreadCount_value_changed(value: float):
+func _on_ThreadCount_value_changed(_value: float):
 	var value_i := thread_count_from_range()
 	update_thread_count_label(value_i)
 	RetroHubConfig.config.scraper_ss_max_threads = value_i

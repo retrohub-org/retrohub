@@ -51,8 +51,8 @@ func _on_ScrapingGamePickerPopup_about_to_show():
 	n_game_tree.scroll_to_item(root)
 	root.select(0)
 
-func set_item_settings(item: TreeItem, name: String):
-	item.set_text(0, name)
+func set_item_settings(item: TreeItem, text: String):
+	item.set_text(0, text)
 	item.set_autowrap_mode(0, TextServer.AUTOWRAP_WORD_SMART)
 	item.set_cell_mode(1, TreeItem.CELL_MODE_CHECK)
 	item.set_editable(1, true)

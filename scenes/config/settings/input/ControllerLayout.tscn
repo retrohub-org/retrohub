@@ -572,6 +572,7 @@ unique_name_in_owner = true
 one_shot = true
 
 [connection signal="about_to_popup" from="." to="." method="_on_ControllerLayout_about_to_show"]
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="pressed" from="Panel/MainButtonRoot/SkipButton" to="." method="_on_SkipButton_pressed"]
 [connection signal="pressed" from="Panel/MainButtonRoot/DoneButton" to="." method="_on_DoneButton_pressed"]
 [connection signal="pressed" from="Panel/SecButtonRoot/PreviousButton" to="." method="_on_PreviousButton_pressed"]

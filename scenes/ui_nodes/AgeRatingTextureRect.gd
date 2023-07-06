@@ -68,7 +68,7 @@ func load_image(path: String):
 	_rating = path
 	texture = load("res://assets/ratings/" + path + ".png")
 
-func tts_text(focused: Control) -> String:
+func tts_text(_focused: Control) -> String:
 	var splits := _rating.split("/")
 	var text := splits[0] + ": "
 	match splits[0]:

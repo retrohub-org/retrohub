@@ -59,20 +59,20 @@ func reset():
 	n_ext_line_edit.text = ""
 	n_add_extension.disabled = true
 
-func create_curr_extension_button(name: String):
+func create_curr_extension_button(text: String):
 	var btn := Button.new()
-	btn.text = name
+	btn.text = text
 	#warning-ignore:return_value_discarded
 	btn.pressed.connect(_on_curr_button_pressed.bind(btn, n_curr_extensions.get_child_count()))
 	n_curr_extensions.add_child(btn)
 
 	for child in n_new_extensions.get_children():
-		if child.text == name:
+		if child.text == text:
 			child.disabled = true
 
-func create_new_extension_button(name: String) -> Button:
+func create_new_extension_button(text: String) -> Button:
 	var btn := Button.new()
-	btn.text = name
+	btn.text = text
 	#warning-ignore:return_value_discarded
 	btn.pressed.connect(_on_new_button_pressed.bind(btn))
 	n_new_extensions.add_child(btn)

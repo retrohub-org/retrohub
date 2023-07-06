@@ -133,8 +133,7 @@ func _on_media_scrape_finished(game_data: RetroHubGameData, _type: int, data: Pa
 		_:
 			# Unsupported format, exit
 			return
-	var texture := ImageTexture.new()
-	texture.create_from_image(image)
+	var texture := ImageTexture.create_from_image(image)
 	cached_images[game_data] = texture
 	if new_game_data == game_data:
 		n_screenshot.texture = cached_images[game_data]

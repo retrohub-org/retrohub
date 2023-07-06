@@ -1,5 +1,7 @@
 extends Window
 
+signal popup_hide
+
 @onready var n_main := %SettingsTab
 @onready var n_game_tab := %GameTab
 @onready var n_panel_container := %PanelContainer
@@ -25,7 +27,7 @@ func _input(event: InputEvent):
 	if not RetroHub._running_game:
 		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
 			get_viewport().set_input_as_handled()
-			hide()
+			close()
 		elif event.is_action_pressed("rh_back"):
 			# If using the default Backspace key, don't consume event if inside a
 			# text field, otherwise deleting text becomes impossible
@@ -37,13 +39,14 @@ func _input(event: InputEvent):
 				last_tab = n_game_tab
 			last_tab.grab_focus()
 
-func popup(rect: Rect2i = Rect2i(0, 0, 0, 0)):
+func popup(_rect: Rect2i = Rect2i(0, 0, 0, 0)):
 	super.popup_centered_ratio(0.8)
 	_on_ConfigPopup_about_to_show()
 
-func hide():
+func close():
 	super.hide()
 	_on_ConfigPopup_popup_hide()
+	emit_signal("popup_hide")
 
 func _on_Tab_pressed(idx: int):
 	n_main.current_tab = idx

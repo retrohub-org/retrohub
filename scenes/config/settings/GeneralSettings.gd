@@ -38,13 +38,13 @@ func set_themes():
 		#warning-ignore:return_value_discarded
 		file.get_line()
 		while file.get_position() < file.get_length():
-			var theme := file.get_line()
-			if theme.ends_with(".pck"):
-				n_themes.add_item(theme.get_file().get_basename(), id)
+			var theme_pck := file.get_line()
+			if theme_pck.ends_with(".pck"):
+				n_themes.add_item(theme_pck.get_file().get_basename(), id)
 				if RetroHubConfig.get_default_themes_dir() in RetroHubConfig.theme_path and \
-					theme in RetroHubConfig.theme_path:
+					theme_pck in RetroHubConfig.theme_path:
 					n_themes.selected = id
-				theme_id_map[id] = "res://default_themes/" + theme
+				theme_id_map[id] = "res://default_themes/" + theme_pck
 				id += 1
 	n_themes.add_separator()
 	id += 1

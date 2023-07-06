@@ -21,8 +21,8 @@ var curr := 0
 var total := 0
 var description := ""
 
-func _on_GameEntry_toggled(button_pressed):
-	if button_pressed:
+func _on_GameEntry_toggled(_pressed):
+	if _pressed:
 		emit_signal("game_selected", self, false)
 
 func set_game_data(_game_data: RetroHubGameData):

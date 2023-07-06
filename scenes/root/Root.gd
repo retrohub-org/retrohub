@@ -33,7 +33,7 @@ func _input(event: InputEvent):
 				$ConfigPopup.popup()
 
 func _ready():
-	closed_popup()
+	closed_popup(null)
 	#warning-ignore:return_value_discarded
 	RetroHub._theme_loaded.connect(_on_theme_loaded)
 	#warning-ignore:return_value_discarded
@@ -50,8 +50,6 @@ func _ready():
 	# Handle viewport changes
 	#warning-ignore:return_value_discarded
 	get_viewport().size_changed.connect(_on_vp_size_changed)
-	#warning-ignore:return_value_discarded
-	n_viewport.gui_focus_changed.connect(_on_vp_gui_focus_changed)
 	_on_vp_size_changed()
 
 	# Wait an idle frame for the config to load
@@ -62,6 +60,9 @@ func _ready():
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if (RetroHubConfig.config.vsync) else DisplayServer.VSYNC_DISABLED)
 	setup_controller_remap(RetroHubConfig.config.custom_input_remap)
 
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		RetroHub.quit()
 
 func _on_config_updated(key: String, _old, new):
 	match key:
@@ -74,10 +75,10 @@ func _on_config_updated(key: String, _old, new):
 		ConfigData.KEY_RENDER_RESOLUTION:
 			_on_vp_size_changed()
 
-func setup_controller_remap(remap: String):
-	if not remap.is_empty():
+func setup_controller_remap(remap_str: String):
+	if not remap_str.is_empty():
 		Input.remove_joy_mapping(Input.get_joy_guid(0))
-		Input.add_joy_mapping(remap, true)
+		Input.add_joy_mapping(remap_str, true)
 
 func show_first_time_popup():
 	var first_time_popup : Window = load("res://scenes/popups/first_time/FirstTimePopups.tscn").instantiate()
@@ -86,9 +87,7 @@ func show_first_time_popup():
 	#warning-ignore:return_value_discarded
 	first_time_popup.about_to_popup.connect(opened_popup)
 	#warning-ignore:return_value_discarded
-	first_time_popup.popup_hide.connect(closed_popup)
-	#warning-ignore:return_value_discarded
-	first_time_popup.popup_hide.connect(_on_first_time_popup_closed.bind(first_time_popup))
+	first_time_popup.visibility_changed.connect(closed_popup.bind(first_time_popup))
 	# Wait a frame for the window to be at the right resolution
 	await get_tree().process_frame
 	first_time_popup.popup_centered()
@@ -98,13 +97,10 @@ func _on_vp_size_changed() -> void:
 		viewport_orig_size.y * get_viewport().size.aspect(),
 		viewport_orig_size.y
 	)
+	# FIXME: Due to changes in Godot 4, render_resolution stopped working. Investigate
 	var mult := RetroHubConfig.config.render_resolution / 100.0
 	n_viewport.size = get_viewport().size * mult
 	n_viewport.set_size_2d_override(viewport_size)
-
-func _on_vp_gui_focus_changed(control: Control) -> void:
-	if not is_popup_open:
-		n_last_focused = control
 
 func _on_theme_loaded(theme_data: RetroHubTheme):
 	n_viewport.set_theme(theme_data.entry_scene)
@@ -128,16 +124,12 @@ func opened_popup():
 	set_theme_input_enabled(false)
 	is_popup_open = true
 
-func closed_popup():
-	for node in popup_nodes:
-		if node.visible == true:
-			return
+func closed_popup(popup: Window = null):
+	if popup and popup.visible:
+		return
 
 	$DarkenOverlay.visible = false
 	set_theme_input_enabled(true)
 	is_popup_open = false
 	if is_instance_valid(n_last_focused):
 		n_last_focused.grab_focus()
-
-func _on_first_time_popup_closed(popup):
-	popup_nodes.remove_at(popup_nodes.rfind(popup))

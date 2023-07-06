@@ -73,7 +73,7 @@ func _on_OK_pressed():
 	hide()
 
 
-func _on_LineEdit_text_entered(new_text):
+func _on_LineEdit_text_entered(_new_text):
 	if not n_ok.disabled:
 		_on_OK_pressed()
 

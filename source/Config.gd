@@ -93,11 +93,11 @@ func load_emulators():
 	JSONUtils.make_system_specific(emulators_map, FileUtils.get_os_string())
 
 func set_system_renaming():
-	for name in config.system_names:
-		var renames := config.get_system_rename_options(name)
+	for system_name in config.system_names:
+		var renames := ConfigData.get_system_rename_options(system_name)
 		for rename in renames:
-			if rename != config.system_names[name]:
-				_system_renames[name] = config.system_names[name]
+			if rename != config.system_names[system_name]:
+				_system_renames[system_name] = config.system_names[system_name]
 				#warning-ignore:return_value_discarded
 				_systems_raw.erase(rename)
 
@@ -114,13 +114,13 @@ func handle_key_remaps():
 				if key in _implicit_mappings:
 					InputMap.action_erase_event(_implicit_mappings[key], ev)
 		for code in keys[key]:
-			handle_key_remap(key, 0, code)
+			handle_key_remap(key, KEY_NONE, code)
 			if _implicit_mappings.has(key):
-				handle_key_remap(_implicit_mappings[key], 0, code)
+				handle_key_remap(_implicit_mappings[key], KEY_NONE, code)
 	# Signal ControllerIcons to update icons
 	ControllerIcons.refresh()
 
-func handle_key_remap(key: String, old: int, new: int):
+func handle_key_remap(key: String, old: Key, new: Key):
 	# Find existing actions to remove them first
 	var events := InputMap.action_get_events(key)
 	for e in events:
