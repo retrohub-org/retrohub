@@ -96,7 +96,6 @@ var focusedKeyY = 0
 var keyboardVisible = false
 var sendingEvent = false
 
-var tweenPosition
 var tweenSpeed = .2
 var tweenOnTop = false
 @onready var bottomPos := get_viewport().get_visible_rect().size.y
@@ -131,11 +130,7 @@ func _initKeyboard(config_value: String):
 		_createKeyboard(defaultLayout.data)
 	else:
 		_createKeyboard(_loadJSON(customLayoutFile))
-	
-	# FIXME: Tween changed for Godot 4
-	#tweenPosition = Tween.new()
-	#add_child(tweenPosition)
-	
+
 	if autoShow:
 		_hideKeyboard()
 
@@ -147,7 +142,7 @@ func _initKeyboard(config_value: String):
 var focusObject = null
 
 func show():
-	#visible = true
+	visible = true
 	popup()
 	_showKeyboard()
 	
@@ -160,32 +155,29 @@ func _updateAutoDisplayOnInput(event):
 	
 	if event is InputEventMouseButton and not event.pressed:
 		var focusObject = get_viewport().gui_get_focus_owner()
-		if focusObject != null:
-			pass
-			"""var clickOnInput = Rect2(focusObject.global_position,focusObject.size).has_point(get_global_mouse_position())
-			var clickOnKeyboard = Rect2(global_position,size).has_point(get_global_mouse_position())
-			
-			if clickOnInput:
-				if isKeyboardFocusObject(focusObject):
-					RetroHubUI.show_virtual_keyboard()
-			elif not clickOnKeyboard:
-				RetroHubUI.hide_virtual_keyboard()
-			"""
+		if focusObject and isKeyboardFocusObject(focusObject):
+			RetroHubUI.show_virtual_keyboard()
+			#var clickOnInput = Rect2(focusObject.global_position,focusObject.size).has_point(get_global_mouse_position())
+			#var clickOnKeyboard = Rect2(global_position,size).has_point(get_global_mouse_position())
+			#
+			#if clickOnInput:
+			#	if isKeyboardFocusObject(focusObject):
+			#		RetroHubUI.show_virtual_keyboard()
+			#elif not clickOnKeyboard:
+			#	RetroHubUI.hide_virtual_keyboard()
 
 func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
-	# TODO: Implement
-	return
 
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	if tweenOnTop:
-		tweenPosition.interpolate_property(self,"position",position, Vector2(0,-size.y), tweenSpeed, Tween.TRANS_SINE, Tween.EASE_OUT)
+		tween.tween_property(self,"position", Vector2(0,-size.y), tweenSpeed)
 	else:
-		tweenPosition.interpolate_property(self,"position",position, Vector2(0,get_viewport().get_visible_rect().size.y + 10), tweenSpeed, Tween.TRANS_SINE, Tween.EASE_OUT)
-	tweenPosition.start()
+		tween.tween_property(self,"position", Vector2(0,get_viewport().get_visible_rect().size.y + 10), tweenSpeed)
 	
 	_setCapsLock(false)
 	keyboardVisible = false
 	emit_signal("visibilityChanged",keyboardVisible)
-	await tweenPosition.tween_all_completed
+	await tween.finished
 	# Keyboard may be retriggered during animation
 	if keyboardVisible == false:
 		visible = false
@@ -195,13 +187,13 @@ func _showKeyboard(keyData=null,x=null,y=null):
 	focusObject = get_viewport().gui_get_focus_owner()
 	tweenOnTop = focusObject.global_position.y > bottomPos - size.y
 
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	if tweenOnTop:
 		position = Vector2(0, -size.y)
-		tweenPosition.interpolate_property(self,"position",position, Vector2(0,0), tweenSpeed, Tween.TRANS_SINE, Tween.EASE_OUT)
+		tween.tween_property(self,"position", Vector2(0,0), tweenSpeed)
 	else:
 		position = Vector2(0, bottomPos)
-		tweenPosition.interpolate_property(self,"position",position, Vector2(0,get_viewport().get_visible_rect().size.y-size.y), tweenSpeed, Tween.TRANS_SINE, Tween.EASE_OUT)
-	tweenPosition.start()
+		tween.tween_property(self,"position", Vector2(0,get_viewport().get_visible_rect().size.y-size.y), tweenSpeed)
 	focusKey(0,0)
 	keyboardVisible = true
 	emit_signal("visibilityChanged",keyboardVisible)

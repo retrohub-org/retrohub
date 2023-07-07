@@ -61,11 +61,13 @@ anchor_bottom = 1.0
 focus_mode = 2
 
 [node name="ConfigPopup" parent="." instance=ExtResource("3")]
+handle_input_locally = false
 visible = false
 content_scale_size = Vector2i(1000, 480)
 content_scale_aspect = 4
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
+handle_input_locally = false
 title = "Open a File"
 position = Vector2i(0, 24)
 size = Vector2i(949, 477)
@@ -80,6 +82,7 @@ script = ExtResource("6")
 
 [node name="WarningPopup" type="AcceptDialog" parent="."]
 unique_name_in_owner = true
+handle_input_locally = false
 size = Vector2i(608, 346)
 content_scale_size = Vector2i(608, 346)
 content_scale_mode = 1
@@ -105,6 +108,9 @@ text_overrun_behavior = 3
 
 [node name="Keyboard" type="PopupPanel" parent="."]
 unique_name_in_owner = true
+handle_input_locally = false
+position = Vector2i(0, 348)
+size = Vector2i(1152, 300)
 theme = ExtResource("5")
 script = ExtResource("2")
 autoShow = false

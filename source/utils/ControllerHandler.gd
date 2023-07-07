@@ -46,19 +46,19 @@ func _on_joypad_echo_pre_delay_timeout():
 func _on_joypad_echo_delay_timeout():
 	Input.parse_input_event(_joypad_last_event)
 
-#func _input(event):
-#	_event_handled = false
-#	RetroHub._is_echo = false
-#	if hyper_focused_control:
-#		get_viewport().set_input_as_handled()
-#	if event is InputEventKey:
-#		RetroHub._is_echo = event.is_echo()
-#	if event is InputEventJoypadButton:
-#		_input_button(event)
-#	elif event is InputEventJoypadMotion:
-#		_input_motion(event)
-#	elif event is InputEventAction:
-#		_input_hyper_focused(event)
+func _raw_input(event):
+	_event_handled = false
+	RetroHub._is_echo = false
+	if hyper_focused_control:
+		get_viewport().set_input_as_handled()
+	if event is InputEventKey:
+		RetroHub._is_echo = event.is_echo()
+	if event is InputEventJoypadButton:
+		_input_button(event)
+	elif event is InputEventJoypadMotion:
+		_input_motion(event)
+	elif event is InputEventAction:
+		_input_hyper_focused(event)
 
 func _input_button(event: InputEventJoypadButton):
 	_input_ui_movement_button(event)

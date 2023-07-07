@@ -111,8 +111,6 @@ func show_virtual_keyboard() -> void:
 			_n_virtual_keyboard.show()
 
 func is_virtual_keyboard_visible() -> bool:
-	# TODO: Implement
-	return false
 	match RetroHubConfig.config.virtual_keyboard_type:
 		"steam":
 			# There's no good way to know if the keyboard is trully up or not.

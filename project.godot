@@ -19,6 +19,10 @@ config/icon="res://icon.png"
 config/macos_native_icon="res://assets/icons/app/retrohub_mac.icns"
 config/windows_native_icon="res://assets/icons/app/retrohub_win.ico"
 
+[audio]
+
+general/text_to_speech=true
+
 [autoload]
 
 JSONUtils="*res://source/utils/JSONUtils.gd"
@@ -38,7 +42,7 @@ gdscript/warnings/native_method_override=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg")
+enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/onscreenkeyboard/plugin.cfg")
 
 [gui]
 
