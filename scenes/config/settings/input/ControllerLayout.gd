@@ -299,7 +299,7 @@ func reset():
 
 func start():
 	# Disable custom controller handler while this popup is visible
-	ControllerHandler.set_process_input(false)
+	#ControllerHandler.set_process_input(false)
 	joy_guid = Input.get_joy_guid(0)
 	joy_name = Input.get_joy_name(0)
 	Input.remove_joy_mapping(joy_guid)
@@ -370,7 +370,7 @@ func _on_SkipButton_pressed():
 	step()
 
 func _on_ControllerLayout_popup_hide():
-	ControllerHandler.set_process_input(true)
+	#ControllerHandler.set_process_input(true)
 	reset()
 
 func _on_ControllerLayout_about_to_show():

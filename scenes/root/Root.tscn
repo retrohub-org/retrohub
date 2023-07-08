@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c60kwat0su1y"]
+[gd_scene load_steps=12 format=3 uid="uid://c60kwat0su1y"]
 
 [ext_resource type="Script" path="res://scenes/root/Root.gd" id="1"]
 [ext_resource type="Script" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="5"]
 [ext_resource type="Script" path="res://scenes/root/FileSystemPopup.gd" id="6"]
 [ext_resource type="Script" path="res://addons/godot-accessibility/ScreenReader.gd" id="7"]
+[ext_resource type="Script" path="res://source/utils/InputHandler.gd" id="9_5ltce"]
 [ext_resource type="PackedScene" uid="uid://dmcmcyq0jach5" path="res://scenes/no_theme/NoTheme.tscn" id="10"]
 
 [sub_resource type="Shader" id="1"]
@@ -111,6 +112,7 @@ unique_name_in_owner = true
 handle_input_locally = false
 position = Vector2i(0, 348)
 size = Vector2i(1152, 300)
+always_on_top = true
 theme = ExtResource("5")
 script = ExtResource("2")
 autoShow = false
@@ -119,6 +121,12 @@ autoShow = false
 process_mode = 2
 script = ExtResource("7")
 theme_viewport = NodePath("../SubViewportContainer/SubViewport")
+
+[node name="InputHandler" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_5ltce")
 
 [connection signal="about_to_popup" from="ConfigPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]

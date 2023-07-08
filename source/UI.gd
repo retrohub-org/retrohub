@@ -93,7 +93,7 @@ func load_app_icon(icon: int) -> Texture2D:
 	var path : String = "res://assets/icons/%s.svg" % Icons.keys()[icon].to_lower()
 	return (load(path) as Texture2D)
 
-func show_virtual_keyboard() -> void:
+func show_virtual_keyboard(focused_node: Node) -> void:
 	match RetroHubConfig.config.virtual_keyboard_type:
 		"steam":
 			var focused_control := get_viewport().gui_get_focus_owner()
@@ -108,7 +108,13 @@ func show_virtual_keyboard() -> void:
 			_steamdeck_keyboard_up = true
 			ControllerIcons.set_process_input(false)
 		"builtin", _:
-			_n_virtual_keyboard.show()
+			# Find currently focused Window. There's no direct way, so we have to
+			# do this hack
+			var win : Window = focused_node.get_window()
+			if win != null:
+				_n_virtual_keyboard.show_keyboard(win.get_viewport())
+			else:
+				_n_virtual_keyboard.show_keyboard(get_viewport())
 
 func is_virtual_keyboard_visible() -> bool:
 	match RetroHubConfig.config.virtual_keyboard_type:
@@ -118,7 +124,7 @@ func is_virtual_keyboard_visible() -> bool:
 			# mean the keyboard was closed.
 			return _steamdeck_keyboard_up
 		"builtin", _:
-			return _n_virtual_keyboard.keyboardVisible
+			return _n_virtual_keyboard.visible
 
 func is_event_from_virtual_keyboard() -> bool:
 	match RetroHubConfig.config.virtual_keyboard_type:
@@ -131,7 +137,7 @@ func is_event_from_virtual_keyboard() -> bool:
 			return _n_virtual_keyboard.sendingEvent
 
 func hide_virtual_keyboard() -> void:
-	_n_virtual_keyboard.hide()
+	_n_virtual_keyboard.hide_keyboard()
 
 func open_app_config(tab: int = -1):
 	if _n_config_popup:

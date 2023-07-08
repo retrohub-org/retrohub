@@ -9,7 +9,7 @@ func _ready():
 	var voice_id = voices[0]
 
 	# Say "Hello, world!".
-	DisplayServer.tts_speak("Hello, world!", voice_id)
+	#DisplayServer.tts_speak("Hello, world!", voice_id)
 
 	# Say a longer sentence, and then interrupt it.
 	# Note that this method is asynchronous: execution proceeds to the next line immediately,

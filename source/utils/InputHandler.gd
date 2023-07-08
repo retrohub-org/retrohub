@@ -46,7 +46,7 @@ func _on_joypad_echo_pre_delay_timeout():
 func _on_joypad_echo_delay_timeout():
 	Input.parse_input_event(_joypad_last_event)
 
-func _raw_input(event):
+func _input(event):
 	_event_handled = false
 	RetroHub._is_echo = false
 	if hyper_focused_control:
@@ -83,7 +83,7 @@ func _input_button(event: InputEventJoypadButton):
 					control.set_caret_line(control.text.length())
 					control.set_caret_column(control.text.length())
 			prev_focus = control
-			RetroHubUI.show_virtual_keyboard()
+			RetroHubUI.show_virtual_keyboard(control)
 	if event.is_action_pressed("rh_back"):
 		if hyper_focused_control:
 			if hyper_focused_control is SpinBox:

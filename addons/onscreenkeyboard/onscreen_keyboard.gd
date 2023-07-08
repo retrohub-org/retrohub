@@ -33,13 +33,14 @@ signal layoutChanged
 ###########################
 
 func _enter_tree():
-	get_tree().get_root().connect("size_changed", Callable(self, "size_changed"))
-	connect("popup_hide", Callable(self, "hide"))
+	get_tree().get_root().size_changed.connect(size_changed)
+	popup_hide.connect(hide)
+	focus_exited.connect(hide)
 	visible = false
 
 func _ready():
-	RetroHubConfig.connect("config_ready", Callable(self, "on_config_ready"))
-	RetroHubConfig.connect("config_updated", Callable(self, "on_config_updated"))
+	RetroHubConfig.config_ready.connect(on_config_ready)
+	RetroHubConfig.config_updated.connect(on_config_updated)
 
 	# Wait a frame for the config to load
 	await get_tree().process_frame
@@ -59,18 +60,19 @@ func on_config_updated(key: String, old, new):
 
 func _input(event):
 	_updateAutoDisplayOnInput(event)
-	if keyboardVisible:
+	if visible:
 		if not sendingEvent:
 			if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion or event is InputEventAction:
-				get_viewport().set_input_as_handled()
-				_handleKeyEvents(event)
-		elif event is InputEventKey and event.keycode == KEY_ENTER and isKeyboardFocusObjectCompleteOnEnter(focusObject):
+				pass
+				#get_viewport().set_input_as_handled()
+				#_handleKeyEvents(event)
+		elif event is InputEventKey and event.keycode == KEY_ENTER and isKeyboardFocusObjectCompleteOnEnter():
 			_hideKeyboard()
 
 func size_changed():
 	size.x = get_viewport().get_visible_rect().size.x
 	bottomPos = get_viewport().get_visible_rect().size.y
-	if keyboardVisible:
+	if visible:
 		if tweenOnTop:
 			position = Vector2(0, 0)
 		else:
@@ -93,7 +95,6 @@ var uppercase = false
 
 var focusedKeyX = 0
 var focusedKeyY = 0
-var keyboardVisible = false
 var sendingEvent = false
 
 var tweenSpeed = .2
@@ -122,7 +123,6 @@ func _initKeyboard(config_value: String):
 
 	focusedKeyX = 0
 	focusedKeyY = 0
-	keyboardVisible = false
 	sendingEvent = false
 
 	if customLayoutFile == null:
@@ -139,24 +139,28 @@ func _initKeyboard(config_value: String):
 ## HIDE/SHOW
 ###########################
 
-var focusObject = null
+var focusViewport : Viewport = null
 
-func show():
-	visible = true
+func show_keyboard(viewport: Viewport):
 	popup()
+	focusViewport = viewport
+	visible = true
 	_showKeyboard()
 	
-func hide():
+func hide_keyboard():
+	focusViewport = null
 	_hideKeyboard()
+	visible = false
 
 func _updateAutoDisplayOnInput(event):
-	if autoShow == false:
-		return
-	
-	if event is InputEventMouseButton and not event.pressed:
-		var focusObject = get_viewport().gui_get_focus_owner()
-		if focusObject and isKeyboardFocusObject(focusObject):
-			RetroHubUI.show_virtual_keyboard()
+	return
+	#if autoShow == false:
+	#	return
+	#
+	#if event is InputEventMouseButton and not event.pressed:
+	#	var focusObject = focusViewport.gui_get_focus_owner()
+	#	if isKeyboardFocusObject():
+	#		RetroHubUI.show_virtual_keyboard(focus)
 			#var clickOnInput = Rect2(focusObject.global_position,focusObject.size).has_point(get_global_mouse_position())
 			#var clickOnKeyboard = Rect2(global_position,size).has_point(get_global_mouse_position())
 			#
@@ -167,7 +171,6 @@ func _updateAutoDisplayOnInput(event):
 			#	RetroHubUI.hide_virtual_keyboard()
 
 func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
-
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	if tweenOnTop:
 		tween.tween_property(self,"position", Vector2(0,-size.y), tweenSpeed)
@@ -175,17 +178,17 @@ func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
 		tween.tween_property(self,"position", Vector2(0,get_viewport().get_visible_rect().size.y + 10), tweenSpeed)
 	
 	_setCapsLock(false)
-	keyboardVisible = false
-	emit_signal("visibilityChanged",keyboardVisible)
+	emit_signal("visibilityChanged",visible)
 	await tween.finished
-	# Keyboard may be retriggered during animation
-	if keyboardVisible == false:
-		visible = false
+	hide()
 
 
 func _showKeyboard(keyData=null,x=null,y=null):
-	focusObject = get_viewport().gui_get_focus_owner()
-	tweenOnTop = focusObject.global_position.y > bottomPos - size.y
+	print(focusViewport)
+	print(focusViewport.gui_get_focus_owner())
+	print(focusViewport.gui_get_focus_owner().global_position)
+	tweenOnTop = focusViewport.gui_get_focus_owner().get_global_transform().origin.y > bottomPos - size.y
+	tweenOnTop = false
 
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	if tweenOnTop:
@@ -195,8 +198,7 @@ func _showKeyboard(keyData=null,x=null,y=null):
 		position = Vector2(0, bottomPos)
 		tween.tween_property(self,"position", Vector2(0,get_viewport().get_visible_rect().size.y-size.y), tweenSpeed)
 	focusKey(0,0)
-	keyboardVisible = true
-	emit_signal("visibilityChanged",keyboardVisible)
+	emit_signal("visibilityChanged",visible)
 
 
 func _handleKeyEvents(event):
@@ -211,10 +213,10 @@ func _handleKeyEvents(event):
 		focusKeyDir(Direction.UP)
 	elif event.is_action_pressed("ui_down", true) or event.is_action_pressed("ui_focus_next", true):
 		focusKeyDir(Direction.DOWN)
-	elif event.is_action_pressed("ui_accept"):
-		focusKeys[focusedKeyY][focusedKeyX].pressing = true
-	elif event.is_action_released("ui_accept"):
-		focusKeys[focusedKeyY][focusedKeyX].pressing = false
+	#elif event.is_action_pressed("ui_accept"):
+	#	focusKeys[focusedKeyY][focusedKeyX].pressing = true
+	#elif event.is_action_released("ui_accept"):
+	#	focusKeys[focusedKeyY][focusedKeyX].pressing = false
 
 ###########################
 ##  KEY LAYOUT
@@ -236,12 +238,11 @@ func _showLayout(layout):
 	currentLayout = layout
 	# Old key, unfocus
 	var key = focusKeys[focusedKeyY][focusedKeyX]
-	key.focused = false
 	focusKeys = layoutKeys[layout]
 	# Focus new key on different layout
 	focusedKeyX = 0
 	focusedKeyY = 0
-	focusKeys[focusedKeyY][focusedKeyX].focused = true
+	focusKeys[focusedKeyY][focusedKeyX].grab_focus()
 	tts_speak_key(focusKeys[focusedKeyY][focusedKeyX])
 
 func tts_speak_key(key):
@@ -315,7 +316,6 @@ func _keyDown(keyData,x,y,steal_focus):
 		focusKey(x,y)
 
 func _keyReleased(keyData,x,y,steal_focus):
-	
 	if keyData.has("output"):
 		var keyValue = keyData.get("output")
 		
@@ -323,23 +323,25 @@ func _keyReleased(keyData,x,y,steal_focus):
 		## DISPATCH InputEvent
 		###########################
 		
-		var inputEventKey = InputEventKey.new()
-		inputEventKey.shift = uppercase
-		inputEventKey.alt = false
-		inputEventKey.meta = false
-		inputEventKey.command = false
-		inputEventKey.button_pressed = true
+		var inputEventKey := InputEventKey.new()
+		inputEventKey.shift_pressed = uppercase
+		inputEventKey.alt_pressed = false
+		inputEventKey.meta_pressed = false
+		inputEventKey.ctrl_pressed = false
+		inputEventKey.pressed = true
 		
 		var keyUnicode = KeyListHandler.getUnicodeFromString(keyValue)
-		if uppercase==false and KeyListHandler.hasLowercase(keyValue):
+		if keyUnicode != KEY_UNKNOWN and not uppercase and KeyListHandler.hasLowercase(keyValue):
 			keyUnicode +=32
-		inputEventKey.unicode = keyUnicode
+		if keyUnicode != KEY_UNKNOWN:
+			inputEventKey.unicode = keyUnicode
 		inputEventKey.keycode = KeyListHandler.getScancodeFromString(keyValue)
 
 		sendingEvent = true
 		# Manually disable ControllerIcons for this event
 		ControllerIcons.set_process_input(false)
-		Input.parse_input_event(inputEventKey)
+		#Input.parse_input_event(inputEventKey)
+		focusViewport.push_input(inputEventKey)
 		await get_tree().process_frame
 		ControllerIcons.set_process_input(true)
 		sendingEvent = false
@@ -435,15 +437,15 @@ func _createKeyboard(layoutData):
 					newKey.set('theme_override_colors/font_pressed_color', fontColorPressed)
 					newKey.set('theme_override_colors/font_disabled_color', fontColor)
 
-				newKey.connect("down", Callable(self, "_keyDown"))
-				newKey.connect("released", Callable(self, "_keyReleased"))
+				newKey.down.connect(_keyDown)
+				newKey.released.connect(_keyReleased)
 				
 				if key.has("type"):
 					if key.get("type") == "char" and key.get("output") == "Space":
 						newKey.path = "rh_minor_option"
 					if key.get("type") == "switch-layout":
 						newKey.path = "rh_major_option"
-						newKey.connect("released", Callable(self, "_switchLayout"))
+						newKey.released.connect(_switchLayout)
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 					elif key.get("type") == "special":
 						match key.get("output"):
@@ -462,14 +464,14 @@ func _createKeyboard(layoutData):
 						newKey.path = "rh_left_trigger"
 						newKey.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT if firstShift else HORIZONTAL_ALIGNMENT_RIGHT
 						firstShift = false
-						newKey.connect("released", Callable(self, "_triggerUppercase"))
+						newKey.released.connect(_triggerUppercase)
 						newKey.toggle_mode = true
 						capslockKeys.push_back(newKey)
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 					elif key.get("type") == "special-hide-keyboard":
 						newKey.path = "rh_menu"
 						newKey.icon_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-						newKey.connect("released", Callable(self, "_hideKeyboard"))
+						newKey.released.connect(hide_keyboard)
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 				
 				# SET ICONS
@@ -533,23 +535,18 @@ func _loadFile(filePath):
 ## HELPER
 ###########################
 
-func isKeyboardFocusObjectCompleteOnEnter(focusObject):
-	if focusObject.get_class() == "LineEdit":
+func isKeyboardFocusObjectCompleteOnEnter():
+	if focusViewport.gui_get_focus_owner() is LineEdit:
 		return true
 	return false
 
-func isKeyboardFocusObject(focusObject):
-	if focusObject.get_class() == "LineEdit" or focusObject.get_class() == "TextEdit":
+func isKeyboardFocusObject():
+	var focusOwner := focusViewport.gui_get_focus_owner()
+	if focusOwner is LineEdit or focusOwner is TextEdit:
 		return true
 	return false
 
 func focusKey(x, y):
-	# Unfocus previous key
-	var key = focusKeys[focusedKeyY][focusedKeyX]
-	key.focused = false
-	if x != focusedKeyX or y != focusedKeyY:
-		key.pressing = false
-
 	if y < 0:
 		y = focusKeys.size() - 1
 	elif y >= focusKeys.size():
@@ -562,7 +559,7 @@ func focusKey(x, y):
 	# Focus new key
 	focusedKeyX = x
 	focusedKeyY = y
-	focusKeys[focusedKeyY][focusedKeyX].focused = true
+	focusKeys[focusedKeyY][focusedKeyX].grab_focus()
 	tts_speak_key(focusKeys[focusedKeyY][focusedKeyX])
 	
 

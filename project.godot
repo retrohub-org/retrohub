@@ -33,7 +33,6 @@ RetroHubUI="*res://source/UI.gd"
 RetroHub="*res://source/RetroHub.gd"
 RetroHubMedia="*res://source/Media.gd"
 ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
-ControllerHandler="*res://source/utils/ControllerHandler.gd"
 TTS="*res://addons/godot-tts/TTS.gd"
 
 [debug]
