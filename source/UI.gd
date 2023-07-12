@@ -93,7 +93,7 @@ func load_app_icon(icon: int) -> Texture2D:
 	var path : String = "res://assets/icons/%s.svg" % Icons.keys()[icon].to_lower()
 	return (load(path) as Texture2D)
 
-func show_virtual_keyboard(focused_node: Node) -> void:
+func show_virtual_keyboard() -> void:
 	match RetroHubConfig.config.virtual_keyboard_type:
 		"steam":
 			var focused_control := get_viewport().gui_get_focus_owner()
@@ -108,13 +108,7 @@ func show_virtual_keyboard(focused_node: Node) -> void:
 			_steamdeck_keyboard_up = true
 			ControllerIcons.set_process_input(false)
 		"builtin", _:
-			# Find currently focused Window. There's no direct way, so we have to
-			# do this hack
-			var win : Window = focused_node.get_window()
-			if win != null:
-				_n_virtual_keyboard.show_keyboard(win.get_viewport())
-			else:
-				_n_virtual_keyboard.show_keyboard(get_viewport())
+			_n_virtual_keyboard.show_keyboard(get_true_focused_control())
 
 func is_virtual_keyboard_visible() -> bool:
 	match RetroHubConfig.config.virtual_keyboard_type:
@@ -154,3 +148,19 @@ func show_warning(text: String):
 		_n_warning_popup.popup_centered()
 		await get_tree().process_frame
 		_n_warning_popup.get_ok_button().grab_focus()
+
+func get_true_focused_control() -> Control:
+	# Find currently focused "real" window
+	var win_id := DisplayServer.get_focused_window_or_popup()
+	var win : Window = instance_from_id(win_id)
+	if win == null:
+		return get_viewport().gui_get_focus_owner()
+
+	# Find currently focused "embedded" window viewport
+	var viewport := win.get_viewport()
+	while viewport:
+		if viewport.get_focused_window_or_popup() == null:
+			# Found the innermost viewport
+			return viewport.gui_get_focus_owner()
+		viewport = viewport.get_focused_window_or_popup().get_viewport()
+	return get_viewport().gui_get_focus_owner()

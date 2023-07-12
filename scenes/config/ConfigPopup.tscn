@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjx4cfx0f2k2"]
+[gd_scene load_steps=27 format=3 uid="uid://cjx4cfx0f2k2"]
 
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://du66o2pueo6qh" path="res://assets/icons/config/emulators.png" id="2"]
@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://7qv28u4mq7xl" path="res://assets/icons/config/about.png" id="23"]
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="24"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="25"]
-[ext_resource type="Script" path="res://source/utils/InputHandler.gd" id="26_d62ii"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_l35le"]
 
@@ -456,13 +455,6 @@ layout_mode = 2
 [node name="AboutSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("16")]
 visible = false
 layout_mode = 2
-
-[node name="InputHandler" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("26_d62ii")
 
 [connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer" to="." method="_on_ScrollContainer_focus_entered"]
 [connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab" to="." method="_on_Tab_pressed" binds= [0]]

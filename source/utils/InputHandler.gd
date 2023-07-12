@@ -46,30 +46,50 @@ func _on_joypad_echo_pre_delay_timeout():
 func _on_joypad_echo_delay_timeout():
 	Input.parse_input_event(_joypad_last_event)
 
-func _input(event):
+func _raw_input(event):
+	ControllerIcons._input(event)
 	_event_handled = false
 	RetroHub._is_echo = false
 	if hyper_focused_control:
 		get_viewport().set_input_as_handled()
 	if event is InputEventKey:
 		RetroHub._is_echo = event.is_echo()
-	if event is InputEventJoypadButton:
+	if event is InputEventMouseButton:
+		_input_mouse_button(event)
+	elif event is InputEventJoypadButton:
 		_input_button(event)
 	elif event is InputEventJoypadMotion:
 		_input_motion(event)
 	elif event is InputEventAction:
 		_input_hyper_focused(event)
 
+func _input_mouse_button(event: InputEventMouseButton):
+	if RetroHubUI.is_virtual_keyboard_visible():
+		return
+	if event.pressed:
+		return
+	if not RetroHubConfig.config.virtual_keyboard_show_on_mouse:
+		return
+	var control := RetroHubUI.get_true_focused_control()
+	if (control is LineEdit or control is TextEdit) and control.editable:
+		# Check if mouse click was inside control
+		var rect := control.get_global_rect()
+		var mouse_pos := control.get_global_mouse_position()
+		if rect.has_point(mouse_pos):
+			get_viewport().set_input_as_handled()
+			RetroHubUI.show_virtual_keyboard()
+
 func _input_button(event: InputEventJoypadButton):
 	_input_ui_movement_button(event)
-	var control := get_viewport().gui_get_focus_owner()
+	var control := RetroHubUI.get_true_focused_control()
 	if hyper_focused_control:
 		_input_hyper_focused(event)
 	if RetroHubUI.is_virtual_keyboard_visible():
 		return
 	if event.is_action_released("rh_accept"):
-		if (control is LineEdit and control.editable) or (control is TextEdit and not control.readonly):
+		if (control is LineEdit or control is TextEdit) and control.editable:
 			if control.get_parent() and control.get_parent() is SpinBox:
+				_mark_event_as_handled()
 				hyper_focused_control = control.get_parent()
 				control.theme_type_variation = "HyperFocused"
 				control.caret_column = control.text.length()
@@ -83,9 +103,11 @@ func _input_button(event: InputEventJoypadButton):
 					control.set_caret_line(control.text.length())
 					control.set_caret_column(control.text.length())
 			prev_focus = control
-			RetroHubUI.show_virtual_keyboard(control)
+			_mark_event_as_handled()
+			RetroHubUI.show_virtual_keyboard()
 	if event.is_action_pressed("rh_back"):
 		if hyper_focused_control:
+			_mark_event_as_handled()
 			if hyper_focused_control is SpinBox:
 				hyper_focused_control.get_line_edit().theme_type_variation = ""
 			else:

@@ -9,7 +9,6 @@ enum Direction {
 ## SETTINGS
 ###########################
 
-@export var autoShow := true
 @export_file("*.json") var customLayoutFile : String = ""
 @export var styleBackground : StyleBoxFlat = null
 @export var styleHover : StyleBoxFlat = null
@@ -25,7 +24,6 @@ enum Direction {
 ## SIGNALS
 ###########################
 
-signal visibilityChanged
 signal layoutChanged
 
 ###########################
@@ -49,36 +47,26 @@ func _ready():
 
 func on_config_ready(config_data: ConfigData):
 	_initKeyboard(config_data.virtual_keyboard_layout)
-	autoShow = config_data.virtual_keyboard_show_on_mouse
 
 func on_config_updated(key: String, old, new):
 	match key:
 		ConfigData.KEY_VIRTUAL_KEYBOARD_LAYOUT:
 			_initKeyboard(new)
-		ConfigData.KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE:
-			autoShow = new
 
 func _input(event):
-	_updateAutoDisplayOnInput(event)
-	if visible:
-		if not sendingEvent:
-			if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion or event is InputEventAction:
-				pass
-				#get_viewport().set_input_as_handled()
-				#_handleKeyEvents(event)
-		elif event is InputEventKey and event.keycode == KEY_ENTER and isKeyboardFocusObjectCompleteOnEnter():
-			_hideKeyboard()
+	_handleKeyEvents(event)
+	if sendingEvent and event is InputEventKey and event.keycode == KEY_ENTER and isKeyboardFocusObjectCompleteOnEnter():
+		_hideKeyboard()
 
 func size_changed():
-	size.x = get_viewport().get_visible_rect().size.x
-	bottomPos = get_viewport().get_visible_rect().size.y
+	var root_vp := get_tree().get_root().get_viewport()
+	size.x = root_vp.get_visible_rect().size.x
+	bottomPos = root_vp.get_visible_rect().size.y
 	if visible:
 		if tweenOnTop:
-			position = Vector2(0, 0)
+			position = Vector2i(0, 0)
 		else:
-			position = Vector2(0, bottomPos - size.y)
-	if autoShow:
-		_hideKeyboard()
+			position = Vector2i(0, bottomPos - size.y)
 
 ###########################
 ## INIT
@@ -99,7 +87,7 @@ var sendingEvent = false
 
 var tweenSpeed = .2
 var tweenOnTop = false
-@onready var bottomPos := get_viewport().get_visible_rect().size.y
+@onready var bottomPos := get_tree().get_root().get_viewport().get_visible_rect().size.y
 
 func _initKeyboard(config_value: String):
 	match config_value:
@@ -131,74 +119,49 @@ func _initKeyboard(config_value: String):
 	else:
 		_createKeyboard(_loadJSON(customLayoutFile))
 
-	if autoShow:
-		_hideKeyboard()
-
+	hide_keyboard()
 
 ###########################
 ## HIDE/SHOW
 ###########################
 
-var focusViewport : Viewport = null
+var focused_control : Control = null
 
-func show_keyboard(viewport: Viewport):
-	popup()
-	focusViewport = viewport
+func show_keyboard(focused_control: Control):
+	self.focused_control = focused_control
 	visible = true
 	_showKeyboard()
-	
-func hide_keyboard():
-	focusViewport = null
-	_hideKeyboard()
-	visible = false
+	# Skip current frame to avoid double input when opening the keyboard
 
-func _updateAutoDisplayOnInput(event):
-	return
-	#if autoShow == false:
-	#	return
-	#
-	#if event is InputEventMouseButton and not event.pressed:
-	#	var focusObject = focusViewport.gui_get_focus_owner()
-	#	if isKeyboardFocusObject():
-	#		RetroHubUI.show_virtual_keyboard(focus)
-			#var clickOnInput = Rect2(focusObject.global_position,focusObject.size).has_point(get_global_mouse_position())
-			#var clickOnKeyboard = Rect2(global_position,size).has_point(get_global_mouse_position())
-			#
-			#if clickOnInput:
-			#	if isKeyboardFocusObject(focusObject):
-			#		RetroHubUI.show_virtual_keyboard()
-			#elif not clickOnKeyboard:
-			#	RetroHubUI.hide_virtual_keyboard()
+func hide_keyboard():
+	await _hideKeyboard()
+	focused_control = null
 
 func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	if tweenOnTop:
-		tween.tween_property(self,"position", Vector2(0,-size.y), tweenSpeed)
+		tween.tween_property(self,"position", Vector2i(0,-size.y), tweenSpeed)
 	else:
-		tween.tween_property(self,"position", Vector2(0,get_viewport().get_visible_rect().size.y + 10), tweenSpeed)
-	
+		tween.tween_property(self,"position", Vector2i(0,bottomPos + 10), tweenSpeed)
+
 	_setCapsLock(false)
-	emit_signal("visibilityChanged",visible)
+	# Restore focus to the old viewport
+	gui_release_focus()
 	await tween.finished
 	hide()
 
 
 func _showKeyboard(keyData=null,x=null,y=null):
-	print(focusViewport)
-	print(focusViewport.gui_get_focus_owner())
-	print(focusViewport.gui_get_focus_owner().global_position)
-	tweenOnTop = focusViewport.gui_get_focus_owner().get_global_transform().origin.y > bottomPos - size.y
-	tweenOnTop = false
+	tweenOnTop = focused_control.get_global_transform_with_canvas().origin.y > bottomPos - size.y
 
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	if tweenOnTop:
-		position = Vector2(0, -size.y)
-		tween.tween_property(self,"position", Vector2(0,0), tweenSpeed)
+		position = Vector2i(0, -size.y)
+		tween.tween_property(self,"position", Vector2i(0,0), tweenSpeed)
 	else:
-		position = Vector2(0, bottomPos)
-		tween.tween_property(self,"position", Vector2(0,get_viewport().get_visible_rect().size.y-size.y), tweenSpeed)
+		position = Vector2i(0, bottomPos)
+		tween.tween_property(self,"position", Vector2i(0,bottomPos-size.y), tweenSpeed)
 	focusKey(0,0)
-	emit_signal("visibilityChanged",visible)
 
 
 func _handleKeyEvents(event):
@@ -206,17 +169,17 @@ func _handleKeyEvents(event):
 	ControllerIcons._input(event)
 	# Selection
 	if event.is_action_pressed("ui_left", true):
+		set_input_as_handled()
 		focusKey(focusedKeyX - 1, focusedKeyY)
 	elif event.is_action_pressed("ui_right", true):
+		set_input_as_handled()
 		focusKey(focusedKeyX + 1, focusedKeyY)
 	elif event.is_action_pressed("ui_up", true) or event.is_action_pressed("ui_focus_prev", true):
+		set_input_as_handled()
 		focusKeyDir(Direction.UP)
 	elif event.is_action_pressed("ui_down", true) or event.is_action_pressed("ui_focus_next", true):
+		set_input_as_handled()
 		focusKeyDir(Direction.DOWN)
-	#elif event.is_action_pressed("ui_accept"):
-	#	focusKeys[focusedKeyY][focusedKeyX].pressing = true
-	#elif event.is_action_released("ui_accept"):
-	#	focusKeys[focusedKeyY][focusedKeyX].pressing = false
 
 ###########################
 ##  KEY LAYOUT
@@ -333,15 +296,14 @@ func _keyReleased(keyData,x,y,steal_focus):
 		var keyUnicode = KeyListHandler.getUnicodeFromString(keyValue)
 		if keyUnicode != KEY_UNKNOWN and not uppercase and KeyListHandler.hasLowercase(keyValue):
 			keyUnicode +=32
-		if keyUnicode != KEY_UNKNOWN:
+		if !(keyUnicode & KEY_SPECIAL):
 			inputEventKey.unicode = keyUnicode
 		inputEventKey.keycode = KeyListHandler.getScancodeFromString(keyValue)
 
 		sendingEvent = true
 		# Manually disable ControllerIcons for this event
 		ControllerIcons.set_process_input(false)
-		#Input.parse_input_event(inputEventKey)
-		focusViewport.push_input(inputEventKey)
+		focused_control.get_viewport().push_input(inputEventKey)
 		await get_tree().process_frame
 		ControllerIcons.set_process_input(true)
 		sendingEvent = false
@@ -471,7 +433,9 @@ func _createKeyboard(layoutData):
 					elif key.get("type") == "special-hide-keyboard":
 						newKey.path = "rh_menu"
 						newKey.icon_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-						newKey.released.connect(hide_keyboard)
+						newKey.released.connect(func(_1, _2, _3, _4):
+							hide_keyboard()
+						)
 						_setKeyStyle("normal",newKey, styleSpecialKeys)
 				
 				# SET ICONS
@@ -536,13 +500,12 @@ func _loadFile(filePath):
 ###########################
 
 func isKeyboardFocusObjectCompleteOnEnter():
-	if focusViewport.gui_get_focus_owner() is LineEdit:
+	if focused_control is LineEdit:
 		return true
 	return false
 
 func isKeyboardFocusObject():
-	var focusOwner := focusViewport.gui_get_focus_owner()
-	if focusOwner is LineEdit or focusOwner is TextEdit:
+	if focused_control is LineEdit or focused_control is TextEdit:
 		return true
 	return false
 
