@@ -3,7 +3,7 @@ class_name AccessibilityFocus
 
 @export var previous : NodePath
 @export var next : NodePath
-@export var mode : Control.FocusMode
+@export var mode : Control.FocusMode = Control.FOCUS_ALL
 
 var _old_next : NodePath
 var _old_previous : NodePath

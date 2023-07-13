@@ -41,7 +41,7 @@ gdscript/warnings/native_method_override=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/onscreenkeyboard/plugin.cfg")
+enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/godot-accessibility/plugin.cfg", "res://addons/onscreenkeyboard/plugin.cfg")
 
 [gui]
 

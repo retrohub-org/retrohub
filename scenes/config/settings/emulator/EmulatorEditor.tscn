@@ -1,209 +1,162 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://6yp7suicf3ib"]
 
-[ext_resource path="res://scenes/config/settings/emulator/EmulatorEditor.gd" type="Script" id=1]
-[ext_resource path="res://assets/icons/load.svg" type="Texture2D" id=2]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=3]
+[ext_resource type="Script" path="res://scenes/config/settings/emulator/EmulatorEditor.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dydir8kskmsc6" path="res://assets/icons/load.svg" id="2"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="3"]
 
 [node name="EmulatorEditor" type="VBoxContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="IntroLabel" type="Label" parent="."]
 unique_name_in_owner = true
-offset_right = 1024.0
-offset_bottom = 14.0
+layout_mode = 2
 text = "Logo:"
 
 [node name="AccessibilityFocus" type="Node" parent="IntroLabel"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 previous = NodePath("../../HFlowContainer/HBoxContainer2/VarButton")
 
 [node name="Logo" type="Button" parent="."]
 unique_name_in_owner = true
-offset_top = 18.0
-offset_right = 80.0
-offset_bottom = 98.0
-custom_minimum_size = Vector2( 80, 80 )
-focus_neighbor_bottom = NodePath("../HBoxContainer3/Name")
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_bottom = NodePath("../HBoxContainer3/Name")
 disabled = true
 clip_text = true
 expand_icon = true
 
 [node name="HSeparator" type="HSeparator" parent="."]
-offset_top = 102.0
-offset_right = 1024.0
-offset_bottom = 106.0
+layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
-offset_top = 110.0
-offset_right = 1024.0
-offset_bottom = 124.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer2"]
-offset_right = 67.0
-offset_bottom = 14.0
+layout_mode = 2
 text = "Identifier: "
 
 [node name="Identifier" type="Label" parent="HBoxContainer2"]
 unique_name_in_owner = true
-offset_left = 71.0
-offset_right = 1024.0
-offset_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
-autowrap = true
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer2/Identifier"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="."]
-offset_top = 128.0
-offset_right = 1024.0
-offset_bottom = 152.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer3"]
-offset_top = 5.0
-offset_right = 46.0
-offset_bottom = 19.0
+layout_mode = 2
 text = "Name: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer3/Label"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Name" type="LineEdit" parent="HBoxContainer3"]
 unique_name_in_owner = true
-offset_left = 50.0
-offset_right = 1024.0
-offset_bottom = 24.0
-focus_neighbor_top = NodePath("../../Logo")
+layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../Logo")
 placeholder_text = "Emulator name"
 caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="."]
-offset_top = 156.0
-offset_right = 1024.0
-offset_bottom = 180.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer4"]
-offset_top = 5.0
-offset_right = 36.0
-offset_bottom = 19.0
+layout_mode = 2
 text = "Path3D: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer4/Label"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Path3D" type="LineEdit" parent="HBoxContainer4"]
 unique_name_in_owner = true
-offset_left = 40.0
-offset_right = 960.0
-offset_bottom = 24.0
+layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Emulator executable path"
 caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="LoadPath" type="Button" parent="HBoxContainer4"]
-offset_left = 964.0
-offset_right = 1024.0
-offset_bottom = 24.0
+layout_mode = 2
 text = "Load"
-icon = ExtResource( 2 )
+icon = ExtResource("2")
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="."]
-offset_top = 184.0
-offset_right = 1024.0
-offset_bottom = 208.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer5"]
-offset_top = 5.0
-offset_right = 73.0
-offset_bottom = 19.0
+layout_mode = 2
 text = "Command: "
 
 [node name="AccessibilityFocus" type="Node" parent="HBoxContainer5/Label"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Command" type="LineEdit" parent="HBoxContainer5"]
 unique_name_in_owner = true
-offset_left = 77.0
-offset_right = 1024.0
-offset_bottom = 24.0
-focus_neighbor_top = NodePath("../../HBoxContainer4/Path3D")
+layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../HBoxContainer4/Path3D")
 placeholder_text = "Emulator command"
 caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="HSeparator2" type="HSeparator" parent="."]
-offset_top = 212.0
-offset_right = 1024.0
-offset_bottom = 216.0
+layout_mode = 2
 
 [node name="Label2" type="Label" parent="."]
-offset_top = 220.0
-offset_right = 1024.0
-offset_bottom = 234.0
+layout_mode = 2
 text = "Available variables in command:"
 
 [node name="AccessibilityFocus" type="Node" parent="Label2"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="HFlowContainer" type="HFlowContainer" parent="."]
-offset_top = 238.0
-offset_right = 1024.0
-offset_bottom = 258.0
+layout_mode = 2
 theme_override_constants/h_separation = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HFlowContainer"]
-offset_right = 236.0
-offset_bottom = 20.0
+layout_mode = 2
 
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer"]
-offset_right = 60.0
-offset_bottom = 20.0
+layout_mode = 2
 tooltip_text = "Emulator executable path"
 focus_neighbor_top = NodePath("../../../HBoxContainer5/Command")
 text = "binpath"
 
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer"]
-offset_left = 64.0
-offset_top = 3.0
-offset_right = 236.0
-offset_bottom = 17.0
+layout_mode = 2
 text = "- Emulator executable path"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HFlowContainer"]
-offset_left = 251.0
-offset_right = 448.0
-offset_bottom = 20.0
+layout_mode = 2
 
 [node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer2"]
-offset_right = 66.0
-offset_bottom = 20.0
+layout_mode = 2
 tooltip_text = "Game file full path"
 focus_neighbor_top = NodePath("../../../HBoxContainer5/Command")
 text = "rompath"
 
 [node name="AccessibilityFocus" type="Node" parent="HFlowContainer/HBoxContainer2/VarButton"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 next = NodePath("../../../../IntroLabel")
 
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer2"]
-offset_left = 70.0
-offset_top = 3.0
-offset_right = 197.0
-offset_bottom = 17.0
+layout_mode = 2
 text = "- Game file full path"
 
 [connection signal="text_changed" from="HBoxContainer3/Name" to="." method="_on_item_change"]
 [connection signal="text_changed" from="HBoxContainer4/Path3D" to="." method="_on_item_change"]
 [connection signal="pressed" from="HBoxContainer4/LoadPath" to="." method="_on_LoadPath_pressed"]
 [connection signal="text_changed" from="HBoxContainer5/Command" to="." method="_on_item_change"]
-[connection signal="pressed" from="HFlowContainer/HBoxContainer/VarButton" to="." method="_on_VarButton_pressed" binds= [ "{binpath}" ]]
-[connection signal="pressed" from="HFlowContainer/HBoxContainer2/VarButton" to="." method="_on_VarButton_pressed" binds= [ "{rompath}" ]]
+[connection signal="pressed" from="HFlowContainer/HBoxContainer/VarButton" to="." method="_on_VarButton_pressed" binds= ["{binpath}"]]
+[connection signal="pressed" from="HFlowContainer/HBoxContainer2/VarButton" to="." method="_on_VarButton_pressed" binds= ["{rompath}"]]

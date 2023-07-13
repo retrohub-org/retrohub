@@ -23,19 +23,6 @@ func set_initial_screen_focus(screen):
 func _enter_tree():
 	add_autoload_singleton("TTS", "res://addons/godot-tts/TTS.gd")
 	add_custom_type("ScreenReader", "Node", ScreenReader, null)
-	var rate = TTS.normal_rate
-	var config = ConfigFile.new()
-	var err = config.load("res://.godot-accessibility-editor-settings.ini")
-	if not err:
-		TTS.editor_accessibility_enabled = config.get_value(
-			"global", "editor_accessibility_enabled", true
-		)
-		rate = config.get_value("speech", "rate", 50)
-	if TTS.editor_accessibility_enabled and Engine.is_editor_hint():
-		TTS.call_deferred("_set_rate", rate)
-		screen_reader = ScreenReader.new()
-		screen_reader.enable_focus_mode = true
-		get_tree().root.call_deferred("add_child", screen_reader)
 
 
 func _exit_tree():
