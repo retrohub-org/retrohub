@@ -1,0 +1,10 @@
+[configuration]
+entry_symbol = "init"
+compatibility_minimum = 4.1
+
+[libraries]
+macos.x86_64 = "macos/libgdvideo-template_release.dylib"
+windows.x86_64 = "windows_64/libgdvideo-template_release.dll"
+windows.x86_32 = "windows_32/libgdvideo-template_release.dll"
+linux.x86_64 = "linux_64/libgdvideo-template_release.so"
+linux.x86_32 = "linux_32/libgdvideo-template_release.so"
