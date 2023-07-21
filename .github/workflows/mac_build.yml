@@ -53,7 +53,7 @@ jobs:
         uses: actions/cache@v3
         id: "cache-videodecoder"
         with:
-          path: cached_builds/videodecoder/osx
+          path: cached_builds/videodecoder/macos
           key: MacOS-videodecoder-build
         continue-on-error: true
 
@@ -67,10 +67,10 @@ jobs:
       - name: "Compile"
         if: steps.cache-videodecoder.outputs.cache-hit != 'true'
         env:
-          PLATFORMS: osx
+          PLATFORMS: macos
         run: |
           mv ~/cached_builds/sdk/MacOSX12.3.sdk.tar.xz darwin_sdk
-          ./build_gdnative.sh
+          ./build_gdextension.sh
           mkdir -p -v cached_builds/videodecoder
           cp -r -v target/* cached_builds/videodecoder
 
@@ -97,7 +97,7 @@ jobs:
         uses: actions/cache@v3
         id: "cache_template"
         with:
-          path: cached_builds/template/osx.zip
+          path: cached_builds/template/macos.zip
           key: MacOS-template-build
         continue-on-error: true
 
@@ -105,44 +105,17 @@ jobs:
         uses: actions/cache@v3
         id: "cache_videodecoder"
         with:
-          path: cached_builds/videodecoder/osx
+          path: cached_builds/videodecoder/macos
           key: MacOS-videodecoder-build
         continue-on-error: false
-
-      - name: "load cached objects (godot-tts)"
-        uses: actions/cache@v3
-        id: "cache_tts"
-        with:
-          path: cached_builds/tts/${{ matrix.bits }}
-          key: MacOS-${{ matrix.bits }}-tts-build
-        continue-on-error: true
 
       - name: "Checkout Custom Godot"
         if: steps.cache_template.outputs.cache-hit != 'true'
         uses: actions/checkout@v3
         with:
           repository: retrohub-org/godot
-          ref: retrohub_patches
+          ref: retrohub_patches_4x
           path: "godot"
-
-      - name: "Download godot-tts"
-        if: steps.cache_tts.outputs.cache-hit != 'true'
-        uses: robinraju/release-downloader@v1.7
-        with:
-          repository: retrohub-org/godot-tts
-          tag: v1.0.0
-          fileName: godot-tts.zip
-          tarBall: false
-          zipBall: false
-          out-file-path: ""
-
-      - name: "Cache godot-tts"
-        if: steps.cache_tts.outputs.cache-hit != 'true'
-        run: |
-          unzip godot-tts.zip -d $RUNNER_TEMP
-          mkdir -p -v cached_builds/tts
-          mv -v $RUNNER_TEMP/godot-tts/target/release/*.dylib cached_builds/tts
-
 
       - name: "[Godot] Dependencies"
         if: steps.cache_template.outputs.cache-hit != 'true'
@@ -162,14 +135,19 @@ jobs:
         if: steps.cache_template.outputs.cache-hit != 'true'
         uses: ./godot/.github/actions/godot-deps
 
+      - name: "[Godot] Setup Vulkan SDK"
+        if: steps.cache_template.outputs.cache-hit != 'true'
+        run: |
+          sh godot/misc/scripts/install_vulkan_sdk_macos.sh
+
       - name: "[Godot] Compilation [template] (x86_64)"
         if: steps.cache_template.outputs.cache-hit != 'true'
         uses: ./godot/.github/actions/godot-build
         with:
           root: ./godot
           sconsflags: verbose=yes warnings=all werror=yes use_lto=yes optimize=size arch=x86_64
-          platform: osx
-          target: release
+          platform: macos
+          target: template_release
           tools: false
 
       - name: "[Godot] Compilation [template] (arm64)"
@@ -178,53 +156,47 @@ jobs:
         with:
           root: ./godot
           sconsflags: verbose=yes warnings=all werror=yes use_lto=yes optimize=size arch=arm64
-          platform: osx
-          target: release
+          platform: macos
+          target: template_release
           tools: false
 
       - name: "[Godot] Clean and cache template build"
         if: steps.cache_template.outputs.cache-hit != 'true'
         working-directory: godot
         run: |
-          lipo -create bin/godot.osx.opt.x86_64 bin/godot.osx.opt.arm64 -output bin/godot.osx.opt.universal
-          cp -r misc/dist/osx_template.app .
-          mkdir -p -v osx_template.app/Contents/MacOS
-          cp bin/godot.osx.opt.universal osx_template.app/Contents/MacOS/godot_osx_release.64
-          chmod +x osx_template.app/Contents/MacOS/godot_osx_release.64
-          zip -q -9 -r osx.zip osx_template.app
+          lipo -create bin/godot.macos.template_release.x86_64 bin/godot.macos.template_release.arm64 -output bin/godot.macos.template_release.universal
+          cp -r misc/dist/macos_template.app .
+          mkdir -p -v macos_template.app/Contents/MacOS
+          cp bin/godot.macos.template_release.universal macos_template.app/Contents/MacOS/godot_macos_release.64
+          chmod +x macos_template.app/Contents/MacOS/godot_macos_release.64
+          zip -q -9 -r macos.zip macos_template.app
           mkdir -p -v ../cached_builds/template
-          mv osx.zip ../cached_builds/template
+          mv macos.zip ../cached_builds/template
 
       - name: "[Godot] Download editor"
         if: steps.cache_editor.outputs.cache-hit != 'true'
         run: |
-          wget https://downloads.tuxfamily.org/godotengine/3.5/Godot_v3.5-stable_osx.universal.zip
-          unzip Godot_v3.5-stable_osx.universal.zip
+          wget https://downloads.tuxfamily.org/godotengine/4.1/Godot_v4.1-stable_macos.universal.zip
+          unzip Godot_v4.1-stable_macos.universal.zip
           mkdir -p -v cached_builds/editor
           mv Godot.app cached_builds/editor/
 
       - name: "Setup templates and libraries"
         env:
-          TEMPLATE_PATH: /Users/runner/Library/Application Support/Godot/templates/3.5.stable
+          TEMPLATE_PATH: /Users/runner/Library/Application Support/Godot/export_templates/4.1.stable
         run: |
           mkdir -p -v "$TEMPLATE_PATH"
-          cp cached_builds/template/osx.zip "$TEMPLATE_PATH"
-          ln -s ../../../cached_builds/videodecoder/osx retrohub/addons/godot-videodecoder/osx
+          cp cached_builds/template/macos.zip "$TEMPLATE_PATH"
+          ln -s ../../../cached_builds/videodecoder/macos retrohub/addons/godot-videodecoder/macos
           mkdir -p -v export/macos
 
       - name: "Package default themes"
         uses: ./retrohub/.github/actions/get-default-themes
 
-      - name: "Package godot-tts"
-        run: |
-          mkdir -p -v retrohub/addons/godot-tts/target/release
-          cp -r -v cached_builds/tts/* retrohub/addons/godot-tts/target/release
-
-
       - name: "Exporting RetroHub"
         working-directory: retrohub
         run: |
-          ../cached_builds/editor/Godot.app/Contents/MacOS/Godot --export "Mac" ../export/macos/RetroHub.app
+          ../cached_builds/editor/Godot.app/Contents/MacOS/Godot --headless --export-release "macOS" ../export/macos/RetroHub.app
         
       - name: "Sign executable"
         working-directory: export/macos

@@ -111,7 +111,7 @@ func is_main_app() -> bool:
 	return true
 
 func _is_dev_env() -> bool:
-	return not OS.has_feature("standalone")
+	return not OS.has_feature("template")
 
 func is_input_echo() -> bool:
 	return _is_echo
