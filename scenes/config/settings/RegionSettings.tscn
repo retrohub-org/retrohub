@@ -298,6 +298,7 @@ script = ExtResource("6")
 layout_mode = 2
 script = ExtResource("12")
 
+[connection signal="hidden" from="." to="." method="_on_AppSettings_hide"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer/Region" to="." method="_on_Region_item_selected"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/ResetRegion" to="." method="_on_ResetRegion_pressed"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer2/RatingSystem" to="." method="_on_RatingSystem_item_selected"]
