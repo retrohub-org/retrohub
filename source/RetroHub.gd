@@ -26,7 +26,8 @@ var launched_system_data : RetroHubSystemData = null
 var launched_game_data : RetroHubGameData = null
 var launched_emulator : Dictionary = {}
 
-var _is_echo : bool = false
+var _is_echo := false
+var _is_input_remap_utility := false
 
 const version_major := 0
 const version_minor := 1
