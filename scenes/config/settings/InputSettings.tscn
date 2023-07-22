@@ -83,7 +83,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -363,6 +362,7 @@ script = ExtResource("44")
 next = NodePath("../../../../../../..")
 
 [node name="Controller" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -870,6 +870,7 @@ visible = false
 unique_name_in_owner = true
 visible = false
 
+[connection signal="hidden" from="." to="." method="_on_hide"]
 [connection signal="tab_changed" from="ScrollContainer/VBoxContainer/TabContainerHandler" to="." method="_on_TabContainerHandler_tab_changed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/KBReset" to="." method="_on_KBReset_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer/KBAccept" to="." method="_on_KB_pressed" binds= ["rh_accept"]]

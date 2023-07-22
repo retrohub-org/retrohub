@@ -136,7 +136,7 @@ func _on_Scrape_pressed():
 func _on_ScraperSettings_visibility_changed():
 	if visible:
 		update_scrape_stats(true)
-	else:
+	elif n_ss_settings:
 		n_ss_settings.save_credentials()
 		RetroHubConfig.save_config()
 

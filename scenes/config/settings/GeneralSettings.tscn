@@ -270,6 +270,7 @@ Are you sure you want to proceed?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="hidden" from="." to="." method="_on_AppSettings_hide"]
 [connection signal="visibility_changed" from="." to="." method="_on_AppSettings_visibility_changed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/User/HBoxContainer/SetGamePath" to="." method="_on_SetGamePath_pressed"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/User/HBoxContainer2/Themes" to="." method="_on_Themes_item_selected"]
