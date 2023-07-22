@@ -98,6 +98,7 @@ offset_left = 10.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Quit"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab/HBoxContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -128,6 +129,7 @@ offset_right = -5.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Game"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GameTab/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
@@ -158,6 +160,7 @@ offset_right = -5.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Scraper"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ScraperTab/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
@@ -188,6 +191,7 @@ offset_right = -5.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Theme"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ThemeTab/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
@@ -202,6 +206,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 layout_mode = 2
 text = "Settings"
+horizontal_alignment = 1
 
 [node name="GeneralTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
@@ -225,6 +230,7 @@ offset_right = -10.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "General"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GeneralTab/HBoxContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -255,6 +261,7 @@ offset_right = -10.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Input"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/InputTab/HBoxContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -285,6 +292,7 @@ offset_right = -10.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Region"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/RegionTab/HBoxContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -315,6 +323,7 @@ offset_right = -10.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Systems"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab/HBoxContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -345,6 +354,7 @@ offset_right = -10.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Emulators"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab/HBoxContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -376,6 +386,7 @@ offset_right = -10.0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "About"
+horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab/HBoxContainer"]
 custom_minimum_size = Vector2(32, 0)

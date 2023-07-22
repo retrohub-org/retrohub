@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://carj0e8mnxjvn"]
 
-[ext_resource type="PackedScene" path="res://scenes/config/settings/emulator/EmulatorEditor.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://6yp7suicf3ib" path="res://scenes/config/settings/emulator/EmulatorEditor.tscn" id="1"]
 [ext_resource type="Script" path="res://scenes/config/settings/EmulatorSettings.gd" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/AddCustomInfo.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/config/settings/emulator/RetroArchEmulatorEditor.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dnlu06cgbfnex" path="res://scenes/config/settings/AddCustomInfo.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://60ylmuq3irmj" path="res://scenes/config/settings/emulator/RetroArchEmulatorEditor.tscn" id="4"]
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="5"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="6"]
 
@@ -106,89 +106,20 @@ follow_focus = true
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="IntroLabel" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="0"]
-layout_mode = 2
-
 [node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/IntroLabel" index="0"]
 previous = NodePath("")
 
 [node name="Logo" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="1"]
-layout_mode = 2
 focus_neighbor_top = NodePath("../../../../HBoxContainer2/AddEmulator")
 
-[node name="HSeparator" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="2"]
-layout_mode = 2
-
-[node name="HBoxContainer2" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="3"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer2" index="0"]
-layout_mode = 2
-
-[node name="Identifier" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer2" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer3" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="4"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer3" index="0"]
-layout_mode = 2
-
-[node name="Name" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer3" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer4" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="5"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer4" index="0"]
-layout_mode = 2
-
-[node name="Path3D" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer4" index="1"]
-layout_mode = 2
-
-[node name="LoadPath" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer4" index="2"]
-layout_mode = 2
-
-[node name="HBoxContainer5" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="6"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer5" index="0"]
-layout_mode = 2
-
-[node name="Command" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HBoxContainer5" index="1"]
-layout_mode = 2
-
-[node name="HSeparator2" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="7"]
-layout_mode = 2
-
-[node name="Label2" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="8"]
-layout_mode = 2
-
-[node name="HFlowContainer" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" index="9"]
-layout_mode = 2
-
-[node name="HBoxContainer" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer" index="0"]
-layout_mode = 2
-
 [node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer" index="0"]
-layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
 
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer2" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer" index="1"]
-layout_mode = 2
-
 [node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2" index="0"]
-layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2/VarButton" index="0"]
 next = NodePath("../../../../../../../HBoxContainer/EmulatorSelection")
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2" index="1"]
-layout_mode = 2
 
 [node name="ScrollHandler" type="Control" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer"]
 layout_mode = 2
@@ -203,166 +134,16 @@ follow_focus = true
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="0"]
-layout_mode = 2
-
 [node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/Label" index="0"]
 previous = NodePath("../../../../../HBoxContainer2/CustomOptions/RemoveEmulator")
 
 [node name="Logo" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="1"]
-layout_mode = 2
 focus_neighbor_top = NodePath("../../../../HBoxContainer2/AddEmulator")
 
-[node name="HSeparator" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="2"]
-layout_mode = 2
-
-[node name="HBoxContainer2" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="3"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer2" index="0"]
-layout_mode = 2
-
-[node name="Identifier" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer2" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer3" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="4"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer3" index="0"]
-layout_mode = 2
-
-[node name="Name" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer3" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer4" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="5"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer4" index="0"]
-layout_mode = 2
-
-[node name="Path3D" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer4" index="1"]
-layout_mode = 2
-
-[node name="LoadPath" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer4" index="2"]
-layout_mode = 2
-
-[node name="HBoxContainer9" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="6"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer9" index="0"]
-layout_mode = 2
-
-[node name="CorePath" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer9" index="1"]
-layout_mode = 2
-
-[node name="LoadCorePath" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer9" index="2"]
-layout_mode = 2
-
-[node name="HBoxContainer5" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="7"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer5" index="0"]
-layout_mode = 2
-
-[node name="Command" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer5" index="1"]
-layout_mode = 2
-
-[node name="HSeparator2" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="8"]
-layout_mode = 2
-
-[node name="Label2" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="9"]
-layout_mode = 2
-
-[node name="HFlowContainer" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="10"]
-layout_mode = 2
-
-[node name="HBoxContainer" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer" index="0"]
-layout_mode = 2
-
-[node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer/HBoxContainer" index="0"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer/HBoxContainer" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer2" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer" index="1"]
-layout_mode = 2
-
-[node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer/HBoxContainer2" index="0"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer/HBoxContainer2" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer3" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer" index="2"]
-layout_mode = 2
-
-[node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer/HBoxContainer3" index="0"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer/HBoxContainer3" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer4" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer" index="3"]
-layout_mode = 2
-
-[node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer/HBoxContainer4" index="0"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HFlowContainer/HBoxContainer4" index="1"]
-layout_mode = 2
-
-[node name="HSeparator3" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="11"]
-layout_mode = 2
-
-[node name="HBoxContainer" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="12"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer" index="0"]
-layout_mode = 2
-
-[node name="CoreOption" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer" index="1"]
-layout_mode = 2
-
-[node name="RemoveCore" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer" index="2"]
-layout_mode = 2
-
-[node name="VSeparator" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer" index="3"]
-layout_mode = 2
-
-[node name="AddCore" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer" index="4"]
-layout_mode = 2
-
-[node name="HBoxContainer6" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="13"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer6" index="0"]
-layout_mode = 2
-
-[node name="CoreIdentifier" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer6" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer7" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="14"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer7" index="0"]
-layout_mode = 2
-
-[node name="CoreName" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer7" index="1"]
-layout_mode = 2
-
-[node name="HBoxContainer8" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" index="15"]
-layout_mode = 2
-
-[node name="Label" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8" index="0"]
-layout_mode = 2
-
 [node name="CoreFileName" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8" index="1"]
-layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="LoadCoreFileName" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8" index="2"]
-layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8/LoadCoreFileName" index="0"]

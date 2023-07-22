@@ -72,6 +72,7 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture = ExtResource("1")
 expand_mode = 1
+stretch_mode = 5
 script = ExtResource("10")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer"]

@@ -9,7 +9,7 @@ var cores : Array
 @onready var n_logo := %Logo
 @onready var n_name := %Identifier
 @onready var n_fullname := %Name
-@onready var n_path := %Path3D
+@onready var n_path := %Path
 @onready var n_core_path := %CorePath
 @onready var n_command := %Command
 
