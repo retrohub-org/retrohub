@@ -43,11 +43,10 @@ func _process(delta):
 		n_kill_press_progress.value = n_timer.wait_time - n_timer.time_left
 
 func _input(event):
-	if get_window().has_focus():
-		if event.is_action_released("rh_menu"):
-			n_timer.stop()
-		if event.is_action_pressed("rh_menu"):
-			n_timer.start()
+	if event.is_action_released("rh_menu"):
+		n_timer.stop()
+	if event.is_action_pressed("rh_menu"):
+		n_timer.start()
 
 func set_info(logo_path: String, game_name: String, emu_name: String):
 	n_emu_logo.texture = load(logo_path)

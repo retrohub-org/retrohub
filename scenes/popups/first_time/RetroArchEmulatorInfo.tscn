@@ -37,7 +37,7 @@ autowrap_mode = 2
 [node name="PathSection" parent="VBoxContainer" instance=ExtResource("1")]
 unique_name_in_owner = true
 layout_mode = 2
-label = "Path3D"
+label = "Path"
 
 [node name="CoreSection" parent="VBoxContainer" instance=ExtResource("1")]
 unique_name_in_owner = true
