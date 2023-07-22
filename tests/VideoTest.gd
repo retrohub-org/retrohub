@@ -1,4 +1,4 @@
-extends VideoPlayer
+extends VideoStreamPlayer
 
 func _ready():
 	var _stream := VideoStreamWebm.new()

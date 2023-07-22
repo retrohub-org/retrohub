@@ -1,34 +1,34 @@
 extends Control
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_service := $"%Service"
-onready var n_games_selected := $"%GamesSelected"
-onready var n_games_type := $"%GamesType"
-onready var n_metadata := $"%Metadata"
-onready var n_search_by_hash := $"%Hash"
-onready var n_search_by_name := $"%Filename"
-onready var n_hash_max_size_lbl := $"%HashMaxSizeLabel"
-onready var n_hash_max_size := $"%HashMaxSize"
-onready var n_media := $"%Media"
-onready var n_media_select_all := $"%MediaSelectAll"
-onready var n_media_deselect_all := $"%MediaDeselectAll"
-onready var n_media_logo := $"%MediaLogo"
-onready var n_media_title_screen := $"%MediaTitleScreen"
-onready var n_media_screenshot := $"%MediaScreenshot"
-onready var n_media_video := $"%MediaVideo"
-onready var n_media_box_render := $"%MediaBoxRender"
-onready var n_media_box_tex := $"%MediaBoxTex"
-onready var n_media_support_render := $"%MediaSupportRender"
-onready var n_media_support_tex := $"%MediaSupportTex"
-onready var n_media_manual := $"%MediaManual"
-onready var n_scrape := $"%Scrape"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_service := %Service
+@onready var n_games_selected := %GamesSelected
+@onready var n_games_type := %GamesType
+@onready var n_metadata := %Metadata
+@onready var n_search_by_hash := %Hash
+@onready var n_search_by_name := %Filename
+@onready var n_hash_max_size_lbl := %HashMaxSizeLabel
+@onready var n_hash_max_size := %HashMaxSize
+@onready var n_media := %Media
+@onready var n_media_select_all := %MediaSelectAll
+@onready var n_media_deselect_all := %MediaDeselectAll
+@onready var n_media_logo := %MediaLogo
+@onready var n_media_title_screen := %MediaTitleScreen
+@onready var n_media_screenshot := %MediaScreenshot
+@onready var n_media_video := %MediaVideo
+@onready var n_media_box_render := %MediaBoxRender
+@onready var n_media_box_tex := %MediaBoxTex
+@onready var n_media_support_render := %MediaSupportRender
+@onready var n_media_support_tex := %MediaSupportTex
+@onready var n_media_manual := %MediaManual
+@onready var n_scrape := %Scrape
 
-onready var n_scraping_game_picker_popup := $"%ScrapingGamePickerPopup"
-onready var n_scrape_popup := $"%ScraperPopup"
+@onready var n_scraping_game_picker_popup := %ScrapingGamePickerPopup
+@onready var n_scrape_popup := %ScraperPopup
 
-onready var n_ss_settings := $"%ScreenScrapperSettings"
+@onready var n_ss_settings := %ScreenScrapperSettings
 
-onready var n_media_nodes := [
+@onready var n_media_nodes := [
 	n_media_logo,
 	n_media_title_screen,
 	n_media_screenshot,
@@ -43,7 +43,8 @@ onready var n_media_nodes := [
 var selected_game_datas : Array
 
 func _ready():
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.config_ready.connect(_on_config_ready)
+	visibility_changed.connect(_on_ScraperSettings_visibility_changed)
 
 func _on_config_ready(config_data: ConfigData):
 	set_hash_max_size_text(config_data.scraper_hash_file_size)
@@ -56,9 +57,9 @@ func grab_focus():
 		n_service.grab_focus()
 
 func toggle_scrape_button():
-	n_scrape.disabled = selected_game_datas.empty() or \
-		!(n_metadata.pressed or n_media.pressed) or \
-		!(n_search_by_hash.pressed or n_search_by_name.pressed)
+	n_scrape.disabled = selected_game_datas.is_empty() or \
+		!(n_metadata.button_pressed or n_media.button_pressed) or \
+		!(n_search_by_hash.button_pressed or n_search_by_name.button_pressed)
 
 func _on_Metadata_toggled(_button_pressed):
 	toggle_scrape_button()
@@ -73,12 +74,12 @@ func _on_Media_toggled(button_pressed):
 
 func _on_MediaSelectAll_pressed():
 	for node in n_media_nodes:
-		node.pressed = true
+		node.button_pressed = true
 
 
 func _on_MediaDeselectAll_pressed():
 	for node in n_media_nodes:
-		node.pressed = false
+		node.button_pressed = false
 
 
 func _on_GamesType_item_selected(_index):
@@ -103,33 +104,33 @@ func update_scrape_stats(passive: bool):
 				selected_game_datas.push_back(game)
 		4:	# Custom
 			if not passive:
-				n_scraping_game_picker_popup.popup()
-				selected_game_datas = yield(n_scraping_game_picker_popup, "games_selected")
+				n_scraping_game_picker_popup.popup_centered()
+				selected_game_datas = await n_scraping_game_picker_popup.games_selected
 	match selected_game_datas.size():
 		0:
 			n_games_selected.text = "No games selected"
 		1:
 			n_games_selected.text = "1 game selected"
-		var size:
-			n_games_selected.text = "%d games selected" % size
+		var selected_size:
+			n_games_selected.text = "%d games selected" % selected_size
 	toggle_scrape_button()
 
 func get_media_bitmask() -> int:
 	var bitmask := 0
 	var idx := 0
 	for media in n_media_nodes:
-		bitmask |= int(media.pressed) << (idx)
+		bitmask |= int(media.button_pressed) << (idx)
 		idx += 1
 	return bitmask
 
 func _on_Scrape_pressed():
 	n_ss_settings.save_credentials()
-	n_scrape_popup.popup()
+	n_scrape_popup.popup_centered()
 	var media_bitmask := get_media_bitmask()
 	# TODO: Make Scraper generation dynamic according to selection
 	var scraper := RetroHubScreenScraperScraper.new()
-	n_scrape_popup.begin_scraping(selected_game_datas, scraper, n_metadata.pressed, n_media.pressed,
-		n_search_by_hash.pressed, n_search_by_name.pressed, media_bitmask)
+	n_scrape_popup.begin_scraping(selected_game_datas, scraper, n_metadata.button_pressed, n_media.button_pressed,
+		n_search_by_hash.button_pressed, n_search_by_name.button_pressed, media_bitmask)
 
 
 func _on_ScraperSettings_visibility_changed():
@@ -138,9 +139,6 @@ func _on_ScraperSettings_visibility_changed():
 	else:
 		n_ss_settings.save_credentials()
 		RetroHubConfig.save_config()
-
-func _on_ScraperPopup_popup_hide():
-	update_scrape_stats(true)
 
 func convert_hash_size_from_range(value: float) -> int:
 	# Value is actually an int
@@ -169,12 +167,15 @@ func convert_hash_size_to_range(value: int):
 		return 129
 	if value >= 2048:
 		# 2GB to 10GB
+		@warning_ignore("integer_division")
 		return 96 + (value - 2048) / 256
 	elif value >= 512:
 		# 512MB to 2GB
+		@warning_ignore("integer_division")
 		return 64 + (value - 512) / 48
 	elif value >= 64:
 		# 64MB to 512MB
+		@warning_ignore("integer_division")
 		return 32 + (value - 64) / 14
 	elif value > 0:
 		# 1MB to 64MB
@@ -199,16 +200,21 @@ func _on_Hash_toggled(button_pressed):
 	n_hash_max_size.editable = button_pressed
 
 
-func _on_Filename_toggled(button_pressed):
+func _on_Filename_toggled(_button_pressed):
 	toggle_scrape_button()
 
 func tts_range_value_text(value: float, node: Node) -> String:
 	if node == n_hash_max_size:
-		var size := convert_hash_size_from_range(value)
-		if size == 0:
+		var hash_size := convert_hash_size_from_range(value)
+		if hash_size == 0:
 			return "Unlimited"
-		elif size >= 1024:
+		elif hash_size >= 1024:
 			return "%.2f GB" % (value / 1024.0)
 		else:
 			return "%d MB" % value
 	return ""
+
+
+func _on_ScraperPopup_visibility_changed():
+	if not n_scrape_popup.visible:
+		update_scrape_stats(true)

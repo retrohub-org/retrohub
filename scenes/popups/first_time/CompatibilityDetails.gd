@@ -1,16 +1,16 @@
 extends Control
 
-onready var n_metadata_icon := $"%MetadataIcon"
-onready var n_metadata_status := $"%MetadataStatus"
-onready var n_metadata_details := $"%MetadataDetails"
+@onready var n_metadata_icon := %MetadataIcon
+@onready var n_metadata_status := %MetadataStatus
+@onready var n_metadata_details := %MetadataDetails
 
-onready var n_media_icon := $"%MediaIcon"
-onready var n_media_status := $"%MediaStatus"
-onready var n_media_details := $"%MediaDetails"
+@onready var n_media_icon := %MediaIcon
+@onready var n_media_status := %MediaStatus
+@onready var n_media_details := %MediaDetails
 
-onready var n_theme_icon := $"%ThemeIcon"
-onready var n_theme_status := $"%ThemeStatus"
-onready var n_theme_details := $"%ThemeDetails"
+@onready var n_theme_icon := %ThemeIcon
+@onready var n_theme_status := %ThemeStatus
+@onready var n_theme_details := %ThemeDetails
 
 func set_importer_status(importer: RetroHubImporter):
 	# Labels
@@ -32,13 +32,13 @@ func set_label(node: Label, level: int):
 	match level:
 		RetroHubImporter.CompatibilityLevel.UNSUPPORTED:
 			node.text = "Unsupported"
-			node.add_color_override("font_color", RetroHubUI.color_error)
+			node.add_theme_color_override("font_color", RetroHubUI.color_error)
 		RetroHubImporter.CompatibilityLevel.PARTIAL:
 			node.text = "Partially supported"
-			node.add_color_override("font_color", RetroHubUI.color_warning)
+			node.add_theme_color_override("font_color", RetroHubUI.color_warning)
 		RetroHubImporter.CompatibilityLevel.SUPPORTED:
 			node.text = "Supported"
-			node.add_color_override("font_color", RetroHubUI.color_success)
+			node.add_theme_color_override("font_color", RetroHubUI.color_success)
 
 func set_icon(node: TextureRect, level: int):
 	match level:

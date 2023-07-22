@@ -3,40 +3,40 @@ extends Control
 signal change_ocurred
 signal reset_state
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_name := $"%Name"
-onready var n_description := $"%Description"
-onready var n_rating_lbl := $"%RatingLabel"
-onready var n_rating := $"%Rating"
-onready var n_release_date := $"%ReleaseDate"
-onready var n_developer := $"%Developer"
-onready var n_publisher := $"%Publisher"
-onready var n_age_rating := $"%AgeRating"
-onready var n_genres := $"%Genres"
-onready var n_fixed_players := $"%FixedPlayers"
-onready var n_fixed_players_num := $"%FixedPlayersNum"
-onready var n_variable_players := $"%VariablePlayers"
-onready var n_variable_players_min := $"%VariablePlayersMin"
-onready var n_variable_players_max := $"%VariablePlayersMax"
-onready var n_favorite := $"%Favorite"
-onready var n_num_times_played := $"%NumTimesPlayed"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_name := %Name
+@onready var n_description := %Description
+@onready var n_rating_lbl := %RatingLabel
+@onready var n_rating := %Rating
+@onready var n_release_date := %ReleaseDate
+@onready var n_developer := %Developer
+@onready var n_publisher := %Publisher
+@onready var n_age_rating := %AgeRating
+@onready var n_genres := %Genres
+@onready var n_fixed_players := %FixedPlayers
+@onready var n_fixed_players_num := %FixedPlayersNum
+@onready var n_variable_players := %VariablePlayers
+@onready var n_variable_players_min := %VariablePlayersMin
+@onready var n_variable_players_max := %VariablePlayersMax
+@onready var n_favorite := %Favorite
+@onready var n_num_times_played := %NumTimesPlayed
 
-var game_data : RetroHubGameData setget set_game_data
+var game_data : RetroHubGameData: set = set_game_data
 
-export(bool) var disable_edits := false
+@export var disable_edits := false
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("game_data_updated", self, "_on_game_data_updated")
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
-	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+	RetroHubConfig.game_data_updated.connect(_on_game_data_updated)
+	RetroHubConfig.config_ready.connect(_on_config_ready)
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 
-	n_age_rating.get_popup().max_height = RetroHubUI.max_popupmenu_height
+	n_age_rating.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 
 func _on_config_ready(config: ConfigData):
 	update_age_rating_options(config.rating_system)
 
-func _on_config_updated(key: String, old, new):
+func _on_config_updated(key: String, _old, new):
 	if key == ConfigData.KEY_RATING_SYSTEM:
 		update_age_rating_options(new)
 		if game_data:
@@ -139,7 +139,7 @@ func set_edit_nodes_enabled(enabled: bool):
 	if disable_edits:
 		enabled = false
 	n_name.editable = enabled
-	n_description.readonly = !enabled
+	n_description.editable = enabled
 	n_rating.editable = enabled
 	n_release_date.editable = enabled
 	n_developer.editable = enabled
@@ -173,11 +173,11 @@ func save_changes():
 			game_data.genres[0] = n_genres.text
 		else:
 			game_data.genres.push_back(n_genres.text)
-		if n_fixed_players.pressed:
+		if n_fixed_players.button_pressed:
 			game_data.num_players = "%d-%d" % [n_fixed_players_num.value, n_fixed_players_num.value]
 		else:
 			game_data.num_players = "%d-%d" % [n_variable_players_min.value, n_variable_players_max.value]
-		game_data.favorite = n_favorite.pressed
+		game_data.favorite = n_favorite.button_pressed
 		game_data.play_count = n_num_times_played.value
 		if RetroHubConfig.save_game_data(game_data):
 			emit_signal("reset_state")

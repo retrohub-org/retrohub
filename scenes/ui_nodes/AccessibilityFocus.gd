@@ -1,13 +1,13 @@
 extends Node
 class_name AccessibilityFocus
 
-export var previous : NodePath
-export var next : NodePath
-export(int, "None", "Click", "All") var mode : int = 2
+@export var previous : NodePath
+@export var next : NodePath
+@export var mode : Control.FocusMode = Control.FOCUS_ALL
 
 var _old_next : NodePath
 var _old_previous : NodePath
-var _old_mode : int
+var _old_mode : Control.FocusMode
 
 var parent : Control
 
@@ -30,7 +30,7 @@ func _ready():
 		"previous"
 	]:
 		var neighbour : NodePath = get(neighbour_str)
-		if not neighbour or neighbour.get_name_count() < 1:
+		if neighbour.get_name_count() < 1:
 			continue
 		var node_path_str = ""
 		for i in range(1, neighbour.get_name_count()-1):
@@ -39,8 +39,8 @@ func _ready():
 
 		set(neighbour_str, NodePath(node_path_str))
 
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
-	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+	RetroHubConfig.config_ready.connect(_on_config_ready)
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 	if RetroHub.is_main_app():
 		_on_config_ready(RetroHubConfig.config)
@@ -48,7 +48,7 @@ func _ready():
 func _on_config_ready(config: ConfigData):
 	toggle_info(config.accessibility_screen_reader_enabled)
 
-func _on_config_updated(key: String, old, new):
+func _on_config_updated(key: String, _old, new):
 	if key == ConfigData.KEY_ACCESSIBILITY_SCREEN_READER_ENABLED:
 		toggle_info(new)
 

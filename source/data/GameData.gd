@@ -5,12 +5,6 @@ class_name RetroHubGameData
 static func sort(a: RetroHubGameData, b: RetroHubGameData):
 	return a.name.naturalnocasecmp_to(b.name) == -1
 
-func duplicate(_subresources: bool = false) -> Resource:
-	var other := .duplicate(_subresources)
-	other.copy_from(self)
-
-	return other
-
 func copy_from(other: RetroHubGameData) -> void:
 	has_metadata = other.has_metadata
 	has_media = other.has_media

@@ -2,11 +2,11 @@ extends Control
 
 signal advance_section
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_region := $"%RegionOptions"
-onready var n_rating := $"%RatingContainer"
-onready var n_date := $"%DateContainer"
-onready var n_systems := $"%SystemsContainer"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_region := %RegionOptions
+@onready var n_rating := %RatingContainer
+@onready var n_date := %DateContainer
+@onready var n_systems := %SystemsContainer
 
 
 func grab_focus():

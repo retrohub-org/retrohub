@@ -1,318 +1,303 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=14 format=3 uid="uid://bt8irkoyjsyhl"]
 
-[ext_resource path="res://scenes/config/settings/RegionSettings.gd" type="Script" id=1]
-[ext_resource path="res://assets/ratings/esrb/E.png" type="Texture" id=2]
-[ext_resource path="res://assets/systems/nes-photo.png" type="Texture" id=3]
-[ext_resource path="res://assets/ratings/pegi/3.png" type="Texture" id=4]
-[ext_resource path="res://assets/ratings/cero/A.png" type="Texture" id=5]
-[ext_resource path="res://scenes/ui_nodes/LazyTextureRect.gd" type="Script" id=6]
-[ext_resource path="res://assets/systems/tg16-photo.png" type="Texture" id=7]
-[ext_resource path="res://assets/systems/tg-cd-photo.png" type="Texture" id=8]
-[ext_resource path="res://assets/systems/snes-photo.png" type="Texture" id=9]
-[ext_resource path="res://assets/systems/videopac-photo.png" type="Texture" id=10]
-[ext_resource path="res://assets/systems/genesis-photo.png" type="Texture" id=11]
-[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=12]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=13]
+[ext_resource type="Script" path="res://scenes/config/settings/RegionSettings.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bncctv660qkvf" path="res://assets/ratings/esrb/E.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://ctvgio1p7e2gw" path="res://assets/systems/nes-photo.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://p44vyxivcexx" path="res://assets/ratings/pegi/3.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://58b4yao6tqpc" path="res://assets/ratings/cero/A.png" id="5"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/LazyTextureRect.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://dlsmyk5iq1n0p" path="res://assets/systems/tg16-photo.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://bus4vapc51lbv" path="res://assets/systems/tg-cd-photo.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://cpo8vv35tfj4n" path="res://assets/systems/snes-photo.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://boc8dratslg5t" path="res://assets/systems/videopac-photo.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://y8qx7oo4ph2" path="res://assets/systems/genesis-photo.png" id="11"]
+[ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="12"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="13"]
 
 [node name="RegionSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1024.0
-margin_bottom = 576.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 30.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="IntroLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_top = 8.0
-margin_right = 720.0
-margin_bottom = 22.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Region:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer/IntroLabel"]
-script = ExtResource( 13 )
+script = ExtResource("13")
 previous = NodePath("../../../SystemsContainer/HBoxContainer6/Odyssey2")
 
 [node name="Region" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 724.0
-margin_right = 1024.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 300, 30 )
-focus_neighbour_top = NodePath("../../SystemsContainer/HBoxContainer6/Odyssey2")
-text = "USA"
-items = [ "USA", null, false, 0, null, "Europe", null, false, 1, null, "Japan", null, false, 2, null ]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../SystemsContainer/HBoxContainer6/Odyssey2")
+item_count = 3
 selected = 0
+popup/item_0/text = "USA"
+popup/item_0/id = 0
+popup/item_1/text = "Europe"
+popup/item_1/id = 1
+popup/item_2/text = "Japan"
+popup/item_2/id = 2
 
 [node name="ResetRegion" type="Button" parent="ScrollContainer/VBoxContainer"]
-margin_left = 877.0
-margin_top = 34.0
-margin_right = 1024.0
-margin_bottom = 54.0
+layout_mode = 2
 size_flags_horizontal = 8
 text = "Reset region defaults"
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
-margin_top = 58.0
-margin_right = 1024.0
-margin_bottom = 62.0
+layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 66.0
-margin_right = 1024.0
-margin_bottom = 146.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 870.0
-margin_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Rating system:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer2/Label"]
-script = ExtResource( 13 )
+script = ExtResource("13")
 
 [node name="RatingSystem" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 874.0
-margin_right = 1024.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 150, 80 )
-text = "ESRB"
-icon = ExtResource( 2 )
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
 expand_icon = true
-items = [ "ESRB", ExtResource( 2 ), false, 0, null, "PEGI", ExtResource( 4 ), false, 1, null, "CERO", ExtResource( 5 ), false, 2, null ]
+item_count = 3
 selected = 0
+popup/item_0/text = "ESRB"
+popup/item_0/icon = ExtResource("2")
+popup/item_0/id = 0
+popup/item_1/text = "PEGI"
+popup/item_1/icon = ExtResource("4")
+popup/item_1/id = 1
+popup/item_2/text = "CERO"
+popup/item_2/icon = ExtResource("5")
+popup/item_2/id = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 150.0
-margin_right = 1024.0
-margin_bottom = 180.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
-margin_right = 720.0
-margin_bottom = 14.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Date format:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer3/Label"]
-script = ExtResource( 13 )
+script = ExtResource("13")
 
 [node name="DateFormat" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 724.0
-margin_right = 1024.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 300, 30 )
-text = "MM/DD/YYYY"
-items = [ "MM/DD/YYYY", null, false, 0, null, "DD/MM/YYYY", null, false, 1, null, "YYYY/MM/DD", null, false, 2, null ]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+item_count = 3
 selected = 0
+popup/item_0/text = "MM/DD/YYYY"
+popup/item_0/id = 0
+popup/item_1/text = "DD/MM/YYYY"
+popup/item_1/id = 1
+popup/item_2/text = "YYYY/MM/DD"
+popup/item_2/id = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
-margin_top = 184.0
-margin_right = 1024.0
-margin_bottom = 198.0
+layout_mode = 2
 text = "System names: "
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Label"]
-script = ExtResource( 13 )
+script = ExtResource("13")
 
 [node name="SystemsContainer" type="HFlowContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 202.0
-margin_right = 1024.0
-margin_bottom = 576.0
-grow_horizontal = 0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 
 [node name="Genesis" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../../HBoxContainer3/DateFormat")
-focus_neighbour_bottom = NodePath("../../HBoxContainer5/TGCD")
+layout_mode = 2
 size_flags_vertical = 4
-text = "Sega Genesis"
-items = [ "Sega Genesis", null, false, 0, null, "Sega Megadrive", null, false, 1, null ]
+focus_neighbor_top = NodePath("../../../HBoxContainer3/DateFormat")
+focus_neighbor_bottom = NodePath("../../HBoxContainer5/TGCD")
+item_count = 2
 selected = 0
+popup/item_0/text = "Sega Genesis"
+popup/item_0/id = 0
+popup/item_1/text = "Sega Megadrive"
+popup/item_1/id = 1
 
 [node name="GenesisIcon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 6 )
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("11")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("6")
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 154.0
-margin_right = 304.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 
 [node name="NES" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../../HBoxContainer3/DateFormat")
+layout_mode = 2
 size_flags_vertical = 4
-text = "NES"
-items = [ "NES", null, false, 0, null, "Famicom", null, false, 1, null ]
+focus_neighbor_top = NodePath("../../../HBoxContainer3/DateFormat")
+item_count = 2
 selected = 0
+popup/item_0/text = "NES"
+popup/item_0/id = 0
+popup/item_1/text = "Famicom"
+popup/item_1/id = 1
 
 [node name="NESIcon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 6 )
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("6")
 
 [node name="HBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 308.0
-margin_right = 458.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 
 [node name="SNES" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../../HBoxContainer3/DateFormat")
+layout_mode = 2
 size_flags_vertical = 4
-text = "SNES"
-items = [ "SNES", null, false, 0, null, "Super Famicom", null, false, 1, null ]
+focus_neighbor_top = NodePath("../../../HBoxContainer3/DateFormat")
+item_count = 2
 selected = 0
+popup/item_0/text = "SNES"
+popup/item_0/id = 0
+popup/item_1/text = "Super Famicom"
+popup/item_1/id = 1
 
 [node name="SNESIcon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 6 )
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("9")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("6")
 
 [node name="HBoxContainer4" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 462.0
-margin_right = 612.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 
 [node name="TG16" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer4"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../../HBoxContainer3/DateFormat")
+layout_mode = 2
 size_flags_vertical = 4
-text = "TurboGrafx-16"
-items = [ "TurboGrafx-16", null, false, 0, null, "PC Engine", null, false, 1, null ]
+focus_neighbor_top = NodePath("../../../HBoxContainer3/DateFormat")
+item_count = 2
 selected = 0
+popup/item_0/text = "TurboGrafx-16"
+popup/item_0/id = 0
+popup/item_1/text = "PC Engine"
+popup/item_1/id = 1
 
 [node name="TG16Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer4"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 6 )
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("7")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("6")
 
 [node name="HBoxContainer5" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 616.0
-margin_right = 766.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 
 [node name="TGCD" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer5"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../HBoxContainer/Genesis")
-focus_neighbour_bottom = NodePath("../../../HBoxContainer/Region")
+layout_mode = 2
 size_flags_vertical = 4
-text = "TurboGrafx-CD"
-items = [ "TurboGrafx-CD", null, false, 0, null, "PC Engine CD", null, false, 1, null ]
+focus_neighbor_top = NodePath("../../HBoxContainer/Genesis")
+focus_neighbor_bottom = NodePath("../../../HBoxContainer/Region")
+item_count = 2
 selected = 0
+popup/item_0/text = "TurboGrafx-CD"
+popup/item_0/id = 0
+popup/item_1/text = "PC Engine CD"
+popup/item_1/id = 1
 
 [node name="TGCDIcon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer5"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
-texture = ExtResource( 8 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 6 )
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("8")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("6")
 
 [node name="HBoxContainer6" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/SystemsContainer"]
-margin_left = 770.0
-margin_right = 920.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 150, 0 )
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 
 [node name="Odyssey2" type="OptionButton" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer6"]
 unique_name_in_owner = true
-margin_right = 150.0
-margin_bottom = 20.0
-focus_neighbour_bottom = NodePath("../../../HBoxContainer/Region")
+layout_mode = 2
 size_flags_vertical = 4
-text = "Videopac"
-items = [ "Videopac", null, false, 0, null, "Odyssey²", null, false, 1, null ]
+focus_neighbor_bottom = NodePath("../../../HBoxContainer/Region")
+item_count = 2
 selected = 0
+popup/item_0/text = "Videopac"
+popup/item_0/id = 0
+popup/item_1/text = "Odyssey²"
+popup/item_1/id = 1
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer6/Odyssey2"]
-script = ExtResource( 13 )
+script = ExtResource("13")
 next = NodePath("../../../../HBoxContainer/IntroLabel")
 
 [node name="Odyssey2Icon" type="TextureRect" parent="ScrollContainer/VBoxContainer/SystemsContainer/HBoxContainer6"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 150.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 100, 100 )
-texture = ExtResource( 10 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 6 )
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("10")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("6")
 
 [node name="ScrollHandler" type="Control" parent="ScrollContainer"]
-script = ExtResource( 12 )
+layout_mode = 2
+script = ExtResource("12")
 
-[connection signal="hide" from="." to="." method="_on_AppSettings_hide"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer/Region" to="." method="_on_Region_item_selected"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/ResetRegion" to="." method="_on_ResetRegion_pressed"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer2/RatingSystem" to="." method="_on_RatingSystem_item_selected"]

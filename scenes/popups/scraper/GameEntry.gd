@@ -12,8 +12,8 @@ enum State {
 	ERROR,
 }
 
-var game_data : RetroHubGameData setget set_game_data
-var state : int setget set_state
+var game_data : RetroHubGameData: set = set_game_data
+var state : int: set = set_state
 var data
 
 # Info status
@@ -21,8 +21,8 @@ var curr := 0
 var total := 0
 var description := ""
 
-func _on_GameEntry_toggled(button_pressed):
-	if button_pressed:
+func _on_GameEntry_toggled(_pressed):
+	if _pressed:
 		emit_signal("game_selected", self, false)
 
 func set_game_data(_game_data: RetroHubGameData):
@@ -51,10 +51,10 @@ func set_state(_state: int):
 		_:
 			set_font_color(Color("ffffff"))
 			icon = null
-	if pressed:
+	if button_pressed:
 		emit_signal("game_selected", self, true)
 
 func set_font_color(color: Color):
-	add_color_override("font_color", color)
-	add_color_override("font_color_hover", color)
-	add_color_override("font_color_focus", color)
+	add_theme_color_override("font_color", color)
+	add_theme_color_override("font_color_hover", color)
+	add_theme_color_override("font_color_focus", color)

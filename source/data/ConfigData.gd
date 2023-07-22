@@ -7,33 +7,33 @@ var _config_changed := false
 var _old_config : Dictionary
 
 # Games directory
-var is_first_time : bool = true setget _set_is_first_time
-var games_dir : String = FileUtils.get_home_dir() + "/ROMS" setget _set_games_dir
-var current_theme : String = "default" setget _set_current_theme
-var lang : String = "en" setget _set_lang
-var fullscreen : bool = true setget _set_fullscreen
-var vsync : bool = true setget _set_vsync
-var render_resolution : int = 100 setget _set_render_resolution
-var region : String = "usa" setget _set_region
-var rating_system : String = "esrb" setget _set_rating_system
-var date_format : String = "mm/dd/yyyy" setget _set_date_format
-var system_names : Dictionary = default_system_names() setget _set_system_names
-var scraper_hash_file_size : int = 64 setget _set_scraper_hash_file_size
-var scraper_ss_use_custom_account : bool = false setget _set_scraper_ss_use_custom_account
-var scraper_ss_max_threads : int = 6 setget _set_scraper_ss_max_threads
-var custom_input_remap : String = "" setget _set_custom_input_remap
-var input_key_map : Dictionary = default_input_key_map() setget _set_input_key_map
-var input_controller_map : Dictionary = default_input_controller_map() setget _set_input_controller_map
-var input_controller_main_axis : String = "left" setget _set_input_controller_main_axis
-var input_controller_secondary_axis : String = "right" setget _set_input_controller_secondary_axis
-var input_controller_icon_type : String = "auto" setget _set_input_controller_icon_type
-var input_controller_echo_pre_delay: float = 0.75 setget _set_input_controller_echo_pre_delay
-var input_controller_echo_delay: float = 0.15 setget _set_input_controller_echo_delay
-var virtual_keyboard_layout : String = "qwerty" setget _set_virtual_keyboard_layout
-var virtual_keyboard_type : String = default_virtual_keyboard_type() setget _set_virtual_keyboard_type
-var virtual_keyboard_show_on_controller : bool = true setget _set_virtual_keyboard_show_on_controller
-var virtual_keyboard_show_on_mouse : bool = false setget _set_virtual_keyboard_show_on_mouse
-var accessibility_screen_reader_enabled : bool = true setget _set_accessibility_screen_reader_enabled
+var is_first_time : bool = true: set = _set_is_first_time
+var games_dir : String = FileUtils.get_home_dir() + "/ROMS": set = _set_games_dir
+var current_theme : String = "default": set = _set_current_theme
+var lang : String = "en": set = _set_lang
+var fullscreen : bool = true: set = _set_fullscreen
+var vsync : bool = true: set = _set_vsync
+var render_resolution : int = 100: set = _set_render_resolution
+var region : String = "usa": set = _set_region
+var rating_system : String = "esrb": set = _set_rating_system
+var date_format : String = "mm/dd/yyyy": set = _set_date_format
+var system_names : Dictionary = ConfigData.default_system_names(): set = _set_system_names
+var scraper_hash_file_size : int = 64: set = _set_scraper_hash_file_size
+var scraper_ss_use_custom_account : bool = false: set = _set_scraper_ss_use_custom_account
+var scraper_ss_max_threads : int = 6: set = _set_scraper_ss_max_threads
+var custom_input_remap : String = "": set = _set_custom_input_remap
+var input_key_map : Dictionary = ConfigData.default_input_key_map(): set = _set_input_key_map
+var input_controller_map : Dictionary = ConfigData.default_input_controller_map(): set = _set_input_controller_map
+var input_controller_main_axis : String = "left": set = _set_input_controller_main_axis
+var input_controller_secondary_axis : String = "right": set = _set_input_controller_secondary_axis
+var input_controller_icon_type : String = "auto": set = _set_input_controller_icon_type
+var input_controller_echo_pre_delay: float = 0.75: set = _set_input_controller_echo_pre_delay
+var input_controller_echo_delay: float = 0.15: set = _set_input_controller_echo_delay
+var virtual_keyboard_layout : String = "qwerty": set = _set_virtual_keyboard_layout
+var virtual_keyboard_type : String = ConfigData.default_virtual_keyboard_type(): set = _set_virtual_keyboard_type
+var virtual_keyboard_show_on_controller : bool = true: set = _set_virtual_keyboard_show_on_controller
+var virtual_keyboard_show_on_mouse : bool = false: set = _set_virtual_keyboard_show_on_mouse
+var accessibility_screen_reader_enabled : bool = true: set = _set_accessibility_screen_reader_enabled
 
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
@@ -128,7 +128,7 @@ static func default_input_key_map() -> Dictionary:
 	return {
 		"rh_accept": [KEY_ENTER],
 		"rh_back": [KEY_BACKSPACE],
-		"rh_major_option": [KEY_CONTROL],
+		"rh_major_option": [KEY_CTRL],
 		"rh_minor_option": [KEY_ALT],
 		"rh_menu": [KEY_ESCAPE],
 		"rh_theme_menu": [KEY_SHIFT],
@@ -142,20 +142,18 @@ static func default_input_key_map() -> Dictionary:
 
 static func default_input_controller_map() -> Dictionary:
 	return {
-		"rh_accept": [JOY_XBOX_A],
-		"rh_back": [JOY_XBOX_B],
-		"rh_major_option": [JOY_XBOX_X],
-		"rh_minor_option": [JOY_XBOX_Y],
-		"rh_menu": [JOY_START],
-		"rh_theme_menu": [JOY_SELECT],
-		"rh_up": [JOY_DPAD_UP],
-		"rh_down": [JOY_DPAD_DOWN],
-		"rh_left": [JOY_DPAD_LEFT],
-		"rh_right": [JOY_DPAD_RIGHT],
-		"rh_left_shoulder": [JOY_L],
-		"rh_right_shoulder": [JOY_R],
-		"rh_left_trigger": [JOY_L2],
-		"rh_right_trigger": [JOY_R2]
+		"rh_accept": [JOY_BUTTON_A],
+		"rh_back": [JOY_BUTTON_B],
+		"rh_major_option": [JOY_BUTTON_X],
+		"rh_minor_option": [JOY_BUTTON_Y],
+		"rh_menu": [JOY_BUTTON_START],
+		"rh_theme_menu": [JOY_BUTTON_BACK],
+		"rh_up": [JOY_BUTTON_DPAD_UP],
+		"rh_down": [JOY_BUTTON_DPAD_DOWN],
+		"rh_left": [JOY_BUTTON_DPAD_LEFT],
+		"rh_right": [JOY_BUTTON_DPAD_RIGHT],
+		"rh_left_shoulder": [JOY_BUTTON_LEFT_SHOULDER],
+		"rh_right_shoulder": [JOY_BUTTON_RIGHT_SHOULDER]
 	}
 
 static func default_virtual_keyboard_type() -> String:
@@ -295,23 +293,23 @@ func mark_for_saving():
 
 func load_config_from_path(path: String) -> int:
 	# Open file
-	var file := File.new()
-	var err := file.open(path, File.READ)
-	if err:
+	var file := FileAccess.open(path, FileAccess.READ)
+	if not file:
 		push_error("Error opening config file " + path + " for reading!")
-		return err
+		return FileAccess.get_open_error()
 
 	# Parse file
-	var json_result := JSON.parse(file.get_as_text())
-	if(json_result.error):
+	var json = JSON.new()
+	if json.parse(file.get_as_text()):
 		push_error("Error parsing config file!")
 		return ERR_FILE_CORRUPT
 
+	var json_result : Dictionary = json.get_data()
 	# Pre-process configuration due to app updates
-	process_raw_config_changes(json_result.result)
+	process_raw_config_changes(json_result)
 
 	# Dictionary ready for retrieval
-	_old_config = json_result.result
+	_old_config = json_result
 
 	_should_save = false
 	for key in _keys:
@@ -329,10 +327,10 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 		return OK
 
 	# Open file
-	var file := File.new()
-	if(file.open(path, File.WRITE)):
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if not file:
 		push_error("Error opening config file " + path + "for saving!")
-		return ERR_CANT_OPEN
+		return FileAccess.get_open_error()
 
 	# Construct dict and save config
 	var dict := {}
@@ -340,7 +338,7 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 		dict[key] = get(key)
 
 	# Save JSON to file
-	var json_output := JSON.print(dict, "\t")
+	var json_output := JSON.stringify(dict, "\t")
 	file.store_string(json_output)
 	file.close()
 	_config_changed = false
@@ -382,17 +380,17 @@ func process_raw_config_changes(config: Dictionary):
 	if config.has(KEY_INPUT_CONTROLLER_MAIN_AXIS) and config[KEY_INPUT_CONTROLLER_MAIN_AXIS] is float:
 		_should_save = true
 		match int(config[KEY_INPUT_CONTROLLER_MAIN_AXIS]):
-			JOY_ANALOG_RX:
+			JOY_AXIS_RIGHT_X:
 				config[KEY_INPUT_CONTROLLER_MAIN_AXIS] = "right"
-			JOY_ANALOG_LX, _:
+			JOY_AXIS_LEFT_X, _:
 				config[KEY_INPUT_CONTROLLER_MAIN_AXIS] = "left"
 
 	if config.has(KEY_INPUT_CONTROLLER_SECONDARY_AXIS) and config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] is float:
 		_should_save = true
 		match int(config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS]):
-			JOY_ANALOG_RX:
+			JOY_AXIS_RIGHT_X:
 				config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] = "right"
-			JOY_ANALOG_LX, _:
+			JOY_AXIS_LEFT_X, _:
 				config[KEY_INPUT_CONTROLLER_SECONDARY_AXIS] = "left"
 
 	if config.has(KEY_INPUT_CONTROLLER_ICON_TYPE) and config[KEY_INPUT_CONTROLLER_ICON_TYPE] is float:
@@ -422,5 +420,7 @@ func process_raw_config_changes(config: Dictionary):
 				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "luna"
 			12:
 				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "stadia"
+			13:
+				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "ouya"
 			0, _:
 				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "auto"

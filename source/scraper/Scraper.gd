@@ -81,7 +81,7 @@ func scrape_media(_game_data: RetroHubGameData, _media_type: int) -> int:
 # this scraper returned on the `game_scrape_multiple_available` signal.
 # `media_type` is a value from the RetroHubMedia.Type enum.
 # This function can fail immediately, in which case the main app will
-# skip thimedia file.
+# skip this media file.
 func scrape_media_from_search(_orig_game_data: RetroHubGameData, _search_game_data: RetroHubGameData, _media_type: int) -> int:
 	return -1
 

@@ -125,7 +125,7 @@ static func _parse_xml(xml_raw: XMLParser, skip: bool = false) -> Dictionary:
 				if element_begin:
 					element_begin = false
 					_add_child_to_dict(ret, element_name, _parse_xml(xml_raw, true))
-					if not element_attr.empty():
+					if not element_attr.is_empty():
 						_get_child_from_dict(ret, element_name)["#attributes"] = element_attr
 				else:
 					element_begin = true
@@ -185,4 +185,4 @@ static func _get_child_from_dict(dict: Dictionary, key: String):
 
 # Internal, don't use
 static func _is_text_empty(s: String):
-	return s.strip_edges().strip_escapes().empty()
+	return s.strip_edges().strip_escapes().is_empty()

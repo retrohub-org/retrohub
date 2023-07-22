@@ -1,119 +1,131 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://c60kwat0su1y"]
 
-[ext_resource path="res://scenes/root/Root.gd" type="Script" id=1]
-[ext_resource path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" type="Script" id=2]
-[ext_resource path="res://scenes/config/ConfigPopup.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/root/Viewport.gd" type="Script" id=4]
-[ext_resource path="res://resources/default_theme.tres" type="Theme" id=5]
-[ext_resource path="res://scenes/root/FileSystemPopup.gd" type="Script" id=6]
-[ext_resource path="res://addons/godot-accessibility/ScreenReader.gd" type="Script" id=7]
-[ext_resource path="res://scenes/no_theme/NoTheme.tscn" type="PackedScene" id=10]
+[ext_resource type="Script" path="res://scenes/root/Root.gd" id="1"]
+[ext_resource type="Script" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://cjx4cfx0f2k2" path="res://scenes/config/ConfigPopup.tscn" id="3"]
+[ext_resource type="Script" path="res://scenes/root/Viewport.gd" id="4"]
+[ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="5"]
+[ext_resource type="Script" path="res://scenes/root/FileSystemPopup.gd" id="6"]
+[ext_resource type="Script" path="res://addons/godot-accessibility/ScreenReader.gd" id="7"]
+[ext_resource type="Script" path="res://source/utils/InputHandler.gd" id="9_5ltce"]
+[ext_resource type="PackedScene" uid="uid://dmcmcyq0jach5" path="res://scenes/no_theme/NoTheme.tscn" id="10"]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id="1"]
 code = "// Source: https://kidscancode.org/godot_recipes/shaders/blur/
 
 shader_type canvas_item;
 
 uniform float blur_amount : hint_range(0, 5);
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform vec4 modulate : source_color;
 
 void fragment() {
-	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount);
+	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount) * modulate;
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-shader_param/blur_amount = 2.0
+[sub_resource type="ShaderMaterial" id="2"]
+shader = SubResource("1")
+shader_parameter/blur_amount = 1.0
+shader_parameter/modulate = Color(0.74902, 0.74902, 0.74902, 1)
 
 [node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
 
-[node name="ViewportContainer" type="ViewportContainer" parent="."]
+[node name="ScreenReader" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("7")
+theme_viewport = NodePath("../SubViewportContainer/SubViewport")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-stretch = true
 
-[node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 1024, 576 )
-size_override_stretch = true
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-render_target_update_mode = 3
-script = ExtResource( 4 )
+gui_snap_controls_to_pixels = false
+size = Vector2i(1152, 648)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+script = ExtResource("4")
 
-[node name="NoTheme" parent="ViewportContainer/Viewport" instance=ExtResource( 10 )]
+[node name="NoTheme" parent="SubViewportContainer/SubViewport" instance=ExtResource("10")]
 focus_mode = 2
 
 [node name="DarkenOverlay" type="ColorRect" parent="."]
 visible = false
-modulate = Color( 0.74902, 0.74902, 0.74902, 1 )
-material = SubResource( 2 )
+material = SubResource("2")
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 focus_mode = 2
 
-[node name="ConfigPopup" parent="." instance=ExtResource( 3 )]
-popup_exclusive = true
+[node name="ConfigPopup" parent="." instance=ExtResource("3")]
+handle_input_locally = false
+visible = false
+content_scale_size = Vector2i(1000, 480)
+content_scale_aspect = 4
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -376.0
-margin_top = -208.5
-margin_right = 376.0
-margin_bottom = 208.5
-focus_mode = 2
-theme = ExtResource( 5 )
-window_title = "Open a File"
-mode = 0
+handle_input_locally = false
+title = "Open a File"
+position = Vector2i(0, 24)
+size = Vector2i(949, 477)
+content_scale_size = Vector2i(949, 477)
+content_scale_mode = 1
+content_scale_aspect = 4
+theme = ExtResource("5")
+ok_button_text = "Open"
+file_mode = 0
 access = 2
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="WarningPopup" type="AcceptDialog" parent="."]
 unique_name_in_owner = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -304.0
-margin_top = -173.0
-margin_right = 304.0
-margin_bottom = 173.0
-focus_mode = 2
-theme = ExtResource( 5 )
+handle_input_locally = false
+size = Vector2i(608, 346)
+content_scale_size = Vector2i(608, 346)
+content_scale_mode = 1
+content_scale_aspect = 4
+theme = ExtResource("5")
 
 [node name="WarningLabel" type="Label" parent="WarningPopup"]
 unique_name_in_owner = true
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -44.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -48.0
 text = "
 "
-align = 1
-valign = 1
-autowrap = true
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="Keyboard" type="PopupPanel" parent="."]
 unique_name_in_owner = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 586.0
-margin_bottom = 278.0
-theme = ExtResource( 5 )
-script = ExtResource( 2 )
-autoShow = false
+position = Vector2i(0, 348)
+size = Vector2i(1152, 300)
+always_on_top = true
+theme = ExtResource("5")
+script = ExtResource("2")
 
-[node name="ScreenReader" type="Node" parent="."]
-pause_mode = 2
-script = ExtResource( 7 )
-theme_viewport = NodePath("../ViewportContainer/Viewport")
+[node name="InputHandler" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_5ltce")
 
-[connection signal="about_to_show" from="ConfigPopup" to="." method="opened_popup"]
+[connection signal="about_to_popup" from="ConfigPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]
-[connection signal="about_to_show" from="FileSystemPopup" to="." method="opened_popup"]
-[connection signal="popup_hide" from="FileSystemPopup" to="." method="closed_popup"]
+[connection signal="about_to_popup" from="FileSystemPopup" to="." method="opened_popup"]

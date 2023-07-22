@@ -1,24 +1,24 @@
-extends Popup
+extends Window
 
 signal scrape_step(game_entry)
 
-export(PackedScene) var system_entry_scene : PackedScene
+@export var system_entry_scene : PackedScene
 
-onready var n_scraper_done := $"%ScraperDone"
-onready var n_scraper_warning := $"%ScraperWarning"
-onready var n_scraper_error := $"%ScraperError"
-onready var n_scraper_pending := $"%ScraperPending"
-onready var n_scraper_details := $"%ScraperDetails"
+@onready var n_scraper_done := %ScraperDone
+@onready var n_scraper_warning := %ScraperWarning
+@onready var n_scraper_error := %ScraperError
+@onready var n_scraper_pending := %ScraperPending
+@onready var n_scraper_details := %ScraperDetails
 
-onready var n_game_entries := $"%GameEntries"
-onready var n_game_entry_editor := $"%GameEntryEditor"
-onready var n_pending_games := $"%PendingGames"
-onready var n_finish := $"%Finish"
-onready var n_warning := $"%Warning"
+@onready var n_game_entries := %GameEntries
+@onready var n_game_entry_editor := %GameEntryEditor
+@onready var n_pending_games := %PendingGames
+@onready var n_finish := %Finish
+@onready var n_warning := %Warning
 
-onready var n_stop_scraper_dialog := $"%StopScraperDialog"
+@onready var n_stop_scraper_dialog := %StopScraperDialog
 
-onready var button_group := ButtonGroup.new()
+@onready var button_group := ButtonGroup.new()
 
 class Request:
 	enum Type {
@@ -90,7 +90,7 @@ func fetch_game_entries_async():
 		add_data_request(game_entry, Request.Type.DATA_HASH if scrape_by_hash else Request.Type.DATA_SEARCH)
 	requests_mutex.unlock()
 
-	if thread.start(self, "thread_fetch_game_entries"):
+	if thread.start(Callable(self, "thread_fetch_game_entries")):
 		push_error("Failed to start thread for scraper")
 
 func add_data_request(game_entry: RetroHubScraperGameEntry, type: int, priority: bool = false) -> void:
@@ -109,7 +109,7 @@ func add_data_request(game_entry: RetroHubScraperGameEntry, type: int, priority:
 func add_media_request(game_entry: RetroHubScraperGameEntry, priority: bool = false, is_search: bool = false) -> int:
 	var medias := RetroHubMedia.convert_type_bitmask_to_list(media_bitmask)
 	# Invert medias due to the way requests are placed in queue
-	medias.invert()
+	medias.reverse()
 	var idx := 0
 	if not priority:
 		for i in range(requests_queue.size()):
@@ -130,21 +130,14 @@ func add_media_request(game_entry: RetroHubScraperGameEntry, priority: bool = fa
 
 
 func thread_fetch_game_entries():
-	scraper.connect("scraper_details", self, "t_on_scraper_details")
-	#warning-ignore:return_value_discarded
-	scraper.connect("game_scrape_finished", self, "t_on_game_scrape_finished")
-	#warning-ignore:return_value_discarded
-	scraper.connect("game_scrape_multiple_available", self, "t_on_game_scrape_multiple_available")
-	#warning-ignore:return_value_discarded
-	scraper.connect("game_scrape_not_found", self, "t_on_game_scrape_not_found")
-	#warning-ignore:return_value_discarded
-	scraper.connect("game_scrape_error", self, "t_on_game_scrape_error")
-	#warning-ignore:return_value_discarded
-	scraper.connect("media_scrape_finished", self, "t_on_media_scrape_finished")
-	#warning-ignore:return_value_discarded
-	scraper.connect("media_scrape_not_found", self, "t_on_media_scrape_not_found")
-	#warning-ignore:return_value_discarded
-	scraper.connect("media_scrape_error", self, "t_on_media_scrape_error")
+	scraper.call_thread_safe("connect", "scraper_details", Callable(self, "t_on_scraper_details"))
+	scraper.call_thread_safe("connect", "game_scrape_finished", Callable(self, "t_on_game_scrape_finished"))
+	scraper.call_thread_safe("connect", "game_scrape_multiple_available", Callable(self, "t_on_game_scrape_multiple_available"))
+	scraper.call_thread_safe("connect", "game_scrape_not_found", Callable(self, "t_on_game_scrape_not_found"))
+	scraper.call_thread_safe("connect", "game_scrape_error", Callable(self, "t_on_game_scrape_error"))
+	scraper.call_thread_safe("connect", "media_scrape_finished", Callable(self, "t_on_media_scrape_finished"))
+	scraper.call_thread_safe("connect", "media_scrape_not_found", Callable(self, "t_on_media_scrape_not_found"))
+	scraper.call_thread_safe("connect", "media_scrape_error", Callable(self, "t_on_media_scrape_error"))
 
 	while true:
 		processing_request_mutex.lock()
@@ -154,7 +147,7 @@ func thread_fetch_game_entries():
 
 		# Get a game entry to fetch
 		requests_mutex.lock()
-		if requests_queue.empty():
+		if requests_queue.is_empty():
 			processing_request_mutex.unlock()
 			requests_mutex.unlock()
 			break
@@ -175,7 +168,7 @@ func thread_fetch_game_entries():
 					game_entry.description = "Downloading metadata (by hash)..."
 				else:
 					game_entry.description = "Fetching media (by hash)..."
-				emit_signal("scrape_step", game_entry)
+				call_thread_safe("emit_signal", "scrape_step", game_entry)
 				if not scraper.scrape_game_by_hash(game_data):
 					pending_datas[game_data] = req
 			Request.Type.DATA_SEARCH:
@@ -185,7 +178,7 @@ func thread_fetch_game_entries():
 					game_entry.description = "Downloading metadata (by search)"
 				else:
 					game_entry.description = "Fetching media (by search)..."
-				emit_signal("scrape_step", game_entry)
+				call_thread_safe("emit_signal", "scrape_step", game_entry)
 				if not scraper.scrape_game_by_search(game_data, game_entry.data):
 					pending_datas[game_data] = req
 			Request.Type.MEDIA:
@@ -199,14 +192,14 @@ func thread_fetch_game_entries():
 					requests_curr.erase(req)
 					game_entry.curr += 1
 
-	scraper.disconnect("scraper_details", self, "t_on_scraper_details")
-	scraper.disconnect("game_scrape_finished", self, "t_on_game_scrape_finished")
-	scraper.disconnect("game_scrape_multiple_available", self, "t_on_game_scrape_multiple_available")
-	scraper.disconnect("game_scrape_not_found", self, "t_on_game_scrape_not_found")
-	scraper.disconnect("game_scrape_error", self, "t_on_game_scrape_error")
-	scraper.disconnect("media_scrape_finished", self, "t_on_media_scrape_finished")
-	scraper.disconnect("media_scrape_not_found", self, "t_on_media_scrape_not_found")
-	scraper.disconnect("media_scrape_error", self, "t_on_media_scrape_error")
+	scraper.call_thread_safe("disconnect", "scraper_details", Callable(self, "t_on_scraper_details"))
+	scraper.call_thread_safe("disconnect", "game_scrape_finished", Callable(self, "t_on_game_scrape_finished"))
+	scraper.call_thread_safe("disconnect", "game_scrape_multiple_available", Callable(self, "t_on_game_scrape_multiple_available"))
+	scraper.call_thread_safe("disconnect", "game_scrape_not_found", Callable(self, "t_on_game_scrape_not_found"))
+	scraper.call_thread_safe("disconnect", "game_scrape_error", Callable(self, "t_on_game_scrape_error"))
+	scraper.call_thread_safe("disconnect", "media_scrape_finished", Callable(self, "t_on_media_scrape_finished"))
+	scraper.call_thread_safe("disconnect", "media_scrape_not_found", Callable(self, "t_on_media_scrape_not_found"))
+	scraper.call_thread_safe("disconnect", "media_scrape_error", Callable(self, "t_on_media_scrape_error"))
 
 func _ensure_valid_req(game_data: RetroHubGameData):
 	if not pending_datas.has(game_data):
@@ -307,7 +300,7 @@ func prepare_media_scrape_from_search(game_entry: RetroHubScraperGameEntry, sear
 		return true
 	return false
 
-func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: PoolByteArray, extension: String):
+func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: PackedByteArray, extension: String):
 	if pending_medias.has(game_data):
 		# Save media
 		var path := RetroHubConfig.get_gamemedia_dir() + "/" + \
@@ -316,14 +309,14 @@ func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: Po
 					game_data.path.get_file().get_basename() + \
 					"." + extension
 		FileUtils.ensure_path(path)
-		var file := File.new()
-		if file.open(path, File.WRITE):
-			push_error("\tError when saving file " + path)
-			return
-		else:
+		var file := FileAccess.open(path, FileAccess.WRITE)
+		if file:
 			game_data.has_media = true
 			file.store_buffer(data)
 			file.close()
+		else:
+			push_error("\tError when saving file " + path)
+			return
 
 		var game_entry : RetroHubScraperGameEntry = pending_medias[game_data]
 		for req in requests_curr:
@@ -390,18 +383,18 @@ func clear_game_entries():
 func populate_game_entries():
 	for game_data in game_list_arr:
 		if not scene_entry_list.has(game_data.system):
-			var scene_entry := system_entry_scene.instance()
+			var scene_entry := system_entry_scene.instantiate()
 			n_game_entries.add_child(scene_entry)
 			scene_entry.system_name = game_data.system.fullname
 			scene_entry_list[game_data.system] = scene_entry
 		var data : RetroHubGameData = game_data.duplicate() if not scrape_data else game_data
 		var game_entry : RetroHubScraperGameEntry = scene_entry_list[game_data.system].add_game_entry(data, button_group)
 		#warning-ignore:return_value_discarded
-		game_entry.connect("game_selected", self, "_on_game_entry_selected")
+		game_entry.game_selected.connect(_on_game_entry_selected)
 		#warning-ignore:return_value_discarded
-		game_entry.connect("focus_exited", n_game_entries, "_on_game_entry_focus_exited")
+		game_entry.focus_exited.connect(n_game_entries._on_game_entry_focus_exited)
 		#warning-ignore:return_value_discarded
-		game_entry.connect("game_selected", n_game_entries, "_on_game_entry_selected")
+		game_entry.game_selected.connect(n_game_entries._on_game_entry_selected)
 		game_entry_list.push_back(game_entry)
 	num_games_success = 0
 	num_games_warning = 0
@@ -476,7 +469,7 @@ func cancel_scrape(game_entry: RetroHubScraperGameEntry):
 
 	# Cancel in media (pending)
 	# Don't lock if thread is waiting for job, otherwise a deadlock happens
-	if requests_queue.empty():
+	if requests_queue.is_empty():
 		return
 	# Only enter when the thread is not handling a request currently
 	processing_request_mutex.lock()
@@ -497,7 +490,7 @@ func cancel_scrape(game_entry: RetroHubScraperGameEntry):
 
 func cancel_entry(game_entry: RetroHubScraperGameEntry):
 	# Don't lock if thread is waiting for job, otherwise a deadlock happens
-	if requests_curr.empty() and pending_datas.empty():
+	if requests_curr.is_empty() and pending_datas.is_empty():
 		return
 	# Only enter when the thread is not handling a request currently
 	processing_request_mutex.lock()
@@ -606,3 +599,7 @@ func decr_num_games_warning():
 func decr_num_games_success():
 	num_games_success -= 1
 	update_games_stats()
+
+
+func _on_close_requested():
+	_on_Finish_pressed()

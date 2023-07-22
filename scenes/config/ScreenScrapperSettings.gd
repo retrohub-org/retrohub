@@ -1,17 +1,17 @@
 extends VBoxContainer
 
-onready var n_use_account := $"%UseAccount"
-onready var n_username := $"%Username"
-onready var n_password := $"%Password"
-onready var n_thread_count_lbl := $"%ThreadCountLabel"
-onready var n_thread_count := $"%ThreadCount"
+@onready var n_use_account := %UseAccount
+@onready var n_username := %Username
+@onready var n_password := %Password
+@onready var n_thread_count_lbl := %ThreadCountLabel
+@onready var n_thread_count := %ThreadCount
 
 
 var changed := false
 
 func _ready():
 	#warning-ignore:return_value_discarded
-	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
+	RetroHubConfig.config_ready.connect(_on_config_ready)
 
 
 func _on_config_ready(config_data: ConfigData):
@@ -43,7 +43,7 @@ func save_credentials():
 		RetroHubConfig._set_credential("scraper_ss_password", n_password.text)
 		changed = false
 
-func _on_ThreadCount_value_changed(value: float):
+func _on_ThreadCount_value_changed(_value: float):
 	var value_i := thread_count_from_range()
 	update_thread_count_label(value_i)
 	RetroHubConfig.config.scraper_ss_max_threads = value_i

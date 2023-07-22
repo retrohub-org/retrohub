@@ -10,7 +10,7 @@ var _rating : String
 
 func from_rating_str(rating_str: String, idx: int):
 	var rating := rating_str.get_slice("/", idx)
-	if not rating.empty():
+	if not rating.is_empty():
 		from_idx(int(rating), idx)
 
 func from_idx(idx_age: int, idx_name: int):
@@ -19,19 +19,19 @@ func from_idx(idx_age: int, idx_name: int):
 			match idx_age:
 					1:
 						load_image("pegi/3")
-						hint_tooltip = hint_pegi_3
+						tooltip_text = hint_pegi_3
 					2:
 						load_image("pegi/7")
-						hint_tooltip = hint_pegi_7
+						tooltip_text = hint_pegi_7
 					3:
 						load_image("pegi/12")
-						hint_tooltip = hint_pegi_12
+						tooltip_text = hint_pegi_12
 					4:
 						load_image("pegi/16")
-						hint_tooltip = hint_pegi_16
+						tooltip_text = hint_pegi_16
 					5:
 						load_image("pegi/18")
-						hint_tooltip = hint_pegi_18
+						tooltip_text = hint_pegi_18
 					0, _:
 						load_image("pegi/unknown")
 		2:
@@ -68,7 +68,7 @@ func load_image(path: String):
 	_rating = path
 	texture = load("res://assets/ratings/" + path + ".png")
 
-func tts_text(focused: Control) -> String:
+func tts_text(_focused: Control) -> String:
 	var splits := _rating.split("/")
 	var text := splits[0] + ": "
 	match splits[0]:

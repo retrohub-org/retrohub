@@ -13,17 +13,15 @@ jobs:
       matrix:
         include:
           - name: 32 Bits
-            bits: 32
-            bin: godot.windows.opt.32.exe
+            arch: x86_32
+            bin: godot.windows.template_release.x86_32.exe
             template: godot_32.exe
-            videodecoder: win32
-            godot-tts: target/release/32
+            videodecoder: windows_32
           - name: 64 Bits
-            bits: 64
-            bin: godot.windows.opt.64.exe
+            arch: x86_64
+            bin: godot.windows.template_release.x86_64.exe
             template: godot_64.exe
-            videodecoder: win64
-            godot-tts: target/release
+            videodecoder: windows_64
 
     steps:
       - name: "Checkout RetroHub"
@@ -43,8 +41,8 @@ jobs:
         uses: actions/cache@v3
         id: "cache_template"
         with:
-          path: cached_builds/template/godot_${{ matrix.bits }}.exe
-          key: Windows-${{ matrix.bits }}-template-build
+          path: cached_builds/template/${{ matrix.template }}}
+          key: Windows-${{ matrix.arch }}-template-build
         continue-on-error: true
 
       - name: "Load cached objects (Videodecoder)"
@@ -52,15 +50,7 @@ jobs:
         id: "cache_videodecoder"
         with:
           path: cached_builds/videodecoder/${{ matrix.videodecoder }}
-          key: Windows-${{ matrix.bits }}-videodecoder-build
-        continue-on-error: true
-
-      - name: "load cached objects (godot-tts)"
-        uses: actions/cache@v3
-        id: "cache_tts"
-        with:
-          path: cached_builds/tts/${{ matrix.bits }}
-          key: Windows-${{ matrix.bits }}-tts-build
+          key: Windows-${{ matrix.arch }}-videodecoder-build
         continue-on-error: true
 
       - name: "Checkout Custom Godot"
@@ -68,7 +58,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: retrohub-org/godot
-          ref: retrohub_patches
+          ref: retrohub_patches_4x
           path: "godot"
 
       - name: "Checkout godot-videodecoder"
@@ -79,31 +69,13 @@ jobs:
           submodules: recursive
           path: "videodecoder"
 
-      - name: "Download godot-tts"
-        if: steps.cache_tts.outputs.cache-hit != 'true'
-        uses: robinraju/release-downloader@v1.7
-        with:
-          repository: retrohub-org/godot-tts
-          tag: v1.0.0
-          fileName: godot-tts.zip
-          tarBall: false
-          zipBall: false
-          out-file-path: ""
-      
-      - name: "Cache godot-tts"
-        if: steps.cache_tts.outputs.cache-hit != 'true'
-        run: |
-          unzip godot-tts.zip -d $RUNNER_TEMP
-          mkdir -p -v cached_builds/tts/${{ matrix.bits }}
-          mv -v $RUNNER_TEMP/godot-tts/${{ matrix.godot-tts }}/*.dll cached_builds/tts/${{ matrix.bits }}
-
       - name: "[Videodecoder] Compilation"
         if: steps.cache_videodecoder.outputs.cache-hit != 'true'
         working-directory: ./videodecoder
         env:
           PLATFORMS: ${{ matrix.videodecoder }}
         run: |
-          ./build_gdnative.sh
+          ./build_gdextension.sh
           mkdir -p -v ../cached_builds/videodecoder
           cp -r -v target/* ../cached_builds/videodecoder
 
@@ -112,9 +84,9 @@ jobs:
         working-directory: ./godot
         shell: bash
         run: |
-          # Azure repositories are not reliable, we need to prevent azure giving us packages.
-          sudo rm -f /etc/apt/sources.list.d/*
-          sudo cp -f misc/ci/sources.list /etc/apt/sources.list
+          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
+          sudo add-apt-repository ppa:kisak/kisak-mesa
+          sudo apt-get install -qq mesa-vulkan-drivers
           sudo dpkg --add-architecture i386
           sudo apt-get update
           # The actual dependencies
@@ -143,9 +115,9 @@ jobs:
         uses: ./godot/.github/actions/godot-build
         with:
           root: ./godot
-          sconsflags: verbose=yes warnings=all werror=yes use_lto=yes bits=${{ matrix.bits }}
+          sconsflags: verbose=yes warnings=all werror=yes use_lto=yes optimize=size arch=${{ matrix.arch }}
           platform: windows
-          target: release
+          target: template_release
           tools: false
 
       - name: "[Godot] Clean and cache template build"
@@ -158,19 +130,19 @@ jobs:
       - name: "[Godot] Download editor"
         if: steps.cache_editor.outputs.cache-hit != 'true'
         run: |
-          wget https://downloads.tuxfamily.org/godotengine/3.5/Godot_v3.5-stable_linux_headless.64.zip
-          unzip Godot_v3.5-stable_linux_headless.64.zip
+          wget https://downloads.tuxfamily.org/godotengine/4.1/Godot_v4.1-stable_linux.x86_64.zip
+          unzip Godot_v4.1-stable_linux.x86_64.zip
           mkdir -p -v cached_builds/editor
-          mv Godot_v3.5-stable_linux_headless.64 cached_builds/editor/godot
+          mv Godot_v4.1-stable_linux.x86_64 cached_builds/editor/godot
 
       - name: "Setup templates and libraries"
         env:
-          TEMPLATE_PATH: /home/runner/.local/share/godot/templates/3.5.stable
+          TEMPLATE_PATH: /home/runner/.local/share/godot/export_templates/4.1.stable
         run: |
           mkdir -p -v $TEMPLATE_PATH
-          cp cached_builds/template/${{ matrix.template }} $TEMPLATE_PATH/windows_${{ matrix.bits }}_release.exe
+          cp cached_builds/template/${{ matrix.template }} $TEMPLATE_PATH/windows_release_${{ matrix.arch }}.exe
           ln -s ../../../cached_builds/videodecoder/${{ matrix.videodecoder }} retrohub/addons/godot-videodecoder/${{ matrix.videodecoder }}
-          mkdir -p -v export/windows_${{ matrix.bits }}
+          mkdir -p -v export/windows_${{ matrix.arch }}
 
       - name: "Package default themes"
         uses: ./retrohub/.github/actions/get-default-themes
@@ -179,23 +151,18 @@ jobs:
         run: |
           sudo apt-get install wine-stable
           wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
-          cached_builds/editor/godot -q
-          echo "export/windows/wine = \"/usr/bin/wine\"" >> ~/.config/godot/editor_settings-3.tres
-          echo "export/windows/rcedit = \"$(pwd)/rcedit-x64.exe\"" >> ~/.config/godot/editor_settings-3.tres
-          tail -n2 ~/.config/godot/editor_settings-3.tres
-
-      - name: "Package godot-tts"
-        run: |
-          mkdir -p -v retrohub/addons/godot-tts/${{ matrix.godot-tts }}
-          cp -r -v cached_builds/tts/${{ matrix.bits }}/* retrohub/addons/godot-tts/${{ matrix.godot-tts }}
+          cached_builds/editor/godot --headless --quit
+          echo "export/windows/wine = \"/usr/bin/wine\"" >> ~/.config/godot/editor_settings-4.tres
+          echo "export/windows/rcedit = \"$(pwd)/rcedit-x64.exe\"" >> ~/.config/godot/editor_settings-4.tres
+          tail -n2 ~/.config/godot/editor_settings-4.tres
 
       - name: "Exporting RetroHub"
         working-directory: retrohub
         run: |
-          ../cached_builds/editor/godot --export "Windows (${{ matrix.bits }})" ../export/windows_${{ matrix.bits }}/RetroHub.exe
+          ../cached_builds/editor/godot --headless --export-release "Windows (${{ matrix.arch }})" ../export/windows_${{ matrix.arch }}/RetroHub.exe
 
       - name: "Upload Artifacts"
         uses: actions/upload-artifact@v3
         with:
-          name: windows-${{ matrix.bits }}
-          path: export/windows_${{ matrix.bits }}
+          name: windows-${{ matrix.arch }}
+          path: export/windows_${{ matrix.arch }}

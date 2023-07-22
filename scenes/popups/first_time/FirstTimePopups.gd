@@ -1,18 +1,18 @@
-extends Popup
+extends Window
 
-export(Color) var color_current := Color(1, 1, 1, 1)
-export(Color) var color_next := Color(0.5, 0.5, 0.5, 1)
-export(Color) var color_prev := Color(0.4, 0.8, 0.4, 1)
+@export var color_current := Color(1, 1, 1, 1)
+@export var color_next := Color(0.5, 0.5, 0.5, 1)
+@export var color_prev := Color(0.4, 0.8, 0.4, 1)
 
-onready var n_sidebar := $"%Sidebar"
-onready var n_main_content := $"%MainContent"
-onready var n_rstick_tip := $"%RStickTip"
+@onready var n_sidebar := %Sidebar
+@onready var n_main_content := %MainContent
+@onready var n_rstick_tip := %RStickTip
 
-onready var num_sections := n_sidebar.get_child_count()
+@onready var num_sections := n_sidebar.get_child_count()
 
 func _enter_tree():
 	#warning-ignore:return_value_discarded
-	ControllerIcons.connect("input_type_changed", self, "_on_input_type_changed")
+	ControllerIcons.input_type_changed.connect(_on_input_type_changed)
 
 func _on_input_type_changed(input_type: int):
 	n_rstick_tip.visible = input_type == ControllerIcons.InputType.CONTROLLER

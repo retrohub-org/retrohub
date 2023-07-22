@@ -1,636 +1,528 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=18 format=3 uid="uid://dttv4ou2ow347"]
 
-[ext_resource path="res://scenes/popups/scraper/ScraperPopup.gd" type="Script" id=1]
-[ext_resource path="res://scenes/popups/scraper/Waiting.gd" type="Script" id=2]
-[ext_resource path="res://scenes/config/GameMetadataEditor.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/popups/scraper/SystemEntry.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/popups/scraper/Success.gd" type="Script" id=5]
-[ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=6]
-[ext_resource path="res://scenes/popups/scraper/Working.gd" type="Script" id=7]
-[ext_resource path="res://scenes/popups/scraper/Warning.gd" type="Script" id=8]
-[ext_resource path="res://scenes/popups/scraper/Error.gd" type="Script" id=9]
-[ext_resource path="res://scenes/popups/scraper/StopScraperDialog.gd" type="Script" id=10]
-[ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=11]
-[ext_resource path="res://assets/icons/success.svg" type="Texture" id=12]
-[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=13]
-[ext_resource path="res://assets/icons/loading.svg" type="Texture" id=14]
-[ext_resource path="res://assets/icons/warning.svg" type="Texture" id=15]
-[ext_resource path="res://assets/icons/error.svg" type="Texture" id=16]
-[ext_resource path="res://scenes/popups/scraper/GameEntries.gd" type="Script" id=17]
+[ext_resource type="Script" path="res://scenes/popups/scraper/ScraperPopup.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/popups/scraper/Waiting.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://bma07qur4debs" path="res://scenes/config/GameMetadataEditor.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/popups/scraper/SystemEntry.tscn" id="4"]
+[ext_resource type="Script" path="res://scenes/popups/scraper/Success.gd" id="5"]
+[ext_resource type="FontFile" path="res://resources/fonts/default_italic.tres" id="6"]
+[ext_resource type="Script" path="res://scenes/popups/scraper/Working.gd" id="7"]
+[ext_resource type="Script" path="res://scenes/popups/scraper/Warning.gd" id="8"]
+[ext_resource type="Script" path="res://scenes/popups/scraper/Error.gd" id="9"]
+[ext_resource type="Script" path="res://scenes/popups/scraper/StopScraperDialog.gd" id="10"]
+[ext_resource type="FontFile" path="res://resources/fonts/default_bold.tres" id="11"]
+[ext_resource type="Texture2D" uid="uid://dfth5p8xpsgmy" path="res://assets/icons/success.svg" id="12"]
+[ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="13"]
+[ext_resource type="Texture2D" uid="uid://cvp0cekj3mjh0" path="res://assets/icons/loading.svg" id="14"]
+[ext_resource type="Texture2D" uid="uid://1f52yl5g4qjs" path="res://assets/icons/warning.svg" id="15"]
+[ext_resource type="Texture2D" uid="uid://ns5cbtxp13ft" path="res://assets/icons/error.svg" id="16"]
+[ext_resource type="Script" path="res://scenes/popups/scraper/GameEntries.gd" id="17"]
 
-[node name="ScraperPopup" type="PopupPanel"]
-visible = true
+[node name="ScraperPopup" type="Window"]
+initial_position = 1
+size = Vector2i(953, 542)
+exclusive = true
+always_on_top = true
+popup_window = true
+content_scale_size = Vector2i(953, 542)
+content_scale_mode = 1
+content_scale_aspect = 4
+script = ExtResource("1")
+system_entry_scene = ExtResource("4")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_right = 1.0
-popup_exclusive = true
-script = ExtResource( 1 )
-system_entry_scene = ExtResource( 4 )
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"WindowPanel"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 1016.0
-margin_bottom = 24.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_right = 24.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 focus_mode = 2
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
+texture = ExtResource("12")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="ScraperDone" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ScraperDone" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 28.0
-margin_top = 5.0
-margin_right = 36.0
-margin_bottom = 19.0
+layout_mode = 2
 text = "0"
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 40.0
-margin_right = 64.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
+[node name="TextureRect2" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 focus_mode = 2
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 6
+texture = ExtResource("15")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="ScraperWarning" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ScraperWarning" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 68.0
-margin_top = 5.0
-margin_right = 76.0
-margin_bottom = 19.0
+layout_mode = 2
 focus_mode = 2
 text = "0"
 
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 80.0
-margin_right = 104.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
+[node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 focus_mode = 2
-texture = ExtResource( 16 )
-expand = true
-stretch_mode = 6
+texture = ExtResource("16")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="ScraperError" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ScraperError" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 108.0
-margin_top = 5.0
-margin_right = 116.0
-margin_bottom = 19.0
+layout_mode = 2
 focus_mode = 2
 text = "0"
 
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 120.0
-margin_right = 144.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
+[node name="TextureRect5" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 focus_mode = 2
-texture = ExtResource( 14 )
-expand = true
-stretch_mode = 6
+texture = ExtResource("14")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="ScraperPending" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ScraperPending" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 148.0
-margin_top = 5.0
-margin_right = 156.0
-margin_bottom = 19.0
+layout_mode = 2
 focus_mode = 2
 text = "0"
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-margin_left = 160.0
-margin_right = 164.0
-margin_bottom = 24.0
+[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 
-[node name="ScraperDetails" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ScraperDetails" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 168.0
-margin_top = 5.0
-margin_right = 1016.0
-margin_bottom = 19.0
-focus_mode = 2
+layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 clip_text = true
+text_overrun_behavior = 3
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 28.0
-margin_right = 1016.0
-margin_bottom = 32.0
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 36.0
-margin_right = 1016.0
-margin_bottom = 536.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 400.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 400, 0 )
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
 follow_focus = true
 
-[node name="GameEntries" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/ScrollContainer"]
+[node name="GameEntries" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/ScrollContainer"]
 unique_name_in_owner = true
-margin_right = 400.0
-margin_bottom = 500.0
-focus_mode = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 17 )
-
-[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer2/ScrollContainer"]
-script = ExtResource( 13 )
-
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 404.0
-margin_right = 408.0
-margin_bottom = 500.0
-
-[node name="GameEntryEditor" type="TabContainer" parent="VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
-margin_left = 412.0
-margin_right = 1016.0
-margin_bottom = 500.0
 focus_mode = 2
+script = ExtResource("17")
+
+[node name="ScrollHandler" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("13")
+
+[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="GameEntryEditor" type="TabContainer" parent="Panel/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_mode = 2
 tabs_visible = false
 
-[node name="Success" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
+[node name="Success" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor"]
+layout_mode = 2
+script = ExtResource("5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Success"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 8.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 5 )
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
-margin_right = 596.0
-margin_bottom = 31.0
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
+layout_mode = 2
 text = "Scrape completed. You may confirm the game's metadata below, and edit after finishing scraping."
-autowrap = true
+autowrap_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
-margin_top = 35.0
-margin_right = 596.0
-margin_bottom = 39.0
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
+layout_mode = 2
 
-[node name="Root" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
-margin_top = 43.0
-margin_right = 596.0
-margin_bottom = 488.0
+[node name="Root" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GameMetadataEditor" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root" instance=ExtResource( 3 )]
+[node name="GameMetadataEditor" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root" instance=ExtResource("3")]
 unique_name_in_owner = true
+layout_mode = 1
 disable_edits = true
 
-[node name="NoData" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root"]
+[node name="NoData" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Success/VBoxContainer/Root"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 focus_mode = 2
-custom_fonts/font = ExtResource( 6 )
+theme_override_fonts/font = ExtResource("6")
 text = "Metadata was not scraped"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Working" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
+[node name="Working" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor"]
 visible = false
+layout_mode = 2
+script = ExtResource("7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Working"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 8.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 7 )
+offset_top = 150.0
+offset_bottom = -156.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Working"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 150.0
-margin_bottom = -156.0
-
-[node name="WorkingLabel" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer"]
+[node name="WorkingLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 596.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 6 )
-align = 1
-valign = 1
-autowrap = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="WorkingProgress" type="ProgressBar" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer"]
+[node name="WorkingProgress" type="ProgressBar" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 223.0
-margin_top = 24.0
-margin_right = 373.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 150, 0 )
-focus_mode = 2
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
+focus_mode = 2
 step = 1.0
 
-[node name="WorkingCancelButton" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer"]
+[node name="WorkingCancelButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 271.0
-margin_top = 162.0
-margin_right = 325.0
-margin_bottom = 182.0
+layout_mode = 2
 size_flags_horizontal = 4
 text = "Cancel"
 
-[node name="Waiting" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
+[node name="Waiting" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 8.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 2 )
+layout_mode = 2
+script = ExtResource("2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 150.0
-margin_bottom = -156.0
+offset_top = 150.0
+offset_bottom = -156.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Waiting" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting/VBoxContainer"]
-margin_top = 69.0
-margin_right = 596.0
-margin_bottom = 89.0
-focus_mode = 2
+[node name="Waiting" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-custom_fonts/font = ExtResource( 6 )
+focus_mode = 2
+theme_override_fonts/font = ExtResource("6")
 text = "Waiting to be downloaded..."
-align = 1
-valign = 1
-autowrap = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="WaitingCancelButton" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting/VBoxContainer"]
+[node name="WaitingCancelButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting/VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 271.0
-margin_top = 162.0
-margin_right = 325.0
-margin_bottom = 182.0
+layout_mode = 2
 size_flags_horizontal = 4
 text = "Cancel"
 
-[node name="Warning" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
+[node name="Warning" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor"]
 unique_name_in_owner = true
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 8.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 8 )
+layout_mode = 2
+script = ExtResource("8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="NoGamesLabel" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
+[node name="NoGamesLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 596.0
-margin_bottom = 31.0
+layout_mode = 2
 text = "This game could not be uniquely identified by the scraper. Indicate a search term to search for (use simple words and avoid special characters)."
-autowrap = true
+autowrap_mode = 2
 
-[node name="MultipleGamesLabel" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
+[node name="MultipleGamesLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 35.0
-margin_right = 596.0
-margin_bottom = 66.0
+layout_mode = 2
 focus_mode = 2
 text = "This game could not be uniquely identified by the scraper. Select the correct entry below, or indicate a different search term (use simple words and avoid special characters)."
-autowrap = true
+autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
-margin_top = 70.0
-margin_right = 596.0
-margin_bottom = 94.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
+layout_mode = 2
 
-[node name="SearchField" type="LineEdit" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer"]
+[node name="SearchField" type="LineEdit" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 538.0
-margin_bottom = 24.0
+layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Search term, such as game's title, franchise, etc..."
 
-[node name="Search" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer"]
+[node name="Search" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 542.0
-margin_right = 596.0
-margin_bottom = 24.0
+layout_mode = 2
 disabled = true
 text = "Search"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
-margin_top = 98.0
-margin_right = 596.0
-margin_bottom = 488.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
-margin_right = 384.0
-margin_bottom = 390.0
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer"]
-margin_right = 384.0
-margin_bottom = 515.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer"]
-margin_right = 372.0
-margin_bottom = 122.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Screenshot" type="TextureRect" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="Screenshot" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 260.0
-margin_bottom = 122.0
-focus_mode = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-expand = true
-stretch_mode = 6
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 264.0
-margin_right = 372.0
-margin_bottom = 122.0
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_right = 108.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 108, 0 )
 focus_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(108, 0)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 11 )
+focus_mode = 2
+theme_override_fonts/font = ExtResource("11")
 text = "Developer:"
-autowrap = true
+autowrap_mode = 2
 
-[node name="Developer" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Developer" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 24.0
-margin_right = 108.0
-margin_bottom = 38.0
-focus_mode = 2
+layout_mode = 2
 size_flags_horizontal = 3
-autowrap = true
+focus_mode = 2
+autowrap_mode = 2
 
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 42.0
-margin_right = 108.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 108, 0 )
-focus_mode = 2
+[node name="Label2" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(108, 0)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 11 )
+focus_mode = 2
+theme_override_fonts/font = ExtResource("11")
 text = "Publisher:"
-autowrap = true
+autowrap_mode = 2
 
-[node name="Publisher" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Publisher" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 66.0
-margin_right = 108.0
-margin_bottom = 80.0
-focus_mode = 2
+layout_mode = 2
 size_flags_horizontal = 3
-autowrap = true
+focus_mode = 2
+autowrap_mode = 2
 
-[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 84.0
-margin_right = 108.0
-margin_bottom = 104.0
-focus_mode = 2
+[node name="Label3" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 11 )
+focus_mode = 2
+theme_override_fonts/font = ExtResource("11")
 text = "Num players:"
-autowrap = true
+autowrap_mode = 2
 
-[node name="NumPlayers" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="NumPlayers" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 108.0
-margin_right = 108.0
-margin_bottom = 122.0
-focus_mode = 2
+layout_mode = 2
 size_flags_horizontal = 3
-autowrap = true
-
-[node name="Name" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer"]
-unique_name_in_owner = true
-margin_top = 126.0
-margin_right = 372.0
-margin_bottom = 146.0
 focus_mode = 2
-custom_fonts/font = ExtResource( 11 )
+autowrap_mode = 2
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 2
+theme_override_fonts/font = ExtResource("11")
 text = "Game name"
-autowrap = true
+autowrap_mode = 3
 
-[node name="Description" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer"]
+[node name="Description" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 150.0
-margin_right = 372.0
-margin_bottom = 515.0
+layout_mode = 2
 focus_mode = 2
-custom_fonts/font = ExtResource( 6 )
+theme_override_fonts/font = ExtResource("6")
 text = "Game description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec quam nec ex tristique finibus. Pellentesque aliquet purus at aliquet sagittis. Donec vestibulum dui eros, ut gravida mauris euismod lacinia. Quisque pulvinar luctus sem, eu malesuada mi feugiat eget. Vivamus sit amet diam semper, rhoncus augue quis, volutpat felis. Ut augue justo, faucibus sed ligula a, tincidunt posuere quam. Proin aliquam mi vel lectus semper, id lacinia lorem rhoncus. Duis et sagittis turpis. Cras id augue nec lacus faucibus volutpat ultricies luctus lacus. Proin lobortis ornare nisl id tristique. Aliquam quis venenatis nibh. Aenean et imperdiet ante. Nunc libero diam, rutrum non arcu id, euismod ornare felis. Quisque fringilla massa massa, nec ullamcorper neque laoreet id. Nam commodo diam vitae rutrum molestie. "
-autowrap = true
+autowrap_mode = 3
 
-[node name="HSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
-margin_left = 388.0
-margin_right = 392.0
-margin_bottom = 390.0
+[node name="HSeparator" type="VSeparator" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
-margin_left = 396.0
-margin_right = 596.0
-margin_bottom = 390.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 200.0
-margin_bottom = 358.0
-rect_min_size = Vector2( 200, 0 )
+[node name="ScrollContainer2" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 
-[node name="GameSearchEntries" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/ScrollContainer2"]
+[node name="GameSearchEntries" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/ScrollContainer2"]
 unique_name_in_owner = true
-margin_right = 200.0
-margin_bottom = 358.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/ScrollContainer2"]
-script = ExtResource( 13 )
+[node name="ScrollHandler" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/ScrollContainer2"]
+layout_mode = 2
+script = ExtResource("13")
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 362.0
-margin_right = 200.0
-margin_bottom = 366.0
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
 
-[node name="Confirm" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="Confirm" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 370.0
-margin_right = 200.0
-margin_bottom = 390.0
+layout_mode = 2
 disabled = true
 text = "Confirm"
 
-[node name="Error" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor"]
+[node name="Error" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor"]
 visible = false
+layout_mode = 2
+script = ExtResource("9")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Error"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 8.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 9 )
+offset_top = 41.0
+offset_bottom = -68.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 41.0
-margin_bottom = -68.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer"]
-margin_right = 596.0
-margin_bottom = 355.0
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ErrorLabel" type="Label" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer/ScrollContainer"]
+[node name="ErrorLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
-margin_right = 596.0
-margin_bottom = 355.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "There was an error when downloading information for
 \"%s\":
-
+ 
 %s"
-align = 1
-valign = 1
-autowrap = true
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="ScrollHandler" type="Control" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer/ScrollContainer"]
-script = ExtResource( 13 )
+[node name="ScrollHandler" type="Control" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("13")
 
-[node name="ErrorRetryButton" type="Button" parent="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer"]
+[node name="ErrorRetryButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 275.0
-margin_top = 359.0
-margin_right = 320.0
-margin_bottom = 379.0
+layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 text = "Retry"
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 540.0
-margin_right = 1016.0
-margin_bottom = 544.0
+[node name="HSeparator2" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 548.0
-margin_right = 1016.0
-margin_bottom = 568.0
-custom_constants/separation = 10
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="PendingGames" type="Label" parent="VBoxContainer/HBoxContainer3"]
+[node name="PendingGames" type="Label" parent="Panel/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_top = 3.0
-margin_right = 956.0
-margin_bottom = 17.0
-focus_mode = 2
+layout_mode = 2
 size_flags_horizontal = 11
-align = 2
+focus_mode = 2
+clip_text = true
 
-[node name="Finish" type="Button" parent="VBoxContainer/HBoxContainer3"]
+[node name="Finish" type="Button" parent="Panel/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 966.0
-margin_right = 1016.0
-margin_bottom = 20.0
+layout_mode = 2
 text = "Finish"
 
 [node name="StopScraperDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -508.0
-margin_top = -284.0
-margin_right = 508.0
-margin_bottom = 284.0
-focus_mode = 2
-script = ExtResource( 10 )
+initial_position = 1
+size = Vector2i(635, 224)
+always_on_top = true
+script = ExtResource("10")
 
 [node name="StopDescription" type="Label" parent="StopScraperDialog"]
 unique_name_in_owner = true
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -36.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -48.0
 text = "There are still %d games waiting to be scraped.
-
+ 
 If you cancel now, the existing metadata/media will still be saved, so some games
 might show incomplete information.
-
+ 
 Are you sure you wish to stop the scraping process?"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[connection signal="focus_entered" from="VBoxContainer/HBoxContainer2/ScrollContainer/GameEntries" to="VBoxContainer/HBoxContainer2/ScrollContainer/GameEntries" method="_on_GameEntries_focus_entered"]
-[connection signal="cancel_entry" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Working" to="." method="_on_Working_cancel_entry"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer/WorkingCancelButton" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Working" method="_on_WorkingCancelButton_pressed"]
-[connection signal="cancel_entry" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting" to="." method="_on_Waiting_cancel_entry"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting/VBoxContainer/WaitingCancelButton" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting" method="_on_WaitingCancelButton_pressed"]
-[connection signal="request_search" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" to="." method="_on_Warning_request_search"]
-[connection signal="search_completed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" to="." method="_on_Warning_search_completed"]
-[connection signal="text_changed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/SearchField" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_SearchField_text_changed"]
-[connection signal="text_entered" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/SearchField" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_SearchField_text_entered"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/Search" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_Search_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/Confirm" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_Confirm_pressed"]
-[connection signal="retry_entry" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Error" to="." method="_on_Error_retry_entry"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer/ErrorRetryButton" to="VBoxContainer/HBoxContainer2/GameEntryEditor/Error" method="_on_ErrorRetryButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer3/Finish" to="." method="_on_Finish_pressed"]
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="focus_entered" from="Panel/VBoxContainer/HBoxContainer2/ScrollContainer/GameEntries" to="Panel/VBoxContainer/HBoxContainer2/ScrollContainer/GameEntries" method="_on_GameEntries_focus_entered"]
+[connection signal="cancel_entry" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Working" to="." method="_on_Working_cancel_entry"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Working/VBoxContainer/WorkingCancelButton" to="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Working" method="_on_WorkingCancelButton_pressed"]
+[connection signal="cancel_entry" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting" to="." method="_on_Waiting_cancel_entry"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting/VBoxContainer/WaitingCancelButton" to="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Waiting" method="_on_WaitingCancelButton_pressed"]
+[connection signal="request_search" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" to="." method="_on_Warning_request_search"]
+[connection signal="search_completed" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" to="." method="_on_Warning_search_completed"]
+[connection signal="text_changed" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/SearchField" to="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_SearchField_text_changed"]
+[connection signal="text_submitted" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/SearchField" to="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_SearchField_text_entered"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer/Search" to="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_Search_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning/VBoxContainer/HBoxContainer2/VBoxContainer/Confirm" to="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Warning" method="_on_Confirm_pressed"]
+[connection signal="retry_entry" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Error" to="." method="_on_Error_retry_entry"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Error/VBoxContainer/ErrorRetryButton" to="Panel/VBoxContainer/HBoxContainer2/GameEntryEditor/Error" method="_on_ErrorRetryButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/Finish" to="." method="_on_Finish_pressed"]
 [connection signal="confirmed" from="StopScraperDialog" to="." method="_on_StopScraperDialog_confirmed"]

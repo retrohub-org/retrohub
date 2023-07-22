@@ -4,9 +4,9 @@
 [ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
 
 [node name="AgeRatingTextureRect" type="TextureRect"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 80, 100 )
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 80, 100 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 1 )

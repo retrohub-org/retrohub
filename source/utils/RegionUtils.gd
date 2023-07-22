@@ -1,7 +1,7 @@
 extends Node
 
 func localize_date(date_raw: String) -> String:
-	if date_raw == "null" or date_raw.empty():
+	if date_raw == "null" or date_raw.is_empty():
 		return date_raw
 	var year := date_raw.substr(0, 4)
 	var month := date_raw.substr(4, 2)
@@ -20,7 +20,7 @@ func localize_date(date_raw: String) -> String:
 	return "%s/%s/%s %s:%s:%s" % format_arr
 
 func globalize_date_str(date_raw: String, source_format: String = ""):
-	if date_raw == "null" or date_raw.empty():
+	if date_raw == "null" or date_raw.is_empty():
 		return date_raw
 	var date_split := date_raw.split(" ")
 	var year := 1970
@@ -30,7 +30,7 @@ func globalize_date_str(date_raw: String, source_format: String = ""):
 	var minute := 0
 	var second := 0
 
-	var format : String = RetroHubConfig.config.date_format if source_format.empty() else source_format
+	var format : String = RetroHubConfig.config.date_format if source_format.is_empty() else source_format
 	match format:
 		"dd/mm/yyyy":
 			day = int(date_split[0].get_slice("/", 0))
@@ -63,7 +63,7 @@ func globalize_date_dict(date_dict: Dictionary):
 
 func localize_age_rating(age_rating_raw: String) -> Control:
 	var rating_idx := localize_age_rating_idx()
-	var rating_node : Control = preload("res://scenes/ui_nodes/AgeRatingTextureRect.tscn").instance()
+	var rating_node : Control = preload("res://scenes/ui_nodes/AgeRatingTextureRect.tscn").instantiate()
 	rating_node.from_idx(int(age_rating_raw.get_slice("/", rating_idx)), rating_idx)
 	return rating_node
 

@@ -1,35 +1,35 @@
-extends PopupDialog
+extends Window
 
 signal import_finished
 
-onready var n_import := $"%Import"
-onready var n_major := $"%Major"
-onready var n_major_progress := $"%MajorProgress"
-onready var n_minor := $"%Minor"
-onready var n_minor_progress := $"%MinorProgress"
+@onready var n_import := %Import
+@onready var n_major := %Major
+@onready var n_major_progress := %MajorProgress
+@onready var n_minor := %Minor
+@onready var n_minor_progress := %MinorProgress
 
-onready var base_text : String = n_import.text
+@onready var base_text : String = n_import.text
 
 var importer : RetroHubImporter
 
 var thread := Thread.new()
 
 func _on_CopyMovePopup_import_begin(_importer: RetroHubImporter, copy_mode: bool):
-	popup()
+	popup_centered()
 	importer = _importer
 	n_import.text = base_text % importer.get_name()
 	#warning-ignore:return_value_discarded
-	importer.connect("import_major_step", self, "_on_import_major_step")
+	importer.import_major_step.connect(_on_import_major_step)
 	#warning-ignore:return_value_discarded
-	importer.connect("import_minor_step", self, "_on_import_minor_step")
-	TTS.speak(n_import.text + ". " + $VBoxContainer/Label2.text + ". Press the Control key to check the current progress.")
+	importer.import_minor_step.connect(_on_import_minor_step)
+	TTS.speak(n_import.text + ". " + $Panel/VBoxContainer/Label2.text + ". Press the Control key to check the current progress.")
 
-	if thread.start(self, "t_import_begin", copy_mode):
+	if thread.start(Callable(self, "t_import_begin").bind(copy_mode)):
 		push_error("Thread start failed [t_import_begin]")
 
 func _input(event: InputEvent):
 	if RetroHubConfig.config.accessibility_screen_reader_enabled and visible:
-		if event is InputEventKey and event.scancode == KEY_CONTROL:
+		if event is InputEventKey and event.keycode == KEY_CTRL:
 			tts_progress()
 
 func tts_progress():

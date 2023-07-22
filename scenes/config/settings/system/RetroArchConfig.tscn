@@ -1,96 +1,82 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://r6lg3typ5vb5"]
 
-[ext_resource path="res://scenes/config/settings/system/RetroArchConfig.gd" type="Script" id=1]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://scenes/config/settings/system/RetroArchConfig.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="2"]
 
-[node name="RetroArchConfig" type="WindowDialog"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -269.5
-margin_top = -178.5
-margin_right = 269.5
-margin_bottom = 178.5
-script = ExtResource( 1 )
+[node name="RetroArchConfig" type="Window"]
+size = Vector2i(584, 422)
+script = ExtResource("1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"WindowPanel"
 
-[node name="IntroLabel" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IntroLabel" type="Label" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 519.0
-margin_bottom = 14.0
+layout_mode = 2
 text = "Select a core to add:"
-align = 1
+horizontal_alignment = 1
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/IntroLabel"]
-script = ExtResource( 2 )
+[node name="AccessibilityFocus" type="Node" parent="Panel/VBoxContainer/IntroLabel"]
+script = ExtResource("2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 519.0
-margin_bottom = 38.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CoreOptions" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+[node name="CoreOptions" type="OptionButton" parent="Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 478.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../../OK")
+layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../OK")
 clip_text = true
 
-[node name="AddCore" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="AddCore" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 482.0
-margin_right = 519.0
-margin_bottom = 20.0
+layout_mode = 2
 text = "Add"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 42.0
-margin_right = 519.0
-margin_bottom = 46.0
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
-margin_top = 50.0
-margin_right = 519.0
-margin_bottom = 64.0
+[node name="Label2" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
 text = "Remove existing cores:"
-align = 1
+horizontal_alignment = 1
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Label2"]
-script = ExtResource( 2 )
+[node name="AccessibilityFocus" type="Node" parent="Panel/VBoxContainer/Label2"]
+script = ExtResource("2")
 
-[node name="Cores" type="Tree" parent="VBoxContainer"]
+[node name="Cores" type="Tree" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 68.0
-margin_right = 519.0
-margin_bottom = 313.0
-focus_neighbour_bottom = NodePath("../OK")
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_neighbor_bottom = NodePath("../OK")
 columns = 2
 hide_root = true
 single_click_select = true
 
-[node name="OK" type="Button" parent="VBoxContainer"]
+[node name="OK" type="Button" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 244.0
-margin_top = 317.0
-margin_right = 274.0
-margin_bottom = 337.0
-focus_neighbour_bottom = NodePath("../HBoxContainer/CoreOptions")
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+focus_neighbor_bottom = NodePath("../HBoxContainer/CoreOptions")
 text = "Ok"
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/AddCore" to="." method="_on_AddCore_pressed"]
-[connection signal="item_activated" from="VBoxContainer/Cores" to="." method="_on_Cores_item_activated"]
-[connection signal="pressed" from="VBoxContainer/OK" to="." method="_on_OK_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/AddCore" to="." method="_on_AddCore_pressed"]
+[connection signal="item_activated" from="Panel/VBoxContainer/Cores" to="." method="_on_Cores_item_activated"]
+[connection signal="pressed" from="Panel/VBoxContainer/OK" to="." method="_on_OK_pressed"]

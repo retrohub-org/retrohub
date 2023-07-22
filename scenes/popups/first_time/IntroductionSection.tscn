@@ -1,77 +1,76 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://r43pbae1np4f"]
 
-[ext_resource path="res://scenes/popups/first_time/IntroductionSection.gd" type="Script" id=1]
-[ext_resource path="res://assets/icons/app/retrohub_logo_1024px_draft.png" type="Texture" id=2]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=3]
+[ext_resource type="Script" path="res://scenes/popups/first_time/IntroductionSection.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bstmt1kr6ub1d" path="res://assets/icons/app/retrohub_logo_1024px_draft.png" id="2"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="3"]
 
 [node name="IntroductionSection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-margin_left = 384.0
-margin_right = 640.0
-margin_bottom = 256.0
-rect_min_size = Vector2( 256, 256 )
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 6
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 260.0
-margin_right = 1024.0
-margin_bottom = 308.0
+layout_mode = 2
 size_flags_vertical = 2
 text = "Welcome to RetroHub!
-
+ 
 Since this is the first time you're using this software, let's go through a few steps to bootstrap your retro gaming library in a snap!"
-align = 1
-valign = 1
-autowrap = true
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Label"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 previous = NodePath("../../NextButton")
 next = NodePath("../../ScreenReader")
 
 [node name="ScreenReader" type="CheckButton" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_left = 402.0
-margin_top = 408.0
-margin_right = 622.0
-margin_bottom = 448.0
-focus_neighbour_top = NodePath("../NextButton")
-focus_neighbour_bottom = NodePath("../NextButton")
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
+focus_neighbor_top = NodePath("../NextButton")
+focus_neighbor_bottom = NodePath("../NextButton")
 text = "Enable screen reader?"
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/ScreenReader"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 previous = NodePath("../../Label")
 next = NodePath("../../NextButton")
 
 [node name="NextButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 556.0
-margin_right = 1024.0
-margin_bottom = 576.0
-focus_neighbour_top = NodePath("../ScreenReader")
-focus_neighbour_bottom = NodePath("../ScreenReader")
+layout_mode = 2
+focus_neighbor_top = NodePath("../ScreenReader")
+focus_neighbor_bottom = NodePath("../ScreenReader")
 text = "Let's Go!"
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/NextButton"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 previous = NodePath("../../ScreenReader")
 next = NodePath("../../Label")
 

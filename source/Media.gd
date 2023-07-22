@@ -29,18 +29,20 @@ func _start_thread():
 		_thread = Thread.new()
 		_semaphore = Semaphore.new()
 
-		if _thread.start(self, "t_process_media_requests"):
+		if _thread.start(Callable(self, "t_process_media_requests")):
 			push_error("Thread start failed [t_process_media_requests]")
 
 func _stop_thread():
 	_queue_mutex.lock()
 	_queue.clear()
 	#warning-ignore:return_value_discarded
-	_semaphore.post()
+	if _semaphore:
+		_semaphore.post()
 	_queue_mutex.unlock()
 
-	_thread.wait_to_finish()
-	_thread = null
+	if _thread:
+		_thread.wait_to_finish()
+		_thread = null
 
 func t_process_media_requests():
 	while true:
@@ -52,7 +54,7 @@ func t_process_media_requests():
 		# Get a request type
 		_queue_mutex.lock()
 		# If queue is empty, app is signaling thread to finish
-		if _queue.empty():
+		if _queue.is_empty():
 			_processing_mutex.unlock()
 			_queue_mutex.unlock()
 			return
@@ -127,92 +129,97 @@ func retrieve_media_data(game_data: RetroHubGameData, types: int = Type.ALL) -> 
 	var media_path := RetroHubConfig.get_gamemedia_dir() + "/" + game_data.system_path
 	var game_path := game_data.path.get_file().get_basename()
 
-	var image := Image.new()
-	var file := File.new()
 	var path : String
 
 	# Logo
 	if not game_media_data.logo:
 		path = media_path + "/logo/" + game_path + ".png"
-		if types & Type.LOGO and file.file_exists(path):
-			if image.load(path):
+		if types & Type.LOGO and FileAccess.file_exists(path):
+			var image := Image.load_from_file(path)
+			image.generate_mipmaps()
+			var image_texture := ImageTexture.create_from_image(image)
+			if not image_texture:
 				push_error("Error when loading logo image for game %s!" % game_data.name)
 			else:
-				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
 				game_media_data.logo = image_texture
 
 	# Screenshot
 	if not game_media_data.screenshot:
 		path = media_path + "/screenshot/" + game_path + ".png"
-		if types & Type.SCREENSHOT and file.file_exists(path):
-			if image.load(path):
+		if types & Type.SCREENSHOT and FileAccess.file_exists(path):
+			var image := Image.load_from_file(path)
+			image.generate_mipmaps()
+			var image_texture := ImageTexture.create_from_image(image)
+			if not image_texture:
 				push_error("Error when loading screenshot image for game %s!" % game_data.name)
 			else:
-				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
 				game_media_data.screenshot = image_texture
 
 	# Title screen
 	if not game_media_data.title_screen:
 		path = media_path + "/title-screen/" + game_path + ".png"
-		if types & Type.TITLE_SCREEN and file.file_exists(path):
-			if image.load(path):
+		if types & Type.TITLE_SCREEN and FileAccess.file_exists(path):
+			var image := Image.load_from_file(path)
+			image.generate_mipmaps()
+			var image_texture := ImageTexture.create_from_image(image)
+			if not image_texture:
 				push_error("Error when loading title screen image for game %s!" % game_data.name)
 			else:
-				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
 				game_media_data.title_screen = image_texture
 
 	# Box render
 	if not game_media_data.box_render:
 		path = media_path + "/box-render/" + game_path + ".png"
-		if types & Type.BOX_RENDER and file.file_exists(path):
-			if image.load(path):
+		if types & Type.BOX_RENDER and FileAccess.file_exists(path):
+			var image := Image.load_from_file(path)
+			image.generate_mipmaps()
+			var image_texture := ImageTexture.create_from_image(image)
+			if not image_texture:
 				push_error("Error when loading box render image for game %s!" % game_data.name)
 			else:
-				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
 				game_media_data.box_render = image_texture
 
 	# Box texture
 	if not game_media_data.box_texture:
 		path = media_path + "/box-texture/" + game_path + ".png"
-		if types & Type.BOX_TEXTURE and file.file_exists(path):
-			if image.load(path):
+		if types & Type.BOX_TEXTURE and FileAccess.file_exists(path):
+			var image := Image.load_from_file(path)
+			image.generate_mipmaps()
+			var image_texture := ImageTexture.create_from_image(image)
+			if not image_texture:
 				push_error("Error when loading box texture image for game %s!" % game_data.name)
 			else:
-				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
 				game_media_data.box_texture = image_texture
 
 	# Support render
 	if not game_media_data.support_render:
 		path = media_path + "/support-render/" + game_path + ".png"
-		if types & Type.SUPPORT_RENDER and file.file_exists(path):
-			if image.load(path):
+		if types & Type.SUPPORT_RENDER and FileAccess.file_exists(path):
+			var image := Image.load_from_file(path)
+			image.generate_mipmaps()
+			var image_texture := ImageTexture.create_from_image(image)
+			if not image_texture:
 				push_error("Error when loading support render image for game %s!" % game_data.name)
 			else:
-				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
 				game_media_data.support_render = image_texture
 
 	# Support texture
 	if not game_media_data.support_texture:
 		path = media_path + "/support-texture/" + game_path + ".png"
-		if types & Type.SUPPORT_TEXTURE and file.file_exists(path):
-			if image.load(path):
+		if types & Type.SUPPORT_TEXTURE and FileAccess.file_exists(path):
+			var image := Image.load_from_file(path)
+			image.generate_mipmaps()
+			var image_texture := ImageTexture.create_from_image(image)
+			if not image_texture:
 				push_error("Error when loading support texture image for game %s!" % game_data.name)
 			else:
-				var image_texture := ImageTexture.new()
-				image_texture.create_from_image(image, 6)
 				game_media_data.support_texture = image_texture
 
 	# Video
 	if not game_media_data.video:
 		path = media_path + "/video/" + game_path + ".mp4"
-		if types & Type.VIDEO and file.file_exists(path):
-			var video_stream := VideoStreamGDNative.new()
+		if types & Type.VIDEO and FileAccess.file_exists(path):
+			var video_stream := VideoStreamFFMPEG.new()
 			video_stream.set_file(path)
 			game_media_data.video = video_stream
 
@@ -238,7 +245,7 @@ func retrieve_media_data_async(game_data: RetroHubGameData, types: int = Type.AL
 	_queue_mutex.unlock()
 
 func cancel_media_data_async(game_data: RetroHubGameData) -> void:
-	if _queue.empty():
+	if _queue.is_empty():
 		return
 	_processing_mutex.lock()
 	_queue_mutex.lock()

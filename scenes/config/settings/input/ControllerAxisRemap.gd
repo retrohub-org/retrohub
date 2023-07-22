@@ -2,12 +2,12 @@ extends PopupPanel
 
 signal remap_done(action, old_axis, new_axis)
 
-onready var n_icons := [
-	$"%LStick", $"%RStick"
+@onready var n_icons := [
+	%LStick, %RStick
 ]
 
 var mappings := [
-	JOY_ANALOG_LX, JOY_ANALOG_RX
+	JOY_AXIS_LEFT_X, JOY_AXIS_RIGHT_X
 ]
 
 var action : String
@@ -23,27 +23,27 @@ func start(curr_action: String, pos: Vector2):
 	if map_idx != -1:
 		var icon : Button = n_icons[map_idx]
 		icon.disabled = true
-		icon.focus_mode = FOCUS_NONE
+		icon.focus_mode = Control.FOCUS_NONE
 		focus_holder = icon
 	else:
 		focus_holder = n_icons[0]
 
 	# Set intended position and popup
-	rect_global_position = pos
+	position = pos
 	popup()
 
 	# Popup internally tries to focus, so wait until it's shown to grab focus
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
 	focus_holder.grab_focus()
 	TTS.speak("Choose the new axis for this action")
 
 func _find_axis_from_action(raw_action: String):
-	for event in InputMap.get_action_list(raw_action):
+	for event in InputMap.action_get_events(raw_action):
 		if event is InputEventJoypadMotion:
-			if event.axis == JOY_ANALOG_LX or event.axis == JOY_ANALOG_LY:
-				return JOY_ANALOG_LX
-			elif event.axis == JOY_ANALOG_RX or event.axis == JOY_ANALOG_RY:
-				return JOY_ANALOG_RX
+			if event.axis == JOY_AXIS_LEFT_X or event.axis == JOY_AXIS_LEFT_Y:
+				return JOY_AXIS_LEFT_X
+			elif event.axis == JOY_AXIS_RIGHT_X or event.axis == JOY_AXIS_RIGHT_Y:
+				return JOY_AXIS_RIGHT_X
 	return -1
 
 
@@ -51,11 +51,11 @@ func _on_ControllerButtonRemap_popup_hide():
 	# Enable all the button from previous cases
 	for icon in n_icons:
 		icon.disabled = false
-		icon.focus_mode = FOCUS_ALL
+		icon.focus_mode = Control.FOCUS_ALL
 
 
 func _on_Icon_pressed(axis):
-	var axis_name := "right" if old_axis == JOY_ANALOG_RX else "left"
+	var axis_name := "right" if old_axis == JOY_AXIS_RIGHT_X else "left"
 	emit_signal("remap_done", action, axis_name, axis)
 	hide()
 

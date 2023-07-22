@@ -9,6 +9,6 @@ func _on_Create_pressed():
 func _on_Destroy_pressed():
 	var file := File.new()
 	if(file.file_exists("/home/ricardo/test")):
-		var dir := Directory.new()
+		var dir := DirAccess.new()
 		#warning-ignore:return_value_discarded
 		dir.remove("/home/ricardo/test")

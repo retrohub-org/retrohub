@@ -2,8 +2,8 @@ extends Control
 
 const LICENSE_PATH := "res://assets/copyright/licenses/"
 
-onready var n_names := $"%Names"
-onready var n_content := $"%Content"
+@onready var n_names := %Names
+@onready var n_content := %Content
 
 var licenses := {}
 var root : TreeItem
@@ -23,9 +23,9 @@ func _ready():
 		["CC BY 4.0", "ccby40.txt"],
 		["CC BY NC SA 4.0", "ccbyncsa40.txt"]
 	]
-	var file := File.new()
 	for license in license_files:
-		if not file.open(LICENSE_PATH + license[1], File.READ):
+		var file := FileAccess.open(LICENSE_PATH + license[1], FileAccess.READ)
+		if file:
 			licenses[license[0]] = file.get_as_text()
 			file.close()
 		else:
@@ -37,26 +37,26 @@ func _ready():
 		var child : TreeItem = n_names.create_item(root)
 		child.set_text(0, key)
 
-	if root.get_children() != null:
-		root.get_children().select(0)
+	if not root.get_children().is_empty():
+		root.get_child(0).select(0)
 		_on_Names_item_selected()
 
 func _on_Names_item_selected():
+	# FIXME: Text will be very slow until
+	# https://github.com/godotengine/godot/pull/77280/ is merged
 	var item : TreeItem = n_names.get_selected()
 	n_content.text = licenses[item.get_text(0)]
 	(n_content.get_parent() as ScrollContainer).scroll_vertical = 0
 
 func select_license(license_key: String) -> bool:
 	var license := convert_license_key(license_key)
-	if license.empty():
+	if license.is_empty():
 		return false
-	var child : TreeItem = root.get_children()
-	while child != null:
+	for child in root.get_children():
 		if child.get_text(0) == license:
 			child.select(0)
 			_on_Names_item_selected()
 			return true
-		child = child.get_next()
 	return false
 
 func convert_license_key(key: String) -> String:

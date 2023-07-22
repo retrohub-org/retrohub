@@ -1,22 +1,22 @@
-extends WindowDialog
+extends Window
 
 signal identifier_picked(id)
 
-onready var n_intro_lbl := $"%IntroLabel"
+@onready var n_intro_lbl := %IntroLabel
 
-onready var n_options := $"%Options"
-onready var n_ok := $"%OK"
+@onready var n_options := %Options
+@onready var n_ok := %OK
 
-onready var base_text_intro : String = n_intro_lbl.text
+@onready var base_text_intro : String = n_intro_lbl.text
 
 func _ready():
-	n_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
+	n_options.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 
 func start(data: Dictionary, existing: Array, asset_format: String, data_name: String):
 	n_intro_lbl.text = base_text_intro % data_name
 	populate_options(data.values(), existing, asset_format)
 	popup_centered()
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:
@@ -44,7 +44,7 @@ func check_complex(shortname: String, data: Array):
 
 func _on_OK_pressed():
 	var metadata : String = n_options.get_selected_metadata()
-	if not metadata.empty():
+	if not metadata.is_empty():
 		emit_signal("identifier_picked", n_options.get_selected_metadata())
 	hide()
 

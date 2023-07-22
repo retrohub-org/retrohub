@@ -2,15 +2,15 @@ extends Control
 
 signal system_selected(system)
 
-onready var n_consoles := $"%Consoles"
-onready var n_arcades := $"%Arcades"
-onready var n_computers := $"%Computers"
-onready var n_engines := $"%Engines"
-onready var n_modern_consoles := $"%ModernConsoles"
+@onready var n_consoles := %Consoles
+@onready var n_arcades := %Arcades
+@onready var n_computers := %Computers
+@onready var n_engines := %Engines
+@onready var n_modern_consoles := %ModernConsoles
 
-onready var n_system_warning := $"%SystemWarning"
+@onready var n_system_warning := %SystemWarning
 
-onready var n_systems := [
+@onready var n_systems := [
 	n_consoles, n_arcades, n_computers,
 	n_engines, n_modern_consoles
 ]
@@ -19,7 +19,7 @@ var _tts_last_item : TreeItem
 
 func _ready():
 	for system in n_systems:
-		system.connect("focus_entered", self, "_on_tree_focus_entered", [system])
+		system.focus_entered.connect(_on_tree_focus_entered.bind(system))
 
 func _on_tree_focus_entered(tree: Tree):
 	if not tree.get_selected():
@@ -39,7 +39,7 @@ func setup_systems(categories: Array):
 	for idx in range(n_systems.size()):
 		n_systems[idx].set_column_title(1, categories[idx])
 		n_systems[idx].set_column_expand(0, false)
-		n_systems[idx].set_column_min_width(0, 32)
+		n_systems[idx].set_column_custom_minimum_width(0, 32)
 		var root : TreeItem = n_systems[idx].create_item()
 		root.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 		root.set_checked(0, true)
@@ -51,7 +51,7 @@ func setup_systems(categories: Array):
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		# Sort by fullname instead
 		systems = systems.duplicate()
-		systems.sort_custom(self, "_sort_fullname")
+		systems.sort_custom(Callable(self, "_sort_fullname"))
 
 	for system in systems:
 		var idx := RetroHubSystemData.category_to_idx(system["category"])
@@ -77,32 +77,26 @@ func set_item_checked_down(item: TreeItem, checked: bool):
 	if item:
 		if is_edit_valid(item):
 			item.set_checked(0, checked)
-		set_item_checked_down(item.get_children(), checked)
-		var next := item.get_next()
-		while next:
-			set_item_checked_down(next.get_children(), checked)
-			if is_edit_valid(next):
-				next.set_checked(0, checked)
-			next = next.get_next()
+		for child in item.get_children():
+			set_item_checked_down(child, checked)
 
 func set_item_checked_up(item: TreeItem):
 	if item:
 		var all_checked := true
-		var next := item.get_children()
-		while next:
-			if not next.is_checked(0):
+		for child in item.get_children():
+			if not child.is_checked(0):
 				all_checked = false
 				break
-			next = next.get_next()
 		item.set_checked(0, all_checked)
 		set_item_checked_up(item.get_parent())
 
 func _on_item_edited(edited: TreeItem):
 	if is_edit_valid(edited):
-		set_item_checked_down(edited.get_children(), edited.is_checked(0))
+		if edited.get_child_count() > 0:
+			set_item_checked_down(edited, edited.is_checked(0))
 		set_item_checked_up(edited.get_parent())
 	else:
-		n_system_warning.popup()
+		n_system_warning.popup_centered()
 		edited.set_checked(0, true)
 
 func is_edit_valid(item: TreeItem):
@@ -115,12 +109,10 @@ func is_edit_valid(item: TreeItem):
 
 func save():
 	for tree in n_systems:
-		var next : TreeItem = tree.get_root().get_children()
-		while next:
+		for next in tree.get_root().get_children():
 			if next.is_checked(0):
 				var system : Dictionary = next.get_metadata(0)
 				RetroHubConfig.make_system_folder(system)
-			next = next.get_next()
 
 func _on_item_selected(tree: Tree):
 	if tree.get_selected().get_metadata(0):

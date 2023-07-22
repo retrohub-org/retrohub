@@ -1,22 +1,27 @@
 extends Node
 
 func load_json_file(filepath: String):
-	var file := File.new()
-	if file.open(filepath, File.READ):
+	var file := FileAccess.open(filepath, FileAccess.READ)
+	if not file:
 		push_error("Error when opening " + filepath)
 		return {}
-	var json := JSON.parse(file.get_as_text())
-	if json.error:
+	var json = load_json_buffer(file.get_as_text())
+	if not json:
 		push_error("Error when parsing JSON for " + filepath)
+	return json
+
+func load_json_buffer(data: String):
+	var json = JSON.new()
+	if json.parse(data):
+		push_error("Error when parsing JSON buffer")
 		return {}
-	return json.result
+	return json.get_data()
 
 func save_json_file(json, file_path: String):
-	var file := File.new()
-	var err : int = file.open(file_path, File.WRITE)
-	if err:
-		return err
-	file.store_string(JSON.print(json, "\t"))
+	var file := FileAccess.open(file_path, FileAccess.WRITE)
+	if not file:
+		return FileAccess.get_open_error()
+	file.store_string(JSON.stringify(json, "\t"))
 	file.close()
 
 func make_system_specific(json: Dictionary, curr_system: String):

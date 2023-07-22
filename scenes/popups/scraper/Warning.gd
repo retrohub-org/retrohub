@@ -3,28 +3,28 @@ extends Control
 signal request_search(search, game_data)
 signal search_completed(orig_game_data, new_game_data)
 
-onready var n_no_games_lbl := $"%NoGamesLabel"
-onready var n_multiple_games_lbl := $"%MultipleGamesLabel"
+@onready var n_no_games_lbl := %NoGamesLabel
+@onready var n_multiple_games_lbl := %MultipleGamesLabel
 
-onready var n_search_field := $"%SearchField"
-onready var n_search := $"%Search"
-onready var n_screenshot := $"%Screenshot"
-onready var n_developer := $"%Developer"
-onready var n_publisher := $"%Publisher"
-onready var n_num_players := $"%NumPlayers"
-onready var n_name := $"%Name"
-onready var n_description := $"%Description"
-onready var n_game_search_entries := $"%GameSearchEntries"
-onready var n_confirm := $"%Confirm"
+@onready var n_search_field := %SearchField
+@onready var n_search := %Search
+@onready var n_screenshot := %Screenshot
+@onready var n_developer := %Developer
+@onready var n_publisher := %Publisher
+@onready var n_num_players := %NumPlayers
+@onready var n_name := %Name
+@onready var n_description := %Description
+@onready var n_game_search_entries := %GameSearchEntries
+@onready var n_confirm := %Confirm
 
-onready var button_group := ButtonGroup.new()
+@onready var button_group := ButtonGroup.new()
 
 var orig_game_data : RetroHubGameData
 var new_game_data : RetroHubGameData
 
 var cached_images := {}
 
-var scraper : RetroHubScraper setget set_scraper
+var scraper : RetroHubScraper: set = set_scraper
 var thread : Thread = null
 var req_semaphore := Semaphore.new()
 var req_datas := []
@@ -41,23 +41,23 @@ func set_scraper(_scraper: RetroHubScraper) -> void:
 
 func t_request_screenshots():
 	#warning-ignore:return_value_discarded
-	scraper.connect("media_scrape_finished", self, "_on_media_scrape_finished")
+	scraper.call_thread_safe("connect", "media_scrape_finished", Callable(self, "_on_media_scrape_finished"))
 	while true:
 		#warning-ignore:return_value_discarded
 		req_semaphore.wait()
 
-		if req_datas.empty():
+		if req_datas.is_empty():
 			break
 		var game_data : RetroHubGameData = req_datas.pop_front()
 		#warning-ignore:return_value_discarded
 		scraper.scrape_media(game_data, RetroHubMedia.Type.SCREENSHOT)
-	scraper.disconnect("media_scrape_finished", self, "_on_media_scrape_finished")
+	scraper.call_thread_safe("disconnect", "media_scrape_finished", Callable(self, "_on_media_scrape_finished"))
 
 func start_thread():
 	if thread:
 		thread.wait_to_finish()
 	thread = Thread.new()
-	if thread.start(self, "t_request_screenshots"):
+	if thread.start(Callable(self, "t_request_screenshots")):
 		push_error("Thread start failed [t_request_screenshots]")
 
 func stop_thread():
@@ -65,6 +65,7 @@ func stop_thread():
 	#warning-ignore:return_value_discarded
 	req_semaphore.post()
 	thread.wait_to_finish()
+	thread = null
 
 func set_entry(game_entry: RetroHubScraperGameEntry):
 	clear_entries()
@@ -73,9 +74,9 @@ func set_entry(game_entry: RetroHubScraperGameEntry):
 		n_search_field.text = orig_game_data.name.get_basename()
 	var game_datas : Array = game_entry.data
 	n_search.disabled = false
-	n_no_games_lbl.visible = game_datas.empty()
-	n_multiple_games_lbl.visible = not game_datas.empty()
-	if game_datas.empty():
+	n_no_games_lbl.visible = game_datas.is_empty()
+	n_multiple_games_lbl.visible = not game_datas.is_empty()
+	if game_datas.is_empty():
 		var button := create_entry(null)
 		button.text = "No games found"
 		button.disabled = true
@@ -117,7 +118,7 @@ func request_screenshot(game_data: RetroHubGameData):
 	#warning-ignore:return_value_discarded
 	req_semaphore.post()
 
-func _on_media_scrape_finished(game_data: RetroHubGameData, _type: int, data: PoolByteArray, extension: String):
+func _on_media_scrape_finished(game_data: RetroHubGameData, _type: int, data: PackedByteArray, extension: String):
 	var image := Image.new()
 	match extension:
 		"png":
@@ -132,8 +133,7 @@ func _on_media_scrape_finished(game_data: RetroHubGameData, _type: int, data: Po
 		_:
 			# Unsupported format, exit
 			return
-	var texture := ImageTexture.new()
-	texture.create_from_image(image)
+	var texture := ImageTexture.create_from_image(image)
 	cached_images[game_data] = texture
 	if new_game_data == game_data:
 		n_screenshot.texture = cached_images[game_data]
@@ -144,20 +144,20 @@ func _on_entry_toggled(button_pressed: bool, game_data: RetroHubGameData):
 
 func create_entry(game_data: RetroHubGameData) -> Button:
 	var button := Button.new()
-	button.align = Button.ALIGN_LEFT
+	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	button.clip_text = true
 	button.size_flags_horizontal = SIZE_EXPAND_FILL
-	button.rect_min_size.y = 28
-	button.group = button_group
+	button.custom_minimum_size.y = 28
+	button.button_group = button_group
 	button.toggle_mode = true
 	#warning-ignore:return_value_discarded
-	button.connect("toggled", self, "_on_entry_toggled", [game_data])
+	button.toggled.connect(_on_entry_toggled.bind(game_data))
 	n_game_search_entries.add_child(button)
 	return button
 
 
 func _on_SearchField_text_changed(new_text):
-	n_search.disabled = new_text.empty()
+	n_search.disabled = new_text.is_empty()
 
 
 func _on_Search_pressed():

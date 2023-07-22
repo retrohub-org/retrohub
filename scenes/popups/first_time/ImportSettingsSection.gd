@@ -2,15 +2,15 @@ extends Control
 
 signal advance_section
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_import_options := $"%ImportOptions"
-onready var n_compatibility_details := $"%CompatibilityDetails"
-onready var n_next_btn := $"%NextButton"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_import_options := %ImportOptions
+@onready var n_compatibility_details := %CompatibilityDetails
+@onready var n_next_btn := %NextButton
 
 
-onready var n_copy_move_popup := $"%CopyMovePopup"
+@onready var n_copy_move_popup := %CopyMovePopup
 
-onready var importers := [
+@onready var importers := [
 	EmulationStationImporter.new(),
 	RetroArchImporter.new()
 ]
@@ -19,7 +19,7 @@ var thread := Thread.new()
 var importer_support := []
 
 func _ready():
-	n_import_options.get_popup().max_height = RetroHubUI.max_popupmenu_height
+	n_import_options.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 
 func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
@@ -34,7 +34,7 @@ func query_importers():
 	n_import_options.disabled = true
 	n_compatibility_details.visible = false
 
-	if thread.start(self, "t_query_importers"):
+	if thread.start(Callable(self, "t_query_importers")):
 		push_error("Thread start failed [t_query_importers]")
 
 func t_query_importers():
@@ -54,7 +54,7 @@ func set_importer_buttons():
 		if support:
 			not_found = false
 			var importer : RetroHubImporter = importers[idx]
-			n_import_options.add_icon_item(importer.get_icon(), importer.get_name(), idx)
+			n_import_options.add_icon_item(importer.get_icon(), importer.get_importer_name(), idx)
 		idx += 1
 
 	n_import_options.disabled = not_found
@@ -82,7 +82,7 @@ func _on_NextButton_pressed():
 	var importer := get_importer_selected()
 	if importer:
 		n_copy_move_popup.set_importer(importer)
-		n_copy_move_popup.popup()
+		n_copy_move_popup.popup_centered()
 	else:
 		emit_signal("advance_section")
 

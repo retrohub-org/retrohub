@@ -1,6 +1,6 @@
 extends Control
 
-onready var nodes := [
+@onready var nodes := [
 	$Controls/HBoxContainer/VBoxContainer/A,
 	$Controls/HBoxContainer/VBoxContainer/B,
 	$Controls/HBoxContainer/VBoxContainer/X,
@@ -106,4 +106,10 @@ func _on_XboxSeries_pressed():
 func _on_SteamDeck_pressed():
 	for i in range(nodes.size()):
 		var control_text = ControllerIcons.Mapper._convert_joypad_to_steamdeck(base_names[i])
+		nodes[i].get_child(0).path = control_text
+
+
+func _on_ouya_pressed():
+	for i in range(nodes.size()):
+		var control_text = ControllerIcons.Mapper._convert_joypad_to_ouya(base_names[i])
 		nodes[i].get_child(0).path = control_text

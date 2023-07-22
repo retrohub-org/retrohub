@@ -1,24 +1,24 @@
-extends PopupDialog
+extends Window
 
 signal import_begin(importer, copy_mode)
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_move_section := $"%MoveSection"
-onready var n_copy_section := $"%CopySection"
-onready var n_section_labels := [
-	$"%MoveFiles",
-	$"%CopyFiles",
-	$"%MoveDisadvantage",
-	$"%CopyAdvantage"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_move_section := %MoveSection
+@onready var n_copy_section := %CopySection
+@onready var n_section_labels := [
+	%MoveFiles,
+	%CopyFiles,
+	%MoveDisadvantage,
+	%CopyAdvantage
 ]
-onready var n_size := $"%Size"
-onready var n_space_left := $"%SpaceLeft"
-onready var n_move_copy_button := $"%MoveCopyButton"
-onready var n_cancel := $"%Cancel"
-onready var n_import := $"%Import"
+@onready var n_size := %Size
+@onready var n_space_left := %SpaceLeft
+@onready var n_move_copy_button := %MoveCopyButton
+@onready var n_cancel := %Cancel
+@onready var n_import := %Import
 
 var base_texts := []
-var size : int
+var file_size : int
 var space_left : int
 
 var importer : RetroHubImporter
@@ -31,21 +31,21 @@ func _ready():
 func set_importer(_importer):
 	importer = _importer
 	for idx in range(n_section_labels.size()):
-		n_section_labels[idx].text = base_texts[idx] % importer.get_name()
+		n_section_labels[idx].text = base_texts[idx] % importer.get_importer_name()
 
 	n_size.text = "Calculating..."
 	n_space_left.text = "Calculating..."
-	if thread.start(self, "t_get_size"):
+	if thread.start(Callable(self, "t_get_size")):
 		push_error("Thread start failed [t_get_size]")
 
 func t_get_size():
-	size = importer.get_estimated_size()
+	file_size = importer.get_estimated_size()
 	space_left = FileUtils.get_space_left()
 	call_deferred("thread_finished")
 
 func thread_finished():
 	thread.wait_to_finish()
-	n_size.text = get_human_readable_size(size)
+	n_size.text = get_human_readable_size(file_size)
 	n_space_left.text = get_human_readable_size(space_left) if space_left > 0 else "Could not measure"
 
 func get_human_readable_size(size_raw: int):
@@ -54,7 +54,7 @@ func get_human_readable_size(size_raw: int):
 	while value > 1024:
 		value /= 1024
 		multiplier += 1
-	value = stepify(value, 0.01)
+	value = snapped(value, 0.01)
 	match multiplier:
 		0:
 			return str(value) + " bytes"
@@ -83,7 +83,7 @@ func _on_MoveCopyButton_toggled(button_pressed):
 
 
 func _on_Import_pressed():
-	emit_signal("import_begin", importer, n_move_copy_button.pressed)
+	emit_signal("import_begin", importer, n_move_copy_button.button_pressed)
 	hide()
 
 func tts_text(focused: Control) -> String:
@@ -98,18 +98,18 @@ func tts_text(focused: Control) -> String:
 			return ""
 
 func tts_move_section() -> String:
-	return $"%MoveFiles".text + ". Advantage: " + $VBoxContainer/HBoxContainer/MoveSection/HBoxContainer/Label.text \
-		+ ". Disadvantage: " + $"%MoveDisadvantage".text
+	return %MoveFiles.text + ". Advantage: " + $VBoxContainer/HBoxContainer/MoveSection/HBoxContainer/Label.text \
+		+ ". Disadvantage: " + %MoveDisadvantage.text
 
 func tts_copy_section() -> String:
-	return $"%CopyFiles".text + ". Advantage: " + $"%CopyAdvantage".text \
+	return %CopyFiles.text + ". Advantage: " + %CopyAdvantage.text \
 		+ ". Disadvantage: " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer2/Label.text \
 		+ ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer3/Label.text \
-		+ $"%Size".text + ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer4/Label.text \
-		+ $"%SpaceLeft".text
+		+ %Size.text + ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer4/Label.text \
+		+ %SpaceLeft.text
 
 func tts_move_copy_button() -> String:
-	return "CheckButton. Currently selected mode: " + ("copy" if n_move_copy_button.pressed else "move") \
+	return "CheckButton. Currently selected mode: " + ("copy" if n_move_copy_button.button_pressed else "move") \
 	+ ". Press to toggle mode."
 
 func _on_CopyMovePopup_about_to_show():

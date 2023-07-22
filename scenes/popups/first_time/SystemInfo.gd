@@ -1,10 +1,10 @@
 extends VBoxContainer
 
-onready var n_photo := $"%Photo"
-onready var n_logo := $"%Logo"
-onready var n_fullname := $"%Fullname"
-onready var n_name := $"%Name"
-onready var n_platform := $"%Platform"
+@onready var n_photo := %Photo
+@onready var n_logo := %Logo
+@onready var n_fullname := %Fullname
+@onready var n_name := %Name
+@onready var n_platform := %Platform
 
 func set_system(system_raw: Dictionary):
 	n_photo.texture = load("res://assets/systems/%s-photo.png" % system_raw["name"])

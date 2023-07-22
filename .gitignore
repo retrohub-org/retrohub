@@ -1,3 +1,6 @@
+# Godot 4+ specific ignores
+.godot/
+
 # Godot-specific ignores
 .import/
 .vscode/
@@ -14,9 +17,15 @@ debug.keystore
 structureDoc
 godot
 godotOld
+godot4
 
 # Ignore pre-built FFMPEG binaries
-addons/godot-videodecoder/**
+addons/godot-videodecoder/windows_32
+addons/godot-videodecoder/windows_64
+addons/godot-videodecoder/macos
+addons/godot-videodecoder/linux_32
+addons/godot-videodecoder/linux_64
+
 
 # Ignore pre-built godot-tts, it is bundled on release
 addons/godot-tts/target/

@@ -2,9 +2,9 @@ extends Control
 
 signal advance_section
 
-onready var n_label := $"%Label"
-onready var n_screen_reader := $"%ScreenReader"
-onready var n_next_button := $"%NextButton"
+@onready var n_label := %Label
+@onready var n_screen_reader := %ScreenReader
+@onready var n_next_button := %NextButton
 
 func grab_focus():
 	TTS.speak("To enable the screen reader, press the Control key.")
@@ -13,8 +13,8 @@ func grab_focus():
 
 func _input(event):
 	if visible:
-		if event is InputEventKey and event.scancode == KEY_CONTROL:
-			n_screen_reader.pressed = true
+		if event is InputEventKey and event.keycode == KEY_CTRL:
+			n_screen_reader.button_pressed = true
 			n_label.grab_focus()
 
 func _on_NextButton_pressed():

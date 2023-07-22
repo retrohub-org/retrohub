@@ -2,15 +2,15 @@ extends Control
 
 signal advance_section
 
-onready var n_intro_lbl := $"%IntroLabel"
-onready var n_systems := $"%Systems"
-onready var n_emulator_info_tab := $"%EmulatorInfoTab"
+@onready var n_intro_lbl := %IntroLabel
+@onready var n_systems := %Systems
+@onready var n_emulator_info_tab := %EmulatorInfoTab
 
 var icon_cache := {}
 var emulator_cache := {}
 
 func _ready():
-	n_systems.get_popup().max_height = RetroHubUI.max_popupmenu_height + 50
+	n_systems.get_popup().max_size.y = RetroHubUI.max_popupmenu_height + 50
 
 func grab_focus():
 	RetroHubConfig.load_emulators()
@@ -30,7 +30,7 @@ func set_systems():
 	clear_emulator_info()
 	
 	sorted_systems = RetroHubConfig._systems_raw.values().duplicate()
-	sorted_systems.sort_custom(self, "_sort_by_fullname")
+	sorted_systems.sort_custom(Callable(self, "_sort_by_fullname"))
 
 	for system in sorted_systems:
 		var found := handle_emulator_info(system)
@@ -49,7 +49,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 	var parent := create_emulator_info_node()
 	for system_emulator in system_emulators:
 		if system_emulator is Dictionary and system_emulator.has("retroarch"):
-			var retroarch_info := preload("res://scenes/popups/first_time/RetroArchEmulatorInfo.tscn").instance()
+			var retroarch_info := preload("res://scenes/popups/first_time/RetroArchEmulatorInfo.tscn").instantiate()
 			var emulator : Dictionary = emulators["retroarch"]
 			parent.add_child(retroarch_info)
 
@@ -69,7 +69,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 			else:
 				binpath = FileUtils.test_for_valid_path(binpaths)
 				emulator_cache["retroarch"]["binpath"] = binpath
-			if not binpath.empty():
+			if not binpath.is_empty():
 				retroarch_info.set_path_found(true, binpath)
 				# Then test for cores
 				var required_cores : Array = system_emulator["retroarch"]
@@ -78,9 +78,9 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 					corespath = emulator_cache["retroarch"]["corespath"]
 				else:
 					corespath = RetroHubRetroArchEmulator.get_custom_core_path()
-					if corespath.empty():
+					if corespath.is_empty():
 						corespath = JSONUtils.format_string_with_substitutes(FileUtils.test_for_valid_path(emulator["corepath"]) , {"binpath": binpath})
-					if corespath.empty():
+					if corespath.is_empty():
 						retroarch_info.set_core_found(false, "Could not find any cores inside:\n" + convert_list_to_string(emulator["corepath"]))
 						emulator_cache["retroarch"]["corespath"] = corespath
 						continue
@@ -91,14 +91,14 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 					for core in cores:
 						if core["name"] == req_core:
 							avail_cores.push_back(core)
-				if avail_cores.empty():
+				if avail_cores.is_empty():
 					retroarch_info.set_core_found(false, "No default config for cores:\n" + convert_list_to_string(required_cores))
 					continue
 				var corepaths := []
 				for core in avail_cores:
 					corepaths.push_back(corespath + "/" + core["file"])
 				var corepath := FileUtils.test_for_valid_path(corepaths)
-				if not corepath.empty():
+				if not corepath.is_empty():
 					for core in avail_cores:
 						if core["file"] == corepath.get_file():
 							retroarch_info.set_core_found(true, "%s (%s)" % [core["fullname"] ,corepath])
@@ -112,7 +112,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 
 		elif emulators.has(system_emulator):
 			# Generic emulator
-			var generic_info := preload("res://scenes/popups/first_time/GenericEmulatorInfo.tscn").instance()
+			var generic_info := preload("res://scenes/popups/first_time/GenericEmulatorInfo.tscn").instantiate()
 			var emulator : Dictionary = emulators[system_emulator]
 			parent.add_child(generic_info)
 
@@ -137,7 +137,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 			else:
 				binpath = FileUtils.test_for_valid_path(binpaths)
 				emulator_cache[emulator["name"]]["binpath"] = binpath
-			if not binpath.empty():
+			if not binpath.is_empty():
 				found = true
 				generic_info.set_found(true, binpath)
 				continue
@@ -152,7 +152,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 func convert_list_to_string(values: Array):
 	var text := ""
 	for value in values:
-		if text.empty():
+		if text.is_empty():
 			text = "- %s" % value
 		else:
 			text += "\n- %s" % value

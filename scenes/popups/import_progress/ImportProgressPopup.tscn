@@ -1,87 +1,77 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://dc44afdxudnyi"]
 
-[ext_resource path="res://resources/fonts/default_italic.tres" type="DynamicFont" id=1]
-[ext_resource path="res://scenes/popups/import_progress/ImportProgressPopup.gd" type="Script" id=2]
-[ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=3]
+[ext_resource type="FontFile" path="res://resources/fonts/default_italic.tres" id="1"]
+[ext_resource type="Script" path="res://scenes/popups/import_progress/ImportProgressPopup.gd" id="2"]
+[ext_resource type="FontFile" path="res://resources/fonts/default_bold.tres" id="3"]
 
-[node name="ImportProgressPopup" type="PopupDialog"]
-visible = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -423.5
-margin_top = -252.0
-margin_right = 423.5
-margin_bottom = 252.0
-popup_exclusive = true
-script = ExtResource( 2 )
+[node name="ImportProgressPopup" type="Window"]
+size = Vector2i(847, 504)
+exclusive = true
+script = ExtResource("2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 50.0
-margin_top = 30.0
-margin_right = -50.0
-margin_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"WindowPanel"
 
-[node name="Import" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 30.0
+offset_right = -50.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Import" type="Label" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 747.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "Importing configuration from %s..."
-align = 1
+horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 177.0
-margin_right = 747.0
-margin_bottom = 272.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
 size_flags_vertical = 6
-custom_constants/separation = 25
+theme_override_constants/separation = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
-margin_right = 747.0
-margin_bottom = 32.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
 
-[node name="MajorProgress" type="ProgressBar" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="MajorProgress" type="ProgressBar" parent="Panel/VBoxContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 747.0
-margin_bottom = 14.0
+layout_mode = 2
 step = 1.0
 
-[node name="Major" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Major" type="Label" parent="Panel/VBoxContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 18.0
-margin_right = 747.0
-margin_bottom = 32.0
+layout_mode = 2
 text = "Importing..."
-align = 1
+horizontal_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
-margin_top = 57.0
-margin_right = 747.0
-margin_bottom = 95.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
 
-[node name="MinorProgress" type="ProgressBar" parent="VBoxContainer/VBoxContainer/VBoxContainer2"]
+[node name="MinorProgress" type="ProgressBar" parent="Panel/VBoxContainer/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
-margin_right = 747.0
-margin_bottom = 14.0
+layout_mode = 2
 step = 1.0
 
-[node name="Minor" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer2"]
+[node name="Minor" type="Label" parent="Panel/VBoxContainer/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
-margin_top = 18.0
-margin_right = 747.0
-margin_bottom = 38.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
 text = "Importing..."
-align = 1
+horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
-margin_top = 429.0
-margin_right = 747.0
-margin_bottom = 449.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Label2" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
 text = "This may take a long time to finish, please wait..."
-align = 1
+horizontal_alignment = 1

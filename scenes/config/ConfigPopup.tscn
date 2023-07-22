@@ -1,585 +1,480 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=27 format=3 uid="uid://cjx4cfx0f2k2"]
 
-[ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/icons/config/emulators.png" type="Texture" id=2]
-[ext_resource path="res://assets/icons/config/systems.png" type="Texture" id=3]
-[ext_resource path="res://assets/icons/config/region.png" type="Texture" id=4]
-[ext_resource path="res://scenes/config/ThemeSettings.gd" type="Script" id=5]
-[ext_resource path="res://scenes/config/ConfigPopup.gd" type="Script" id=6]
-[ext_resource path="res://scenes/config/NoThemeSettings.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/config/ScraperSettings.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/config/settings/SystemSettings.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/config/settings/EmulatorSettings.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/config/settings/InputSettings.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/config/settings/GeneralSettings.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/config/GameSettings.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/config/settings/RegionSettings.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/config/QuitSettings.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/config/AboutSettings.tscn" type="PackedScene" id=16]
-[ext_resource path="res://assets/icons/config/quit.png" type="Texture" id=17]
-[ext_resource path="res://assets/icons/config/game.png" type="Texture" id=18]
-[ext_resource path="res://assets/icons/config/scraper.png" type="Texture" id=19]
-[ext_resource path="res://assets/icons/config/theme.png" type="Texture" id=20]
-[ext_resource path="res://assets/icons/config/general.png" type="Texture" id=21]
-[ext_resource path="res://assets/icons/config/input.png" type="Texture" id=22]
-[ext_resource path="res://assets/icons/config/about.png" type="Texture" id=23]
-[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=24]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=25]
+[ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://du66o2pueo6qh" path="res://assets/icons/config/emulators.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://ceqc12eceo8ej" path="res://assets/icons/config/systems.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://58bt0kxp2ypw" path="res://assets/icons/config/region.png" id="4"]
+[ext_resource type="Script" path="res://scenes/config/ThemeSettings.gd" id="5"]
+[ext_resource type="Script" path="res://scenes/config/ConfigPopup.gd" id="6"]
+[ext_resource type="PackedScene" uid="uid://dhpcugwmspe7f" path="res://scenes/config/NoThemeSettings.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://bt85gge8nxhap" path="res://scenes/config/ScraperSettings.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://brn0n4a662fgs" path="res://scenes/config/settings/SystemSettings.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://carj0e8mnxjvn" path="res://scenes/config/settings/EmulatorSettings.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://deiyd6u1iogmn" path="res://scenes/config/settings/InputSettings.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://b4a6mwh5w1te3" path="res://scenes/config/settings/GeneralSettings.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://dykfd11xmgm5g" path="res://scenes/config/GameSettings.tscn" id="13"]
+[ext_resource type="PackedScene" uid="uid://bt8irkoyjsyhl" path="res://scenes/config/settings/RegionSettings.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://0lj6ugro23bj" path="res://scenes/config/QuitSettings.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://bk84lkodndnjq" path="res://scenes/config/AboutSettings.tscn" id="16"]
+[ext_resource type="Texture2D" uid="uid://d2oqjwfnma664" path="res://assets/icons/config/quit.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://cqqde6lqlyqtm" path="res://assets/icons/config/game.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://cjow8bs0h4sh1" path="res://assets/icons/config/scraper.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://nf1u26dbbasf" path="res://assets/icons/config/theme.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://6xe4wxb361pt" path="res://assets/icons/config/general.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://eh0ecdhmfwv5" path="res://assets/icons/config/input.png" id="22"]
+[ext_resource type="Texture2D" uid="uid://7qv28u4mq7xl" path="res://assets/icons/config/about.png" id="23"]
+[ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="24"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="25"]
 
-[sub_resource type="ButtonGroup" id=1]
+[sub_resource type="ButtonGroup" id="ButtonGroup_l35le"]
 
-[node name="ConfigPopup" type="Popup"]
-anchor_left = 0.075
-anchor_top = 0.083
-anchor_right = 0.925
-anchor_bottom = 0.917
-margin_left = -1.52588e-05
-margin_top = 0.191998
-margin_right = -6.10352e-05
-margin_bottom = -0.192017
-theme = ExtResource( 1 )
-script = ExtResource( 6 )
+[node name="ConfigPopup" type="Window"]
+disable_3d = true
+transparent_bg = true
+initial_position = 1
+size = Vector2i(1000, 480)
+transient = true
+exclusive = true
+unresizable = true
+borderless = true
+transparent = true
+popup_window = true
+content_scale_mode = 1
+content_scale_aspect = 3
+theme = ExtResource("1")
+script = ExtResource("6")
 
 [node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme_type_variation = "MenuSidePanel"
+theme_type_variation = &"MenuSidePanel"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer"]
-margin_right = 160.0
-margin_bottom = 480.0
-rect_min_size = Vector2( 160, 0 )
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
 focus_mode = 2
 follow_focus = true
-scroll_horizontal_enabled = false
 
 [node name="Panel" type="Panel" parent="Panel/HBoxContainer/ScrollContainer"]
-margin_right = 160.0
-margin_bottom = 480.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_type_variation = "MenuSidePanel"
+theme_type_variation = &"MenuSidePanel"
 
 [node name="PanelContainer" type="VBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_type_variation = "MenuSidePanel"
-custom_constants/separation = 1
+theme_type_variation = &"MenuSidePanel"
+theme_override_constants/separation = 1
 
 [node name="QuitTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_right = 160.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 100, 30 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideTopButton"
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideTopButton"
 toggle_mode = true
-group = SubResource( 1 )
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+offset_left = 10.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab/HBoxContainer"]
-margin_top = 1.0
-margin_right = 114.0
-margin_bottom = 29.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Quit"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab/HBoxContainer"]
-margin_left = 118.0
-margin_right = 150.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 32, 0 )
-texture = ExtResource( 17 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("17")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="GameTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 31.0
-margin_right = 160.0
-margin_bottom = 121.0
-rect_min_size = Vector2( 100, 90 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideButton"
+custom_minimum_size = Vector2(100, 90)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
 toggle_mode = true
-group = SubResource( 1 )
-align = 2
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GameTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -5.0
+offset_left = 10.0
+offset_right = -5.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GameTab/HBoxContainer"]
-margin_top = 31.0
-margin_right = 101.0
-margin_bottom = 59.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Game"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GameTab/HBoxContainer"]
-margin_left = 105.0
-margin_right = 145.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 40, 0 )
-texture = ExtResource( 18 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("18")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ScraperTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 122.0
-margin_right = 160.0
-margin_bottom = 212.0
-rect_min_size = Vector2( 100, 90 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideButton"
+custom_minimum_size = Vector2(100, 90)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
 toggle_mode = true
-group = SubResource( 1 )
-align = 2
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ScraperTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -5.0
+offset_left = 10.0
+offset_right = -5.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ScraperTab/HBoxContainer"]
-margin_top = 31.0
-margin_right = 101.0
-margin_bottom = 59.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Scraper"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ScraperTab/HBoxContainer"]
-margin_left = 105.0
-margin_right = 145.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 40, 0 )
-texture = ExtResource( 19 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("19")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ThemeTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 213.0
-margin_right = 160.0
-margin_bottom = 303.0
-rect_min_size = Vector2( 100, 90 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideButton"
+custom_minimum_size = Vector2(100, 90)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
 toggle_mode = true
-group = SubResource( 1 )
-align = 2
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ThemeTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -5.0
+offset_left = 10.0
+offset_right = -5.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ThemeTab/HBoxContainer"]
-margin_top = 31.0
-margin_right = 101.0
-margin_bottom = 59.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Theme"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ThemeTab/HBoxContainer"]
-margin_left = 105.0
-margin_right = 145.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 40, 0 )
-texture = ExtResource( 20 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("20")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 304.0
-margin_right = 160.0
-margin_bottom = 308.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
-margin_top = 309.0
-margin_right = 160.0
-margin_bottom = 337.0
+layout_mode = 2
 text = "Settings"
-align = 1
 
 [node name="GeneralTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 338.0
-margin_right = 160.0
-margin_bottom = 398.0
-rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideButton"
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
 toggle_mode = true
-group = SubResource( 1 )
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GeneralTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -10.0
+offset_left = 10.0
+offset_right = -10.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GeneralTab/HBoxContainer"]
-margin_top = 16.0
-margin_right = 104.0
-margin_bottom = 44.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "General"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GeneralTab/HBoxContainer"]
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 32, 0 )
-texture = ExtResource( 21 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("21")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="InputTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 399.0
-margin_right = 160.0
-margin_bottom = 459.0
-rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideButton"
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
 toggle_mode = true
-group = SubResource( 1 )
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/InputTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -10.0
+offset_left = 10.0
+offset_right = -10.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/InputTab/HBoxContainer"]
-margin_top = 16.0
-margin_right = 104.0
-margin_bottom = 44.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Input"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/InputTab/HBoxContainer"]
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 32, 0 )
-texture = ExtResource( 22 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("22")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="RegionTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 460.0
-margin_right = 160.0
-margin_bottom = 520.0
-rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideButton"
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
 toggle_mode = true
-group = SubResource( 1 )
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/RegionTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -10.0
+offset_left = 10.0
+offset_right = -10.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/RegionTab/HBoxContainer"]
-margin_top = 16.0
-margin_right = 104.0
-margin_bottom = 44.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Region"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/RegionTab/HBoxContainer"]
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 32, 0 )
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="SystemsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 521.0
-margin_right = 160.0
-margin_bottom = 581.0
-rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideButton"
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
 toggle_mode = true
-group = SubResource( 1 )
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -10.0
+offset_left = 10.0
+offset_right = -10.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab/HBoxContainer"]
-margin_top = 16.0
-margin_right = 104.0
-margin_bottom = 44.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Systems"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab/HBoxContainer"]
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 32, 0 )
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="EmulatorsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 582.0
-margin_right = 160.0
-margin_bottom = 642.0
-rect_min_size = Vector2( 100, 60 )
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideButton"
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
 toggle_mode = true
-group = SubResource( 1 )
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -10.0
+offset_left = 10.0
+offset_right = -10.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab/HBoxContainer"]
-margin_top = 16.0
-margin_right = 104.0
-margin_bottom = 44.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Emulators"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab/HBoxContainer"]
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 32, 0 )
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="AboutTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-margin_top = 643.0
-margin_right = 160.0
-margin_bottom = 703.0
-rect_min_size = Vector2( 100, 60 )
-focus_neighbour_bottom = NodePath("../QuitTab")
-theme = ExtResource( 1 )
-theme_type_variation = "MenuSideBottomButton"
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../QuitTab")
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideBottomButton"
 toggle_mode = true
-group = SubResource( 1 )
-icon_align = 2
+button_group = SubResource("ButtonGroup_l35le")
+icon_alignment = 2
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_right = -10.0
+offset_left = 10.0
+offset_right = -10.0
 
 [node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab/HBoxContainer"]
-margin_top = 16.0
-margin_right = 104.0
-margin_bottom = 44.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "About"
-align = 1
-autowrap = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab/HBoxContainer"]
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 32, 0 )
-texture = ExtResource( 23 )
-expand = true
-stretch_mode = 6
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("23")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="AccessibilityFocus" type="Node" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab"]
-script = ExtResource( 25 )
+script = ExtResource("25")
 next = NodePath("../../QuitTab")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
-margin_left = 164.0
-margin_right = 870.0
-margin_bottom = 480.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 7
-custom_constants/margin_top = 7
-custom_constants/margin_bottom = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
 
 [node name="SettingsTab" type="TabContainer" parent="Panel/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true
-margin_top = 7.0
-margin_right = 699.0
-margin_bottom = 473.0
-focus_mode = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_mode = 2
 tabs_visible = false
 
-[node name="QuitSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 15 )]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+[node name="QuitSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("15")]
+layout_mode = 2
 
-[node name="GameSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 13 )]
+[node name="GameSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("13")]
 unique_name_in_owner = true
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 
-[node name="ScraperSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 8 )]
+[node name="ScraperSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("8")]
 unique_name_in_owner = true
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 
 [node name="ThemeSettings" type="ScrollContainer" parent="Panel/HBoxContainer/MarginContainer/SettingsTab"]
 unique_name_in_owner = true
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 follow_focus = true
-scroll_horizontal_enabled = false
-script = ExtResource( 5 )
-no_theme_settings_scene = ExtResource( 7 )
+script = ExtResource("5")
+no_theme_settings_scene = ExtResource("7")
 
 [node name="ScrollHandler" type="Control" parent="Panel/HBoxContainer/MarginContainer/SettingsTab/ThemeSettings"]
-script = ExtResource( 24 )
+layout_mode = 2
+script = ExtResource("24")
 
-[node name="GeneralSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 12 )]
+[node name="GeneralSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("12")]
 unique_name_in_owner = true
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 
-[node name="InputSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 11 )]
+[node name="InputSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("11")]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 
-[node name="RegionSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 14 )]
+[node name="RegionSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("14")]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 
-[node name="SystemSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 9 )]
+[node name="SystemSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("9")]
 visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EmulatorSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 10 )]
+[node name="EmulatorSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("10")]
 visible = false
+layout_mode = 2
 
-[node name="AboutSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource( 16 )]
+[node name="AboutSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("16")]
 visible = false
+layout_mode = 2
 
-[connection signal="about_to_show" from="." to="." method="_on_ConfigPopup_about_to_show"]
-[connection signal="popup_hide" from="." to="." method="_on_ConfigPopup_popup_hide"]
 [connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer" to="." method="_on_ScrollContainer_focus_entered"]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab" to="." method="_on_Tab_pressed" binds= [ 0 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab" to="." method="_on_Tab_focus_entered" binds= [ 0 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GameTab" to="." method="_on_Tab_pressed" binds= [ 1 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GameTab" to="." method="_on_Tab_focus_entered" binds= [ 1 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ScraperTab" to="." method="_on_Tab_pressed" binds= [ 2 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ScraperTab" to="." method="_on_Tab_focus_entered" binds= [ 2 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ThemeTab" to="." method="_on_Tab_pressed" binds= [ 3 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ThemeTab" to="." method="_on_Tab_focus_entered" binds= [ 3 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GeneralTab" to="." method="_on_Tab_pressed" binds= [ 4 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GeneralTab" to="." method="_on_Tab_focus_entered" binds= [ 4 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/InputTab" to="." method="_on_Tab_pressed" binds= [ 5 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/InputTab" to="." method="_on_Tab_focus_entered" binds= [ 5 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/RegionTab" to="." method="_on_Tab_pressed" binds= [ 6 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/RegionTab" to="." method="_on_Tab_focus_entered" binds= [ 6 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab" to="." method="_on_Tab_pressed" binds= [ 7 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab" to="." method="_on_Tab_focus_entered" binds= [ 7 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab" to="." method="_on_Tab_pressed" binds= [ 8 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab" to="." method="_on_Tab_focus_entered" binds= [ 8 ]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_pressed" binds= [ 9 ]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_focus_entered" binds= [ 9 ]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab" to="." method="_on_Tab_pressed" binds= [0]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/QuitTab" to="." method="_on_Tab_focus_entered" binds= [0]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GameTab" to="." method="_on_Tab_pressed" binds= [1]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GameTab" to="." method="_on_Tab_focus_entered" binds= [1]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ScraperTab" to="." method="_on_Tab_pressed" binds= [2]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ScraperTab" to="." method="_on_Tab_focus_entered" binds= [2]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ThemeTab" to="." method="_on_Tab_pressed" binds= [3]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/ThemeTab" to="." method="_on_Tab_focus_entered" binds= [3]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GeneralTab" to="." method="_on_Tab_pressed" binds= [4]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/GeneralTab" to="." method="_on_Tab_focus_entered" binds= [4]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/InputTab" to="." method="_on_Tab_pressed" binds= [5]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/InputTab" to="." method="_on_Tab_focus_entered" binds= [5]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/RegionTab" to="." method="_on_Tab_pressed" binds= [6]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/RegionTab" to="." method="_on_Tab_focus_entered" binds= [6]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab" to="." method="_on_Tab_pressed" binds= [7]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab" to="." method="_on_Tab_focus_entered" binds= [7]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab" to="." method="_on_Tab_pressed" binds= [8]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab" to="." method="_on_Tab_focus_entered" binds= [8]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_pressed" binds= [9]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_focus_entered" binds= [9]]
 [connection signal="focus_entered" from="Panel/HBoxContainer/MarginContainer/SettingsTab" to="." method="_on_SettingsTab_focus_entered"]
-[connection signal="theme_reload" from="Panel/HBoxContainer/MarginContainer/SettingsTab/RegionSettings" to="." method="_on_theme_reload"]
-[connection signal="theme_reload" from="Panel/HBoxContainer/MarginContainer/SettingsTab/SystemSettings" to="." method="_on_theme_reload"]

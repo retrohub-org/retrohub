@@ -1,45 +1,42 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://ck4hcsfejt8dx"]
 
-[ext_resource path="res://scenes/popups/first_time/EmulatorInfoSection.tscn" type="PackedScene" id=1]
-[ext_resource path="res://resources/fonts/default_bold.tres" type="DynamicFont" id=2]
-[ext_resource path="res://scenes/popups/first_time/GenericEmulatorInfo.gd" type="Script" id=3]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=4]
+[ext_resource type="PackedScene" uid="uid://c2x5rto73hpe1" path="res://scenes/popups/first_time/EmulatorInfoSection.tscn" id="1"]
+[ext_resource type="FontFile" path="res://resources/fonts/default_bold.tres" id="2"]
+[ext_resource type="Script" path="res://scenes/popups/first_time/GenericEmulatorInfo.gd" id="3"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="4"]
 
 [node name="GenericEmulatorInfo" type="HBoxContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 10
-script = ExtResource( 3 )
+theme_override_constants/separation = 10
+script = ExtResource("3")
 
 [node name="Logo" type="TextureRect" parent="."]
 unique_name_in_owner = true
-margin_right = 96.0
-margin_bottom = 96.0
-rect_min_size = Vector2( 96, 96 )
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
 size_flags_vertical = 0
-expand = true
+expand_mode = 1
 stretch_mode = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 106.0
-margin_right = 1024.0
-margin_bottom = 96.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
 [node name="Name" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 918.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 2 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
 text = "Emulator Name"
+autowrap_mode = 3
 
-[node name="PathSection" parent="VBoxContainer" instance=ExtResource( 1 )]
+[node name="PathSection" parent="VBoxContainer" instance=ExtResource("1")]
 unique_name_in_owner = true
-margin_right = 918.0
-margin_bottom = 96.0
-label = "Path"
+layout_mode = 2
+label = "Path3D"
 
 [node name="AccessibilityFocus" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource( 4 )
+script = ExtResource("4")

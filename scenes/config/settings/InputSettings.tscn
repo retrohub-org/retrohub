@@ -1,540 +1,485 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=3 uid="uid://deiyd6u1iogmn"]
 
-[ext_resource path="res://scenes/config/settings/InputSettings.gd" type="Script" id=1]
-[ext_resource path="res://addons/controller_icons/assets/key/enter_alt.png" type="Texture" id=2]
-[ext_resource path="res://scenes/config/settings/input/ControllerAxisRemap.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/controller_icons/assets/key/backspace_alt.png" type="Texture" id=4]
-[ext_resource path="res://addons/controller_icons/assets/key/alt.png" type="Texture" id=5]
-[ext_resource path="res://addons/controller_icons/assets/key/ctrl.png" type="Texture" id=6]
-[ext_resource path="res://addons/controller_icons/assets/key/esc.png" type="Texture" id=7]
-[ext_resource path="res://addons/controller_icons/assets/key/shift_alt.png" type="Texture" id=8]
-[ext_resource path="res://addons/controller_icons/assets/key/a.png" type="Texture" id=9]
-[ext_resource path="res://addons/controller_icons/assets/key/d.png" type="Texture" id=10]
-[ext_resource path="res://addons/controller_icons/assets/key/w.png" type="Texture" id=11]
-[ext_resource path="res://addons/controller_icons/assets/key/s.png" type="Texture" id=12]
-[ext_resource path="res://addons/controller_icons/assets/key/q.png" type="Texture" id=13]
-[ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture" id=14]
-[ext_resource path="res://scenes/config/settings/input/ControllerLayout.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/config/settings/input/KeyboardRemap.tscn" type="PackedScene" id=16]
-[ext_resource path="res://resources/default_theme.tres" type="Theme" id=17]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/y.png" type="Texture" id=18]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/b.png" type="Texture" id=19]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/x.png" type="Texture" id=20]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/l_stick.png" type="Texture" id=21]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/a.png" type="Texture" id=22]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/lb.png" type="Texture" id=23]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=24]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/rb.png" type="Texture" id=25]
-[ext_resource path="res://addons/controller_icons/objects/Button.gd" type="Script" id=26]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/start.png" type="Texture" id=27]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/a.png" type="Texture" id=28]
-[ext_resource path="res://scenes/config/settings/input/ControllerButtonRemap.tscn" type="PackedScene" id=29]
-[ext_resource path="res://addons/controller_icons/assets/xboxseries/a.png" type="Texture" id=30]
-[ext_resource path="res://addons/controller_icons/assets/switch/b.png" type="Texture" id=31]
-[ext_resource path="res://addons/controller_icons/assets/steamdeck/a.png" type="Texture" id=32]
-[ext_resource path="res://addons/controller_icons/assets/ps5/cross.png" type="Texture" id=33]
-[ext_resource path="res://addons/controller_icons/assets/luna/a.png" type="Texture" id=34]
-[ext_resource path="res://addons/controller_icons/assets/ps3/cross.png" type="Texture" id=35]
-[ext_resource path="res://addons/controller_icons/assets/ps4/cross.png" type="Texture" id=36]
-[ext_resource path="res://addons/controller_icons/assets/steam/a.png" type="Texture" id=37]
-[ext_resource path="res://addons/controller_icons/assets/stadia/a.png" type="Texture" id=38]
-[ext_resource path="res://source/utils/SpinBoxHandler.gd" type="Script" id=39]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/back.png" type="Texture" id=40]
-[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=41]
-[ext_resource path="res://source/utils/TabContainerHandler.gd" type="Script" id=42]
-[ext_resource path="res://source/utils/ScrollHandler.gd" type="Script" id=43]
-[ext_resource path="res://scenes/ui_nodes/AccessibilityFocus.gd" type="Script" id=44]
+[ext_resource type="Script" path="res://scenes/config/settings/InputSettings.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bp58drjdgvxsi" path="res://addons/controller_icons/assets/key/enter_alt.png" id="2"]
+[ext_resource type="PackedScene" uid="uid://53w3i3uihh7i" path="res://scenes/config/settings/input/ControllerAxisRemap.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://rhv2hov7acmp" path="res://addons/controller_icons/assets/key/backspace_alt.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cpld7e28w4q1e" path="res://addons/controller_icons/assets/key/alt.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dxcfr4bhfw4lq" path="res://addons/controller_icons/assets/key/ctrl.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://cnghdqiitl0fu" path="res://addons/controller_icons/assets/key/esc.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://dq0fide2iu37s" path="res://addons/controller_icons/assets/key/shift_alt.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://bptg6u6b4y5no" path="res://addons/controller_icons/assets/key/a.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://dlwamiuq1f5t6" path="res://addons/controller_icons/assets/key/d.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://casmdw1resubx" path="res://addons/controller_icons/assets/key/w.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://db6nbed6w2fis" path="res://addons/controller_icons/assets/key/s.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://xe4n818le3p8" path="res://addons/controller_icons/assets/key/e.png" id="14"]
+[ext_resource type="PackedScene" uid="uid://5gl1k27tdlpq" path="res://scenes/config/settings/input/ControllerLayout.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://p271w3u16evg" path="res://scenes/config/settings/input/KeyboardRemap.tscn" id="16"]
+[ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="17"]
+[ext_resource type="Texture2D" uid="uid://bva4iswwvta5d" path="res://addons/controller_icons/assets/xbox360/y.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://bufx8lu1tny4o" path="res://addons/controller_icons/assets/xbox360/b.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://dwwgf5g11galy" path="res://addons/controller_icons/assets/xboxone/a.png" id="19_a17ap"]
+[ext_resource type="Texture2D" uid="uid://jcc3t88rfxh0" path="res://addons/controller_icons/assets/xbox360/x.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://cn8ot71as8p80" path="res://addons/controller_icons/assets/xboxseries/a.png" id="20_vpv6b"]
+[ext_resource type="Texture2D" uid="uid://fxgoiilpipsd" path="res://addons/controller_icons/assets/xbox360/l_stick.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://d2ucqffimqhnr" path="res://addons/controller_icons/assets/ps3/cross.png" id="21_gpxdl"]
+[ext_resource type="Texture2D" uid="uid://bnvbg64nsbaf4" path="res://addons/controller_icons/assets/ps4/cross.png" id="22_ghdw6"]
+[ext_resource type="Texture2D" uid="uid://belyhno2tge45" path="res://addons/controller_icons/assets/ps5/cross.png" id="23_xcyat"]
+[ext_resource type="Texture2D" uid="uid://d6jwqg6mq8dk" path="res://addons/controller_icons/assets/xbox360/r_stick.png" id="24"]
+[ext_resource type="Texture2D" uid="uid://bt7tcdk3d020l" path="res://addons/controller_icons/assets/switch/b.png" id="24_5x1ii"]
+[ext_resource type="Texture2D" uid="uid://cw2jo5xbteqdu" path="res://addons/controller_icons/assets/xbox360/rb.png" id="25"]
+[ext_resource type="Texture2D" uid="uid://cajx1v8mvjdv7" path="res://addons/controller_icons/assets/steam/a.png" id="25_yi2aa"]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/Button.gd" id="26"]
+[ext_resource type="Texture2D" uid="uid://poaovfu3n5rj" path="res://addons/controller_icons/assets/steamdeck/a.png" id="26_a3707"]
+[ext_resource type="Texture2D" uid="uid://rn6k4m7fogon" path="res://addons/controller_icons/assets/luna/a.png" id="27_was5b"]
+[ext_resource type="Texture2D" uid="uid://d284wkmo0vqfk" path="res://addons/controller_icons/assets/xbox360/a.png" id="28"]
+[ext_resource type="Texture2D" uid="uid://bv4qgyj7ctpdi" path="res://addons/controller_icons/assets/stadia/a.png" id="28_6rdln"]
+[ext_resource type="PackedScene" uid="uid://cutbpb88koytn" path="res://scenes/config/settings/input/ControllerButtonRemap.tscn" id="29"]
+[ext_resource type="Texture2D" uid="uid://cvbc2l1ygkits" path="res://addons/controller_icons/assets/ouya/a.png" id="29_i5kv6"]
+[ext_resource type="Texture2D" uid="uid://coxp4sapp4g8n" path="res://addons/controller_icons/assets/xbox360/start.png" id="33_jbqxx"]
+[ext_resource type="Texture2D" uid="uid://cdjnpcxgnxrxb" path="res://addons/controller_icons/assets/xbox360/back.png" id="35_uj2md"]
+[ext_resource type="Texture2D" uid="uid://bamrmda3in3qq" path="res://addons/controller_icons/assets/xbox360/lb.png" id="37_nrf61"]
+[ext_resource type="Script" path="res://source/utils/SpinBoxHandler.gd" id="39"]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="41"]
+[ext_resource type="Script" path="res://source/utils/TabContainerHandler.gd" id="42"]
+[ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="43"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="44"]
 
 [node name="InputSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 17 )
-script = ExtResource( 1 )
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("17")
+script = ExtResource("1")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 follow_focus = true
-scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1024.0
-margin_bottom = 576.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TabContainerHandler" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 576.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 42 )
+script = ExtResource("42")
 signal_tab_change = true
 
 [node name="InputTab" type="TabContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler"]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-tab_align = 0
 
 [node name="Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 35.0
-margin_right = -5.0
-margin_bottom = -5.0
+visible = false
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="KBReset" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard"]
 unique_name_in_owner = true
-margin_right = 183.0
-margin_bottom = 28.0
-focus_neighbour_top = NodePath("../../..")
-focus_neighbour_bottom = NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/KBAccept")
+layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../../..")
+focus_neighbor_bottom = NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/KBAccept")
 text = "Reset to default mapping"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard"]
-margin_top = 32.0
-margin_right = 1014.0
-margin_bottom = 536.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer"]
-margin_right = 505.0
-margin_bottom = 504.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer"]
-margin_right = 505.0
-margin_bottom = 48.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Accept"
 
 [node name="KBAccept" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Accept"
-focus_neighbour_left = NodePath("../../../../KBReset")
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer/KBMoveUp")
-icon = ExtResource( 2 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Accept"
+focus_neighbor_left = NodePath("../../../../KBReset")
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer/KBMoveUp")
+icon = ExtResource("2")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_accept"
 force_type = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer"]
-margin_top = 52.0
-margin_right = 505.0
-margin_bottom = 103.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Back
 "
 
 [node name="KBBack" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Back"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer2/KBMoveDown")
-icon = ExtResource( 4 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Back"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer2/KBMoveDown")
+icon = ExtResource("4")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_back"
 force_type = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer"]
-margin_top = 107.0
-margin_right = 505.0
-margin_bottom = 155.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer3"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Major option"
 
 [node name="KBMajorOpt" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer3"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Major option"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer3/KBMoveLeft")
-icon = ExtResource( 6 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Major option"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer3/KBMoveLeft")
+icon = ExtResource("6")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_major_option"
 force_type = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer"]
-margin_top = 159.0
-margin_right = 505.0
-margin_bottom = 210.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer4"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Minor option
 "
 
 [node name="KBMinorOpt" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer4"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Minor option"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer4/KBMoveRight")
-icon = ExtResource( 5 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Minor option"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer4/KBMoveRight")
+icon = ExtResource("5")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_minor_option"
 force_type = 1
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer"]
-margin_top = 214.0
-margin_right = 505.0
-margin_bottom = 265.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer5"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "RetroHub menu
 "
 
 [node name="KBRetroHubMenu" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer5"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "RetroHub menu"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer5/KBSlideLeft")
-icon = ExtResource( 7 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "RetroHub menu"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer5/KBSlideLeft")
+icon = ExtResource("7")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_menu"
 force_type = 1
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer"]
-margin_top = 269.0
-margin_right = 505.0
-margin_bottom = 317.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer6"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Theme menu"
 
 [node name="KBThemeMenu" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer6"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Theme menu"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer6/KBSlideRight")
-focus_neighbour_bottom = NodePath("../../../../../..")
-icon = ExtResource( 8 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Theme menu"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer6/KBSlideRight")
+focus_neighbor_bottom = NodePath("../../../../../..")
+icon = ExtResource("8")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_theme_menu"
 force_type = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer"]
-margin_left = 509.0
-margin_right = 1014.0
-margin_bottom = 504.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2"]
-margin_right = 505.0
-margin_bottom = 48.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move up"
 
 [node name="KBMoveUp" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Move up"
-icon = ExtResource( 11 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Move up"
+icon = ExtResource("11")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_up"
 force_type = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2"]
-margin_top = 52.0
-margin_right = 505.0
-margin_bottom = 100.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer2"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move down"
 
 [node name="KBMoveDown" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer2"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Move down"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer2/KBBack")
-icon = ExtResource( 12 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Move down"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer2/KBBack")
+icon = ExtResource("12")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_down"
 force_type = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2"]
-margin_top = 104.0
-margin_right = 505.0
-margin_bottom = 152.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer3"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move left"
 
 [node name="KBMoveLeft" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer3"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Move left"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer3/KBMajorOpt")
-icon = ExtResource( 9 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Move left"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer3/KBMajorOpt")
+icon = ExtResource("9")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_left"
 force_type = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2"]
-margin_top = 156.0
-margin_right = 505.0
-margin_bottom = 207.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer4"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Move right
 "
 
 [node name="KBMoveRight" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer4"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Move right"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer4/KBMinorOpt")
-icon = ExtResource( 10 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Move right"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer4/KBMinorOpt")
+icon = ExtResource("10")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_right"
 force_type = 1
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2"]
-margin_top = 211.0
-margin_right = 505.0
-margin_bottom = 262.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer5"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Slide left
 "
 
 [node name="KBSlideLeft" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer5"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Slide left"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer5/KBRetroHubMenu")
-icon = ExtResource( 13 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Slide left"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer5/KBRetroHubMenu")
+icon = ExtResource("13")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_left_shoulder"
 force_type = 1
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2"]
-margin_top = 266.0
-margin_right = 505.0
-margin_bottom = 314.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer6"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Slide right"
 
 [node name="KBSlideRight" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer6"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Slide right"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer6/KBThemeMenu")
-focus_neighbour_bottom = NodePath("../../../../../..")
-icon = ExtResource( 14 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Slide right"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer6/KBThemeMenu")
+focus_neighbor_bottom = NodePath("../../../../../..")
+icon = ExtResource("14")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_right_shoulder"
 force_type = 1
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer6/KBSlideRight"]
-script = ExtResource( 44 )
+script = ExtResource("44")
 next = NodePath("../../../../../../..")
 
 [node name="Controller" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 35.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller"]
 visible = false
-margin_right = 1016.0
-margin_bottom = 14.0
+layout_mode = 2
 text = "If your controller is acting weird, RetroHub might not be detecting your controller correctly . If that's the case, create a custom layout here."
-align = 1
-valign = 1
-autowrap = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller"]
-margin_right = 1014.0
-margin_bottom = 104.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer"]
-margin_right = 1014.0
-margin_bottom = 28.0
+layout_mode = 2
 
 [node name="CNReset" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
-margin_right = 183.0
-margin_bottom = 28.0
-focus_neighbour_top = NodePath("../../../../..")
+layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../../../../..")
 text = "Reset to default mapping"
 
 [node name="VSeparator" type="VSeparator" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4"]
-margin_left = 187.0
-margin_right = 191.0
-margin_bottom = 28.0
+layout_mode = 2
 
 [node name="CNStartLayout" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
-margin_left = 195.0
-margin_right = 365.0
-margin_bottom = 28.0
-focus_neighbour_top = NodePath("../../../../..")
+layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../../../../..")
 text = "Create controller layout"
 
 [node name="CNClearLayout" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
-margin_left = 369.0
-margin_right = 514.0
-margin_bottom = 28.0
-focus_neighbour_top = NodePath("../../../../..")
+layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../../../../..")
 text = "Clear custom layout"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer"]
-margin_top = 32.0
-margin_right = 1014.0
-margin_bottom = 72.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer"]
-margin_top = 6.0
-margin_right = 106.0
-margin_bottom = 34.0
+layout_mode = 2
 text = "Show icons as:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer/Label"]
-script = ExtResource( 44 )
+script = ExtResource("44")
 
 [node name="CNIconType" type="OptionButton" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 110.0
-margin_right = 380.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 270, 40 )
-focus_neighbour_top = NodePath("../../HBoxContainer4/CNReset")
-focus_neighbour_bottom = NodePath("../../HBoxContainer2/CNPreDelay")
-text = "<detect automatically>"
+custom_minimum_size = Vector2(270, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../HBoxContainer4/CNReset")
+focus_neighbor_bottom = NodePath("../../HBoxContainer2/CNPreDelay")
 expand_icon = true
-items = [ "<detect automatically>", null, false, 0, null, "Xbox 360", ExtResource( 28 ), false, 1, null, "Xbox One", ExtResource( 22 ), false, 2, null, "Xbox Series S/X", ExtResource( 30 ), false, 3, null, "PlayStation 3", ExtResource( 35 ), false, 4, null, "PlayStation 4", ExtResource( 36 ), false, 5, null, "PlayStation 5", ExtResource( 33 ), false, 6, null, "Nintendo Switch (Controller)", ExtResource( 31 ), false, 7, null, "Nintendo Switch (Joy-Con)", ExtResource( 31 ), false, 8, null, "Steam Controller", ExtResource( 37 ), false, 9, null, "Steam Deck", ExtResource( 32 ), false, 10, null, "Amazon Luna", ExtResource( 34 ), false, 11, null, "Google Stadia", ExtResource( 38 ), false, 12, null ]
+item_count = 14
 selected = 0
+popup/item_0/text = "<detect automatically>"
+popup/item_0/id = 0
+popup/item_1/text = "Xbox 360"
+popup/item_1/icon = ExtResource("28")
+popup/item_1/id = 1
+popup/item_2/text = "Xbox One"
+popup/item_2/icon = ExtResource("19_a17ap")
+popup/item_2/id = 2
+popup/item_3/text = "Xbox Series S/X"
+popup/item_3/icon = ExtResource("20_vpv6b")
+popup/item_3/id = 3
+popup/item_4/text = "PlayStation 3"
+popup/item_4/icon = ExtResource("21_gpxdl")
+popup/item_4/id = 4
+popup/item_5/text = "PlayStation 4"
+popup/item_5/icon = ExtResource("22_ghdw6")
+popup/item_5/id = 5
+popup/item_6/text = "PlayStation 5"
+popup/item_6/icon = ExtResource("23_xcyat")
+popup/item_6/id = 6
+popup/item_7/text = "Nintendo Switch (Controller)"
+popup/item_7/icon = ExtResource("24_5x1ii")
+popup/item_7/id = 7
+popup/item_8/text = "Nintendo Switch (Joy-Con)"
+popup/item_8/icon = ExtResource("24_5x1ii")
+popup/item_8/id = 8
+popup/item_9/text = "Steam Controller"
+popup/item_9/icon = ExtResource("25_yi2aa")
+popup/item_9/id = 9
+popup/item_10/text = "Steam Deck"
+popup/item_10/icon = ExtResource("26_a3707")
+popup/item_10/id = 10
+popup/item_11/text = "Amazon Luna"
+popup/item_11/icon = ExtResource("27_was5b")
+popup/item_11/id = 11
+popup/item_12/text = "Google Stadia"
+popup/item_12/icon = ExtResource("28_6rdln")
+popup/item_12/id = 12
+popup/item_13/text = "OUYA"
+popup/item_13/icon = ExtResource("29_i5kv6")
+popup/item_13/id = 13
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer"]
-margin_top = 76.0
-margin_right = 1014.0
-margin_bottom = 104.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2"]
-margin_right = 165.0
-margin_bottom = 28.0
+layout_mode = 2
 text = "Input repeat pre-delay:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2/Label"]
-script = ExtResource( 44 )
+script = ExtResource("44")
 
 [node name="CNPreDelay" type="SpinBox" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 169.0
-margin_right = 245.0
-margin_bottom = 28.0
-focus_neighbour_top = NodePath("../../HBoxContainer/CNIconType")
-focus_neighbour_right = NodePath("../CNDelay")
-focus_neighbour_bottom = NodePath("../../../HBoxContainer2/VBoxContainer/HBoxContainer/CNAccept")
+layout_mode = 2
+focus_neighbor_top = NodePath("../../HBoxContainer/CNIconType")
+focus_neighbor_right = NodePath("../CNDelay")
+focus_neighbor_bottom = NodePath("../../../HBoxContainer2/VBoxContainer/HBoxContainer/CNAccept")
 min_value = 0.1
 max_value = 2.0
 step = 0.1
@@ -542,27 +487,24 @@ value = 0.1
 suffix = "s"
 
 [node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2/CNPreDelay"]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 39 )
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("39")
 
 [node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2"]
-margin_left = 249.0
-margin_right = 386.0
-margin_bottom = 28.0
+layout_mode = 2
 text = "Input repeat delay:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2/Label2"]
-script = ExtResource( 44 )
+script = ExtResource("44")
 
 [node name="CNDelay" type="SpinBox" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-margin_left = 390.0
-margin_right = 466.0
-margin_bottom = 28.0
-focus_neighbour_left = NodePath("../CNPreDelay")
-focus_neighbour_top = NodePath("../../HBoxContainer/CNIconType")
-focus_neighbour_bottom = NodePath("../../../HBoxContainer2/VBoxContainer/HBoxContainer/CNAccept")
+layout_mode = 2
+focus_neighbor_left = NodePath("../CNPreDelay")
+focus_neighbor_top = NodePath("../../HBoxContainer/CNIconType")
+focus_neighbor_bottom = NodePath("../../../HBoxContainer2/VBoxContainer/HBoxContainer/CNAccept")
 min_value = 0.05
 max_value = 1.0
 step = 0.05
@@ -570,467 +512,398 @@ value = 0.05
 suffix = "s"
 
 [node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2/CNDelay"]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 39 )
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("39")
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller"]
-margin_top = 108.0
-margin_right = 1014.0
-margin_bottom = 112.0
+layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller"]
-margin_top = 116.0
-margin_right = 1014.0
-margin_bottom = 536.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2"]
-margin_right = 505.0
-margin_bottom = 420.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer"]
-margin_right = 505.0
-margin_bottom = 48.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Accept"
 
 [node name="CNAccept" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Accept"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer6/CNThemeMenu")
-icon = ExtResource( 28 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Accept"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer6/CNThemeMenu")
+icon = ExtResource("28")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_accept"
 force_type = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer"]
-margin_top = 52.0
-margin_right = 505.0
-margin_bottom = 103.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer2"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Back
 "
 
 [node name="CNBack" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer2"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Back"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer/CNPrimaryMov")
-icon = ExtResource( 19 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Back"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer/CNPrimaryMov")
+icon = ExtResource("19")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_back"
 force_type = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer"]
-margin_top = 107.0
-margin_right = 505.0
-margin_bottom = 155.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer3"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Major option"
 
 [node name="CNMajorOpt" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer3"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Major option"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer2/CNSecondaryMov")
-icon = ExtResource( 20 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Major option"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer2/CNSecondaryMov")
+icon = ExtResource("20")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_major_option"
 force_type = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer"]
-margin_top = 159.0
-margin_right = 505.0
-margin_bottom = 210.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer4"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Minor option
 "
 
 [node name="CNMinorOpt" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer4"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Minor option"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer3/CNSlideLeft")
-icon = ExtResource( 18 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Minor option"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer3/CNSlideLeft")
+icon = ExtResource("18")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_minor_option"
 force_type = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer"]
-margin_top = 214.0
-margin_right = 505.0
-margin_bottom = 265.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer5"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "RetroHub menu
 "
 
 [node name="CNRetroHubMenu" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer5"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "RetroHub menu"
-focus_neighbour_right = NodePath("../../../VBoxContainer2/HBoxContainer4/CNSlideRight")
-focus_neighbour_bottom = NodePath("../../../../../..")
-icon = ExtResource( 27 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "RetroHub menu"
+focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer4/CNSlideRight")
+focus_neighbor_bottom = NodePath("../../../../../..")
+icon = ExtResource("33_jbqxx")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_menu"
 force_type = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2"]
-margin_left = 509.0
-margin_right = 1014.0
-margin_bottom = 420.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2"]
-margin_right = 505.0
-margin_bottom = 48.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer6"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Theme menu"
 
 [node name="CNThemeMenu" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer6"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Theme menu"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer/CNAccept")
-icon = ExtResource( 40 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Theme menu"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer/CNAccept")
+icon = ExtResource("35_uj2md")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_theme_menu"
 force_type = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2"]
-margin_top = 52.0
-margin_right = 505.0
-margin_bottom = 103.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Main axis
 (movement/selection)"
 
 [node name="CNPrimaryMov" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Main axis for movement and selection"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer2/CNBack")
-icon = ExtResource( 21 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Main axis for movement and selection"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer2/CNBack")
+icon = ExtResource("21")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_left"
 force_type = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2"]
-margin_top = 107.0
-margin_right = 505.0
-margin_bottom = 158.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer2"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Secondary axis
 (view/scroll)"
 
 [node name="CNSecondaryMov" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer2"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Secondary axis for viewing and scrolling"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer3/CNMajorOpt")
-icon = ExtResource( 24 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Secondary axis for viewing and scrolling"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer3/CNMajorOpt")
+icon = ExtResource("24")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_rstick_left"
 force_type = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2"]
-margin_top = 162.0
-margin_right = 505.0
-margin_bottom = 213.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer3"]
-margin_right = 453.0
-margin_bottom = 51.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Slide left
 "
 
 [node name="CNSlideLeft" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer3"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Slide left"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer4/CNMinorOpt")
-icon = ExtResource( 23 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Slide left"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer4/CNMinorOpt")
+icon = ExtResource("37_nrf61")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_left_shoulder"
 force_type = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2"]
-margin_top = 217.0
-margin_right = 505.0
-margin_bottom = 265.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer4"]
-margin_right = 453.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Slide right"
 
 [node name="CNSlideRight" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer4"]
-margin_left = 457.0
-margin_right = 505.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-hint_tooltip = "Slide right"
-focus_neighbour_left = NodePath("../../../VBoxContainer/HBoxContainer5/CNRetroHubMenu")
-focus_neighbour_bottom = NodePath("../../../../../..")
-icon = ExtResource( 25 )
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Slide right"
+focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer5/CNRetroHubMenu")
+focus_neighbor_bottom = NodePath("../../../../../..")
+icon = ExtResource("25")
 expand_icon = true
-script = ExtResource( 26 )
+script = ExtResource("26")
 path = "rh_right_shoulder"
 force_type = 2
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer4/CNSlideRight"]
-script = ExtResource( 44 )
+script = ExtResource("44")
 next = NodePath("../../../../../../..")
 
 [node name="Virtual Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 35.0
-margin_right = -5.0
-margin_bottom = -5.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard"]
-margin_right = 1014.0
-margin_bottom = 28.0
+layout_mode = 2
 
 [node name="IntroLabel" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 830.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Layout: "
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer/IntroLabel"]
-script = ExtResource( 44 )
+script = ExtResource("44")
 
 [node name="VirtualKeyboardLayout" type="OptionButton" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 834.0
-margin_right = 1014.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 180, 0 )
-text = "QWERTY"
-items = [ "QWERTY", null, false, 0, null, "QWERTZ", null, false, 1, null, "AZERTY", null, false, 2, null ]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+item_count = 3
 selected = 0
+popup/item_0/text = "QWERTY"
+popup/item_0/id = 0
+popup/item_1/text = "QWERTZ"
+popup/item_1/id = 1
+popup/item_2/text = "AZERTY"
+popup/item_2/id = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard"]
-margin_top = 32.0
-margin_right = 1014.0
-margin_bottom = 60.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer3"]
-margin_right = 830.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Type: "
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer3/Label"]
-script = ExtResource( 44 )
+script = ExtResource("44")
 
 [node name="VirtualKeyboardType" type="OptionButton" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 834.0
-margin_right = 1014.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 180, 0 )
-text = "Built-in"
-items = [ "Built-in", null, false, 0, null, "Steam", null, false, 1, null ]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+item_count = 2
 selected = 0
+popup/item_0/text = "Built-in"
+popup/item_0/id = 0
+popup/item_1/text = "Steam"
+popup/item_1/id = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard"]
-margin_top = 64.0
-margin_right = 1014.0
-margin_bottom = 124.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2"]
-margin_right = 832.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Show virtual keyboard:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2/Label"]
-script = ExtResource( 44 )
+script = ExtResource("44")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2"]
-margin_left = 836.0
-margin_right = 1014.0
-margin_bottom = 60.0
+layout_mode = 2
 
 [node name="VirtualKeyboardOnController" type="CheckBox" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 178.0
-margin_bottom = 28.0
+layout_mode = 2
 text = "On Controller Input"
 
 [node name="VirtualKeyboardOnMouse" type="CheckBox" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 32.0
-margin_right = 178.0
-margin_bottom = 60.0
+layout_mode = 2
 text = "On Mouse Click/Touch"
 
 [node name="ControllerSlideLeft" type="TextureRect" parent="ScrollContainer/VBoxContainer/TabContainerHandler"]
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-texture = ExtResource( 13 )
-expand = true
-script = ExtResource( 41 )
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_top = 1.0
+offset_right = 30.0
+offset_bottom = 31.0
+texture = ExtResource("13")
+expand_mode = 1
+script = ExtResource("41")
 path = "rh_left_shoulder"
 max_width = 30
 
 [node name="ControllerSlideRight" type="TextureRect" parent="ScrollContainer/VBoxContainer/TabContainerHandler"]
-margin_left = 335.0
-margin_right = 365.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-texture = ExtResource( 14 )
-expand = true
-script = ExtResource( 41 )
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 363.0
+offset_top = 1.0
+offset_right = 393.0
+offset_bottom = 31.0
+texture = ExtResource("14")
+expand_mode = 1
+script = ExtResource("41")
 path = "rh_right_shoulder"
 max_width = 30
 
 [node name="ScrollHandler" type="Control" parent="ScrollContainer"]
-script = ExtResource( 43 )
+layout_mode = 2
+script = ExtResource("43")
 
-[node name="ControllerLayout" parent="." instance=ExtResource( 15 )]
+[node name="ControllerLayout" parent="." instance=ExtResource("15")]
 unique_name_in_owner = true
+visible = false
 
-[node name="KeyboardRemap" parent="." instance=ExtResource( 16 )]
+[node name="KeyboardRemap" parent="." instance=ExtResource("16")]
 unique_name_in_owner = true
+visible = false
 
-[node name="ControllerButtonRemap" parent="." instance=ExtResource( 29 )]
+[node name="ControllerButtonRemap" parent="." instance=ExtResource("29")]
 unique_name_in_owner = true
-margin_left = -228.0
-margin_top = 74.0
-margin_right = -16.0
-margin_bottom = 234.0
+visible = false
 
-[node name="ControllerAxisRemap" parent="." instance=ExtResource( 3 )]
+[node name="ControllerAxisRemap" parent="." instance=ExtResource("3")]
 unique_name_in_owner = true
-margin_left = -228.0
-margin_top = 246.0
-margin_right = -120.0
-margin_bottom = 302.0
+visible = false
 
-[connection signal="hide" from="." to="." method="_on_hide"]
 [connection signal="tab_changed" from="ScrollContainer/VBoxContainer/TabContainerHandler" to="." method="_on_TabContainerHandler_tab_changed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/KBReset" to="." method="_on_KBReset_pressed"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer/KBAccept" to="." method="_on_KB_pressed" binds= [ "rh_accept" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer2/KBBack" to="." method="_on_KB_pressed" binds= [ "rh_back" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer3/KBMajorOpt" to="." method="_on_KB_pressed" binds= [ "rh_major_option" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer4/KBMinorOpt" to="." method="_on_KB_pressed" binds= [ "rh_minor_option" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer5/KBRetroHubMenu" to="." method="_on_KB_pressed" binds= [ "rh_menu" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer6/KBThemeMenu" to="." method="_on_KB_pressed" binds= [ "rh_theme_menu" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer/KBMoveUp" to="." method="_on_KB_pressed" binds= [ "rh_up" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer2/KBMoveDown" to="." method="_on_KB_pressed" binds= [ "rh_down" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer3/KBMoveLeft" to="." method="_on_KB_pressed" binds= [ "rh_left" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer4/KBMoveRight" to="." method="_on_KB_pressed" binds= [ "rh_right" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer5/KBSlideLeft" to="." method="_on_KB_pressed" binds= [ "rh_left_shoulder" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer6/KBSlideRight" to="." method="_on_KB_pressed" binds= [ "rh_right_shoulder" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer/KBAccept" to="." method="_on_KB_pressed" binds= ["rh_accept"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer2/KBBack" to="." method="_on_KB_pressed" binds= ["rh_back"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer3/KBMajorOpt" to="." method="_on_KB_pressed" binds= ["rh_major_option"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer4/KBMinorOpt" to="." method="_on_KB_pressed" binds= ["rh_minor_option"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer5/KBRetroHubMenu" to="." method="_on_KB_pressed" binds= ["rh_menu"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer6/KBThemeMenu" to="." method="_on_KB_pressed" binds= ["rh_theme_menu"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer/KBMoveUp" to="." method="_on_KB_pressed" binds= ["rh_up"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer2/KBMoveDown" to="." method="_on_KB_pressed" binds= ["rh_down"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer3/KBMoveLeft" to="." method="_on_KB_pressed" binds= ["rh_left"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer4/KBMoveRight" to="." method="_on_KB_pressed" binds= ["rh_right"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer5/KBSlideLeft" to="." method="_on_KB_pressed" binds= ["rh_left_shoulder"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer6/KBSlideRight" to="." method="_on_KB_pressed" binds= ["rh_right_shoulder"]]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4/CNReset" to="." method="_on_CNReset_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4/CNStartLayout" to="." method="_on_StartLayout_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4/CNClearLayout" to="." method="_on_ClearLayout_pressed"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer/CNIconType" to="." method="_on_CNIconType_item_selected"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2/CNPreDelay" to="." method="_on_CNPreDelay_value_changed"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer2/CNDelay" to="." method="_on_CNDelay_value_changed"]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer/CNAccept" to="." method="_on_CN_pressed" binds= [ "rh_accept" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer2/CNBack" to="." method="_on_CN_pressed" binds= [ "rh_back" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer3/CNMajorOpt" to="." method="_on_CN_pressed" binds= [ "rh_major_option" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer4/CNMinorOpt" to="." method="_on_CN_pressed" binds= [ "rh_minor_option" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer5/CNRetroHubMenu" to="." method="_on_CN_pressed" binds= [ "rh_menu" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer6/CNThemeMenu" to="." method="_on_CN_pressed" binds= [ "rh_theme_menu" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer/CNPrimaryMov" to="." method="_on_CNAxis_pressed" binds= [ "rh_left" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer2/CNSecondaryMov" to="." method="_on_CNAxis_pressed" binds= [ "rh_rstick_left" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer3/CNSlideLeft" to="." method="_on_CN_pressed" binds= [ "rh_left_shoulder" ]]
-[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer4/CNSlideRight" to="." method="_on_CN_pressed" binds= [ "rh_right_shoulder" ]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer/CNAccept" to="." method="_on_CN_pressed" binds= ["rh_accept"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer2/CNBack" to="." method="_on_CN_pressed" binds= ["rh_back"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer3/CNMajorOpt" to="." method="_on_CN_pressed" binds= ["rh_major_option"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer4/CNMinorOpt" to="." method="_on_CN_pressed" binds= ["rh_minor_option"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer5/CNRetroHubMenu" to="." method="_on_CN_pressed" binds= ["rh_menu"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer6/CNThemeMenu" to="." method="_on_CN_pressed" binds= ["rh_theme_menu"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer/CNPrimaryMov" to="." method="_on_CNAxis_pressed" binds= ["rh_left"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer2/CNSecondaryMov" to="." method="_on_CNAxis_pressed" binds= ["rh_rstick_left"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer3/CNSlideLeft" to="." method="_on_CN_pressed" binds= ["rh_left_shoulder"]]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer4/CNSlideRight" to="." method="_on_CN_pressed" binds= ["rh_right_shoulder"]]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer/VirtualKeyboardLayout" to="." method="_on_VirtualKeyboardLayout_item_selected"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer3/VirtualKeyboardType" to="." method="_on_VirtualKeyboardType_item_selected"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2/VBoxContainer/VirtualKeyboardOnController" to="." method="_on_VirtualKeyboardOnController_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2/VBoxContainer/VirtualKeyboardOnMouse" to="." method="_on_VirtualKeyboardOnMouse_toggled"]
-[connection signal="popup_hide" from="ControllerLayout" to="." method="_on_ControllerLayout_popup_hide"]
 [connection signal="key_remapped" from="KeyboardRemap" to="." method="_on_KeyboardRemap_key_remapped"]
 [connection signal="remap_done" from="ControllerButtonRemap" to="." method="_on_ControllerButtonRemap_remap_done"]
 [connection signal="remap_done" from="ControllerAxisRemap" to="." method="_on_ControllerAxisRemap_remap_done"]

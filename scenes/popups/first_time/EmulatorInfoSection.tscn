@@ -1,46 +1,38 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://c2x5rto73hpe1"]
 
-[ext_resource path="res://assets/icons/success.svg" type="Texture" id=1]
-[ext_resource path="res://scenes/popups/first_time/EmulatorInfoSection.gd" type="Script" id=2]
+[ext_resource type="Texture2D" uid="uid://dfth5p8xpsgmy" path="res://assets/icons/success.svg" id="1"]
+[ext_resource type="Script" path="res://scenes/popups/first_time/EmulatorInfoSection.gd" id="2"]
 
 [node name="EmulatorInfoSection" type="VBoxContainer"]
-margin_top = 24.0
-margin_right = 892.0
-margin_bottom = 170.0
-custom_constants/separation = 10
-script = ExtResource( 2 )
+offset_top = 24.0
+offset_right = 892.0
+offset_bottom = 170.0
+theme_override_constants/separation = 10
+script = ExtResource("2")
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
-margin_right = 892.0
-margin_bottom = 14.0
-text = "Path"
+layout_mode = 2
+autowrap_mode = 3
 
 [node name="Found" type="HBoxContainer" parent="."]
-margin_top = 24.0
-margin_right = 892.0
-margin_bottom = 48.0
+layout_mode = 2
 
 [node name="FoundIcon" type="TextureRect" parent="Found"]
 unique_name_in_owner = true
-margin_right = 24.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 size_flags_vertical = 0
-texture = ExtResource( 1 )
-expand = true
+texture = ExtResource("1")
+expand_mode = 1
 
 [node name="FoundLabel" type="Label" parent="Found"]
 unique_name_in_owner = true
-margin_left = 28.0
-margin_top = 5.0
-margin_right = 71.0
-margin_bottom = 19.0
+layout_mode = 2
 text = "Found:"
 
 [node name="FoundDetails" type="Label" parent="."]
 unique_name_in_owner = true
-margin_top = 58.0
-margin_right = 892.0
-margin_bottom = 72.0
+layout_mode = 2
 text = "Found details"
+autowrap_mode = 3

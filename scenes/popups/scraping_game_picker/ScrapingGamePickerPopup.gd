@@ -2,7 +2,7 @@ extends ConfirmationDialog
 
 signal games_selected(game_data_array)
 
-onready var n_game_tree := $"%GameTree"
+@onready var n_game_tree := %GameTree
 
 var root : TreeItem
 var systems_items : Dictionary
@@ -10,23 +10,24 @@ var systems_items : Dictionary
 func _ready():
 	n_game_tree.set_column_title(0, "Games")
 	n_game_tree.set_column_title(1, "Selected?")
+	# FIXME: Why autowrap not working?!?
 	n_game_tree.set_column_expand(0, true)
 	n_game_tree.set_column_expand(1, false)
-	n_game_tree.set_column_min_width(1, 100)
+	n_game_tree.set_column_custom_minimum_width(1, 100)
 
 	# Set focus neighbors
-	var ok := get_ok()
-	var cancel := get_cancel()
+	var ok := get_ok_button()
+	var cancel := get_cancel_button()
 
 	var path := "../../%s/%s" % [cancel.get_parent().name, cancel.name]
-	n_game_tree.focus_neighbour_bottom = path
-	n_game_tree.focus_neighbour_top = path
+	n_game_tree.focus_neighbor_bottom = path
+	n_game_tree.focus_neighbor_top = path
 
 	path = "../../%s/%s" % [n_game_tree.get_parent().name, n_game_tree.name]
-	ok.focus_neighbour_top = path
-	ok.focus_neighbour_bottom = path
-	cancel.focus_neighbour_top = path
-	cancel.focus_neighbour_bottom = path
+	ok.focus_neighbor_top = path
+	ok.focus_neighbor_bottom = path
+	cancel.focus_neighbor_top = path
+	cancel.focus_neighbor_bottom = path
 
 func _on_ScrapingGamePickerPopup_about_to_show():
 	n_game_tree.clear()
@@ -45,13 +46,14 @@ func _on_ScrapingGamePickerPopup_about_to_show():
 		set_item_settings(item, game.path.get_file())
 		item.set_metadata(0, game)
 	# Focus tree
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
 	n_game_tree.grab_focus()
 	n_game_tree.scroll_to_item(root)
 	root.select(0)
 
-func set_item_settings(item: TreeItem, name: String):
-	item.set_text(0, name)
+func set_item_settings(item: TreeItem, text: String):
+	item.set_text(0, text)
+	item.set_autowrap_mode(0, TextServer.AUTOWRAP_WORD_SMART)
 	item.set_cell_mode(1, TreeItem.CELL_MODE_CHECK)
 	item.set_editable(1, true)
 	item.set_checked(1, true)
@@ -59,22 +61,16 @@ func set_item_settings(item: TreeItem, name: String):
 func set_item_checked_down(item: TreeItem, checked: bool):
 	if item:
 		item.set_checked(1, checked)
-		set_item_checked_down(item.get_children(), checked)
-		var next := item.get_next()
-		while next:
-			set_item_checked_down(next.get_children(), checked)
-			next.set_checked(1, checked)
-			next = next.get_next()
+		for child in item.get_children():
+			set_item_checked_down(child, checked)
 
 func set_item_checked_up(item: TreeItem):
 	if item:
 		var all_checked := true
-		var next := item.get_children()
-		while next:
-			if not next.is_checked(1):
+		for child in item.get_children():
+			if not child.is_checked(1):
 				all_checked = false
 				break
-			next = next.get_next()
 		item.set_checked(1, all_checked)
 		set_item_checked_up(item.get_parent())
 
@@ -84,7 +80,7 @@ func _on_GameTree_item_edited():
 
 
 func handle_tree_edit(edited: TreeItem):
-	set_item_checked_down(edited.get_children(), edited.is_checked(1))
+	set_item_checked_down(edited, edited.is_checked(1))
 	set_item_checked_up(edited.get_parent())
 
 
@@ -103,7 +99,7 @@ func get_selected_items(_root: TreeItem):
 		var next := _root
 		while next:
 			if _root.get_children():
-				selected_items.append_array(get_selected_items(next.get_children()))
+				selected_items.append_array(get_selected_items(next.get_child(0)))
 			elif next.is_checked(1):
 				selected_items.append(next.get_metadata(0))
 			next = next.get_next()

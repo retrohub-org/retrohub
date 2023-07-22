@@ -21,11 +21,11 @@ enum CompatibilityLevel {
 }
 
 # Returns this importer name
-func get_name() -> String:
+func get_importer_name() -> String:
 	return "null"
 
 # Return this importer icon
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return null
 
 # Returns the compatibility level regarding existing game metadata.
