@@ -299,7 +299,7 @@ func reset():
 
 func start():
 	# Disable custom controller handler while this popup is visible
-	#ControllerHandler.set_process_input(false)
+	RetroHub._is_input_remap_utility = true
 	joy_guid = Input.get_joy_guid(0)
 	joy_name = Input.get_joy_name(0)
 	Input.remove_joy_mapping(joy_guid)
@@ -379,6 +379,7 @@ func _on_ControllerLayout_about_to_show():
 
 func _on_DoneButton_pressed():
 	hide()
+	RetroHub._is_input_remap_utility = false
 
 func _on_ResetButton_pressed():
 	reset()
@@ -392,3 +393,4 @@ func _on_PreviousButton_pressed():
 
 func _on_close_requested():
 	hide()
+	RetroHub._is_input_remap_utility = false

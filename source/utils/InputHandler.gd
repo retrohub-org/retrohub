@@ -47,6 +47,8 @@ func _on_joypad_echo_delay_timeout():
 	Input.parse_input_event(_joypad_last_event)
 
 func _raw_input(event):
+	if RetroHub._is_input_remap_utility:
+		return;
 	ControllerIcons._input(event)
 	_event_handled = false
 	RetroHub._is_echo = false
@@ -218,7 +220,7 @@ func _input_ui_movement_motion(event: InputEventJoypadMotion):
 
 func _generate_motion_event(action: String):
 	var event := InputEventAction.new()
-	event.button_pressed = true
+	event.pressed = true
 	event.action = action
 	return event
 
