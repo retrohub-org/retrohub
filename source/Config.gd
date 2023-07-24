@@ -458,9 +458,9 @@ func load_theme_data():
 		for screenshot in theme_raw["screenshots"]:
 			theme_data.screenshots.push_back(load(screenshot))
 	if theme_raw.has("entry_scene"):
-		theme_data.entry_scene = load(theme_raw["entry_scene"]).instantiate()
+		theme_data.entry_scene = load(theme_raw["entry_scene"])
 	if theme_raw.has("config_scene"):
-		theme_data.config_scene = load(theme_raw["config_scene"]).instantiate()
+		theme_data.config_scene = load(theme_raw["config_scene"])
 	if theme_raw.has("app_theme"):
 		theme_data.app_theme = load(theme_raw["app_theme"])
 
@@ -468,12 +468,6 @@ func unload_theme():
 	if theme_data:
 		save_theme_config()
 
-		theme_data.entry_scene.queue_free()
-		RenderingServer.render_loop_enabled = false
-		while is_instance_valid(theme_data.entry_scene):
-			await get_tree().process_frame
-
-		RenderingServer.render_loop_enabled = true
 		theme_data = null
 		if !ProjectSettings.unload_resource_pack(theme_path):
 			push_error("Error when unloading theme " + theme_path)

@@ -35,7 +35,8 @@ func _input(event: InputEvent):
 func _ready():
 	closed_popup(null)
 	#warning-ignore:return_value_discarded
-	RetroHub._theme_loaded.connect(_on_theme_loaded)
+	RetroHub._theme_load.connect(_on_theme_load)
+	RetroHub._theme_unload.connect(_on_theme_unload)
 	#warning-ignore:return_value_discarded
 	RetroHub._game_loaded.connect(_on_game_loaded)
 	#warning-ignore:return_value_discarded
@@ -102,12 +103,18 @@ func _on_vp_size_changed() -> void:
 	n_viewport.size = get_viewport().size * mult
 	n_viewport.set_size_2d_override(viewport_size)
 
-func _on_theme_loaded(theme_data: RetroHubTheme):
+func _on_theme_load(theme_data: RetroHubTheme):
 	n_viewport.set_theme(theme_data.entry_scene)
 	print("Loaded theme")
+	RetroHub._theme_processing_done = true
+
+func _on_theme_unload():
+	n_viewport.clear_theme()
+	print("Unloaded theme")
+	RetroHub._theme_processing_done = true
 
 func _on_game_loaded(game_data: RetroHubGameData):
-	var game_launched_child : Node = load("res://scenes/game_launched/GameLaunched.tscn").instantiate()
+	var game_launched_child : PackedScene = load("res://scenes/game_launched/GameLaunched.tscn")
 	n_viewport.set_theme(game_launched_child)
 	game_launched_child.set_info(
 		"res://assets/emulators/%s.png" % RetroHub.launched_emulator["name"],

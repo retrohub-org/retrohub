@@ -23,10 +23,10 @@ var url : String
 var screenshots : Array
 
 ## Main entry scene
-var entry_scene : Node
+var entry_scene : PackedScene
 
 ## Custom configuration scene
-var config_scene : Node
+var config_scene : PackedScene
 
 ## Custom app theme
 var app_theme : Theme
