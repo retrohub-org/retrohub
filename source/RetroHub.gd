@@ -14,7 +14,8 @@ signal game_receive_start
 signal game_received(game_data)
 signal game_receive_end
 
-signal _theme_loaded(theme)
+signal _theme_load(theme)
+signal _theme_unload
 signal _game_loaded(game_data)
 
 var _running_game := false
@@ -28,6 +29,7 @@ var launched_emulator : Dictionary = {}
 
 var _is_echo := false
 var _is_input_remap_utility := false
+var _theme_processing_done := false
 
 const version_major := 0
 const version_minor := 1
@@ -85,12 +87,23 @@ func load_theme():
 	print("Config is ready, parsing metadata...")
 	var systems : Dictionary = RetroHubConfig.systems
 	var games : Array = RetroHubConfig.games
-	await RetroHubConfig.unload_theme()
+
+	_theme_processing_done = false
+	emit_signal("_theme_unload")
+	#while not _theme_processing_done:
+	#	await get_tree().process_frame
+	RetroHubConfig.unload_theme()
+	_disconnect_theme_signals()
+
+	# Load theme config
 	if not RetroHubConfig.load_theme():
 		return
+
 	RetroHubMedia._start_thread()
-	emit_signal("_theme_loaded", RetroHubConfig.theme_data)
-	# Load theme config
+	_theme_processing_done = false
+	emit_signal("_theme_load", RetroHubConfig.theme_data)
+	#while not _theme_processing_done:
+	#	await get_tree().process_frame
 	RetroHubConfig.load_theme_config()
 
 	if not systems.is_empty():
@@ -170,6 +183,27 @@ func _update_game_statistics():
 	launched_game_data.play_count += 1
 	if not RetroHubConfig.save_game_data(launched_game_data):
 		push_error("Failed to update statistics for game %s" % launched_game_data.name)
+
+func _disconnect_theme_signals():
+	var signal_list = [
+		"app_initializing",
+		"app_closing",
+		"app_received_focus",
+		"app_lost_focus",
+		"app_returning",
+
+		"system_receive_start",
+		"system_received",
+		"system_receive_end",
+
+		"game_receive_start",
+		"game_received",
+		"game_receive_end",
+	]
+
+	for sig in signal_list:
+		for conn in get_signal_connection_list(sig):
+			disconnect(sig, conn["callable"])
 
 
 func stop_game() -> void:

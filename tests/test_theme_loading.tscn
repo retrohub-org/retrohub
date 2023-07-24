@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://jevklpsqfwhs"]
+
+[ext_resource type="Script" path="res://tests/test_theme_loading.gd" id="1_3vtbc"]
+
+[node name="TestThemeLoading" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3vtbc")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 37.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="HFlowContainer"]
+layout_mode = 2
+text = "Themes:"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 112.0
+offset_right = 76.0
+offset_bottom = 138.0
+text = "Viewport:"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 144.0
+offset_right = 1135.0
+offset_bottom = 633.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1131, 489)
+render_target_update_mode = 4
+
+[node name="Unload" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 83.0
+offset_right = 155.0
+offset_bottom = 114.0
+button_pressed = true
+text = "Enable unload"
+
+[node name="Load" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 191.0
+offset_top = 83.0
+offset_right = 347.0
+offset_bottom = 114.0
+button_pressed = true
+text = "Enable load"
+
+[node name="SendData" type="Button" parent="."]
+layout_mode = 0
+offset_left = 367.0
+offset_top = 83.0
+offset_right = 451.0
+offset_bottom = 114.0
+text = "Send data"
+
+[connection signal="pressed" from="SendData" to="." method="_on_send_data_pressed"]

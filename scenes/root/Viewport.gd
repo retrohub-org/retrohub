@@ -2,10 +2,18 @@ extends SubViewport
 
 @onready var n_theme_node : Node = $NoTheme
 
-func set_theme(node: Node):
+func set_theme(scene: PackedScene):
 	RetroHubMedia._clear_media_cache()
-	if is_instance_valid(n_theme_node):
-		remove_child(n_theme_node)
-		n_theme_node.queue_free()
-	n_theme_node = node
+	n_theme_node = scene.instantiate()
 	add_child(n_theme_node)
+
+func clear_theme():
+	remove_child(n_theme_node)
+	n_theme_node.set_process(false)
+	n_theme_node.set_process_input(false)
+	n_theme_node.set_process_unhandled_input(false)
+	n_theme_node.set_process_unhandled_key_input(false)
+	n_theme_node.set_physics_process(false)
+	n_theme_node.free()
+	#while is_instance_valid(n_theme_node):
+	#	await get_tree().process_frame
