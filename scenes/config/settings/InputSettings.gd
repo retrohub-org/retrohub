@@ -253,7 +253,7 @@ func _on_VirtualKeyboardOnMouse_toggled(button_pressed):
 
 func _on_TabContainerHandler_tab_changed(_tab_container, enter_tab):
 	if enter_tab:
-		grab_focus()
+		self.grab_focus()
 
 
 func _on_VirtualKeyboardType_item_selected(index):
