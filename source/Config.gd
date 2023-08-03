@@ -112,7 +112,8 @@ func handle_key_remaps():
 			if ev is InputEventKey:
 				InputMap.action_erase_event(key, ev)
 				if key in _implicit_mappings:
-					InputMap.action_erase_event(_implicit_mappings[key], ev)
+					for impl_ev in InputMap.action_get_events(_implicit_mappings[key]):
+						InputMap.action_erase_event(_implicit_mappings[key], impl_ev)
 		for code in keys[key]:
 			handle_key_remap(key, KEY_NONE, code)
 			if _implicit_mappings.has(key):
