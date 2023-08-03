@@ -36,6 +36,7 @@ func _ready():
 	for key in licenses:
 		var child : TreeItem = n_names.create_item(root)
 		child.set_text(0, key)
+		child.set_autowrap_mode(0, TextServer.AUTOWRAP_WORD_SMART)
 
 	if not root.get_children().is_empty():
 		root.get_child(0).select(0)

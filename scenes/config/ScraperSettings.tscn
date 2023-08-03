@@ -328,7 +328,6 @@ next = NodePath("../../ScrollContainer/VBoxContainer/HBoxContainer/IntroLabel")
 
 [node name="ScrapingGamePickerPopup" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
-visible = false
 dialog_hide_on_ok = false
 
 [node name="ScraperPopup" parent="." instance=ExtResource("6")]

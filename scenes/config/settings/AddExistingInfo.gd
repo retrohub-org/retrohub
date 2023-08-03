@@ -51,3 +51,10 @@ func _on_OK_pressed():
 
 func _on_AddExistingInfoPopup_popup_hide():
 	n_options.clear()
+
+func _on_close_requested():
+	hide()
+
+
+func _on_focus_exited():
+	hide()
