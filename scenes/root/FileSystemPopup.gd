@@ -6,6 +6,8 @@ var upwards_button : Button
 var refresh_button : Button
 var hide_button : Button
 
+var focused_window : Window
+
 func _ready():
 	## Normal nodes
 	var tree : Tree = get_vbox().get_child(2, true).get_child(0, true)
@@ -73,6 +75,10 @@ func _ready():
 	create_folder_ok_button.focus_neighbor_top = path
 	create_folder_cancel_button.focus_neighbor_top = path
 
+	# Force the recent paths option button to wrap text
+	var recent_paths : OptionButton = get_vbox().get_child(0, true).get_child(11, true).get_child(0, true)
+	recent_paths.fit_to_longest_item = false
+
 func _unhandled_input(event):
 	if RetroHub.is_input_echo() or not visible:
 		return
@@ -97,3 +103,11 @@ func create_icon(base: GDScript, path: String) -> Control:
 	icon.show_only = 2
 
 	return icon
+
+
+func _on_about_to_popup():
+	focused_window = RetroHubUI.get_focused_window()
+
+
+func restore_window_focus():
+	focused_window.grab_focus()

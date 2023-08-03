@@ -73,14 +73,10 @@ content_scale_size = Vector2i(1000, 480)
 content_scale_aspect = 4
 
 [node name="FileSystemPopup" type="FileDialog" parent="."]
-handle_input_locally = false
 title = "Open a File"
 position = Vector2i(0, 24)
 size = Vector2i(949, 477)
-exclusive = false
-content_scale_size = Vector2i(949, 477)
-content_scale_mode = 1
-content_scale_aspect = 4
+popup_window = true
 theme = ExtResource("5")
 ok_button_text = "Open"
 file_mode = 0
@@ -130,3 +126,6 @@ script = ExtResource("9_5ltce")
 [connection signal="about_to_popup" from="ConfigPopup" to="." method="opened_popup"]
 [connection signal="popup_hide" from="ConfigPopup" to="." method="closed_popup"]
 [connection signal="about_to_popup" from="FileSystemPopup" to="." method="opened_popup"]
+[connection signal="about_to_popup" from="FileSystemPopup" to="FileSystemPopup" method="_on_about_to_popup"]
+[connection signal="close_requested" from="FileSystemPopup" to="FileSystemPopup" method="restore_window_focus"]
+[connection signal="focus_exited" from="FileSystemPopup" to="FileSystemPopup" method="restore_window_focus"]
