@@ -427,9 +427,11 @@ func load_theme() -> bool:
 		theme_path = get_themes_dir() + "/" + current_theme
 	else:
 		theme_path = get_default_themes_dir() + "/" + current_theme + ".pck"
-	if !ProjectSettings.load_resource_pack(theme_path, false):
-		push_error("Error when loading theme " + theme_path)
-		return false
+	# FIXME: Theme hot-reloading is disabled until nasty GDScript bug is solved
+	if not ProjectSettings.is_pack_loaded(theme_path):
+		if not ProjectSettings.load_resource_pack(theme_path, false):
+			push_error("Error when loading theme " + theme_path)
+			return false
 
 	load_theme_data()
 	if theme_data.entry_scene:
@@ -470,9 +472,10 @@ func unload_theme():
 		save_theme_config()
 
 		theme_data = null
-		if !ProjectSettings.unload_resource_pack(theme_path):
-			push_error("Error when unloading theme " + theme_path)
-			return
+		# FIXME: Theme hot-reloading is disabled until nasty GDScript bug is solved
+		#if !ProjectSettings.unload_resource_pack(theme_path):
+		#	push_error("Error when unloading theme " + theme_path)
+		#	return
 
 func get_theme_config(key, default_value):
 	if not _theme_config.has(key):
