@@ -14,10 +14,10 @@ script = ExtResource("5")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 112.0
+offset_bottom = 60.0
 
 [node name="LStick" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true

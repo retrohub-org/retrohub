@@ -115,7 +115,7 @@ size_flags_vertical = 0
 text = "Accept"
 
 [node name="KBAccept" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Accept"
 focus_neighbor_left = NodePath("../../../../KBReset")
@@ -137,7 +137,7 @@ text = "Back
 "
 
 [node name="KBBack" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Back"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer2/KBMoveDown")
@@ -157,7 +157,7 @@ size_flags_vertical = 0
 text = "Major option"
 
 [node name="KBMajorOpt" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Major option"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer3/KBMoveLeft")
@@ -178,7 +178,7 @@ text = "Minor option
 "
 
 [node name="KBMinorOpt" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Minor option"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer4/KBMoveRight")
@@ -199,7 +199,7 @@ text = "RetroHub menu
 "
 
 [node name="KBRetroHubMenu" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "RetroHub menu"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer5/KBSlideLeft")
@@ -219,7 +219,7 @@ size_flags_vertical = 0
 text = "Theme menu"
 
 [node name="KBThemeMenu" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Theme menu"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer6/KBSlideRight")
@@ -245,7 +245,7 @@ size_flags_vertical = 0
 text = "Move up"
 
 [node name="KBMoveUp" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Move up"
 icon = ExtResource("11")
@@ -264,7 +264,7 @@ size_flags_vertical = 0
 text = "Move down"
 
 [node name="KBMoveDown" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer2"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Move down"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer2/KBBack")
@@ -284,7 +284,7 @@ size_flags_vertical = 0
 text = "Move left"
 
 [node name="KBMoveLeft" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer3"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Move left"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer3/KBMajorOpt")
@@ -305,7 +305,7 @@ text = "Move right
 "
 
 [node name="KBMoveRight" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer4"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Move right"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer4/KBMinorOpt")
@@ -326,7 +326,7 @@ text = "Slide left
 "
 
 [node name="KBSlideLeft" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer5"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Slide left"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer5/KBRetroHubMenu")
@@ -346,7 +346,7 @@ size_flags_vertical = 0
 text = "Slide right"
 
 [node name="KBSlideRight" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Keyboard/HBoxContainer/VBoxContainer2/HBoxContainer6"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Slide right"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer6/KBThemeMenu")
@@ -540,7 +540,7 @@ size_flags_vertical = 0
 text = "Accept"
 
 [node name="CNAccept" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Accept"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer6/CNThemeMenu")
@@ -561,7 +561,7 @@ text = "Back
 "
 
 [node name="CNBack" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Back"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer/CNPrimaryMov")
@@ -581,7 +581,7 @@ size_flags_vertical = 0
 text = "Major option"
 
 [node name="CNMajorOpt" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Major option"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer2/CNSecondaryMov")
@@ -602,7 +602,7 @@ text = "Minor option
 "
 
 [node name="CNMinorOpt" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Minor option"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer3/CNSlideLeft")
@@ -623,7 +623,7 @@ text = "RetroHub menu
 "
 
 [node name="CNRetroHubMenu" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "RetroHub menu"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer4/CNSlideRight")
@@ -637,7 +637,6 @@ force_type = 2
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2"]
 layout_mode = 2
@@ -649,7 +648,7 @@ size_flags_vertical = 0
 text = "Theme menu"
 
 [node name="CNThemeMenu" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer6"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Theme menu"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer/CNAccept")
@@ -670,7 +669,7 @@ text = "Main axis
 (movement/selection)"
 
 [node name="CNPrimaryMov" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Main axis for movement and selection"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer2/CNBack")
@@ -691,7 +690,7 @@ text = "Secondary axis
 (view/scroll)"
 
 [node name="CNSecondaryMov" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer2"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Secondary axis for viewing and scrolling"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer3/CNMajorOpt")
@@ -712,7 +711,7 @@ text = "Slide left
 "
 
 [node name="CNSlideLeft" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer3"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Slide left"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer4/CNMinorOpt")
@@ -732,7 +731,7 @@ size_flags_vertical = 0
 text = "Slide right"
 
 [node name="CNSlideRight" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/HBoxContainer2/VBoxContainer2/HBoxContainer4"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Slide right"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer5/CNRetroHubMenu")
