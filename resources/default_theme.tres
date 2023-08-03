@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=75 format=3 uid="uid://jtuqhw3am1h3"]
+[gd_resource type="Theme" load_steps=76 format=3 uid="uid://jtuqhw3am1h3"]
 
 [ext_resource type="FontFile" uid="uid://c1xq6wlqlk1x6" path="res://resources/fonts/default_font.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://c2ikv4fnn7lgw" path="res://assets/ui/check_toggle_on.svg" id="2"]
 [ext_resource type="Texture2D" uid="uid://b5cc47hemgm8h" path="res://assets/ui/button_checked.svg" id="3"]
 [ext_resource type="Texture2D" uid="uid://8w3x15si550i" path="res://assets/ui/radio_checked.svg" id="4"]
+[ext_resource type="Texture2D" uid="uid://cdcsobklhjqlo" path="res://assets/icons/folder.svg" id="4_doumm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k5s3e"]
 content_margin_left = 8.0
@@ -692,7 +693,8 @@ CheckButton/styles/disabled = SubResource("StyleBoxFlat_kjfj4")
 CheckButton/styles/hover = SubResource("StyleBoxFlat_kjfj4")
 CheckButton/styles/normal = SubResource("StyleBoxFlat_kjfj4")
 CheckButton/styles/pressed = SubResource("StyleBoxFlat_kjfj4")
-FileDialog/colors/folder_icon_modulate = Color(1, 0.894118, 0.737255, 1)
+FileDialog/colors/folder_icon_color = Color(1, 0.796078, 0.631373, 1)
+FileDialog/icons/folder = ExtResource("4_doumm")
 HScrollBar/styles/scroll = SubResource("StyleBoxFlat_so23s")
 HScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_2j0sx")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_3eyyw")
