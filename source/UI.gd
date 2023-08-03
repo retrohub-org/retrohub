@@ -149,10 +149,14 @@ func show_warning(text: String):
 		await get_tree().process_frame
 		_n_warning_popup.get_ok_button().grab_focus()
 
-func get_true_focused_control() -> Control:
-	# Find currently focused "real" window
+func get_focused_window() -> Window:
 	var win_id := DisplayServer.get_focused_window_or_popup()
 	var win : Window = instance_from_id(win_id)
+	return win
+
+func get_true_focused_control() -> Control:
+	# Find currently focused "real" window
+	var win := get_focused_window()
 	if win == null:
 		return get_viewport().gui_get_focus_owner()
 
