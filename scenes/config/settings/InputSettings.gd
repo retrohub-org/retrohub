@@ -171,7 +171,7 @@ func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 
 func _on_CNAxis_pressed(axis):
 	var button := get_viewport().gui_get_focus_owner()
-	var pos := button.global_position - Vector2(n_ctrl_button_remap_popup.size.x + 10, 0)
+	var pos := button.get_global_transform_with_canvas().origin - Vector2(n_ctrl_button_remap_popup.size.x + 10, 0)
 	n_ctrl_axis_remap_popup.start(axis, pos)
 
 func _on_ControllerAxisRemap_remap_done(action, old_axis, new_axis):

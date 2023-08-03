@@ -24,7 +24,7 @@ func start(curr_action: String, pos: Vector2):
 		var icon : Button = n_icons[map_idx]
 		icon.disabled = true
 		icon.focus_mode = Control.FOCUS_NONE
-		focus_holder = icon
+		focus_holder = n_icons[map_idx+1 if map_idx+1 < n_icons.size() else 0]
 	else:
 		focus_holder = n_icons[0]
 

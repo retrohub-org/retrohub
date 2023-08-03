@@ -113,21 +113,16 @@ func handle_key_remaps():
 				InputMap.action_erase_event(key, ev)
 				if key in _implicit_mappings:
 					for impl_ev in InputMap.action_get_events(_implicit_mappings[key]):
-						InputMap.action_erase_event(_implicit_mappings[key], impl_ev)
+						if impl_ev is InputEventKey:
+							InputMap.action_erase_event(_implicit_mappings[key], impl_ev)
 		for code in keys[key]:
-			handle_key_remap(key, KEY_NONE, code)
+			handle_key_remap(key, code)
 			if _implicit_mappings.has(key):
-				handle_key_remap(_implicit_mappings[key], KEY_NONE, code)
+				handle_key_remap(_implicit_mappings[key], code)
 	# Signal ControllerIcons to update icons
 	ControllerIcons.refresh()
 
-func handle_key_remap(key: String, old: Key, new: Key):
-	# Find existing actions to remove them first
-	var events := InputMap.action_get_events(key)
-	for e in events:
-		if e is InputEventKey and _get_scancode(e) == old:
-			InputMap.action_erase_event(key, e)
-			break
+func handle_key_remap(key: String, new: Key):
 	# ui_up/ui_down are replaced by ui_focus_next/ui_focus_prev when screen readers are enabled
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		match key:
@@ -145,10 +140,13 @@ func handle_controller_button_remaps():
 	# Add implicit mappings as well (aka existing Godot actions that manage UI events)
 	for key in keys:
 		for ev in InputMap.action_get_events(key):
-			if ev is InputEventJoypadButton or ev is InputEventJoypadMotion:
+			# TODO: Figure out axis inputs
+			if ev is InputEventJoypadButton:
 				InputMap.action_erase_event(key, ev)
 				if key in _implicit_mappings:
-					InputMap.action_erase_event(_implicit_mappings[key], ev)
+					for impl_ev in InputMap.action_get_events(_implicit_mappings[key]):
+						if impl_ev is InputEventJoypadButton:
+							InputMap.action_erase_event(_implicit_mappings[key], impl_ev)
 		for button in keys[key]:
 			handle_controller_button_remap(key, 0, button)
 			if _implicit_mappings.has(key):
@@ -187,7 +185,9 @@ func handle_controller_axis_remaps():
 			if ev is InputEventJoypadMotion:
 				InputMap.action_erase_event(key, ev)
 				if key in _implicit_mappings:
-					InputMap.action_erase_event(_implicit_mappings[key], ev)
+					for impl_ev in InputMap.action_get_events(_implicit_mappings[key]):
+						if impl_ev is InputEventJoypadMotion:
+							InputMap.action_erase_event(_implicit_mappings[key], impl_ev)
 		var ev := InputEventJoypadMotion.new()
 		ev.axis = data[key][0]
 		ev.axis_value = data[key][1]
@@ -208,6 +208,8 @@ func handle_controller_axis_remaps():
 				InputMap.action_add_event(_implicit_mappings[key], ev)
 
 	# Signal ControllerIcons to update icons
+	for ev in InputMap.action_get_events("ui_left"):
+		print(ev)
 	ControllerIcons.refresh()
 
 func handle_controller_button_remap(key: String, old: int, new: int):
