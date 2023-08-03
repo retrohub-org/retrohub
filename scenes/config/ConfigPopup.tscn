@@ -76,7 +76,7 @@ theme_override_constants/separation = 1
 
 [node name="QuitTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 30)
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme = ExtResource("1")
 theme_type_variation = &"MenuSideTopButton"
