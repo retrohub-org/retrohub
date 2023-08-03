@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="2"]
 
 [node name="SelectExtensionsPopup" type="Window"]
+position = Vector2i(0, 36)
 size = Vector2i(560, 357)
 exclusive = true
 script = ExtResource("1")
@@ -142,6 +143,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Ok"
 
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="text_changed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ExtLineEdit" to="." method="_on_ExtLineEdit_text_changed"]
 [connection signal="text_submitted" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ExtLineEdit" to="." method="_on_AddExtension_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/VBoxContainer/AddExtension" to="." method="_on_AddExtension_pressed"]

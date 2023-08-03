@@ -91,7 +91,7 @@ func _on_SelectExtensionsPopup_extensions_picked(extensions):
 
 
 func _on_SystemEditor_request_extensions(system_name, curr_extensions):
-	n_select_extensions_popup.start(Callable(system_name, curr_extensions))
+	n_select_extensions_popup.start(system_name, curr_extensions)
 
 
 func _on_RestoreSystem_pressed():

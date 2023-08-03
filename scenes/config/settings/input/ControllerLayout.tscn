@@ -14,7 +14,10 @@
 [node name="ControllerLayout" type="Window"]
 initial_position = 1
 size = Vector2i(743, 496)
+transient = true
 exclusive = true
+always_on_top = true
+popup_window = true
 theme = ExtResource("2_vgkbu")
 script = ExtResource("1")
 unknown_mapping = Color(0.0901961, 0.0901961, 0.0901961, 0.737255)

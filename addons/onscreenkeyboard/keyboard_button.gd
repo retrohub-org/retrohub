@@ -15,9 +15,9 @@ func _input(event):
 		and not path.is_empty() and event.is_action(path):
 		get_viewport().set_input_as_handled()
 		if event.is_pressed():
-			button_down(false)
+			_button_down(false)
 		else:
-			button_up(false)
+			_button_up(false)
 
 
 func _draw():
@@ -38,8 +38,8 @@ func _draw():
 
 func _init(_keyData):
 	keyData = _keyData
-	connect("button_up", Callable(self, "button_up"))
-	connect("button_down", Callable(self, "button_down"))
+	button_up.connect(_button_up)
+	button_down.connect(_button_down)
 
 	size_flags_horizontal = SIZE_EXPAND_FILL
 	size_flags_vertical = SIZE_EXPAND_FILL
@@ -62,8 +62,8 @@ func changeUppercase(value):
 			text = keyData.get("display")
 
 
-func button_up(steal_focus: bool = true):
+func _button_up(steal_focus: bool = true):
 	emit_signal("released",keyData,id_x,id_y,steal_focus)
 	
-func button_down(steal_focus: bool = true):
+func _button_down(steal_focus: bool = true):
 	emit_signal("down",keyData,id_x,id_y,steal_focus)

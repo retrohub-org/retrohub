@@ -387,7 +387,12 @@ func populate_game_entries():
 			n_game_entries.add_child(scene_entry)
 			scene_entry.system_name = game_data.system.fullname
 			scene_entry_list[game_data.system] = scene_entry
-		var data : RetroHubGameData = game_data.duplicate() if not scrape_data else game_data
+		var data : RetroHubGameData
+		if not scrape_data:
+			data = RetroHubGameData.new()
+			data.copy_from(game_data)
+		else:
+			data = game_data
 		var game_entry : RetroHubScraperGameEntry = scene_entry_list[game_data.system].add_game_entry(data, button_group)
 		#warning-ignore:return_value_discarded
 		game_entry.game_selected.connect(_on_game_entry_selected)
@@ -535,7 +540,7 @@ func finish_scraping():
 	hide()
 
 func _on_Finish_pressed():
-	var remaining:= num_games_error + num_games_warning + num_games_pending
+	var remaining := num_games_error + num_games_warning + num_games_pending
 	if remaining > 0:
 		n_stop_scraper_dialog.set_num_games_pending(remaining)
 		n_stop_scraper_dialog.popup_centered()

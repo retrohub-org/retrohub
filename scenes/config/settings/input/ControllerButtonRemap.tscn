@@ -24,10 +24,10 @@ script = ExtResource("14")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 216.0
+offset_bottom = 164.0
 columns = 4
 
 [node name="A" type="Button" parent="GridContainer"]

@@ -86,3 +86,10 @@ func tts_text(focused: Control):
 					text += node.get_child(1).text + ". "
 			return text
 	return ""
+
+func _on_close_requested():
+	hide()
+
+
+func _on_focus_exited():
+	hide()
