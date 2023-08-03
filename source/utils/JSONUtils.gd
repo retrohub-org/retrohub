@@ -21,7 +21,7 @@ func save_json_file(json, file_path: String):
 	var file := FileAccess.open(file_path, FileAccess.WRITE)
 	if not file:
 		return FileAccess.get_open_error()
-	file.store_string(JSON.stringify(json, "\t"))
+	file.store_string(JSON.stringify(json, "\t", false))
 	file.close()
 
 func make_system_specific(json: Dictionary, curr_system: String):
