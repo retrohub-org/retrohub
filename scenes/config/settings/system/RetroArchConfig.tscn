@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scenes/config/settings/system/RetroArchConfig.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="2"]
 
-[node name="RetroArchConfig" type="Window"]
+[node name="RetroArchConfig" type="Popup"]
 size = Vector2i(584, 422)
-transient = true
-popup_window = true
+visible = true
+borderless = false
 script = ExtResource("1")
 
 [node name="Panel" type="Panel" parent="."]
@@ -79,8 +79,6 @@ size_flags_vertical = 8
 focus_neighbor_bottom = NodePath("../HBoxContainer/CoreOptions")
 text = "Ok"
 
-[connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/AddCore" to="." method="_on_AddCore_pressed"]
 [connection signal="item_activated" from="Panel/VBoxContainer/Cores" to="." method="_on_Cores_item_activated"]
 [connection signal="pressed" from="Panel/VBoxContainer/OK" to="." method="_on_OK_pressed"]

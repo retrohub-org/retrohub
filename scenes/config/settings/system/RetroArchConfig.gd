@@ -93,9 +93,3 @@ func tts_tree_item_text(item: TreeItem, tree: Tree) -> String:
 				return "Remove emulator"
 	return ""
 
-func _on_close_requested():
-	hide()
-
-
-func _on_focus_exited():
-	hide()
