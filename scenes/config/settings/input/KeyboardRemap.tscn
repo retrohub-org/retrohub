@@ -3,11 +3,11 @@
 [ext_resource type="FontFile" path="res://resources/fonts/default_italic.tres" id="1"]
 [ext_resource type="Script" path="res://scenes/config/settings/input/KeyboardRemap.gd" id="2"]
 
-[node name="KeyboardRemap" type="Window"]
+[node name="KeyboardRemap" type="Popup"]
 initial_position = 1
 size = Vector2i(283, 179)
-transient = true
-popup_window = true
+visible = true
+borderless = false
 script = ExtResource("2")
 
 [node name="Panel" type="Panel" parent="."]
@@ -55,6 +55,4 @@ unique_name_in_owner = true
 wait_time = 1.2
 one_shot = true
 
-[connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="timeout" from="Panel/Timer" to="." method="_on_Timer_timeout"]

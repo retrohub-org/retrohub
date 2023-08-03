@@ -115,11 +115,3 @@ func _on_OK_pressed():
 	hide()
 	emit_signal("extensions_picked", extensions.duplicate())
 	extensions.clear()
-
-
-func _on_close_requested():
-	hide()
-
-
-func _on_focus_exited():
-	hide()

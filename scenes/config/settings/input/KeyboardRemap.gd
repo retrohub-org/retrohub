@@ -47,11 +47,3 @@ func _on_Timer_timeout():
 		await get_tree().process_frame
 		TTS.speak("Key was remapped to " + n_key_label.text)
 	emit_signal("key_remapped", key, oldcode, keycode)
-
-
-func _on_close_requested():
-	hide()
-
-
-func _on_focus_exited():
-	hide()

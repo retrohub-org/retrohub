@@ -48,13 +48,5 @@ func _on_OK_pressed():
 		emit_signal("identifier_picked", n_options.get_selected_metadata())
 	hide()
 
-
-func _on_AddExistingInfoPopup_popup_hide():
+func _on_popup_hide():
 	n_options.clear()
-
-func _on_close_requested():
-	hide()
-
-
-func _on_focus_exited():
-	hide()
