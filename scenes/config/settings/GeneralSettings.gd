@@ -86,6 +86,9 @@ func _on_Themes_item_selected(index):
 	var theme_path : String = theme_id_map[index]
 	RetroHubConfig.config.current_theme = theme_path
 
+	# FIXME: Theme hot-reloading is disabled until nasty GDScript bug is solved
+	RetroHubUI.show_warning("Theme reloading is temporarily disabled for this version due to an internal bug in RetroHub's engine (Godot).\n \nYou'll have to restart RetroHub manually to switch themes.")
+
 func _on_SetThemePath_pressed():
 	#warning-ignore:return_value_discarded
 	OS.shell_open(RetroHubConfig.get_themes_dir())

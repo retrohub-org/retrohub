@@ -87,6 +87,7 @@ script = ExtResource("6")
 unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(608, 346)
+popup_window = true
 content_scale_size = Vector2i(608, 346)
 content_scale_mode = 1
 content_scale_aspect = 4
