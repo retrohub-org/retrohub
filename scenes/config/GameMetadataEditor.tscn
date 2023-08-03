@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bma07qur4debs"]
+[gd_scene load_steps=6 format=3 uid="uid://bma07qur4debs"]
 
 [ext_resource type="Script" path="res://scenes/config/GameMetadataEditor.gd" id="2"]
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="7"]
 [ext_resource type="Script" path="res://source/utils/SpinBoxHandler.gd" id="8"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="9"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_joixy"]
 
 [node name="GameMetadataEditor" type="Control"]
 layout_mode = 3
@@ -212,6 +214,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+button_group = SubResource("ButtonGroup_joixy")
 text = "Fixed"
 
 [node name="FixedPlayersNum" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer"]
@@ -238,6 +241,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+button_group = SubResource("ButtonGroup_joixy")
 text = "Variable"
 
 [node name="VariablePlayersMin" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2"]
@@ -334,8 +338,8 @@ script = ExtResource("7")
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer6/Publisher" to="." method="_on_change_ocurred"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer12/AgeRating" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Genres" to="." method="_on_change_ocurred"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_FixedPlayers_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_change_ocurred"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_FixedPlayers_toggled"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_change_ocurred"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_FixedPlayersNum_value_changed"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_VariablePlayers_toggled"]
