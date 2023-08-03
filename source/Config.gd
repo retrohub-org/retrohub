@@ -404,7 +404,7 @@ func save_game_data(game_data: RetroHubGameData) -> bool:
 		push_error("Error when opening file %s!" % metadata_path)
 		return false
 
-	file.store_string(JSON.stringify(game_data_raw, "\t"))
+	file.store_string(JSON.stringify(game_data_raw, "\t", false))
 	file.close()
 
 	emit_signal("game_data_updated", game_data)
@@ -506,7 +506,7 @@ func save_theme_config():
 		if not file:
 			push_error("Error when saving theme config at %s" % theme_config_path)
 			return
-		file.store_string(JSON.stringify(_theme_config, "\t"))
+		file.store_string(JSON.stringify(_theme_config, "\t", false))
 		file.close()
 
 		for key in _theme_config:

@@ -7,6 +7,7 @@ var _config_changed := false
 var _old_config : Dictionary
 
 # Games directory
+var config_version : int = 1
 var is_first_time : bool = true: set = _set_is_first_time
 var games_dir : String = FileUtils.get_home_dir() + "/ROMS": set = _set_games_dir
 var current_theme : String = "default": set = _set_current_theme
@@ -35,6 +36,7 @@ var virtual_keyboard_show_on_controller : bool = true: set = _set_virtual_keyboa
 var virtual_keyboard_show_on_mouse : bool = false: set = _set_virtual_keyboard_show_on_mouse
 var accessibility_screen_reader_enabled : bool = true: set = _set_accessibility_screen_reader_enabled
 
+const KEY_CONFIG_VERSION = "config_version"
 const KEY_IS_FIRST_TIME = "is_first_time"
 const KEY_GAMES_DIR = "games_dir"
 const KEY_CURRENT_THEME = "current_theme"
@@ -65,6 +67,7 @@ const KEY_ACCESSIBILITY_SCREEN_READER_ENABLED = "accessibility_screen_reader_ena
 
 
 const _keys = [
+	KEY_CONFIG_VERSION,
 	KEY_IS_FIRST_TIME,
 	KEY_GAMES_DIR,
 	KEY_CURRENT_THEME,
@@ -161,6 +164,12 @@ static func default_virtual_keyboard_type() -> String:
 		return "steam"
 	else:
 		return "builtin"
+
+func _get_stored_version(config: Dictionary) -> int:
+	if config.has(KEY_CONFIG_VERSION):
+		return int(config[KEY_CONFIG_VERSION])
+	else:
+		return 0
 
 func _set_is_first_time(_is_first_time):
 	mark_for_saving()
@@ -338,7 +347,7 @@ func save_config_to_path(path: String, force_save: bool = false) -> int:
 		dict[key] = get(key)
 
 	# Save JSON to file
-	var json_output := JSON.stringify(dict, "\t")
+	var json_output := JSON.stringify(dict, "\t", false)
 	file.store_string(json_output)
 	file.close()
 	_config_changed = false
@@ -363,6 +372,7 @@ func process_new_change(key: String):
 			accessibility_screen_reader_enabled = is_first_time
 
 func process_raw_config_changes(config: Dictionary):
+	## Before config version was introduced
 	# Scraper credentials were moved to a dedicated file
 	var creds := [
 		"scraper_ss_username",
@@ -424,3 +434,18 @@ func process_raw_config_changes(config: Dictionary):
 				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "ouya"
 			0, _:
 				config[KEY_INPUT_CONTROLLER_ICON_TYPE] = "auto"
+
+	var version := _get_stored_version(config)
+	while version < config_version:
+		_should_save = true
+		_handle_config_update(config, version)
+		version += 1
+
+func _handle_config_update(config: Dictionary, version: int):
+	match version:
+		0:
+			# First config version; RetroHub port from Godot 3 to Godot 4
+			# Input remaps have to be reset
+			config[KEY_INPUT_KEY_MAP] = input_key_map
+			config[KEY_CUSTOM_INPUT_REMAP] = custom_input_remap
+			RetroHubUI.call_deferred("show_warning", "The following settings had to be reset due to incompatible changes in RetroHub:\n \n - Keyboard remaps\n-Controller custom layout\n \nPlease reconfigure these in the Settings menu if desired.")
