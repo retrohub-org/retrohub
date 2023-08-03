@@ -108,9 +108,12 @@ func get_selected_items(_root: TreeItem):
 
 func _on_GameTree_item_activated():
 	var item : TreeItem = n_game_tree.get_selected()
-	if n_game_tree.get_selected_column() == 0:
-		if item.get_children() != null:
-			item.collapsed = not item.collapsed
-		else:
+	if item:
+		# Names
+		if item.is_selected(0):
+			if not item.get_children().is_empty():
+				item.collapsed = not item.collapsed
+		# Toggles
+		elif item.is_selected(1):
 			item.set_checked(1, not item.is_checked(1))
 			handle_tree_edit(item)
