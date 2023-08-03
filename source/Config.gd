@@ -208,8 +208,6 @@ func handle_controller_axis_remaps():
 				InputMap.action_add_event(_implicit_mappings[key], ev)
 
 	# Signal ControllerIcons to update icons
-	for ev in InputMap.action_get_events("ui_left"):
-		print(ev)
 	ControllerIcons.refresh()
 
 func handle_controller_button_remap(key: String, old: int, new: int):
