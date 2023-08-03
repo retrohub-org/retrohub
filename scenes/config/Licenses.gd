@@ -18,7 +18,6 @@ func _ready():
 		["MIT (Controller Icons)", "mit_controllericons.txt"],
 		["MIT (Onscreenkeyboard)", "mit_onscreenkeyboard.txt"],
 		["MIT (Godot Accessibility Plugin)", "mit_godot-accessibility.txt"],
-		["MIT (Godot TTS)", "mit_godot-tts.txt"],
 		["CC0", "cc0.txt"],
 		["CC BY 4.0", "ccby40.txt"],
 		["CC BY NC SA 4.0", "ccbyncsa40.txt"]
