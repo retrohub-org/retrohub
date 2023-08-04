@@ -96,7 +96,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 					continue
 				var corepaths := []
 				for core in avail_cores:
-					corepaths.push_back(corespath + "/" + core["file"])
+					corepaths.push_back(corespath.path_join(core["file"]))
 				var corepath := FileUtils.test_for_valid_path(corepaths)
 				if not corepath.is_empty():
 					for core in avail_cores:

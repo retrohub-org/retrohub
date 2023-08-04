@@ -21,7 +21,7 @@ func start(system_name: String, _extensions: Array):
 		create_curr_extension_button(ext)
 
 	# Add new extensions
-	var game_path : String = RetroHubConfig.config.games_dir + "/" + system_name
+	var game_path : String = RetroHubConfig.config.games_dir.path_join(system_name)
 	var dir := DirAccess.open(game_path)
 	if dir:
 		#warning-ignore:return_value_discarded

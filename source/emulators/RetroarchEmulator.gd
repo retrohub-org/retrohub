@@ -51,7 +51,7 @@ func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores
 	for core_name in system_cores:
 		for core_info in emulator_raw["cores"]:
 			if core_info["name"] == core_name:
-				var core_file_path : String = corepath + "/" + core_info["file"]
+				var core_file_path : String = corepath.path_join(core_info["file"])
 				if FileAccess.file_exists(core_file_path):
 					corefile = core_info["file"]
 					_substitutes["corefile"] = corefile

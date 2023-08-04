@@ -47,7 +47,7 @@ func get_folder_size(path: String, filter_folders: Array = []) -> int:
 	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
-			var fullpath := path + "/" + next
+			var fullpath := path.path_join(next)
 			if dir.current_is_dir():
 				if filter_folders.is_empty() or next in filter_folders:
 					size += get_folder_size(fullpath)
@@ -71,7 +71,7 @@ func get_file_count(path: String, filter_folders: Array = []):
 		while not next.is_empty():
 			if dir.current_is_dir():
 				if filter_folders.is_empty() or next in filter_folders:
-					count += get_file_count(path + "/" + next)
+					count += get_file_count(path.path_join(next))
 			else:
 				count += 1
 			next = dir.get_next()
