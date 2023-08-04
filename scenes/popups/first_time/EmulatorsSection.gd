@@ -13,7 +13,6 @@ func _ready():
 	n_systems.get_popup().max_size.y = RetroHubUI.max_popupmenu_height + 50
 
 func grab_focus():
-	RetroHubConfig.load_emulators()
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:
