@@ -76,8 +76,10 @@ func _ready():
 	create_folder_cancel_button.focus_neighbor_top = path
 
 	# Force the recent paths option button to wrap text
-	var recent_paths : OptionButton = get_vbox().get_child(0, true).get_child(11, true).get_child(0, true)
-	recent_paths.fit_to_longest_item = false
+	# This field doesn't exists on Windows for some reason
+	if FileUtils.get_os_id() != FileUtils.OS_ID.WINDOWS:
+		var recent_paths : OptionButton = get_vbox().get_child(0, true).get_child(11, true).get_child(0, true)
+		recent_paths.fit_to_longest_item = false
 
 func _unhandled_input(event):
 	if RetroHub.is_input_echo() or not visible:
