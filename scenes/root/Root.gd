@@ -115,11 +115,8 @@ func _on_theme_unload():
 
 func _on_game_loaded(game_data: RetroHubGameData):
 	var game_launched_child : PackedScene = load("res://scenes/game_launched/GameLaunched.tscn")
+	n_viewport.clear_theme()
 	n_viewport.set_theme(game_launched_child)
-	game_launched_child.set_info(
-		"res://assets/emulators/%s.png" % RetroHub.launched_emulator["name"],
-		game_data.name,
-		RetroHub.launched_emulator["fullname"])
 	print("Loaded game")
 
 func set_theme_input_enabled(enabled : bool):

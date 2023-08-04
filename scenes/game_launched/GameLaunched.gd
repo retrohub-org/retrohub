@@ -48,11 +48,10 @@ func _input(event):
 	if event.is_action_pressed("rh_menu"):
 		n_timer.start()
 
-func set_info(logo_path: String, game_name: String, emu_name: String):
-	n_emu_logo.texture = load(logo_path)
-	n_game_name.text = game_name_orig_text % game_name
-	n_emu_name.text = emu_name_orig_text % emu_name
-
+func _ready():
+	n_emu_logo.texture = load("res://assets/emulators/%s.png" % RetroHub.launched_emulator["name"])
+	n_game_name.text = game_name_orig_text % RetroHub.launched_game_data.name
+	n_emu_name.text = emu_name_orig_text % RetroHub.launched_emulator["fullname"]
 
 func _on_Timer_timeout():
 	RetroHub.kill_game_process()
