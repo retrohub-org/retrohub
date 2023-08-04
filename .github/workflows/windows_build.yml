@@ -149,6 +149,8 @@ jobs:
 
       - name: "Setup rcedit"
         run: |
+          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
+          sudo apt-get update
           sudo apt-get install wine-stable
           wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
           cached_builds/editor/godot --headless --quit

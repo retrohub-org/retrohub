@@ -5,26 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://cjx4cfx0f2k2" path="res://scenes/config/ConfigPopup.tscn" id="3"]
 [ext_resource type="Script" path="res://scenes/root/Viewport.gd" id="4"]
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="5"]
+[ext_resource type="Shader" path="res://resources/shaders/MenuBlur.gdshader" id="5_co422"]
 [ext_resource type="Script" path="res://scenes/root/FileSystemPopup.gd" id="6"]
 [ext_resource type="Script" path="res://addons/godot-accessibility/ScreenReader.gd" id="7"]
 [ext_resource type="Script" path="res://source/utils/InputHandler.gd" id="9_5ltce"]
 [ext_resource type="PackedScene" uid="uid://dmcmcyq0jach5" path="res://scenes/no_theme/NoTheme.tscn" id="10"]
 
-[sub_resource type="Shader" id="1"]
-code = "// Source: https://kidscancode.org/godot_recipes/shaders/blur/
-
-shader_type canvas_item;
-
-uniform float blur_amount : hint_range(0, 5);
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
-uniform vec4 modulate : source_color;
-
-void fragment() {
-	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount) * modulate;
-}"
-
 [sub_resource type="ShaderMaterial" id="2"]
-shader = SubResource("1")
+shader = ExtResource("5_co422")
 shader_parameter/blur_amount = 1.0
 shader_parameter/modulate = Color(0.74902, 0.74902, 0.74902, 1)
 
