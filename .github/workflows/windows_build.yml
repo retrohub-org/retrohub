@@ -41,7 +41,7 @@ jobs:
         uses: actions/cache@v3
         id: "cache_template"
         with:
-          path: cached_builds/template/${{ matrix.template }}}
+          path: cached_builds/template/${{ matrix.template }}
           key: Windows-${{ matrix.arch }}-template-build
         continue-on-error: true
 
