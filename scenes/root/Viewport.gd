@@ -9,11 +9,6 @@ func set_theme(scene: PackedScene):
 
 func clear_theme():
 	remove_child(n_theme_node)
-	n_theme_node.set_process(false)
-	n_theme_node.set_process_input(false)
-	n_theme_node.set_process_unhandled_input(false)
-	n_theme_node.set_process_unhandled_key_input(false)
-	n_theme_node.set_physics_process(false)
-	n_theme_node.free()
+	n_theme_node.queue_free()
 	#while is_instance_valid(n_theme_node):
 	#	await get_tree().process_frame
