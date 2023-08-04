@@ -65,7 +65,7 @@ func get_estimated_size() -> int:
 			var next := dir.get_next()
 			while not next.is_empty():
 				if dir.current_is_dir() and next != "cheevos":
-					folder_size += FileUtils.get_folder_size(thumbnails_path + "/" + next, RA_MEDIA_NAMES)
+					folder_size += FileUtils.get_folder_size(thumbnails_path.path_join(next), RA_MEDIA_NAMES)
 				next = dir.get_next()
 	return folder_size
 
@@ -108,7 +108,7 @@ func import_metadata():
 		var next := dir.get_next()
 		while not next.is_empty():
 			if not dir.current_is_dir() and next.to_lower().ends_with(".lpl"):
-				var lpl_file := playlists_path + "/" + next
+				var lpl_file := playlists_path.path_join(next)
 				progress_minor("Reading gamedata from \"%s\"..." % next)
 				var system_name := guess_system_name(lpl_file)
 				if not system_name.is_empty():
@@ -116,7 +116,7 @@ func import_metadata():
 			next = dir.get_next()
 	reset_minor(total_games)
 	for system in gamelists.keys():
-		var base_path := RetroHubConfig.get_gamelists_dir() + "/" + (system as String)
+		var base_path := RetroHubConfig.get_gamelists_dir().path_join(system as String)
 		FileUtils.ensure_path(base_path)
 		for child in gamelists[system]:
 			process_metadata(system, child)
@@ -158,13 +158,16 @@ func process_lpl_file(path: String) -> Array:
 
 func process_metadata(system: String, dict: Dictionary):
 	var game_data := RetroHubGameData.new()
-	var root_path := RetroHubConfig.config.games_dir + "/" + system
+	var root_path := RetroHubConfig.config.games_dir.path_join(system)
 	game_data.has_metadata = true
-	game_data.path = root_path + "/" + dict["path"].substr(2)
+	game_data.path = root_path.path_join(dict["path"].substr(2))
 	progress_minor("Converting \"%s\" (\"%s\")" % [game_data.path.get_file(), system])
 	if dict.has("name"):
 		game_data.name = dict["name"]
-	var short_path := system + "/" + game_data.path.get_file().get_basename()
+	var short_path := system.path_join(game_data.path.get_file().get_basename())
+	if RetroHubConfig.systems.has(system):
+		game_data.system = RetroHubConfig.systems[system]
+	game_data.system_path = system
 	game_datas[short_path] = game_data
 
 
@@ -175,7 +178,7 @@ func import_media(copy: bool):
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir() and next != "cheevos":
-				count += FileUtils.get_file_count(thumbnails_path + "/" + next, RA_MEDIA_NAMES)
+				count += FileUtils.get_file_count(thumbnails_path.path_join(next), RA_MEDIA_NAMES)
 			next = dir.get_next()
 	reset_minor(count)
 	if not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
@@ -184,9 +187,9 @@ func import_media(copy: bool):
 			if dir.current_is_dir() and next != "cheevos":
 				var system_name := guess_system_name(next)
 				if not system_name.is_empty():
-					var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + system_name
+					var base_path := RetroHubConfig.get_gamemedia_dir().path_join(system_name)
 					FileUtils.ensure_path(base_path)
-					process_media_subfolder(thumbnails_path + "/" + next, system_name, copy)
+					process_media_subfolder(thumbnails_path.path_join(next), system_name, copy)
 			next = dir.get_next()
 
 func process_media_subfolder(path: String, system: String, copy: bool):
@@ -195,21 +198,21 @@ func process_media_subfolder(path: String, system: String, copy: bool):
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir() and next in RA_MEDIA_NAMES:
-				process_media(path + "/" + next, system, RH_MEDIA_NAMES[RA_MEDIA_NAMES.find(next)], copy)
+				process_media(path.path_join(next), system, RH_MEDIA_NAMES[RA_MEDIA_NAMES.find(next)], copy)
 			next = dir.get_next()
 
 func process_media(path: String, system: String, media_name: String, copy: bool):
 	var dir := DirAccess.open(path)
 	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name
+		var base_path := RetroHubConfig.get_gamemedia_dir().path_join(system).path_join(media_name)
 		while not next.is_empty():
 			if not dir.current_is_dir():
-				var from_path := path + "/" + next
+				var from_path := path.path_join(next)
 				# RetroHub uses game name for media names.
 				var game_data := find_game_data_with_label(next.get_basename())
 				if game_data:
-					var to_path := base_path + "/" + game_data.path.get_file().get_basename() + "." + next.get_extension()
+					var to_path := base_path.path_join(game_data.path.get_file().get_basename() + "." + next.get_extension())
 					FileUtils.ensure_path(to_path)
 					if copy:
 						progress_minor("Copying \"%s\" (\"%s\")" % [from_path.get_file(), system])

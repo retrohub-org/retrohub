@@ -294,7 +294,7 @@ func load_game_data_files():
 		if dir.current_is_dir() and \
 			((_systems_raw.has(file_name) and not _systems_raw[file_name].has("#delete")) or \
 			_system_renames.has(file_name)):
-			load_system_gamelists_files(config.games_dir + "/" + file_name, file_name)
+			load_system_gamelists_files(config.games_dir.path_join(file_name), file_name)
 		# We are not interested in files, only folders
 		file_name = dir.get_next()
 	dir.list_dir_end()
@@ -310,7 +310,7 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 		return
 	var file_name := dir.get_next()
 	while file_name != "":
-		var full_path := folder_path + "/" + file_name
+		var full_path := folder_path.path_join(file_name)
 		if dir.current_is_dir():
 			# Recurse
 			# TODO: prevent infinite recursion with shortcuts/symlinks
@@ -350,10 +350,9 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 	dir.list_dir_end()
 
 func make_system_folder(system_raw: Dictionary):
-	var path : String = config.games_dir + "/" + system_raw["name"]
-	var dir := DirAccess.open(path)
-	if dir and not dir.dir_exists(path):
-		if dir.make_dir_recursive(path):
+	var path : String = config.games_dir.path_join(system_raw["name"])
+	if not DirAccess.dir_exists_absolute(path):
+		if DirAccess.make_dir_recursive_absolute(path):
 			push_error("Failed to create system folder " + path)
 
 func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
@@ -378,7 +377,7 @@ func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 	return true
 
 func get_game_data_path_from_file(system_name: String, file_name: String) -> String:
-	return get_gamelists_dir() + "/" + system_name + "/" + file_name.get_file().trim_suffix(file_name.get_extension()) + "json"
+	return get_gamelists_dir().path_join(system_name).path_join(file_name.get_file().trim_suffix(file_name.get_extension()) + "json")
 
 func save_game_data(game_data: RetroHubGameData) -> bool:
 	var metadata_path := get_game_data_path_from_file(game_data.system.name, game_data.path)
@@ -424,9 +423,9 @@ func is_file_from_system(file_name: String, system_name: String) -> bool:
 func load_theme() -> bool:
 	var current_theme := config.current_theme
 	if current_theme.ends_with(".pck"):
-		theme_path = get_themes_dir() + "/" + current_theme
+		theme_path = get_themes_dir().path_join(current_theme)
 	else:
-		theme_path = get_default_themes_dir() + "/" + current_theme + ".pck"
+		theme_path = get_default_themes_dir().path_join(current_theme + ".pck")
 	# FIXME: Theme hot-reloading is disabled until nasty GDScript bug is solved
 	if not ProjectSettings.is_pack_loaded(theme_path):
 		if not ProjectSettings.load_resource_pack(theme_path, false):

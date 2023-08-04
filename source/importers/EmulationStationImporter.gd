@@ -78,7 +78,7 @@ func get_estimated_size() -> int:
 			var next := dir.get_next()
 			while not next.is_empty():
 				if dir.current_is_dir():
-					folder_size += FileUtils.get_folder_size(media_path + "/" + next, ES_MEDIA_NAMES)
+					folder_size += FileUtils.get_folder_size(media_path.path_join(next), ES_MEDIA_NAMES)
 				next = dir.get_next()
 	return folder_size
 
@@ -99,7 +99,7 @@ func is_available() -> bool:
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir():
-				config_level = int(max(config_level, check_theme_config_level(theme_path + "/" + next)))
+				config_level = int(max(config_level, check_theme_config_level(theme_path.path_join(next))))
 			next = dir.get_next()
 
 	if config_level <= MAXIMUM_SUPPORTED_CONFIG_LEVEL:
@@ -125,7 +125,7 @@ func check_theme_config_level(base_path: String) -> int:
 
 	var path := dir.get_next()
 	while not path.is_empty():
-		var file := base_path + "/" + path + "/theme.xml"
+		var file := base_path.path_join(path).path_join("theme.xml")
 		if dir.file_exists(file):
 			var config_level := inspect_theme_xml(file)
 			if config_level != -1:
@@ -195,7 +195,7 @@ func import_metadata():
 		var next_folder := dir.get_next()
 		while not next_folder.is_empty():
 			if dir.current_is_dir():
-				var gamelist_path := gamelists_path + "/" + next_folder + "/gamelist.xml"
+				var gamelist_path := gamelists_path.path_join(next_folder).path_join("gamelist.xml")
 				progress_minor("Reading gamedata from \"%s\"..." % next_folder)
 				var gamelist_dict := XML2JSON.parse(gamelist_path)
 				if not gamelist_dict.is_empty() and gamelist_dict.has("gameList"):
@@ -210,7 +210,7 @@ func import_metadata():
 			next_folder = dir.get_next()
 	reset_minor(total_games)
 	for system in gamelists.keys():
-		var base_path := RetroHubConfig.get_gamelists_dir() + "/" + (system as String)
+		var base_path := RetroHubConfig.get_gamelists_dir().path_join(system as String)
 		FileUtils.ensure_path(base_path)
 		var data = gamelists[system]
 		if data is Array:
@@ -221,9 +221,9 @@ func import_metadata():
 
 func process_metadata(system: String, dict: Dictionary):
 	var game_data := RetroHubGameData.new()
-	var root_path := RetroHubConfig.config.games_dir + "/" + system
+	var root_path := RetroHubConfig.config.games_dir.path_join(system)
 	game_data.has_metadata = true
-	game_data.path = root_path + "/" + dict["path"].substr(2)
+	game_data.path = root_path.path_join(dict["path"].substr(2))
 	progress_minor("Converting \"%s\" (\"%s\")" % [game_data.path.get_file(), system])
 	if dict.has("name"):
 		game_data.name = dict["name"]
@@ -252,7 +252,10 @@ func process_metadata(system: String, dict: Dictionary):
 		game_data.last_played = dict["lastplayed"]
 	if dict.has("favorite"):
 		game_data.favorite = bool(dict["favorite"])
-	var short_path := system + "/" + game_data.path.get_file().get_basename()
+	var short_path := system.path_join(game_data.path.get_file().get_basename())
+	if(RetroHubConfig.systems.has(system)):
+		game_data.system = RetroHubConfig.systems[system]
+	game_data.system_path = system
 	game_datas[short_path] = game_data
 
 
@@ -263,16 +266,16 @@ func import_media(copy: bool):
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir():
-				count += FileUtils.get_file_count(media_path + "/" + next, ES_MEDIA_NAMES)
+				count += FileUtils.get_file_count(media_path.path_join(next), ES_MEDIA_NAMES)
 			next = dir.get_next()
 	reset_minor(count)
 	if not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir():
-				var base_path := RetroHubConfig.get_gamemedia_dir() + "/" + next
+				var base_path := RetroHubConfig.get_gamemedia_dir().path_join(next)
 				FileUtils.ensure_path(base_path)
-				process_media_subfolder(media_path + "/" + next, next, copy)
+				process_media_subfolder(media_path.path_join(next), next, copy)
 			next = dir.get_next()
 
 func process_media_subfolder(path: String, system: String, copy: bool):
@@ -281,7 +284,7 @@ func process_media_subfolder(path: String, system: String, copy: bool):
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir() and next in ES_MEDIA_NAMES:
-				process_media(path + "/" + next, system, RH_MEDIA_NAMES[ES_MEDIA_NAMES.find(next)], copy)
+				process_media(path.path_join(next), system, RH_MEDIA_NAMES[ES_MEDIA_NAMES.find(next)], copy)
 			next = dir.get_next()
 
 func process_media(path: String, system: String, media_name: String, copy: bool):
@@ -290,8 +293,8 @@ func process_media(path: String, system: String, media_name: String, copy: bool)
 		var next := dir.get_next()
 		while not next.is_empty():
 			if not dir.current_is_dir():
-				var from_path := path + "/" + next
-				var to_path := RetroHubConfig.get_gamemedia_dir() + "/" + system + "/" + media_name + "/" + from_path.get_file()
+				var from_path := path.path_join(next)
+				var to_path := RetroHubConfig.get_gamemedia_dir().path_join(system).path_join(media_name).path_join(from_path.get_file())
 				FileUtils.ensure_path(to_path)
 				if copy:
 					progress_minor("Copying \"%s\" (\"%s\")" % [from_path.get_file(), system])
@@ -301,7 +304,7 @@ func process_media(path: String, system: String, media_name: String, copy: bool)
 					progress_minor("Moving \"%s\" (\"%s\")" % [from_path.get_file(), system])
 					if dir.rename(from_path, to_path):
 						push_error("Failed to move \"%s\" to \"%s\"" % [from_path, to_path])
-				var short_path := system + "/" + from_path.get_file().get_basename()
+				var short_path := system.path_join(from_path.get_file().get_basename())
 				if game_datas.has(short_path):
 					game_datas[short_path].has_media = true
 			next = dir.get_next()

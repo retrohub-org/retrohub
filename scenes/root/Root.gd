@@ -25,11 +25,11 @@ func _enter_tree():
 	#resources_remap.append_array([
 	#])
 
-func _input(event: InputEvent):
+func _raw_input(event: InputEvent):
 	if not RetroHub._running_game:
 		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
-			get_viewport().set_input_as_handled()
 			if not $ConfigPopup.visible:
+				get_viewport().set_input_as_handled()
 				$ConfigPopup.popup()
 
 func _ready():

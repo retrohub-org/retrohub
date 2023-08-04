@@ -303,11 +303,10 @@ func prepare_media_scrape_from_search(game_entry: RetroHubScraperGameEntry, sear
 func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: PackedByteArray, extension: String):
 	if pending_medias.has(game_data):
 		# Save media
-		var path := RetroHubConfig.get_gamemedia_dir() + "/" + \
-					game_data.system.name + "/" + \
-					RetroHubMedia.convert_type_to_media_path(type) + "/" + \
-					game_data.path.get_file().get_basename() + \
-					"." + extension
+		var path := RetroHubConfig.get_gamemedia_dir() \
+						.path_join(game_data.system.name) \
+						.path_join(RetroHubMedia.convert_type_to_media_path(type)) \
+						.path_join(game_data.path.get_file().get_basename() + "." + extension)
 		FileUtils.ensure_path(path)
 		var file := FileAccess.open(path, FileAccess.WRITE)
 		if file:

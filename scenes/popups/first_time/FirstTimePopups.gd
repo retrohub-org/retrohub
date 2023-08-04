@@ -47,6 +47,7 @@ func _on_MainContent_tab_changed(tab):
 		counter += 1
 
 
-func _on_FirstTimePopup_popup_hide():
-	RetroHubConfig.emit_signal("config_ready", RetroHubConfig.config)
-	queue_free()
+func _on_visibility_changed():
+	if not visible:
+		RetroHubConfig.emit_signal("config_ready", RetroHubConfig.config)
+		queue_free()

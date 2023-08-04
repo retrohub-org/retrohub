@@ -220,6 +220,7 @@ size_flags_horizontal = 2
 text = "for scrolling information"
 
 [connection signal="about_to_popup" from="." to="." method="_on_FirstTimePopup_about_to_show"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="tab_changed" from="Panel/HBoxContainer/MainContent" to="." method="_on_MainContent_tab_changed"]
 [connection signal="advance_section" from="Panel/HBoxContainer/MainContent/IntroductionSection" to="." method="advance_section"]
 [connection signal="advance_section" from="Panel/HBoxContainer/MainContent/RegionSection" to="." method="advance_section"]
