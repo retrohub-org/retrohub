@@ -448,4 +448,5 @@ func _handle_config_update(config: Dictionary, version: int):
 			# Input remaps have to be reset
 			config[KEY_INPUT_KEY_MAP] = input_key_map
 			config[KEY_CUSTOM_INPUT_REMAP] = custom_input_remap
-			RetroHubUI.call_deferred("show_warning", "The following settings had to be reset due to incompatible changes in RetroHub:\n \n - Keyboard remaps\n-Controller custom layout\n \nPlease reconfigure these in the Settings menu if desired.")
+			config[KEY_INPUT_CONTROLLER_MAP] = input_controller_map
+			RetroHubUI.call_deferred("show_warning", "The following settings had to be reset due to incompatible changes in RetroHub:\n \n- Keyboard/controller remaps\n- Controller custom layout\n \nPlease reconfigure these in the Settings menu if desired.")
