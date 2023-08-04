@@ -13,7 +13,7 @@ runs:
       shell: sh
       env:
         THEME_NAME: default.pck
-        THEME_VERSION: v0.1.3-beta
+        THEME_VERSION: v0.2.0-beta
       run: |
         cd themes_workdir
         curl -L https://github.com/retrohub-org/default-theme/releases/download/${{ env.THEME_VERSION }}/${{ env.THEME_NAME }} --output ${{ env.THEME_NAME }}
@@ -22,7 +22,7 @@ runs:
       shell: sh
       env:
         THEME_NAME: es-theme-wrapper.pck
-        THEME_VERSION: v0.1.0-beta
+        THEME_VERSION: v0.2.0-beta
       run: |
         cd themes_workdir
         curl -L https://github.com/retrohub-org/es-theme-wrapper/releases/download/${{ env.THEME_VERSION }}/${{ env.THEME_NAME }} --output ${{ env.THEME_NAME }}
