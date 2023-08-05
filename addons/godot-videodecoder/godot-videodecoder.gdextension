@@ -3,8 +3,8 @@ entry_symbol = "init"
 compatibility_minimum = 4.1
 
 [libraries]
-macos.release.x86_64 = "macos/libgdvideo-template_release.dylib"
-macos.debug.x86_64 = "macos/libgdvideo-template_debug.dylib"
+macos.release.universal = "macos/libgdvideo-template_release.dylib"
+macos.debug.universal = "macos/libgdvideo-template_debug.dylib"
 windows.release.x86_64 = "windows_64/libgdvideo-template_release.dll"
 windows.debug.x86_64 = "windows_64/libgdvideo-template_debug.dll"
 windows.release.x86_32 = "windows_32/libgdvideo-template_release.dll"
@@ -15,7 +15,7 @@ linux.release.x86_32 = "linux_32/libgdvideo-template_release.so"
 linux.debug.x86_32 = "linux_32/libgdvideo-template_debug.so"
 
 [dependencies]
-macos.x86_64 = {"macos/libavcodec.58.dylib": "", "macos/libavdevice.58.dylib": "", "macos/libavfilter.7.dylib": "", "macos/libavformat.58.dylib": "", "macos/libavutil.56.dylib": "", "macos/libpostproc.55.dylib": "", "macos/libswresample.3.dylib": "", "macos/libswscale.5.dylib": ""}
+macos.universal = {"macos/libavcodec.58.dylib": "", "macos/libavdevice.58.dylib": "", "macos/libavfilter.7.dylib": "", "macos/libavformat.58.dylib": "", "macos/libavutil.56.dylib": "", "macos/libpostproc.55.dylib": "", "macos/libswresample.3.dylib": "", "macos/libswscale.5.dylib": ""}
 windows.x86_64 = {"windows_64/avcodec-58.dll": "", "windows_64/avdevice-58.dll": "", "windows_64/avfilter-7.dll": "", "windows_64/avformat-58.dll": "", "windows_64/avutil-56.dll": "", "windows_64/libwinpthread-1.dll": "", "windows_64/postproc-55.dll": "", "windows_64/swresample-3.dll": "", "windows_64/swscale-5.dll": ""}
 windows.x86_32 = {"windows_32/avcodec-58.dll": "", "windows_32/avdevice-58.dll": "", "windows_32/avfilter-7.dll": "", "windows_32/avformat-58.dll": "", "windows_32/avutil-56.dll": "", "windows_32/libwinpthread-1.dll": "", "windows_32/postproc-55.dll": "", "windows_32/swresample-3.dll": "", "windows_32/swscale-5.dll": ""}
 linux.x86_64 = {"linux_64/libavcodec.so.58": "", "linux_64/libavdevice.so.58": "", "linux_64/libavfilter.so.7": "", "linux_64/libavformat.so.58": "", "linux_64/libavutil.so.56": "", "linux_64/libpostproc.so.55": "", "linux_64/libswresample.so.3": "", "linux_64/libswscale.so.5": ""}
