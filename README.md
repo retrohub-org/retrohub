@@ -10,13 +10,23 @@ RetroHub leverages the [Godot engine](https://godotengine.org/) to provide a pow
 > RetroHub is still in early development. Although it's ready for daily usage, do not move your library setup if you're already using another frontend.
 
 ## Screenshots
-![RetroHub - Main Screen](https://i.imgur.com/tnUWdbC.png)
+![RetroHub - Main Screen](github_media/ss1.png)
+> The default theme, for selecting and launching games while previewing them.
 
-![RetroHub - Game Preview Window](https://user-images.githubusercontent.com/62868183/223935571-c7740cc8-d3ce-402d-b54f-ea0d6bf6f9b4.png)
+![RetroHub - Game Preview Window](github_media/ss2.png)
+> The default theme's game preview window, showing game information and media.
 
-![RetroHub - Edit Game Preview](https://user-images.githubusercontent.com/62868183/223935693-37a741be-5a22-43db-87c5-38884fad204b.png)
+![RetroHub - Edit Game Preview](github_media/ss3.png)
+> Game metadata editor for editing information from the app.
 
-![RetroHub - Configure Emulator](https://user-images.githubusercontent.com/62868183/223935518-a3419d6d-5727-4117-858b-f99723aee010.png)
+![RetroHub - Automatic Scraper](github_media/ss4.png)
+> Automatic scraper for downloading game metadata and media.
+
+![RetroHub - Configure System](github_media/ss5.png)
+> System configuration window for configuring emulators and other system settings.
+
+![RetroHub - Configure Emulator](github_media/ss6.png)
+> Emulator configuration window for configuring emulator settings.
 
 ## Downloads
 
