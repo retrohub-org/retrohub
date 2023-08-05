@@ -167,8 +167,8 @@ jobs:
           lipo -create bin/godot.macos.template_release.x86_64 bin/godot.macos.template_release.arm64 -output bin/godot.macos.template_release.universal
           cp -r misc/dist/macos_template.app .
           mkdir -p -v macos_template.app/Contents/MacOS
-          cp bin/godot.macos.template_release.universal macos_template.app/Contents/MacOS/godot_macos_release.64
-          chmod +x macos_template.app/Contents/MacOS/godot_macos_release.64
+          cp bin/godot.macos.template_release.universal macos_template.app/Contents/MacOS/godot_macos_release.universal
+          chmod +x macos_template.app/Contents/MacOS/godot_macos_release.universal
           zip -q -9 -r macos.zip macos_template.app
           mkdir -p -v ../cached_builds/template
           mv macos.zip ../cached_builds/template
