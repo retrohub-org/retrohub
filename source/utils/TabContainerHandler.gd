@@ -22,6 +22,7 @@ func _ready():
 	if not tab or not tab is TabContainer:
 		push_error("TabContainerHandler has no TabContainer child! Queueing free...")
 		queue_free()
+	tab.tab_clicked.connect(_on_tab_clicked)
 
 func _on_focus_entered():
 	_focused = true
@@ -35,7 +36,8 @@ func _input(event):
 	if is_visible_in_tree():
 		if event.is_action_pressed("rh_left_shoulder") or \
 			(_focused and event.is_action_pressed("ui_left")):
-			get_viewport().set_input_as_handled()
+			if is_key_event_on_text(event):
+				return
 			if tab.current_tab > 0:
 				tab.current_tab -= 1
 			else:
@@ -43,6 +45,8 @@ func _input(event):
 			handle_focus(not _focused)
 		elif event.is_action_pressed("rh_right_shoulder") or \
 			(_focused and event.is_action_pressed("ui_right")):
+			if is_key_event_on_text(event):
+				return
 			get_viewport().set_input_as_handled()
 			if tab.current_tab < tab.get_tab_count() - 1:
 				tab.current_tab += 1
@@ -53,6 +57,15 @@ func _input(event):
 			event.is_action_pressed("rh_accept")):
 			get_viewport().set_input_as_handled()
 			handle_focus(true)
+
+func is_key_event_on_text(event: InputEvent):
+	if event is InputEventKey:
+		var control := get_viewport().gui_get_focus_owner()
+		return (control is LineEdit or control is CodeEdit) and control.editable
+	return false
+
+func _on_tab_clicked(tab_idx: int):
+	handle_focus(not _focused)
 
 func handle_focus(enter_tab: bool):
 	if signal_tab_change:

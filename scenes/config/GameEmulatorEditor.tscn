@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://d7nikimq3mtl"]
+
+[ext_resource type="Script" path="res://scenes/config/GameEmulatorEditor.gd" id="1_l1abn"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="2_1c0xs"]
+[ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="4_cjldn"]
+
+[node name="Emulator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l1abn")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="IntroLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Override default emulator?"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer/IntroLabel"]
+script = ExtResource("2_1c0xs")
+
+[node name="OverrideEmulator" type="CheckButton" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Emulator:"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer2/Label"]
+script = ExtResource("2_1c0xs")
+
+[node name="EmulatorOptions" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+expand_icon = true
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer2/EmulatorOptions"]
+script = ExtResource("2_1c0xs")
+next = NodePath("../../../DisclaimerLabel")
+
+[node name="DisclaimerLabel" type="Label" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "RetroHub will try all these emulators in order until one launches successfully. By overriding this, RetroHub will begin with the chosen emulator, and default to the remaining emulators if it fails."
+autowrap_mode = 2
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/DisclaimerLabel"]
+script = ExtResource("2_1c0xs")
+
+[node name="ScrollHandler" type="Control" parent="ScrollContainer"]
+layout_mode = 2
+script = ExtResource("4_cjldn")
+
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/OverrideEmulator" to="." method="_on_change_ocurred"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer/OverrideEmulator" to="." method="_on_override_emulator_toggled"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer2/EmulatorOptions" to="." method="_on_change_ocurred"]

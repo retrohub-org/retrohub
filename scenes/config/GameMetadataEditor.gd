@@ -1,7 +1,6 @@
 extends Control
 
 signal change_ocurred
-signal reset_state
 
 @onready var n_intro_lbl := %IntroLabel
 @onready var n_name := %Name
@@ -18,8 +17,6 @@ signal reset_state
 @onready var n_variable_players := %VariablePlayers
 @onready var n_variable_players_min := %VariablePlayersMin
 @onready var n_variable_players_max := %VariablePlayersMax
-@onready var n_favorite := %Favorite
-@onready var n_num_times_played := %NumTimesPlayed
 
 var game_data : RetroHubGameData: set = set_game_data
 
@@ -113,8 +110,6 @@ func discard_changes():
 			n_variable_players.set_pressed_no_signal(false)
 			n_variable_players_min.value = 1
 			n_variable_players_max.value = 2
-		n_favorite.set_pressed_no_signal(game_data.favorite)
-		n_num_times_played.value = game_data.play_count
 	else:
 		set_edit_nodes_enabled(false)
 		n_name.text = ""
@@ -131,9 +126,6 @@ func discard_changes():
 		n_variable_players.set_pressed_no_signal(false)
 		n_variable_players_min.value = 1
 		n_variable_players_max.value = 2
-		n_favorite.set_pressed_no_signal(false)
-		n_num_times_played.value = 0
-	emit_signal("reset_state")
 
 func set_edit_nodes_enabled(enabled: bool):
 	if disable_edits:
@@ -151,8 +143,6 @@ func set_edit_nodes_enabled(enabled: bool):
 	n_variable_players.disabled = !enabled
 	n_variable_players_min.editable = enabled
 	n_variable_players_max.editable = enabled
-	n_favorite.disabled = !enabled
-	n_num_times_played.editable = enabled
 
 func save_changes():
 	if game_data:
@@ -177,10 +167,6 @@ func save_changes():
 			game_data.num_players = "%d-%d" % [n_fixed_players_num.value, n_fixed_players_num.value]
 		else:
 			game_data.num_players = "%d-%d" % [n_variable_players_min.value, n_variable_players_max.value]
-		game_data.favorite = n_favorite.button_pressed
-		game_data.play_count = n_num_times_played.value
-		if RetroHubConfig.save_game_data(game_data):
-			emit_signal("reset_state")
 
 func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
