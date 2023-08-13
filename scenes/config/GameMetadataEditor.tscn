@@ -41,7 +41,6 @@ text = "Name:"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer/IntroLabel"]
 script = ExtResource("9")
-previous = NodePath("../../../HBoxContainer10/NumTimesPlayed")
 
 [node name="Name" type="LineEdit" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -248,7 +247,6 @@ text = "Variable"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../../../HBoxContainer9/Favorite")
 min_value = 1.0
 max_value = 1000.0
 value = 1.0
@@ -269,7 +267,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_bottom = NodePath("../../../../HBoxContainer9/Favorite")
 min_value = 2.0
 max_value = 1000.0
 value = 2.0
@@ -282,48 +279,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("8")
 
-[node name="HBoxContainer9" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "Favorite?"
-
-[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer9/Label"]
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMax"]
 script = ExtResource("9")
-
-[node name="Favorite" type="CheckButton" parent="ScrollContainer/VBoxContainer/HBoxContainer9"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="HBoxContainer10" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer10"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "Number of times played:"
-
-[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer10/Label"]
-script = ExtResource("9")
-
-[node name="NumTimesPlayed" type="SpinBox" parent="ScrollContainer/VBoxContainer/HBoxContainer10"]
-unique_name_in_owner = true
-layout_mode = 2
-allow_greater = true
-
-[node name="SpinBoxHandler" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("8")
-
-[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed"]
-script = ExtResource("9")
-next = NodePath("../../../HBoxContainer/IntroLabel")
 
 [node name="ScrollHandler" type="Control" parent="ScrollContainer"]
 layout_mode = 2
@@ -331,8 +288,8 @@ script = ExtResource("7")
 
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer/Name" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer2/Description" to="." method="_on_change_ocurred"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer/Rating" to="." method="_on_change_ocurred"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer/Rating" to="." method="_on_Rating_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer3/HBoxContainer/Rating" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer4/ReleaseDate" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer5/Developer" to="." method="_on_change_ocurred"]
 [connection signal="text_changed" from="ScrollContainer/VBoxContainer/HBoxContainer6/Publisher" to="." method="_on_change_ocurred"]
@@ -342,10 +299,8 @@ script = ExtResource("7")
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayers" to="." method="_on_FixedPlayers_toggled"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_change_ocurred"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer/FixedPlayersNum" to="." method="_on_FixedPlayersNum_value_changed"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_VariablePlayers_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_change_ocurred"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin" to="." method="_on_VariablePlayersMin_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayers" to="." method="_on_VariablePlayers_toggled"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin" to="." method="_on_change_ocurred"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMin" to="." method="_on_VariablePlayersMin_value_changed"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer8/VBoxContainer/HBoxContainer2/VariablePlayersMax" to="." method="_on_change_ocurred"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer9/Favorite" to="." method="_on_change_ocurred"]
-[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer10/NumTimesPlayed" to="." method="_on_change_ocurred"]

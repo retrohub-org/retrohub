@@ -160,6 +160,16 @@ func launch_game() -> void:
 
 func _launch_game_process() -> int:
 	var system_emulators : Array = RetroHubConfig._systems_raw[launched_system_data.name]["emulator"]
+	if !launched_game_data.emulator.is_empty():
+		var key = launched_game_data.emulator
+		# If emulator is retroarch, emulator info is a dictionary
+		if key == "retroarch":
+			for item in system_emulators:
+				if item is Dictionary and item.has("retroarch"):
+					key = item
+					break
+		system_emulators.erase(key)
+		system_emulators.push_front(key)
 	var emulators := RetroHubConfig.emulators_map
 	for system_emulator in system_emulators:
 		var emulator

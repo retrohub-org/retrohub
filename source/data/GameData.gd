@@ -23,6 +23,7 @@ func copy_from(other: RetroHubGameData) -> void:
 	favorite = other.favorite
 	play_count = other.play_count
 	last_played = other.last_played
+	emulator = other.emulator
 
 ## Whether this game already has metadata; if it doesn't, you should
 ## present a much simpler view of it
@@ -83,3 +84,7 @@ var play_count : int
 ## to show this information correctly according to the user's preferences.
 ## May be equal to "null" if game hasn't been played yet
 var last_played : String
+
+## Custom emulator to run this game on, overriding default values.
+## If non-empty, specifies a valid emulator name
+var emulator : String

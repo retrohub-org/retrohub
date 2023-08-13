@@ -373,6 +373,8 @@ func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 	game.play_count = data["play_count"]
 	game.last_played = data["last_played"]
 	game.has_media = data["has_media"]
+	if data.has("emulator"):
+		game.emulator = data["emulator"]
 
 	return true
 
@@ -396,6 +398,7 @@ func save_game_data(game_data: RetroHubGameData) -> bool:
 		"play_count": game_data.play_count,
 		"last_played": game_data.last_played,
 		"has_media": game_data.has_media,
+		"emulator": game_data.emulator
 	}
 
 	var file := FileAccess.open(metadata_path, FileAccess.WRITE)
