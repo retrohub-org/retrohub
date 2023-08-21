@@ -2,7 +2,7 @@ extends Control
 
 var _n_filesystem_popup : FileDialog: set = _set_filesystem_popup
 var _n_virtual_keyboard : PopupPanel: set = _set_virtual_keyboard
-var _n_config_popup : Popup: set = _set_config_popup
+var _n_config_popup : Window: set = _set_config_popup
 var _n_warning_popup : AcceptDialog: set = _set_warning_popup
 
 var color_theme_accent := Color("ffbb89")
@@ -63,7 +63,7 @@ func _set_filesystem_popup(popup: FileDialog):
 func _set_virtual_keyboard(keyboard: PopupPanel):
 	_n_virtual_keyboard = keyboard
 
-func _set_config_popup(config_popup: Popup):
+func _set_config_popup(config_popup: Window):
 	_n_config_popup = config_popup
 
 func _set_warning_popup(warning_popup: AcceptDialog):
