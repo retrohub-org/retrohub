@@ -1,0 +1,17 @@
+[configuration]
+
+entry_symbol = "blurhash_init"
+compatibility_minimum = 4.1
+
+[libraries]
+
+macos.debug = "res://addons/godot-blurhash/macos/libblurhash.template_debug.framework"
+macos.release = "res://addons/godot-blurhash/macos/libblurhash.template_release.framework"
+windows.debug.x86_32 = "res://addons/godot-blurhash/win32/libblurhash.template_debug.x86_32.dll"
+windows.release.x86_32 = "res://addons/godot-blurhash/win32/libblurhash.template_release.x86_32.dll"
+windows.debug.x86_64 = "res://addons/godot-blurhash/win64/libblurhash.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/godot-blurhash/win64/libblurhash.template_release.x86_64.dll"
+linux.debug.x86_32 = "res://addons/godot-blurhash/linux32/libblurhash.template_debug.x86_32.so"
+linux.release.x86_32 = "res://addons/godot-blurhash/linux32/libblurhash.template_release.x86_32.so"
+linux.debug.x86_64 = "res://addons/godot-blurhash/linux64/libblurhash.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/godot-blurhash/linux64/libblurhash.template_release.x86_64.so"

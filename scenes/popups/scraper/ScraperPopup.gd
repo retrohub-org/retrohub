@@ -349,6 +349,7 @@ func _finish_scrape(game_entry: RetroHubScraperGameEntry):
 	call_deferred("incr_num_games_success")
 	call_deferred("decr_num_games_pending")
 	if scrape_data:
+		RetroHubMedia.compute_blurhash(game_entry.game_data)
 		RetroHubConfig.call_deferred("save_game_data", game_entry.game_data)
 
 func _convert_type_to_str(type: int):
