@@ -13,7 +13,7 @@ var game_data : RetroHubGameData: set = set_game_data
 func _ready():
 	#warning-ignore:return_value_discarded
 	RetroHubConfig.game_data_updated.connect(_on_game_data_updated)
-	
+
 	n_emulator_options.get_popup().max_size.y = RetroHubUI.max_popupmenu_height
 
 func _on_game_data_updated(_game_data: RetroHubGameData):
@@ -22,12 +22,14 @@ func _on_game_data_updated(_game_data: RetroHubGameData):
 
 func set_game_data(_game_data: RetroHubGameData) -> void:
 	game_data = _game_data
+	discard_changes()
+	if not game_data: return
+
 	update_emulator_options()
 	for idx in n_emulator_options.item_count:
 		if n_emulator_options.get_item_metadata(idx) == game_data.emulator:
 			n_emulator_options.selected = idx
 			break
-	discard_changes()
 
 func update_emulator_options() -> void:
 	n_emulator_options.clear()
@@ -49,8 +51,12 @@ func update_emulator_options() -> void:
 func discard_changes():
 	if game_data:
 		n_override_emulator.button_pressed = !game_data.emulator.is_empty()
+		n_override_emulator.disabled = false
 	else:
 		n_override_emulator.button_pressed = false
+		n_override_emulator.disabled = true
+		n_emulator_options.disabled = true
+		n_emulator_options.clear()
 
 
 func save_changes():
@@ -61,6 +67,8 @@ func save_changes():
 			game_data.emulator = ""
 
 func grab_focus():
+	if not game_data: return
+
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:
