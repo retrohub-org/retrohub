@@ -20,11 +20,8 @@ static func get_config_path() -> String:
 			# RetroArch on Windows works as a "portable" installation. Config is located beside main files.
 			# Try to find a valid binpath.
 			var emulator : Dictionary = RetroHubConfig.emulators_map["retroarch"]
-			var binpaths : Array = emulator["binpath"]
-			for binpath in binpaths:
-				if FileAccess.file_exists(binpath):
-					return binpath
-			return ""
+			var binpath := RetroHubRetroArchEmulator.find_and_substitute_str(emulator["binpath"], {})
+			return binpath
 		FileUtils.OS_ID.LINUX:
 			# RetroArch uses either XDG_CONFIG_HOME or HOME.
 			var xdg := OS.get_environment("XDG_CONFIG_HOME")
