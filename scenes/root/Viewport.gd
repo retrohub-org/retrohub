@@ -3,7 +3,7 @@ extends SubViewport
 @onready var n_theme_node : Node = $NoTheme
 
 func set_theme(scene: PackedScene):
-	RetroHubMedia._clear_media_cache()
+	RetroHubMedia.clear_all_media_cache()
 	n_theme_node = scene.instantiate()
 	add_child(n_theme_node)
 
