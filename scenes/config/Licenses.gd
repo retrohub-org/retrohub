@@ -18,6 +18,7 @@ func _ready():
 		["MIT (Controller Icons)", "mit_controllericons.txt"],
 		["MIT (Onscreenkeyboard)", "mit_onscreenkeyboard.txt"],
 		["MIT (Godot Accessibility Plugin)", "mit_godot-accessibility.txt"],
+		["MIT (Godot-BlurHash)", "mit_godot-blurhash.txt"],
 		["CC0", "cc0.txt"],
 		["CC BY 4.0", "ccby40.txt"],
 		["CC BY NC SA 4.0", "ccbyncsa40.txt"]
@@ -77,6 +78,8 @@ func convert_license_key(key: String) -> String:
 			return "MIT (Godot Accessibility Plugin)"
 		"mit_godot-tts":
 			return "MIT (Godot TTS)"
+		"mit_godot-blurhash":
+			return "MIT (Godot-BlurHash)"
 		"cc0":
 			return "CC0"
 		"ccby40":

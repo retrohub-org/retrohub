@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bk84lkodndnjq"]
+[gd_scene load_steps=23 format=3 uid="uid://bk84lkodndnjq"]
 
 [ext_resource type="Texture2D" uid="uid://bstmt1kr6ub1d" path="res://assets/icons/app/retrohub_logo_1024px_draft.png" id="1"]
 [ext_resource type="FontFile" path="res://resources/fonts/default_big.tres" id="2"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bu0ju7swsiiy7" path="res://assets/icons/scrapers/screenscraper.png" id="12"]
 [ext_resource type="Script" path="res://source/utils/TabContainerHandler.gd" id="13"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="14"]
+[ext_resource type="Texture2D" uid="uid://c8hlfcx5lgjmv" path="res://assets/copyright/godot-blurhash.png" id="14_6ym5y"]
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="15"]
 [ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="16_d1rm0"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="18"]
@@ -54,6 +55,7 @@ size_flags_vertical = 3
 theme = ExtResource("15")
 
 [node name="About" type="ScrollContainer" parent="TabContainerHandler/TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -456,12 +458,61 @@ script = ExtResource("18")
 [node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility"]
 layout_mode = 2
 
+[node name="godot-blurhash" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/HBoxContainer"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("14_6ym5y")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("10")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5")
+text = "Godot-BlurHash"
+label_settings = SubResource("LabelSettings_r5ag3")
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/HBoxContainer/VBoxContainer/Label"]
+script = ExtResource("18")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Website: [url=https://github.com/rsubtil/godot-blurhash]https://github.com/rsubtil/godot-blurhash[/url]
+License: [url=mit_godot-blurhash]MIT[/url]"
+fit_content = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/HBoxContainer/VBoxContainer/RichTextLabel"]
+script = ExtResource("18")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Addon to generate blurry versions of textures for quick previews. Algorithm developed by [url=https://blurha.sh/]Wolt[/url]"
+fit_content = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/RichTextLabel"]
+script = ExtResource("18")
+
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash"]
+layout_mode = 2
+
 [node name="ScrollHandler" type="Control" parent="TabContainerHandler/TabContainer/Libraries"]
 layout_mode = 2
 script = ExtResource("9")
 
 [node name="Assets" type="ScrollContainer" parent="TabContainerHandler/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets"]
@@ -663,6 +714,8 @@ max_width = 30
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="item_activated" from="TabContainerHandler/TabContainer/Licenses/HBoxContainer/Names" to="TabContainerHandler/TabContainer/Licenses" method="_on_Names_item_activated"]
