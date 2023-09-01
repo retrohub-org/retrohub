@@ -30,7 +30,7 @@ func _raw_input(event: InputEvent):
 		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
 			if not $ConfigPopup.visible:
 				get_viewport().set_input_as_handled()
-				$ConfigPopup.popup()
+				$ConfigPopup.open_config()
 
 func _ready():
 	closed_popup(null)

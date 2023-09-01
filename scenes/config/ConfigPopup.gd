@@ -39,7 +39,7 @@ func _input(event: InputEvent):
 				last_tab = n_game_tab
 			last_tab.grab_focus()
 
-func popup(_rect: Rect2i = Rect2i(0, 0, 0, 0)):
+func open_config():
 	super.popup_centered_ratio(0.8)
 	_on_ConfigPopup_about_to_show()
 

@@ -124,7 +124,7 @@ func get_media_bitmask() -> int:
 
 func _on_Scrape_pressed():
 	n_ss_settings.save_credentials()
-	n_scrape_popup.popup_centered()
+	n_scrape_popup.popup_centered_ratio(0.8)
 	var media_bitmask := get_media_bitmask()
 	# TODO: Make Scraper generation dynamic according to selection
 	var scraper := RetroHubScreenScraperScraper.new()

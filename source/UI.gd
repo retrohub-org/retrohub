@@ -140,7 +140,7 @@ func open_app_config(tab: int = -1):
 			_n_config_popup.n_tab_buttons[tab].grab_focus()
 			_n_config_popup.n_tab_buttons[tab].button_pressed = true
 			_n_config_popup._on_Tab_pressed(tab)
-		_n_config_popup.popup_centered()
+		_n_config_popup.open_config()
 
 func show_warning(text: String):
 	if _n_warning_popup:
