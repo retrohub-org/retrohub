@@ -152,11 +152,11 @@ func launch_game() -> void:
 		RetroHubUI.show_warning(NO_EMULATOR_WARNING_TEXT % curr_game_data.name)
 		return
 	_running_game = true
-	_update_game_statistics()
 	print("Launching game ", launched_game_data.name)
 	RetroHubMedia._stop_thread()
 	emit_signal("_game_loaded", launched_game_data)
 	RetroHubConfig.unload_theme()
+	_update_game_statistics()
 
 func _launch_game_process() -> int:
 	var system_emulators : Array = RetroHubConfig._systems_raw[launched_system_data.name]["emulator"]
