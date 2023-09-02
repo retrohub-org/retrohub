@@ -127,7 +127,7 @@ func try_to_get_text_in_theme(theme, texture):
 	if theme == null:
 		return ""
 
-	for type in theme.get_type_list(""):
+	for type in theme.get_type_list():
 		for icon in theme.get_icon_list(type):
 			var icon_texture = theme.get_icon(icon, type)
 			if icon_texture == texture:
@@ -137,15 +137,13 @@ func try_to_get_text_in_theme(theme, texture):
 
 
 func _get_graphical_button_text(texture):
-	var default_theme_copy = Theme.new()
-	default_theme_copy.copy_default_theme()
 	var current = node
 	while current != null:
 		var text = try_to_get_text_in_theme(current.theme, texture)
 		if text != "":
 			return text
 		current = current.get_parent_control()
-	return try_to_get_text_in_theme(default_theme_copy, texture)
+	return ""
 
 
 func _texturebutton_focused():
