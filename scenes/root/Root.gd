@@ -19,7 +19,8 @@ func _enter_tree():
 
 func _raw_input(event: InputEvent):
 	if not RetroHub._running_game:
-		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time:
+		if event.is_action_pressed("rh_menu") and not RetroHubConfig.config.is_first_time \
+			and not RetroHubUI.is_virtual_keyboard_visible():
 			if not $ConfigPopup.visible:
 				get_viewport().set_input_as_handled()
 				$ConfigPopup.open_config()
@@ -35,6 +36,7 @@ func _ready():
 	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 	# Add popups to UI singleton
+	RetroHubUI._n_theme_viewport = n_viewport
 	RetroHubUI._n_config_popup = n_config_popup
 	RetroHubUI._n_virtual_keyboard = n_keyboard_popup
 

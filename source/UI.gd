@@ -1,7 +1,8 @@
 extends Control
 
+var _n_theme_viewport : Viewport
 var _n_filesystem_popup : FileDialog: set = _set_filesystem_popup
-var _n_virtual_keyboard : PopupPanel: set = _set_virtual_keyboard
+var _n_virtual_keyboard : Window: set = _set_virtual_keyboard
 var _n_config_popup : Window: set = _set_config_popup
 var _n_warning_popup : AcceptDialog: set = _set_warning_popup
 
@@ -60,7 +61,7 @@ func _set_filesystem_popup(popup: FileDialog):
 	#warning-ignore:return_value_discarded
 	_n_filesystem_popup.visibility_changed.connect(_on_visibility_changed)
 
-func _set_virtual_keyboard(keyboard: PopupPanel):
+func _set_virtual_keyboard(keyboard: Window):
 	_n_virtual_keyboard = keyboard
 
 func _set_config_popup(config_popup: Window):
@@ -150,7 +151,7 @@ func show_warning(text: String):
 		_n_warning_popup.get_ok_button().grab_focus()
 
 func get_focused_window() -> Window:
-	var win_id := DisplayServer.get_focused_window_or_popup()
+	var win_id := DisplayServer.get_top_popup_or_focused_window()
 	var win : Window = instance_from_id(win_id)
 	return win
 
@@ -162,9 +163,13 @@ func get_true_focused_control() -> Control:
 
 	# Find currently focused "embedded" window viewport
 	var viewport := win.get_viewport()
+	# Handle theme viewport as well
+	if viewport == get_tree().get_root().get_viewport():
+		viewport = _n_theme_viewport
+
 	while viewport:
-		if viewport.get_focused_window_or_popup() == null:
+		if viewport.get_top_popup_or_focused_window() == null:
 			# Found the innermost viewport
 			return viewport.gui_get_focus_owner()
-		viewport = viewport.get_focused_window_or_popup().get_viewport()
+		viewport = viewport.get_top_popup_or_focused_window().get_viewport()
 	return get_viewport().gui_get_focus_owner()

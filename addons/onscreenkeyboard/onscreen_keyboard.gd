@@ -1,4 +1,4 @@
-extends PopupPanel
+extends Window
 
 enum Direction {
 	UP,
@@ -32,9 +32,11 @@ signal layoutChanged
 
 func _enter_tree():
 	get_tree().get_root().size_changed.connect(size_changed)
-	popup_hide.connect(hide)
 	focus_exited.connect(hide)
 	visible = false
+	transient = true
+	exclusive = true
+	borderless = true
 
 func _ready():
 	RetroHubConfig.config_ready.connect(on_config_ready)
@@ -126,16 +128,23 @@ func _initKeyboard(config_value: String):
 ###########################
 
 var focused_control : Control = null
+var focused_window : Window = null
 
 func show_keyboard(focused_control: Control):
 	self.focused_control = focused_control
 	visible = true
+	
+	# Set window transience
+	focused_window = focused_control.get_viewport().get_window()
 	_showKeyboard()
 	# Skip current frame to avoid double input when opening the keyboard
 
 func hide_keyboard():
 	await _hideKeyboard()
+	if focused_window:
+		focused_window.grab_focus()
 	focused_control = null
+	focused_window = null
 
 func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
@@ -359,6 +368,9 @@ func _createKeyboard(layoutData):
 		layoutContainer.tooltip_text = layout.get("name")
 		layouts.push_back(layoutContainer)
 		add_child(layoutContainer)
+		layoutContainer.set_anchors_preset(Control.PRESET_FULL_RECT, true)
+		layoutContainer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		layoutContainer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		
 		var baseVbox = VBoxContainer.new()
 		baseVbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
