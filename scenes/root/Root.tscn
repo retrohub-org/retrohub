@@ -58,7 +58,7 @@ handle_input_locally = false
 visible = false
 content_scale_aspect = 4
 
-[node name="Keyboard" type="PopupPanel" parent="."]
+[node name="Keyboard" type="Window" parent="."]
 unique_name_in_owner = true
 position = Vector2i(0, 348)
 size = Vector2i(1152, 300)
