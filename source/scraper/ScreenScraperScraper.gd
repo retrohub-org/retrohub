@@ -230,6 +230,8 @@ func _process(_delta):
 		else:
 			_curr_requests[game_data] = [req]
 
+		if not req._http.is_inside_tree():
+			await get_tree().process_frame
 		req.perform_request(req.type == RequestDetails.Type.MEDIA)
 		await req._http.request_completed
 		#warning-ignore:return_value_discarded
@@ -418,7 +420,7 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 
 	var http_client := HTTPClient.new()
 
-	var req : RequestDetails = await _new_request_details(game_data)
+	var req := _new_request_details(game_data)
 	req.type = type
 	req.url = "https://www.screenscraper.fr/api2/jeuInfos.php?" + http_client.query_string_from_dict(header_data)
 	req.data = md5
@@ -447,7 +449,7 @@ func scrape_game_by_search(game_data: RetroHubGameData, search_term: String, typ
 
 	var http_client := HTTPClient.new()
 
-	var req : RequestDetails = await _new_request_details(game_data)
+	var req := _new_request_details(game_data)
 	req.type = type
 	req.url = "https://www.screenscraper.fr/api2/jeuRecherche.php?" + http_client.query_string_from_dict(header_data)
 	return OK
@@ -498,7 +500,7 @@ func scrape_media(game_data: RetroHubGameData, media_type: int) -> int:
 	#warning-ignore:return_value_discarded
 	_req_semaphore.wait()
 
-	var req : RequestDetails = await _new_request_details(game_data)
+	var req := _new_request_details(game_data)
 	req.type = RequestDetails.Type.MEDIA
 	req.url = res["url"]
 	req.data = {"format": res["format"], "type": media_type}
@@ -510,7 +512,7 @@ func scrape_media_from_search(orig_game_data: RetroHubGameData, search_game_data
 		#warning-ignore:return_value_discarded
 		_cached_search_data.erase(orig_game_data)
 
-	return await scrape_media(orig_game_data, media_type)
+	return scrape_media(orig_game_data, media_type)
 
 func scrape_completed(game_data: RetroHubGameData) -> void:
 	#warning-ignore:return_value_discarded
