@@ -2,6 +2,9 @@ extends Window
 
 signal popup_hide
 
+@onready var n_filesystem_popup := %FileSystemPopup
+@onready var n_warning_popup := %WarningPopup
+
 @onready var n_main := %SettingsTab
 @onready var n_game_tab := %GameTab
 @onready var n_panel_container := %PanelContainer
@@ -22,6 +25,9 @@ func _ready():
 	last_tab = n_game_tab
 	n_panel_container.get_parent().custom_minimum_size.y = n_panel_container.size.y
 	n_panel_container.get_parent().update_minimum_size()
+
+	RetroHubUI._n_filesystem_popup = n_filesystem_popup
+	RetroHubUI._n_warning_popup = n_warning_popup
 
 func _input(event: InputEvent):
 	if not RetroHub._running_game:
