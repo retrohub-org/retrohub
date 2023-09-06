@@ -4,26 +4,18 @@ extends Control
 @onready var n_viewport := $SubViewportContainer/SubViewport
 
 @onready var n_config_popup := $ConfigPopup
-@onready var n_filesystem_popup := $FileSystemPopup
 @onready var n_keyboard_popup := %Keyboard
-@onready var n_warning_popup := %WarningPopup
 
-@onready var popup_nodes := [
-	n_config_popup,
-	n_filesystem_popup
-]
-
-@onready var viewport_orig_size := Vector2(1162, 648)
+@onready var viewport_orig_size := Vector2(
+	ProjectSettings.get_setting("display/window/size/viewport_width"),
+	ProjectSettings.get_setting("display/window/size/viewport_height")
+)
 
 var n_last_focused : Control
 var is_popup_open : bool = false
 
-var resources_remap := []
-
 func _enter_tree():
 	load("res://scenes/ui_nodes/AccessibilityFocus.gd").take_over_path("res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd")
-	#resources_remap.append_array([
-	#])
 
 func _raw_input(event: InputEvent):
 	if not RetroHub._running_game:
@@ -43,10 +35,8 @@ func _ready():
 	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 	# Add popups to UI singleton
-	RetroHubUI._n_filesystem_popup = n_filesystem_popup
-	RetroHubUI._n_virtual_keyboard = n_keyboard_popup
 	RetroHubUI._n_config_popup = n_config_popup
-	RetroHubUI._n_warning_popup = n_warning_popup
+	RetroHubUI._n_virtual_keyboard = n_keyboard_popup
 
 	# Handle viewport changes
 	#warning-ignore:return_value_discarded
@@ -84,7 +74,6 @@ func setup_controller_remap(remap_str: String):
 func show_first_time_popup():
 	var first_time_popup : Window = load("res://scenes/popups/first_time/FirstTimePopups.tscn").instantiate()
 	add_child(first_time_popup)
-	popup_nodes.push_back(first_time_popup)
 	#warning-ignore:return_value_discarded
 	first_time_popup.about_to_popup.connect(opened_popup)
 	#warning-ignore:return_value_discarded

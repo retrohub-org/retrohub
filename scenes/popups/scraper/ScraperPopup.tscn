@@ -25,7 +25,6 @@ transient = true
 exclusive = true
 borderless = true
 transparent = true
-popup_window = true
 content_scale_size = Vector2i(953, 542)
 content_scale_mode = 1
 content_scale_aspect = 4
