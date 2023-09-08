@@ -342,12 +342,28 @@ func load_system_gamelists_files(folder_path: String, system_name: String):
 						game.age_rating = "0/0/0"
 						game.has_metadata = false
 				else:
-					game.name = file_name
-					game.age_rating = "0/0/0"
-					game.has_metadata = false
+					_fill_default_game_data(game, file_name)
 				games.push_back(game)
 		file_name = dir.get_next()
 	dir.list_dir_end()
+
+func _fill_default_game_data(game: RetroHubGameData, file_name: String):
+	match game.system.name:
+		"ps3":
+			# PS3 games are stored in a folder with the same name as the game. Try to find it.
+			var path := game.path.get_base_dir()
+			while not path.is_empty():
+				if not path.ends_with("PS3_GAME"):
+					game.name = path.get_file()
+					break
+				path = path.get_base_dir()
+			if path.is_empty():
+				game.name = file_name
+		_:
+			game.name = file_name
+
+	game.age_rating = "0/0/0"
+	game.has_metadata = false
 
 func make_system_folder(system_raw: Dictionary):
 	var path : String = config.games_dir.path_join(system_raw["name"])
@@ -417,11 +433,16 @@ func is_file_from_system(file_name: String, system_name: String) -> bool:
 	var extensions : Array = _systems_raw[system_name]["extension"]
 	var file_extension := ("." + file_name.get_extension()).to_lower()
 	for extension in extensions:
-		if extension.to_lower() == file_extension:
-			return true
+		# Defined as an extension
+		if extension.begins_with("."):
+			if extension.to_lower() == file_extension:
+				return true
+		# Defined as exact file name
+		else:
+			if extension.to_lower() == file_name.to_lower():
+				return true
 
 	return false
-
 
 func load_theme() -> bool:
 	var current_theme := config.current_theme

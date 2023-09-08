@@ -178,6 +178,20 @@ text = "rompath"
 layout_mode = 2
 text = "- Game file full path"
 
+[node name="HBoxContainer5" type="HBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+
+[node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer5"]
+layout_mode = 2
+tooltip_text = "Game/system folder"
+focus_neighbor_right = NodePath("../../HBoxContainer4/VarButton")
+focus_neighbor_bottom = NodePath("../../../HBoxContainer/CoreOption")
+text = "romfolder"
+
+[node name="Label" type="Label" parent="HFlowContainer/HBoxContainer5"]
+layout_mode = 2
+text = "- Game/system folder"
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="HFlowContainer"]
 layout_mode = 2
 
@@ -312,6 +326,7 @@ next = NodePath("../../../Label")
 [connection signal="text_changed" from="HBoxContainer5/Command" to="." method="_on_item_change"]
 [connection signal="pressed" from="HFlowContainer/HBoxContainer/VarButton" to="." method="_on_VarButton_pressed" binds= ["{binpath}"]]
 [connection signal="pressed" from="HFlowContainer/HBoxContainer2/VarButton" to="." method="_on_VarButton_pressed" binds= ["{rompath}"]]
+[connection signal="pressed" from="HFlowContainer/HBoxContainer5/VarButton" to="." method="_on_VarButton_pressed" binds= ["{romfolder}"]]
 [connection signal="pressed" from="HFlowContainer/HBoxContainer3/VarButton" to="." method="_on_VarButton_pressed" binds= ["{corepath}"]]
 [connection signal="pressed" from="HFlowContainer/HBoxContainer4/VarButton" to="." method="_on_VarButton_pressed" binds= ["{corefile}"]]
 [connection signal="item_selected" from="HBoxContainer/CoreOption" to="." method="_on_CoreOption_item_selected"]

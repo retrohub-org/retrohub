@@ -71,9 +71,12 @@
 			{
 				"retroarch": [
 					"caprice32",
-					"crocods"
+					"crocods",
+					"mame"
 				]
-			}
+			},
+			"caprice32",
+			"mame"
 		]
 	},
 	{
@@ -92,7 +95,8 @@
 					"mame"
 				]
 			},
-			"mednafen"
+			"mednafen",
+			"mame"
 		]
 	},
 	{
@@ -119,9 +123,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"atari800"
+					"atari800",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -147,7 +153,8 @@
 				"retroarch": [
 					"hatari"
 				]
-			}
+			},
+			"hatari"
 		]
 	},
 	{
@@ -349,9 +356,12 @@
 			{
 				"retroarch": [
 					"bluemsx",
-					"fmsx"
+					"fmsx",
+					"mame"
 				]
-			}
+			},
+			"mame",
+			"emulicious"
 		]
 	},
 	{
@@ -414,9 +424,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"quasi88"
+					"quasi88",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -537,9 +549,11 @@
 		"emulator": [
 			{
 				"retroarch": [
+					"mame",
 					"x1"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -564,9 +578,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"px68k"
+					"px68k",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -685,23 +701,6 @@
 		]
 	},
 	{
-		"name": "godot",
-		"fullname": "Godot",
-		"category": "engine",
-		"extension": [
-			".pck",
-			".zip"
-		],
-		"platform": "godot",
-		"emulator": [
-			{
-				"retroarch": [
-					"godot"
-				]
-			}
-		]
-	},
-	{
 		"name": "lutro",
 		"fullname": "Lutro",
 		"category": "engine",
@@ -737,7 +736,9 @@
 			".png"
 		],
 		"platform": "pico8",
-		"emulator": []
+		"emulator": [
+			"pico8"
+		]
 	},
 	{
 		"name": "scummvm",
@@ -789,7 +790,8 @@
 				"retroarch": [
 					"tic80"
 				]
-			}
+			},
+			"tic80"
 		]
 	},
 	{
@@ -837,9 +839,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"stella"
+					"stella",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -861,9 +865,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"prosystem"
+					"prosystem",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -908,10 +914,12 @@
 			{
 				"retroarch": [
 					"handy",
-					"beetle-lynx"
+					"beetle-lynx",
+					"mame"
 				]
 			},
-			"mednafen"
+			"mednafen",
+			"mame"
 		]
 	},
 	{
@@ -933,9 +941,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"samecdi"
+					"samecdi",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -958,9 +968,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"freechaf"
+					"freechaf",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -978,10 +990,12 @@
 			{
 				"retroarch": [
 					"bluemsx",
-					"gearcoleco"
+					"gearcoleco",
+					"mame"
 				]
 			},
-			"ares"
+			"ares",
+			"mame"
 		]
 	},
 	{
@@ -1006,7 +1020,8 @@
 				"retroarch": [
 					"flycast"
 				]
-			}
+			},
+			"flycast"
 		]
 	},
 	{
@@ -1031,9 +1046,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"gw"
+					"gw",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -1066,7 +1083,8 @@
 			},
 			"ares",
 			"mednafen",
-			"sameboy"
+			"sameboy",
+			"emulicious"
 		]
 	},
 	{
@@ -1093,7 +1111,9 @@
 				]
 			},
 			"ares",
-			"mednafen"
+			"mgba",
+			"mednafen",
+			"vba-m"
 		]
 	},
 	{
@@ -1190,9 +1210,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"freeintv"
+					"freeintv",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -1210,11 +1232,14 @@
 			{
 				"retroarch": [
 					"genesis-plus-gx",
-					"picodrive"
+					"picodrive",
+					"mame"
 				]
 			},
 			"ares",
-			"mednafen"
+			"mednafen",
+			"mame",
+			"emulicious"
 		]
 	},
 	{
@@ -1278,7 +1303,8 @@
 					"mame",
 					"fbneo"
 				]
-			}
+			},
+			"mame"
 		],
 		"extends": "neogeo"
 	},
@@ -1322,11 +1348,13 @@
 			{
 				"retroarch": [
 					"beetle-ngp",
-					"race"
+					"race",
+					"mame"
 				]
 			},
 			"ares",
-			"mednafen"
+			"mednafen",
+			"mame"
 		]
 	},
 	{
@@ -1349,7 +1377,8 @@
 					"o2em",
 					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -1607,10 +1636,12 @@
 			{
 				"retroarch": [
 					"genesis-plus-gx",
-					"bluemsx"
+					"bluemsx",
+					"mame"
 				]
 			},
-			"ares"
+			"ares",
+			"mame"
 		]
 	},
 	{
@@ -1647,9 +1678,11 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"vecx"
+					"vecx",
+					"mame"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -1722,7 +1755,8 @@
 					"mame2003-plus",
 					"mame2010"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -1768,7 +1802,8 @@
 					"fbneo",
 					"fba2012"
 				]
-			}
+			},
+			"mame"
 		]
 	},
 	{
@@ -1799,13 +1834,12 @@
 		"fullname": "Sony PlayStation 3",
 		"category": "modern_console",
 		"extension": [
-			".self",
-			".elf",
-			".pkg",
-			".iso"
+			"PARAM.sfo"
 		],
 		"platform": "ps3",
-		"emulator": []
+		"emulator": [
+			"rpcs3"
+		]
 	},
 	{
 		"name": "psp",
