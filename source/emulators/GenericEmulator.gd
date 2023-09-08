@@ -7,6 +7,7 @@ var _substitutes := {}
 
 func _init(emulator_raw : Dictionary, game_data : RetroHubGameData):
 	_substitutes["rompath"] = game_data.path
+	_substitutes["romfolder"] = game_data.path.get_base_dir()
 	var binpath := RetroHubGenericEmulator.find_and_substitute_str(emulator_raw["binpath"], _substitutes)
 	if not binpath.is_empty():
 		_substitutes["binpath"] = binpath

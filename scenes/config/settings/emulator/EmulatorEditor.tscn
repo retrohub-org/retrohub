@@ -146,13 +146,26 @@ tooltip_text = "Game file full path"
 focus_neighbor_top = NodePath("../../../HBoxContainer5/Command")
 text = "rompath"
 
-[node name="AccessibilityFocus" type="Node" parent="HFlowContainer/HBoxContainer2/VarButton"]
-script = ExtResource("3")
-next = NodePath("../../../../IntroLabel")
-
 [node name="Label" type="Label" parent="HFlowContainer/HBoxContainer2"]
 layout_mode = 2
 text = "- Game file full path"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+
+[node name="VarButton" type="Button" parent="HFlowContainer/HBoxContainer3"]
+layout_mode = 2
+tooltip_text = "Game file full path"
+focus_neighbor_top = NodePath("../../../HBoxContainer5/Command")
+text = "romfolder"
+
+[node name="AccessibilityFocus" type="Node" parent="HFlowContainer/HBoxContainer3/VarButton"]
+script = ExtResource("3")
+next = NodePath("../../../../IntroLabel")
+
+[node name="Label" type="Label" parent="HFlowContainer/HBoxContainer3"]
+layout_mode = 2
+text = "- Game/system folder"
 
 [connection signal="text_changed" from="HBoxContainer3/Name" to="." method="_on_item_change"]
 [connection signal="text_changed" from="HBoxContainer4/Path" to="." method="_on_item_change"]
@@ -160,3 +173,4 @@ text = "- Game file full path"
 [connection signal="text_changed" from="HBoxContainer5/Command" to="." method="_on_item_change"]
 [connection signal="pressed" from="HFlowContainer/HBoxContainer/VarButton" to="." method="_on_VarButton_pressed" binds= ["{binpath}"]]
 [connection signal="pressed" from="HFlowContainer/HBoxContainer2/VarButton" to="." method="_on_VarButton_pressed" binds= ["{rompath}"]]
+[connection signal="pressed" from="HFlowContainer/HBoxContainer3/VarButton" to="." method="_on_VarButton_pressed" binds= ["{romfolder}"]]

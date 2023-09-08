@@ -1517,5 +1517,235 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "mame",
+		"fullname": "MAME",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/mame/mame.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/mame",
+					"/usr/bin/mame",
+					"/var/lib/flatpak/exports/bin/org.mamedev.MAME"
+				]
+			}
+		],
+		"command": "{binpath} -rompath \"{romfolder}\" \"{rompath}\""
+	},
+	{
+		"name": "flycast",
+		"fullname": "Flycast",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/flycast/flycast.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Flycast.app/Contents/MacOS/Flycast"
+				]
+			},
+			{
+				"linux": [
+					"/bin/flycast",
+					"/usr/bin/flycast",
+					"/var/lib/flatpak/exports/bin/org.flycast.Flycast"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "hatari",
+		"fullname": "Hatari",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/hatari/hatari.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Hatari.app/Contents/MacOS/hatari"
+				]
+			},
+			{
+				"linux": [
+					"/bin/hatari",
+					"/usr/bin/hatari",
+					"/var/lib/flatpak/exports/bin/org.tuxfamily.hatari"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "emulicious",
+		"fullname": "Emulicious",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/emulicious/emulicious.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/emulicious",
+					"/usr/bin/emulicious"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "tic80",
+		"fullname": "TIC-80",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/tic80/tic80.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/tic80.app/Contents/MacOS/tic80"
+				]
+			},
+			{
+				"linux": [
+					"/bin/tic80",
+					"/usr/bin/tic80",
+					"/var/lib/flatpak/exports/bin/com.tic80.TIC_80"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "pico8",
+		"fullname": "PICO-8",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files/PICO-8/pico8.exe",
+					"C:/Program Files (x86)/PICO-8/pico8.exe",
+					"Emulators/pico8/pico8.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/PICO-8.app/Contents/MacOS/pico8"
+				]
+			},
+			{
+				"linux": [
+					"/bin/pico8",
+					"/usr/bin/pico8"
+				]
+			}
+		],
+		"command": "{binpath} -run \"{rompath}\""
+	},
+	{
+		"name": "rpcs3",
+		"fullname": "RPCS3",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/rpcs3/rpcs3.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/RPCS3.app/Contents/MacOS/rpcs3"
+				]
+			},
+			{
+				"linux": [
+					"/bin/rpcs3",
+					"/usr/bin/rpcs3",
+					"/var/lib/flatpak/exports/bin/net.rpcs3.RPCS3"
+				]
+			}
+		],
+		"command": "{binpath} --no-gui \"{romfolder}\""
+	},
+	{
+		"name": "caprice32",
+		"fullname": "Caprice32",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/caprice32/cap32.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Caprice32.app/Contents/MacOS/Caprice32"
+				]
+			},
+			{
+				"linux": [
+					"/bin/cap32",
+					"/usr/bin/cap32"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "mgba",
+		"fullname": "mGBA",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files (x86)/mGBA/mGBA.exe",
+					"C:/Program Files/mGBA/mGBA.exe",
+					"Emulators/mgba/mgba.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/mGBA.app/Contents/MacOS/mGBA"
+				]
+			},
+			{
+				"linux": [
+					"/bin/mgba",
+					"/usr/bin/mgba",
+					"/var/lib/flatpak/exports/bin/io.mgba.mGBA"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "vba-m",
+		"fullname": "VisualBoyAdvance-M",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/vba-m/visualboyadvance-m.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/visualboyadvance-m.app/Contents/MacOS/visualboyadvance-m"
+				]
+			},
+			{
+				"linux": [
+					"/bin/visualboyadvance-m",
+					"/usr/bin/visualboyadvance-m"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
 	}
 ]
