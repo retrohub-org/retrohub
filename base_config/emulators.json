@@ -1747,5 +1747,712 @@
 			}
 		],
 		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "arnold",
+		"fullname": "Arnold",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files (x86)/Arnold Emulator/arnold.exe",
+					"C:/Program Files/Arnold Emulator/arnold.exe",
+					"Emulators/arnold/arnold.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/arnold.app/Contents/MacOS/arnold"
+				]
+			},
+			{
+				"linux": [
+					"/bin/arnold",
+					"/usr/bin/arnold"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "atari800",
+		"fullname": "Atari800",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/atari800/atari800.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Atari800MacX.app/Contents/MacOS/Atari800MacX"
+				]
+			},
+			{
+				"linux": [
+					"/bin/atari800",
+					"/usr/bin/atari800"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "altirra",
+		"fullname": "Altirra",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/altirra/Altirra.exe",
+					"Emulators/altirra/Altirra64.exe"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "beebem",
+		"fullname": "BeebEm",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/BeebEm/BeebEm.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/BeebEm4.app/Contents/MacOS/BeebEm4"
+				]
+			},
+			{
+				"linux": [
+					"/bin/beebem",
+					"/usr/bin/beebem"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "b-em",
+		"fullname": "B-em",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/b-em/B-em.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/b-em",
+					"/usr/bin/b-em"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "denise",
+		"fullname": "Denise",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/denise/Denise.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Denise.app/Contents/MacOS/Denise"
+				]
+			},
+			{
+				"linux": [
+					"/bin/denise",
+					"/usr/bin/denise"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "vice",
+		"fullname": "VICE",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/vice/bin/x64sc.exe",
+					"Emulators/vice/bin/x64.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/x64sc.app/Contents/MacOS/x64sc",
+					"/Applications/xscpu64.app/Contents/MacOS/xscpu64",
+					"/Applications/VICE.app/Contents/MacOS/VICE"
+				]
+			},
+			{
+				"linux": [
+					"/bin/x64",
+					"/bin/x64sc",
+					"/bin/xscpu64",
+					"/usr/bin/x64",
+					"/usr/bin/x64sc",
+					"/usr/bin/xscpu64"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "xroar",
+		"fullname": "XRoar",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/xroar/xroar.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/XRoar.app/Contents/MacOS/xroar"
+				]
+			},
+			{
+				"linux": [
+					"/bin/xroar",
+					"/usr/bin/xroar"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "dosbox",
+		"fullname": "DOSBox",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files (x86)/DOSBox/DOSBox.exe",
+					"Emulators/DOSBox/DOSBox.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/dosbox.app/Contents/MacOS/DOSBox"
+				]
+			},
+			{
+				"linux": [
+					"/bin/dosbox",
+					"/usr/bin/dosbox",
+					"/var/lib/flatpak/exports/bin/com.dosbox.DOSBox"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "openmsx",
+		"fullname": "openMSX",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files (x86)/openMSX/openmsx.exe",
+					"Emulators/openmsx/openmsx.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/openMSX.app/Contents/MacOS/openmsx"
+				]
+			},
+			{
+				"linux": [
+					"/bin/openmsx",
+					"/usr/bin/openmsx",
+					"/var/lib/flatpak/exports/bin/org.openmsx.openMSX"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "oricutron",
+		"fullname": "Oricutron",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/oricutron/oricutron.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Oricutron.app/Contents/MacOS/Oricutron"
+				]
+			},
+			{
+				"linux": [
+					"/bin/oricutron",
+					"/usr/bin/oricutron"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "4do",
+		"fullname": "4DO",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files (x86)/4DO/4DO.exe",
+					"Emulators/4do/4DO.exe"
+				]
+			}
+		],
+		"command": "{binpath} -StartLoadFile \"{rompath}\""
+	},
+	{
+		"name": "simcoupe",
+		"fullname": "SimCoupe",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files/SimCoupe/SimCoupe.exe",
+					"Emulators/simcoupe/SimCoupe.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/SimCoupe.app/Contents/MacOS/SimCoupe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/simcoupe",
+					"/usr/bin/simcoupe"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "stella",
+		"fullname": "Stella",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files/Stella/Stella.exe",
+					"C:/Program Files (x86)/Stella/Stella.exe",
+					"Emulators/stella/64-bit/Stella.exe",
+					"Emulators/stella/32-bit/Stella.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Stella.app/Contents/MacOS/Stella"
+				]
+			},
+			{
+				"linux": [
+					"/bin/stella",
+					"/usr/bin/stella",
+					"/var/lib/flatpak/exports/bin/io.github.stella_emu.Stella"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "redream",
+		"fullname": "redream",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/redream/redream.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/redream.app/Contents/MacOS/redream"
+				]
+			},
+			{
+				"linux": [
+					"/bin/redream",
+					"/usr/bin/redream"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "rmg",
+		"fullname": "Rosalie's Mupen GUI",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/rmg/RMG.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/RMG",
+					"/usr/bin/RMG",
+					"/var/lib/flatpak/exports/bin/com.github.Rosalie241.RMG"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "project64",
+		"fullname": "Project64",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files (x86)/Project64 3.0/",
+					"Emulators/project64/Project64.exe"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "mesen",
+		"fullname": "Mesen",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/mesen/Mesen.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/Mesen",
+					"/usr/bin/Mesen",
+					"/bin/mesen2",
+					"/usr/bin/mesen2"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "play",
+		"fullname": "Play!",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files/Play/Play.exe",
+					"C:/Program Files (x86)/Play/Play.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Play.app/Contents/MacOS/Play"
+				]
+			},
+			{
+				"linux": [
+					"/bin/play-emu",
+					"/usr/bin/play-emu"
+				]
+			}
+		],
+		"command": "{binpath} --disc \"{rompath}\""
+	},
+	{
+		"name": "bsnes",
+		"fullname": "bsnes",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/bsnes/bsnes.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/bsnes.app/Contents/MacOS/bsnes"
+				]
+			},
+			{
+				"linux": [
+					"/bin/bsnes",
+					"/usr/bin/bsnes",
+					"/var/lib/flatpak/exports/bin/dev.bsnes.bsnes"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "mastergear",
+		"fullname": "MasterGear",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/mastergear/MG.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/mg",
+					"/usr/bin/mg"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "xemu",
+		"fullname": "xemu",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/xemu/xemu.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/xemu.app/Contents/MacOS/xemu"
+				]
+			},
+			{
+				"linux": [
+					"/bin/xemu",
+					"/usr/bin/xemu",
+					"/var/lib/flatpak/exports/bin/app.xemu.xemu"
+				]
+			}
+		],
+		"command": "{binpath} -dvd_path \"{rompath}\""
+	},
+	{
+		"name": "frotz",
+		"fullname": "Frotz",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files (x86)/Windows Frotz/Frotz.exe",
+					"Emulators/frotz/Frotz.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/frotz",
+					"/usr/bin/frotz"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "clk",
+		"fullname": "Clock Signal",
+		"binpath": [
+			{
+				"macos": [
+					"/Applications/Clock Signal.app/Contents/MacOS/Clock Signal"
+				]
+			},
+			{
+				"linux": [
+					"/bin/clksignal",
+					"/usr/bin/clksignal"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "eightyone",
+		"fullname": "EightyOne",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/eightyone/EightyOne.exe"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "zesarux",
+		"fullname": "ZEsarUX",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/zesarux/zesarux.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/zesarux.app/Contents/MacOS/zesarux"
+				]
+			},
+			{
+				"linux": [
+					"/bin/zesarux",
+					"/usr/bin/zesarux"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "fuse",
+		"fullname": "Fuse",
+		"binpath": [
+			{
+				"windows": [
+					"C:/Program Files (x86)/Fuse/fuse.exe",
+					"Emulators/fuse/fuse.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Fuse.app/Contents/MacOS/Fuse"
+				]
+			},
+			{
+				"linux": [
+					"/bin/fuse",
+					"/usr/bin/fuse",
+					"/var/lib/flatpak/exports/bin/net.sf.fuse_emulator"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "zdoom",
+		"fullname": "ZDoom",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/zdoom/gzdoom.exe",
+					"Emulators/zdoom/zdoom.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/GZDoom.app/Contents/MacOS/gzdoom",
+					"/Applications/ZDoom.app/Contents/MacOS/zdoom"
+				]
+			},
+			{
+				"linux": [
+					"/bin/gzdoom",
+					"/usr/bin/gzdoom",
+					"/opt/gdzoom/gzdoom",
+					"/bin/zdoom",
+					"/usr/bin/zdoom"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "solarus",
+		"fullname": "Solarus",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/solarus/solarus-run.exe"
+				]
+			},
+			{
+				"macos": [
+					"/Applications/Solarus Launcher.app/Contents/MacOS/solarus-run"
+				]
+			},
+			{
+				"linux": [
+					"/bin/solarus-run",
+					"/usr/bin/solarus-run",
+					"/var/lib/flatpak/exports/bin/org.solarus_games.solarus.Launcher"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "a7800",
+		"fullname": "A7800",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/a7800/a7800.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/a7800",
+					"/usr/bin/a7800"
+				]
+			}
+		],
+		"command": "{binpath} a7800 -cart \"{rompath}\""
+	},
+	{
+		"name": "bigpemu",
+		"fullname": "BigPEmu",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/bigpemu/BigPEmu.exe"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "colem",
+		"fullname": "ColEm",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/colem/ColEm.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/colem",
+					"/usr/bin/colem"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "cuzebox",
+		"fullname": "CUzeBox",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/cuzebox/cuzebox.exe"
+				]
+			},
+			{
+				"linux": [
+					"/bin/cuzebox",
+					"/usr/bin/cuzebox"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\""
+	},
+	{
+		"name": "xenia",
+		"fullname": "Xenia",
+		"binpath": [
+			{
+				"windows": [
+					"Emulators/xenia/xenia.exe"
+				]
+			}
+		],
+		"command": "{binpath} \"{rompath}\" --fullscreen"
 	}
 ]

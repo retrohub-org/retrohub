@@ -98,7 +98,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 
 			generic_info.set_name(emulator["fullname"])
 			if not icon_cache.has(system_emulator):
-				icon_cache[system_emulator] = load("res://assets/emulators/%s.png" % system_emulator)
+				icon_cache[system_emulator] = RetroHubGenericEmulator.load_icon(system_emulator)
 			generic_info.set_logo(icon_cache[system_emulator])
 
 			# Test for binpath first

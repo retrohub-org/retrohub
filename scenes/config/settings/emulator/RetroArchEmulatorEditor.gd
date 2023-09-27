@@ -31,7 +31,7 @@ func _ready():
 
 func set_curr_emulator(_curr_emulator: Dictionary):
 	curr_emulator = _curr_emulator
-	n_logo.icon = load("res://assets/emulators/%s.png" % curr_emulator["name"])
+	n_logo.icon = RetroHubGenericEmulator.load_icon(curr_emulator["name"])
 	n_logo.text = "<click to add>" if not n_logo.icon else ""
 	n_name.text = curr_emulator["name"]
 	n_fullname.text = curr_emulator["fullname"]
