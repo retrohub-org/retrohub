@@ -30,6 +30,12 @@ static func find_path(emulator_def: Dictionary, key: String, substitutes: Dictio
 static func substitute_str(path, substitutes: Dictionary) -> String:
 	return JSONUtils.format_string_with_substitutes(path, substitutes)
 
+static func load_icon(name: String) -> Texture2D:
+	var path := "res://assets/emulators/%s.png" % name
+	if ResourceLoader.exists(path, "Image"):
+		return load(path)
+	return null
+
 func is_valid() -> bool:
 	return not command.is_empty()
 

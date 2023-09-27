@@ -157,7 +157,7 @@ func _on_RemoveSystem_pressed():
 
 
 func _on_SystemEditor_request_add_emulator():
-	n_add_existing_info_popup.start(RetroHubConfig.emulators_map, n_system_editor.curr_system["emulator"], "res://assets/emulators/%s.png","emulator")
+	n_add_existing_info_popup.start(RetroHubConfig.emulators_map, n_system_editor.curr_system["emulator"], "emulator")
 
 
 func _on_AddExistingInfoPopup_identifier_picked(emulator_name: String):

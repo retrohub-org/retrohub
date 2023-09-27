@@ -95,8 +95,11 @@ func load_emulators():
 			emulators_map[child["name"]] = child
 			emulators_map[child["name"]]["#custom"] = true
 		else:
-			emulators_map[child["name"]].merge(child, true)
-			emulators_map[child["name"]]["#modified"] = true
+			if child.has("#delete"):
+				emulators_map.erase(child["name"])
+			else:
+				emulators_map[child["name"]].merge(child, true)
+				emulators_map[child["name"]]["#modified"] = true
 	JSONUtils.make_system_specific(emulators_map, FileUtils.get_os_string())
 	# Load emulator paths
 	emulators_paths = JSONUtils.load_json_file(get_emulator_paths_file())

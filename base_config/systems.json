@@ -76,6 +76,7 @@
 				]
 			},
 			"caprice32",
+			"arnold",
 			"mame"
 		]
 	},
@@ -127,6 +128,8 @@
 					"mame"
 				]
 			},
+			"atari800",
+			"altirra",
 			"mame"
 		]
 	},
@@ -173,7 +176,10 @@
 			".zip"
 		],
 		"platform": "bbcmicro",
-		"emulator": []
+		"emulator": [
+			"beebem",
+			"b-em"
+		]
 	},
 	{
 		"name": "c64",
@@ -228,7 +234,9 @@
 					"vice128",
 					"frodo"
 				]
-			}
+			},
+			"denise",
+			"vice"
 		]
 	},
 	{
@@ -254,7 +262,9 @@
 			".dgn"
 		],
 		"platform": "coco",
-		"emulator": []
+		"emulator": [
+			"xroar"
+		]
 	},
 	{
 		"name": "dos",
@@ -285,7 +295,8 @@
 					"dosbox",
 					"dosboxpure"
 				]
-			}
+			},
+			"dosbox"
 		]
 	},
 	{
@@ -361,6 +372,7 @@
 				]
 			},
 			"mame",
+			"openmsx",
 			"emulicious"
 		]
 	},
@@ -385,7 +397,9 @@
 			".wav"
 		],
 		"platform": "oric",
-		"emulator": []
+		"emulator": [
+			"oricutron"
+		]
 	},
 	{
 		"name": "palm",
@@ -480,7 +494,8 @@
 				"retroarch": [
 					"simcoupe"
 				]
-			}
+			},
+			"simcoupe"
 		]
 	},
 	{
@@ -501,7 +516,14 @@
 			".ctg"
 		],
 		"platform": "ti99",
-		"emulator": []
+		"emulator": [
+			{
+				"retroarch": [
+					"mame"
+				]
+			},
+			"mame"
+		]
 	},
 	{
 		"name": "to8",
@@ -521,7 +543,9 @@
 			".zip"
 		],
 		"platform": "trs-80",
-		"emulator": []
+		"emulator": [
+			"xroar"
+		]
 	},
 	{
 		"name": "vic20",
@@ -602,7 +626,9 @@
 			".zip"
 		],
 		"platform": "zmachine",
-		"emulator": []
+		"emulator": [
+			"frotz"
+		]
 	},
 	{
 		"name": "zx81",
@@ -619,7 +645,10 @@
 				"retroarch": [
 					"eightyone"
 				]
-			}
+			},
+			"clk",
+			"eightyone",
+			"zesarux"
 		]
 	},
 	{
@@ -644,25 +673,13 @@
 		"emulator": [
 			{
 				"retroarch": [
-					"fuse"
+					"fuse",
+					"eightyone"
 				]
-			}
-		]
-	},
-	{
-		"name": "cavestory",
-		"fullname": "Cave Story (NXEngine)",
-		"category": "engine",
-		"extension": [
-			".exe"
-		],
-		"platform": "cavestory",
-		"emulator": [
-			{
-				"retroarch": [
-					"nxengine"
-				]
-			}
+			},
+			"fuse",
+			"eightyone",
+			"zesarux"
 		]
 	},
 	{
@@ -697,7 +714,8 @@
 				"retroarch": [
 					"prboom"
 				]
-			}
+			},
+			"zdoom"
 		]
 	},
 	{
@@ -718,16 +736,6 @@
 		]
 	},
 	{
-		"name": "openbor",
-		"fullname": "OpenBOR",
-		"category": "engine",
-		"extension": [
-			".pak"
-		],
-		"platform": "openbor",
-		"emulator": []
-	},
-	{
 		"name": "pico8",
 		"fullname": "PICO-8",
 		"category": "engine",
@@ -745,7 +753,8 @@
 		"fullname": "ScummVM",
 		"category": "engine",
 		"extension": [
-			".scummvm"
+			".scummvm",
+			".svm"
 		],
 		"platform": "scummvm",
 		"emulator": [
@@ -764,18 +773,9 @@
 			".solarus"
 		],
 		"platform": "solarus",
-		"emulator": []
-	},
-	{
-		"name": "stratagus",
-		"fullname": "Stratagus",
-		"category": "engine",
-		"extension": [
-			".exe",
-			""
-		],
-		"platform": "stratagus",
-		"emulator": []
+		"emulator": [
+			"solarus"
+		]
 	},
 	{
 		"name": "tic80",
@@ -811,7 +811,8 @@
 				"retroarch": [
 					"opera"
 				]
-			}
+			},
+			"4do"
 		]
 	},
 	{
@@ -843,6 +844,7 @@
 					"mame"
 				]
 			},
+			"stella",
 			"mame"
 		]
 	},
@@ -869,6 +871,7 @@
 					"mame"
 				]
 			},
+			"a7800",
 			"mame"
 		]
 	},
@@ -891,13 +894,16 @@
 				"retroarch": [
 					"virtualjaguar"
 				]
-			}
+			},
+			"bigpemu"
 		]
 	},
 	{
 		"name": "atarijaguarcd",
 		"fullname": "Atari Jaguar CD",
-		"emulator": [],
+		"emulator": [
+			"bigpemu"
+		],
 		"extends": "atarijaguar"
 	},
 	{
@@ -995,6 +1001,7 @@
 				]
 			},
 			"ares",
+			"colem",
 			"mame"
 		]
 	},
@@ -1021,7 +1028,8 @@
 					"flycast"
 				]
 			},
-			"flycast"
+			"flycast",
+			"redream"
 		]
 	},
 	{
@@ -1084,7 +1092,8 @@
 			"ares",
 			"mednafen",
 			"sameboy",
-			"emulicious"
+			"emulicious",
+			"mesen"
 		]
 	},
 	{
@@ -1269,7 +1278,9 @@
 				]
 			},
 			"mupen64plus",
-			"ares"
+			"ares",
+			"rmg",
+			"project64"
 		]
 	},
 	{
@@ -1331,7 +1342,8 @@
 			},
 			"ares",
 			"mednafen",
-			"nestopia"
+			"nestopia",
+			"mesen"
 		]
 	},
 	{
@@ -1410,7 +1422,8 @@
 				]
 			},
 			"ares",
-			"mednafen"
+			"mednafen",
+			"mesen"
 		]
 	},
 	{
@@ -1495,7 +1508,8 @@
 					"play!"
 				]
 			},
-			"pcsx2"
+			"pcsx2",
+			"play"
 		]
 	},
 	{
@@ -1595,7 +1609,9 @@
 			},
 			"snes9x",
 			"ares",
-			"mednafen"
+			"mednafen",
+			"mesen",
+			"bsnes"
 		]
 	},
 	{
@@ -1641,7 +1657,8 @@
 				]
 			},
 			"ares",
-			"mame"
+			"mame",
+			"mastergear"
 		]
 	},
 	{
@@ -1662,7 +1679,8 @@
 				"retroarch": [
 					"uzem"
 				]
-			}
+			},
+			"cuzebox"
 		]
 	},
 	{
@@ -1737,7 +1755,9 @@
 			".iso"
 		],
 		"platform": "xbox",
-		"emulator": []
+		"emulator": [
+			"xemu"
+		]
 	},
 	{
 		"name": "arcade",
@@ -1914,9 +1934,12 @@
 		"fullname": "Microsoft Xbox 360",
 		"category": "modern_console",
 		"extension": [
+			".iso",
 			".xex"
 		],
 		"platform": "xbox360",
-		"emulator": []
+		"emulator": [
+			"xenia"
+		]
 	}
 ]

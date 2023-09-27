@@ -42,7 +42,7 @@ func update_emulator_options() -> void:
 		else:
 			emu_short_name = system_emulator
 		if RetroHubConfig.emulators_map.has(emu_short_name):
-			var emu_logo := load("res://assets/emulators/%s.png" % emu_short_name)
+			var emu_logo := RetroHubGenericEmulator.load_icon(emu_short_name)
 			n_emulator_options.add_icon_item(emu_logo, RetroHubConfig.emulators_map[emu_short_name]["fullname"])
 		else:
 			n_emulator_options.add_item(emu_short_name)

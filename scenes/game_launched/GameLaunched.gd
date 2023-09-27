@@ -49,7 +49,7 @@ func _input(event):
 		n_timer.start()
 
 func _ready():
-	n_emu_logo.texture = load("res://assets/emulators/%s.png" % RetroHub.launched_emulator["name"])
+	n_emu_logo.texture = RetroHubGenericEmulator.load_icon(RetroHub.launched_emulator["name"])
 	n_game_name.text = game_name_orig_text % RetroHub.launched_game_data.name
 	n_emu_name.text = emu_name_orig_text % RetroHub.launched_emulator["fullname"]
 

@@ -29,7 +29,9 @@ func make_system_specific(json: Dictionary, curr_system: String):
 		var value = json[key]
 		if value is Array:
 			# Possibly the thing we are looking for, test further
-			if value.size() and value[0] is Dictionary and value[0].has("windows"):
+			if value.size() and value[0] is Dictionary and (
+				value[0].has("windows") or value[0].has("macos") or value[0].has("linux")
+			):
 				# Found system-specific data
 				var found := false
 				for system in value:
@@ -39,7 +41,7 @@ func make_system_specific(json: Dictionary, curr_system: String):
 						break
 
 				if not found:
-					push_error("Error, JSON doesn't have required system, leaving as is...")
+					json[key] = []
 			else:
 				# Not what we're looking for, recurse it
 				for arr_value in value:
