@@ -118,9 +118,6 @@ focus_neighbor_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelect
 [node name="VarButton" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2" index="0"]
 focus_neighbor_bottom = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
 
-[node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor/HFlowContainer/HBoxContainer2/VarButton" index="0"]
-next = NodePath("../../../../../../../HBoxContainer/EmulatorSelection")
-
 [node name="ScrollHandler" type="Control" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer"]
 layout_mode = 2
 script = ExtResource("5")
@@ -145,9 +142,6 @@ focus_neighbor_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection
 
 [node name="LoadCoreFileName" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8" index="2"]
 focus_neighbor_bottom = NodePath("../../../../../HBoxContainer/EmulatorSelection")
-
-[node name="AccessibilityFocus" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor/HBoxContainer8/LoadCoreFileName" index="0"]
-next = NodePath("../../../../../../HBoxContainer/EmulatorSelection")
 
 [node name="ScrollHandler" type="Control" parent="VBoxContainer/EmulatorEditorsTab/ScrollContainer2"]
 layout_mode = 2

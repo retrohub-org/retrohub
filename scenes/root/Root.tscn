@@ -60,7 +60,7 @@ content_scale_aspect = 4
 
 [node name="Keyboard" type="Window" parent="."]
 unique_name_in_owner = true
-position = Vector2i(0, 348)
+position = Vector2i(0, 648)
 size = Vector2i(1152, 300)
 always_on_top = true
 theme = ExtResource("5")

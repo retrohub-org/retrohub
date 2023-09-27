@@ -65,3 +65,8 @@ func _on_LoadPath_pressed():
 	if not path.is_empty():
 		n_path.text = path
 		emit_signal("change_ocurred")
+
+
+func _on_run_emulator_pressed():
+	var path : String = n_path.text
+	OS.create_process(path, [])
