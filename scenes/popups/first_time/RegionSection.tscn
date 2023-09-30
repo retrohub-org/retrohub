@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://be11gat16xuto"]
 
-[ext_resource type="PackedScene" path="res://scenes/ui_nodes/AgeRatingTextureRect.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://77ye7lqgs7p4" path="res://scenes/ui_nodes/AgeRatingTextureRect.tscn" id="1"]
 [ext_resource type="Script" path="res://scenes/popups/first_time/DateContainer.gd" id="2"]
 [ext_resource type="Script" path="res://scenes/popups/first_time/RatingContainer.gd" id="3"]
 [ext_resource type="Script" path="res://scenes/popups/first_time/RegionSection.gd" id="4"]
@@ -23,6 +23,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("4")
@@ -138,36 +140,26 @@ layout_mode = 2
 custom_minimum_size = Vector2(72, 90)
 layout_mode = 2
 texture = ExtResource("8")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="2" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer/RatingIcons" instance=ExtResource("1")]
 custom_minimum_size = Vector2(72, 90)
 layout_mode = 2
 texture = ExtResource("5")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="3" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer/RatingIcons" instance=ExtResource("1")]
 custom_minimum_size = Vector2(72, 90)
 layout_mode = 2
 texture = ExtResource("7")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="4" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer/RatingIcons" instance=ExtResource("1")]
 custom_minimum_size = Vector2(72, 90)
 layout_mode = 2
 texture = ExtResource("6")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="5" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/RatingContainer/RatingIcons" instance=ExtResource("1")]
 custom_minimum_size = Vector2(72, 90)
 layout_mode = 2
 texture = ExtResource("9")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2

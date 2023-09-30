@@ -8,7 +8,7 @@ signal advance_section
 
 func grab_focus():
 	TTS.speak("To enable the screen reader, press the Control key.")
-	RetroHubConfig.config.accessibility_screen_reader_enabled = false
+	_on_ScreenReader_toggled(false)
 	n_next_button.grab_focus()
 
 func _input(event):
