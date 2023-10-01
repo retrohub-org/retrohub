@@ -74,7 +74,8 @@ layout_mode = 2
 texture = ExtResource("1")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MoveSection/HBoxContainer"]
+[node name="MoveAdvantage" type="Label" parent="Panel/VBoxContainer/HBoxContainer/MoveSection/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Doesn't require significantly more disk space"
@@ -140,7 +141,8 @@ layout_mode = 2
 texture = ExtResource("2")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/CopySection/HBoxContainer2"]
+[node name="CopyDisadvantage" type="Label" parent="Panel/VBoxContainer/HBoxContainer/CopySection/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "May take considerable disk space:"
@@ -149,7 +151,8 @@ autowrap_mode = 2
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/CopySection"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/CopySection/HBoxContainer3"]
+[node name="SizeLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer/CopySection/HBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Estimated size: "
 
@@ -162,7 +165,8 @@ autowrap_mode = 2
 [node name="HBoxContainer4" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/CopySection"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer/CopySection/HBoxContainer4"]
+[node name="SpaceLeftLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer/CopySection/HBoxContainer4"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Current space left: "
 
