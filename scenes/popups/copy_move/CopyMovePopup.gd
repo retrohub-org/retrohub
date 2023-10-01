@@ -98,14 +98,14 @@ func tts_text(focused: Control) -> String:
 			return ""
 
 func tts_move_section() -> String:
-	return %MoveFiles.text + ". Advantage: " + $VBoxContainer/HBoxContainer/MoveSection/HBoxContainer/Label.text \
+	return %MoveFiles.text + ". Advantage: " + %MoveAdvantage.text \
 		+ ". Disadvantage: " + %MoveDisadvantage.text
 
 func tts_copy_section() -> String:
 	return %CopyFiles.text + ". Advantage: " + %CopyAdvantage.text \
-		+ ". Disadvantage: " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer2/Label.text \
-		+ ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer3/Label.text \
-		+ %Size.text + ". " + $VBoxContainer/HBoxContainer/CopySection/HBoxContainer4/Label.text \
+		+ ". Disadvantage: " + %CopyDisadvantage.text \
+		+ ". " + %SizeLabel.text \
+		+ %Size.text + ". " + %SpaceLeftLabel.text \
 		+ %SpaceLeft.text
 
 func tts_move_copy_button() -> String:
