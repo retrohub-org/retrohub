@@ -38,6 +38,7 @@ func _input(event):
 			(_focused and event.is_action_pressed("ui_left")):
 			if is_key_event_on_text(event):
 				return
+			get_viewport().set_input_as_handled()
 			if tab.current_tab > 0:
 				tab.current_tab -= 1
 			else:
