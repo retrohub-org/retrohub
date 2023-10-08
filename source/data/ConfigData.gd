@@ -35,6 +35,7 @@ var virtual_keyboard_type : String = ConfigData.default_virtual_keyboard_type():
 var virtual_keyboard_show_on_controller : bool = true: set = _set_virtual_keyboard_show_on_controller
 var virtual_keyboard_show_on_mouse : bool = false: set = _set_virtual_keyboard_show_on_mouse
 var accessibility_screen_reader_enabled : bool = true: set = _set_accessibility_screen_reader_enabled
+var custom_gamemedia_dir : String = "": set = _set_custom_gamemedia_dir
 
 const KEY_CONFIG_VERSION = "config_version"
 const KEY_IS_FIRST_TIME = "is_first_time"
@@ -64,6 +65,7 @@ const KEY_VIRTUAL_KEYBOARD_TYPE = "virtual_keyboard_type"
 const KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER = "virtual_keyboard_show_on_controller"
 const KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE = "virtual_keyboard_show_on_mouse"
 const KEY_ACCESSIBILITY_SCREEN_READER_ENABLED = "accessibility_screen_reader_enabled"
+const KEY_CUSTOM_GAMEMEDIA_DIR = "custom_gamemedia_dir"
 
 
 const _keys = [
@@ -94,7 +96,8 @@ const _keys = [
 	KEY_VIRTUAL_KEYBOARD_TYPE,
 	KEY_VIRTUAL_KEYBOARD_SHOW_ON_CONTROLLER,
 	KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE,
-	KEY_ACCESSIBILITY_SCREEN_READER_ENABLED
+	KEY_ACCESSIBILITY_SCREEN_READER_ENABLED,
+	KEY_CUSTOM_GAMEMEDIA_DIR
 ]
 
 var _should_save : bool = true
@@ -295,6 +298,10 @@ func _set_virtual_keyboard_show_on_mouse(_virtual_keyboard_show_on_mouse):
 func _set_accessibility_screen_reader_enabled(_accessibility_screen_reader_enabled):
 	mark_for_saving()
 	accessibility_screen_reader_enabled = _accessibility_screen_reader_enabled
+
+func _set_custom_gamemedia_dir(_custom_gamemedia_dir):
+	mark_for_saving()
+	custom_gamemedia_dir = _custom_gamemedia_dir
 
 func mark_for_saving():
 	if _should_save:

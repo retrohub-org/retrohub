@@ -721,4 +721,6 @@ func get_gamelists_dir() -> String:
 	return get_config_dir() + "/gamelists"
 
 func get_gamemedia_dir() -> String:
+	if not config.custom_gamemedia_dir.is_empty():
+		return config.custom_gamemedia_dir
 	return get_config_dir() + "/gamemedia"
