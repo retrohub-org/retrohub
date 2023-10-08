@@ -1,9 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://bk84lkodndnjq"]
+[gd_scene load_steps=21 format=3 uid="uid://bk84lkodndnjq"]
 
-[ext_resource type="Texture2D" uid="uid://bstmt1kr6ub1d" path="res://assets/icons/app/retrohub_logo_1024px_draft.png" id="1"]
-[ext_resource type="FontFile" path="res://resources/fonts/default_big.tres" id="2"]
 [ext_resource type="Script" path="res://scenes/config/AboutSettings.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://dv8tl1d8ejsst" path="res://assets/copyright/godot.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bypnxjblq7vjf" path="res://assets/icons/app/retrohub_text.png" id="4_131j0"]
 [ext_resource type="FontFile" path="res://resources/fonts/default_medium.tres" id="5"]
 [ext_resource type="Texture2D" uid="uid://cm45bgv2t63w6" path="res://assets/copyright/ffmpeg.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://d11fwymn4jmlw" path="res://assets/copyright/controller_icons.png" id="7"]
@@ -19,9 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="16_d1rm0"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="18"]
 [ext_resource type="Texture2D" uid="uid://xe4n818le3p8" path="res://addons/controller_icons/assets/key/e.png" id="18_c0cgg"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_2bj1i"]
-font_size = 48
 
 [sub_resource type="LabelSettings" id="LabelSettings_r5ag3"]
 font_size = 30
@@ -55,7 +51,6 @@ size_flags_vertical = 3
 theme = ExtResource("15")
 
 [node name="About" type="ScrollContainer" parent="TabContainerHandler/TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -69,32 +64,28 @@ size_flags_vertical = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(128, 128)
+[node name="Logo" type="TextureRect" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 128)
 layout_mode = 2
-texture = ExtResource("1")
+texture = ExtResource("4_131j0")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("10")
 
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/Logo"]
+script = ExtResource("18")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
-
-[node name="Name" type="Label" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2")
-text = "RetroHub"
-label_settings = SubResource("LabelSettings_2bj1i")
-
-[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer/Name"]
-script = ExtResource("18")
 
 [node name="Version" type="Label" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Version %s"
+autowrap_mode = 2
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer/Version"]
 script = ExtResource("18")
@@ -103,13 +94,14 @@ script = ExtResource("18")
 unique_name_in_owner = true
 layout_mode = 2
 text = "Engine version %s"
+autowrap_mode = 3
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer/EngineVersion"]
 script = ExtResource("18")
 
 [node name="HFlowContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 
 [node name="OpenWebsiteButton" type="Button" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
@@ -129,7 +121,7 @@ layout_mode = 2
 layout_mode = 2
 bbcode_enabled = true
 text = "Copyright (C) 2021-present Ricardo Subtil ([url=https://github.com/rsubtil/]@rsubtil[/url])
-Icon designed by [url=https://github.com/lynnpepin]@lynnpepin[/url], distributed under [url=ccby40]CC-BY-4.0[/url]"
+Origianl icon designed by [url=https://github.com/lynnpepin]@lynnpepin[/url], distributed under [url=ccby40]CC-BY-4.0[/url]"
 fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/Text"]
@@ -513,6 +505,7 @@ layout_mode = 2
 script = ExtResource("9")
 
 [node name="Assets" type="ScrollContainer" parent="TabContainerHandler/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets"]
