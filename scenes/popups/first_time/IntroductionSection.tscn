@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://r43pbae1np4f"]
 
 [ext_resource type="Script" path="res://scenes/popups/first_time/IntroductionSection.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bstmt1kr6ub1d" path="res://assets/icons/app/retrohub_logo_1024px_draft.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bypnxjblq7vjf" path="res://assets/icons/app/retrohub_text.png" id="2_g5r6r"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="3"]
 
 [node name="IntroductionSection" type="Control"]
@@ -24,11 +24,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-custom_minimum_size = Vector2(256, 256)
+custom_minimum_size = Vector2(0, 256)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 10
-texture = ExtResource("2")
+texture = ExtResource("2_g5r6r")
 expand_mode = 1
 stretch_mode = 5
 

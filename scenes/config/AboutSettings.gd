@@ -3,7 +3,7 @@ extends Control
 const WEBSITE_URL := "https://github.com/retrohub-org/retrohub"
 const ISSUES_URL := "https://github.com/retrohub-org/retrohub/issues"
 
-@onready var n_name := %Name
+@onready var n_logo := %Logo
 @onready var n_version := %Version
 @onready var n_engine_version := %EngineVersion
 @onready var n_gpl_text := %GPLText
@@ -28,7 +28,7 @@ func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		match n_tabs.current_tab:
 			0: # About RetroHub
-				n_name.grab_focus()
+				n_logo.grab_focus()
 			1: # Libraries
 				n_libraries_intro_lbl.grab_focus()
 			2: # Assets
