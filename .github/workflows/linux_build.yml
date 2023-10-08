@@ -15,11 +15,13 @@ jobs:
           - name: 32 Bits
             arch: x86_32
             bin: godot.linuxbsd.template_release.x86_32
+            editor_bin: godot.linuxbsd.editor.x86_32
             template: godot_32
             videodecoder: linux_32
           - name: 64 Bits
             arch: x86_64
             bin: godot.linuxbsd.template_release.x86_64
+            editor_bin: godot.linuxbsd.editor.x86_64
             template: godot_64
             videodecoder: linux_64
 
@@ -54,7 +56,7 @@ jobs:
         continue-on-error: true
 
       - name: "Checkout Custom Godot"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+        if: steps.cache_template.outputs.cache-hit != 'true' || steps.cache_editor.outputs.cache-hit != 'true'
         uses: actions/checkout@v3
         with:
           repository: retrohub-org/godot
@@ -80,7 +82,7 @@ jobs:
           cp -r -v target/* ../cached_builds/videodecoder
 
       - name: "[Godot] Dependencies"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+        if: steps.cache_template.outputs.cache-hit != 'true' || steps.cache_editor.outputs.cache-hit != 'true'
         working-directory: ./godot
         shell: bash
         run: |
@@ -96,15 +98,25 @@ jobs:
               libxi-dev:i386 libxrandr-dev libxrandr-dev:i386 yasm xvfb wget unzip
 
       - name: "[Godot] Setup Godot build cache"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+        if: steps.cache_template.outputs.cache-hit != 'true' || steps.cache_editor.outputs.cache-hit != 'true'
         uses: ./godot/.github/actions/godot-cache
         with:
           cache-name: linux-template
         continue-on-error: true
 
       - name: "[Godot] Setup python and scons"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+        if: steps.cache_template.outputs.cache-hit != 'true' || steps.cache_editor.outputs.cache-hit != 'true'
         uses: ./godot/.github/actions/godot-deps
+
+      - name: "[Godot] Compilation [editor]"
+        if: steps.cache_editor.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-build
+        with:
+          root: ./godot
+          sconsflags: verbose=yes dev_mode=yes optimize=none arch=${{ matrix.arch }}
+          platform: linuxbsd
+          target: editor
+          tools: false
 
       - name: "[Godot] Compilation [template]"
         if: steps.cache_template.outputs.cache-hit != 'true'
@@ -122,18 +134,25 @@ jobs:
           strip godot/bin/*
           mkdir -p -v cached_builds/template
           [[ -e godot/bin/${{ matrix.bin }} ]] && mv godot/bin/${{ matrix.bin }} cached_builds/template/${{ matrix.template }}
-
-      - name: "[Godot] Download editor"
+      
+      - name: "[Godot] Clean and cache editor build"
         if: steps.cache_editor.outputs.cache-hit != 'true'
         run: |
-          wget https://downloads.tuxfamily.org/godotengine/4.1/Godot_v4.1-stable_linux.x86_64.zip
-          unzip Godot_v4.1-stable_linux.x86_64.zip
+          strip godot/bin/*
           mkdir -p -v cached_builds/editor
-          mv Godot_v4.1-stable_linux.x86_64 cached_builds/editor/godot
+          [[ -e godot/bin/${{ matrix.editor_bin }} ]] && mv godot/bin/${{ matrix.editor_bin }} cached_builds/editor/godot
+
+      #- name: "[Godot] Download editor"
+      #  if: steps.cache_editor.outputs.cache-hit != 'true'
+      #  run: |
+      #    wget https://downloads.tuxfamily.org/godotengine/4.1/Godot_v4.1-stable_linux.x86_64.zip
+      #    unzip Godot_v4.1-stable_linux.x86_64.zip
+      #    mkdir -p -v cached_builds/editor
+      #    mv Godot_v4.1-stable_linux.x86_64 cached_builds/editor/godot
 
       - name: "Setup templates and libraries"
         env:
-          TEMPLATE_PATH: /home/runner/.local/share/godot/export_templates/4.1.stable
+          TEMPLATE_PATH: /home/runner/.local/share/godot/export_templates/4.2.retrohub
         run: |
           mkdir -p -v $TEMPLATE_PATH
           cp cached_builds/template/${{ matrix.template }} $TEMPLATE_PATH/linux_release.${{ matrix.arch }}
@@ -150,6 +169,8 @@ jobs:
       - name: "Exporting RetroHub"
         working-directory: retrohub
         run: |
+          pwd
+          ../cached_builds/editor/godot --headless -e --quit
           ../cached_builds/editor/godot --headless --export-release "Linux (${{ matrix.arch }})" ../export/linux_${{ matrix.arch }}/RetroHub
           chmod +x ../export/linux_${{ matrix.arch }}/RetroHub
 
