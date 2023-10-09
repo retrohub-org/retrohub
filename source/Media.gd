@@ -372,3 +372,51 @@ func compute_blurhash(game_data: RetroHubGameData) -> void:
 	FileUtils.ensure_path(file_path)
 	JSONUtils.save_json_file(json_data, file_path)
 
+func get_box_texture_region(data: RetroHubGameData, media: RetroHubGameMediaData, type: RetroHubGameData.BoxTextureRegions, rotate: bool = true) -> Texture2D:
+	if not data.box_texture_regions.has(type) or not media.box_texture:
+		return null
+
+	var coords_raw : Rect2 = data.box_texture_regions[type]
+	var _offset_1 := coords_raw.position
+	var _offset_2 := coords_raw.size
+
+	var offset : Vector2
+	var size : Vector2
+	var rotation : int = 0
+
+	# Coords embed text direction. We infer it by the xy ordering of both coords.
+	# 90 degrees (text up-to-down)
+	if _offset_1.x >= _offset_2.x and _offset_1.y < _offset_2.y:
+		offset = Vector2(_offset_2.x, _offset_1.y)
+		size = Vector2(_offset_1.x, _offset_2.y) - offset
+		rotation = 90
+	# 180 degrees (text right-to-left)
+	elif _offset_1.x >= _offset_2.x and _offset_1.y >= _offset_2.y:
+		offset = Vector2(_offset_2.x, _offset_2.y)
+		size = Vector2(_offset_1.x, _offset_1.y) - offset
+		rotation = 180
+	# -90 degrees (text down-to-up)
+	elif _offset_1.x < _offset_2.x and _offset_1.y >= _offset_2.y:
+		offset = Vector2(_offset_1.x, _offset_2.y)
+		size = Vector2(_offset_2.x, _offset_1.y) - offset
+		rotation = -90
+	else:
+		offset = Vector2(_offset_1.x, _offset_1.y)
+		size = Vector2(_offset_2.x, _offset_2.y) - offset
+
+	var image := media.box_texture.get_image()
+	var image_size := Vector2(image.get_width(), image.get_height())
+	var offset_i := Vector2i((offset * image_size).round())
+	var size_i := Vector2i((size * image_size).round())
+	var blit_image := Image.create(size_i.x, size_i.y, false, image.get_format())
+	blit_image.blit_rect(image, Rect2i(offset_i, size_i), Vector2i.ZERO)
+	if rotate:
+		match rotation:
+			-90:
+				blit_image.rotate_90(CLOCKWISE)
+			90:
+				blit_image.rotate_90(COUNTERCLOCKWISE)
+			180:
+				blit_image.rotate_180()
+
+	return ImageTexture.create_from_image(blit_image)

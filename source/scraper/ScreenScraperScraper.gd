@@ -361,10 +361,253 @@ func _process_req_data(req: RequestDetails, game_data: RetroHubGameData):
 
 			call_thread_safe("emit_signal", "game_scrape_multiple_available", game_data, details)
 
-func _process_req_media(req: RequestDetails, game_data):
+func _process_req_media(req: RequestDetails, game_data: RetroHubGameData):
 	var extension : String = req.data["format"]
 	var type : int = req.data["type"]
 	call_thread_safe("emit_signal", "media_scrape_finished", game_data, type, req._req_body, extension)
+
+static func _process_box_texture_regions(game_data: RetroHubGameData):
+	var region := RetroHubConfig.config.region
+	match game_data.system.name:
+		# Systems with world-wide packaging first
+		"amiga", "amiga600":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 1.0, 0.458047945, 0.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.54109589, 0.0, 0.45890411, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(1.0, 0.0, 0.541952055, 1.0)
+		"amiga1200", "apple2", "atarist", "pc88", "pc98", "spectravideo", "ti99", \
+		"lutro", "openbor", "pico8", "solarus", "atarijaguar", "channelf", "n64", \
+		"odyssey2", "wonderswan", "wonderswancolor", "atomiswave", "daphne", \
+		"naomi", "naomigd", "neogeo":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 1.0, 0.455045872, 0.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.544036697, 0.0, 0.455963303, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(1.0, 0.0, 0.544954128, 1.0)
+		"amigacd32", "cdtv", "neogeocd", "tg-cd":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.488286067, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.511097411, 0.0, 0.488902589, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.581381011, 0.0, 1.0, 1.0)
+		"amstradcpc", "moto", "msx", "msx2", "msxturbor", "to8", "x1", "x68000", \
+		"genesis", "sega32x", "mastersystem":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.454288407, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.543826579, 0.0, 0.455230914, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.544769086, 0.0, 1.0, 1.0)
+		"atari800", "atari2600", "atari5200", "atari7800", "atarixe", "colecovision", \
+		"intellivision":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.455963303, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.544954128, 0.0, 0.456880734, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.54587156, 0.0, 1.0, 1.0)
+		"bbcmicro", "c64", "dragon32", "oric", "tanodragon":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.473127753, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.526872247, 0.0, 0.474008811, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.527753304, 0.0, 1.0, 1.0)
+		"coco", "trs-80", "pokemini":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.46728972, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.53271028, 0.0, 0.467957276, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.533377837, 0.0, 1.0, 1.0)
+		"dos", "palm", "pc", "samcoupe", "scummvm":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.471559633, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.526605505, 0.0, 0.472477064, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.527522936, 0.0, 1.0, 1.0)
+		"vic20", "zx81", "zxspectrum":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.441409692, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.557709251, 0.0, 0.442290749, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.558590308, 0.0, 1.0, 1.0)
+		"tic80", "uzebox":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 1.0, 0.45158371, 0.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.547511312, 0.0, 0.452488688, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(1.0, 0.0, 0.54841629, 1.0)
+		"arcade", "astrocade", "vectrex":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.455045872, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.544036697, 0.0, 0.455963303, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.544954128, 0.0, 1.0, 1.0)
+		"atarijaguarcd", "gc", "ps2", "xbox", "psvita", "wii", "wiiu", "xbox360":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.471679688, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.525390625, 0.0, 0.47265625, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.526367188, 0.0, 1.0, 1.0)
+		"atarilynx":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.456931911, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.545529122, 0.0, 0.457752256, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.546349467, 0.0, 1.0, 1.0)
+		"cdimono1":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.524850895, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.549370444, 0.0, 0.525513585, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.550033135, 0.0, 1.0, 1.0)
+		"fds":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(1.0, 0.395884774, 0.0, 0.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(1.0, 0.436213992, 0.0, 0.396707819)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.0, 0.437037037, 1.0, 1.0)
+		"gameandwatch":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.446601942, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.552184466, 0.0, 0.447815534, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.553398058, 0.0, 1.0, 1.0)
+		"64dd":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.476614699, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.524870082, 0.0, 0.47735709, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.525612472, 0.0, 1.0, 1.0)
+		"gx4000":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.43984375, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.56015625, 0.0, 0.440625, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.5609375, 0.0, 1.0, 1.0)
+		"multivision", "sg-1000":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.469077069, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.531874405, 0.0, 0.470028544, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.53282588, 0.0, 1.0, 1.0)
+		"nds", "virtualboy", "n3ds":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.470642202, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.529357798, 0.0, 0.471559633, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.530275229, 0.0, 1.0, 1.0)
+		"ngpc":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.446856287, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.551646707, 0.0, 0.44760479, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.55239521, 0.0, 1.0, 1.0)
+		"satellaview", "sufami":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.437614679, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.563302752, 0.0, 0.43853211, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.564220183, 0.0, 1.0, 1.0)
+		"supergrafx":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.481238274, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.518761726, 0.0, 0.48217636, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.519699812, 0.0, 1.0, 1.0)
+		"ps3":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.472222222, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.525326797, 0.0, 0.473039216, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.526143791, 0.0, 1.0, 1.0)
+		"psp":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.464159812, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.533490012, 0.0, 0.4653349, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.5346651, 0.0, 1.0, 1.0)
+		"switch":
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.476244344, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.523755656, 0.0, 0.477375566, 1.0)
+			game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.524886878, 0.0, 1.0, 1.0)
+		# Systems with region-specific packaging
+		"3do":
+			match region:
+				"eur":
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.488286067, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.511097411, 0.0, 0.488902589, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.511713933, 0.0, 1.0, 1.0)
+				"jpn":
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.488286067, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.511097411, 0.0, 0.488902589, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.581381011, 0.0, 1.0, 1.0)
+				"usa", _:
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.458385093, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.540372671, 0.0, 0.459627329, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.541614907, 0.0, 1.0, 1.0)
+		"dreamcast":
+			if region == "eur":
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.506125081, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.561573179, 0.0, 0.506769826, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.562217924, 0.0, 1.0, 1.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.524850895, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.549370444, 0.0, 0.525513585, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.550033135, 0.0, 1.0, 1.0)
+		"gamegear":
+			if region == "jpn":
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.456153846, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.545384615, 0.0, 0.456923077, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.546153846, 0.0, 1.0, 1.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.455963303, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.544954128, 0.0, 0.456880734, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.54587156, 0.0, 1.0, 1.0)
+		"gb", "gbc", "gba":
+			if region == "jpn":
+				if game_data.system.name == "gba":
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 1.0, 0.446673706, 0.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.553326294, 0.0, 0.447729673, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(1.0, 0.0, 0.55438226, 1.0)
+				else:
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.45123839, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.547987616, 0.0, 0.452012384, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.54876161, 0.0, 1.0, 1.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.46728972, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.53271028, 0.0, 0.467957276, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.533377837, 0.0, 1.0, 1.0)
+		"segacd":
+			match region:
+				"jpn":
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.488286067, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.511097411, 0.0, 0.488902589, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.581381011, 0.0, 1.0, 1.0)
+				"eur":
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.477870813, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.520933014, 0.0, 0.4784689, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.5215311, 0.0, 1.0, 1.0)
+				"usa", _:
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.465820313, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.530273438, 0.0, 0.466796875, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.53125, 0.0, 1.0, 1.0)
+		"nes":
+			if region == "jpn":
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.455045872, 0.0, 0.0, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.544036697, 0.0, 0.455963303, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.544954128, 1.0, 1.0, 0.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 1.0, 0.455045872, 0.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.544036697, 0.0, 0.455963303, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(1.0, 0.0, 0.544954128, 1.0)
+		"ngp":
+			if region == "jpn":
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.446856287, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.551646707, 0.0, 0.44760479, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.55239521, 0.0, 1.0, 1.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.472477064, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.530275229, 0.0, 0.473394495, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.531192661, 0.0, 1.0, 1.0)
+		"tg16":
+			if region == "jpn":
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.488286067, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.511097411, 0.0, 0.488902589, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.581381011, 0.0, 1.0, 1.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.471559633, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.526605505, 0.0, 0.472477064, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.527522936, 0.0, 1.0, 1.0)
+		"pcfx":
+			if region == "jpn":
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.507284768, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.549006623, 0.0, 0.50794702, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.549668874, 0.0, 1.0, 1.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.454288407, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.543826579, 0.0, 0.455230914, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.544769086, 0.0, 1.0, 1.0)
+		"psx":
+			match region:
+				"jpn":
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.524850895, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.549370444, 0.0, 0.525513585, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.550033135, 0.0, 1.0, 1.0)
+				"eur":
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.507284768, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.549006623, 0.0, 0.50794702, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.549668874, 0.0, 1.0, 1.0)
+				"usa", _:
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.488286067, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.511097411, 0.0, 0.488902589, 1.0)
+					game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.511713933, 0.0, 1.0, 1.0)
+		"saturn":
+			if region == "eur":
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.465820313, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.530273438, 0.0, 0.466796875, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.53125, 0.0, 1.0, 1.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.524850895, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.549370444, 0.0, 0.525513585, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.550033135, 0.0, 1.0, 1.0)
+		"snes":
+			if region == "jpn":
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 0.0, 0.437614679, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.563302752, 0.0, 0.43853211, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(0.564220183, 0.0, 1.0, 1.0)
+			else:
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.BACK] = Rect2(0.0, 1.0, 0.455045872, 0.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.SPINE] = Rect2(0.544036697, 0.0, 0.455963303, 1.0)
+				game_data.box_texture_regions[RetroHubGameData.BoxTextureRegions.FRONT] = Rect2(1.0, 0.0, 0.544954128, 1.0)
 
 func _new_request_details(game_data: RetroHubGameData) -> RequestDetails:
 	var req := RequestDetails.new()
@@ -587,6 +830,8 @@ func _process_raw_game_data(json: Dictionary, game_data: RetroHubGameData):
 		if not "-" in players:
 			players = players + "-" + players
 		game_data.num_players = players
+
+	_process_box_texture_regions(game_data)
 
 func extract_json_date(date: String) -> String:
 	var splits := date.split("-")

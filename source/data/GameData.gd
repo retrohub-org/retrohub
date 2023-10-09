@@ -1,6 +1,12 @@
 extends Resource
 class_name RetroHubGameData
 
+enum BoxTextureRegions {
+	BACK,
+	SPINE,
+	FRONT,
+}
+
 # Sorter function
 static func sort(a: RetroHubGameData, b: RetroHubGameData):
 	return a.name.naturalnocasecmp_to(b.name) == -1
@@ -24,6 +30,7 @@ func copy_from(other: RetroHubGameData) -> void:
 	play_count = other.play_count
 	last_played = other.last_played
 	emulator = other.emulator
+	box_texture_regions = other.box_texture_regions.duplicate()
 
 ## Whether this game already has metadata; if it doesn't, you should
 ## present a much simpler view of it
@@ -88,3 +95,8 @@ var last_played : String
 ## Custom emulator to run this game on, overriding default values.
 ## If non-empty, specifies a valid emulator name
 var emulator : String
+
+## Information about box texture regions. This is a dictionary of
+## Rect2 dimensions, with range [0.0 , 1.0] delimiting the regions of the box texture.
+## (use `RetroHubMedia.get_box_texture_region` to fetch the region's sub-Texture)
+var box_texture_regions : Dictionary = {}
