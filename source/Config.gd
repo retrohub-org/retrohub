@@ -391,6 +391,17 @@ func fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 	game.has_media = data["has_media"]
 	if data.has("emulator"):
 		game.emulator = data["emulator"]
+	if data.has("box_texture_regions"):
+		for key in data["box_texture_regions"]:
+			var region_data : PackedFloat64Array = data["box_texture_regions"][key].split_floats(";")
+			if region_data.size() < 4: continue
+			var key_idx : int = RetroHubGameData.BoxTextureRegions.keys().find(key.to_upper())
+			if key_idx == -1: key_idx = int(key)
+			game.box_texture_regions[key_idx] = Rect2(region_data[0], region_data[1], region_data[2], region_data[3])
+	else:
+		# Update older game data with ScreenScraper box texture regions
+		RetroHubScreenScraperScraper._process_box_texture_regions(game)
+		save_game_data(game)
 
 	return true
 
@@ -416,6 +427,18 @@ func save_game_data(game_data: RetroHubGameData) -> bool:
 		"has_media": game_data.has_media,
 		"emulator": game_data.emulator
 	}
+
+	var box_texture_regions : Dictionary = {}
+	for key in game_data.box_texture_regions.keys():
+		var region_data := "%f;%f;%f;%f" % [
+			game_data.box_texture_regions[key].position.x,
+			game_data.box_texture_regions[key].position.y,
+			game_data.box_texture_regions[key].size.x,
+			game_data.box_texture_regions[key].size.y
+		]
+		var key_name : String = RetroHubGameData.BoxTextureRegions.keys()[key]
+		box_texture_regions[key_name.to_lower()] = region_data
+	game_data_raw["box_texture_regions"] = box_texture_regions
 
 	var file := FileAccess.open(metadata_path, FileAccess.WRITE)
 	if not file:

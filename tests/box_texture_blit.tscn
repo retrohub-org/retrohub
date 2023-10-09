@@ -1,0 +1,195 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnbfn5gitdk7g"]
+
+[ext_resource type="Texture2D" uid="uid://dydir8kskmsc6" path="res://assets/icons/load.svg" id="1_biy6p"]
+
+[sub_resource type="GDScript" id="GDScript_my60v"]
+script/source = "extends Control
+
+var game_data_path : String
+var game_data : RetroHubGameData
+var media_data : RetroHubGameMediaData
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$FileDialog.current_dir = RetroHubConfig.get_gamelists_dir()
+	RetroHubConfig.load_user_data()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func handle_tex():
+	if game_data_path.is_empty() or not FileAccess.file_exists(game_data_path): return
+
+	var data : Dictionary = JSONUtils.load_json_file(game_data_path)
+	if data.is_empty():
+		printerr(\"Error loading data!\")
+		return
+	else:
+		game_data = RetroHubGameData.new()
+		game_data.path = game_data_path
+		game_data.system = RetroHubConfig.systems[game_data_path.get_base_dir().get_file()]
+		game_data.system_path = game_data.system.name
+		game_data.has_metadata = true
+		game_data.has_media = true
+		if data.has(\"box_texture_regions\"):
+			for key in data[\"box_texture_regions\"]:
+				var region_data : PackedFloat64Array = data[\"box_texture_regions\"][key].split_floats(\";\")
+				if region_data.size() < 4: continue
+				var keys = RetroHubGameData.BoxTextureRegions.keys()
+				var key_idx : int = RetroHubGameData.BoxTextureRegions.keys().find(key.to_upper())
+				if key_idx == -1:
+					key_idx = int(key)
+				game_data.box_texture_regions[key_idx] = Rect2(region_data[0], region_data[1], region_data[2], region_data[3])
+		media_data = RetroHubMedia.retrieve_media_data(game_data, RetroHubMedia.Type.BOX_TEXTURE)
+		%RawTex.texture = media_data.box_texture
+
+func _on_file_dialog_file_selected(path):
+	game_data_path = path
+	handle_tex()
+
+
+func _on_load_pressed():
+	$FileDialog.popup()
+
+
+func _on_reload_pressed():
+	_on_file_dialog_file_selected(game_data_path)
+
+
+func _on_front_pressed():
+	%CompTex.texture = RetroHubMedia.get_box_texture_region(game_data, media_data, RetroHubGameData.BoxTextureRegions.FRONT)
+
+
+func _on_spine_pressed():
+	%CompTex.texture = RetroHubMedia.get_box_texture_region(game_data, media_data, RetroHubGameData.BoxTextureRegions.SPINE)
+
+
+func _on_back_pressed():
+	%CompTex.texture = RetroHubMedia.get_box_texture_region(game_data, media_data, RetroHubGameData.BoxTextureRegions.BACK)
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_my60v")
+
+[node name="Load" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Load gamedata"
+icon = ExtResource("1_biy6p")
+
+[node name="Reload" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 164.0
+offset_right = 287.0
+offset_bottom = 31.0
+text = "Reload"
+icon = ExtResource("1_biy6p")
+
+[node name="Back" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 58.0
+offset_top = 163.0
+offset_right = 181.0
+offset_bottom = 194.0
+text = "Back"
+icon = ExtResource("1_biy6p")
+
+[node name="Spine" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 58.0
+offset_top = 209.0
+offset_right = 181.0
+offset_bottom = 240.0
+text = "Spine"
+icon = ExtResource("1_biy6p")
+
+[node name="Front" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 58.0
+offset_top = 254.0
+offset_right = 181.0
+offset_bottom = 285.0
+text = "Front"
+icon = ExtResource("1_biy6p")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 326.0
+offset_top = 3.0
+offset_right = 366.0
+offset_bottom = 26.0
+text = "Raw:"
+
+[node name="RawTex" type="TextureRect" parent="Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 204.0
+offset_top = 1.0
+offset_right = 824.0
+offset_bottom = 276.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="Label/RawTex"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 326.0
+offset_top = 310.0
+offset_right = 366.0
+offset_bottom = 333.0
+text = "Blit:"
+
+[node name="CompTex" type="TextureRect" parent="Label2"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 204.0
+offset_top = 1.0
+offset_right = 824.0
+offset_bottom = 276.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="Label2/CompTex"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(1030, 600)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.json; Game data")
+
+[connection signal="pressed" from="Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="Reload" to="." method="_on_reload_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Spine" to="." method="_on_spine_pressed"]
+[connection signal="pressed" from="Front" to="." method="_on_front_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
