@@ -84,6 +84,9 @@ func _ready():
 func _unhandled_input(event):
 	if RetroHub.is_input_echo() or not visible:
 		return
+	if event.is_action_pressed("ui_cancel") and event is InputEventKey \
+		and get_viewport().gui_get_focus_owner() is LineEdit:
+			get_viewport().set_input_as_handled()
 	if event is InputEventJoypadButton:
 		if event.is_action_released("rh_major_option"):
 			get_viewport().set_input_as_handled()

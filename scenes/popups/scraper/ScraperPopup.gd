@@ -306,7 +306,7 @@ func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: Pa
 		var path := RetroHubConfig.get_gamemedia_dir() \
 						.path_join(game_data.system.name) \
 						.path_join(RetroHubMedia.convert_type_to_media_path(type)) \
-						.path_join(game_data.path.get_file().get_basename() + "." + extension)
+						.path_join(_get_game_path(game_data) + "." + extension)
 		FileUtils.ensure_path(path)
 		var file := FileAccess.open(path, FileAccess.WRITE)
 		if file:
@@ -327,6 +327,17 @@ func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: Pa
 		emit_signal("scrape_step", game_entry)
 		if game_entry.curr >= game_entry.total:
 			_finish_scrape(game_entry)
+
+func _get_game_path(game_data: RetroHubGameData) -> String:
+	if game_data.system.name == "ps3":
+		# PS3 games use PARAM.SFO as the game identifier. We need to use the folder name instead.
+		var path := game_data.path.get_base_dir()
+		while not path.is_empty():
+			if not path.ends_with("PS3_GAME"):
+				return path.get_file()
+			path = path.get_base_dir()
+
+	return game_data.path.get_file().get_basename()
 
 func t_on_media_scrape_not_found(game_data: RetroHubGameData, _type: int):
 	if pending_medias.has(game_data):
