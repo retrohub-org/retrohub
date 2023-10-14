@@ -141,7 +141,7 @@ func _find_video_path(path: String) -> String:
 
 func _load_media(media: RetroHubGameMediaData, game_data: RetroHubGameData, types: Type):
 	var media_path := RetroHubConfig.get_gamemedia_dir().path_join(game_data.system_path)
-	var game_path := game_data.path.get_file().get_basename()
+	var game_path := _get_game_path(game_data)
 	
 	var path : String
 	# Logo
@@ -252,13 +252,24 @@ func retrieve_media_data(game_data: RetroHubGameData, types: Type = Type.ALL) ->
 	# In the future there needs to be a way to recompute it, in case the user manually
 	# changes files.
 	var media_path := RetroHubConfig.get_gamemedia_dir().path_join(game_data.system_path)
-	var game_path := game_data.path.get_file().get_basename()
+	var game_path := _get_game_path(game_data)
 	var blurhash_path := media_path.path_join("blurhash").path_join(game_path + ".json")
 	if not FileAccess.file_exists(blurhash_path):
 		compute_blurhash(game_data)
 
 	_load_media(game_media_data, game_data, types)
 	return game_media_data
+
+func _get_game_path(game_data: RetroHubGameData) -> String:
+	if game_data.system.name == "ps3":
+		# PS3 games use PARAM.SFO as the game identifier. We need to use the folder name instead.
+		var path := game_data.path.get_base_dir()
+		while not path.is_empty():
+			if not path.ends_with("PS3_GAME"):
+				return path.get_file()
+			path = path.get_base_dir()
+
+	return game_data.path.get_file().get_basename()
 
 func retrieve_media_data_async(game_data: RetroHubGameData, types: int = Type.ALL, priority: bool = false):
 	if not game_data.has_media:
@@ -287,7 +298,7 @@ func retrieve_media_blurhash(game_data: RetroHubGameData, types: Type = Type.ALL
 	var game_media_data := RetroHubGameMediaData.new()
 
 	var media_path := RetroHubConfig.get_gamemedia_dir().path_join(game_data.system_path)
-	var game_path := game_data.path.get_file().get_basename()
+	var game_path := _get_game_path(game_data)
 
 	var blurhashes := _get_blurhashes(media_path.path_join("blurhash").path_join(game_path + ".json"))
 
@@ -367,7 +378,7 @@ func compute_blurhash(game_data: RetroHubGameData) -> void:
 		print("\t", key, ": ", blurhash)
 
 	var media_path := RetroHubConfig.get_gamemedia_dir().path_join(game_data.system_path)
-	var game_path := game_data.path.get_file().get_basename()
+	var game_path := _get_game_path(game_data)
 	var file_path := media_path.path_join("blurhash").path_join(game_path + ".json")
 	FileUtils.ensure_path(file_path)
 	JSONUtils.save_json_file(json_data, file_path)
