@@ -69,6 +69,7 @@ func _on_tab_clicked(tab_idx: int):
 	handle_focus(not _focused)
 
 func handle_focus(enter_tab: bool):
+	RetroHubUI.play_sound(RetroHubUI.AudioKeys.SLIDE)
 	if signal_tab_change:
 		emit_signal("tab_changed", tab, enter_tab)
 	elif enter_tab and tab.get_current_tab_control().focus_mode != FOCUS_NONE:

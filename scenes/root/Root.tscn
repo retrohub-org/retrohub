@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c60kwat0su1y"]
+[gd_scene load_steps=12 format=3 uid="uid://c60kwat0su1y"]
 
 [ext_resource type="Script" path="res://scenes/root/Root.gd" id="1"]
 [ext_resource type="Script" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/godot-accessibility/ScreenReader.gd" id="7"]
 [ext_resource type="Script" path="res://source/utils/InputHandler.gd" id="9_5ltce"]
 [ext_resource type="PackedScene" uid="uid://dmcmcyq0jach5" path="res://scenes/no_theme/NoTheme.tscn" id="10"]
+[ext_resource type="Script" path="res://source/utils/UIAudio.gd" id="10_w3jne"]
 
 [sub_resource type="ShaderMaterial" id="2"]
 shader = ExtResource("5_co422")
@@ -28,6 +29,9 @@ script = ExtResource("1")
 process_mode = 3
 script = ExtResource("7")
 theme_viewport = NodePath("../SubViewportContainer/SubViewport")
+
+[node name="UIAudio" type="Node" parent="."]
+script = ExtResource("10_w3jne")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 0
@@ -58,7 +62,7 @@ handle_input_locally = false
 visible = false
 content_scale_aspect = 4
 
-[node name="Keyboard" type="Window" parent="."]
+[node name="Keyboard" type="Window" parent="." groups=["rh_no_sound"]]
 unique_name_in_owner = true
 position = Vector2i(0, 648)
 size = Vector2i(1152, 300)

@@ -18,6 +18,23 @@ const max_popupmenu_height := 300
 
 var _steamdeck_keyboard_up := false
 
+enum AudioKeys {
+	ACTIVATED,
+	CHECK_BUTTON_OFF,
+	CHECK_BUTTON_ON,
+	KEYBOARD_TYPE,
+	MENU_ENTER,
+	MENU_IN,
+	MENU_OUT,
+	NAVIGATION,
+	SLIDE,
+	SLIDER_TICK,
+}
+
+@onready var audio_player := AudioStreamPlayer.new()
+@onready var audio_player_low := AudioStreamPlayer.new()
+var audio_streams : Array[AudioStream]
+
 enum Icons {
 	DOWNLOADING,
 	ERROR,
@@ -51,6 +68,15 @@ func _input(event):
 	if not event is InputEventKey:
 		_steamdeck_keyboard_up = false
 		ControllerIcons.set_process_input(true)
+
+func _ready():
+	add_child(audio_player)
+	add_child(audio_player_low)
+	audio_player.bus = "[RetroHub] UI Sounds"
+	audio_player_low.bus = "[RetroHub] UI Sounds"
+	for key in AudioKeys.keys():
+		var path = "res://assets/sounds/%s.wav" % key.to_lower()
+		audio_streams.push_back(load(path))
 
 func _set_filesystem_popup(popup: FileDialog):
 	_n_filesystem_popup = popup
@@ -173,3 +199,12 @@ func get_true_focused_control() -> Control:
 			return viewport.gui_get_focus_owner()
 		viewport = viewport.get_top_popup_or_focused_window().get_viewport()
 	return get_viewport().gui_get_focus_owner()
+
+func play_sound(key: AudioKeys, override : bool = true):
+	if override:
+		audio_player_low.stop()
+		audio_player.stream = audio_streams[key]
+		audio_player.play()
+	else:
+		audio_player_low.stream = audio_streams[key]
+		audio_player_low.play()

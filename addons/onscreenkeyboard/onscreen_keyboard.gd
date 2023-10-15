@@ -313,6 +313,7 @@ func _keyReleased(keyData,x,y,steal_focus):
 		# Manually disable ControllerIcons for this event
 		ControllerIcons.set_process_input(false)
 		focused_control.get_viewport().push_input(inputEventKey)
+		RetroHubUI.play_sound(RetroHubUI.AudioKeys.KEYBOARD_TYPE)
 		await get_tree().process_frame
 		ControllerIcons.set_process_input(true)
 		sendingEvent = false
@@ -392,6 +393,7 @@ func _createKeyboard(layoutData):
 			
 			for key in row.get("keys"):
 				var newKey = KeyboardButton.new(key)
+				newKey.add_to_group("rh_no_sound")
 				newKey.expand_icon = true
 				newKey.show_only = 2
 				newKey.force_type = 2
