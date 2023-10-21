@@ -1,13 +1,10 @@
-<img src="https://raw.githubusercontent.com/retrohub-org/retrohub/main/icon.png" width=15%>
+<center><img src="https://raw.githubusercontent.com/retrohub-org/retrohub/main/assets/icons/app/retrohub_text.png" width=60%></center>
 
 # RetroHub - Retro-gaming library frontend
 
 RetroHub is a frontend application, allowing you to manage and launch your retro-gaming library. It is designed to be user-friendly and easy to use, yet packed with features and highly customizable.
 
 RetroHub leverages the [Godot engine](https://godotengine.org/) to provide a powerful 2D and 3D game engine for theme developers. This way, themes can be very versatile and unique, creating a platform of endless possibilities for customizing your gaming setup.
-
-> *Note*
-> RetroHub is still in early development. Although it's ready for daily usage, do not move your library setup if you're already using another frontend.
 
 ## Screenshots
 ![RetroHub - Main Screen](github_media/ss1.png)
