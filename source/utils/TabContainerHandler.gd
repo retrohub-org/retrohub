@@ -62,7 +62,7 @@ func _input(event):
 func is_key_event_on_text(event: InputEvent):
 	if event is InputEventKey:
 		var control := get_viewport().gui_get_focus_owner()
-		return (control is LineEdit or control is CodeEdit) and control.editable
+		return (control is LineEdit or control is TextEdit) and control.editable
 	return false
 
 func _on_tab_clicked(tab_idx: int):
