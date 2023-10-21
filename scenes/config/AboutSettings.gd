@@ -22,7 +22,8 @@ func _ready():
 		n_gpl_text.queue_free()
 		%LicenseText.get_child(0).next = "../../../.."
 	n_version.text = n_version.text % RetroHub.version_str
-	n_engine_version.text = n_engine_version.text % Engine.get_version_info()["string"]
+	var engine_info := Engine.get_version_info()
+	n_engine_version.text = n_engine_version.text % [engine_info["string"], engine_info["hash"].substr(0, 7)]
 
 func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:

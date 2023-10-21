@@ -94,7 +94,7 @@ script = ExtResource("18")
 [node name="EngineVersion" type="Label" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Engine version %s"
+text = "Engine version %s (%s)"
 autowrap_mode = 3
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/VBoxContainer/EngineVersion"]
