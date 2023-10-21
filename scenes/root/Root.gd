@@ -11,7 +11,6 @@ extends Control
 	ProjectSettings.get_setting("display/window/size/viewport_height")
 )
 
-var n_last_focused : Control
 var is_popup_open : bool = false
 
 func _enter_tree():
@@ -126,5 +125,3 @@ func closed_popup(popup: Window = null):
 	$DarkenOverlay.visible = false
 	set_theme_input_enabled(true)
 	is_popup_open = false
-	if is_instance_valid(n_last_focused):
-		n_last_focused.grab_focus()

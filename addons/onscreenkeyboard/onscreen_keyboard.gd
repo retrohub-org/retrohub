@@ -161,7 +161,8 @@ func _hideKeyboard(keyData=null,x=null,y=null,steal_focus=null):
 
 
 func _showKeyboard(keyData=null,x=null,y=null):
-	tweenOnTop = focused_control.get_global_transform_with_canvas().origin.y > bottomPos - size.y
+	var control_rect := focused_control.get_global_rect()
+	tweenOnTop = control_rect.position.y + control_rect.size.y > bottomPos - size.y - 30
 
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	if tweenOnTop:
