@@ -33,7 +33,7 @@ var _theme_processing_done := false
 
 const version_major := 0
 const version_minor := 2
-const version_patch := 2
+const version_patch := 3
 const version_extra := "-beta"
 # FIXME: This worked before as "const version_str". Regression reported and tracked on https://github.com/godotengine/godot/issues/81256
 var version_str := "%d.%d.%d%s" % [version_major, version_minor, version_patch, version_extra]
