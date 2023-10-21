@@ -22,6 +22,8 @@ var _systems_raw : Dictionary
 var _system_renames : Dictionary
 var emulators_map : Dictionary
 
+var _is_sc := false
+
 const CONTROLLER_AXIS_FLAG : int = (1 << 8)
 
 var _implicit_mappings := {
@@ -32,6 +34,9 @@ var _implicit_mappings := {
 	"rh_up": "ui_up",
 	"rh_down": "ui_down"
 }
+
+func _enter_tree():
+	_determine_sc_mode()
 
 func _ready():
 	get_window().min_size = Vector2(1024, 576)
@@ -702,8 +707,22 @@ func remove_custom_emulator(emulator_raw: Dictionary):
 			JSONUtils.save_json_file(emulator_config, get_custom_emulators_file())
 			return
 
+func _determine_sc_mode():
+	# This functionality is not exposed on exported projects, so
+	# we replicate it from engine code
+	var exe_path := OS.get_executable_path().get_base_dir()
+	if FileUtils.get_os_id() == FileUtils.OS_ID.MACOS:
+		if exe_path.ends_with("MacOS") and exe_path.path_join("..").simplify_path().ends_with("Contents"):
+			exe_path = exe_path.path_join("../../..").simplify_path()
+
+	if FileAccess.file_exists(exe_path + "/._sc_") or FileAccess.file_exists(exe_path + "/_sc_"):
+		_is_sc = true
+
 func get_config_dir() -> String:
 	var path : String
+	if _is_sc:
+		return OS.get_executable_path().get_base_dir() + "/config"
+
 	match FileUtils.get_os_id():
 		FileUtils.OS_ID.WINDOWS:
 			path = FileUtils.get_home_dir() + "/RetroHub"
