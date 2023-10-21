@@ -187,17 +187,14 @@ func get_true_focused_control() -> Control:
 	if win == null:
 		return get_viewport().gui_get_focus_owner()
 
-	# Find currently focused "embedded" window viewport
-	var viewport := win.get_viewport()
-	# Handle theme viewport as well
-	if viewport == get_tree().get_root().get_viewport():
-		viewport = _n_theme_viewport
-
-	while viewport:
-		if viewport.get_top_popup_or_focused_window() == null:
+	while win:
+		if win.get_top_popup_or_focused_window() == null:
 			# Found the innermost viewport
-			return viewport.gui_get_focus_owner()
-		viewport = viewport.get_top_popup_or_focused_window().get_viewport()
+			if win == $"/root":
+				return _n_theme_viewport.gui_get_focus_owner()
+			else:
+				return win.gui_get_focus_owner()
+		win = win.get_top_popup_or_focused_window()
 	return get_viewport().gui_get_focus_owner()
 
 func play_sound(key: AudioKeys, override : bool = true):

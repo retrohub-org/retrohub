@@ -47,6 +47,7 @@ func _input(event: InputEvent):
 
 func open_config():
 	super.popup_centered_ratio(0.8)
+	grab_focus()
 	_on_ConfigPopup_about_to_show()
 
 func close():
