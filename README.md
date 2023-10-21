@@ -1,4 +1,4 @@
-<center><img src="https://raw.githubusercontent.com/retrohub-org/retrohub/main/assets/icons/app/retrohub_text.png" width=60%></center>
+<p align="center"><img src="https://raw.githubusercontent.com/retrohub-org/retrohub/main/assets/icons/app/retrohub_text.png" width=60%></p>
 
 # RetroHub - Retro-gaming library frontend
 
