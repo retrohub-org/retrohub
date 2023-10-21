@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bk84lkodndnjq"]
+[gd_scene load_steps=22 format=3 uid="uid://bk84lkodndnjq"]
 
 [ext_resource type="Script" path="res://scenes/config/AboutSettings.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://dv8tl1d8ejsst" path="res://assets/copyright/godot.png" id="4"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="14"]
 [ext_resource type="Texture2D" uid="uid://c8hlfcx5lgjmv" path="res://assets/copyright/godot-blurhash.png" id="14_6ym5y"]
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="15"]
+[ext_resource type="Texture2D" uid="uid://bti7twxvh0pko" path="res://assets/copyright/freesound.png" id="15_x0b5v"]
 [ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="16_d1rm0"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="18"]
 [ext_resource type="Texture2D" uid="uid://xe4n818le3p8" path="res://addons/controller_icons/assets/key/e.png" id="18_c0cgg"]
@@ -617,9 +618,66 @@ Scraped metadata and media files"
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/Label"]
 script = ExtResource("18")
-next = NodePath("../../../../../..")
 
 [node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper"]
+layout_mode = 2
+
+[node name="SFX" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer"]
+custom_minimum_size = Vector2(180, 51)
+layout_mode = 2
+size_flags_vertical = 2
+texture = ExtResource("15_x0b5v")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("10")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5")
+text = "Freesound"
+label_settings = SubResource("LabelSettings_f1p4x")
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer/VBoxContainer/Label"]
+script = ExtResource("18")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Website: [url=https://freesound.org/]https://freesound.org/[/url]
+License: Various"
+fit_content = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer/VBoxContainer/RichTextLabel"]
+script = ExtResource("18")
+
+[node name="Label" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Menu sound effects
+- [url=https://freesound.org/people/Rob_Marion/sounds/541987/]Button click[/url]: [url=cc0]CC0[/url]
+- [url=https://freesound.org/people/paep3nguin/sounds/388046/]Check button on[/url] / [url=https://freesound.org/people/paep3nguin/sounds/388047/]Check button off[/url]: [url=cc0]CC0[/url]
+- [url=https://freesound.org/people/Rob_Marion/sounds/541987/]Virtual keyboard click[/url]: [url=cc0]CC0[/url]
+- [url=https://freesound.org/people/UberBosser/sounds/421583/]Main menu open / exit[/url] / [url=https://freesound.org/people/ZoviPoland/sounds/517710/]Alert popup [/url]: [url=ccby40]CC BY 4.0[/url]
+- [url=https://freesound.org/people/johnthewizar/sounds/319419/]Navigation[/url]: [url=cc0]CC0[/url]
+- [url=https://freesound.org/people/mrickey13/sounds/515625/]Slide[/url]: [url=cc0]CC0[/url]
+- [url=https://freesound.org/people/malle99/sounds/496760/]Value tick[/url]: [url=cc0]CC0[/url]"
+fit_content = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/Label"]
+script = ExtResource("18")
+next = NodePath("../../../../../..")
+
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX"]
 layout_mode = 2
 
 [node name="ScrollHandler" type="Control" parent="TabContainerHandler/TabContainer/Assets"]
@@ -711,5 +769,7 @@ max_width = 30
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/Label" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="item_activated" from="TabContainerHandler/TabContainer/Licenses/HBoxContainer/Names" to="TabContainerHandler/TabContainer/Licenses" method="_on_Names_item_activated"]
 [connection signal="item_selected" from="TabContainerHandler/TabContainer/Licenses/HBoxContainer/Names" to="TabContainerHandler/TabContainer/Licenses" method="_on_Names_item_selected"]
