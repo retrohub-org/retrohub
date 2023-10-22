@@ -130,8 +130,16 @@ func _initKeyboard(config_value: String):
 var focused_control : Control = null
 var focused_window : Window = null
 
+func handle_default_text_nodes(enabled: bool):
+	if focused_control and (
+		focused_control is LineEdit or focused_control is TextEdit
+	):
+		focused_control.caret_force_displayed = enabled
+
 func show_keyboard(focused_control: Control):
+	handle_default_text_nodes(false)
 	self.focused_control = focused_control
+	handle_default_text_nodes(true)
 	visible = true
 	
 	# Set window transience
@@ -140,6 +148,7 @@ func show_keyboard(focused_control: Control):
 	# Skip current frame to avoid double input when opening the keyboard
 
 func hide_keyboard():
+	handle_default_text_nodes(false)
 	await _hideKeyboard()
 	if focused_window:
 		focused_window.grab_focus()
