@@ -7,7 +7,6 @@ signal advance_section
 @onready var n_emulator_info_tab := %EmulatorInfoTab
 
 var icon_cache := {}
-var emulator_cache := {}
 
 func _ready():
 	n_systems.get_popup().max_size.y = RetroHubUI.max_popupmenu_height + 50
@@ -39,7 +38,6 @@ func set_systems():
 		else:
 			n_systems.add_icon_item(preload("res://assets/icons/failure.svg"), system["fullname"])
 			n_systems.set_item_metadata(n_systems.get_item_count()-1, false)
-	emulator_cache.clear()
 
 func handle_emulator_info(system_raw: Dictionary) -> bool:
 	var system_emulators : Array = system_raw["emulator"]
@@ -52,38 +50,18 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 			var emulator : Dictionary = emulators["retroarch"]
 			parent.add_child(retroarch_info)
 
-			if not emulator_cache.has("retroarch"):
-				emulator_cache["retroarch"] = {}
-
 			# Test for binpath first
-			var binpaths
-			if emulator_cache["retroarch"].has("binpaths"):
-				binpaths = emulator_cache["retroarch"]["binpaths"]
-			else:
-				binpaths = emulator["binpath"]
-				emulator_cache["retroarch"]["binpaths"] = binpaths
-			var binpath : String
-			if emulator_cache["retroarch"].has("binpath"):
-				binpath = emulator_cache["retroarch"]["binpath"]
-			else:
-				binpath = FileUtils.test_for_valid_path(binpaths)
-				emulator_cache["retroarch"]["binpath"] = binpath
+			var binpath := RetroHubRetroArchEmulator.find_path(emulator, "binpath", {})
 			if not binpath.is_empty():
 				retroarch_info.set_path_found(true, binpath)
 				# Then test for cores
 				var required_cores : Array = system_emulator["retroarch"]
-				var corespath : String
-				if emulator_cache["retroarch"].has("corespath"):
-					corespath = emulator_cache["retroarch"]["corespath"]
-				else:
-					corespath = RetroHubRetroArchEmulator.get_custom_core_path()
-					if corespath.is_empty():
-						corespath = JSONUtils.format_string_with_substitutes(FileUtils.test_for_valid_path(emulator["corepath"]) , {"binpath": binpath})
-					if corespath.is_empty():
-						retroarch_info.set_core_found(false, "Could not find any cores inside:\n" + convert_list_to_string(emulator["corepath"]))
-						emulator_cache["retroarch"]["corespath"] = corespath
-						continue
-					emulator_cache["retroarch"]["corespath"] = corespath
+				var corespath := RetroHubRetroArchEmulator.get_custom_core_path()
+				if corespath.is_empty():
+					corespath = JSONUtils.format_string_with_substitutes(FileUtils.test_for_valid_path(emulator["corepath"]) , {"binpath": binpath})
+				if corespath.is_empty():
+					retroarch_info.set_core_found(false, "Could not find any cores inside:\n" + convert_list_to_string(emulator["corepath"]))
+					continue
 				var cores : Array = emulator["cores"]
 				var avail_cores := []
 				for req_core in required_cores:
@@ -94,9 +72,12 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 					retroarch_info.set_core_found(false, "No default config for cores:\n" + convert_list_to_string(required_cores))
 					continue
 				var corepaths := []
+				var corepath := ""
 				for core in avail_cores:
+					corepath = RetroHubRetroArchEmulator.find_core_path(core["name"], emulator, corespath)
+					if not corepath.is_empty():
+						break
 					corepaths.push_back(corespath.path_join(core["file"]))
-				var corepath := FileUtils.test_for_valid_path(corepaths)
 				if not corepath.is_empty():
 					for core in avail_cores:
 						if core["file"] == corepath.get_file():
@@ -106,7 +87,7 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 					retroarch_info.set_core_found(false, convert_list_to_string(corepaths))
 					continue
 			else:
-				retroarch_info.set_path_found(false, convert_list_to_string(binpaths))
+				retroarch_info.set_path_found(false, convert_list_to_string(emulator["binpath"]))
 				continue
 
 		elif emulators.has(system_emulator):
@@ -115,36 +96,19 @@ func handle_emulator_info(system_raw: Dictionary) -> bool:
 			var emulator : Dictionary = emulators[system_emulator]
 			parent.add_child(generic_info)
 
-			if not emulator_cache.has(emulator["name"]):
-				emulator_cache[emulator["name"]] = {}
-
 			generic_info.set_name(emulator["fullname"])
 			if not icon_cache.has(system_emulator):
 				icon_cache[system_emulator] = load("res://assets/emulators/%s.png" % system_emulator)
 			generic_info.set_logo(icon_cache[system_emulator])
 
 			# Test for binpath first
-			var binpaths
-			if emulator_cache[emulator["name"]].has("binpaths"):
-				binpaths = emulator_cache[emulator["name"]]["binpaths"]
-			else:
-				binpaths = emulator["binpath"]
-				emulator_cache[emulator["name"]]["binpaths"] = binpaths
-			var binpath : String
-			if emulator_cache[emulator["name"]].has("binpath"):
-				binpath = emulator_cache[emulator["name"]]["binpath"]
-			else:
-				binpath = FileUtils.test_for_valid_path(binpaths)
-				emulator_cache[emulator["name"]]["binpath"] = binpath
+			var binpath := RetroHubGenericEmulator.find_path(emulator, "binpath", {})
 			if not binpath.is_empty():
 				found = true
 				generic_info.set_found(true, binpath)
 				continue
-			elif binpaths is Array:
-				generic_info.set_found(false, convert_list_to_string(binpaths))
-				continue
 			else:
-				generic_info.set_found(false, binpaths)
+				generic_info.set_found(false, convert_list_to_string(emulator["binpath"]))
 				continue
 	return found
 

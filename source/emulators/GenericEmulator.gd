@@ -8,17 +8,24 @@ var _substitutes := {}
 func _init(emulator_raw : Dictionary, game_data : RetroHubGameData):
 	_substitutes["rompath"] = game_data.path
 	_substitutes["romfolder"] = game_data.path.get_base_dir()
-	var binpath := RetroHubGenericEmulator.find_and_substitute_str(emulator_raw["binpath"], _substitutes)
+	var binpath := RetroHubGenericEmulator.find_path(emulator_raw, "binpath", _substitutes)
 	if not binpath.is_empty():
 		_substitutes["binpath"] = binpath
 		command = RetroHubGenericEmulator.substitute_str(emulator_raw["command"], _substitutes)
 	else:
 		print("Could not find binpath for emulator \"%s\"" % emulator_raw["name"])
 
-static func find_and_substitute_str(paths, substitutes: Dictionary) -> String:
+static func find_path(emulator_def: Dictionary, key: String, substitutes: Dictionary) -> String:
+	var path := RetroHubConfig.get_emulator_path(emulator_def["name"], key)
+	if not path.is_empty() and FileAccess.file_exists(path):
+		return path
+	var paths = emulator_def[key]
 	if paths is Array:
-		return substitute_str(FileUtils.test_for_valid_path(paths), substitutes)
-	return substitute_str(FileUtils.expand_path(paths), substitutes)
+		path = substitute_str(FileUtils.test_for_valid_path(paths), substitutes)
+	else:
+		path = substitute_str(FileUtils.expand_path(paths), substitutes)
+	RetroHubConfig.set_emulator_path(emulator_def["name"], key, path)
+	return path
 
 static func substitute_str(path, substitutes: Dictionary) -> String:
 	return JSONUtils.format_string_with_substitutes(path, substitutes)

@@ -21,6 +21,8 @@ var systems : Dictionary
 var _systems_raw : Dictionary
 var _system_renames : Dictionary
 var emulators_map : Dictionary
+var emulators_paths : Dictionary
+var _should_save := false
 
 var _is_sc := false
 
@@ -96,6 +98,8 @@ func load_emulators():
 			emulators_map[child["name"]].merge(child, true)
 			emulators_map[child["name"]]["#modified"] = true
 	JSONUtils.make_system_specific(emulators_map, FileUtils.get_os_string())
+	# Load emulator paths
+	emulators_paths = JSONUtils.load_json_file(get_emulator_paths_file())
 
 func set_system_renaming():
 	for system_name in config.system_names:
@@ -585,8 +589,12 @@ func bootstrap_config_dir():
 				push_error("Error when creating directory " + path)
 
 		# Bootstrap system specific configs
-		for filename in ["emulators.json", "systems.json"]:
-			var filepath_out := get_config_dir() + "/rh_" + (filename as String)
+		for filename in [
+			"rh_emulators.json",
+			"rh_systems.json",
+			"_emulator_paths.json"
+			]:
+			var filepath_out := get_config_dir() + "/" + (filename as String)
 			var file := FileAccess.open(filepath_out, FileAccess.WRITE)
 			if not file:
 				push_error("Error when opening file " + filepath_out + " for saving")
@@ -601,6 +609,9 @@ func save_config():
 	if config.save_config_to_path(get_config_file()):
 		push_error("Error when saving config to " + get_config_file())
 	save_theme_config()
+	if _should_save:
+		_should_save = false
+		JSONUtils.save_json_file(emulators_paths, get_emulator_paths_file())
 
 func _restore_keys(dict: Dictionary, keys: Array):
 	for key in keys:
@@ -718,6 +729,25 @@ func _determine_sc_mode():
 	if FileAccess.file_exists(exe_path + "/._sc_") or FileAccess.file_exists(exe_path + "/_sc_"):
 		_is_sc = true
 
+func get_emulator_path(emulator_name: String, key: String) -> String:
+	if emulators_paths.has(emulator_name) and emulators_paths[emulator_name].has(key):
+		return emulators_paths[emulator_name][key]
+	return ""
+
+func set_emulator_path(emulator_name: String, key: String, value: String) -> void:
+	if value.is_empty():
+		if emulators_paths.has(emulator_name):
+			emulators_paths[emulator_name].erase(key)
+			if emulators_paths[emulator_name].is_empty():
+				emulators_paths.erase(emulator_name)
+			_should_save = true
+		return
+
+	if not emulators_paths.has(emulator_name):
+		emulators_paths[emulator_name] = {}
+	emulators_paths[emulator_name][key] = value
+	_should_save = true
+
 func get_config_dir() -> String:
 	var path : String
 	if _is_sc:
@@ -743,6 +773,9 @@ func get_systems_file() -> String:
 
 func get_emulators_file() -> String:
 	return "res://base_config/emulators.json"
+
+func get_emulator_paths_file() -> String:
+	return get_config_dir() + "/_emulator_paths.json"
 
 func get_custom_systems_file() -> String:
 	return get_config_dir() + "/rh_systems.json"
