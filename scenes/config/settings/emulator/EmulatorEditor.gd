@@ -26,13 +26,15 @@ func set_curr_emulator(_curr_emulator: Dictionary):
 	n_logo.text = "<click to add>" if not n_logo.icon else ""
 	n_name.text = curr_emulator["name"]
 	n_fullname.text = curr_emulator["fullname"]
-	n_path.text = RetroHubGenericEmulator.find_and_substitute_str(curr_emulator["binpath"], {})
+	n_path.text = RetroHubGenericEmulator.find_path(curr_emulator, "binpath", {})
 	n_command.text = curr_emulator["command"]
 
 func save() -> Dictionary:
 	curr_emulator["fullname"] = n_fullname.text
 	curr_emulator["binpath"] = n_path.text
 	curr_emulator["command"] = n_command.text
+
+	RetroHubConfig.set_emulator_path(curr_emulator["name"], "binpath", n_path.text)
 
 	return curr_emulator
 

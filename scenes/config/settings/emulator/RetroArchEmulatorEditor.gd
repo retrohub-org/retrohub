@@ -35,11 +35,11 @@ func set_curr_emulator(_curr_emulator: Dictionary):
 	n_logo.text = "<click to add>" if not n_logo.icon else ""
 	n_name.text = curr_emulator["name"]
 	n_fullname.text = curr_emulator["fullname"]
-	n_path.text = RetroHubGenericEmulator.find_and_substitute_str(curr_emulator["binpath"], {})
+	n_path.text = RetroHubGenericEmulator.find_path(curr_emulator, "binpath", {})
 	n_core_path.text = RetroHubRetroArchEmulator.get_custom_core_path()
 	if n_core_path.text.is_empty():
-		n_core_path.text = RetroHubGenericEmulator.find_and_substitute_str(
-				curr_emulator["corepath"],
+		n_core_path.text = RetroHubGenericEmulator.find_path(
+				curr_emulator, "corepath",
 				{"binpath": n_path.text}
 		)
 	n_command.text = curr_emulator["command"]
@@ -68,6 +68,9 @@ func save() -> Dictionary:
 		n_core_option.set_item_text(n_core_option.selected, text)
 
 	curr_emulator["cores"] = cores.duplicate(true)
+
+	RetroHubConfig.set_emulator_path("retroarch", "binpath", n_path.text)
+	RetroHubConfig.set_emulator_path("retroarch", "corepath", n_core_path.text)
 
 	return curr_emulator
 
