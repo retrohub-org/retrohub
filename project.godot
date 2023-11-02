@@ -37,7 +37,8 @@ TTS="*res://addons/godot-tts/TTS.gd"
 
 [debug]
 
-gdscript/warnings/native_method_override=1
+gdscript/warnings/static_called_on_instance=0
+gdscript/warnings/native_method_override=0
 
 [editor_plugins]
 

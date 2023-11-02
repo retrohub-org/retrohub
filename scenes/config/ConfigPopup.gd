@@ -18,7 +18,7 @@ signal popup_hide
 	%AboutTab
 ]
 
-var last_tab : Control = null
+var last_tab : Button = null
 var should_reload_theme := false
 
 func _ready():
@@ -44,6 +44,8 @@ func _input(event: InputEvent):
 			if not last_tab:
 				last_tab = n_game_tab
 			last_tab.grab_focus()
+			last_tab.set_pressed_no_signal(false)
+			_handle_buttons()
 
 func open_config():
 	super.popup_centered_ratio(0.8)

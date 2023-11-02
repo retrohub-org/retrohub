@@ -10,8 +10,8 @@ var found := false
 func _ready():
 	n_accessibility_focus._on_config_ready(RetroHubConfig.config)
 
-func set_name(name: String):
-	n_name.text = name
+func set_name(_name: String):
+	n_name.text = _name
 
 func set_logo(texture: Texture2D):
 	n_logo.texture = texture
@@ -21,6 +21,6 @@ func set_found(_found: bool, details: String):
 	n_path_section.set_found(found, details)
 	modulate.a = 1.0 if found else 0.5
 
-func tts_text(focused: Control):
+func tts_text(_focused: Control):
 	return n_name.text + ": " + ("supported" if found else "not supported") + ". " \
 		+ n_path_section.tts_prompt()

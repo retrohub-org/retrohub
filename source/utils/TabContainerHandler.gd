@@ -65,7 +65,7 @@ func is_key_event_on_text(event: InputEvent):
 		return (control is LineEdit or control is TextEdit) and control.editable
 	return false
 
-func _on_tab_clicked(tab_idx: int):
+func _on_tab_clicked(_tab_idx: int):
 	handle_focus(not _focused)
 
 func handle_focus(enter_tab: bool):
