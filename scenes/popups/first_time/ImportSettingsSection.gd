@@ -63,7 +63,7 @@ func set_importer_buttons():
 	if not_found:
 		n_import_options.add_item("No systems found")
 	else:
-		n_import_options.add_item("Don't import settings", idx + 1)
+		n_import_options.add_item("Don't import settings", idx)
 		n_import_options.emit_signal("item_selected", n_import_options.selected)
 
 func _on_ImportOptions_item_selected(_index):

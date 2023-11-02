@@ -28,6 +28,7 @@ var launched_game_data : RetroHubGameData = null
 var launched_emulator : Dictionary = {}
 
 var _is_echo := false
+@warning_ignore("unused_private_class_variable")
 var _is_input_remap_utility := false
 var _theme_processing_done := false
 

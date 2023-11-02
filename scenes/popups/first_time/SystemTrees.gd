@@ -102,9 +102,9 @@ func _on_item_edited(edited: TreeItem):
 func is_edit_valid(item: TreeItem):
 	if item.get_metadata(0):
 		var system : Dictionary = item.get_metadata(0)
-		var name : String = system["name"]
-		if RetroHubConfig.systems.has(name):
-			return RetroHubConfig.systems[name].num_games == 0
+		var system_name : String = system["name"]
+		if RetroHubConfig.systems.has(system_name):
+			return RetroHubConfig.systems[system_name].num_games == 0
 	return true
 
 func save():

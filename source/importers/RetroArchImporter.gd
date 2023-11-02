@@ -121,16 +121,16 @@ func import_metadata():
 		for child in gamelists[system]:
 			process_metadata(system, child)
 
-func guess_system_name(name: String) -> String:
+func guess_system_name(system_name: String) -> String:
 	# RetroArch saves system information in the file name as full name.
 	# We have to try and match it to known entries
-	if "Nintendo - Nintendo 64" in name:
+	if "Nintendo - Nintendo 64" in system_name:
 		return "n64"
-	elif "Nintendo - Nintendo Entertainment System" in name:
+	elif "Nintendo - Nintendo Entertainment System" in system_name:
 		return "nes"
-	elif "Nintendo - Super Nintendo Entertainment System" in name:
+	elif "Nintendo - Super Nintendo Entertainment System" in system_name:
 		return "snes"
-	elif "Nintendo - GameCube" in name:
+	elif "Nintendo - GameCube" in system_name:
 		return "gc"
 	# TODO: More names
 	return ""
@@ -149,8 +149,8 @@ func process_lpl_file(path: String) -> Array:
 		if file:
 			while not file.eof_reached():
 				var file_path := file.get_line()
-				var name := file.get_line()
-				names.push_back({"name": name, "path": file_path})
+				var file_name := file.get_line()
+				names.push_back({"name": file_name, "path": file_path})
 				for _i in range(4):
 					file.get_line()
 			file.close()

@@ -69,7 +69,8 @@ func _on_config_updated(key: String, _old, new):
 
 func setup_controller_remap(remap_str: String):
 	if not remap_str.is_empty():
-		Input.remove_joy_mapping(Input.get_joy_guid(0))
+		if Input.is_joy_known(0):
+			Input.remove_joy_mapping(Input.get_joy_guid(0))
 		Input.add_joy_mapping(remap_str, true)
 
 func show_first_time_popup():
@@ -103,7 +104,7 @@ func _on_theme_unload():
 	print("Unloaded theme")
 	RetroHub._theme_processing_done = true
 
-func _on_game_loaded(game_data: RetroHubGameData):
+func _on_game_loaded(_game_data: RetroHubGameData):
 	var game_launched_child : PackedScene = load("res://scenes/game_launched/GameLaunched.tscn")
 	n_viewport.clear_theme()
 	n_viewport.set_theme(game_launched_child)

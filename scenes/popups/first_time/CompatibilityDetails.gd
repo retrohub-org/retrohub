@@ -49,7 +49,7 @@ func set_icon(node: TextureRect, level: int):
 		RetroHubImporter.CompatibilityLevel.SUPPORTED:
 			node.texture = preload("res://assets/icons/success.svg")
 
-func tts_text(focused: Control) -> String:
+func tts_text(_focused: Control) -> String:
 	var text := ""
 	# Game Metadata
 	text += "Game Metadata: "

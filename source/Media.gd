@@ -139,7 +139,7 @@ func _find_video_path(path: String) -> String:
 			return full_path
 	return ""
 
-func _load_media(media: RetroHubGameMediaData, game_data: RetroHubGameData, types: Type):
+func _load_media(media: RetroHubGameMediaData, game_data: RetroHubGameData, types: int):
 	var media_path := RetroHubConfig._get_gamemedia_dir().path_join(game_data.system_path)
 	var game_path := _get_game_path(game_data)
 	

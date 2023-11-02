@@ -53,7 +53,7 @@ func _on_discard_pressed():
 	_on_reset_state()
 
 
-func _on_editor_tab_changed(tab_container, enter_tab):
+func _on_editor_tab_changed(_tab_container, _enter_tab):
 	self.grab_focus()
 
 

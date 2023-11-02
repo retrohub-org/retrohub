@@ -22,6 +22,6 @@ func set_core_found(_found: bool, details: String):
 	n_core_section.set_found(found, details)
 	modulate.a = 1.0 if found else 0.5
 
-func tts_text(focused: Control):
+func tts_text(_focused: Control):
 	return n_name.text + ": " + ("supported" if found else "not supported") + ". " \
 		+ n_path_section.tts_prompt() + ". " + n_core_section.tts_prompt()
