@@ -62,16 +62,16 @@ func _notification(what):
 
 func _on_config_ready(config_data: ConfigData):
 	if not config_data.is_first_time:
-		load_theme()
+		_load_theme()
 
 func _on_config_updated(key: String, _old, _new):
 	if key == ConfigData.KEY_CURRENT_THEME:
-		load_theme()
+		_load_theme()
 
 func _process(_delta):
 	if _running_game:
 		if _running_game_pid == -1 or not OS.is_process_running(_running_game_pid):
-			stop_game()
+			_stop_game()
 
 func _on_app_closing():
 	emit_signal("app_closing")
@@ -82,7 +82,7 @@ func _on_app_received_focus():
 func _on_app_lost_focus():
 	emit_signal("app_lost_focus")
 
-func load_theme():
+func _load_theme():
 	# Signal themes
 	print("Config is ready, parsing metadata...")
 	var systems : Dictionary = RetroHubConfig.systems
@@ -92,11 +92,11 @@ func load_theme():
 	emit_signal("_theme_unload")
 	#while not _theme_processing_done:
 	#	await get_tree().process_frame
-	RetroHubConfig.unload_theme()
+	RetroHubConfig._unload_theme()
 	_disconnect_theme_signals()
 
 	# Load theme config
-	if not RetroHubConfig.load_theme():
+	if not RetroHubConfig._load_theme():
 		return
 
 	RetroHubMedia._start_thread()
@@ -104,7 +104,7 @@ func load_theme():
 	emit_signal("_theme_load", RetroHubConfig.theme_data)
 	#while not _theme_processing_done:
 	#	await get_tree().process_frame
-	RetroHubConfig.load_theme_config()
+	RetroHubConfig._load_theme_config()
 
 	if not systems.is_empty():
 		emit_signal("system_receive_start")
@@ -120,7 +120,6 @@ func load_theme():
 func set_curr_game_data(game_data: RetroHubGameData) -> void:
 	curr_game_data = game_data
 
-
 func is_main_app() -> bool:
 	return true
 
@@ -131,7 +130,7 @@ func is_input_echo() -> bool:
 	return _is_echo
 
 func quit():
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 	RetroHubMedia._stop_thread()
 	get_tree().quit()
 
@@ -155,7 +154,7 @@ func launch_game() -> void:
 	print("Launching game ", launched_game_data.name)
 	RetroHubMedia._stop_thread()
 	emit_signal("_game_loaded", launched_game_data)
-	RetroHubConfig.unload_theme()
+	RetroHubConfig._unload_theme()
 	_update_game_statistics()
 
 func _launch_game_process() -> int:
@@ -191,7 +190,7 @@ func _update_game_statistics():
 	var time_dict := Time.get_datetime_dict_from_system()
 	launched_game_data.last_played = RegionUtils.globalize_date_dict(time_dict)
 	launched_game_data.play_count += 1
-	if not RetroHubConfig.save_game_data(launched_game_data):
+	if not RetroHubConfig._save_game_data(launched_game_data):
 		push_error("Failed to update statistics for game %s" % launched_game_data.name)
 
 func _disconnect_theme_signals():
@@ -216,13 +215,13 @@ func _disconnect_theme_signals():
 			disconnect(sig, conn["callable"])
 
 
-func stop_game() -> void:
+func _stop_game() -> void:
 	print("Stopping game")
 	get_window().move_to_foreground()
 	_running_game = false
 	_running_game_pid = -1
 	launched_emulator = {}
-	load_theme()
+	_load_theme()
 	await get_tree().process_frame
 	emit_signal("app_returning", launched_system_data, launched_game_data)
 	launched_system_data = null
@@ -230,8 +229,8 @@ func stop_game() -> void:
 
 func request_theme_reload():
 	await get_tree().process_frame
-	load_theme()
+	_load_theme()
 
-func kill_game_process():
+func _kill_game_process():
 	if _running_game and _running_game_pid != -1:
 		OS.kill(_running_game_pid)

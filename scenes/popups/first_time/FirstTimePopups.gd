@@ -24,7 +24,7 @@ func reset_section():
 func advance_section():
 	if n_main_content.current_tab == n_main_content.get_tab_count() - 1:
 		RetroHubConfig.config.is_first_time = false
-		RetroHubConfig.save_config()
+		RetroHubConfig._save_config()
 		hide()
 	n_main_content.current_tab += 1
 

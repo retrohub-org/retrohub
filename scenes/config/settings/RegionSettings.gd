@@ -120,7 +120,7 @@ func _on_DateFormat_item_selected(index):
 			RetroHubConfig.config.date_format = "yyyy/mm/dd"
 
 func _on_AppSettings_hide():
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 
 func _on_ResetRegion_pressed():

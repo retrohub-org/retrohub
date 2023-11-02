@@ -112,7 +112,7 @@ func save():
 		for next in tree.get_root().get_children():
 			if next.is_checked(0):
 				var system : Dictionary = next.get_metadata(0)
-				RetroHubConfig.make_system_folder(system)
+				RetroHubConfig._make_system_folder(system)
 
 func _on_item_selected(tree: Tree):
 	if tree.get_selected().get_metadata(0):

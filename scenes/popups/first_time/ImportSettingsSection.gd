@@ -23,7 +23,7 @@ func _ready():
 
 func grab_focus():
 	# Importers need emulator info already
-	RetroHubConfig.load_emulators()
+	RetroHubConfig._load_emulators()
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:

@@ -16,7 +16,7 @@ func _init(emulator_raw : Dictionary, game_data : RetroHubGameData):
 		print("Could not find binpath for emulator \"%s\"" % emulator_raw["name"])
 
 static func find_path(emulator_def: Dictionary, key: String, substitutes: Dictionary) -> String:
-	var path := RetroHubConfig.get_emulator_path(emulator_def["name"], key)
+	var path := RetroHubConfig._get_emulator_path(emulator_def["name"], key)
 	if not path.is_empty() and FileAccess.file_exists(path):
 		return path
 	var paths = emulator_def[key]
@@ -24,7 +24,7 @@ static func find_path(emulator_def: Dictionary, key: String, substitutes: Dictio
 		path = substitute_str(FileUtils.test_for_valid_path(paths), substitutes)
 	else:
 		path = substitute_str(FileUtils.expand_path(paths), substitutes)
-	RetroHubConfig.set_emulator_path(emulator_def["name"], key, path)
+	RetroHubConfig._set_emulator_path(emulator_def["name"], key, path)
 	return path
 
 static func substitute_str(path, substitutes: Dictionary) -> String:

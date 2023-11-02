@@ -7,7 +7,7 @@ func _enter_tree():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var dir := DirAccess.open(RetroHubConfig.get_themes_dir())
+	var dir := DirAccess.open(RetroHubConfig._get_themes_dir())
 	if dir and not dir.list_dir_begin(): # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
@@ -38,7 +38,7 @@ func load_theme(path: String):
 			print("Unload result: ", ProjectSettings.unload_resource_pack(last_path))
 
 	if $Load.button_pressed:
-		last_path = RetroHubConfig.get_themes_dir() + "/" + path
+		last_path = RetroHubConfig._get_themes_dir() + "/" + path
 		print(last_path)
 		print("Load result: ", ProjectSettings.load_resource_pack(last_path, false))
 
@@ -55,7 +55,7 @@ func load_theme(path: String):
 	
 	RetroHubConfig.theme_data = RetroHubTheme.new()
 	RetroHubConfig.theme_data.id = theme_json["id"]
-	RetroHubConfig.load_theme_config()
+	RetroHubConfig._load_theme_config()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

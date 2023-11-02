@@ -19,8 +19,8 @@ func _ready():
 	setup_categories()
 
 func grab_focus():
-	RetroHubConfig.load_systems()
-	RetroHubConfig.load_game_data_files()
+	RetroHubConfig._load_systems()
+	RetroHubConfig._load_game_data_files()
 	n_system_trees.setup_systems(categories)
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()

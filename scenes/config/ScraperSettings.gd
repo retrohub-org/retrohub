@@ -137,7 +137,7 @@ func _on_ScraperSettings_visibility_changed():
 		update_scrape_stats(true)
 	elif n_ss_settings:
 		n_ss_settings.save_credentials()
-		RetroHubConfig.save_config()
+		RetroHubConfig._save_config()
 
 func convert_hash_size_from_range(value: float) -> int:
 	# Value is actually an int

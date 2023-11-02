@@ -73,7 +73,7 @@ func _on_SystemEditor_change_ocurred():
 func save_changes():
 	var system_raw : Dictionary = n_system_editor.save()
 	system_raw["#modified"] = true
-	RetroHubConfig.save_system(system_raw)
+	RetroHubConfig._save_system(system_raw)
 	update_system_selection(system_raw)
 	emit_signal("theme_reload")
 	n_save.disabled = true
@@ -95,7 +95,7 @@ func _on_SystemEditor_request_extensions(system_name, curr_extensions):
 
 
 func _on_RestoreSystem_pressed():
-	var default_system : Dictionary = RetroHubConfig.restore_system(n_system_editor.curr_system)
+	var default_system : Dictionary = RetroHubConfig._restore_system(n_system_editor.curr_system)
 	n_system_editor.curr_system = default_system
 	update_system_selection(default_system)
 	emit_signal("theme_reload")
@@ -125,7 +125,7 @@ func _on_AddCustomInfoPopup_identifier_picked(id):
 	}
 
 	RetroHubConfig._systems_raw[id] = system
-	RetroHubConfig.save_system(system)
+	RetroHubConfig._save_system(system)
 
 	var idx : int = n_system_selection.get_item_count()
 	n_system_selection.add_item("[%s] %s" % [system["name"], system["fullname"]], idx)
@@ -140,7 +140,7 @@ func _on_AddSystem_pressed():
 
 func _on_RemoveSystem_pressed():
 	var system_raw : Dictionary = n_system_editor.curr_system
-	RetroHubConfig.remove_custom_system(system_raw)
+	RetroHubConfig._remove_custom_system(system_raw)
 
 	for idx in n_system_selection.get_item_count():
 		if idx == sep_idx:

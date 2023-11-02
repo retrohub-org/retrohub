@@ -84,7 +84,7 @@ func get_current_emulator_editor():
 func save_changes():
 	var emulator_raw : Dictionary = get_current_emulator_editor().save()
 	emulator_raw["#modified"] = true
-	RetroHubConfig.save_emulator(emulator_raw)
+	RetroHubConfig._save_emulator(emulator_raw)
 	update_emulator_selection(emulator_raw)
 	n_save.disabled = true
 	n_discard.disabled = true
@@ -97,7 +97,7 @@ func discard_changes():
 
 
 func _on_RestoreEmulator_pressed():
-	var default_emulator : Dictionary = RetroHubConfig.restore_emulator(get_current_emulator_editor().curr_emulator)
+	var default_emulator : Dictionary = RetroHubConfig._restore_emulator(get_current_emulator_editor().curr_emulator)
 	get_current_emulator_editor().curr_emulator = default_emulator
 	update_emulator_selection(default_emulator)
 	n_save.disabled = true
@@ -124,7 +124,7 @@ func _on_AddCustomInfoPopup_identifier_picked(id):
 	}
 
 	RetroHubConfig.emulators_map[id] = emulator
-	RetroHubConfig.save_emulator(emulator)
+	RetroHubConfig._save_emulator(emulator)
 
 	var idx : int = n_emulator_selection.get_item_count()
 	n_emulator_selection.add_item("[%s] %s" % [emulator["name"], emulator["fullname"]], idx)
@@ -156,7 +156,7 @@ func _on_RetroArchEmulatorEditor_request_add_core():
 
 func _on_RemoveEmulator_pressed():
 	var emulator_raw : Dictionary = get_current_emulator_editor().curr_emulator
-	RetroHubConfig.remove_custom_emulator(emulator_raw)
+	RetroHubConfig._remove_custom_emulator(emulator_raw)
 
 	for idx in n_emulator_selection.get_item_count():
 		if idx == sep_idx:

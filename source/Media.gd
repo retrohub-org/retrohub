@@ -29,8 +29,8 @@ func _start_thread():
 		_thread = Thread.new()
 		_semaphore = Semaphore.new()
 
-		if _thread.start(Callable(self, "t_process_media_requests")):
-			push_error("Thread start failed [t_process_media_requests]")
+		if _thread.start(Callable(self, "_t_process_media_requests")):
+			push_error("Thread start failed [_t_process_media_requests]")
 
 func _stop_thread():
 	_queue_mutex.lock()
@@ -44,7 +44,7 @@ func _stop_thread():
 		_thread.wait_to_finish()
 		_thread = null
 
-func t_process_media_requests():
+func _t_process_media_requests():
 	while true:
 		_processing_mutex.lock()
 		# Wait for incoming requests
@@ -140,7 +140,7 @@ func _find_video_path(path: String) -> String:
 	return ""
 
 func _load_media(media: RetroHubGameMediaData, game_data: RetroHubGameData, types: Type):
-	var media_path := RetroHubConfig.get_gamemedia_dir().path_join(game_data.system_path)
+	var media_path := RetroHubConfig._get_gamemedia_dir().path_join(game_data.system_path)
 	var game_path := _get_game_path(game_data)
 	
 	var path : String
@@ -251,11 +251,11 @@ func retrieve_media_data(game_data: RetroHubGameData, types: Type = Type.ALL) ->
 	# Compute BlurHash data if it doesn't exist yet.
 	# In the future there needs to be a way to recompute it, in case the user manually
 	# changes files.
-	var media_path := RetroHubConfig.get_gamemedia_dir().path_join(game_data.system_path)
+	var media_path := RetroHubConfig._get_gamemedia_dir().path_join(game_data.system_path)
 	var game_path := _get_game_path(game_data)
 	var blurhash_path := media_path.path_join("blurhash").path_join(game_path + ".json")
 	if not FileAccess.file_exists(blurhash_path):
-		compute_blurhash(game_data)
+		_compute_blurhash(game_data)
 
 	_load_media(game_media_data, game_data, types)
 	return game_media_data
@@ -297,7 +297,7 @@ func retrieve_media_blurhash(game_data: RetroHubGameData, types: Type = Type.ALL
 
 	var game_media_data := RetroHubGameMediaData.new()
 
-	var media_path := RetroHubConfig.get_gamemedia_dir().path_join(game_data.system_path)
+	var media_path := RetroHubConfig._get_gamemedia_dir().path_join(game_data.system_path)
 	var game_path := _get_game_path(game_data)
 
 	var blurhashes := _get_blurhashes(media_path.path_join("blurhash").path_join(game_path + ".json"))
@@ -349,7 +349,7 @@ func cancel_media_data_async(game_data: RetroHubGameData) -> void:
 func _get_blurhashes(path: String) -> Dictionary:
 	return JSONUtils.load_json_file(path)
 
-func compute_blurhash(game_data: RetroHubGameData) -> void:
+func _compute_blurhash(game_data: RetroHubGameData) -> void:
 	var media_data := RetroHubGameMediaData.new()
 	_load_media(media_data, game_data,
 		Type.LOGO | Type.SCREENSHOT | Type.TITLE_SCREEN | \
@@ -377,17 +377,17 @@ func compute_blurhash(game_data: RetroHubGameData) -> void:
 		json_data[key] = blurhash
 		print("\t", key, ": ", blurhash)
 
-	var media_path := RetroHubConfig.get_gamemedia_dir().path_join(game_data.system_path)
+	var media_path := RetroHubConfig._get_gamemedia_dir().path_join(game_data.system_path)
 	var game_path := _get_game_path(game_data)
 	var file_path := media_path.path_join("blurhash").path_join(game_path + ".json")
 	FileUtils.ensure_path(file_path)
 	JSONUtils.save_json_file(json_data, file_path)
 
-func get_box_texture_region(data: RetroHubGameData, media: RetroHubGameMediaData, type: RetroHubGameData.BoxTextureRegions, rotate: bool = true) -> Texture2D:
-	if not data.box_texture_regions.has(type) or not media.box_texture:
+func get_box_texture_region(data: RetroHubGameData, media: RetroHubGameMediaData, region: RetroHubGameData.BoxTextureRegions, rotate: bool = true) -> Texture2D:
+	if not data.box_texture_regions.has(region) or not media.box_texture:
 		return null
 
-	var coords_raw : Rect2 = data.box_texture_regions[type]
+	var coords_raw : Rect2 = data.box_texture_regions[region]
 	var _offset_1 := coords_raw.position
 	var _offset_2 := coords_raw.size
 

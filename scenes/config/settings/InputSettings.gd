@@ -105,7 +105,7 @@ func _on_input_type_changed(input_type: int):
 		n_input_tab.current_tab = input_type
 
 func _on_hide():
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 
 func _on_StartLayout_pressed():
@@ -117,7 +117,7 @@ func _on_ClearLayout_pressed():
 	if splits.size() > 1:
 		Input.remove_joy_mapping(splits[0])
 	RetroHubConfig.config.custom_input_remap = ""
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 	n_cn_clear_layout.disabled = true
 
 
@@ -143,7 +143,7 @@ func _on_KeyboardRemap_key_remapped(key, old_code, new_code):
 			keymap[_key].erase(new_code)
 			keymap[_key].push_back(old_code)
 	RetroHubConfig.config.mark_for_saving()
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 func _on_CN_pressed(input_key):
 	var button := get_viewport().gui_get_focus_owner()
@@ -167,7 +167,7 @@ func _on_ControllerButtonRemap_remap_done(key, old_button, new_button):
 			if not old_button in map[_key]:
 				map[_key].push_back(old_button)
 	RetroHubConfig.config.mark_for_saving()
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 func _on_CNAxis_pressed(axis):
 	var button := get_viewport().gui_get_focus_owner()
@@ -179,7 +179,7 @@ func _on_ControllerAxisRemap_remap_done(action, old_axis, new_axis):
 	var is_main : bool = action == "rh_left"
 	RetroHubConfig.config.input_controller_main_axis = new_axis if is_main else old_axis
 	RetroHubConfig.config.input_controller_secondary_axis = old_axis if is_main else new_axis
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 
 func _on_CNIconType_item_selected(index):
@@ -224,14 +224,14 @@ func _on_CNDelay_value_changed(value):
 
 func _on_KBReset_pressed():
 	RetroHubConfig.config.input_key_map = ConfigData.default_input_key_map()
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 
 func _on_CNReset_pressed():
 	RetroHubConfig.config.input_controller_map = ConfigData.default_input_controller_map()
 	RetroHubConfig.config.input_controller_main_axis = "left"
 	RetroHubConfig.config.input_controller_secondary_axis = "right"
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 
 func _on_VirtualKeyboardLayout_item_selected(index):
