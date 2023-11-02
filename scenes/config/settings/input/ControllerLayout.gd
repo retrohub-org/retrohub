@@ -275,7 +275,7 @@ func create_mapping_string(mapping) -> String:
 func _remap(mapping):
 	var mapping_str := create_mapping_string(mapping)
 	RetroHubConfig.config.custom_input_remap = mapping_str
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 	mark_done()
 
 func reset():

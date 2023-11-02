@@ -42,7 +42,7 @@ func _on_save_pressed():
 	n_game_metadata_editor.save_changes()
 	n_game_info_editor.save_changes()
 	n_game_emulator_editor.save_changes()
-	if RetroHubConfig.save_game_data(n_game_metadata_editor.game_data):
+	if RetroHubConfig._save_game_data(n_game_metadata_editor.game_data):
 		_on_reset_state()
 
 

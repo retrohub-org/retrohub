@@ -54,4 +54,4 @@ func _ready():
 	n_emu_name.text = emu_name_orig_text % RetroHub.launched_emulator["fullname"]
 
 func _on_Timer_timeout():
-	RetroHub.kill_game_process()
+	RetroHub._kill_game_process()

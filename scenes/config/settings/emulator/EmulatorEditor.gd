@@ -34,7 +34,7 @@ func save() -> Dictionary:
 	curr_emulator["binpath"] = n_path.text
 	curr_emulator["command"] = n_command.text
 
-	RetroHubConfig.set_emulator_path(curr_emulator["name"], "binpath", n_path.text)
+	RetroHubConfig._set_emulator_path(curr_emulator["name"], "binpath", n_path.text)
 
 	return curr_emulator
 

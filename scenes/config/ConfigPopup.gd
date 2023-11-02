@@ -96,8 +96,8 @@ func _on_SettingsTab_focus_entered():
 
 func _on_ConfigPopup_popup_hide():
 	if should_reload_theme:
-		RetroHubConfig.load_user_data()
-		RetroHub.load_theme()
+		RetroHubConfig._load_user_data()
+		RetroHub._load_theme()
 	should_reload_theme = false
 	RetroHubConfig.save_theme_config()
 	TTS.speak("Configuration closed.")

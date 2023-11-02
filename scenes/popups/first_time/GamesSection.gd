@@ -28,7 +28,7 @@ func grab_focus():
 func _on_NextButton_pressed():
 	RetroHubConfig.config.games_dir = n_path.text
 	RetroHubConfig.config.custom_gamemedia_dir = n_media_path.text if not n_use_custom_media.button_pressed else ""
-	RetroHubConfig.load_game_data_files()
+	RetroHubConfig._load_game_data_files()
 	emit_signal("advance_section")
 
 func _on_ChooseDir_pressed():

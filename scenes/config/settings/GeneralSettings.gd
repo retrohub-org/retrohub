@@ -41,7 +41,7 @@ func set_themes():
 			var theme_pck := file.get_line()
 			if theme_pck.ends_with(".pck"):
 				n_themes.add_item(theme_pck.get_file().get_basename(), id)
-				if RetroHubConfig.get_default_themes_dir() in RetroHubConfig.theme_path and \
+				if RetroHubConfig._get_default_themes_dir() in RetroHubConfig.theme_path and \
 					theme_pck in RetroHubConfig.theme_path:
 					n_themes.selected = id
 				theme_id_map[id] = "res://default_themes/" + theme_pck
@@ -49,13 +49,13 @@ func set_themes():
 	n_themes.add_separator()
 	id += 1
 	# User themes
-	var dir := DirAccess.open(RetroHubConfig.get_themes_dir())
+	var dir := DirAccess.open(RetroHubConfig._get_themes_dir())
 	if dir and not dir.list_dir_begin(): # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
 			if not dir.current_is_dir() and next.ends_with(".pck"):
 				n_themes.add_item(next, id)
-				if not RetroHubConfig.get_default_themes_dir() in RetroHubConfig.theme_path and \
+				if not RetroHubConfig._get_default_themes_dir() in RetroHubConfig.theme_path and \
 					next in RetroHubConfig.theme_path:
 					n_themes.selected = id
 				theme_id_map[id] = next
@@ -91,7 +91,7 @@ func _on_Themes_item_selected(index):
 
 func _on_SetThemePath_pressed():
 	#warning-ignore:return_value_discarded
-	OS.shell_open(RetroHubConfig.get_themes_dir())
+	OS.shell_open(RetroHubConfig._get_themes_dir())
 
 func _on_SetGamePath_pressed():
 	RetroHubUI.filesystem_filters([])
@@ -108,7 +108,7 @@ func _on_Language_item_selected(index):
 			RetroHubConfig.config.lang = "en"
 
 func _on_AppSettings_hide():
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 
 func _on_AppSettings_visibility_changed():
@@ -128,12 +128,12 @@ func _on_SetupWizardButton_pressed():
 
 func _on_GraphicsMode_item_selected(index):
 	RetroHubConfig.config.fullscreen = index == 1
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 
 func _on_VSync_toggled(button_pressed):
 	RetroHubConfig.config.vsync = button_pressed
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()
 
 
 func _on_RenderRes_value_changed(value):
@@ -143,4 +143,4 @@ func _on_RenderRes_value_changed(value):
 
 func _on_ScreenReader_toggled(button_pressed):
 	RetroHubConfig.config.accessibility_screen_reader_enabled = button_pressed
-	RetroHubConfig.save_config()
+	RetroHubConfig._save_config()

@@ -303,7 +303,7 @@ func prepare_media_scrape_from_search(game_entry: RetroHubScraperGameEntry, sear
 func t_on_media_scrape_finished(game_data: RetroHubGameData, type: int, data: PackedByteArray, extension: String):
 	if pending_medias.has(game_data):
 		# Save media
-		var path := RetroHubConfig.get_gamemedia_dir() \
+		var path := RetroHubConfig._get_gamemedia_dir() \
 						.path_join(game_data.system.name) \
 						.path_join(RetroHubMedia.convert_type_to_media_path(type)) \
 						.path_join(_get_game_path(game_data) + "." + extension)
@@ -360,8 +360,8 @@ func _finish_scrape(game_entry: RetroHubScraperGameEntry):
 	call_deferred("incr_num_games_success")
 	call_deferred("decr_num_games_pending")
 	if scrape_data:
-		RetroHubMedia.compute_blurhash(game_entry.game_data)
-		RetroHubConfig.call_deferred("save_game_data", game_entry.game_data)
+		RetroHubMedia._compute_blurhash(game_entry.game_data)
+		RetroHubConfig.call_deferred("_save_game_data", game_entry.game_data)
 
 func _convert_type_to_str(type: int):
 	match type:
@@ -546,7 +546,7 @@ func finish_scraping():
 	# Save pending metadata
 	for game_entry in game_entry_list:
 		if game_entry.state != RetroHubScraperGameEntry.State.SUCCESS and game_entry.game_data.has_metadata:
-			if not RetroHubConfig.save_game_data(game_entry.game_data):
+			if not RetroHubConfig._save_game_data(game_entry.game_data):
 				push_error("Error saving game data: " + game_entry.game_data.title)
 	hide()
 

@@ -2,7 +2,7 @@ extends RetroHubGenericEmulator
 class_name RetroHubRetroArchEmulator
 
 static func get_custom_core_path() -> String:
-	var corepath := RetroHubConfig.get_emulator_path("retroarch", "corepath")
+	var corepath := RetroHubConfig._get_emulator_path("retroarch", "corepath")
 	if not corepath.is_empty():
 		return corepath
 
@@ -15,7 +15,7 @@ static func get_custom_core_path() -> String:
 				if "libretro_directory" in line:
 					var path := line.get_slice("=", 1).replace("\"", "").replace("'", "").strip_edges()
 					path = FileUtils.expand_path(path)
-					RetroHubConfig.set_emulator_path("retroarch", "corepath", path)
+					RetroHubConfig._set_emulator_path("retroarch", "corepath", path)
 					return path
 		return ""
 	return ""
@@ -46,14 +46,14 @@ static func get_config_path() -> String:
 
 static func find_core_path(core_key: String, emulator_def: Dictionary, corepath: String) -> String:
 	var path_key := "core_" + core_key
-	var path := RetroHubConfig.get_emulator_path("retroarch", path_key)
+	var path := RetroHubConfig._get_emulator_path("retroarch", path_key)
 	if not path.is_empty() and FileAccess.file_exists(corepath.path_join(path)):
 		return path
 	for core_info in emulator_def["cores"]:
 		if core_info["name"] == core_key:
 			var core_file : String = core_info["file"]
 			var core_file_path : String = corepath.path_join(core_file)
-			RetroHubConfig.set_emulator_path("retroarch", path_key, core_file)
+			RetroHubConfig._set_emulator_path("retroarch", path_key, core_file)
 			if FileAccess.file_exists(core_file_path):
 				return core_file
 	return ""

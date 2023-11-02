@@ -210,7 +210,7 @@ func import_metadata():
 			next_folder = dir.get_next()
 	reset_minor(total_games)
 	for system in gamelists.keys():
-		var base_path := RetroHubConfig.get_gamelists_dir().path_join(system as String)
+		var base_path := RetroHubConfig._get_gamelists_dir().path_join(system as String)
 		FileUtils.ensure_path(base_path)
 		var data = gamelists[system]
 		if data is Array:
@@ -273,7 +273,7 @@ func import_media(copy: bool):
 		var next := dir.get_next()
 		while not next.is_empty():
 			if dir.current_is_dir():
-				var base_path := RetroHubConfig.get_gamemedia_dir().path_join(next)
+				var base_path := RetroHubConfig._get_gamemedia_dir().path_join(next)
 				FileUtils.ensure_path(base_path)
 				process_media_subfolder(media_path.path_join(next), next, copy)
 			next = dir.get_next()
@@ -294,7 +294,7 @@ func process_media(path: String, system: String, media_name: String, copy: bool)
 		while not next.is_empty():
 			if not dir.current_is_dir():
 				var from_path := path.path_join(next)
-				var to_path := RetroHubConfig.get_gamemedia_dir().path_join(system).path_join(media_name).path_join(from_path.get_file())
+				var to_path := RetroHubConfig._get_gamemedia_dir().path_join(system).path_join(media_name).path_join(from_path.get_file())
 				FileUtils.ensure_path(to_path)
 				if copy:
 					progress_minor("Copying \"%s\" (\"%s\")" % [from_path.get_file(), system])
@@ -313,7 +313,7 @@ func save_game_data():
 	reset_minor(game_datas.size())
 	for game_data in game_datas.values():
 		progress_minor("Saving \"%s\" metadata" % game_data.name)
-		if not RetroHubConfig.save_game_data(game_data):
+		if not RetroHubConfig._save_game_data(game_data):
 			push_error("Failed to save game data for \"%s\"" % game_data.name)
 
 

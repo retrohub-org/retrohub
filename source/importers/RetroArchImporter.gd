@@ -116,7 +116,7 @@ func import_metadata():
 			next = dir.get_next()
 	reset_minor(total_games)
 	for system in gamelists.keys():
-		var base_path := RetroHubConfig.get_gamelists_dir().path_join(system as String)
+		var base_path := RetroHubConfig._get_gamelists_dir().path_join(system as String)
 		FileUtils.ensure_path(base_path)
 		for child in gamelists[system]:
 			process_metadata(system, child)
@@ -187,7 +187,7 @@ func import_media(copy: bool):
 			if dir.current_is_dir() and next != "cheevos":
 				var system_name := guess_system_name(next)
 				if not system_name.is_empty():
-					var base_path := RetroHubConfig.get_gamemedia_dir().path_join(system_name)
+					var base_path := RetroHubConfig._get_gamemedia_dir().path_join(system_name)
 					FileUtils.ensure_path(base_path)
 					process_media_subfolder(thumbnails_path.path_join(next), system_name, copy)
 			next = dir.get_next()
@@ -205,7 +205,7 @@ func process_media(path: String, system: String, media_name: String, copy: bool)
 	var dir := DirAccess.open(path)
 	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
-		var base_path := RetroHubConfig.get_gamemedia_dir().path_join(system).path_join(media_name)
+		var base_path := RetroHubConfig._get_gamemedia_dir().path_join(system).path_join(media_name)
 		while not next.is_empty():
 			if not dir.current_is_dir():
 				var from_path := path.path_join(next)
@@ -235,7 +235,7 @@ func save_game_data():
 	reset_minor(game_datas.size())
 	for game_data in game_datas.values():
 		progress_minor("Saving \"%s\" metadata" % game_data.name)
-		if not RetroHubConfig.save_game_data(game_data):
+		if not RetroHubConfig._save_game_data(game_data):
 			push_error("Failed to save game data for \"%s\"" % game_data.name)
 
 

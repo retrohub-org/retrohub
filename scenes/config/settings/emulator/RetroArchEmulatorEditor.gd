@@ -69,8 +69,8 @@ func save() -> Dictionary:
 
 	curr_emulator["cores"] = cores.duplicate(true)
 
-	RetroHubConfig.set_emulator_path("retroarch", "binpath", n_path.text)
-	RetroHubConfig.set_emulator_path("retroarch", "corepath", n_core_path.text)
+	RetroHubConfig._set_emulator_path("retroarch", "binpath", n_path.text)
+	RetroHubConfig._set_emulator_path("retroarch", "corepath", n_core_path.text)
 
 	return curr_emulator
 
