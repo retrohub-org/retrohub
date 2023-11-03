@@ -64,7 +64,7 @@ func get_estimated_size() -> int:
 		if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 			var next := dir.get_next()
 			while not next.is_empty():
-				if dir.current_is_dir() and next != "cheevos":
+				if dir.current_is_dir() and guess_system_name(next) != "":
 					folder_size += FileUtils.get_folder_size(thumbnails_path.path_join(next), RA_MEDIA_NAMES)
 				next = dir.get_next()
 	return folder_size
@@ -110,9 +110,12 @@ func import_metadata():
 			if not dir.current_is_dir() and next.to_lower().ends_with(".lpl"):
 				var lpl_file := playlists_path.path_join(next)
 				progress_minor("Reading gamedata from \"%s\"..." % next)
-				var system_name := guess_system_name(lpl_file)
+				var system_name := guess_system_name(next)
 				if not system_name.is_empty():
-					gamelists[system_name] = process_lpl_file(lpl_file)
+					if gamelists.has(system_name):
+						gamelists[system_name].append_array(process_lpl_file(lpl_file))
+					else:
+						gamelists[system_name] = process_lpl_file(lpl_file)
 			next = dir.get_next()
 	reset_minor(total_games)
 	for system in gamelists.keys():
@@ -121,19 +124,176 @@ func import_metadata():
 		for child in gamelists[system]:
 			process_metadata(system, child)
 
-func guess_system_name(system_name: String) -> String:
+func guess_system_name(file_name: String) -> String:
 	# RetroArch saves system information in the file name as full name.
 	# We have to try and match it to known entries
-	if "Nintendo - Nintendo 64" in system_name:
-		return "n64"
-	elif "Nintendo - Nintendo Entertainment System" in system_name:
-		return "nes"
-	elif "Nintendo - Super Nintendo Entertainment System" in system_name:
-		return "snes"
-	elif "Nintendo - GameCube" in system_name:
-		return "gc"
-	# TODO: More names
-	return ""
+	# Entries sourced from https://github.com/libretro/libretro-database/blob/master/rdb
+	match file_name.get_basename():
+		"Amstrad - CPC":
+			return "amstradcpc"
+		"Amstrad - GX4000":
+			return "gx4000"
+		"Atari - 2600":
+			return "atari2600"
+		"Atari - 5200":
+			return "atari5200"
+		"Atari - 7800":
+			return "atari7800"
+		"Atari - 8-bit":
+			return "atari800"
+		"Atari - Jaguar":
+			return "atarijaguar"
+		"Atari - Lynx":
+			return "atarilynx"
+		"Atari - ST":
+			return "atarist"
+		"Atomiswave":
+			return "atomiswave"
+		"Bandai - WonderSwan Color":
+			return "wonderswancolor"
+		"Bandai - WonderSwan":
+			return "wonderswan"
+		"Cave Story":
+			return "cavestory"
+		"ChaiLove":
+			return "chailove"
+		"Coleco - ColecoVision":
+			return "colecovision"
+		"Commodore - 64":
+			return "c64"
+		"Commodore - Amiga":
+			return "amiga"
+		"Commodore - CD32":
+			return "amigacd32"
+		"Commodore - CDTV":
+			return "cdtv"
+		"Commodore - VIC-20":
+			return "vic20"
+		"DOOM":
+			return "doom"
+		"DOS":
+			return "dos"
+		"FBNeo - Arcade Games", "MAME 2000", "MAME 2003-Plus", "MAME 2003", \
+		"MAME 2010", "MAME 2015", "MAME 2016", "MAME":
+			return "arcade"
+		"Fairchild - Channel F":
+			return "channelf"
+		"GCE - Vectrex":
+			return "vectrex"
+		"Infocom - Z-Machine":
+			return "zmachine"
+		"Lutro":
+			return "lutro"
+		"Magnavox - Odyssey2":
+			return "odyssey2"
+		"Mattel - Intellivision":
+			return "intellivision"
+		"Microsoft - MSX":
+			return "msx"
+		"Microsoft - MSX2":
+			return "msx2"
+		"Microsoft - Xbox":
+			return "xbox"
+		"NEC - PC Engine - TurboGrafx 16":
+			return "tg16"
+		"NEC - PC Engine CD - TurboGrafx-CD":
+			return "tg-cd"
+		"NEC - PC Engine SuperGrafx":
+			return "supergrafx"
+		"NEC - PC-98":
+			return "pc98"
+		"NEC - PC-FX":
+			return "pcfx"
+		"Nintendo - Family Computer Disk System":
+			return "fds"
+		"Nintendo - Game Boy Advance":
+			return "gba"
+		"Nintendo - Game Boy Color":
+			return "gbc"
+		"Nintendo - Game Boy":
+			return "gb"
+		"Nintendo - GameCube":
+			return "gc"
+		"Nintendo - Nintendo 3DS":
+			return "n3ds"
+		"Nintendo - Nintendo 64":
+			return "n64"
+		"Nintendo - Nintendo 64DD":
+			return "n64dd"
+		"Nintendo - Nintendo DS", "Nintendo - Nintendo DSi":
+			return "ds"
+		"Nintendo - Nintendo Entertainment System":
+			return "nes"
+		"Nintendo - Pokemon Mini":
+			return "pokemini"
+		"Nintendo - Satellaview":
+			return "satellaview"
+		"Nintendo - Sufami Turbo":
+			return "sufami"
+		"Nintendo - Super Nintendo Entertainment System":
+			return "snes"
+		"Nintendo - Virtual Boy":
+			return "virtualboy"
+		"Nintendo - Wii (Digital)", "Nintendo - Wii":
+			return "wii"
+		"Philips - CD-i":
+			return "cdimono1"
+		"Philips - Videopac+":
+			return "videopac"
+		"SNK - Neo Geo CD":
+			return "neogeocd"
+		"SNK - Neo Geo Pocket Color":
+			return "ngpc"
+		"SNK - Neo Geo Pocket":
+			return "ngp"
+		"ScummVM":
+			return "scummvm"
+		"Sega - 32X":
+			return "sega32x"
+		"Sega - Dreamcast":
+			return "dreamcast"
+		"Sega - Game Gear":
+			return "gamegear"
+		"Sega - Master System - Mark III":
+			return "mastersystem"
+		"Sega - Mega Drive - Genesis":
+			return "genesis"
+		"Sega - Mega-CD - Sega CD":
+			return "segacd"
+		"Sega - Naomi", "Sega - Naomi 2":
+			return "naomi"
+		"Sega - SG-1000":
+			return "sg-1000"
+		"Sega - Saturn":
+			return "saturn"
+		"Sharp - X1":
+			return "x1"
+		"Sharp - X68000":
+			return "x68000"
+		"Sinclair - ZX 81":
+			return "zx81"
+		"Sinclair - ZX Spectrum", "Sinclair - ZX Spectrum +3":
+			return "zxspectrum"
+		"Sony - PlayStation 2":
+			return "ps2"
+		"Sony - PlayStation 3", "Sony - PlayStation 3 (PSN)":
+			return "ps3"
+		"Sony - PlayStation Portable", "Sony - PlayStation Portable (PSN)":
+			return "psp"
+		"Sony - PlayStation Vita":
+			return "psvita"
+		"Sony - PlayStation":
+			return "psx"
+		"TIC-80":
+			return "tic80"
+		"The 3DO Company - 3DO":
+			return "3do"
+		"Thomson - MOTO":
+			return "moto"
+		"Uzebox":
+			return "uzebox"
+		_:
+			return ""
 
 func process_lpl_file(path: String) -> Array:
 	# RetroArch 1.7.5 onwards saves data in JSON format.
@@ -165,8 +325,6 @@ func process_metadata(system: String, dict: Dictionary):
 	if dict.has("name"):
 		game_data.name = dict["name"]
 	var short_path := system.path_join(game_data.path.get_file().get_basename())
-	if RetroHubConfig.systems.has(system):
-		game_data.system = RetroHubConfig.systems[system]
 	game_data.system_path = system
 	game_datas[short_path] = game_data
 
@@ -177,14 +335,14 @@ func import_media(copy: bool):
 	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
-			if dir.current_is_dir() and next != "cheevos":
+			if dir.current_is_dir() and guess_system_name(next) != "":
 				count += FileUtils.get_file_count(thumbnails_path.path_join(next), RA_MEDIA_NAMES)
 			next = dir.get_next()
 	reset_minor(count)
 	if not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var next := dir.get_next()
 		while not next.is_empty():
-			if dir.current_is_dir() and next != "cheevos":
+			if dir.current_is_dir():
 				var system_name := guess_system_name(next)
 				if not system_name.is_empty():
 					var base_path := RetroHubConfig._get_gamemedia_dir().path_join(system_name)
@@ -235,7 +393,7 @@ func save_game_data():
 	reset_minor(game_datas.size())
 	for game_data in game_datas.values():
 		progress_minor("Saving \"%s\" metadata" % game_data.name)
-		if not RetroHubConfig._save_game_data(game_data):
+		if not RetroHubConfig._save_game_data(game_data, game_data.system_path, false):
 			push_error("Failed to save game data for \"%s\"" % game_data.name)
 
 

@@ -417,8 +417,12 @@ func _fetch_game_data(path: String, game: RetroHubGameData) -> bool:
 func _get_game_data_path_from_file(system_name: String, file_name: String) -> String:
 	return _get_gamelists_dir().path_join(system_name).path_join(file_name.get_file().trim_suffix(file_name.get_extension()) + "json")
 
-func _save_game_data(game_data: RetroHubGameData) -> bool:
-	var metadata_path := _get_game_data_path_from_file(game_data.system.name, game_data.path)
+func _save_game_data(game_data: RetroHubGameData, system_folder_name : String = "", signal_changes : bool = true) -> bool:
+	var metadata_path : String
+	if system_folder_name.is_empty():
+		metadata_path = _get_game_data_path_from_file(game_data.system.name, game_data.path)
+	else:
+		metadata_path = _get_game_data_path_from_file(system_folder_name, game_data.path)
 	FileUtils.ensure_path(metadata_path)
 	var game_data_raw := {
 		"name": game_data.name,
@@ -457,7 +461,8 @@ func _save_game_data(game_data: RetroHubGameData) -> bool:
 	file.store_string(JSON.stringify(game_data_raw, "\t", false))
 	file.close()
 
-	emit_signal("game_data_updated", game_data)
+	if signal_changes:
+		emit_signal("game_data_updated", game_data)
 	return true
 
 

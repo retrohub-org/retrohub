@@ -14,12 +14,12 @@ signal advance_section
 @onready var n_next_button := %NextButton
 
 func _ready():
-	set_path(RetroHubConfig.config.games_dir)
 	set_media_path(RetroHubConfig.config.custom_gamemedia_dir)
 	n_use_custom_media.set_pressed_no_signal(RetroHubConfig.config.custom_gamemedia_dir.is_empty())
 	_on_use_custom_media_toggled(n_use_custom_media.button_pressed)
 
 func grab_focus():
+	set_path(RetroHubConfig.config.games_dir)
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_intro_lbl.grab_focus()
 	else:

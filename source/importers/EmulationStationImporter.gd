@@ -14,6 +14,8 @@ var folder_size : int = -1
 
 var game_datas := {}
 
+var known_systems : Array[String] = []
+
 const ES_MEDIA_NAMES := [
 	"3dboxes", "marquees", "screenshots",
 	"titlescreens", "videos"
@@ -164,6 +166,19 @@ func inspect_theme_xml(path: String) -> int:
 # to copy previous data and, therefore, not affect the other game library
 # platform. This will be run in a thread, so avoid any unsafe-thread API
 func begin_import(copy: bool):
+	# We don't have information on systems yet, so workaround and load system.json to get it
+	# Our systems names come from ES, so we can use them directly
+	var _raw_systems = JSONUtils.load_json_file(RetroHubConfig._get_systems_file())
+	if not _raw_systems is Array:
+		push_error("Failed loading system.json")
+		return
+	for system in _raw_systems:
+		if system.has("name"):
+			known_systems.append(system["name"])
+		else:
+			push_error("Failed loading system.json")
+			return
+
 	reset_major(4)
 	progress_major("Importing configuration")
 	import_config()
@@ -210,6 +225,7 @@ func import_metadata():
 			next_folder = dir.get_next()
 	reset_minor(total_games)
 	for system in gamelists.keys():
+		if not system in known_systems: continue
 		var base_path := RetroHubConfig._get_gamelists_dir().path_join(system as String)
 		FileUtils.ensure_path(base_path)
 		var data = gamelists[system]
@@ -253,8 +269,6 @@ func process_metadata(system: String, dict: Dictionary):
 	if dict.has("favorite"):
 		game_data.favorite = bool(dict["favorite"])
 	var short_path := system.path_join(game_data.path.get_file().get_basename())
-	if(RetroHubConfig.systems.has(system)):
-		game_data.system = RetroHubConfig.systems[system]
 	game_data.system_path = system
 	game_datas[short_path] = game_data
 
@@ -313,9 +327,10 @@ func save_game_data():
 	reset_minor(game_datas.size())
 	for game_data in game_datas.values():
 		progress_minor("Saving \"%s\" metadata" % game_data.name)
-		if not RetroHubConfig._save_game_data(game_data):
+		if not RetroHubConfig._save_game_data(game_data, game_data.system_path, false):
 			push_error("Failed to save game data for \"%s\"" % game_data.name)
 
 
 func cleanup():
 	game_datas.clear()
+	known_systems.clear()
