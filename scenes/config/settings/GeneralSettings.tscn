@@ -125,6 +125,47 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "Re-run first time wizard"
 
+[node name="Sound" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Sound"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "Sound"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Sound/Label"]
+script = ExtResource("5")
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/Sound"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Sound"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Sound/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UI volume:"
+
+[node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/Sound/HBoxContainer/Label"]
+script = ExtResource("5")
+
+[node name="UIVolumeLabel" type="Label" parent="ScrollContainer/VBoxContainer/Sound/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100%"
+
+[node name="UIVolume" type="HSlider" parent="ScrollContainer/VBoxContainer/Sound/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+step = 5.0
+value = 1.0
+tick_count = 11
+ticks_on_borders = true
+
 [node name="Graphics" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -279,6 +320,7 @@ vertical_alignment = 1
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/User/HBoxContainer2/SetThemePath" to="." method="_on_SetThemePath_pressed"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/User/HBoxContainer3/Language" to="." method="_on_Language_item_selected"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/User/SetupWizardButton" to="." method="_on_SetupWizardButton_pressed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/Sound/HBoxContainer/UIVolume" to="." method="_on_ui_volume_value_changed"]
 [connection signal="item_selected" from="ScrollContainer/VBoxContainer/Graphics/HBoxContainer/GraphicsMode" to="." method="_on_GraphicsMode_item_selected"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/Graphics/HBoxContainer2/VSync" to="." method="_on_VSync_toggled"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/Graphics/HBoxContainer3/RenderRes" to="." method="_on_RenderRes_value_changed"]

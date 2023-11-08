@@ -7,6 +7,9 @@ extends Control
 @onready var n_language := %Language
 @onready var n_first_time_wizard_warning := %FirstTimeWizardWarning
 
+@onready var n_ui_volume_label := %UIVolumeLabel
+@onready var n_ui_volume := %UIVolume
+
 @onready var n_graphics_mode := %GraphicsMode
 @onready var n_vsync := %VSync
 @onready var n_render_res_label := %RenderResLabel
@@ -72,6 +75,7 @@ func _on_config_ready(config_data: ConfigData):
 	n_graphics_mode.selected = 1 if config_data.fullscreen else 0
 	n_vsync.set_pressed_no_signal(config_data.vsync)
 	n_render_res.value = config_data.render_resolution
+	n_ui_volume.value = config_data.ui_volume
 	set_language(config_data.lang)
 	n_screen_reader.set_pressed_no_signal(config_data.accessibility_screen_reader_enabled)
 
@@ -144,3 +148,9 @@ func _on_RenderRes_value_changed(value):
 func _on_ScreenReader_toggled(button_pressed):
 	RetroHubConfig.config.accessibility_screen_reader_enabled = button_pressed
 	RetroHubConfig._save_config()
+
+
+func _on_ui_volume_value_changed(value):
+	RetroHubConfig.config.ui_volume = value
+	n_ui_volume_label.text = str(value) + "%"
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value / 100.0))
