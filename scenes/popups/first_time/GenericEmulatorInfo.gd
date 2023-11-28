@@ -10,7 +10,7 @@ var found := false
 func _ready():
 	n_accessibility_focus._on_config_ready(RetroHubConfig.config)
 
-func set_name(_name: String):
+func set_emu_name(_name: String):
 	n_name.text = _name
 
 func set_logo(texture: Texture2D):
