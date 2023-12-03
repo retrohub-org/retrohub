@@ -6,15 +6,16 @@ func load_json_file(filepath: String):
 		push_error("Error when opening " + filepath)
 		return {}
 	var json = load_json_buffer(file.get_as_text())
-	if not json:
+	if not (json is Dictionary or json is Array):
 		push_error("Error when parsing JSON for " + filepath)
+		return {}
 	return json
 
 func load_json_buffer(data: String):
 	var json = JSON.new()
 	if json.parse(data):
 		push_error("Error when parsing JSON buffer")
-		return {}
+		return ERR_FILE_CORRUPT
 	return json.get_data()
 
 func save_json_file(json, file_path: String):

@@ -179,6 +179,9 @@ func thread_fetch_game_entries():
 				else:
 					game_entry.description = "Fetching media (by search)..."
 				call_thread_safe("emit_signal", "scrape_step", game_entry)
+				# FIXME: Refactor this code ASAP it's so bad
+				if game_entry.data is Array:
+					game_entry.data = game_data.name.get_basename()
 				if not scraper.scrape_game_by_search(game_data, game_entry.data):
 					pending_datas[game_data] = req
 			Request.Type.MEDIA:
@@ -258,7 +261,6 @@ func t_on_game_scrape_not_found(game_data: RetroHubGameData):
 			game_entry.set_deferred("state", RetroHubScraperGameEntry.State.ERROR)
 			call_deferred("decr_num_games_pending")
 			call_deferred("incr_num_games_error")
-
 
 
 func t_on_game_scrape_error(game_data: RetroHubGameData, details: String):
@@ -466,7 +468,7 @@ func _on_Warning_search_completed(orig_game_data: RetroHubGameData, new_game_dat
 			break
 
 func cancel_scrape(game_entry: RetroHubScraperGameEntry):
-	game_entry.data = ["Canceled", null]
+	game_entry.data = ["Canceled", game_entry.data if game_entry.data is String else null]
 	game_entry.state = RetroHubScraperGameEntry.State.ERROR
 	num_games_pending = num_games_pending - 1
 	num_games_error = num_games_error + 1
@@ -523,7 +525,7 @@ func cancel_entry(game_entry: RetroHubScraperGameEntry):
 	#warning-ignore:return_value_discarded
 	requests_semaphore.wait()
 	requests_mutex.unlock()
-	game_entry.data = ["Canceled", null]
+	game_entry.data = ["Canceled", game_entry.data if game_entry.data is String else null]
 	game_entry.state = RetroHubScraperGameEntry.State.ERROR
 	num_games_pending -= 1
 	num_games_error += 1
@@ -562,11 +564,14 @@ func _on_StopScraperDialog_confirmed():
 	finish_scraping()
 
 
-func _on_Error_retry_entry(game_entry: RetroHubScraperGameEntry, req: Request):
+func _on_Error_retry_entry(game_entry: RetroHubScraperGameEntry, req):
 	requests_mutex.lock()
 	if req == null:
 		# No request, so start by scratch
 		add_data_request(game_entry, Request.Type.DATA_HASH if scrape_by_hash else Request.Type.DATA_SEARCH, true)
+	elif req is String:
+		game_entry.data = req
+		add_data_request(game_entry, Request.Type.DATA_SEARCH, true)
 	else:
 		requests_queue.push_front(req)
 		#warning-ignore:return_value_discarded
