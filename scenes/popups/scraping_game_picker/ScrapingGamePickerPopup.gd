@@ -101,7 +101,9 @@ func get_selected_items(_root: TreeItem):
 			if _root.get_children():
 				selected_items.append_array(get_selected_items(next.get_child(0)))
 			elif next.is_checked(1):
-				selected_items.append(next.get_metadata(0))
+				var game : RetroHubGameData = next.get_metadata(0)
+				if game:
+					selected_items.append(game)
 			next = next.get_next()
 	return selected_items
 
