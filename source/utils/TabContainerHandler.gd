@@ -58,6 +58,8 @@ func _input(event):
 			event.is_action_pressed("rh_accept")):
 			get_viewport().set_input_as_handled()
 			handle_focus(true)
+		elif _focused and event.is_action_pressed("ui_up"):
+			get_viewport().set_input_as_handled()
 
 func is_key_event_on_text(event: InputEvent):
 	if event is InputEventKey:
@@ -70,6 +72,7 @@ func _on_tab_clicked(_tab_idx: int):
 
 func handle_focus(enter_tab: bool):
 	RetroHubUI.play_sound(RetroHubUI.AudioKeys.SLIDE)
+	await get_tree().process_frame
 	if signal_tab_change:
 		emit_signal("tab_changed", tab, enter_tab)
 	elif enter_tab and tab.get_current_tab_control().focus_mode != FOCUS_NONE:
