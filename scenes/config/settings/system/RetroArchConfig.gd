@@ -37,7 +37,7 @@ func start(cores: Array, existing: Array):
 		n_intro_lbl.grab_focus()
 	else:
 		n_core_options.grab_focus()
-	n_add_core.disabled = n_core_options.get_child_count() == 0
+	n_add_core.disabled = n_core_options.item_count == 0
 
 func reset():
 	n_core_options.clear()
@@ -81,10 +81,10 @@ func _on_AddCore_pressed():
 	var idx : int = n_core_options.get_item_index(n_core_options.get_selected_id())
 	n_core_options.remove_item(idx)
 	idx -= 1
-	if idx < 0 and n_core_options.get_item_count() > 0:
+	if idx < 0 and n_core_options.item_count > 0:
 		idx = 0
 	n_core_options.selected = idx
-	n_add_core.disabled = n_core_options.get_item_count() == 0
+	n_add_core.disabled = n_core_options.item_count == 0
 
 func tts_tree_item_text(item: TreeItem, tree: Tree) -> String:
 	if tree == n_cores:
