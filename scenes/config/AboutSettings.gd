@@ -29,7 +29,7 @@ func grab_focus():
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		match n_tabs.current_tab:
 			0: # About RetroHub
-				n_logo.grab_focus()
+				n_version.grab_focus()
 			1: # Libraries
 				n_libraries_intro_lbl.grab_focus()
 			2: # Assets
@@ -64,5 +64,5 @@ func _on_OpenIssuesButton_pressed():
 
 func _on_TabContainerHandler_tab_changed(_tab_container, enter_tab):
 	if enter_tab:
-		grab_focus()
+		self.grab_focus()
 
