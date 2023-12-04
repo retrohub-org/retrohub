@@ -1,6 +1,6 @@
 extends Control
 
-const WEBSITE_URL := "https://github.com/retrohub-org/retrohub"
+const WEBSITE_URL := "https://retrohub-org.github.io"
 const ISSUES_URL := "https://github.com/retrohub-org/retrohub/issues"
 
 @onready var n_logo := %Logo
