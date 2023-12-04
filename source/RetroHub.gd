@@ -88,6 +88,8 @@ func _load_theme():
 	print("Config is ready, parsing metadata...")
 	var systems : Dictionary = RetroHubConfig.systems
 	var games : Array = RetroHubConfig.games
+	
+	curr_game_data = null
 
 	_theme_processing_done = false
 	emit_signal("_theme_unload")
