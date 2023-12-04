@@ -152,7 +152,7 @@ func _texturebutton_focused():
 	var tokens = PackedStringArray([])
 	tokens.append(_get_graphical_button_text(node.texture_normal))
 	tokens.append("button")
-	TTS.join(": ".join(tokens))
+	TTS.speak(": ".join(tokens))
 
 
 func item_list_item_focused(idx, node):
