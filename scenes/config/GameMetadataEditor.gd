@@ -121,7 +121,6 @@ func discard_changes():
 		n_age_rating.selected = 0
 		n_genres.text = ""
 		n_fixed_players.set_pressed_no_signal(true)
-		_on_FixedPlayers_toggled(true)
 		n_fixed_players_num.value = 1
 		n_variable_players.set_pressed_no_signal(false)
 		n_variable_players_min.value = 1
