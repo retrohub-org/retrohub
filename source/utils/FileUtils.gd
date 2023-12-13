@@ -117,3 +117,11 @@ func get_os_string() -> String:
 
 func is_steam_deck():
 	return get_os_id() == OS_ID.LINUX and not OS.get_environment("SteamDeck").is_empty()
+
+func get_user_agent() -> String:
+	var version := RetroHub.version_str
+	var os_name := get_os_string().capitalize()
+	if is_steam_deck():
+		os_name += "-SteamDeck"
+	var user_agent := "RetroHub/%s (%s)" % [version, os_name]
+	return user_agent

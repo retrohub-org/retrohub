@@ -649,7 +649,7 @@ func scrape_game_by_hash(game_data: RetroHubGameData, type: int = RequestDetails
 	var header_data := {
 		"devid": ss_get_api_keys(ss_api_user, false),
 		"devpassword": ss_get_api_keys(ss_api_pass, true),
-		"softname": "RetroHub",
+		"softname": FileUtils.get_user_agent(),
 		"output": "json",
 		"romtype": "rom",
 		"md5": md5,
@@ -683,7 +683,7 @@ func scrape_game_by_search(game_data: RetroHubGameData, search_term: String, typ
 	var header_data := {
 		"devid": ss_get_api_keys(ss_api_user, false),
 		"devpassword": ss_get_api_keys(ss_api_pass, true),
-		"softname": "RetroHub",
+		"softname": FileUtils.get_user_agent(),
 		"output": "json",
 		"systemeid": str(get_ss_system_mapping(game_data.system.name)),
 		"recherche": search_term

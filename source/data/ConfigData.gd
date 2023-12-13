@@ -37,6 +37,7 @@ var virtual_keyboard_show_on_mouse : bool = false: set = _set_virtual_keyboard_s
 var accessibility_screen_reader_enabled : bool = true: set = _set_accessibility_screen_reader_enabled
 var custom_gamemedia_dir : String = "": set = _set_custom_gamemedia_dir
 var ui_volume : int = 100: set = _set_ui_volume
+var integration_rcheevos_enabled : bool = false: set = _set_integration_rcheevos_enabled
 
 const KEY_CONFIG_VERSION = "config_version"
 const KEY_IS_FIRST_TIME = "is_first_time"
@@ -68,6 +69,7 @@ const KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE = "virtual_keyboard_show_on_mouse"
 const KEY_ACCESSIBILITY_SCREEN_READER_ENABLED = "accessibility_screen_reader_enabled"
 const KEY_CUSTOM_GAMEMEDIA_DIR = "custom_gamemedia_dir"
 const KEY_UI_VOLUME = "ui_volume"
+const KEY_INTEGRATION_RCHEEVOS_ENABLED = "integration_rcheevos_enabled"
 
 
 const _keys = [
@@ -100,7 +102,8 @@ const _keys = [
 	KEY_VIRTUAL_KEYBOARD_SHOW_ON_MOUSE,
 	KEY_ACCESSIBILITY_SCREEN_READER_ENABLED,
 	KEY_CUSTOM_GAMEMEDIA_DIR,
-	KEY_UI_VOLUME
+	KEY_UI_VOLUME,
+	KEY_INTEGRATION_RCHEEVOS_ENABLED
 ]
 
 var _should_save : bool = true
@@ -309,6 +312,10 @@ func _set_custom_gamemedia_dir(_custom_gamemedia_dir):
 func _set_ui_volume(_ui_volume):
 	mark_for_saving()
 	ui_volume = _ui_volume
+
+func _set_integration_rcheevos_enabled(_integration_rcheevos_enabled):
+	mark_for_saving()
+	integration_rcheevos_enabled = _integration_rcheevos_enabled
 
 func mark_for_saving():
 	if _should_save:
