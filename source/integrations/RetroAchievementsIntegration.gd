@@ -572,6 +572,7 @@ func _download_hash_cache() -> int:
 	return GameInfo.Error.OK
 
 func _get_id_from_hash(hash: String, system: String) -> int:
+	if hash.is_empty(): return -GameInfo.Error.ERR_GAME_NOT_FOUND
 	var path := get_cheevos_hash_cache_path()
 	var data : Dictionary = JSONUtils.load_json_file(path)
 	var hash_key = hash[0]
