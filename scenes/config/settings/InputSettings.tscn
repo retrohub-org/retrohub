@@ -83,7 +83,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -92,7 +91,6 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-focus_neighbor_top = NodePath("../../..")
 focus_neighbor_bottom = NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/KBAccept")
 text = "Reset to default mapping"
 
@@ -120,6 +118,7 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Accept"
 focus_neighbor_left = NodePath("../../../../KBReset")
+focus_neighbor_top = NodePath("../../../../KBReset")
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer/KBMoveUp")
 icon = ExtResource("2")
 expand_icon = true
@@ -224,7 +223,7 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Theme menu"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer6/KBSlideRight")
-focus_neighbor_bottom = NodePath("../../../../../..")
+focus_neighbor_bottom = NodePath("../../../../..")
 icon = ExtResource("8")
 expand_icon = true
 script = ExtResource("26")
@@ -249,6 +248,7 @@ text = "Move up"
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Move up"
+focus_neighbor_top = NodePath("../../../../KBReset")
 icon = ExtResource("11")
 expand_icon = true
 script = ExtResource("26")
@@ -351,7 +351,7 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Slide right"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer6/KBThemeMenu")
-focus_neighbor_bottom = NodePath("../../../../../..")
+focus_neighbor_bottom = NodePath("../../../../..")
 icon = ExtResource("14")
 expand_icon = true
 script = ExtResource("26")
@@ -384,7 +384,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-focus_neighbor_top = NodePath("../../../../..")
 text = "Reset to default mapping"
 
 [node name="VSeparator" type="VSeparator" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4"]
@@ -394,14 +393,12 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-focus_neighbor_top = NodePath("../../../../..")
 text = "Create controller layout"
 
 [node name="CNClearLayout" type="Button" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-focus_neighbor_top = NodePath("../../../../..")
 text = "Clear custom layout"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Controller/VBoxContainer"]
@@ -628,7 +625,7 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "RetroHub menu"
 focus_neighbor_right = NodePath("../../../VBoxContainer2/HBoxContainer4/CNSlideRight")
-focus_neighbor_bottom = NodePath("../../../../../..")
+focus_neighbor_bottom = NodePath("../../../../..")
 icon = ExtResource("33_jbqxx")
 expand_icon = true
 script = ExtResource("26")
@@ -736,7 +733,7 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 tooltip_text = "Slide right"
 focus_neighbor_left = NodePath("../../../VBoxContainer/HBoxContainer5/CNRetroHubMenu")
-focus_neighbor_bottom = NodePath("../../../../../..")
+focus_neighbor_bottom = NodePath("../../../../..")
 icon = ExtResource("25")
 expand_icon = true
 script = ExtResource("26")
@@ -748,6 +745,7 @@ script = ExtResource("44")
 next = NodePath("../../../../../../..")
 
 [node name="Virtual Keyboard" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -768,7 +766,6 @@ script = ExtResource("44")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../..")
 item_count = 3
 selected = 0
 popup/item_0/text = "QWERTY"
@@ -823,7 +820,7 @@ text = "On Controller Input"
 [node name="VirtualKeyboardOnMouse" type="CheckBox" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../../../..")
+focus_neighbor_bottom = NodePath("../../../..")
 text = "On Mouse Click/Touch"
 
 [node name="AccessibilityFocus" type="Node" parent="ScrollContainer/VBoxContainer/TabContainerHandler/InputTab/Virtual Keyboard/HBoxContainer2/VBoxContainer/VirtualKeyboardOnMouse"]

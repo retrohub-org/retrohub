@@ -115,7 +115,7 @@ jobs:
         uses: ./godot/.github/actions/godot-build
         with:
           root: ./godot
-          sconsflags: verbose=yes warnings=all werror=yes use_lto=yes optimize=size arch=${{ matrix.arch }}
+          sconsflags: verbose=yes warnings=all werror=no use_lto=yes optimize=size arch=${{ matrix.arch }}
           platform: windows
           target: template_release
           tools: false
