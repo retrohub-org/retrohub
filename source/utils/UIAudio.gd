@@ -89,9 +89,7 @@ func connect_signals(node: Node):
 		node.visibility_changed.connect(_window_visibility_changed.bind(node))
 	elif node is Range:
 		node.value_changed.connect(range_value_changed.bind(node))
-	elif node is TabContainerHandler:
-		node.tab_changed.connect(tab_container_handler_changed.bind(node))
-	elif node is TabContainer:
+	elif node is TabBar:
 		node.tab_changed.connect(tab_container_tab_changed.bind(node))
 	elif node is Tree:
 		node.item_selected.connect(_tree_item_or_cell_selected.bind(node))

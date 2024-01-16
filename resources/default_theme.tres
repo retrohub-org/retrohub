@@ -202,16 +202,6 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cejk0"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.207843, 0.258824, 0.392157, 1)
-border_width_top = 2
-border_color = Color(1, 0.733333, 0.537255, 1)
-corner_detail = 1
-
 [sub_resource type="StyleBoxEmpty" id="1594"]
 content_margin_left = 4.0
 content_margin_top = 4.0
@@ -502,6 +492,16 @@ border_width_right = 1
 border_color = Color(0.175, 0.175, 0.175, 1)
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cejk0"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.207843, 0.258824, 0.392157, 1)
+border_width_top = 2
+border_color = Color(1, 0.733333, 0.537255, 1)
+corner_detail = 1
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a00um"]
 content_margin_left = 10.0
 content_margin_top = 6.0
@@ -701,7 +701,6 @@ HSlider/styles/grabber_area = SubResource("StyleBoxFlat_3eyyw")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_rpnq8")
 HSlider/styles/slider = SubResource("StyleBoxFlat_go4h4")
 HyperFocused/styles/focus = SubResource("4878")
-HyperFocused/styles/tab_selected = SubResource("StyleBoxFlat_cejk0")
 Label/constants/line_spacing = 3
 Label/styles/normal = SubResource("1594")
 LineEdit/colors/clear_button_color_pressed = Color(1, 0.733333, 0.537255, 1)
@@ -711,19 +710,23 @@ LineEdit/styles/focus = SubResource("4827")
 LineEdit/styles/normal = SubResource("4")
 LineEdit/styles/read_only = SubResource("4783")
 LinkButton/colors/font_pressed_color = Color(1, 0.733333, 0.537255, 1)
+MenuSideBottomButton/base_type = &"Button"
 MenuSideBottomButton/colors/font_color_pressed = Color(1, 1, 1, 1)
 MenuSideBottomButton/colors/icon_color_pressed = Color(1, 0.733333, 0.537255, 1)
 MenuSideBottomButton/styles/focus = SubResource("4649")
 MenuSideBottomButton/styles/hover = SubResource("4649")
 MenuSideBottomButton/styles/normal = SubResource("4739")
 MenuSideBottomButton/styles/pressed = SubResource("4648")
+MenuSideButton/base_type = &"Button"
 MenuSideButton/colors/font_color_pressed = Color(1, 1, 1, 1)
 MenuSideButton/colors/icon_color_pressed = Color(1, 0.733333, 0.537255, 1)
 MenuSideButton/styles/focus = SubResource("4516")
 MenuSideButton/styles/hover = SubResource("4339")
 MenuSideButton/styles/normal = SubResource("4383")
 MenuSideButton/styles/pressed = SubResource("4295")
+MenuSidePanel/base_type = &"Panel"
 MenuSidePanel/styles/panel = SubResource("4427")
+MenuSideTopButton/base_type = &"Button"
 MenuSideTopButton/colors/font_color_pressed = Color(1, 1, 1, 1)
 MenuSideTopButton/colors/icon_color_pressed = Color(1, 0.733333, 0.537255, 1)
 MenuSideTopButton/styles/focus = SubResource("4694")
@@ -762,6 +765,7 @@ ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_5h327")
 TabContainer/constants/side_margin = 30
 TabContainer/styles/panel = SubResource("1639")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_hj66r")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_cejk0")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_cejk0")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_a00um")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_pmenl")
@@ -793,4 +797,5 @@ VSlider/styles/slider = SubResource("StyleBoxFlat_go4h4")
 Window/styles/embedded_border = SubResource("StyleBoxFlat_sfm0d")
 Window/styles/embedded_unfocused_border = SubResource("StyleBoxFlat_sfm0d")
 Window/styles/panel = SubResource("1662")
+WindowPanel/base_type = &"Window"
 WindowPanel/styles/panel = SubResource("StyleBoxFlat_e1x58")

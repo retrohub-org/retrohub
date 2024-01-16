@@ -15,22 +15,19 @@ var _focused := false
 func _ready():
 	# This _ready is called before parent, we need to wait a frame for parent to initialize
 	await get_tree().process_frame
-	focus_mode = Control.FOCUS_ALL
-	focus_entered.connect(_on_focus_entered)
-	focus_exited.connect(_on_focus_exited)
 	tab = get_child(0) if get_child_count() > 0 else null
 	if not tab or not tab is TabContainer:
 		push_error("TabContainerHandler has no TabContainer child! Queueing free...")
 		queue_free()
 	tab.tab_clicked.connect(_on_tab_clicked)
+	tab.get_tab_bar().focus_entered.connect(_on_focus_entered)
+	tab.get_tab_bar().focus_exited.connect(_on_focus_exited)
 
 func _on_focus_entered():
 	_focused = true
-	tab.theme_type_variation = "HyperFocused"
 
 func _on_focus_exited():
 	_focused = false
-	tab.theme_type_variation = ""
 
 func _input(event):
 	if is_visible_in_tree():
@@ -71,7 +68,8 @@ func _on_tab_clicked(_tab_idx: int):
 	handle_focus(not _focused)
 
 func handle_focus(enter_tab: bool):
-	RetroHubUI.play_sound(RetroHubUI.AudioKeys.SLIDE)
+	if not enter_tab:
+		RetroHubUI.play_sound(RetroHubUI.AudioKeys.SLIDE)
 	await get_tree().process_frame
 	if signal_tab_change:
 		emit_signal("tab_changed", tab, enter_tab)

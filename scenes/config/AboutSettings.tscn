@@ -104,12 +104,12 @@ size_flags_horizontal = 8
 [node name="OpenWebsiteButton" type="Button" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../../../..")
+focus_neighbor_top = NodePath("../../../../..")
 text = "Open project website"
 
 [node name="OpenIssuesButton" type="Button" parent="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../../../../..")
+focus_neighbor_bottom = NodePath("../../../../..")
 text = "Report issues"
 
 [node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
@@ -698,8 +698,8 @@ anchor_bottom = 1.0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../..")
-focus_neighbor_bottom = NodePath("../../../..")
+focus_neighbor_top = NodePath("../../..")
+focus_neighbor_bottom = NodePath("../../..")
 hide_root = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Licenses/HBoxContainer/Names"]
