@@ -254,31 +254,10 @@ class Raw extends Object:
 		var response := Response.new()
 		response.godot_error = ERR_INVALID_PARAMETER
 		return response
-	
-	static func _convert_to_bool(response: Response, key: String) -> void:
-		if not response.body: return
-		if response.body.has(key):
-			if response.body[key] is int or response.body[key] is float:
-				response.body[key] = is_equal_approx(response.body[key], 1.0)
-			else: # String
-				response.body[key] = response.body[key] == "1"
-	
-	static func _convert_time_to_godot(time: String) -> String:
-		if time.length() < 15: return ""
-		return "%s-%s-%sT%s:%s:%s" % [
-			time.substr(0, 4),
-			time.substr(4, 2),
-			time.substr(6, 2),
-			time.substr(9, 2),
-			time.substr(11, 2),
-			time.substr(13, 2)
-		]
 
 	static func get_achievement_of_the_week(auth: Dictionary) -> Response:
 		var url = "API_GetAchievementOfTheWeek.php"
-		var response := await _make_req(url, auth)
-		_convert_to_bool(response, "HardcoreMode")
-		return response
+		return await _make_req(url, auth)
 
 	static func get_claims(auth: Dictionary, kind: String) -> Response:
 		var url = "API_GetClaims.php"
@@ -293,33 +272,15 @@ class Raw extends Object:
 			_:
 				push_error("[RetroAchievements:get_claims] Invalid kind: " + kind)
 				return _make_response_failed_params()
-		var response := await _make_req(url, auth, data)
-		_convert_to_bool(response, "UserIsJrDev")
-		return response
+		return await _make_req(url, auth, data)
 
 	static func get_active_claims(auth: Dictionary) -> Response:
 		var url = "API_GetActiveClaims.php"
-		var response := await _make_req(url, auth)
-		_convert_to_bool(response, "UserIsJrDev")
-		return response
+		return await _make_req(url, auth)
 
 	static func get_top_ten_users(auth: Dictionary) -> Response:
 		var url = "API_GetTopTenUsers.php"
-		var response := await _make_req(url, auth)
-		if response.body is Array:
-			var sanitized = []
-			for user in response.body:
-				if not user.has("1") or not user.has("2") or not user.has("3"):
-					continue
-				sanitized.append({
-					"userName": user["1"],
-					"totalPoints": user["2"],
-					"totalRatioPoints": user["3"]
-				})
-			if not sanitized.is_empty():
-				response.body = sanitized
-
-		return response
+		return await _make_req(url, auth)
 
 	static func get_user_recent_achievements(auth: Dictionary, username: String, recent_minutes: int = 60) -> Response:
 		var url = "API_GetUserRecentAchievements.php"
@@ -327,30 +288,24 @@ class Raw extends Object:
 			"u": username,
 			"m": recent_minutes
 		}
-		var response := await _make_req(url, auth, data)
-		_convert_to_bool(response, "HardcoreMode")
-		return response
+		return await _make_req(url, auth, data)
 
-	static func get_achievements_earned_between(auth: Dictionary, username: String, from_date: String, to_date: String) -> Response:
+	static func get_achievements_earned_between(auth: Dictionary, username: String, from_date: int, to_date: int) -> Response:
 		var url = "API_GetAchievementsEarnedBetween.php"
 		var data = {
 			"u": username,
-			"f": Time.get_unix_time_from_datetime_string(_convert_time_to_godot(from_date)),
-			"t": Time.get_unix_time_from_datetime_string(_convert_time_to_godot(to_date))
+			"f": from_date,
+			"t": to_date
 		}
-		var response := await _make_req(url, auth, data)
-		_convert_to_bool(response, "HardcoreMode")
-		return response
+		return await _make_req(url, auth, data)
 
 	static func get_achievements_earned_on_day(auth: Dictionary, username: String, on_date: String) -> Response:
 		var url = "API_GetAchievementsEarnedOnDay.php"
 		var data = {
 			"u": username,
-			"d": _convert_time_to_godot(on_date).substr(0, 10)
+			"d": on_date
 		}
-		var response := await _make_req(url, auth, data)
-		_convert_to_bool(response, "HardcoreMode")
-		return response
+		return await _make_req(url, auth, data)
 
 	static func get_game_info_and_user_progress(auth: Dictionary, username: String, game_id: int) -> Response:
 		var url = "API_GetGameInfoAndUserProgress.php"
@@ -379,9 +334,7 @@ class Raw extends Object:
 		var data = {
 			"u": username
 		}
-		var response := await _make_req(url, auth, data)
-		_convert_to_bool(response, "HardcoreMode")
-		return response
+		return await _make_req(url, auth, data)
 
 	static func get_user_game_rank_and_score(auth: Dictionary, username: String, game_id: int) -> Response:
 		var url = "API_GetUserGameRankAndScore.php"
@@ -398,7 +351,7 @@ class Raw extends Object:
 		}
 		return await _make_req(url, auth, data)
 
-	static func get_user_progress(auth: Dictionary, username: String, game_ids) -> Response:
+	static func get_user_progress(auth: Dictionary, username: String, game_ids: Array[int]) -> Response:
 		var url = "API_GetUserProgress.php"
 		var data = {
 			"u": username,
@@ -422,12 +375,7 @@ class Raw extends Object:
 			"g": recent_games_count,
 			"a": recent_achievements_count
 		}
-		var response := await _make_req(url, auth, data)
-		_convert_to_bool(response, "Untracked")
-		_convert_to_bool(response, "UserWallActive")
-		_convert_to_bool(response, "IsAwarded")
-		_convert_to_bool(response, "HardcoreAchieved")
-		return response
+		return await _make_req(url, auth, data)
 
 	static func get_achievement_count(auth: Dictionary, game_id: int) -> Response:
 		var url = "API_GetAchievementCount.php"
@@ -472,13 +420,6 @@ class Raw extends Object:
 				return _make_response_failed_params()
 		return await _make_req(url, auth, data)
 
-	static func get_game_rating(auth: Dictionary, game_id: int) -> Response:
-		var url = "API_GetGameRating.php"
-		var data = {
-			"i": game_id
-		}
-		return await _make_req(url, auth, data)
-
 	static func get_console_ids(auth: Dictionary) -> Response:
 		var url = "API_GetConsoleIDs.php"
 		return await _make_req(url, auth)
@@ -499,15 +440,14 @@ class Raw extends Object:
 			"c": count,
 			"o": offset
 		}
-		var response := await _make_req(url, auth, data)
-		_convert_to_bool(response, "HardcoreMode")
-		return response
+		return await _make_req(url, auth, data)
 
 const API_URL = "https://retroachievements.org/API/"
 const MEDIA_API_URL = "https://media.retroachievements.org/"
 
 var _api_username : String
 var _api_key : String
+var _api_needs_refetch := true
 
 var _recent_hash_cache := false
 var _game_info_cache := {}
@@ -536,8 +476,6 @@ func _ready() -> void:
 	Raw.http.timeout = 10
 	add_child(Raw.http)
 
-	_api_username = RetroHubConfig._get_credential("rcheevos_username")
-	_api_key = RetroHubConfig._get_credential("rcheevos_api_key")
 	FileUtils.ensure_path(get_cheevos_dir() + "/")
 
 func _download_hash_cache() -> int:
@@ -553,6 +491,7 @@ func _download_hash_cache() -> int:
 		match response.response_code:
 			401:
 				return GameInfo.Error.ERR_INVALID_CRED
+				_api_needs_refetch = true
 			404:
 				return GameInfo.Error.ERR_GAME_NOT_FOUND
 			_:
@@ -627,6 +566,7 @@ func _download_game_info(data: RetroHubGameData) -> GameInfo:
 		match response.response_code:
 			401:
 				game_info.err = GameInfo.Error.ERR_INVALID_CRED
+				_api_needs_refetch = true
 			404:
 				game_info.err = GameInfo.Error.ERR_GAME_NOT_FOUND
 			_:
@@ -637,11 +577,15 @@ func _download_game_info(data: RetroHubGameData) -> GameInfo:
 	_game_info_cache[data] = game_info
 	return game_info
 
-
 func _is_response_ok(response: Raw.Response) -> bool:
 	return response.godot_error == OK and response.response_code == 200
 
-func build_auth() -> Dictionary:
+func build_auth(reload_credentials: bool = false) -> Dictionary:
+	if reload_credentials or _api_needs_refetch:
+		_api_username = RetroHubConfig._get_credential("rcheevos_username")
+		_api_key = RetroHubConfig._get_credential("rcheevos_api_key")
+		_api_needs_refetch = false
+
 	return {
 		"z": _api_username,
 		"y": _api_key

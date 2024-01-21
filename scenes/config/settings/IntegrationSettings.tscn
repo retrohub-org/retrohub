@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://dy1a5tblj5mnr"]
+
+[ext_resource type="Script" path="res://scenes/config/settings/IntegrationSettings.gd" id="1_mf1m2"]
+[ext_resource type="PackedScene" uid="uid://b8bs6oc8x51fc" path="res://scenes/config/settings/integration/IntegrationRetroAchievements.tscn" id="2_10dxq"]
+[ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="2_avgf4"]
+[ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="13_iwqcq"]
+
+[node name="IntegrationSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mf1m2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Integrations are optional services that can be enabled to add
+various functionality in the application and in supported themes."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Label"]
+script = ExtResource("2_avgf4")
+previous = NodePath("../../MarginContainer/ScrollContainer/VBoxContainer/RetroAchievements/VBoxContainer/HBoxContainer2/WebAPI")
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+follow_focus = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RetroAchievements" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_10dxq")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="OpenWebsite" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/RetroAchievements/HBoxContainer/VBoxContainer2" index="0"]
+focus_neighbor_top = NodePath("../../../VBoxContainer/HBoxContainer2/WebAPI")
+
+[node name="WebAPI" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/RetroAchievements/VBoxContainer/HBoxContainer2" index="1"]
+focus_neighbor_bottom = NodePath("../../../HBoxContainer/VBoxContainer2/OpenWebsite")
+
+[node name="AccessibilityFocus" parent="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/RetroAchievements/VBoxContainer/HBoxContainer2/WebAPI" index="0"]
+next = NodePath("../../../../../../../../Label")
+
+[node name="ScrollHandler" type="Control" parent="VBoxContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("13_iwqcq")
+
+[connection signal="hidden" from="." to="." method="_on_hidden"]
+
+[editable path="VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/RetroAchievements"]

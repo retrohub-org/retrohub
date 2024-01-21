@@ -15,7 +15,7 @@ signal popup_hide
 	%QuitTab, %GameTab, %ScraperTab,
 	%ThemeTab, %GeneralTab, %InputTab,
 	%RegionTab, %SystemsTab, %EmulatorsTab,
-	%AboutTab
+	%IntegrationsTab, %AboutTab
 ]
 
 var last_tab : Button = null

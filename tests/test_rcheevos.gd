@@ -2,11 +2,17 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 
+@onready var n_username := %Username
+@onready var n_key := %Key
+
 var rcheevos : RetroAchievementsIntegration
 
 func _ready():
 	RetroHubConfig.config._should_save = false
 	RetroHubConfig.config.integration_rcheevos_enabled = true
+	n_username.text = RetroHubConfig._get_credential("rcheevos_username")
+	n_key.text = RetroHubConfig._get_credential("rcheevos_api_key")
+	
 	rcheevos = RetroAchievementsIntegration.new()
 	add_child(rcheevos)
 	await get_tree().process_frame
@@ -19,8 +25,8 @@ func _ready():
 		["get_active_claims", rcheevos.Raw.get_active_claims, []],
 		["get_top_ten_users", rcheevos.Raw.get_top_ten_users, []],
 		["get_user_recent_achievements", rcheevos.Raw.get_user_recent_achievements, ["xelnia", 60]],
-		["get_achievements_earned_between", rcheevos.Raw.get_achievements_earned_between, ["Ev1lbl0w", "20230927T000000", "20231002T000000"]],
-		["get_achievements_earned_on_day", rcheevos.Raw.get_achievements_earned_on_day, ["Ev1lbl0w", "20230927T000000"]],
+		["get_achievements_earned_between", rcheevos.Raw.get_achievements_earned_between, ["Ev1lbl0w", 1695772800, 1696204800]],
+		["get_achievements_earned_on_day", rcheevos.Raw.get_achievements_earned_on_day, ["Ev1lbl0w", "2023-09-27"]],
 		["get_game_info_and_user_progress", rcheevos.Raw.get_game_info_and_user_progress, ["Ev1lbl0w", 264]],
 		["get_user_awards", rcheevos.Raw.get_user_awards, ["xelnia"]],
 		["get_user_claims", rcheevos.Raw.get_user_claims, ["Jamiras"]],
@@ -35,7 +41,6 @@ func _ready():
 		["get_game", rcheevos.Raw.get_game, [14402]],
 		["get_game_extended", rcheevos.Raw.get_game_extended, [10433]],
 		["get_game_rank_and_score", rcheevos.Raw.get_game_rank_and_score, [14402, "latest-masters"]],
-		["get_game_rating", rcheevos.Raw.get_game_rating, [14402]],
 		["get_console_ids", rcheevos.Raw.get_console_ids, []],
 		["get_game_list", rcheevos.Raw.get_game_list, [1, true, true]],
 		["get_achievement_unlocks", rcheevos.Raw.get_achievement_unlocks, [13876, 50, 0]],
