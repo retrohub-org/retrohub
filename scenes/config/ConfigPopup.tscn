@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjx4cfx0f2k2"]
+[gd_scene load_steps=30 format=3 uid="uid://cjx4cfx0f2k2"]
 
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://du66o2pueo6qh" path="res://assets/icons/config/emulators.png" id="2"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://carj0e8mnxjvn" path="res://scenes/config/settings/EmulatorSettings.tscn" id="10"]
 [ext_resource type="PackedScene" uid="uid://deiyd6u1iogmn" path="res://scenes/config/settings/InputSettings.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://b4a6mwh5w1te3" path="res://scenes/config/settings/GeneralSettings.tscn" id="12"]
+[ext_resource type="Texture2D" uid="uid://cwp5y5ahkixjo" path="res://assets/icons/first_time/integrations.svg" id="12_uvadb"]
 [ext_resource type="PackedScene" uid="uid://dykfd11xmgm5g" path="res://scenes/config/GameSettings.tscn" id="13"]
 [ext_resource type="PackedScene" uid="uid://bt8irkoyjsyhl" path="res://scenes/config/settings/RegionSettings.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://0lj6ugro23bj" path="res://scenes/config/QuitSettings.tscn" id="15"]
@@ -25,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://7qv28u4mq7xl" path="res://assets/icons/config/about.png" id="23"]
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="24"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="25"]
+[ext_resource type="PackedScene" uid="uid://dy1a5tblj5mnr" path="res://scenes/config/settings/IntegrationSettings.tscn" id="26_74jdq"]
 [ext_resource type="Script" path="res://scenes/root/FileSystemPopup.gd" id="26_sbwuo"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_l35le"]
@@ -57,7 +59,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 focus_mode = 2
 follow_focus = true
@@ -70,9 +72,12 @@ theme_type_variation = &"MenuSidePanel"
 
 [node name="PanelContainer" type="VBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel"]
 unique_name_in_owner = true
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"MenuSidePanel"
@@ -382,6 +387,40 @@ texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="IntegrationsTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme = ExtResource("1")
+theme_type_variation = &"MenuSideButton"
+toggle_mode = true
+button_group = SubResource("ButtonGroup_l35le")
+alignment = 0
+icon_alignment = 2
+expand_icon = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/IntegrationsTab"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/IntegrationsTab/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Integrations"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/IntegrationsTab/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("12_uvadb")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="AboutTab" type="Button" parent="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 60)
@@ -484,6 +523,10 @@ size_flags_vertical = 3
 visible = false
 layout_mode = 2
 
+[node name="IntegrationSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("26_74jdq")]
+visible = false
+layout_mode = 2
+
 [node name="AboutSettings" parent="Panel/HBoxContainer/MarginContainer/SettingsTab" instance=ExtResource("16")]
 visible = false
 layout_mode = 2
@@ -547,8 +590,10 @@ text_overrun_behavior = 3
 [connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/SystemsTab" to="." method="_on_Tab_focus_entered" binds= [7]]
 [connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab" to="." method="_on_Tab_pressed" binds= [8]]
 [connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/EmulatorsTab" to="." method="_on_Tab_focus_entered" binds= [8]]
-[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_pressed" binds= [9]]
-[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_focus_entered" binds= [9]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/IntegrationsTab" to="." method="_on_Tab_pressed" binds= [9]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/IntegrationsTab" to="." method="_on_Tab_focus_entered" binds= [9]]
+[connection signal="button_up" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_pressed" binds= [10]]
+[connection signal="focus_entered" from="Panel/HBoxContainer/ScrollContainer/Panel/PanelContainer/AboutTab" to="." method="_on_Tab_focus_entered" binds= [10]]
 [connection signal="focus_entered" from="Panel/HBoxContainer/MarginContainer/SettingsTab" to="." method="_on_SettingsTab_focus_entered"]
 [connection signal="theme_reload" from="Panel/HBoxContainer/MarginContainer/SettingsTab/RegionSettings" to="." method="_on_theme_reload"]
 [connection signal="theme_reload" from="Panel/HBoxContainer/MarginContainer/SettingsTab/SystemSettings" to="." method="_on_theme_reload"]
