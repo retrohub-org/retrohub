@@ -47,7 +47,7 @@ func _on_joypad_echo_delay_timeout():
 	Input.parse_input_event(_joypad_last_event)
 
 func _raw_input(event):
-	if RetroHub._is_input_remap_utility:
+	if RetroHub._prevent_controller_input:
 		return;
 	ControllerIcons._input(event)
 	_event_handled = false

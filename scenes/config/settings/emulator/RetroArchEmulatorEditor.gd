@@ -2,6 +2,7 @@ extends Control
 
 signal change_ocurred
 signal request_add_core
+signal emulator_launched(pid: int)
 
 var curr_emulator : Dictionary: set = set_curr_emulator
 var cores : Array
@@ -164,3 +165,9 @@ func _on_RemoveCore_pressed():
 
 func _on_AddCore_pressed():
 	emit_signal("request_add_core")
+
+
+func _on_run_emulator_pressed():
+	var path : String = n_path.text
+	var pid := OS.create_process(path, [])
+	emulator_launched.emit(pid)

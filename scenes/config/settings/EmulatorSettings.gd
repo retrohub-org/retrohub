@@ -13,6 +13,7 @@ extends Control
 
 @onready var n_add_custom_info_popup := %AddCustomInfoPopup
 @onready var n_add_custom_core_info_popup := %AddCustomCoreInfoPopup
+@onready var n_emulator_launched_popup := %EmulatorLaunchedPopup
 
 var sep_idx := -1
 
@@ -178,3 +179,6 @@ func _on_EmulatorEditorsTab_focus_entered():
 	get_current_emulator_editor().focus_node_from_bottom()
 
 
+func _on_emulator_launched(pid: int):
+	n_emulator_launched_popup.pid = pid
+	n_emulator_launched_popup.popup_centered()

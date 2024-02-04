@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0w7vab58e64a"]
+
+[ext_resource type="Script" path="res://scenes/config/settings/EmulatorLaunchedPopup.gd" id="1_3nwfj"]
+
+[node name="EmulatorLaunchedPopup" type="Window"]
+initial_position = 1
+size = Vector2i(624, 357)
+script = ExtResource("1_3nwfj")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"WindowPanel"
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer"]
+layout_mode = 2
+text = "The emulator is running...
+ 
+To return to Retrohub, either close the emulator, or close
+this popup to kill the emulator process..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]

@@ -1,6 +1,7 @@
 extends Control
 
 signal change_ocurred
+signal emulator_launched(pid)
 
 var curr_emulator : Dictionary: set = set_curr_emulator
 
@@ -71,4 +72,5 @@ func _on_LoadPath_pressed():
 
 func _on_run_emulator_pressed():
 	var path : String = n_path.text
-	OS.create_process(path, [])
+	var pid := OS.create_process(path, [])
+	emulator_launched.emit(pid)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://carj0e8mnxjvn"]
+[gd_scene load_steps=9 format=3 uid="uid://carj0e8mnxjvn"]
 
 [ext_resource type="PackedScene" uid="uid://6yp7suicf3ib" path="res://scenes/config/settings/emulator/EmulatorEditor.tscn" id="1"]
 [ext_resource type="Script" path="res://scenes/config/settings/EmulatorSettings.gd" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://60ylmuq3irmj" path="res://scenes/config/settings/emulator/RetroArchEmulatorEditor.tscn" id="4"]
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="5"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="6"]
+[ext_resource type="PackedScene" uid="uid://d0w7vab58e64a" path="res://scenes/config/settings/EmulatorLaunchedPopup.tscn" id="7_i3ta7"]
 
 [sub_resource type="StyleBoxEmpty" id="1"]
 
@@ -155,6 +156,10 @@ visible = false
 unique_name_in_owner = true
 visible = false
 
+[node name="EmulatorLaunchedPopup" parent="." instance=ExtResource("7_i3ta7")]
+unique_name_in_owner = true
+visible = false
+
 [connection signal="visibility_changed" from="." to="." method="_on_EmulatorSettings_visibility_changed"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/EmulatorSelection" to="." method="_on_EmulatorSelection_item_selected"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Save" to="." method="save_changes"]
@@ -165,7 +170,9 @@ visible = false
 [connection signal="focus_entered" from="VBoxContainer/HSeparatorTop" to="." method="_on_HSeparatorTop_focus_entered"]
 [connection signal="focus_entered" from="VBoxContainer/EmulatorEditorsTab" to="." method="_on_EmulatorEditorsTab_focus_entered"]
 [connection signal="change_ocurred" from="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" to="." method="_on_EmulatorEditor_change_ocurred"]
+[connection signal="emulator_launched" from="VBoxContainer/EmulatorEditorsTab/ScrollContainer/EmulatorEditor" to="." method="_on_emulator_launched"]
 [connection signal="change_ocurred" from="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" to="." method="_on_EmulatorEditor_change_ocurred"]
+[connection signal="emulator_launched" from="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" to="." method="_on_emulator_launched"]
 [connection signal="request_add_core" from="VBoxContainer/EmulatorEditorsTab/ScrollContainer2/RetroArchEmulatorEditor" to="." method="_on_RetroArchEmulatorEditor_request_add_core"]
 [connection signal="identifier_picked" from="AddCustomInfoPopup" to="." method="_on_AddCustomInfoPopup_identifier_picked"]
 [connection signal="identifier_picked" from="AddCustomCoreInfoPopup" to="." method="_on_AddCustomCoreInfoPopup_identifier_picked"]
