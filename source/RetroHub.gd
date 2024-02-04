@@ -29,7 +29,7 @@ var launched_emulator : Dictionary = {}
 
 var _is_echo := false
 @warning_ignore("unused_private_class_variable")
-var _is_input_remap_utility := false
+var _prevent_controller_input := false
 var _theme_processing_done := false
 
 const version_major := 1
@@ -55,6 +55,7 @@ func _ready():
 func _notification(what):
 	match what:
 		NOTIFICATION_APPLICATION_FOCUS_IN:
+			print(get_signal_connection_list("app_received_focus"))
 			emit_signal("app_received_focus")
 		NOTIFICATION_APPLICATION_FOCUS_OUT:
 			emit_signal("app_lost_focus")
