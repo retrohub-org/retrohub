@@ -48,8 +48,6 @@ func _ready():
 	await get_tree().process_frame
 	if RetroHubConfig.config.is_first_time:
 		show_first_time_popup()
-	get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (RetroHubConfig.config.fullscreen) else Window.MODE_WINDOWED
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if (RetroHubConfig.config.vsync) else DisplayServer.VSYNC_DISABLED)
 	setup_controller_remap(RetroHubConfig.config.custom_input_remap)
 
 func _notification(what):
