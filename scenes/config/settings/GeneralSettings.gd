@@ -75,7 +75,8 @@ func _on_config_ready(config_data: ConfigData):
 	n_graphics_mode.selected = 1 if config_data.fullscreen else 0
 	n_vsync.set_pressed_no_signal(config_data.vsync)
 	n_render_res.value = config_data.render_resolution
-	n_ui_volume.value = config_data.ui_volume
+	n_ui_volume.set_value_no_signal(config_data.ui_volume)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(config_data.ui_volume / 100.0))
 	set_language(config_data.lang)
 	n_screen_reader.set_pressed_no_signal(config_data.accessibility_screen_reader_enabled)
 

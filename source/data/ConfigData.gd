@@ -7,7 +7,7 @@ var _config_changed := false
 var _old_config : Dictionary
 
 # Games directory
-var config_version : int = 1
+var config_version : int = 2
 var is_first_time : bool = true: set = _set_is_first_time
 var games_dir : String = FileUtils.get_home_dir() + "/ROMS": set = _set_games_dir
 var current_theme : String = "default": set = _set_current_theme
@@ -203,9 +203,17 @@ func _set_fullscreen(_fullscreen):
 	mark_for_saving()
 	fullscreen = _fullscreen
 
+	if _should_save:
+		var mode := DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED
+		_handle_internal_config("display", "window/size/mode", mode)
+
 func _set_vsync(_vsync):
 	mark_for_saving()
 	vsync = _vsync
+	
+	if _should_save:
+		var mode := DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED
+		_handle_internal_config("display", "window/vsync/vsync_mode", mode)
 
 func _set_render_resolution(_render_resolution):
 	mark_for_saving()
@@ -343,6 +351,8 @@ func load_config_from_path(path: String) -> int:
 
 	_should_save = false
 	for key in _keys:
+		# Config version should not be loaded
+		if key == KEY_CONFIG_VERSION: continue
 		if _old_config.has(key):
 			set(key, _old_config[key])
 		else:
@@ -459,11 +469,26 @@ func process_raw_config_changes(config: Dictionary):
 	var version := _get_stored_version(config)
 	while version < config_version:
 		_should_save = true
+		_config_changed = true
 		_handle_config_update(config, version)
 		version += 1
 
 func _handle_config_update(config: Dictionary, version: int):
 	match version:
+		1:
+			# Some configs are now stored in Godot format, allowing some
+			# properties to be set on launch time (e.g. fullscreen)
+			_set_fullscreen(fullscreen)
+			_set_vsync(vsync)
+			# Manually set these properties one last time, in order to
+			# be completely transparent to the user
+			DisplayServer.window_set_mode(
+				DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if (RetroHubConfig.config.fullscreen)
+				else DisplayServer.WINDOW_MODE_WINDOWED
+			)
+			DisplayServer.window_set_vsync_mode(
+				DisplayServer.VSYNC_ENABLED if (RetroHubConfig.config.vsync)
+				else DisplayServer.VSYNC_DISABLED)
 		0:
 			# First config version; RetroHub port from Godot 3 to Godot 4
 			# Input remaps have to be reset
@@ -471,3 +496,16 @@ func _handle_config_update(config: Dictionary, version: int):
 			config[KEY_CUSTOM_INPUT_REMAP] = custom_input_remap
 			config[KEY_INPUT_CONTROLLER_MAP] = input_controller_map
 			RetroHubUI.call_deferred("show_warning", "The following settings had to be reset due to incompatible changes in RetroHub:\n \n- Keyboard/controller remaps\n- Controller custom layout\n \nPlease reconfigure these in the Settings menu if desired.")
+
+func _handle_internal_config(section: String, key: String, value: Variant) -> void:
+	var internal_config_file : String = ProjectSettings.get("application/config/project_settings_override")
+	if not internal_config_file or internal_config_file.is_empty():
+		push_error("Internal config file path not found!")
+		return
+	var internal_config := ConfigFile.new()
+	if FileAccess.file_exists(internal_config_file) and internal_config.load(internal_config_file):
+		push_error("Failed loading internal config file!")
+		return
+	internal_config.set_value(section, key, value)
+	if internal_config.save(internal_config_file):
+		push_error("Failed saving internal config file!")
