@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bk84lkodndnjq"]
+[gd_scene load_steps=23 format=3 uid="uid://bk84lkodndnjq"]
 
 [ext_resource type="Script" path="res://scenes/config/AboutSettings.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://dv8tl1d8ejsst" path="res://assets/copyright/godot.png" id="4"]
@@ -17,6 +17,7 @@
 [ext_resource type="Theme" uid="uid://jtuqhw3am1h3" path="res://resources/default_theme.tres" id="15"]
 [ext_resource type="Texture2D" uid="uid://bti7twxvh0pko" path="res://assets/copyright/freesound.png" id="15_x0b5v"]
 [ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="16_d1rm0"]
+[ext_resource type="Texture2D" uid="uid://dbcoyl4c5jena" path="res://assets/copyright/svgrepo.svg" id="16_x7kvo"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/AccessibilityFocus.gd" id="18"]
 [ext_resource type="Texture2D" uid="uid://xe4n818le3p8" path="res://addons/controller_icons/assets/key/e.png" id="18_c0cgg"]
 
@@ -674,9 +675,65 @@ fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/Label"]
 script = ExtResource("18")
-next = NodePath("../../../../../..")
 
 [node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX"]
+layout_mode = 2
+
+[node name="Icons" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/HBoxContainer"]
+custom_minimum_size = Vector2(140, 76)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("16_x7kvo")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("10")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5")
+text = "SVGRepo"
+label_settings = SubResource("LabelSettings_f1p4x")
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/HBoxContainer/VBoxContainer/Label"]
+script = ExtResource("18")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Website: [url=https://www.svgrepo.com/]https://www.svgrepo.com/[/url]
+License: Various"
+fit_content = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/HBoxContainer/VBoxContainer/RichTextLabel"]
+script = ExtResource("18")
+
+[node name="Label" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons"]
+layout_mode = 2
+bbcode_enabled = true
+text = "UI icons
+- [url=https://www.svgrepo.com/svg/107686/world-location]Region[/url]: [url=cc0]CC0[/url]
+- [url=https://www.svgrepo.com/svg/357756/file-import]Import[/url]: [url=apache]Apache[/url]
+- [url=https://www.svgrepo.com/svg/389270/library]Games[/url]: [url=mit_games_icon]MIT[/url]
+- [url=https://www.svgrepo.com/svg/32501/computer]Systems[/url]: [url=cc0]CC0[/url]
+- [url=https://www.svgrepo.com/svg/334935/terminal]Emulators[/url]: [url=ccby40]CC BY 4.0[/url]
+- [url=https://www.svgrepo.com/svg/431868/plugin-2]Integrations[/url]: [url=apache]Apache[/url]"
+fit_content = true
+
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/Label"]
+script = ExtResource("18")
+next = NodePath("../../../../../..")
+
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons"]
 layout_mode = 2
 
 [node name="ScrollHandler" type="Control" parent="TabContainerHandler/TabContainer/Assets"]
@@ -772,5 +829,7 @@ max_width = 30
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/Label" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/Label" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="item_activated" from="TabContainerHandler/TabContainer/Licenses/HBoxContainer/Names" to="TabContainerHandler/TabContainer/Licenses" method="_on_Names_item_activated"]
 [connection signal="item_selected" from="TabContainerHandler/TabContainer/Licenses/HBoxContainer/Names" to="TabContainerHandler/TabContainer/Licenses" method="_on_Names_item_selected"]
