@@ -19,9 +19,11 @@ func _ready():
 		["MIT (Onscreenkeyboard)", "mit_onscreenkeyboard.txt"],
 		["MIT (Godot Accessibility Plugin)", "mit_godot-accessibility.txt"],
 		["MIT (Godot-BlurHash)", "mit_godot-blurhash.txt"],
+		["MIT (Games Icon)", "mit_games_icon.txt"],
 		["CC0", "cc0.txt"],
 		["CC BY 4.0", "ccby40.txt"],
-		["CC BY NC SA 4.0", "ccbyncsa40.txt"]
+		["CC BY NC SA 4.0", "ccbyncsa40.txt"],
+		["Apache 2.0", "apache.txt"]
 	]
 	for license in license_files:
 		var file := FileAccess.open(LICENSE_PATH + license[1], FileAccess.READ)
@@ -80,12 +82,16 @@ func convert_license_key(key: String) -> String:
 			return "MIT (Godot TTS)"
 		"mit_godot-blurhash":
 			return "MIT (Godot-BlurHash)"
+		"mit_games_icon":
+			return "MIT (Games Icon)"
 		"cc0":
 			return "CC0"
 		"ccby40":
 			return "CC BY 4.0"
 		"ccbyncsa40":
 			return "CC BY NC SA 4.0"
+		"apache":
+			return "Apache 2.0"
 		_:
 			return ""
 
