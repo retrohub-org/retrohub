@@ -46,6 +46,7 @@ func _ready():
 	await get_tree().process_frame
 	if RetroHubConfig.config.is_first_time:
 		_initKeyboard("qwerty")
+	size_changed()
 
 func on_config_ready(config_data: ConfigData):
 	_initKeyboard(config_data.virtual_keyboard_layout)
