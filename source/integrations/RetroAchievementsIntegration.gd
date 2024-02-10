@@ -468,8 +468,7 @@ func _ready() -> void:
 		queue_free()
 		return
 
-	if Raw.http:
-		remove_child(Raw.http)
+	if is_instance_valid(Raw.http):
 		Raw.http.queue_free()
 	Raw.http = HTTPRequest.new()
 	Raw.http.accept_gzip = true
