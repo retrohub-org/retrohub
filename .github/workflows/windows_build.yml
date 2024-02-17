@@ -25,12 +25,12 @@ jobs:
 
     steps:
       - name: "Checkout RetroHub"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: "retrohub"
 
       - name: "Load cached objects (Godot editor)"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache_editor"
         with:
           path: cached_builds/editor/godot
@@ -38,7 +38,7 @@ jobs:
         continue-on-error: true
 
       - name: "Load cached objects (Godot templates)"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache_template"
         with:
           path: cached_builds/template/${{ matrix.template }}
@@ -46,7 +46,7 @@ jobs:
         continue-on-error: true
 
       - name: "Load cached objects (Videodecoder)"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache_videodecoder"
         with:
           path: cached_builds/videodecoder/${{ matrix.videodecoder }}
@@ -55,7 +55,7 @@ jobs:
 
       - name: "Checkout Custom Godot"
         if: steps.cache_template.outputs.cache-hit != 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: retrohub-org/godot
           ref: retrohub_patches_4x
@@ -63,7 +63,7 @@ jobs:
 
       - name: "Checkout godot-videodecoder"
         if: steps.cache_videodecoder.outputs.cache-hit != 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: retrohub-org/godot-videodecoder
           submodules: recursive
@@ -164,7 +164,7 @@ jobs:
           ../cached_builds/editor/godot --headless --export-release "Windows (${{ matrix.arch }})" ../export/windows_${{ matrix.arch }}/RetroHub.exe
 
       - name: "Upload Artifacts"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-${{ matrix.arch }}
           path: export/windows_${{ matrix.arch }}

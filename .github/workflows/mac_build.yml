@@ -11,11 +11,12 @@ jobs:
     name: Extract SDK
     steps:
       - name: "Load cache"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache"
         with:
           path: ~/cached_builds/sdk
           key: MacOS-sdk
+          save-always: true
         continue-on-error: true
 
       - name: "Checkout osxcross"
@@ -27,10 +28,6 @@ jobs:
       - name: "Extract SDK"
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          #ls /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs
-          #sed 's/\^MacOSX13\.\*|//g' tools/gen_sdk_package.sh > tools/gen_sdk_package.sh.patched
-          #mv tools/gen_sdk_package.sh.patched tools/gen_sdk_package.sh
-          #chmod +x tools/gen_sdk_package.sh
           XCODEDIR=/Applications/Xcode_14.0.1.app ./tools/gen_sdk_package.sh
           mkdir -p -v ~/cached_builds/sdk
           mv MacOSX12.3.sdk.tar.xz ~/cached_builds/sdk
@@ -42,7 +39,7 @@ jobs:
 
     steps:
       - name: "Load cache (SDK)"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache-sdk"
         with:
           path: ~/cached_builds/sdk
@@ -50,16 +47,19 @@ jobs:
         continue-on-error: false
 
       - name: "Load cache (videodecoder)"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache-videodecoder"
         with:
-          path: cached_builds/videodecoder/macos
+          path: |
+            cached_builds/videodecoder/macos_x86
+            cached_builds/videodecoder/macos_arm64
           key: MacOS-videodecoder-build
+          save-always: true
         continue-on-error: true
 
       - name: "Checkout godot-videodecoder"
         if: steps.cache-videodecoder.outputs.cache-hit != 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: retrohub-org/godot-videodecoder
           submodules: recursive
@@ -67,7 +67,7 @@ jobs:
       - name: "Compile"
         if: steps.cache-videodecoder.outputs.cache-hit != 'true'
         env:
-          PLATFORMS: macos
+          PLATFORMS: macos_x86,macos_arm64
         run: |
           mv ~/cached_builds/sdk/MacOSX12.3.sdk.tar.xz darwin_sdk
           ./build_gdextension.sh
@@ -81,12 +81,12 @@ jobs:
 
     steps:
       - name: "Checkout RetroHub"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: "retrohub"
 
       - name: "Load cached objects (Godot editor)"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache_editor"
         with:
           path: cached_builds/editor/Godot.app
@@ -94,7 +94,7 @@ jobs:
         continue-on-error: true
 
       - name: "Load cached objects (Godot templates)"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache_template"
         with:
           path: cached_builds/template/macos.zip
@@ -102,16 +102,18 @@ jobs:
         continue-on-error: true
 
       - name: "Load cached objects (Videodecoder)"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: "cache_videodecoder"
         with:
-          path: cached_builds/videodecoder/macos
+          path: |
+            cached_builds/videodecoder/macos_x86
+            cached_builds/videodecoder/macos_arm64
           key: MacOS-videodecoder-build
         continue-on-error: false
 
       - name: "Checkout Custom Godot"
         if: steps.cache_template.outputs.cache-hit != 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: retrohub-org/godot
           ref: retrohub_patches_4x
@@ -180,6 +182,20 @@ jobs:
           unzip Godot_v4.1-stable_macos.universal.zip
           mkdir -p -v cached_builds/editor
           mv Godot.app cached_builds/editor/
+      
+      - name: "[videodecoder] Bundle x86_64 and arm64 libraries"
+        run: |
+          mkdir -p -v cached_builds/videodecoder/macos
+          ls -la cached_builds/videodecoder/
+          echo "---"
+          ls -la cached_builds/videodecoder/macos_x86
+          echo "---"
+          ls -la cached_builds/videodecoder/macos_arm64
+          echo "---"
+          for f in cached_builds/videodecoder/macos_x86/*.dylib; do
+            lipo -create $f cached_builds/videodecoder/macos_arm64/$(basename $f) -output cached_builds/videodecoder/macos/$(basename $f)
+          done
+          file cached_builds/videodecoder/macos/*.dylib
 
       - name: "Setup templates and libraries"
         env:
@@ -196,7 +212,7 @@ jobs:
       - name: "Exporting RetroHub"
         working-directory: retrohub
         run: |
-          ../cached_builds/editor/Godot.app/Contents/MacOS/Godot --headless --export-release "macOS" ../export/macos/RetroHub.app
+          ../cached_builds/editor/Godot.app/Contents/MacOS/Godot --headless --verbose --export-release "macOS" ../export/macos/RetroHub.app
         
       - name: "Sign executable"
         working-directory: export/macos
@@ -205,7 +221,7 @@ jobs:
           codesign -s - --force --deep "RetroHub.app"
 
       - name: "Upload Artifacts"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos
           path: export/macos
