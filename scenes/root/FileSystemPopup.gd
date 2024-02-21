@@ -19,6 +19,13 @@ func _ready():
 	var path : String
 	var controller_icon_rect := preload("res://addons/controller_icons/objects/TextureRect.gd")
 
+	for button:Button in [
+		get_vbox().get_child(0, true).get_child(0, true), # Previous button
+		get_vbox().get_child(0, true).get_child(1, true), # Next button
+		upwards_button, refresh_button, hide_button
+	]:
+		button.flat = true
+
 	# Attach ControllerIcons to buttons
 	var box : HBoxContainer = ok_button.get_parent()
 	var back_icon := create_icon(controller_icon_rect, "rh_back")
@@ -76,7 +83,7 @@ func _ready():
 	create_folder_cancel_button.focus_neighbor_top = path
 
 	# Force the recent paths option button to wrap text
-	# This field doesn't exists on Windows for some reason
+	# This field doesn't exist on Windows for some reason
 	if FileUtils.get_os_id() != FileUtils.OS_ID.WINDOWS:
 		var recent_paths : OptionButton = get_vbox().get_child(0, true).get_child(11, true).get_child(0, true)
 		recent_paths.fit_to_longest_item = false
