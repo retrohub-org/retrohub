@@ -72,5 +72,6 @@ func _on_LoadPath_pressed():
 
 func _on_run_emulator_pressed():
 	var path : String = n_path.text
+	if path.is_empty(): return
 	var pid := OS.create_process(path, [])
 	emulator_launched.emit(pid)
