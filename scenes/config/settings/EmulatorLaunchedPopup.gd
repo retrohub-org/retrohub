@@ -4,7 +4,7 @@ var pid := 0
 
 func _process(delta):
 	if not visible: return
-	if pid >= 0 or not OS.is_process_running(pid):
+	if pid > 0 and not OS.is_process_running(pid):
 		# Request focus, as we might not have it
 		get_tree().root.move_to_foreground()
 		_on_close_requested()
