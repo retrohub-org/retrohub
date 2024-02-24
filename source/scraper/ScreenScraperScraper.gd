@@ -21,7 +21,7 @@ class RequestDetails:
 		#warning-ignore:return_value_discarded
 		_http.request_completed.connect(_on_request_completed)
 		_http.use_threads = true
-		_http.timeout = 10
+		_http.timeout = 30
 
 	func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
 		_req_result = result
