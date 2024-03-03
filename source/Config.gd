@@ -490,7 +490,6 @@ func _load_theme() -> bool:
 		theme_path = _get_themes_dir().path_join(current_theme)
 	else:
 		theme_path = _get_default_themes_dir().path_join(current_theme + ".pck")
-	# FIXME: Theme hot-reloading is disabled until nasty GDScript bug is solved
 	if not ProjectSettings.is_pack_loaded(theme_path):
 		if not ProjectSettings.load_resource_pack(theme_path, false):
 			push_error("Error when loading theme " + theme_path)
@@ -535,10 +534,9 @@ func _unload_theme():
 		save_theme_config()
 
 		theme_data = null
-		# FIXME: Theme hot-reloading is disabled until nasty GDScript bug is solved
-		#if !ProjectSettings.unload_resource_pack(theme_path):
-		#	push_error("Error when unloading theme " + theme_path)
-		#	return
+		if not ProjectSettings.unload_resource_pack(theme_path):
+			push_error("Error when unloading theme " + theme_path)
+			return
 
 func get_theme_config(key, default_value):
 	if not _theme_config.has(key):
