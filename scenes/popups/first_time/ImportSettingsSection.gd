@@ -12,6 +12,7 @@ signal advance_section
 
 @onready var importers := [
 	EmulationStationImporter.new(),
+	ESDEImporter.new(),
 	RetroArchImporter.new()
 ]
 

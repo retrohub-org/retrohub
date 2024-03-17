@@ -10,6 +10,7 @@ const MAXIMUM_SUPPORTED_CONFIG_LEVEL = 7
 var config_path := FileUtils.get_home_dir() + "/.emulationstation"
 var media_path := config_path + "/downloaded_media"
 var gamelists_path := config_path + "/gamelists"
+var config_file_path := config_path + "/es_settings.xml"
 var folder_size : int = -1
 
 var game_datas := {}
@@ -28,7 +29,7 @@ const RH_MEDIA_NAMES := [
 
 # Returns this importer name
 func get_importer_name() -> String:
-	return "EmulationStation / EmulationStation-DE"
+	return "EmulationStation (and derivatives)"
 
 # Return this importer icon
 func get_icon() -> Texture2D:
@@ -194,7 +195,7 @@ func begin_import(copy: bool):
 func import_config():
 	reset_minor(1)
 	progress_minor("Reading game directory...")
-	var config := XML2JSON.parse(config_path + "/es_settings.xml")
+	var config := XML2JSON.parse(config_file_path)
 	if config.has("string"):
 		for child in config["string"]:
 			if child.has("#attributes") and child["#attributes"]["name"] == "ROMDirectory":
