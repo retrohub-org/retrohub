@@ -475,7 +475,7 @@ func _ready() -> void:
 	Raw.http.timeout = 10
 	add_child(Raw.http)
 
-	FileUtils.ensure_path(get_cheevos_dir() + "/")
+	FileUtils.ensure_dir(get_cheevos_dir())
 
 func _download_hash_cache() -> int:
 	var path := get_cheevos_hash_cache_path()

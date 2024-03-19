@@ -82,8 +82,8 @@ func is_available() -> bool:
 
 func set_paths(root: String):
 	config_path = root
-	thumbnails_path = config_path + "/thumbnails"
-	playlists_path = config_path + "/playlists"
+	thumbnails_path = config_path.path_join("thumbnails")
+	playlists_path = config_path.path_join("playlists")
 
 # Begins the import process. `copy` determines if the user wants
 # to copy previous data and, therefore, not affect the other game library
