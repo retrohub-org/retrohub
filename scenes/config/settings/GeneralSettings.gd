@@ -47,7 +47,7 @@ func set_themes():
 				if RetroHubConfig._get_default_themes_dir() in RetroHubConfig.theme_path and \
 					theme_pck in RetroHubConfig.theme_path:
 					n_themes.selected = id
-				theme_id_map[id] = "res://default_themes/" + theme_pck
+				theme_id_map[id] = "res://default_themes".path_join(theme_pck)
 				id += 1
 	n_themes.add_separator()
 	id += 1

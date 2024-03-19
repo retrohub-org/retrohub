@@ -267,15 +267,15 @@ func _load_config_file():
 			# TODO: behavior for when file is corrupt
 
 func _get_credential(key: String) -> String:
-	var json : Dictionary = JSONUtils.load_json_file(_get_config_dir() + "/rh_credentials.json")
+	var json : Dictionary = JSONUtils.load_json_file(_get_config_dir().path_join("rh_credentials.json"))
 	if not json.is_empty() and json.has(key):
 		return json[key]
 	return ""
 
 func _set_credential(key: String, value: String):
-	var json : Dictionary = JSONUtils.load_json_file(_get_config_dir() + "/rh_credentials.json")
+	var json : Dictionary = JSONUtils.load_json_file(_get_config_dir().path_join("rh_credentials.json"))
 	json[key] = value
-	JSONUtils.save_json_file(json, _get_config_dir() + "/rh_credentials.json")
+	JSONUtils.save_json_file(json, _get_config_dir().path_join("rh_credentials.json"))
 
 func _on_config_updated(key, old_value, new_value):
 	match key:
@@ -552,7 +552,7 @@ func set_theme_config(key, value):
 func _load_theme_config():
 	_theme_config = {}
 	_theme_config_changed = false
-	var theme_config_path := _get_theme_config_dir() + "/config.json"
+	var theme_config_path := _get_theme_config_dir().path_join("config.json")
 	# If the config file doesn't exist, don't try reading it
 	if not FileAccess.file_exists(theme_config_path):
 		return
@@ -566,7 +566,7 @@ func _load_theme_config():
 
 func save_theme_config():
 	if _theme_config_changed:
-		var theme_config_path := _get_theme_config_dir() + "/config.json"
+		var theme_config_path := _get_theme_config_dir().path_join("config.json")
 		FileUtils.ensure_path(theme_config_path)
 		var file := FileAccess.open(theme_config_path, FileAccess.WRITE)
 		if not file:
@@ -597,12 +597,12 @@ func _bootstrap_config_dir():
 				push_error("Error when creating directory " + path)
 
 		# Bootstrap system specific configs
-		for filename in [
+		for filename: String in [
 			"rh_emulators.json",
 			"rh_systems.json",
 			"_emulator_paths.json"
 			]:
-			var filepath_out := _get_config_dir() + "/" + (filename as String)
+			var filepath_out := _get_config_dir().path_join(filename)
 			var file := FileAccess.open(filepath_out, FileAccess.WRITE)
 			if not file:
 				push_error("Error when opening file " + filepath_out + " for saving")
@@ -611,7 +611,7 @@ func _bootstrap_config_dir():
 			file.close()
 
 		# Bootstrap credentials file
-		JSONUtils.save_json_file({}, _get_config_dir() + "/rh_credentials.json")
+		JSONUtils.save_json_file({}, _get_config_dir().path_join("rh_credentials.json"))
 
 func _save_config():
 	if config.save_config_to_path(_get_config_file()):
@@ -734,7 +734,7 @@ func _determine_sc_mode():
 		if exe_path.ends_with("MacOS") and exe_path.path_join("..").simplify_path().ends_with("Contents"):
 			exe_path = exe_path.path_join("../../..").simplify_path()
 
-	if FileAccess.file_exists(exe_path + "/._sc_") or FileAccess.file_exists(exe_path + "/_sc_"):
+	if FileAccess.file_exists(exe_path.path_join("._sc_")) or FileAccess.file_exists(exe_path.path_join("_sc_")):
 		_is_sc = true
 
 func _get_emulator_path(emulator_name: String, key: String) -> String:
@@ -759,22 +759,22 @@ func _set_emulator_path(emulator_name: String, key: String, value: String) -> vo
 func _get_config_dir() -> String:
 	var path : String
 	if _is_sc:
-		return OS.get_executable_path().get_base_dir() + "/config"
+		return OS.get_executable_path().get_base_dir().path_join("config")
 
 	match FileUtils.get_os_id():
 		FileUtils.OS_ID.WINDOWS:
-			path = FileUtils.get_home_dir() + "/RetroHub"
+			path = FileUtils.get_home_dir().path_join("RetroHub")
 			if RetroHub._is_dev_env():
 				path += "-Dev"
 			return path
 		_:
-			path = FileUtils.get_home_dir() + "/.retrohub"
+			path = FileUtils.get_home_dir().path_join(".retrohub")
 			if RetroHub._is_dev_env():
 				path += "-dev"
 	return path
 
 func _get_config_file() -> String:
-	return _get_config_dir() + "/rh_config.json"
+	return _get_config_dir().path_join("rh_config.json")
 
 func _get_systems_file() -> String:
 	return "res://base_config/systems.json"
@@ -783,27 +783,27 @@ func _get_emulators_file() -> String:
 	return "res://base_config/emulators.json"
 
 func _get_emulator_paths_file() -> String:
-	return _get_config_dir() + "/_emulator_paths.json"
+	return _get_config_dir().path_join("_emulator_paths.json")
 
 func _get_custom_systems_file() -> String:
-	return _get_config_dir() + "/rh_systems.json"
+	return _get_config_dir().path_join("rh_systems.json")
 
 func _get_custom_emulators_file() -> String:
-	return _get_config_dir() + "/rh_emulators.json"
+	return _get_config_dir().path_join("rh_emulators.json")
 
 func _get_default_themes_dir() -> String:
 	return "res://default_themes"
 
 func _get_themes_dir() -> String:
-	return _get_config_dir() + "/themes"
+	return _get_config_dir().path_join("themes")
 
 func _get_theme_config_dir() -> String:
-	return _get_themes_dir() + "/config/" + theme_data.id if theme_data else ""
+	return _get_themes_dir().path_join("config").path_join(theme_data.id if theme_data else "")
 
 func _get_gamelists_dir() -> String:
-	return _get_config_dir() + "/gamelists"
+	return _get_config_dir().path_join("gamelists")
 
 func _get_gamemedia_dir() -> String:
 	if not config.custom_gamemedia_dir.is_empty():
 		return config.custom_gamemedia_dir
-	return _get_config_dir() + "/gamemedia"
+	return _get_config_dir().path_join("gamemedia")

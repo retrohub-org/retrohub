@@ -7,10 +7,10 @@ var theme_support : int
 # Config level 7 is already ES-DE.
 const MAXIMUM_SUPPORTED_CONFIG_LEVEL = 7
 
-var config_path := FileUtils.get_home_dir() + "/.emulationstation"
-var media_path := config_path + "/downloaded_media"
-var gamelists_path := config_path + "/gamelists"
-var config_file_path := config_path + "/es_settings.xml"
+var config_path := FileUtils.get_home_dir().path_join(".emulationstation")
+var media_path := config_path.path_join("downloaded_media")
+var gamelists_path := config_path.path_join("gamelists")
+var config_file_path := config_path.path_join("es_settings.xml")
 var folder_size : int = -1
 
 var game_datas := {}
@@ -95,7 +95,7 @@ func is_available() -> bool:
 		return false
 
 	# Are the theme's config version too recent?
-	var theme_path := config_path + "/themes"
+	var theme_path := config_path.path_join("themes")
 	var config_level : int = -1
 	var dir := DirAccess.open(theme_path)
 	if dir and not dir.list_dir_begin() :# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
@@ -114,7 +114,7 @@ func is_available() -> bool:
 func check_theme_config_level(base_path: String) -> int:
 
 	# Query first at root, and only move to folders if it doesn't exist
-	var root_file := base_path + "/theme.xml"
+	var root_file := base_path.path_join("theme.xml")
 	if FileAccess.file_exists(root_file):
 		var config_level := inspect_theme_xml(root_file)
 		if config_level != -1:

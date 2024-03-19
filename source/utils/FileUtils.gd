@@ -20,9 +20,12 @@ func test_for_valid_path(paths) -> String:
 				return expanded_path
 	return ""
 
+func ensure_dir(dir: String):
+	if DirAccess.make_dir_recursive_absolute(dir):
+		push_error("Failed to create directory %s" % dir)
+
 func ensure_path(path: String):
-	if DirAccess.make_dir_recursive_absolute(path.get_base_dir()):
-		push_error("Failed to create directory %s" % path.get_base_dir())
+	ensure_dir(path.get_base_dir())
 
 func expand_path(path: String) -> String:
 	# Replace ~ by home
