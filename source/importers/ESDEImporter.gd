@@ -3,10 +3,10 @@ extends EmulationStationImporter
 class_name ESDEImporter
 
 func _init():
-	config_path = FileUtils.get_home_dir() + "/ES-DE"
-	media_path = config_path + "/downloaded_media"
-	gamelists_path = config_path + "/gamelists"
-	config_file_path = config_path + "/settings/es_settings.xml"
+	config_path = FileUtils.get_home_dir().path_join("ES-DE")
+	media_path = config_path.path_join("downloaded_media")
+	gamelists_path = config_path.path_join("gamelists")
+	config_file_path = config_path.path_join("settings/es_settings.xml")
 
 # Returns this importer name
 func get_importer_name() -> String:

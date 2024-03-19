@@ -8,7 +8,7 @@ static func get_custom_core_path() -> String:
 
 	var config_file := get_config_path()
 	if config_file:
-		var file := FileAccess.open(config_file + "/retroarch.cfg", FileAccess.READ)
+		var file := FileAccess.open(config_file.path_join("retroarch.cfg"), FileAccess.READ)
 		if file:
 			while file.get_position() < file.get_length():
 				var line := file.get_line()
@@ -32,12 +32,12 @@ static func get_config_path() -> String:
 			# RetroArch uses either XDG_CONFIG_HOME or HOME.
 			var xdg := OS.get_environment("XDG_CONFIG_HOME")
 			if not xdg.is_empty():
-				var path := xdg + "/retroarch"
+				var path := xdg.path_join("retroarch")
 				if DirAccess.dir_exists_absolute(path):
 					return path
 			else:
 				# Default to HOME
-				var path := FileUtils.get_home_dir() + "/.config/retroarch"
+				var path := FileUtils.get_home_dir().path_join(".config/retroarch")
 				if DirAccess.dir_exists_absolute(path):
 					return path
 			return ""
