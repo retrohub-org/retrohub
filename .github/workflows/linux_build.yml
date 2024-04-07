@@ -5,84 +5,172 @@ on:
       - 'main'
   pull_request:
 
+env:
+  GODOT_VERSION: "4.2.1"
+
 jobs:
-  build-linux:
+  build-ffmpeg:
     runs-on: "ubuntu-20.04"
-    name: Build
+    name: Build FFmpeg (${{ matrix.name }})
     strategy:
       matrix:
         include:
           - name: 32 Bits
-            arch: x86_32
-            bin: godot.linuxbsd.template_release.x86_32
-            template: godot_32
-            videodecoder: linux_32
+            cache_key: x86_32
+            arch: linux32
           - name: 64 Bits
-            arch: x86_64
-            bin: godot.linuxbsd.template_release.x86_64
-            template: godot_64
-            videodecoder: linux_64
+            cache_key: x86_64
+            arch: linux64
 
     steps:
-      - name: "Checkout RetroHub"
+      - name: "Check cached build"
+        id: "cache_ffmpeg"
+        uses: actions/cache@v4
+        with:
+          path: cached_builds/ffmpeg
+          key: Linux-${{ matrix.cache_key }}-ffmpeg-build
+          restore-keys: Linux-${{ matrix.cache_key }}-ffmpeg-build
+          save-always: true
+          lookup-only: true
+        continue-on-error: true
+
+      - name: "Checkout FFmpeg"
+        if: steps.cache_ffmpeg.outputs.cache-hit != 'true'
         uses: actions/checkout@v4
         with:
-          path: "retrohub"
+          repository: retrohub-org/FFmpeg-Builds
+          path: "ffmpeg"
 
-      - name: "Load cached objects (Godot editor)"
+      - name: "Free space"
+        if: steps.cache_ffmpeg.outputs.cache-hit != 'true'
+        run: |
+          df -h
+          sudo apt-get clean
+          docker system prune -a -f
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
+          df -h
+
+      - name: "Compilation"
+        if: steps.cache_ffmpeg.outputs.cache-hit != 'true'
+        working-directory: ./ffmpeg
+        run: |
+          ./makeimage.sh ${{ matrix.arch }} lgpl-godot 6.0
+          ./build.sh ${{ matrix.arch }} lgpl-godot 6.0
+          mkdir -p -v ../cached_builds/ffmpeg
+          tar -xvf artifacts/ffmpeg*${{ matrix.arch }}-lgpl-godot-6.0.tar.xz --directory=../cached_builds/ffmpeg --strip-components=1
+          ls -la ../cached_builds/ffmpeg
+
+  build-eirteam_ffmpeg:
+    runs-on: "ubuntu-20.04"
+    name: Build EIRTeam.FFmpeg (${{ matrix.name }})
+    needs: [build-ffmpeg]
+    strategy:
+      matrix:
+        include:
+          - name: 32 Bits
+            cache_key: x86_32
+            arch: x86_32
+            eirteam_arch: linux32
+          - name: 64 Bits
+            cache_key: x86_64
+            arch: x86_64
+            eirteam_arch: linux64
+
+    steps:
+      - name: "Check cached build"
         uses: actions/cache@v4
-        id: "cache_editor"
+        id: "cache_eirteam_ffmpeg"
         with:
-          path: cached_builds/editor/godot
-          key: editor-build
+          path: cached_builds/eirteam_ffmpeg/${{ matrix.eirteam_arch }}
+          key: Linux-${{ matrix.cache_key }}-eirteam_ffmpeg-build
+          restore-keys: Linux-${{ matrix.cache_key }}-eirteam_ffmpeg-build
+          save-always: true
+          lookup-only: true
         continue-on-error: true
 
-      - name: "Load cached objects (Godot templates)"
+      - name: "Load FFmpeg build"
+        id: "cache_ffmpeg"
+        if: steps.cache_eirteam_ffmpeg.outputs.cache-hit != 'true'
         uses: actions/cache@v4
-        id: "cache_template"
         with:
-          path: cached_builds/template/${{ matrix.template }}
-          key: Linux-${{ matrix.arch }}-template-build
-        continue-on-error: true
+          path: cached_builds/ffmpeg
+          key: Linux-${{ matrix.cache_key }}-ffmpeg-build
+          restore-keys: Linux-${{ matrix.cache_key }}-ffmpeg-build
+        continue-on-error: false
 
-      - name: "Load cached objects (Videodecoder)"
-        uses: actions/cache@v4
-        id: "cache_videodecoder"
+      - name: "Checkout EIRTeam.FFmpeg"
+        if: steps.cache_eirteam_ffmpeg.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
         with:
-          path: cached_builds/videodecoder/${{ matrix.videodecoder }}
-          key: Linux-${{ matrix.arch }}-videodecoder-build
+          repository: retrohub-org/EIRTeam.FFmpeg
+          submodules: recursive
+          path: "eirteam_ffmpeg"
+
+      - name: "Install dependencies"
+        if: steps.cache_eirteam_ffmpeg.outputs.cache-hit != 'true'
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          # The actual dependencies
+          sudo apt-get install build-essential gcc-multilib g++-multilib pkg-config wget unzip
+          python -m pip install scons==4.4.0
+
+      - name: "Compilation"
+        if: steps.cache_eirteam_ffmpeg.outputs.cache-hit != 'true'
+        working-directory: ./eirteam_ffmpeg
+        run: |
+          mkdir -p -v thirdparty
+          mv $GITHUB_WORKSPACE/cached_builds/ffmpeg thirdparty
+
+          cd gdextension_build
+          scons arch=${{ matrix.arch }} verbose=yes target=template_release
+
+          mkdir -p -v $GITHUB_WORKSPACE/cached_builds/eirteam_ffmpeg
+          cp -r -v build/addons/ffmpeg/${{ matrix.eirteam_arch }} $GITHUB_WORKSPACE/cached_builds/eirteam_ffmpeg
+
+  build-godot:
+    runs-on: "ubuntu-20.04"
+    name: Build Godot (${{ matrix.name }})
+    strategy:
+      matrix:
+        include:
+          - name: 32 Bits
+            cache_key: x86_32
+            arch: x86_32
+            bin_template: godot.linuxbsd.template_release.x86_32
+            bin_editor: godot.linuxbsd.editor.x86_32
+            template: godot_32
+          - name: 64 Bits
+            cache_key: x86_64
+            arch: x86_64
+            bin_template: godot.linuxbsd.template_release.x86_64
+            bin_editor: godot.linuxbsd.editor.x86_64
+            template: godot_64
+
+    steps:
+      - name: "Check cached build"
+        uses: actions/cache@v4
+        id: "cache_godot"
+        with:
+          path: |
+            cached_builds/editor/godot
+            cached_builds/template/${{ matrix.template }}
+          key: Linux-${{ matrix.cache_key }}-godot-build
+          restore-keys: Linux-${{ matrix.cache_key }}-godot-build
+          save-always: true
+          lookup-only: true
         continue-on-error: true
 
       - name: "Checkout Custom Godot"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+        if: steps.cache_godot.outputs.cache-hit != 'true'
         uses: actions/checkout@v4
         with:
           repository: retrohub-org/godot
           ref: retrohub_patches_4x
           path: "godot"
 
-      - name: "Checkout godot-videodecoder"
-        if: steps.cache_videodecoder.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
-        with:
-          repository: retrohub-org/godot-videodecoder
-          submodules: recursive
-          path: "videodecoder"
-
-      - name: "[Videodecoder] Compilation"
-        if: steps.cache_videodecoder.outputs.cache-hit != 'true'
-        working-directory: ./videodecoder
-        env:
-          PLATFORMS: ${{ matrix.videodecoder }}
-        run: |
-          ./build_gdextension.sh
-          mkdir -p -v ../cached_builds/videodecoder
-          cp -r -v target/* ../cached_builds/videodecoder
-
-      - name: "[Godot] Dependencies"
-        if: steps.cache_template.outputs.cache-hit != 'true'
-        working-directory: ./godot
-        shell: bash
+      - name: "Install dependencies"
+        if: steps.cache_godot.outputs.cache-hit != 'true'
         run: |
           sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
           sudo add-apt-repository ppa:kisak/kisak-mesa
@@ -95,63 +183,121 @@ jobs:
               libgl1-mesa-dev:i386 libglu-dev libasound2-dev libpulse-dev libdbus-1-dev libudev-dev libxi-dev \
               libxi-dev:i386 libxrandr-dev libxrandr-dev:i386 yasm xvfb wget unzip
 
-      - name: "[Godot] Setup Godot build cache"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+      - name: "Setup Godot build cache"
+        if: steps.cache_godot.outputs.cache-hit != 'true'
         uses: ./godot/.github/actions/godot-cache
         with:
           cache-name: linux-template
         continue-on-error: true
 
-      - name: "[Godot] Setup python and scons"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+      - name: "Setup python and scons"
+        if: steps.cache_godot.outputs.cache-hit != 'true'
         uses: ./godot/.github/actions/godot-deps
 
-      - name: "[Godot] Compilation [template]"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+      - name: "Compilation [editor]"
+        if: steps.cache_godot.outputs.cache-hit != 'true'
+        uses: ./godot/.github/actions/godot-build
+        with:
+          root: ./godot
+          sconsflags: verbose=yes werror=no production=yes arch=${{ matrix.arch }}
+          platform: linuxbsd
+          target: editor
+
+      - name: "Compilation [template]"
+        if: steps.cache_godot.outputs.cache-hit != 'true'
         uses: ./godot/.github/actions/godot-build
         with:
           root: ./godot
           sconsflags: verbose=yes warnings=all werror=no use_lto=yes optimize=size arch=${{ matrix.arch }}
           platform: linuxbsd
           target: template_release
-          tools: false
 
-      - name: "[Godot] Clean and cache template build"
-        if: steps.cache_template.outputs.cache-hit != 'true'
+      - name: "Clean and cache template build"
+        if: steps.cache_godot.outputs.cache-hit != 'true'
         run: |
           strip godot/bin/*
-          mkdir -p -v cached_builds/template
-          [[ -e godot/bin/${{ matrix.bin }} ]] && mv godot/bin/${{ matrix.bin }} cached_builds/template/${{ matrix.template }}
-
-      - name: "[Godot] Download editor"
-        if: steps.cache_editor.outputs.cache-hit != 'true'
-        run: |
-          wget https://downloads.tuxfamily.org/godotengine/4.1/Godot_v4.1-stable_linux.x86_64.zip
-          unzip Godot_v4.1-stable_linux.x86_64.zip
           mkdir -p -v cached_builds/editor
-          mv Godot_v4.1-stable_linux.x86_64 cached_builds/editor/godot
+          mkdir -p -v cached_builds/template
+          mv godot/bin/${{ matrix.bin_editor }} cached_builds/editor/godot
+          mv godot/bin/${{ matrix.bin_template }} cached_builds/template/${{ matrix.template }}
+
+  build-retrohub:
+    runs-on: "ubuntu-20.04"
+    name: Build RetroHub (${{ matrix.name }})
+    needs: [build-godot, build-eirteam_ffmpeg]
+    strategy:
+      matrix:
+        include:
+          - name: 32 Bits
+            cache_key: x86_32
+            arch: x86_32
+            template: godot_32
+            eirteam_ffmpeg: linux32
+          - name: 64 Bits
+            cache_key: x86_64
+            arch: x86_64
+            template: godot_64
+            eirteam_ffmpeg: linux64
+
+    steps:
+      - name: "Load EIRTeam.FFmpeg build"
+        uses: actions/cache@v4
+        id: "cache_eirteam_ffmpeg"
+        with:
+          path: cached_builds/eirteam_ffmpeg/${{ matrix.eirteam_ffmpeg }}
+          key: Linux-${{ matrix.cache_key }}-eirteam_ffmpeg-build
+          restore-keys: Linux-${{ matrix.cache_key }}-eirteam_ffmpeg-build
+          fail-on-cache-miss: true
+        continue-on-error: false
+
+      - name: "Load Godot builds"
+        uses: actions/cache@v4
+        id: "cache_godot"
+        with:
+          path: |
+            cached_builds/editor/godot
+            cached_builds/template/${{ matrix.template }}
+          key: Linux-${{ matrix.cache_key }}-godot-build
+          restore-keys: Linux-${{ matrix.cache_key }}-godot-build
+          fail-on-cache-miss: true
+        continue-on-error: false
+
+      - name: "Checkout RetroHub"
+        uses: actions/checkout@v4
+        with:
+          path: "retrohub"
 
       - name: "Setup templates and libraries"
         env:
-          TEMPLATE_PATH: /home/runner/.local/share/godot/export_templates/4.1.stable
+          TEMPLATE_PATH: /home/runner/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.retrohub
         run: |
           mkdir -p -v $TEMPLATE_PATH
           cp cached_builds/template/${{ matrix.template }} $TEMPLATE_PATH/linux_release.${{ matrix.arch }}
-          ln -s ../../../cached_builds/videodecoder/${{ matrix.videodecoder }} retrohub/addons/godot-videodecoder/${{ matrix.videodecoder }}
-          ls -la cached_builds/videodecoder
-          ls -la cached_builds/videodecoder/${{ matrix.videodecoder }}
-          ls -la retrohub/addons/godot-videodecoder
-          ls retrohub/addons/godot-videodecoder/${{ matrix.videodecoder }}
+          ln -s ${{ github.workspace }}/cached_builds/eirteam_ffmpeg/${{ matrix.eirteam_ffmpeg }} retrohub/addons/ffmpeg/${{ matrix.eirteam_ffmpeg }}
           mkdir -p -v export/linux_${{ matrix.arch }}
+
+          # The editor uses the debug versions of addons. To save some work, duplicate EIRTeam.FFmpeg addon to make Godot happy
+          cp retrohub/addons/ffmpeg/${{ matrix.eirteam_ffmpeg }}/libgdffmpeg.linux.{template_release,template_debug}.${{ matrix.arch }}.so
 
       - name: "Package default themes"
         uses: ./retrohub/.github/actions/get-default-themes
 
+      - name: "Import project"
+        working-directory: retrohub
+        env:
+          GODOT_PATH: ${{ github.workspace }}/cached_builds/editor/godot
+        run: |
+          # The first import loads EIRTeam.FFmpeg, an addon which blocks the editor as it requires a restart
+          timeout 30s $GODOT_PATH --headless --editor || true
+          $GODOT_PATH --headless --import || true
+
+
       - name: "Exporting RetroHub"
         working-directory: retrohub
+        env:
+          GODOT_PATH: ${{ github.workspace }}/cached_builds/editor/godot
         run: |
-          ../cached_builds/editor/godot --headless --export-release "Linux (${{ matrix.arch }})" ../export/linux_${{ matrix.arch }}/RetroHub
-          chmod +x ../export/linux_${{ matrix.arch }}/RetroHub
+          $GODOT_PATH --headless --verbose --export-release "Linux (${{ matrix.arch }})" ../export/linux_${{ matrix.arch }}/RetroHub
 
       - name: "Upload Artifacts"
         uses: actions/upload-artifact@v4

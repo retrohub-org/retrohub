@@ -6,7 +6,6 @@ const ISSUES_URL := "https://github.com/retrohub-org/retrohub/issues"
 @onready var n_logo := %Logo
 @onready var n_version := %Version
 @onready var n_engine_version := %EngineVersion
-@onready var n_gpl_text := %GPLText
 @onready var n_licenses := %Licenses
 @onready var n_licenses_names := %Names
 
@@ -18,9 +17,6 @@ const ISSUES_URL := "https://github.com/retrohub-org/retrohub/issues"
 
 
 func _ready():
-	if not OS.has_feature("rh_gpl"):
-		n_gpl_text.queue_free()
-		%LicenseText.get_child(0).next = "../../../.."
 	n_version.text = n_version.text % RetroHub.version_str
 	var engine_info := Engine.get_version_info()
 	n_engine_version.text = n_engine_version.text % [engine_info["string"], engine_info["hash"].substr(0, 7)]

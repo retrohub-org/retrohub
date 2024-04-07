@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bk84lkodndnjq"]
+[gd_scene load_steps=24 format=3 uid="uid://bk84lkodndnjq"]
 
 [ext_resource type="Script" path="res://scenes/config/AboutSettings.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://dv8tl1d8ejsst" path="res://assets/copyright/godot.png" id="4"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://source/utils/ScrollHandler.gd" id="9"]
 [ext_resource type="Script" path="res://scenes/ui_nodes/LazyTextureRect.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://bu6702xricack" path="res://assets/copyright/onscreenkeyboard.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://cmnnjwjldnmay" path="res://assets/copyright/eirteam_ffmpeg.png" id="11_48veo"]
 [ext_resource type="Texture2D" uid="uid://bu0ju7swsiiy7" path="res://assets/icons/scrapers/screenscraper.png" id="12"]
 [ext_resource type="Script" path="res://source/utils/TabContainerHandler.gd" id="13"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="14"]
@@ -135,16 +136,6 @@ fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/LicenseText"]
 script = ExtResource("18")
-
-[node name="GPLText" type="RichTextLabel" parent="TabContainerHandler/TabContainer/About/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-bbcode_enabled = true
-text = "This build is distributed under the [url=gpl3]GPL3[/url] license."
-fit_content = true
-
-[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/About/VBoxContainer/GPLText"]
-script = ExtResource("18")
 next = NodePath("../../../../..")
 
 [node name="ScrollHandler" type="Control" parent="TabContainerHandler/TabContainer/About"]
@@ -203,7 +194,7 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: [url=https://godotengine.org/]https://godotengine.org/[/url]
+text = "Website: [url=https://godotengine.org/]https://godotengine.org[/url]
 License: [url=mit_godot]MIT[/url]"
 fit_content = true
 
@@ -212,7 +203,7 @@ script = ExtResource("18")
 
 [node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot"]
 layout_mode = 2
-text = "Main game engine behind RetroHub"
+text = "Main game engine behind RetroHub."
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/Label"]
 script = ExtResource("18")
@@ -251,62 +242,73 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: [url=https://ffmpeg.org/]https://ffmpeg.org/[/url]
-License: [url=gpl3]GPL3[/url]"
+text = "Website: [url=https://ffmpeg.org/]https://ffmpeg.org[/url]
+License: [url=lgpl3]LGPL3[/url]"
 fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
 
-[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG"]
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG"]
 layout_mode = 2
-text = "Video/audio playback"
+bbcode_enabled = true
+text = "Video/audio playback. Custom build from [url=https://github.com/retrohub-org/FFmpeg-Builds]https://github.com/retrohub-org/FFmpeg-Builds[/url]."
+fit_content = true
 
-[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/Label"]
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/RichTextLabel"]
 script = ExtResource("18")
 
 [node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG"]
 layout_mode = 2
 
-[node name="godot-videodecoder" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
+[node name="EIRTeam_FFmpeg" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/HBoxContainer"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("11_48veo")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("10")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5")
-text = "godot-videodecoder"
+text = "EIRTeam.FFmpeg"
 label_settings = SubResource("LabelSettings_r5ag3")
 
-[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer/Label"]
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/HBoxContainer/VBoxContainer/Label"]
 script = ExtResource("18")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: [url=https://github.com/kidrigger/godot-videodecoder]https://github.com/kidrigger/godot-videodecoder[/url]
-License: [url=mit_videodecoder]MIT[/url]"
+text = "Website: [url=https://github.com/EIRTeam/EIRTeam.FFmpeg]https://github.com/EIRTeam/EIRTeam.FFmpeg[/url]
+License: [url=mit_eirteam_ffmpeg]MIT[/url]"
 fit_content = true
 
-[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer/RichTextLabel"]
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/HBoxContainer/VBoxContainer/RichTextLabel"]
 script = ExtResource("18")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Addon for integrating FFMPEG with Godot. Custom fork is used at [url=https://github.com/retrohub-org/godot-videodecoder]https://github.com/retrohub-org/godot-videodecoder[url]"
+text = "Addon for integrating FFMPEG with Godot. Custom fork is used at [url=https://github.com/retrohub-org/EIRTeam.FFmpeg/]https://github.com/retrohub-org/EIRTeam.FFmpeg[url]."
 fit_content = true
 
-[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/RichTextLabel"]
+[node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/RichTextLabel"]
 script = ExtResource("18")
 
-[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder"]
+[node name="HSeparator" type="HSeparator" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg"]
 layout_mode = 2
 
 [node name="ControllerIcons" type="VBoxContainer" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer"]
@@ -491,7 +493,7 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Addon to generate blurry versions of textures for quick previews. Algorithm developed by [url=https://blurha.sh/]Wolt[/url]"
+text = "Addon to generate blurry versions of textures for quick previews. Algorithm developed by [url=https://blurha.sh/]Wolt[/url]."
 fit_content = true
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-blurhash/RichTextLabel"]
@@ -556,7 +558,7 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: [url=https://godotengine.org/]https://godotengine.org/[/url]
+text = "Website: [url=https://godotengine.org/]https://godotengine.org[/url]
 License: [url=mit_godot]MIT[/url]"
 fit_content = true
 
@@ -565,7 +567,7 @@ script = ExtResource("18")
 
 [node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot"]
 layout_mode = 2
-text = "Default UI elements"
+text = "Default UI elements."
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Godot/Label"]
 script = ExtResource("18")
@@ -604,7 +606,7 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: [url=https://www.screenscraper.fr/]https://www.screenscraper.fr/[/url]
+text = "Website: [url=https://www.screenscraper.fr/]https://www.screenscraper.fr[/url]
 License: [url=ccbyncsa40]CC BY-NC-SA 4.0[/url]"
 fit_content = true
 
@@ -613,8 +615,8 @@ script = ExtResource("18")
 
 [node name="Label" type="Label" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper"]
 layout_mode = 2
-text = "System photos and logos
-Scraped metadata and media files"
+text = "System photos and logos.
+Scraped metadata and media files."
 
 [node name="AccessibilityFocus" type="Node" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/ScreenScraper/Label"]
 script = ExtResource("18")
@@ -653,7 +655,7 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: [url=https://freesound.org/]https://freesound.org/[/url]
+text = "Website: [url=https://freesound.org/]https://freesound.org[/url]
 License: Various"
 fit_content = true
 
@@ -663,7 +665,7 @@ script = ExtResource("18")
 [node name="Label" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/SFX"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Menu sound effects
+text = "Menu sound effects:
 - [url=https://freesound.org/people/Rob_Marion/sounds/541987/]Button click[/url]: [url=cc0]CC0[/url]
 - [url=https://freesound.org/people/paep3nguin/sounds/388046/]Check button on[/url] / [url=https://freesound.org/people/paep3nguin/sounds/388047/]Check button off[/url]: [url=cc0]CC0[/url]
 - [url=https://freesound.org/people/Rob_Marion/sounds/541987/]Virtual keyboard click[/url]: [url=cc0]CC0[/url]
@@ -710,7 +712,7 @@ script = ExtResource("18")
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Website: [url=https://www.svgrepo.com/]https://www.svgrepo.com/[/url]
+text = "Website: [url=https://www.svgrepo.com/]https://www.svgrepo.com[/url]
 License: Various"
 fit_content = true
 
@@ -720,7 +722,7 @@ script = ExtResource("18")
 [node name="Label" type="RichTextLabel" parent="TabContainerHandler/TabContainer/Assets/VBoxContainer/Icons"]
 layout_mode = 2
 bbcode_enabled = true
-text = "UI icons
+text = "UI icons:
 - [url=https://www.svgrepo.com/svg/107686/world-location]Region[/url]: [url=cc0]CC0[/url]
 - [url=https://www.svgrepo.com/svg/357756/file-import]Import[/url]: [url=apache]Apache[/url]
 - [url=https://www.svgrepo.com/svg/389270/library]Games[/url]: [url=mit_games_icon]MIT[/url]
@@ -814,11 +816,11 @@ max_width = 30
 [connection signal="pressed" from="TabContainerHandler/TabContainer/About/VBoxContainer/HBoxContainer/HFlowContainer/OpenIssuesButton" to="." method="_on_OpenIssuesButton_pressed"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/About/VBoxContainer/Text" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/About/VBoxContainer/LicenseText" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/About/VBoxContainer/GPLText" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/Godot/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
-[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-videodecoder/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/FFMPEG/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/EIRTeam_FFmpeg/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/ControllerIcons/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/OnScreenKeyboard/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="meta_clicked" from="TabContainerHandler/TabContainer/Libraries/VBoxContainer/godot-accessibility/HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]

@@ -39,4 +39,4 @@ If you find any bugs, have any suggestions, please [open an issue](https://githu
 
 ## License
 
-RetroHub's source code is released under the [MIT license](LICENSE). Pre-compiled binaries are released under the [GPLv3 license](LICENSE_BINARY).
+RetroHub's source code is released under the [MIT license](LICENSE).
