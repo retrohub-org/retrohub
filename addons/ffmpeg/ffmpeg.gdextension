@@ -1,0 +1,54 @@
+[configuration]
+
+entry_symbol = "ffmpeg_init"
+compatibility_minimum = 4.1
+
+[libraries]
+windows.debug.x86_64 = "res://addons/ffmpeg/win64/libgdffmpeg.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/ffmpeg/win64/libgdffmpeg.windows.template_release.x86_64.dll"
+windows.debug.x86_32 = "res://addons/ffmpeg/win32/libgdffmpeg.windows.template_debug.x86_32.dll"
+windows.release.x86_32 = "res://addons/ffmpeg/win32/libgdffmpeg.windows.template_release.x86_32.dll"
+macos.debug = "res://addons/ffmpeg/macos/libgdffmpeg.macos.template_debug.framework"
+macos.release = "res://addons/ffmpeg/macos/libgdffmpeg.macos.template_release.framework"
+linux.debug.x86_64 = "res://addons/ffmpeg/linux64/libgdffmpeg.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/ffmpeg/linux64/libgdffmpeg.linux.template_release.x86_64.so"
+linux.debug.x86_32 = "res://addons/ffmpeg/linux32/libgdffmpeg.linux.template_debug.x86_32.so"
+linux.release.x86_32 = "res://addons/ffmpeg/linux32/libgdffmpeg.linux.template_release.x86_32.so"
+
+[dependencies]
+
+windows.x86_64 = {
+    "res://addons/ffmpeg/win64/avcodec-60.dll": "",
+    "res://addons/ffmpeg/win64/avfilter-9.dll": "",
+    "res://addons/ffmpeg/win64/avformat-60.dll": "",
+    "res://addons/ffmpeg/win64/avutil-58.dll": "",
+    "res://addons/ffmpeg/win64/swresample-4.dll": "",
+    "res://addons/ffmpeg/win64/swscale-7.dll": ""
+}
+
+windows.x86_32 = {
+    "res://addons/ffmpeg/win32/avcodec-60.dll": "",
+    "res://addons/ffmpeg/win32/avfilter-9.dll": "",
+    "res://addons/ffmpeg/win32/avformat-60.dll": "",
+    "res://addons/ffmpeg/win32/avutil-58.dll": "",
+    "res://addons/ffmpeg/win32/swresample-4.dll": "",
+    "res://addons/ffmpeg/win32/swscale-7.dll": ""
+}
+
+linux.x86_64 =
+    {"res://addons/ffmpeg/linux64/libavcodec.so.60": "",
+    "res://addons/ffmpeg/linux64/libavfilter.so.9": "",
+    "res://addons/ffmpeg/linux64/libavformat.so.60": "",
+    "res://addons/ffmpeg/linux64/libavutil.so.58": "",
+    "res://addons/ffmpeg/linux64/libswresample.so.4": "",
+    "res://addons/ffmpeg/linux64/libswscale.so.7": ""
+}
+
+linux.x86_32 =
+    {"res://addons/ffmpeg/linux32/libavcodec.so.60": "",
+    "res://addons/ffmpeg/linux32/libavfilter.so.9": "",
+    "res://addons/ffmpeg/linux32/libavformat.so.60": "",
+    "res://addons/ffmpeg/linux32/libavutil.so.58": "",
+    "res://addons/ffmpeg/linux32/libswresample.so.4": "",
+    "res://addons/ffmpeg/linux32/libswscale.so.7": ""
+}

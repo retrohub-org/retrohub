@@ -11,10 +11,10 @@ var root : TreeItem
 func _ready():
 	# Load licenses
 	var license_files := [
-		["GPLv3", "gpl3.txt"],
+		["LGPLv3", "lgpl3.txt"],
 		["MIT (RetroHub)", "mit_retrohub.txt"],
 		["MIT (Godot Engine)", "mit_godot.txt"],
-		["MIT (godot-videodecoder)", "mit_videodecoder.txt"],
+		["MIT (EIRTeam.FFmpeg)", "mit_eirteam_ffmpeg.txt"],
 		["MIT (Controller Icons)", "mit_controllericons.txt"],
 		["MIT (Onscreenkeyboard)", "mit_onscreenkeyboard.txt"],
 		["MIT (Godot Accessibility Plugin)", "mit_godot-accessibility.txt"],
@@ -64,14 +64,14 @@ func select_license(license_key: String) -> bool:
 
 func convert_license_key(key: String) -> String:
 	match key:
-		"gpl3":
-			return "GPLv3"
+		"lgpl3":
+			return "LGPLv3"
 		"mit_retrohub":
 			return "MIT (RetroHub)"
 		"mit_godot":
 			return "MIT (Godot Engine)"
-		"mit_videodecoder":
-			return "MIT (godot-videodecoder)"
+		"mit_eirteam_ffmpeg":
+			return "MIT (EIRTeam.FFmpeg)"
 		"mit_controllericons":
 			return "MIT (Controller Icons)"
 		"mit_onscreenkeyboard":

@@ -20,11 +20,11 @@ godotOld
 godot4
 
 # Ignore pre-built FFMPEG binaries
-addons/godot-videodecoder/windows_32
-addons/godot-videodecoder/windows_64
-addons/godot-videodecoder/macos
-addons/godot-videodecoder/linux_32
-addons/godot-videodecoder/linux_64
+addons/ffmpeg/win32
+addons/ffmpeg/win64
+addons/ffmpeg/macos64
+addons/ffmpeg/linux32
+addons/ffmpeg/linux64
 
 
 # Ignore pre-built godot-tts, it is bundled on release
