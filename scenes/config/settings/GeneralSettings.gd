@@ -117,7 +117,7 @@ func _on_AppSettings_hide():
 
 
 func _on_AppSettings_visibility_changed():
-	if is_visible_in_tree():
+	if is_node_ready() and is_visible_in_tree():
 		set_themes()
 
 

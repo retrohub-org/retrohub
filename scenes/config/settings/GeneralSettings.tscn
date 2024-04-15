@@ -70,7 +70,7 @@ caret_blink_interval = 0.5
 [node name="SetGamePath" type="Button" parent="ScrollContainer/VBoxContainer/User/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../Graphics/HBoxContainer3/RenderRes")
+focus_neighbor_top = NodePath("../../../Accessibility/HBoxContainer/ScreenReader")
 text = "Choose"
 icon = ExtResource("3")
 
@@ -114,6 +114,7 @@ script = ExtResource("5")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
+focus_neighbor_top = NodePath("../../HBoxContainer2/SetThemePath")
 item_count = 1
 selected = 0
 popup/item_0/text = "English (en)"
