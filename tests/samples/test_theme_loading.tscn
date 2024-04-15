@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jevklpsqfwhs"]
 
-[ext_resource type="Script" path="res://tests/test_theme_loading.gd" id="1_3vtbc"]
+[ext_resource type="Script" path="res://tests/samples/test_theme_loading.gd" id="1_3vtbc"]
 
 [node name="TestThemeLoading" type="Control"]
 layout_mode = 3

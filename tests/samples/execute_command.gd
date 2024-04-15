@@ -17,11 +17,11 @@ func _on_LaunchButton_pressed():
 	$VBoxContainer/RichTextLabel.text = ""
 	var arr : Array = $VBoxContainer/Command.text.split(" ")
 	var command : String = arr[0]
-	arr.remove(0)
+	arr.remove_at(0)
 	if($VBoxContainer/HBoxContainer/FileSelectField.text.length()):
 		arr.push_back($VBoxContainer/HBoxContainer/FileSelectField.text)
 	print("Executing command ", command, " with arg len ", arr.size())
-	var _pid := OS.execute(command, arr, false, output)
+	var _pid := OS.execute(command, arr, output, false)
 
 
 func _on_Timer_timeout():

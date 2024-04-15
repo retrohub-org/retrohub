@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ctdwpcs7oveww"]
 
-[ext_resource type="Script" path="res://tests/test_rcheevos.gd" id="1_gyoh4"]
+[ext_resource type="Script" path="res://tests/samples/test_rcheevos.gd" id="1_gyoh4"]
 
 [node name="TestRcheevos" type="Control"]
 layout_mode = 3

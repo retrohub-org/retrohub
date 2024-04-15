@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://tests/VideoTest.gd" type="Script" id=1]
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer"]
-self_modulate = Color( 1, 0.364706, 0.886275, 1 )
-offset_right = 964.0
-offset_bottom = 532.0
-script = ExtResource( 1 )
