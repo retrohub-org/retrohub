@@ -34,6 +34,7 @@ func _on_NextButton_pressed():
 func _on_ChooseDir_pressed():
 	RetroHubUI.request_folder_load(n_path.text)
 	set_path(await RetroHubUI.path_selected)
+	get_window().grab_focus()
 
 func set_path(path: String):
 	if not path.is_empty():
@@ -60,6 +61,7 @@ func query_next_btn():
 func _on_media_choose_dir_pressed():
 	RetroHubUI.request_folder_load(n_media_path.text)
 	set_media_path(await RetroHubUI.path_selected)
+	get_window().grab_focus()
 
 func set_media_path(path: String):
 	if not path.is_empty():
