@@ -100,7 +100,7 @@ func _on_popup_selected(file: String):
 	emit_signal("path_selected", file)
 
 func _on_visibility_changed():
-	if not visible:
+	if not _n_filesystem_popup.visible:
 		emit_signal("path_selected", "")
 
 func filesystem_filters(filters: Array = []):
