@@ -14,12 +14,15 @@ focus_mode = 2
 script = ExtResource("1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -47.0
-offset_bottom = 47.0
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
@@ -27,50 +30,104 @@ theme_override_constants/separation = 20
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-focus_neighbor_top = NodePath("../HBoxContainer2/Shutdown")
+focus_neighbor_top = NodePath("../SystemButtons/Shutdown")
 text = "Quit Retrohub"
 
 [node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Quit"]
 script = ExtResource("2")
-previous = NodePath("../../HBoxContainer2/Restart")
+previous = NodePath("../../SystemButtons/Restart")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Separator" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Separator"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/Separator"]
 layout_mode = 2
 text = "or"
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/HBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/Separator"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="SystemButtons" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Shutdown" type="Button" parent="VBoxContainer/HBoxContainer2"]
+[node name="Shutdown" type="Button" parent="VBoxContainer/SystemButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 focus_neighbor_bottom = NodePath("../../Quit")
-disabled = true
 text = "Shutdown system"
 
-[node name="Restart" type="Button" parent="VBoxContainer/HBoxContainer2"]
+[node name="Confirmation" type="ConfirmationDialog" parent="VBoxContainer/SystemButtons/Shutdown"]
+title = "Shutdown"
+initial_position = 1
+size = Vector2i(350, 200)
+ok_button_text = "Shutdown system"
+
+[node name="Label" type="Label" parent="VBoxContainer/SystemButtons/Shutdown/Confirmation"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Do you really wish to shutdown your system?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 2
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/SystemButtons/Shutdown/Confirmation/Label"]
+script = ExtResource("2")
+
+[node name="Restart" type="Button" parent="VBoxContainer/SystemButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 focus_neighbor_bottom = NodePath("../../Quit")
-disabled = true
 text = "Restart system"
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/HBoxContainer2/Restart"]
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/SystemButtons/Restart"]
 script = ExtResource("2")
 next = NodePath("../../../Quit")
 
+[node name="Confirmation" type="ConfirmationDialog" parent="VBoxContainer/SystemButtons/Restart"]
+title = "Restart"
+initial_position = 1
+size = Vector2i(350, 200)
+ok_button_text = "Restart system"
+
+[node name="Label" type="Label" parent="VBoxContainer/SystemButtons/Restart/Confirmation"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Do you really wish to restart your system?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 2
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/SystemButtons/Restart/Confirmation/Label"]
+script = ExtResource("2")
+
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/SystemButtons/Shutdown" to="." method="_on_shutdown_pressed"]
+[connection signal="confirmed" from="VBoxContainer/SystemButtons/Shutdown/Confirmation" to="." method="_on_shutdown_confirmed"]
+[connection signal="pressed" from="VBoxContainer/SystemButtons/Restart" to="." method="_on_restart_pressed"]
+[connection signal="confirmed" from="VBoxContainer/SystemButtons/Restart/Confirmation" to="." method="_on_restart_confirmed"]
