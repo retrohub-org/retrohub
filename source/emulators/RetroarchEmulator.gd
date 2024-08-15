@@ -64,14 +64,14 @@ func _init(emulator_raw : Dictionary, game_data : RetroHubGameData, system_cores
 	if corepath.is_empty():
 		corepath = RetroHubRetroArchEmulator.find_path(emulator_raw, "corepath", _substitutes)
 	var corefile : String
-	_substitutes["corepath"] = corepath
+	add_substitute("corepath", corepath)
 	for core_name in system_cores:
 		corefile = RetroHubRetroArchEmulator.find_core_path(core_name, emulator_raw, corepath)
 		if not corefile.is_empty():
 			break
 
 	if not corefile.is_empty():
-		_substitutes["corefile"] = corefile
+		add_substitute("corefile", corefile)
 		command = RetroHubRetroArchEmulator.substitute_str(command, _substitutes)
 	else:
 		print("Could not find valid core file for emulator \"%s\"" % game_data.system.name)

@@ -6,11 +6,11 @@ var command : String
 var _substitutes := {}
 
 func _init(emulator_raw : Dictionary, game_data : RetroHubGameData):
-	_substitutes["rompath"] = game_data.path
-	_substitutes["romfolder"] = game_data.path.get_base_dir()
+	add_substitute("rompath", game_data.path)
+	add_substitute("romfolder", game_data.path.get_base_dir())
 	var binpath := RetroHubGenericEmulator.find_path(emulator_raw, "binpath", _substitutes)
 	if not binpath.is_empty():
-		_substitutes["binpath"] = binpath
+		add_substitute("binpath", binpath)
 		command = RetroHubGenericEmulator.substitute_str(emulator_raw["command"], _substitutes)
 	else:
 		print("Could not find binpath for emulator \"%s\"" % emulator_raw["name"])
@@ -36,6 +36,9 @@ static func load_icon(_name: String) -> Texture2D:
 		return load(path)
 	return null
 
+func add_substitute(key: String, path: String) -> void:
+	_substitutes[key] = path.replace('/', '\\') if FileUtils.get_os_id() == FileUtils.OS_ID.WINDOWS else path
+
 func is_valid() -> bool:
 	return not command.is_empty()
 
@@ -53,4 +56,5 @@ func launch_game() -> int:
 		else:
 			command_args.append(regex_results[idx].strings[0])
 
+	prints("Launching emulator process:", command_base, command_args)
 	return OS.create_process(command_base, command_args)
