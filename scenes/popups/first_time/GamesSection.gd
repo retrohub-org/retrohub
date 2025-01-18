@@ -51,6 +51,9 @@ func check_empty_media():
 		n_media_warning_empty.visible = false
 		return
 	var dir := DirAccess.open(n_media_path.text)
+	if not dir:
+		n_media_warning_empty.visible = true
+		return
 	dir.include_navigational = false
 	n_media_warning_empty.visible = not (dir.get_files().is_empty() and dir.get_directories().is_empty())
 
